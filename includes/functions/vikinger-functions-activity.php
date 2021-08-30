@@ -1176,7 +1176,7 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_share_gro
  * @return string
  */
 function vikinger_format_action_activity_share($action, $activity) {
-  $action = esc_html_x('shared a post', 'Activity Share - Text', 'vikinger');
+  $action = esc_html_x('reposted', 'Activity Share - Text', 'vikinger');
 
   return $action;
 }
@@ -1189,7 +1189,7 @@ function vikinger_format_action_activity_share($action, $activity) {
  * @return string
  */
 function vikinger_format_action_activity_share_group($action, $activity) {
-  $action = esc_html_x('shared a post in the group', 'Activity Share Group - Text', 'vikinger');
+  $action = esc_html_x('reposted in the group', 'Activity Share Group - Text', 'vikinger');
 
   return $action;
 }
@@ -1232,7 +1232,7 @@ add_action('bp_register_activity_actions', 'vikinger_register_post_share_group_a
  * @return string
  */
 function vikinger_format_action_post_share($action, $activity) {
-  $action = esc_html_x('shared a post', 'Post Share Action - Text', 'vikinger');
+  $action = esc_html_x('reposted', 'Post Share Action - Text', 'vikinger');
 
   return $action;
 }
@@ -1245,7 +1245,7 @@ function vikinger_format_action_post_share($action, $activity) {
  * @return string
  */
 function vikinger_format_action_post_share_group($action, $activity) {
-  $action = esc_html_x('shared a post in the group', 'Post Share Action Group - Text', 'vikinger');
+  $action = esc_html_x('reposted in the group', 'Post Share Action Group - Text', 'vikinger');
 
   return $action;
 }
@@ -1258,7 +1258,7 @@ function vikinger_format_action_post_share_group($action, $activity) {
  * @return string
  */
 function vikinger_filter_activity_activity_update_action($action, $activity) {
-  $action = esc_html_x('posted an update', 'Activity Update Action - Text', 'vikinger');
+  $action = ''; //esc_html_x('posted an update', 'Activity Update Action - Text', 'vikinger');
   
   return $action;
 }
@@ -1273,7 +1273,7 @@ add_filter('bp_activity_new_update_action', 'vikinger_filter_activity_activity_u
  * @return string
  */
 function vikinger_filter_activity_update_action_group($action, $activity) {
-  $action = esc_html_x('posted an update in the group', 'Activity Update Group Action - Text', 'vikinger');
+  $action = esc_html_x('in', 'Activity Update Group Action - Text', 'vikinger');
   
   return $action;
 }

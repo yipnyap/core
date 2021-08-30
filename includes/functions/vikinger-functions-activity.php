@@ -896,7 +896,7 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_media_upd
  * @return string
  */
 function vikinger_format_action_activity_media_update($action, $activity) {
-  $action = esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'vikinger');
+  $action = ''; //esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'vikinger');
 
   return $action;
 }
@@ -909,7 +909,7 @@ function vikinger_format_action_activity_media_update($action, $activity) {
  * @return string
  */
 function vikinger_format_action_activity_media_update_group($action, $activity) {
-  $action = esc_html_x('posted a photo update in the group', 'Activity Media Update Action Group - Text', 'vikinger');
+  $action = esc_html_x('in', 'Activity Media Update Action Group - Text', 'vikinger');
 
   return $action;
 }

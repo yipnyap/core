@@ -3796,12 +3796,12 @@ msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1111
 msgctxt "Activity Share - Text"
-msgid "reposted"
+msgid "shared a post"
 msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1124
 msgctxt "Activity Share Group - Text"
-msgid "reposted in the group"
+msgid "shared a post in the group"
 msgstr "compartió un posteo en el grupo"
 
 #: includes/functions/vikinger-functions-activity.php:1136
@@ -3826,22 +3826,22 @@ msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1167
 msgctxt "Post Share Action - Text"
-msgid "reposted"
+msgid "shared a post"
 msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1180
 msgctxt "Post Share Action Group - Text"
-msgid "reposted in the group"
+msgid "shared a post in the group"
 msgstr "compartió un posteo en el grupo"
 
 #: includes/functions/vikinger-functions-activity.php:1193
 msgctxt "Activity Update Action - Text"
-msgid "reposted"
+msgid "posted an update"
 msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1208
 msgctxt "Activity Update Group Action - Text"
-msgid "reposted in the group"
+msgid "posted an update in the group"
 msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:1223

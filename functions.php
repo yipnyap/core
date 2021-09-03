@@ -17,7 +17,7 @@ function wp_maintenance_mode() {
 	}
 }
 
-add_action('get_header', 'wp_maintenance_mode');
+//add_action('get_header', 'wp_maintenance_mode');
 
 function bp_activity_do_not_save($activity_object) {
 	

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger GROUP AJAX
+ * Yipnyap GROUP AJAX
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Media
+ * Yipnyap Customizer - Media
  * 
  * @since 1.4.0
  */

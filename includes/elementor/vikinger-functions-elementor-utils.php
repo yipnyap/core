@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Elementor - Utils functions
+ * Yipnyap Elementor - Utils functions
  * 
  * @since 1.0.0
  */

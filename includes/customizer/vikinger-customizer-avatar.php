@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Avatar
+ * Yipnyap Customizer - Avatar
  * 
  * @since 1.3.6
  */

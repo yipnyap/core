@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Blog
+ * Yipnyap Customizer - Blog
  * 
  * @since 1.0.0
  */

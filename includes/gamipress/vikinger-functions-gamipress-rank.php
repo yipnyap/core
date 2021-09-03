@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger GamiPress RANK functions
+ * Yipnyap GamiPress RANK functions
  * 
  * @since 1.0.0
  */

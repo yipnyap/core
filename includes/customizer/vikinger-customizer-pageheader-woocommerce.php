@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - WooCommerce Page Header
+ * Yipnyap Customizer - WooCommerce Page Header
  * 
  * @since 1.0.0
  */

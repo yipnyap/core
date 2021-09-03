@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Activity Index
+ * Yipnyap Template - BuddyPress Activity Index
  * 
  * Displays activity feed (all members activities)
  * 

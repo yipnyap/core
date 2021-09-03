@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Search Page Header
+ * Yipnyap Customizer - Search Page Header
  * 
  * @since 1.0.0
  */

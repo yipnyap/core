@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BBPRESS AJAX
+ * Yipnyap BBPRESS AJAX
  * 
  * @since 1.3.0
  */

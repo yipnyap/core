@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger - Functions
+ * Yipnyap - Functions
  * 
  * @package Yipnyap
  * @since 1.0.0
@@ -434,27 +434,27 @@ if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
 }
 
 /**
- * Vikinger functions
+ * Yipnyap functions
  */
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions.php';
 
 /**
- * Vikinger filters
+ * Yipnyap filters
  */
 require_once VIKINGER_PATH . '/includes/filters/vikinger-filters.php';
 
 /**
- * Vikinger AJAX
+ * Yipnyap AJAX
  */
 require_once VIKINGER_PATH . '/includes/ajax/vikinger-ajax.php';
 
 /**
- * Vikinger sidebars
+ * Yipnyap sidebars
  */
 require_once VIKINGER_PATH . '/includes/sidebars/vikinger-sidebars.php';
 
 /**
- * Vikinger customizer
+ * Yipnyap customizer
  */
 require_once VIKINGER_PATH . '/includes/customizer/vikinger-customizer.php';
 

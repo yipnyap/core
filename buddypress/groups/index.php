@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Groups Index
+ * Yipnyap Template - BuddyPress Groups Index
  * 
  * Displays all the groups of the site
  * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger GamiPress ACHIEVEMENT functions
+ * Yipnyap GamiPress ACHIEVEMENT functions
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Group Header
+ * Yipnyap Template - BuddyPress Group Header
  * 
  * @package Yipnyap
  * @since 1.0.0

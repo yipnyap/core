@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Sidebar - Sidebar Blog
+ * Yipnyap Sidebar - Sidebar Blog
  * 
  * Vertical sidebar on the right or left side of the blog post
  * 

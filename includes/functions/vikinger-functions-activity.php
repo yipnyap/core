@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger ACTIVITY functions
+ * Yipnyap ACTIVITY functions
  * 
  * @since 1.0.0
  */

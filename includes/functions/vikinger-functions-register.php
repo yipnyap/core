@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger REGISTER functions
+ * Yipnyap REGISTER functions
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - xProfile
+ * Yipnyap Customizer - xProfile
  * 
  * @since 1.0.0
  */

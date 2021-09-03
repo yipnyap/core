@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Font
+ * Yipnyap Customizer - Font
  * 
  * @since 1.0.0
  */

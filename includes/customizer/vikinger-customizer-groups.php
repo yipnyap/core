@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Groups
+ * Yipnyap Customizer - Groups
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Member Notification Settings
+ * Yipnyap Template - BuddyPress Member Notification Settings
  * 
  * Displays notification settings template
  * 

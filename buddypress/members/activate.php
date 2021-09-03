@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Activate Page
+ * Yipnyap Template - BuddyPress Activate Page
  * 
  * Displays the member activation page
  * 

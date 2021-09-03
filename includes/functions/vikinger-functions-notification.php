@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger NOTIFICATION functions
+ * Yipnyap NOTIFICATION functions
  * 
  * @since 1.0.0
  */

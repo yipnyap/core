@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Settings Page Header
+ * Yipnyap Customizer - Settings Page Header
  * 
  * @since 1.0.0
  */

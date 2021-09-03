@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger COMMENT functions
+ * Yipnyap COMMENT functions
  * 
  * @since 1.0.0
  */

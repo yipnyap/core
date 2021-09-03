@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger WPLOGIN functions
+ * Yipnyap WPLOGIN functions
  * 
  * @since 1.6.0
  */

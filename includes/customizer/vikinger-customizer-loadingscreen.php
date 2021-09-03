@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Loading Screen
+ * Yipnyap Customizer - Loading Screen
  * 
  * @since 1.0.0
  */

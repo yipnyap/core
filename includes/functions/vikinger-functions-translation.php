@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger TRANSLATION functions
+ * Yipnyap TRANSLATION functions
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Members Groups
+ * Yipnyap Template - BuddyPress Members Groups
  * 
  * Displays the groups a member has created or joined
  * 

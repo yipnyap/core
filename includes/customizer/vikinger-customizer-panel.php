@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Panel
+ * Yipnyap Customizer - Panel
  * 
  * @since 1.0.0
  */

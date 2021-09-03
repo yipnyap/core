@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Admin Bar
+ * Yipnyap Customizer - Admin Bar
  * 
  * @since 1.0.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Member Plugins
+ * Yipnyap Template - BuddyPress Member Plugins
  * 
  * Loads member custom templates
  * 

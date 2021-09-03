@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger MEMBER PAGES functions
+ * Yipnyap MEMBER PAGES functions
  * 
  * @since 1.5.0
  */

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BLOG AJAX
+ * Yipnyap BLOG AJAX
  * 
  * @since 1.0.0
  */

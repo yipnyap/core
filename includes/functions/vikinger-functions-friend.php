@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger FRIEND functions
+ * Yipnyap FRIEND functions
  * 
  * @since 1.0.0
  */

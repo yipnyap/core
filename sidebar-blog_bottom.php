@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Sidebar - Sidebar Blog Bottom
+ * Yipnyap Sidebar - Sidebar Blog Bottom
  * 
  * Horizontal sidebar that appears below the blog post
  * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger VERIFIED MEMBER FOR BUDDYPRESS functions
+ * Yipnyap VERIFIED MEMBER FOR BUDDYPRESS functions
  * 
  * @since 1.3.1
  */

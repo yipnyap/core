@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - Search
+ * Yipnyap Template - Search
  * 
  * @package Yipnyap
  * @since 1.0.0

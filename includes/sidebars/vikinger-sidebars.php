@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Sidebars
+ * Yipnyap Sidebars
  * 
  * @since 1.0.0
  */

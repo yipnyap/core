@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger MESSAGE AJAX
+ * Yipnyap MESSAGE AJAX
  * 
  * @since 1.0.0
  */

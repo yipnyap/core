@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - 404
+ * Yipnyap Template - 404
  * 
  * The template for displaying 404 pages (Not Found)
  * 

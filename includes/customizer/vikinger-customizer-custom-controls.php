@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Custom Controls
+ * Yipnyap Customizer - Custom Controls
  * 
  * @since 1.6.3
  */

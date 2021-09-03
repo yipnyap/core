@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Member Profile Settings
+ * Yipnyap Template - BuddyPress Member Profile Settings
  * 
  * Displays profile settings template
  * 

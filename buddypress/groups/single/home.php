@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Groups Home
+ * Yipnyap Template - BuddyPress Groups Home
  * 
  * Determines group template to display
  * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BP BETTER MESSAGES functions
+ * Yipnyap BP BETTER MESSAGES functions
  * 
  * @since 1.3.1
  */

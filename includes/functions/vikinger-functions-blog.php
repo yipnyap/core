@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BLOG functions
+ * Yipnyap BLOG functions
  * 
  * @since 1.0.0
  */

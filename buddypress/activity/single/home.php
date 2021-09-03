@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Activity Home
+ * Yipnyap Template - BuddyPress Activity Home
  * 
  * Displays a single activity
  * 

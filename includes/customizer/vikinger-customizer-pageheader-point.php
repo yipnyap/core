@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Point Page Header
+ * Yipnyap Customizer - Point Page Header
  * 
  * @since 1.0.0
  */

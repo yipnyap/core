@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Login Register
+ * Yipnyap Customizer - Login Register
  * 
  * @since 1.0.0
  */

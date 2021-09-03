@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Utils
+ * Yipnyap Customizer - Utils
  * 
  * @since 1.0.0
  */

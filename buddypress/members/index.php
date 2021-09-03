@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Members Index
+ * Yipnyap Template - BuddyPress Members Index
  * 
  * Displays all the members of the site
  * 

@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger MESSAGE functions
+ * Yipnyap MESSAGE functions
  * 
  * @since 1.0.0
  */

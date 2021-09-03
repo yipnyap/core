@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Groups Activity
+ * Yipnyap Template - BuddyPress Groups Activity
  * 
  * Displays a group activity feed
  * 

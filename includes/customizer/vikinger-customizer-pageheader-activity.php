@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Activity Page Header
+ * Yipnyap Customizer - Activity Page Header
  * 
  * @since 1.0.0
  */

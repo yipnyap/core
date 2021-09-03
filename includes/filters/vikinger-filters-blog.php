@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BLOG filters
+ * Yipnyap BLOG filters
  * 
  * @since 1.0.0
  */

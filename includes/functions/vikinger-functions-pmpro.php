@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger PAID MEMBERSHIPS PRO functions
+ * Yipnyap PAID MEMBERSHIPS PRO functions
  * 
  * @since 1.7.1
  */

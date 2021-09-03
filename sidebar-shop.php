@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Sidebar - Sidebar Shop
+ * Yipnyap Sidebar - Sidebar Shop
  * 
  * WooCommerce shop sidebar
  * 

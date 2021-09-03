@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Register Page
+ * Yipnyap Template - BuddyPress Register Page
  * 
  * Displays the member registration page
  * 

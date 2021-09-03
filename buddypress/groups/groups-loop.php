@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Groups Loop
+ * Yipnyap Template - BuddyPress Groups Loop
  * 
  * Displays the groups loop
  * 

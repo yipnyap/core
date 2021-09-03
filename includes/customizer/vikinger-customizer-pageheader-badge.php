@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Badge Page Header
+ * Yipnyap Customizer - Badge Page Header
  * 
  * @since 1.0.0
  */

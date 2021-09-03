@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Activity Entry
+ * Yipnyap Template - BuddyPress Activity Entry
  * 
  * @package Yipnyap
  * @since 1.0.0

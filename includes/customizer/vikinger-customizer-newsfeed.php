@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Newsfeed
+ * Yipnyap Customizer - Newsfeed
  * 
  * @since 1.0.0
  */

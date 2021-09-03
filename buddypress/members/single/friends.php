@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Members Friends
+ * Yipnyap Template - BuddyPress Members Friends
  * 
  * Displays member friends
  * 

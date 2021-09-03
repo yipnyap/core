@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger SETTINGS functions
+ * Yipnyap SETTINGS functions
  * 
  * @since 1.3.3
  */
@@ -22,7 +22,7 @@ function vikinger_settings_get() {
     'current_user_is_admin'       => current_user_can('administrator'),
     
     /**
-     * Vikinger
+     * Yipnyap
      */
 
     /**

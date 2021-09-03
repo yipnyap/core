@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Quest Page Header
+ * Yipnyap Customizer - Quest Page Header
  * 
  * @since 1.0.0
  */

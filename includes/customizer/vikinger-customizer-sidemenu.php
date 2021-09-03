@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Side Menu
+ * Yipnyap Customizer - Side Menu
  * 
  * @since 1.0.0
  */

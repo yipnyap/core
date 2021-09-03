@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger BBPRESS functions
+ * Yipnyap BBPRESS functions
  * 
  * @since 1.3.0
  */

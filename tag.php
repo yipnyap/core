@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - Tag
+ * Yipnyap Template - Tag
  * 
  * @package Yipnyap
  * @since 1.0.0

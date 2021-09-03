@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger GamiPress POINT functions
+ * Yipnyap GamiPress POINT functions
  * 
  * @since 1.0.0
  */

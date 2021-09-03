@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Footer
+ * Yipnyap Customizer - Footer
  * 
  * @since 1.0.0
  */

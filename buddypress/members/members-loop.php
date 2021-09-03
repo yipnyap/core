@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Template - BuddyPress Members Loop
+ * Yipnyap Template - BuddyPress Members Loop
  * 
  * Displays the members loop
  * 

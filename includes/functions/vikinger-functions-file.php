@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger FILE functions
+ * Yipnyap FILE functions
  * 
  * @since 1.0.0
  */

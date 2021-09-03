@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger GROUP functions
+ * Yipnyap GROUP functions
  * 
  * @since 1.0.0
  */

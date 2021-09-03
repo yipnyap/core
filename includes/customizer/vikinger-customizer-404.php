@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - 404
+ * Yipnyap Customizer - 404
  * 
  * @since 1.0.0
  */

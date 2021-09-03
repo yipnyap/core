@@ -1,6 +1,6 @@
 <?php
 /**
- * Vikinger Customizer - Site Identity
+ * Yipnyap Customizer - Site Identity
  * 
  * @since 1.0.0
  */

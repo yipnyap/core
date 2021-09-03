@@ -606,7 +606,9 @@ function override_admin_bar_css() {
      </style>
 
      <script>
-       document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
+       setTimeout(() => {
+        document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
+       }, 500);
      </script>
 
   <?php }

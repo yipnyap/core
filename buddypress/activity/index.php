@@ -18,7 +18,7 @@
 
   $page_header_status = get_theme_mod('vikinger_pageheader_setting_display', 'display');
 
-  if ($page_header_status === 'display' || true) {
+  if ($page_header_status === 'display') {
     $activity_header_icon_id      = get_theme_mod('vikinger_pageheader_activity_setting_image', false);
     $activity_header_title        = get_theme_mod('vikinger_pageheader_activity_setting_title', esc_html_x('Newsfeed', 'Activity Page - Title', 'vikinger'));
     $activity_header_description  = get_theme_mod('vikinger_pageheader_activity_setting_description', esc_html_x('Check what your friends have been up to!', 'Activity Page - Description', 'vikinger'));

@@ -47,19 +47,11 @@ function override_admin_bar_css() {
           width: 80px;
           background-color: var(--color-header-logo-background) !important;
         }
-
-        #wp-admin-bar-site-name > .ab-item {
-          visibility: hidden;
-        }
-
-        #wp-admin-bar-site-name > .ab-item:before {
-          visibility: visible;
-        }
-
-        #wp-admin-bar-site-name > .ab-item:after {
-          content: "Hound"
-        }
      </style>
+
+     <script>
+       $('#wp-admin-bar-site-name > .ab-item').text('Hound');
+     </script>
 
   <?php }
 

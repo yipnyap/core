@@ -19,7 +19,37 @@ function wp_maintenance_mode() {
 
 //add_action('get_header', 'wp_maintenance_mode');
 
-function bp_activity_do_not_save( $activity_object ) {
+// customize admin bar css
+function override_admin_bar_css() { 
+
+  if (is_admin_bar_showing()) { ?>
+
+
+     <style type="text/css">
+        #wpadminbar {
+          background-color: var(--color-header-logo-background);
+        }
+
+        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
+          color: var(--color-header-text);
+        }
+
+        #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar #adminbarsearch:before {
+          color: var(--color-header-profile-settings-icon);
+        }
+     </style>
+
+  <?php }
+
+}
+
+// on backend area
+add_action('admin_head', 'override_admin_bar_css');
+
+// on frontend area
+add_action('wp_head', 'override_admin_bar_css');
+
+function bp_activity_do_not_save($activity_object) {
 	
 	$exclude = array(
 	        'updated_profile',
@@ -29,18 +59,18 @@ function bp_activity_do_not_save( $activity_object ) {
 	        'joined_group'
 	    );
 	
-	if( in_array( $activity_object->type, $exclude ) ) {
+	if(in_array($activity_object->type, $exclude)) {
 		$activity_object->type = false;
 	}
 }
-add_action('bp_activity_before_save', 'bp_activity_do_not_save', 10, 1 );
+add_action('bp_activity_before_save', 'bp_activity_do_not_save', 10, 1);
 
 /**
  * Rename "Keymaster" role
  * Unfortunately, this is hard set by Wordpress, and I cannot change it from the YapSDK.
  * TODO: Replace this with a separate, configurable plugin later.
  */
-add_filter( 'bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names' );
+add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
 
 function ntwb_bbpress_custom_role_names() {
 	return array(
@@ -48,31 +78,31 @@ function ntwb_bbpress_custom_role_names() {
 		// Keymaster
 		bbp_get_keymaster_role() => array(
 			'name'         => 'Staff',
-			'capabilities' => bbp_get_caps_for_role( bbp_get_keymaster_role() )
+			'capabilities' => bbp_get_caps_for_role(bbp_get_keymaster_role())
 		),
 
 		// Moderator
 		bbp_get_moderator_role() => array(
 			'name'         => 'Moderator',
-			'capabilities' => bbp_get_caps_for_role( bbp_get_moderator_role() )
+			'capabilities' => bbp_get_caps_for_role(bbp_get_moderator_role())
 		),
 
 		// Participant
 		bbp_get_participant_role() => array(
 			'name'         => 'Participant',
-			'capabilities' => bbp_get_caps_for_role( bbp_get_participant_role() )
+			'capabilities' => bbp_get_caps_for_role(bbp_get_participant_role())
 		),
 
 		// Spectator
 		bbp_get_spectator_role() => array(
 			'name'         => 'Spectator',
-			'capabilities' => bbp_get_caps_for_role( bbp_get_spectator_role() )
+			'capabilities' => bbp_get_caps_for_role(bbp_get_spectator_role())
 		),
 
 		// Blocked
 		bbp_get_blocked_role() => array(
 			'name'         => 'Blocked',
-			'capabilities' => bbp_get_caps_for_role( bbp_get_blocked_role() )
+			'capabilities' => bbp_get_caps_for_role(bbp_get_blocked_role())
 		)
 	);
 }

@@ -50,7 +50,7 @@ function override_admin_bar_css() {
      </style>
 
      <script>
-       $('#wp-admin-bar-site-name > .ab-item').text('Hound');
+       document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
      </script>
 
   <?php }

@@ -27,7 +27,7 @@ function override_admin_bar_css() {
 
      <style type="text/css">
         #wpadminbar {
-          background-color: var(--color-header-logo-background);
+          background-color: var(--color-body);
         }
 
         #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
@@ -45,7 +45,7 @@ function override_admin_bar_css() {
 
         #wp-admin-bar-site-name {
           width: 80px;
-          background-color: var(--color-header-logo-background);
+          background-color: var(--color-header-logo-background) !important;
         }
 
         #wp-admin-bar-site-name > .ab-item {

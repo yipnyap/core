@@ -19,50 +19,6 @@ function wp_maintenance_mode() {
 
 //add_action('get_header', 'wp_maintenance_mode');
 
-// customize admin bar css
-function override_admin_bar_css() { 
-
-  if (is_admin_bar_showing()) { ?>
-
-
-     <style type="text/css">
-        #wpadminbar {
-          background-color: var(--color-body);
-        }
-
-        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
-          color: var(--color-text);
-        }
-
-        #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar #adminbarsearch:before {
-          color: var(--color-header-profile-settings-icon);
-        }
-
-        #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item {
-          background: var(--color-body);
-          color: var(--color-header-text);
-        }
-
-        #wp-admin-bar-site-name {
-          width: 80px;
-          background-color: var(--color-header-logo-background) !important;
-        }
-     </style>
-
-     <script>
-       document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
-     </script>
-
-  <?php }
-
-}
-
-// on backend area
-add_action('admin_head', 'override_admin_bar_css');
-
-// on frontend area
-add_action('wp_head', 'override_admin_bar_css');
-
 function bp_activity_do_not_save($activity_object) {
 	
 	$exclude = array(
@@ -618,5 +574,49 @@ add_filter(
     10,
     2
 );
+
+// customize admin bar css
+function override_admin_bar_css() { 
+
+  if (is_admin_bar_showing()) { ?>
+
+
+     <style type="text/css">
+        #wpadminbar {
+          background-color: var(--color-body);
+        }
+
+        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
+          color: var(--color-text);
+        }
+
+        #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar #adminbarsearch:before {
+          color: var(--color-header-profile-settings-icon);
+        }
+
+        #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item {
+          background: var(--color-body);
+          color: var(--color-header-text);
+        }
+
+        #wp-admin-bar-site-name {
+          width: 80px;
+          background-color: var(--color-header-logo-background) !important;
+        }
+     </style>
+
+     <script>
+       document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
+     </script>
+
+  <?php }
+
+}
+
+// on backend area
+add_action('admin_head', 'override_admin_bar_css');
+
+// on frontend area
+add_action('wp_head', 'override_admin_bar_css');
 
 ?>

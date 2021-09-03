@@ -615,9 +615,6 @@ function override_admin_bar_css() {
 
 }
 
-// on backend area
-add_action('admin_head', 'override_admin_bar_css');
-
 // on frontend area
 add_action('wp_head', 'override_admin_bar_css');
 

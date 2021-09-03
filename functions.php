@@ -31,11 +31,16 @@ function override_admin_bar_css() {
         }
 
         #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon {
-          color: var(--color-header-text);
+          color: var(--color-text);
         }
 
         #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar #adminbarsearch:before {
           color: var(--color-header-profile-settings-icon);
+        }
+
+        #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item {
+          background: var(--color-body);
+          color: var(--color-header-text);
         }
      </style>
 

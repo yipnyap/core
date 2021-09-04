@@ -1,3 +1,5 @@
+const $ = jQuery;
+
 $(document).ready(function() {
     if ($('svg.icon-light-theme')[0]) {
         $('header.header').css({

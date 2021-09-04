@@ -11,7 +11,7 @@
     box-shadow: var(--color-overbox-big-shadow);
 }
 
-.yapex.with-lip {
+.yapex.with-lip:before {
     content: "";
     display: block;
     position: absolute;

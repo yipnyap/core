@@ -586,7 +586,7 @@ function override_admin_bar_css() {
           background-color: var(--color-body);
         }
 
-        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon, #wpadminbar #wp-admin-bar-appearance > li > a.ab-item, #wpadminbar #wp-admin-bar-dashboard > a.ab-item, #wpadminbar #wp-admin-bar-new-content-default > a.ab-item {
+        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon, #wpadminbar #wp-admin-bar-appearance > li > a.ab-item, #wpadminbar #wp-admin-bar-dashboard > a.ab-item, #wpadminbar #wp-admin-bar-new-content-default > li > a.ab-item {
           color: var(--color-text);
         }
 

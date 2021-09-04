@@ -176,6 +176,9 @@ function vikinger_load_scripts() {
   // add main script
   wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/js/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.8.1', true);
 
+  // add EX script
+  wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/js/yapsdk/ex.js', ['jquery'], '1.0.0', true);
+
   global $vikinger_settings;
 
   $vikinger_settings = vikinger_settings_get();

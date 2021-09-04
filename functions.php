@@ -138,6 +138,7 @@ function vikinger_load_scripts() {
   wp_enqueue_style('vikinger-simplebar-styles', get_template_directory_uri() . '/css/vendor/simplebar.css', [], '1.0.0');
   wp_enqueue_style('vikinger-swiper-slider-styles', get_template_directory_uri() . '/css/vendor/swiper.min.css', [], '1.0.0');
   wp_enqueue_style('vikinger-styles', get_template_directory_uri() . '/style.css', ['vikinger-simplebar-styles', 'vikinger-swiper-slider-styles'], '3.8.1');
+  wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/css/yapex/ex-shared.css', [], '1.0.0');
 
   // get user custom theme fonts
   $custom_fonts = vikinger_customizer_theme_fonts_get_style();

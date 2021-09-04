@@ -1,0 +1,31 @@
+.yapex.card {
+    position: fixed;
+    z-index: 10002;
+    padding: 1em;
+    margin-top: 1.5em;
+    margin-left: 1em;
+    min-width: 284px;
+    max-width: 384px;
+    border-radius: 10px;
+    background-color: var(--color-box-background);
+    box-shadow: var(--color-overbox-big-shadow);
+}
+
+.yapex.with-lip {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 1rem;
+    top: -10px;
+    border-bottom: 12px solid var(--color-box-background);
+    border-left: 12px solid transparent;
+    border-right: 12px solid transparent;
+}
+
+.yapex.overlay {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    z-index: 10001;
+    background-color: rgba(0, 0, 0, 0.5);
+}

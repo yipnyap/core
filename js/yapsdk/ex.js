@@ -27,7 +27,7 @@ const yapexModeratorWelcomeOverlay = `<div id="yapex-moderator-welcome-popover-o
 
 $(document).ready(function() {
     const isModerator = $('#wpadminbar')[0]
-    const isNewModerator = localStorage.getItem('yapex-mod-pop-viewed')
+    const isNewModerator = !localStorage.getItem('yapex-mod-pop-viewed')
     const isDarkTheme = $('svg.icon-light-theme')[0]
     const headerBackdrop = 'blur(5px) saturate(0.5)'
     const headerBackgroundOpacity = 90

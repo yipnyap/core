@@ -24465,8 +24465,6 @@ a:hover {
   top: 0;
   left: 0;
   z-index: 10000;
-  backdrop-filter: saturate(0.5) blur(5px);
-  opacity: 0.9;
 }
 
 .header .logo {

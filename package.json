@@ -1,0 +1,5 @@
+{
+  "dependencies": {
+    "@wordpress/scripts": "^18.0.1"
+  }
+}

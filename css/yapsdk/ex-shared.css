@@ -29,3 +29,15 @@
     z-index: 10001;
     background-color: rgba(0, 0, 0, 0.5);
 }
+
+#activity-filterable-list > .grid > .grid {
+    grid-gap: 0;
+    overflow: hidden;
+    border-radius: 12px;
+}
+
+#activity-filterable-list > .grid > .grid > .widget-box {
+    border-bottom: 2px dotted var(--color-border);
+    border-radius: 0%;
+    box-shadow: none;
+}

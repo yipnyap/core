@@ -52,4 +52,6 @@ $(document).ready(function() {
             $('#yapex-mod-pop-viewfind').remove()
         })
     }
+
+    $('.post-options > .post-option.active').remove();
 });

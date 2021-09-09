@@ -53,5 +53,9 @@ $(document).ready(function() {
         })
     }
 
-    $('.post-options > .post-option.active').remove();
+    setInterval(() => {
+        const postCommentButton = $('.post-options > .post-option.active')
+        if (!postCommentButton) return
+        postCommentButton.remove()
+    }, 1000)
 });

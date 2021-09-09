@@ -37,7 +37,7 @@
 }
 
 #activity-filterable-list > .grid > .grid > .widget-box {
-    border-bottom: 2px dotted var(--color-border);
+    border-bottom: 4px dotted var(--color-body);
     border-radius: 0%;
     box-shadow: none;
 }

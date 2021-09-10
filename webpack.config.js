@@ -3,6 +3,9 @@ const defaultConfig = require('./node_modules/@wordpress/scripts/config/webpack.
 
 module.exports = {
   ...defaultConfig,
+
+	mode: 'development',
+
 	entry: {
 		app: path.resolve( __dirname, 'js/source', 'app.js' ),
 	},
@@ -10,4 +13,6 @@ module.exports = {
 		filename: '[name].[contenthash].bundle.js',
 		path: path.resolve( __dirname, 'js/dist' ),
 	},
+
+	devtool: 'inline-source-map',
 };

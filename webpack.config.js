@@ -20,7 +20,6 @@ module.exports = {
 		app: path.resolve( __dirname, 'js/source', 'app.js' ),
 	},
 	output: {
-		libraryTarget: 'umd',
 		filename: '[name].[contenthash].bundle.js',
 		path: path.resolve( __dirname, 'js/dist' ),
 	},

@@ -45,3 +45,13 @@
 .post-options > .post-option.active {
     display: none;
 }
+
+.post-comments {
+    background: var(--color-box-background-alt);
+    border-bottom-left-radius: 0% !important;
+    border-bottom-right-radius: 0% !important;
+}
+
+.post-comment-form, .post-comment {
+    background-color: transparent;
+}

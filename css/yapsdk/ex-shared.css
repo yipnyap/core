@@ -46,7 +46,7 @@
     display: none;
 }
 
-.post-comments {
+.post-comments, .post-options {
     background: var(--color-box-background-alt);
     border-bottom-left-radius: 0% !important;
     border-bottom-right-radius: 0% !important;

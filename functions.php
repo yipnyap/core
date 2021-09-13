@@ -8,17 +8,6 @@
  * 
  */
 
-/**
- * Maintenance Mode
- */
-function wp_maintenance_mode() {
-	if (!current_user_can('edit_themes') || !is_user_logged_in()) {
-		wp_die('<h1>sowwy :(</h1><br />We\'re doing some cool stuff under the hood. We\'ll be back in a bit!<br /><br />"I\'m converting the legacy login form with a new, MFA solution."');
-	}
-}
-
-//add_action('get_header', 'wp_maintenance_mode');
-
 function bp_activity_do_not_save($activity_object) {
 	
 	$exclude = array(

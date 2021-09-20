@@ -65,7 +65,7 @@ function vikinger_wplogin_logo_styles() {
   wp_add_inline_style('vikinger-wplogin-styles', $custom_colors);
 
   // add custom scripts
-  wp_enqueue_script('vikinger-vklogin-scripts', VIKINGER_URL . '/js/vklogin.bundle.min.js', [], '1.0.1', true);
+  wp_enqueue_script('vikinger-vklogin-scripts', VIKINGER_URL . '/src/vklogin.bundle.min.js', [], '1.0.1', true);
 }
 
 add_action('login_enqueue_scripts', 'vikinger_wplogin_logo_styles');

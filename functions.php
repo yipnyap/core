@@ -84,7 +84,7 @@ function vikinger_admin_load_scripts() {
   wp_enqueue_style('vikinger-admin-styles', VIKINGER_URL . '/css/admin-style.min.css', array(), '1.3.1');
 
   // add custom scripts
-  wp_enqueue_script('vikinger-admin-scripts', VIKINGER_URL . '/js/admin.bundle.min.js', [], '3.8.1', true);
+  wp_enqueue_script('vikinger-admin-scripts', VIKINGER_URL . '/src/admin.bundle.min.js', [], '3.8.1', true);
 
   // pass php variables to javascript file
   wp_localize_script('vikinger-admin-scripts', 'vikinger_constants', array(
@@ -126,14 +126,14 @@ function vikinger_load_scripts() {
   wp_add_inline_style('vikinger-styles', $custom_colors);
 
   // add plugins
-  wp_enqueue_script('vikinger-swiper-scripts', VIKINGER_URL . '/js/vendor/swiper.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmaccordion-scripts', VIKINGER_URL . '/js/vendor/xm_accordion.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmdropdown-scripts', VIKINGER_URL . '/js/vendor/xm_dropdown.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmhexagon-scripts', VIKINGER_URL . '/js/vendor/xm_hexagon.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmpopup-scripts', VIKINGER_URL . '/js/vendor/xm_popup.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmprogressBar-scripts', VIKINGER_URL . '/js/vendor/xm_progressBar.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmtab-scripts', VIKINGER_URL . '/js/vendor/xm_tab.min.js', [], '1.0.0', true);
-  wp_enqueue_script('vikinger-xmtooltip-scripts', VIKINGER_URL . '/js/vendor/xm_tooltip.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-swiper-scripts', VIKINGER_URL . '/src/js/vendor/swiper.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmaccordion-scripts', VIKINGER_URL . '/src/js/vendor/xm_accordion.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmdropdown-scripts', VIKINGER_URL . '/src/js/vendor/xm_dropdown.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmhexagon-scripts', VIKINGER_URL . '/src/js/vendor/xm_hexagon.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmpopup-scripts', VIKINGER_URL . '/src/js/vendor/xm_popup.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmprogressBar-scripts', VIKINGER_URL . '/src/js/vendor/xm_progressBar.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmtab-scripts', VIKINGER_URL . '/src/js/vendor/xm_tab.min.js', [], '1.0.0', true);
+  wp_enqueue_script('vikinger-xmtooltip-scripts', VIKINGER_URL . '/src/js/vendor/xm_tooltip.min.js', [], '1.0.0', true);
 
   $vikinger_main_scripts_dependencies = [
     'jquery',
@@ -148,10 +148,10 @@ function vikinger_load_scripts() {
   ];
 
   // add main script
-  wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/js/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.8.1', true);
+  wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/src/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.8.1', true);
 
   // add EX script
-  wp_enqueue_script('yapex-main-scripts', VIKINGER_URL . '/js/yapsdk/ex.js', ['jquery'], '1.0.3', true);
+  wp_enqueue_script('yapex-main-scripts', VIKINGER_URL . '/src/js/yapsdk/ex.js', ['jquery'], '1.0.3', true);
 
   global $vikinger_settings;
 

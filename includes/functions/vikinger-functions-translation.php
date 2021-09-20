@@ -152,8 +152,8 @@ function vikinger_translation_get() {
     'privacy'                       => esc_html__('Privacy', 'vikinger'),
     'public'                        => esc_html__('Public', 'vikinger'),
     'private'                       => esc_html__('Private', 'vikinger'),
-    'activity_form_placeholder_1'   => esc_html_x('Hi', '(Activity Form) Placeholder text before user name', 'vikinger'),
-    'activity_form_placeholder_2'   => esc_html_x('Write something here, use &#64; to mention someone...', '(Activity Form) Placeholder text after user name', 'vikinger'),
+    'activity_form_placeholder_1'   => esc_html_x('Hey,', '(Activity Form) Placeholder text before user name', 'vikinger'),
+    'activity_form_placeholder_2'   => esc_html_x('Write your stuff, or @annoy some people', '(Activity Form) Placeholder text after user name', 'vikinger'),
     'add_photo'                     => esc_html__('Add Photo', 'vikinger'),
     'add_video'                     => esc_html__('Add Video', 'vikinger'),
     'upload_photo'                  => esc_html__('Upload Photo', 'vikinger'),
@@ -314,6 +314,8 @@ function vikinger_translation_get() {
     'accept_friend'               => esc_html__('Accept Friend Request', 'vikinger'),
     'reject_friend'               => esc_html__('Reject Friend Request', 'vikinger'),
     'withdraw_friend'             => esc_html__('Cancel Friend Request', 'vikinger'),
+    'follow'                      => esc_html__('Follow', 'vikinger'),
+    'unfollow'                    => esc_html__('Unfollow', 'vikinger'),
     'send_message'                => esc_html__('Send Message', 'vikinger'),
 
     /**

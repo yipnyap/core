@@ -81,8 +81,8 @@ function ProfileHeaderActions(props) {
             <React.Fragment>
               {
                 !friendable.friendRequestSent() && !friendable.friendRequestReceived() &&
-                <AddFriendButton modifiers="profile-header-info-action secondary"
-                  text={vikinger_translation.add_friend}
+                <AddFriendButton modifiers="profile-header-info-action secondary small"
+                  icon="add-friend"
                   loggedUser={loggedUser}
                   userID={props.userID}
                   onActionComplete={getLoggedInMember}

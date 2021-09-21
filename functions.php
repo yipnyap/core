@@ -110,20 +110,21 @@ function vikinger_load_scripts() {
   // add custom stylesheets
   wp_enqueue_style('vikinger-simplebar-styles', get_template_directory_uri() . '/css/vendor/simplebar.css', [], '1.0.0');
   wp_enqueue_style('vikinger-swiper-slider-styles', get_template_directory_uri() . '/css/vendor/swiper.min.css', [], '1.0.0');
-  wp_enqueue_style('vikinger-styles', get_template_directory_uri() . '/style.css', ['vikinger-simplebar-styles', 'vikinger-swiper-slider-styles'], '3.8.1');
+  wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['vikinger-simplebar-styles', 'vikinger-swiper-slider-styles'], '3.8.1');
+  wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '1.10.0');
   wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/css/yapsdk/ex-shared.css', [], '1.0.2');
 
   // get user custom theme fonts
   $custom_fonts = vikinger_customizer_theme_fonts_get_style();
 
   // add user custom theme fonts
-  wp_add_inline_style('vikinger-styles', $custom_fonts);
+  wp_add_inline_style('oldkiner-styles', $custom_fonts);
 
   // get user custom theme colors
   $custom_colors = vikinger_customizer_theme_colors_get();
 
   // add user custom theme colors
-  wp_add_inline_style('vikinger-styles', $custom_colors);
+  wp_add_inline_style('oldkiner-styles', $custom_colors);
 
   // add plugins
   wp_enqueue_script('vikinger-swiper-scripts', VIKINGER_URL . '/src/js/vendor/swiper.min.js', [], '1.0.0', true);
@@ -573,7 +574,7 @@ function override_admin_bar_css() {
 
         #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item {
           background: var(--color-body);
-          color: var(--color-header-text);
+          color: var(--color-text);
         }
 
         #wp-admin-bar-site-name {

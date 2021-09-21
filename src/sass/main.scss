@@ -1,0 +1,11 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.menu-main-item-link-icon {
+    @apply inline;
+}
+
+.menu-main-item-link {
+    color: var(--color-text);
+}

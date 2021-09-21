@@ -4,50 +4,55 @@ module.exports = function(grunt) {
         cssnano = require('cssnano');
 
   grunt.initConfig({
-    // sass: {
-    //   options: {
-    //     implementation: sass,
-    //     sourceMap: true
-    //   },
-    //   build: {
-    //     options: {
-    //       outputStyle: 'expanded'
-    //     },
-    //     files: {
-    //       'src/css/raw/styles.css': 'src/sass/main.scss'
-    //     }
-    //   }
-    // },
-    // postcss: {
-    //   autoprefix: {
-    //     options: {
-    //       processors: [
-    //         require('autoprefixer')()
-    //       ],
-    //       map: {
-    //         inline: false,
-    //         annotation: 'src/css/raw/'
-    //       }
-    //     },
-    //     files: {
-    //       'src/css/raw/styles.css': 'src/css/raw/styles.css'
-    //     }
-    //   },
-    //   compressed: {
-    //     options: {
-    //       processors: [
-    //         cssnano()
-    //       ],
-    //       map: {
-    //         inline: false,
-    //         annotation: 'src/css/'
-    //       }
-    //     },
-    //     files: {
-    //       'src/css/styles.min.css': 'src/css/raw/styles.css'
-    //     }
-    //   }
-    // },
+
+    // get the configuration info from package.json
+    pkg: grunt.file.readJSON('package.json'),
+
+    sass: {
+      options: {
+        implementation: sass,
+        sourceMap: true
+      },
+      build: {
+        options: {
+          outputStyle: 'expanded'
+        },
+        files: {
+          'src/css/raw/styles.css': 'src/sass/main.scss'
+        }
+      }
+    },
+    postcss: {
+      autoprefix: {
+        options: {
+          processors: [
+            require('tailwindcss')(),
+            require('autoprefixer')()
+          ],
+          map: {
+            inline: false,
+            annotation: 'src/css/raw/'
+          }
+        },
+        files: {
+          'src/css/raw/styles.css': 'src/css/raw/styles.css'
+        }
+      },
+      compressed: {
+        options: {
+          processors: [
+            () => cssnano()
+          ],
+          map: {
+            inline: false,
+            annotation: 'src/css/'
+          }
+        },
+        files: {
+          'src/css/styles.min.css': 'src/css/raw/styles.css'
+        }
+      }
+    },
     browserify: {
       options: {
         transform: [['babelify', {presets: ['@babel/env'], compact: true}]]

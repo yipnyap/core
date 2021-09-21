@@ -655,7 +655,7 @@ textarea::placeholder {
 .form-input.dark textarea {
   border: none;
   background-color: var(--color-header-input-background);
-  color: var(--color-header-text);
+  color: var(--color-text);
 }
 
 .form-input.dark input[type="text"]::-webkit-input-placeholder, .form-input.dark input[type="password"]::-webkit-input-placeholder, .form-input.dark textarea::-webkit-input-placeholder {
@@ -1148,7 +1148,7 @@ textarea::placeholder {
 .interactive-input.dark input {
   border: none;
   background-color: var(--color-header-input-background);
-  color: var(--color-header-text);
+  color: var(--color-text);
 }
 
 .interactive-input.dark input::-webkit-input-placeholder {
@@ -24571,7 +24571,7 @@ a:hover {
 }
 
 .header .header-brand .header-brand-text {
-  color: var(--color-header-text);
+  color: var(--color-text);
   font-family: var(--font-secondary);
   font-size: 1.25rem;
   font-weight: 900;
@@ -24642,11 +24642,11 @@ a:hover {
 }
 
 .header .progress-stat .bar-progress-wrap .bar-progress-info {
-  color: var(--color-header-text);
+  color: var(--color-text);
 }
 
 .header .point-item .point-item-text {
-  color: var(--color-header-text);
+  color: var(--color-text);
 }
 
 /*--------------------------
@@ -24805,7 +24805,6 @@ a:hover {
 .menu-main .menu-main-item .menu-main-item-link {
   padding: 0 24px;
   display: block;
-  color: var(--color-header-text);
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 80px;
@@ -24819,7 +24818,7 @@ a:hover {
 }
 
 .menu-main .menu-main-item .menu-main-item-link .menu-sub-item-icon {
-  fill: var(--color-header-text);
+  fill: var(--color-text);
   position: absolute;
   top: 11px;
   right: 10px;
@@ -24828,7 +24827,7 @@ a:hover {
 }
 
 .menu-main .menu-main-item .menu-main-item-link .menu-main-item-link-icon {
-  fill: var(--color-header-text);
+  fill: var(--color-text);
   width: 6px;
   height: 6px;
   margin-left: 8px;

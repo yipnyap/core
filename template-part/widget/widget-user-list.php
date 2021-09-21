@@ -27,7 +27,7 @@
   <!-- WIDGET BOX TITLE -->
   <p class="widget-box-title"><?php echo esc_html($args['widget_title']); ?></p>
   <?php if (array_key_exists('widget_subtext', $args)) : ?>
-  <p class="widget-box-title"><?php echo esc_html($args['widget_subtext']); ?></p>
+  <p class="text-sm opacity-90"><?php echo esc_html($args['widget_subtext']); ?></p>
   <?php endif; ?>
   <!-- /WIDGET BOX TITLE -->
 

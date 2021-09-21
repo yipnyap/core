@@ -50,14 +50,25 @@
     <div class="grid-column">
     <?php
 
-      $online_members = vikinger_members_get(['type' => 'online', 'per_page' => 10]);
+      $online_members = vikinger_members_get(['type' => 'online', 'per_page' => 5]);
 
       /**
-       * Widget User List Tabbed
+       * Widget Online User List Tabbed
        */
       get_template_part('template-part/widget/widget-user-list', null, [
         'widget_title'    => esc_html__('Online', 'vikinger'),
         'users'           => $online_members,
+        'no_results_text' => esc_html__('No members found', 'vikinger')
+      ]);
+
+      $active_members = vikinger_members_get(['type' => 'active', 'per_page' => 10]);
+
+      /**
+       * Widget Recently Active User List Tabbed
+       */
+      get_template_part('template-part/widget/widget-user-list', null, [
+        'widget_title'    => esc_html__('Recently Active', 'vikinger'),
+        'users'           => $active_members,
         'no_results_text' => esc_html__('No members found', 'vikinger')
       ]);
 

@@ -10,6 +10,7 @@
  * 
  * @param array $args {
  *   @type string $widget_title     Widget title.
+ *   @type string $widget_subtext   Widget Subtext.
  *   @type array  $users            Users data.
  *   @type string $no_results_text  Text to show when no results are found ($users count === 0).
  *   @type array $button {
@@ -25,6 +26,9 @@
 <div class="widget-box">
   <!-- WIDGET BOX TITLE -->
   <p class="widget-box-title"><?php echo esc_html($args['widget_title']); ?></p>
+  <?php if (array_key_exists('widget_subtext', $args)) : ?>
+  <p class="widget-box-title"><?php echo esc_html($args['widget_subtext']); ?></p>
+  <?php endif; ?>
   <!-- /WIDGET BOX TITLE -->
 
   <!-- WIDGET BOX CONTENT -->

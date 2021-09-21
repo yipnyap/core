@@ -297,9 +297,9 @@
     </div>
     <!-- /USER STATS -->
 
-  <?php if (is_user_logged_in() && bp_is_active('friends')) : ?>
+  <?php if (is_user_logged_in()) : ?>
     <!-- PROFILE HEADER ACTIONS -->
-    <div id="profile-header-actions" data-userid="<?php echo esc_attr($args['member']['id']); ?>"></div>
+    <div id="profile-header-actions" data-allowfriendships="<?php bp_is_active('friends') ?>" data-userid="<?php echo esc_attr($args['member']['id']); ?>"></div>
     <!-- /PROFILE HEADER ACTIONS -->
   <?php endif; ?>
   </div>

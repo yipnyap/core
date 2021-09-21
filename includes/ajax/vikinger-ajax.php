@@ -54,6 +54,11 @@ if (vikinger_plugin_buddypress_is_active()) {
    * MESSAGE AJAX
    */
   require_once VIKINGER_PATH . '/includes/ajax/vikinger-ajax-message.php';
+
+  /**
+   * FOLLOW AJAX
+   */
+  require_once VIKINGER_PATH . '/includes/ajax/vikinger-ajax-follow.php';
 }
 
 /**

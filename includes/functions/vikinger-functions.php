@@ -71,6 +71,11 @@ require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-member-page
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-friend.php';
 
 /**
+ * FOLLOW functions
+ */
+require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-follow.php';
+
+/**
  * ACTIVITY functions
  */
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-activity.php';

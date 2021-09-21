@@ -56,6 +56,12 @@ if (!function_exists('vikinger_get_logged_user_member_data')) {
     if (is_user_logged_in()) {
       $user_id = get_current_user_id();
       $user = vikinger_members_get(['include' => [$user_id], 'data_scope' => $data_scope])[0];
+      $user['followers'] = bp_follow_get_followers(array(
+        'user_id' => $user_id
+      ));
+      $user['following'] = bp_follow_get_following(array(
+        'user_id' => $user_id
+      ));
     }
 
     return $user;

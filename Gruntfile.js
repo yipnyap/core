@@ -81,34 +81,34 @@ module.exports = function(grunt) {
         }
       }
     },
-    // connect: {
-    //   build: {
-    //     options: {
-    //       base: 'src/',
-    //       hostname: 'localhost',
-    //       port: 8123,
-    //       protocol: 'http',
-    //       open: true,
-    //       livereload: 9152
-    //     }
-    //   }
-    // },
-    // watch: {
-    //   options: {
-    //     livereload: 9152
-    //   },
-    //   html: {
-    //     files: ['src/*.html']
-    //   },
-    //   sass: {
-    //     files: ['src/sass/**'],
-    //     tasks: ['styles']
-    //   },
-    //   js: {
-    //     files: ['src/js/**/*.js', '!src/js/bundle/**', '!src/js/vendor/*.min.js'],
-    //     tasks: ['scripts']
-    //   }
-    // }
+    connect: {
+      build: {
+        options: {
+          base: 'src/',
+          hostname: 'localhost',
+          port: 8123,
+          protocol: 'http',
+          open: true,
+          livereload: 9152
+        }
+      }
+    },
+    watch: {
+      // options: {
+      //   livereload: 9152
+      // },
+      // html: {
+      //   files: ['src/*.html']
+      // },
+      // sass: {
+      //   files: ['src/sass/**'],
+      //   tasks: ['styles']
+      // },
+      js: {
+        files: ['src/js/**/*.js', '!src/js/bundle/**', '!src/js/vendor/*.min.js'],
+        tasks: ['scripts']
+      }
+    }
   });
 
   // Load tasks

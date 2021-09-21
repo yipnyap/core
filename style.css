@@ -18500,6 +18500,11 @@ a:hover {
   width: 180px;
 }
 
+.profile-header .profile-header-info .profile-header-info-actions .profile-header-info-action.button.small {
+  width: 4em;
+  height: 48px;
+}
+
 .profile-header .profile-header-info .profile-header-info-actions .profile-header-info-action:last-child {
   margin-right: 0;
 }
@@ -24994,7 +24999,9 @@ a:hover {
   border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  position: relative;
+  position: sticky;
+  top: 8em;
+  z-index: 10;
 }
 
 .section-navigation .slider-controls .slider-control {

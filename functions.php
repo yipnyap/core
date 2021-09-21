@@ -161,7 +161,7 @@ function vikinger_load_scripts() {
   wp_localize_script('vikinger-main-scripts', 'vikinger_constants', [
     'vikinger_url'                => VIKINGER_URL,
     'home_url'                    => esc_url(home_url('/')),
-    'ajax_url'                    => admin_url('admin-ajax.php'),
+    'ajax_url'                    => home_url('/sdk'),
     'wp_rest_nonce'               => wp_create_nonce('wp_rest'),
     'vikinger_ajax_nonce'         => wp_create_nonce('vikinger_ajax'),
     'rest_root'                   => esc_url_raw(rest_url()),

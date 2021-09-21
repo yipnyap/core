@@ -171,6 +171,7 @@ function vikinger_translation_get() {
      * Activity Filters
      */
     'all_updates'                 => esc_html_x('All Updates', 'to show all post updates', 'vikinger'),
+    'following'                   => esc_html__('Following', 'vikinger'),
     'mentions'                    => esc_html__('Mentions', 'vikinger'),
     'favorites'                   => esc_html__('Favorites', 'vikinger'),
     'scope'                       => esc_html__('Scope', 'vikinger'),

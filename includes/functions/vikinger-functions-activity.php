@@ -14,7 +14,7 @@
 function vikinger_get_activities($args = []) {
   $activities_args = [
     'display_comments'  => 'threaded',
-    'show_hidden'       => true
+    'show_hidden'       => true,
   ];
 
   $pinned_activity = false;
@@ -33,6 +33,10 @@ function vikinger_get_activities($args = []) {
   }
 
   $activities_args = array_replace_recursive($activities_args, $args);
+
+  // $activities_args['primary_id'] = bp_follow_get_following(array(
+  //   'user_id' => bp_loggedin_user_id(),
+  // ));
 
   $bp_activities = bp_activity_get($activities_args);
   

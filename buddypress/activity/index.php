@@ -56,7 +56,7 @@
        * Widget User List Tabbed
        */
       get_template_part('template-part/widget/widget-user-list', null, [
-        'widget_title'    => esc_html__('Recently Active', 'vikinger'),
+        'widget_title'    => esc_html__('Online', 'vikinger'),
         'users'           => $online_members,
         'no_results_text' => esc_html__('No members found', 'vikinger')
       ]);

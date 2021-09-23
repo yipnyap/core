@@ -26102,7 +26102,7 @@ a:hover {
     ADMIN BAR
 ---------------*/
 body.vikinger-top-space .header {
-  top: 32px;
+  top: 64px;
 }
 
 body.vikinger-top-space .sidebar {
@@ -26110,7 +26110,7 @@ body.vikinger-top-space .sidebar {
 }
 
 body.vikinger-top-space .sidebar.navigation-widget {
-  margin-top: 112px;
+  margin-top: 144px;
   padding-top: 0;
 }
 

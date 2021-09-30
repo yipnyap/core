@@ -567,15 +567,15 @@ function my_retrieve_password_subject_filter($old_subject) {
   return $subject;
 }
 
-function my_retrieve_password_message_filter($old_message, $key) {
+function my_retrieve_password_message_filter($old_message, $key, $user_login) {
   // $old_message is the default message already created by WordPress.
   // (You don't have to use it.)
   // $key is the password-like token that allows the user to get
   // a new password
 
   $message = __('Someone has asked to reset the password your Yipnyap ID.') . "\r\n\r\n";
-  $message .= network_site_url() . "\r\n\r\n";
-  $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+//  $message .= network_site_url() . "\r\n\r\n";
+//  $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
   $message .= __('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\r\n\r\n";
   $message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n";
 

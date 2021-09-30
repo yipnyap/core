@@ -553,4 +553,41 @@ add_filter(
     2
 );
 
+function my_retrieve_password_subject_filter($old_subject) {
+  // $old_subject is the default subject line created by WordPress.
+  // (You don't have to use it.)
+
+  $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
+  $subject = sprintf( __('[%s] Password Reset'), $blogname );
+  // This is how WordPress creates the subject line. It looks like this:
+  // [Doug's blog] Password Reset
+  // You can change this to fit your own needs.
+
+  // You have to return your new subject line:
+  return $subject;
+}
+
+function my_retrieve_password_message_filter($old_message, $key) {
+  // $old_message is the default message already created by WordPress.
+  // (You don't have to use it.)
+  // $key is the password-like token that allows the user to get
+  // a new password
+
+  $message = __('Someone has asked to reset the password your Yipnyap ID.') . "\r\n\r\n";
+  $message .= network_site_url() . "\r\n\r\n";
+  $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
+  $message .= __('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\r\n\r\n";
+  $message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n";
+
+  // This is how WordPress creates the message.
+  // You can change this to meet your own needs.
+
+  // You have to return your new message:
+  return $message;
+}
+
+// To get these filters up and running:
+add_filter ( 'retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1 );
+add_filter ( 'retrieve_password_message', 'my_retrieve_password_message_filter', 10, 2 );
+
 ?>

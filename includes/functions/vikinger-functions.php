@@ -28,7 +28,7 @@ require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-plugin.php'
 /**
  * WPLOGIN functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-wplogin.php';
+//require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-wplogin.php';
 
 /**
  * REGISTER functions

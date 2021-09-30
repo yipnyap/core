@@ -545,63 +545,12 @@ add_filter(
 		
 		$actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 		$date = date('m/d/Y h:i:s a', time());
-		$new_error = substr($error["message"], 0, 100) . '...';
+//		$new_error = substr($error["message"], 0, 100) . '...';
 
-        return 'A critical error on Houndkit has occurred. Go back.<br><br>Error Type ' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter) . '<br><hr><br>' . $new_error;
+        return 'A critical error on Houndkit has occurred. Go back.<br><br>Error Type ' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter) . '<br><hr><br>' . $error["message"];
     },
     10,
     2
 );
-
-// customize admin bar css
-function override_admin_bar_css() { 
-
-  if (is_admin_bar_showing()) { ?>
-
-
-     <style type="text/css">
-        #wpadminbar {
-          background-color: var(--color-body);
-        }
-
-        #wpadminbar .ab-empty-item, #wpadminbar a.ab-item, #wpadminbar > #wp-toolbar span.ab-label, #wpadminbar > #wp-toolbar span.noticon, #wpadminbar #wp-admin-bar-appearance > li > a.ab-item, #wpadminbar #wp-admin-bar-dashboard > a.ab-item, #wpadminbar #wp-admin-bar-new-content-default > li > a.ab-item {
-          color: var(--color-text);
-        }
-
-        #wpadminbar .ab-icon:before, #wpadminbar .ab-item:before, #wpadminbar #adminbarsearch:before {
-          color: var(--color-header-profile-settings-icon);
-        }
-
-        #wpadminbar:not(.mobile) .ab-top-menu > li > .ab-item:focus, #wpadminbar.nojq .quicklinks .ab-top-menu > li > .ab-item:focus, #wpadminbar:not(.mobile) .ab-top-menu > li:hover > .ab-item, #wpadminbar .ab-top-menu > li.hover > .ab-item {
-          background: var(--color-body);
-          color: var(--color-text);
-        }
-
-        #wp-admin-bar-site-name {
-          width: 80px;
-          background-color: var(--color-header-logo-background) !important;
-        }
-
-        #wpadminbar .ab-top-menu > .menupop > .ab-sub-wrapper {
-          width: 384px;
-          padding-bottom: 60px;
-          border-radius: 10px;
-          background-color: var(--color-box-background);
-          box-shadow: var(--color-overbox-big-shadow);
-        }
-     </style>
-
-     <script>
-       setTimeout(() => {
-        document.querySelector('#wp-admin-bar-site-name > .ab-item').innerText = 'Hound';
-       }, 500);
-     </script>
-
-  <?php }
-
-}
-
-// on frontend area
-add_action('wp_head', 'override_admin_bar_css');
 
 ?>

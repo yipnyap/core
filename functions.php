@@ -587,7 +587,7 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login) {
 }
 
 // To get these filters up and running:
-add_filter ( 'retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1 );
-add_filter ( 'retrieve_password_message', 'my_retrieve_password_message_filter', 10, 2 );
+add_filter ( 'retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 3 );
+add_filter ( 'retrieve_password_message', 'my_retrieve_password_message_filter', 10, 4 );
 
 ?>

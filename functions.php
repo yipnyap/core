@@ -616,3 +616,11 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login)
 add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1);
 add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 10, 3);
 
+/* Add message above login form */
+function wpsd_add_login_message()
+{
+    return '<p class="message">👋 This is the new Login UI. Register pages are still using the old UI, so sorry for the mess!</p>';
+}
+
+add_filter('login_message', 'wpsd_add_login_message');
+

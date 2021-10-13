@@ -522,10 +522,10 @@ if (!function_exists('vikinger_get_groups_post_count')) {
     /**
      * Get groups post count
      *
-     * @param array $groupID Group ID
+     * @param array|int $groupID Group ID
      * @return int
      */
-    function vikinger_get_groups_post_count(array $groupID): int
+    function vikinger_get_groups_post_count(array|int $groupID): int
     {
         $args = [
             'scope' => 'groups',

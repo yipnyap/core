@@ -161,7 +161,7 @@
 
   .user-status-title {
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (20 / 14) * 1em;
@@ -179,7 +179,7 @@
 
     a,
     .bold {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
 
@@ -278,7 +278,7 @@
       top: 8px;
     }
   }
-  
+
   .action-request-list {
     position: absolute;
     top: 2px;

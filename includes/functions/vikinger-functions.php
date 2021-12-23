@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap functions
- * 
+ *
  * @since 1.0.0
  */
 
@@ -50,10 +50,17 @@ require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-comment.php
  */
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-user.php';
 
+if (vikinger_plugin_gamipress_is_active()) {
+    /**
+     * GamiPress
+     */
+    require_once VIKINGER_PATH . '/includes/functions/gamipress/vikinger-functions-gamipress.php';
+}
+
 /**
- * GAMIPRESS functions
+ * BuddyPress
  */
-require_once VIKINGER_PATH . '/includes/gamipress/vikinger-functions-gamipress.php';
+require_once VIKINGER_PATH . '/includes/functions/buddypress/vikinger-functions-buddypress.php';
 
 /**
  * MEMBER functions
@@ -74,11 +81,6 @@ require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-friend.php'
  * FOLLOW functions
  */
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-follow.php';
-
-/**
- * ACTIVITY functions
- */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-activity.php';
 
 /**
  * GROUP functions
@@ -126,8 +128,8 @@ require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-bpverifiedm
 require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-woocommerce.php';
 
 /**
- * PAID MEMBERSHIPS PRO functions
+ * Paid Memberships Pro
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-pmpro.php';
+require_once VIKINGER_PATH . '/includes/functions/pmpro/vikinger-functions-pmpro.php';
 
 ?>

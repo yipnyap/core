@@ -16,10 +16,10 @@
           border-top-left-radius: 12px;
           border-top-right-radius: 12px;
           font-family: var(--font-primary);
-          color: var(--color-text);
+          color: var(--color-text) !important;
           font-size: $fs-14;
           font-weight: $weight-bold;
-  
+
           .fas {
             color: var(--color-icon-highlighted);
           }
@@ -48,7 +48,7 @@
 
           .name {
             font-family: var(--font-primary);
-            color: var(--color-text);
+            color: var(--color-text) !important;
             font-size: $fs-14;
             font-weight: $weight-bold;
             cursor: pointer;
@@ -256,7 +256,7 @@
       }
 
       .deleted {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-family: var(--font-primary);
         font-size: $fs-14;
         font-weight: $weight-bold;
@@ -304,7 +304,7 @@
 
           .message-content {
             font-family: var(--font-primary);
-            color: var(--color-text);
+            color: var(--color-text) !important;
             font-size: $fs-14;
             font-weight: $weight-medium;
             line-height: (20 / 14) * 1em;
@@ -329,7 +329,7 @@
   .empty {
     margin: 0;
     padding: 32px 28px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-bold;
   }
@@ -368,7 +368,7 @@
   div.new-message,
   div.bulk-message {
     padding: 32px 28px !important;
-    
+
     form {
       & > {
         div {
@@ -384,7 +384,7 @@
               box-shadow: none;
               font-size: $fs-14;
               font-weight: $weight-medium;
-  
+
               &:focus {
                 border-color: var(--color-secondary) !important;
                 box-shadow: none;
@@ -492,7 +492,7 @@
 
       .progress-text {
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
         line-height: 25px;
@@ -530,7 +530,7 @@
     border-radius: 12px;
     background-color: var(--color-box-background);
     border: 1px solid var(--color-border);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     box-shadow: none;
     transition: border-color .2s ease-in-out;
 
@@ -574,11 +574,11 @@
 
       .info {
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
 
         b {
-          color: var(--color-text);
+          color: var(--color-text) !important;
         }
       }
     }

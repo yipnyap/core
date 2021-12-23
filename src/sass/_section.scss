@@ -93,7 +93,7 @@
     transition: color .2s ease-in-out;
 
     &:hover {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
 
     & + {
@@ -110,7 +110,7 @@
   }
 
   .section-header-subsection {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-bold;
 
@@ -232,7 +232,7 @@
     font-weight: $weight-bold;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
 
@@ -259,7 +259,7 @@
     display: flex;
     align-items: center;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
 
@@ -363,7 +363,7 @@
       &:hover {
         .section-pager-item-text {
           background-color: var(--color-box-background);
-          color: var(--color-text);
+          color: var(--color-text) !important;
           box-shadow: none;
         }
       }
@@ -673,7 +673,7 @@
       flex-direction: column;
       height: auto;
       padding: 32px 28px;
-      
+
       &.v6-2 {
         .section-filters-bar-actions {
           &:first-child {
@@ -685,15 +685,15 @@
                 .form-input-decorated {
                   width: 100%;
                 }
-  
+
                 .form-input {
                   width: 100%;
-  
+
                   input {
                     padding-right: 0;
                   }
                 }
-  
+
                 .button {
                   width: 180px;
                   margin: 0 auto 16px;
@@ -777,16 +777,16 @@
     height: 86px;
     min-height: auto;
     padding: 0 28px 0 108px;
-  
+
     .section-banner-icon {
       width: 92px;
       height: 86px;
     }
-  
+
     .section-banner-title {
       font-size: $fs-24;
     }
-  
+
     .section-banner-text {
       display: none;
     }

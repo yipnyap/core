@@ -17,37 +17,37 @@ body {
         display: flex;
         flex-direction: column;
         justify-content: center;
-  
+
         .vkregister-header-pretitle,
         .vkregister-header-title,
         .vkregister-header-text {
           color: var(--color-wplogin-header-text);
           text-align: center;
         }
-  
+
         .vkregister-header-pretitle,
         .vkregister-header-title {
           text-transform: uppercase;
         }
-  
+
         .vkregister-header-pretitle {
           font-size: $fs-24;
           font-weight: $weight-medium;
         }
-  
+
         .vkregister-header-title {
           font-family: var(--font-secondary);
           font-size: $fs-104;
           font-weight: $weight-black;
         }
-  
+
         .vkregister-header-text {
           width: 400px;
           margin: 32px auto 0;
           font-size: $fs-18;
           font-weight: $weight-medium;
           line-height: (24 / 18) * 1em;
-  
+
           .bold {
             font-weight: $weight-bold;
           }
@@ -228,7 +228,7 @@ body {
             legend,
             label {
               margin-bottom: 16px;
-              color: var(--color-text);
+              color: var(--color-text) !important;
               font-size: $fs-14;
               font-weight: $weight-bold;
             }
@@ -246,7 +246,7 @@ body {
                 }
               }
             }
-    
+
             input[type="submit"] {
               width: 100%;
               height: 54px;
@@ -261,7 +261,7 @@ body {
               box-shadow: var(--color-secondary-shadow);
               cursor: pointer;
               transition: background-color .2s ease-in-out;
-    
+
               &:hover {
                 background: var(--color-secondary-hover);
               }
@@ -370,7 +370,7 @@ body {
           text-align: center;
 
           a {
-            color: var(--color-text);
+            color: var(--color-text) !important;
             transition: color .2s ease-in-out;
 
             &:focus,

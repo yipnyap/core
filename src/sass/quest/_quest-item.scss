@@ -45,7 +45,7 @@
 
   .quest-item-text {
     margin-top: 18px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (20 / 14) * 1em;
@@ -73,7 +73,7 @@
     }
 
     .quest-item-meta-text {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-10;
       font-weight: $weight-medium;
     }

@@ -267,7 +267,7 @@ function vikinger_admin_page_demo_import_html()
 function vikinger_admin_page_index()
 {
     add_menu_page(
-        'Vikinger - Index',
+        'YapEX - Index',
         'YapSDK',
         'manage_options',
         'vikinger_index',
@@ -277,7 +277,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Index',
+        'YapEX - Index',
         'Getting Started',
         'manage_options',
         'vikinger_index',
@@ -286,7 +286,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - General',
+        'YapEX - General',
         'General',
         'manage_options',
         'vikinger_plugins',
@@ -295,7 +295,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Documentation',
+        'YapEX - Documentation',
         'Documentation',
         'manage_options',
         'vikinger_documentation',
@@ -304,7 +304,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - FAQs',
+        'YapEX - FAQs',
         'FAQs',
         'manage_options',
         'vikinger_faqs',
@@ -313,7 +313,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Troubleshooting',
+        'YapEX - Troubleshooting',
         'Troubleshooting',
         'manage_options',
         'vikinger_troubleshooting',
@@ -322,7 +322,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Changelog',
+        'YapEX - Changelog',
         'Changelog',
         'manage_options',
         'vikinger_changelog',
@@ -331,7 +331,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Support',
+        'YapEX - Support',
         'Support',
         'manage_options',
         'vikinger_support',
@@ -340,7 +340,7 @@ function vikinger_admin_page_index()
 
     add_submenu_page(
         'vikinger_index',
-        'Vikinger - Demo Import',
+        'YapEX - Demo Import',
         'Demo Import',
         'manage_options',
         'vikinger_demo_import',
@@ -481,15 +481,6 @@ function vikinger_allow_redirect_after_header()
 }
 
 add_action('init', 'vikinger_allow_redirect_after_header');
-
-/**
- * Custom BuddyPress Avatar Dimensions
- */
-define('BP_AVATAR_THUMB_WIDTH', 50);
-define('BP_AVATAR_THUMB_HEIGHT', 50);
-define('BP_AVATAR_FULL_WIDTH', 100);
-define('BP_AVATAR_FULL_HEIGHT', 100);
-define('BP_AVATAR_ORIGINAL_MAX_WIDTH', 640);
 
 /**
  * Setup member cover preferred image size

@@ -109,7 +109,7 @@
       label {
         display: flex;
         align-items: center;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
         cursor: pointer;
@@ -185,7 +185,7 @@
     font-weight: $weight-semibold;
     text-transform: uppercase;
   }
-  
+
   .forum-title {
     margin-top: 6px;
     font-size: $fs-26;
@@ -217,7 +217,7 @@
   .forum-topic-meta-author {
     display: flex;
     align-items: center;
-  
+
     .forum-topic-meta-author-title {
       margin-right: 8px;
       font-size: $fs-12;
@@ -257,7 +257,7 @@
     font-size: $fs-14;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
   }
@@ -350,7 +350,7 @@
         margin-bottom: 0;
       }
     }
-    
+
     & + {
       .entry-title {
         margin-top: 64px;
@@ -422,7 +422,7 @@
   .vikinger-forum-replies {
     display: flex;
     flex-wrap: nowrap;
-    
+
     .vikinger-forum-replies-posts {
       width: 884px;
       margin-right: 16px;
@@ -490,7 +490,7 @@
       }
 
       .bbp-forum-permalink {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
         transition: color .2s ease-in-out;
@@ -502,7 +502,7 @@
     }
 
     .bbp-forum-title {
-      color: var(--color-text);
+      color: var(--color-text) !important;
 
       a {
         color: var(--color-primary);
@@ -519,7 +519,7 @@
       }
 
       .bbp-topic-permalink {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
         transition: color .2s ease-in-out;
@@ -531,7 +531,7 @@
     }
 
     .bbp-topic-title {
-      color: var(--color-text);
+      color: var(--color-text) !important;
 
       a {
         color: var(--color-primary);
@@ -579,7 +579,7 @@
       }
 
       .bbp-reply-permalink {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         transition: color .2s ease-in-out;
 
         &:hover {
@@ -598,7 +598,7 @@
           transition: color .2s ease-in-out;
 
           &:hover {
-            color: var(--color-text);
+            color: var(--color-text) !important;
           }
         }
       }
@@ -637,7 +637,7 @@
     .gamipress-bbpress-user-points,
     .gamipress-bbpress-points-label {
       font-family: var(--font-primary);
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-medium;
     }
@@ -675,20 +675,20 @@
     ul, ol {
       margin-top: 24px;
       padding-left: 20px;
-  
+
       ul, ol {
         padding-left: 0;
         margin: 18px;
       }
-  
+
       li {
         margin-bottom: 16px;
         display: list-item;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-family: var(--font-primary);
         font-size: $fs-14;
         font-weight: $weight-medium;
-  
+
         &:last-child {
           margin-bottom: 0;
         }
@@ -697,23 +697,23 @@
 
     ul {
       list-style: disc;
-  
+
       ul {
         list-style: circle;
       }
-  
+
       ol {
         list-style: lower-alpha;
       }
     }
-  
+
     ol {
       list-style: decimal;
-  
+
       ul {
         list-style: circle;
       }
-  
+
       ol {
         list-style: lower-alpha;
       }
@@ -804,7 +804,7 @@
     padding: 14px 28px;
     background-color: transparent;
     border: none;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-family: var(--font-primary);
     font-size: $fs-12;
     font-weight: $weight-bold;
@@ -859,7 +859,7 @@
 
       &.status-closed {
         a {
-          color: var(--color-text);
+          color: var(--color-text) !important;
         }
 
         .forum-topic-meta-author-title {
@@ -1012,7 +1012,7 @@
       .bbp-forum-content {
         margin: 8px 0 0;
         padding: 0;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-family: var(--font-primary);
         font-size: $fs-14;
         font-weight: $weight-medium;
@@ -1081,7 +1081,7 @@
     }
 
     input[type="button"] {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-bold;
 
@@ -1113,7 +1113,7 @@
     }
 
     legend {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-family: $font-primary;
       font-size: $fs-26;
       font-weight: $weight-bold;
@@ -1278,7 +1278,7 @@
         margin: 0 0 4px 0 !important;
         padding: 0;
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-medium;
         line-height: (18 / 14) * 1em;
@@ -1296,7 +1296,7 @@
 
       a {
         margin: 0 4px;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
 
         &:hover {
@@ -1358,7 +1358,7 @@
         background-color: var(--color-box-background);
         border-radius: 6px;
         border: none;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-12;
         font-weight: $weight-bold;
         line-height: 22px;
@@ -1406,7 +1406,7 @@
 
         &:hover {
           background-color: transparent;
-          color: var(--color-text);
+          color: var(--color-text) !important;
         }
       }
 
@@ -1430,7 +1430,7 @@
 
     li {
       font-family: var(--font-primary);
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 
@@ -1498,12 +1498,12 @@
         &.bbp-topic-title {
           width: 70%;
         }
-  
+
         &.bbp-topic-voice-count,
         &.bbp-topic-reply-count {
           width: 15%;
         }
-  
+
         &.bbp-topic-freshness {
           display: none;
         }
@@ -1514,21 +1514,21 @@
       display: flex;
       flex-wrap: nowrap;
       flex-direction: column;
-      
+
       .vikinger-forum-replies-posts {
         width: 100%;
         margin-right: 0;
         margin-top: 16px;
         order: 2;
       }
-  
+
       .vikinger-forum-replies-sidebar {
         width: 100%;
         margin-top: 0;
         order: 1;
       }
     }
-  
+
     .vikinger-forum-topic-tags {
       font-size: $fs-14;
     }
@@ -1629,7 +1629,7 @@
       .bbp-pagination-count {
         text-align: center;
       }
-  
+
       .bbp-pagination-links {
         justify-content: flex-end;
         margin-top: 16px;

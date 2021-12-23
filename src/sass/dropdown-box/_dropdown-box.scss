@@ -72,13 +72,13 @@
           transition: opacity .2s ease-in-out, color .2s ease-in-out;
 
           &.active {
-            color: var(--color-text);
+            color: var(--color-text) !important;
             opacity: 1;
             border-bottom: 2px solid var(--color-primary);
           }
 
           &:hover {
-            color: var(--color-text);
+            color: var(--color-text) !important;
             opacity: 1;
           }
         }

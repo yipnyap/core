@@ -35,6 +35,7 @@ import './global/accordions';
 import './global/forum';
 import './global/user-delete';
 import './global/vk-el-menu-mobile';
+import './global/search-mobile';
 
 /*--------------------------------------------------------------------
                         COMPONENT DOM

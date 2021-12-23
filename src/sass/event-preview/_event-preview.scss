@@ -27,7 +27,7 @@
 
   &.small {
     box-shadow: none;
-    
+
     .event-preview-cover {
       height: 80px;
       border-radius: 12px;
@@ -49,7 +49,7 @@
           border-top-right-radius: 8px;
           font-size: $fs-16;
         }
-      
+
         .date-sticker-month {
           padding: 2px 0;
           border-bottom-left-radius: 8px;
@@ -116,7 +116,7 @@
 
   .event-preview-text {
     margin-top: 20px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (20 / 14) * 1em;

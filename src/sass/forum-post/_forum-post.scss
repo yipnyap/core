@@ -103,7 +103,7 @@
       color: var(--color-text-alt-2);
 
       &:hover {
-        color: var(--color-text);
+        color: var(--color-text) !important;
       }
     }
   }
@@ -141,11 +141,11 @@
       font-weight: $weight-bold;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
       }
     }
-  
+
     .forum-post-user-text {
       margin-top: 4px;
       color: var(--color-text-alt);
@@ -161,7 +161,7 @@
         }
       }
     }
-  
+
     .forum-post-user-tag {
       height: 20px;
       margin-top: 12px;
@@ -179,7 +179,7 @@
       }
     }
   }
-  
+
   .forum-post-info {
     padding: 32px 28px 32px 0;
 
@@ -225,7 +225,7 @@
     .forum-post-actions {
       .forum-post-action {
         margin-right: 16px;
-  
+
         &:last-child {
           margin-right: 0;
         }

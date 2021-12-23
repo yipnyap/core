@@ -31,7 +31,7 @@
 
     .vk-el-navigation-item-link {
       padding: 12px 28px;
-      color: var(--color-text);
+      color: var(--color-text) !important;
       line-height: 1.2em;
       transition: padding-left .2s ease-in-out;
 
@@ -55,7 +55,7 @@
 .vk-el-navigation-item-link {
   display: block;
   padding: 32px 20px;
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-size: $fs-16;
   font-weight: $weight-bold;
 }

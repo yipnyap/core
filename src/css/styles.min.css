@@ -33932,7 +33932,7 @@ h2 {
 }
 
 .menu-main-item-link {
-  color: var(--color-text);
+  color: var(--color-text) !important;
 }
 
 @media (min-width: 640px) {

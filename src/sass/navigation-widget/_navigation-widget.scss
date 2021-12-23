@@ -34,7 +34,7 @@
 
   .navigation-widget-actions {
     margin: 80px 28px 60px;
-    
+
     .button {
       & + {
         .button {
@@ -57,24 +57,24 @@
       min-height: 44px;
       padding: 8px 0 0 50px;
       position: relative;
-  
+
       .user-avatar,
       .user-avatar-circle {
         position: absolute;
         top: 0;
         left: 0;
       }
-  
+
       .navigation-widget-info-title {
         font-size: $fs-14;
         font-weight: $weight-bold;
 
         a {
-          color: var(--color-text);
+          color: var(--color-text) !important;
           font-weight: $weight-bold;
         }
       }
-  
+
       .navigation-widget-info-text {
         margin-top: 4px;
         color: var(--color-text-alt);
@@ -104,7 +104,7 @@
         .action-item-icon {
           fill: var(--color-icon);
         }
-    
+
         &:hover {
           .action-item-icon {
             fill: var(--color-icon-highlighted);
@@ -161,12 +161,12 @@
         font-size: $fs-14;
         font-weight: $weight-bold;
         transition: padding .2s ease-in-out, color .2s ease-in-out;
-    
+
         .highlighted {
           float: right;
           color: var(--color-primary-dark);
         }
-    
+
         &:hover {
           padding-left: 34px;
         }

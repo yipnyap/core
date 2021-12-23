@@ -7423,7 +7423,7 @@ msgstr ""
 
 #: views/changelog.php:2669
 msgid ""
-"Updated the \"Vikinger - BuddyPress Extension\" plugin to include the new "
+"Updated the \"YapEX - BuddyPress Extension\" plugin to include the new "
 "delete account related \"Account Settings\" menu. Please update the plugin "
 "using the theme installer."
 msgstr ""
@@ -7841,7 +7841,7 @@ msgstr ""
 
 #: views/changelog.php:3290
 msgid ""
-"Updated the \"Vikinger - BuddyPress Extension\" plugin to include the new "
+"Updated the \"YapEX - BuddyPress Extension\" plugin to include the new "
 "private groups related \"Membership Requests\" menu. Please update the "
 "plugin using the theme installer."
 msgstr ""
@@ -8013,7 +8013,7 @@ msgstr ""
 
 #: views/changelog.php:3506
 msgid ""
-"Updated the \"Vikinger - BuddyPress Extension\" plugin to include the new "
+"Updated the \"YapEX - BuddyPress Extension\" plugin to include the new "
 "\"Email Settings\" menu. Please update the plugin using the theme installer."
 msgstr ""
 
@@ -8347,7 +8347,7 @@ msgstr ""
 
 #: views/changelog.php:4143
 msgid ""
-"Released a new version of the Vikinger - BuddyPress Extension plugin that "
+"Released a new version of the YapEX - BuddyPress Extension plugin that "
 "adds translatable strings for the wordpress admin bar top right profile "
 "related menus. Please update the plugin to the latest version using the "
 "theme installer."

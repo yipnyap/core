@@ -396,7 +396,7 @@
       font-weight: $weight-bold;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
       }
     }

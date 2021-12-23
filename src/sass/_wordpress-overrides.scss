@@ -13,7 +13,7 @@ body {
       &.navigation-widget {
         margin-top: 112px;
         padding-top: 0;
-        
+
         &.navigation-widget-closed {
           padding-top: 20px;
         }
@@ -73,34 +73,34 @@ svg {
 
 /* Text meant only for screen readers. */
 .screen-reader-text {
-	border: 0;
-	clip: rect(1px, 1px, 1px, 1px);
-	clip-path: inset(50%);
-	height: 1px;
-	margin: -1px;
-	overflow: hidden;
-	padding: 0;
-	position: absolute !important;
-	width: 1px;
-	word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
+  border: 0;
+  clip: rect(1px, 1px, 1px, 1px);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute !important;
+  width: 1px;
+  word-wrap: normal !important; /* Many screen reader and browser combinations announce broken words as they would appear visually. */
 }
 
 .screen-reader-text:focus {
-	background-color: #eee;
-	clip: auto !important;
-	clip-path: none;
-	color: #444;
-	display: block;
-	font-size: 1em;
-	height: auto;
-	left: 5px;
-	line-height: normal;
-	padding: 15px 23px 14px;
-	text-decoration: none;
-	top: 5px;
-	width: auto;
-	z-index: 100000;
-	/* Above WP toolbar. */
+  background-color: #eee;
+  clip: auto !important;
+  clip-path: none;
+  color: #444;
+  display: block;
+  font-size: 1em;
+  height: auto;
+  left: 5px;
+  line-height: normal;
+  padding: 15px 23px 14px;
+  text-decoration: none;
+  top: 5px;
+  width: auto;
+  z-index: 100000;
+  /* Above WP toolbar. */
 }
 
 .gallery-caption {
@@ -118,11 +118,11 @@ svg {
 }
 
 .bypostauthor .comment-footer-meta .by-post-author {
-	display: block;
+  display: block;
 }
 
 .sticky .post-sticky {
-	color: inherit;
+  color: inherit;
 }
 
 /*-------------
@@ -168,32 +168,32 @@ svg {
         margin-top: 0;
       }
     }
-  
+
     h1 {
       font-size: $fs-46;
       line-height: (48 / 46) * 1em;
     }
-  
+
     h2 {
       font-size: $fs-40;
       line-height: (42 / 40) * 1em;
     }
-  
+
     h3 {
       font-size: $fs-34;
       line-height: (36 / 34) * 1em;
     }
-  
+
     h4 {
       font-size: $fs-28;
       line-height: (32 / 28) * 1em;
     }
-  
+
     h5 {
       font-size: $fs-22;
       line-height: (26 / 22) * 1em;
     }
-  
+
     h6 {
       font-size: $fs-18;
       line-height: (22 / 18) * 1em;
@@ -209,7 +209,7 @@ svg {
           clear: both;
         }
       }
-  
+
       &:first-child {
         margin-top: 0;
       }
@@ -218,7 +218,7 @@ svg {
         display: flex;
         flex-wrap: wrap;
         margin-top: 20px;
-  
+
         .tag-cloud-link {
           display: flex;
           align-items: center;
@@ -232,7 +232,7 @@ svg {
           font-size: $fs-12;
           font-weight: $weight-bold;
           transition: background-color .2s ease-in-out;
-  
+
           &:hover {
             color: $white;
             background-color: var(--color-primary);
@@ -272,45 +272,45 @@ svg {
 
     ul, ol {
       padding-left: 20px;
-  
+
       ul, ol {
         padding-left: 0;
         margin: 18px;
       }
-  
+
       li {
         margin-bottom: 16px;
         display: list-item;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-family: var(--font-primary);
         font-size: $fs-16;
         font-weight: $weight-medium;
-  
+
         &:last-child {
           margin-bottom: 0;
         }
       }
     }
-  
+
     ul {
       list-style: disc;
-  
+
       ul {
         list-style: circle;
       }
-  
+
       ol {
         list-style: lower-alpha;
       }
     }
-  
+
     ol {
       list-style: decimal;
-  
+
       ul {
         list-style: circle;
       }
-  
+
       ol {
         list-style: lower-alpha;
       }
@@ -410,13 +410,13 @@ svg {
     width: 100%;
     height: 2px;
     margin: 32px auto 0;
-    background-color: var(--color-text);
+    background-color: var(--color-text) !important;
   }
 
   address,
   dl,
   table {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-family: var(--font-primary);
     font-weight: $weight-medium;
     line-height: 2em;
@@ -494,8 +494,8 @@ svg {
     margin: 32px auto 0;
 
     &:not(.has-background) {
-      color: var(--color-text);
-      background-color: var(--color-text);
+      color: var(--color-text) !important;
+      background-color: var(--color-text) !important;
     }
 
     &.is-style-wide {
@@ -510,7 +510,7 @@ svg {
 
   .wp-block-group {
     padding: 32px 28px;
-    
+
     p {
       margin-top: 32px;
       font-weight: $weight-medium;
@@ -581,7 +581,7 @@ svg {
   .wp-block-preformatted {
     padding: 32px 28px;
     border: 1px solid var(--color-border);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     line-height: 2em;
     overflow: auto;
   }
@@ -624,7 +624,7 @@ svg {
   .wp-block-calendar {
     .wp-calendar-table {
       font-family: var(--font-primary);
-    
+
       tbody {
         tr {
           td {
@@ -750,15 +750,15 @@ svg {
         padding-left: 0;
         margin: 18px;
       }
-  
+
       li {
         margin-bottom: 16px;
         display: list-item;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-family: var(--font-primary);
         font-size: $fs-16;
         font-weight: $weight-medium;
-  
+
         &:last-child {
           margin-bottom: 0;
         }
@@ -817,7 +817,7 @@ svg {
         font-size: $fs-28;
         line-height: (40 / 28) * 1em;
       }
-  
+
       cite {
         font-size: $fs-22;
       }
@@ -930,7 +930,7 @@ svg {
 
   caption {
     margin-bottom: 16px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-16;
     font-weight: $weight-bold;
   }
@@ -951,7 +951,7 @@ svg {
     tr {
       td {
         padding: 8px;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-12;
         font-weight: $weight-bold;
         text-align: center;
@@ -983,7 +983,7 @@ svg {
 
       span {
         a {
-          color: var(--color-text);
+          color: var(--color-text) !important;
           font-family: var(--font-primary);
           font-size: $fs-14;
           font-weight: $weight-bold;
@@ -1063,7 +1063,7 @@ svg {
         margin-bottom: 16px;
         padding-left: 0;
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
 
@@ -1099,7 +1099,7 @@ svg {
           color: var(--color-primary-dark);
           font-weight: $weight-bold;
         }
-    
+
         .rss-date {
           margin-top: 4px;
           color: var(--color-text-alt);
@@ -1107,12 +1107,12 @@ svg {
           font-weight: $weight-medium;
           display: block;
         }
-    
+
         .rssSummary {
           margin-top: 12px;
-          color: var(--color-text);
+          color: var(--color-text) !important;
         }
-    
+
         cite {
           display: block;
           margin-top: 4px;
@@ -1194,7 +1194,7 @@ svg {
       }
 
       p {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         line-height: (24 / 14) * 1em;
         font-weight: $weight-medium;

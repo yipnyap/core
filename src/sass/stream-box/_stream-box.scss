@@ -62,7 +62,7 @@
       .stream-box-title {
         font-size: $fs-18;
       }
-    
+
       .stream-box-category {
         margin-top: 6px;
         font-size: $fs-14;
@@ -110,11 +110,11 @@
       font-weight: $weight-bold;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
       }
     }
-  
+
     .stream-box-text {
       margin-top: 6px;
       font-size: $fs-12;
@@ -125,7 +125,7 @@
         font-weight: $weight-medium;
       }
     }
-  
+
     .stream-box-category {
       margin-top: 14px;
       font-size: $fs-12;

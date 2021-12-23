@@ -257,7 +257,7 @@
   &.twitter {
     background-color: $color-twitter;
   }
-  
+
   &.twitch {
     background-color: $color-twitch;
   }
@@ -517,11 +517,11 @@
       &:nth-child(1) {
         width: 100%;
       }
-  
+
       &:nth-child(2) {
         width: 14px;
       }
-  
+
       &:nth-child(3) {
         width: 10px;
       }
@@ -535,11 +535,11 @@
       &:nth-child(1) {
         width: 100%;
       }
-  
+
       &:nth-child(2) {
         width: 14px;
       }
-  
+
       &:nth-child(3) {
         width: 10px;
       }
@@ -1010,7 +1010,7 @@
     font-size: $fs-18;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
 
@@ -1029,12 +1029,12 @@
 
   .user-short-description-text {
     margin-top: 6px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-medium;
 
       &:hover {
@@ -1420,7 +1420,7 @@
     justify-content: space-between;
     align-items: center;
     padding: 8px 16px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-family: var(--font-primary);
     font-size: $fs-12;
     font-weight: $weight-bold;
@@ -1508,7 +1508,7 @@
     a {
       word-break: break-word;
     }
-    
+
     .bold {
       font-weight: $weight-bold;
     }
@@ -1692,7 +1692,7 @@
 
     &.active,
     &:hover {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       opacity: 1;
     }
 
@@ -1761,7 +1761,7 @@
     border-bottom-color: var(--color-primary);
 
     .filter-tab-text {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 
@@ -2104,7 +2104,7 @@
   .popup-event-text {
     margin-top: 16px;
     @include paragraph();
-    color: var(--color-text);
+    color: var(--color-text) !important;
   }
 
   .decorated-feature-list {
@@ -2241,7 +2241,7 @@
     }
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
   }
@@ -2267,7 +2267,7 @@
     font-weight: $weight-medium;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
 
       &:hover {
         color: var(--color-primary-dark);
@@ -2382,7 +2382,7 @@
     }
 
     .post-option-text {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 
@@ -2390,7 +2390,7 @@
   .post-option-image {
     margin-right: 16px;
   }
-  
+
   .post-option-icon {
     fill: var(--color-icon);
     opacity: .6;
@@ -2513,7 +2513,7 @@
     &.with-separator {
       .slider-slide {
         position: relative;
-  
+
         &::before {
           content: '';
           width: 1px;
@@ -2661,7 +2661,7 @@
       font-size: $fs-14;
       font-weight: $weight-bold;
     }
-  
+
     .achievement-status-text {
       margin-top: 6px;
       color: var(--color-text-alt-2);
@@ -2741,7 +2741,7 @@
 
   &.landscape {
     flex-direction: row;
-    
+
     .reaction-count {
       margin: 0 32px 0 0;
 
@@ -2771,7 +2771,7 @@
     .reaction-count-icon {
       fill: var(--color-primary-light);
     }
-  
+
     .reaction-count-text {
       color: $white;
     }
@@ -2855,6 +2855,7 @@
         .icon-plus-small {
           display: none;
         }
+
         .icon-minus-small {
           display: block;
         }
@@ -2883,6 +2884,7 @@
       .icon-plus-small {
         display: block;
       }
+
       .icon-minus-small {
         display: none;
       }
@@ -2947,7 +2949,7 @@
     }
 
     .week-box-item-text {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 
@@ -2987,7 +2989,7 @@
       font-weight: $weight-bold;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
       }
     }
@@ -3005,7 +3007,7 @@
       font-weight: $weight-bold;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
 
         &:hover {
@@ -3062,12 +3064,12 @@
     align-items: center;
 
     .discussion-preview-meta-text {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-medium;
 
       a {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
 
         &.highlighted {
@@ -3187,7 +3189,7 @@
         }
       }
     }
-    
+
     .quick-post-header-title {
       font-size: $fs-16;
       font-weight: $weight-bold;
@@ -3273,7 +3275,7 @@
 
   .quick-post-footer-errors {
     padding-top: 12px;
-    
+
     .quick-post-footer-error {
       margin-bottom: 12px;
 
@@ -3423,7 +3425,7 @@
     }
 
     .option-item-title {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 
@@ -3463,17 +3465,17 @@
       background: url('img/graph/stat/01.jpg') no-repeat center;
       background-size: cover;
     }
-  
+
     &.stat-posts-created {
       background: url('img/graph/stat/02.jpg') no-repeat center;
       background-size: cover;
     }
-  
+
     &.stat-reactions-received {
       background: url('img/graph/stat/03.jpg') no-repeat center;
       background-size: cover;
     }
-  
+
     &.stat-comments-received {
       background: url('img/graph/stat/04.jpg') no-repeat center;
       background-size: cover;
@@ -3527,7 +3529,7 @@
     align-items: center;
     position: relative;
     top: 2px;
-    
+
     .stats-box-diff-icon {
       margin-right: 4px;
       display: flex;
@@ -3607,7 +3609,7 @@
 
     .slider-controls {
       display: flex;
-      
+
       .slider-control {
         &:first-child {
           margin-right: 2px;
@@ -3707,7 +3709,7 @@
 
   &.active {
     border-bottom: 4px solid var(--color-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     opacity: 1;
   }
 }
@@ -3757,7 +3759,7 @@
 
   .poll-box-actions {
     margin-top: 40px;
-    
+
     .button {
       width: 140px;
       margin-right: 16px;
@@ -3811,7 +3813,7 @@
       .picture-collage-item {
         width: 50%;
         height: 240px;
-      } 
+      }
     }
 
     .picture-collage-item {
@@ -4045,7 +4047,7 @@
   &.margin-top {
     margin-top: 56px;
   }
-  
+
   .sidebar-box-title {
     margin-top: 36px;
     font-size: $fs-16;
@@ -4213,7 +4215,7 @@
           border-bottom-right-radius: 12px;
         }
       }
-      
+
       .sidebar-menu-body {
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
@@ -4254,7 +4256,7 @@
         .sidebar-menu-header-control-icon-open {
           display: block;
         }
-  
+
         .sidebar-menu-header-control-icon-closed {
           display: none;
         }
@@ -4293,7 +4295,7 @@
       display: none;
     }
   }
-  
+
   .sidebar-menu-header-title {
     font-size: $fs-16;
     font-weight: $weight-bold;
@@ -4452,7 +4454,7 @@
       border-bottom: none;
 
       .tab-box-option-title {
-        color: var(--color-text);
+        color: var(--color-text) !important;
       }
     }
   }
@@ -4900,7 +4902,7 @@
   }
 
   .exp-line-timestamp {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     position: absolute;
@@ -4991,7 +4993,7 @@
 
   .account-stat-box-text {
     margin-top: 10px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (20 / 14) * 1em;
@@ -5145,7 +5147,7 @@
     font-weight: $weight-medium;
 
     .bold {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
   }
@@ -5619,7 +5621,7 @@
     .status-icon {
       fill: $white;
       width: 20px;
-      height: 16px; 
+      height: 16px;
     }
   }
 
@@ -5662,7 +5664,7 @@
 
   .notification-section-title {
     margin-top: 54px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-20;
     font-weight: $weight-bold;
     text-align: center;
@@ -5711,7 +5713,7 @@
 
       &.active {
         border-bottom-color: var(--color-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
       }
     }
   }
@@ -5764,7 +5766,7 @@
       }
 
       .reaction-box-option-text {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-12;
         font-weight: $weight-bold;
       }
@@ -6016,7 +6018,7 @@
   }
 
   .alert-line-text {
-    color: $white;
+    color: $white !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (24 / 16) * 1em;
@@ -6063,7 +6065,7 @@
     transition: color .2s ease-in-out;
 
     &:hover {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
   }
 }
@@ -6085,7 +6087,7 @@
   &.negative {
     .point-item {
       .point-item-text {
-        color: var(--color-text);
+        color: var(--color-text) !important;
       }
     }
   }
@@ -6318,9 +6320,9 @@
   .achievement-item-box-text {
     width: 180px;
     margin: 16px auto 0;
-    
+
     p {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-medium;
       line-height: (20 / 14) * 1em;
@@ -6368,7 +6370,7 @@
     background-color: var(--color-box-over-box-light-background);
     box-shadow: var(--color-overbox-shadow);
     border-radius: 200px;
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-family: var(--font-primary);
     cursor: auto;
 
@@ -6825,11 +6827,11 @@
       top: auto;
       right: auto;
     }
-  
+
     .button {
       margin-top: 22px;
     }
-  
+
     .switch-option-meta {
       margin-top: 16px;
       position: static;
@@ -6944,7 +6946,7 @@
       .quick-post-header-filters-wrap {
         flex-direction: column;
         padding: 28px 0;
-        
+
         .quick-post-header-filters {
           margin-top: 28px;
           padding: 0 16px;
@@ -6982,7 +6984,7 @@
 
   .simple-tab-items {
     border-bottom: none;
-    
+
     .simple-tab-item {
       display: none;
     }
@@ -6998,7 +7000,7 @@
         .quick-post-footer-actions {
           .button {
             width: 80px;
-  
+
             &:last-child {
               width: 80px;
             }
@@ -7041,7 +7043,7 @@
       .action-request-icon {
         margin-right: 0;
       }
-  
+
       .action-request-text {
         display: none;
       }
@@ -7055,7 +7057,7 @@
       margin: 0 auto 32px;
       position: static;
     }
-  
+
     .alert-box-title,
     .alert-box-text {
       text-align: center;

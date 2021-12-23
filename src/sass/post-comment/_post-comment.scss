@@ -134,7 +134,7 @@
   .post-comment-text {
     @include paragraph;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     white-space: pre-line;
     word-break: break-word;
 
@@ -161,7 +161,7 @@
 
     .post-comment-text-author {
       margin-right: 6px;
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
     }
 

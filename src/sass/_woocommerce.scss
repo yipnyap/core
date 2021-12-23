@@ -18,11 +18,11 @@
     grid-template-areas: "sidebar body";
     gap: 16px;
     grid-template-columns: $col-3 $col-9;
-  
+
     .vikinger-wc-sidebar {
       grid-area: sidebar;
     }
-  
+
     .vikinger-wc-body {
       grid-area: body;
     }
@@ -40,7 +40,7 @@
   .header-cart {
     .action-list {
       padding-right: 0;
-  
+
       &::before {
         display: none;
       }
@@ -109,7 +109,7 @@
 
   .select2-results {
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-bold;
 
@@ -134,13 +134,13 @@
       #header-notifications {
         .action-list {
           padding-left: 0;
-  
+
           &::after {
             display: none;
           }
         }
       }
-  
+
       .button {
         margin-left: 32px;
       }
@@ -158,7 +158,7 @@
     font-weight: $weight-bold;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
     }
 
     .woocommerce-breadcrumb-separator {
@@ -181,7 +181,7 @@
       background-color: var(--color-primary);
       line-height: 48px;
       box-shadow: var(--color-primary-shadow);
-  
+
       &:hover {
         background-color: var(--color-primary-hover);
       }
@@ -206,7 +206,7 @@
 
   .price {
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-weight: $weight-bold;
 
     .woocommerce-Price-currencySymbol {
@@ -220,13 +220,13 @@
   }
 
   .vikinger-wc-categories {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-12;
     font-weight: $weight-bold;
     line-height: (16 / 12) * 1em;
 
     a {
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-weight: $weight-bold;
 
       &:hover {
@@ -300,17 +300,17 @@
     &.primary {
       background-color: var(--color-primary);
       box-shadow: var(--color-primary-shadow);
-  
+
       &:hover {
         background-color: var(--color-primary-hover);
-  
+
         .loader-spinner {
           &:after {
             background-color: var(--color-primary-hover);
           }
         }
       }
-  
+
       .loader-spinner {
         &:after {
           background-color: var(--color-primary);
@@ -321,21 +321,21 @@
     &.alt.disabled {
       pointer-events: none;
     }
-  
+
     &.secondary {
       background-color: var(--color-secondary);
       box-shadow: var(--color-secondary-shadow);
-  
+
       &:hover {
         background-color: var(--color-secondary-hover);
-  
+
         .loader-spinner {
           &:after {
             background-color: var(--color-secondary-hover);
           }
         }
       }
-  
+
       .loader-spinner {
         &:after {
           background-color: var(--color-secondary);
@@ -348,7 +348,7 @@
     &[type="submit"] {
       background-color: var(--color-primary);
       box-shadow: var(--color-primary-shadow);
-  
+
       &:hover {
         background-color: var(--color-primary-hover);
       }
@@ -389,7 +389,7 @@
         margin: 0;
       }
     }
-    
+
     li.product {
       padding-bottom: 28px;
       border-radius: 12px;
@@ -434,7 +434,7 @@
         border-radius: 12px;
         background-color: var(--color-box-over-box-light-background);
         box-shadow: var(--color-overbox-shadow);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
         text-align: center;
@@ -568,7 +568,7 @@
   nav.woocommerce-pagination {
     margin-top: 32px;
     font-family: var(--font-primary);
-    
+
     ul {
       border: none;
       border-radius: 12px;
@@ -577,7 +577,7 @@
       li {
         background-color: var(--color-box-background);
         border: none;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         position: relative;
 
@@ -585,7 +585,7 @@
           border-top-left-radius: 12px;
           border-bottom-left-radius: 12px;
         }
-        
+
         &:last-child {
           border-top-right-radius: 12px;
           border-bottom-right-radius: 12px;
@@ -613,7 +613,7 @@
           line-height: 60px;
         }
 
-        span { 
+        span {
           &.current {
             background-color: var(--color-box-background);
             color: var(--color-primary-dark);
@@ -724,7 +724,7 @@
         display: flex;
         align-items: center;
         margin-bottom: 14px;
-        
+
         & + {
           .price {
             margin-top: 28px;
@@ -755,7 +755,7 @@
 
       .price {
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-32;
         font-weight: $weight-bold;
 
@@ -781,7 +781,7 @@
           margin-bottom: 12px;
           display: block;
           font-family: var(--font-primary);
-          color: var(--color-text);
+          color: var(--color-text) !important;
           font-size: $fs-14;
           font-weight: $weight-bold;
           line-height: (20 / 14) * 1em;
@@ -920,7 +920,7 @@
             background-color: var(--color-box-background);
 
             a {
-              color: var(--color-text);
+              color: var(--color-text) !important;
             }
           }
 
@@ -937,7 +937,7 @@
             text-align: center;
 
             &:hover {
-              color: var(--color-text);
+              color: var(--color-text) !important;
             }
           }
         }
@@ -975,7 +975,7 @@
           pre {
             padding: 32px 28px;
             border: 1px solid var(--color-border);
-            color: var(--color-text);
+            color: var(--color-text) !important;
             line-height: 2em;
             overflow: auto;
           }
@@ -1008,45 +1008,45 @@
 
           ul, ol {
             padding-left: 20px;
-      
+
             ul, ol {
               padding-left: 0;
               margin: 18px;
             }
-        
+
             li {
               margin-bottom: 16px;
               display: list-item;
-              color: var(--color-text);
+              color: var(--color-text) !important;
               font-family: var(--font-primary);
               font-size: $fs-16;
               font-weight: $weight-medium;
-        
+
               &:last-child {
                 margin-bottom: 0;
               }
             }
           }
-      
+
           ul {
             list-style: disc;
-      
+
             ul {
               list-style: circle;
             }
-      
+
             ol {
               list-style: lower-alpha;
             }
           }
-      
+
           ol {
             list-style: decimal;
-      
+
             ul {
               list-style: circle;
             }
-      
+
             ol {
               list-style: lower-alpha;
             }
@@ -1078,7 +1078,7 @@
             }
 
             td {
-              color: var(--color-text);
+              color: var(--color-text) !important;
               font-weight: $weight-bold;
               font-style: normal;
             }
@@ -1124,13 +1124,13 @@
             border: none;
 
             p.meta {
-              color: var(--color-text);
+              color: var(--color-text) !important;
               font-size: $fs-14;
               font-weight: $weight-medium;
               margin: 2px 0 0;
 
               .woocommerce-review__author {
-                color: var(--color-text);
+                color: var(--color-text) !important;
               }
 
               .woocommerce-review__dash,
@@ -1164,7 +1164,7 @@
         display: block;
         margin: 32px 0 12px;
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-24;
         font-weight: $weight-bold;
       }
@@ -1287,7 +1287,7 @@
       legend {
         margin-bottom: 16px;
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-16;
         font-weight: $weight-bold;
       }
@@ -1312,7 +1312,7 @@
 
         .select2-selection__placeholder,
         .select2-selection__rendered {
-          color: var(--color-text);
+          color: var(--color-text) !important;
         }
 
         .select2-selection__rendered {
@@ -1332,7 +1332,7 @@
         }
       }
     }
-    
+
     .form-row {
       padding: 0;
       margin: 0 0 28px 0;
@@ -1364,7 +1364,7 @@
       }
 
       .woocommerce-password-hint {
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-medium;
       }
     }
@@ -1396,7 +1396,7 @@
     p {
       mark {
         background-color: transparent;
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-weight: $weight-bold;
       }
     }
@@ -1466,7 +1466,7 @@
     background-color: var(--color-box-background);
     position: relative;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     box-shadow: var(--color-box-shadow);
@@ -1518,7 +1518,7 @@
 
     li {
       margin-bottom: 12px;
-      
+
       &:last-child {
         margin-bottom: 0;
       }
@@ -1590,7 +1590,7 @@
   address {
     margin-top: 28px;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     font-style: normal;
@@ -1610,7 +1610,7 @@
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
       font-family: var(--font-primary);
-      color: var(--color-text);
+      color: var(--color-text) !important;
 
       th, td {
         height: auto;
@@ -1623,7 +1623,7 @@
 
         &.product-name {
           a {
-            color: var(--color-text);
+            color: var(--color-text) !important;
 
             &:hover {
               color: var(--color-primary);
@@ -1691,7 +1691,7 @@
 
     &.cart {
       padding-bottom: 32px;
-      
+
       td {
         &.actions {
           padding: 28px 0 0;
@@ -1806,13 +1806,13 @@
       min-height: 84px;
       padding: 12px 68px 12px 98px;
       position: relative;
-  
+
       a {
         display: block;
         font-size: $fs-14;
         font-weight: $weight-bold;
       }
-  
+
       img {
         float: none;
         width: 60px;
@@ -1823,14 +1823,14 @@
         top: 12px;
         left: 28px;
       }
-  
+
       .quantity {
         font-family: var(--font-primary);
-        color: var(--color-text);
+        color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-bold;
       }
-  
+
       .remove_from_cart_button {
         display: flex;
         justify-content: center;
@@ -2008,7 +2008,7 @@
     box-shadow: var(--color-box-shadow);
     margin: 32px 0;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
   }
 }
 
@@ -2047,7 +2047,7 @@
 
     .quantity {
       font-family: var(--font-primary);
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-bold;
     }
@@ -2176,7 +2176,7 @@
     .woocommerce-MyAccount-content {
       .woocommerce-Addresses {
         display: block;
-  
+
         .woocommerce-Address {
           margin: 0 0 16px 0;
 

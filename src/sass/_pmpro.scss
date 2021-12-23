@@ -126,7 +126,7 @@
   .membership-preview-description {
     margin-top: 20px;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
 
     blockquote,
     ul, ol {
@@ -260,7 +260,7 @@
     li {
       margin-bottom: 4px;
       font-family: var(--font-primary);
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-bold;
 
@@ -309,7 +309,7 @@
 
 .pmpro_invoice_details {
   font-family: var(--font-primary);
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-size: $fs-14;
 
   p {
@@ -325,7 +325,7 @@
 
 .pmpro_table {
   font-family: var(--font-primary);
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-size: $fs-14;
 
   p {
@@ -393,7 +393,7 @@
   box-shadow: var(--color-box-shadow);
   border-radius: 12px;
   font-family: var(--font-primary);
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-size: $fs-14;
   font-weight: $weight-medium;
   line-height: 2em;
@@ -403,7 +403,7 @@
   }
 
   a {
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-weight: $weight-bold;
     text-decoration: none;
 
@@ -426,7 +426,7 @@
 
   .pmpro_checkout-fields {
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     line-height: 2em;
   }
@@ -508,7 +508,7 @@ form.pmpro_form {
   #pmpro_processing_message {
     margin: 32px 0 0;
     font-family: var(--font-primary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-bold;
   }
@@ -572,7 +572,7 @@ form.pmpro_form {
 .pmpro_error {
   background-color: var(--color-box-background);
   border-color: var(--color-tertiary);
-  color: var(--color-text);
+  color: var(--color-text) !important;
 }
 
 input[type="text"],
@@ -593,7 +593,7 @@ textarea {
   &.pmpro_error {
     background-color: transparent;
     border-color: var(--color-tertiary);
-    color: var(--color-text);
+    color: var(--color-text) !important;
   }
 }
 
@@ -609,7 +609,7 @@ textarea {
 }
 
 .pmpro_confirmation_wrap {
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-family: var(--font-primary);
   font-size: $fs-14;
   font-weight: $weight-medium;

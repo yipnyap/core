@@ -1,8 +1,13 @@
 <?php
 /**
- * Yipnyap PAID MEMBERSHIPS PRO functions
+ * Functions - Paid Memberships Pro - Global
  * 
- * @since 1.7.1
+ * @package Vikinger
+ * 
+ * @since 1.9.1
+ * 
+ * @author Odin Design Themes (https://odindesignthemes.com/)
+ * 
  */
 
 if (!function_exists('vikinger_pmpro_is_pmpro_page')) {
@@ -58,16 +63,18 @@ if (!function_exists('vikinger_pmpro_search_archives_limit_enabled')) {
    */
   function vikinger_pmpro_search_archives_limit_enabled() {
     $filter_queries = (int) pmpro_getOption('filterqueries');
+
     return $filter_queries === 1;
   }
 }
 
 if (!function_exists('vikinger_pmpro_excerpts_display_is_enabled')) {
   /**
-   * Check if posts should be displayed on posts lists and archives
+   * Check if posts excerpts should be displayed on posts lists and archives
    */
   function vikinger_pmpro_excerpts_display_is_enabled() {
     $showexcerpts = (int) pmpro_getOption('showexcerpts');
+
     return $showexcerpts === 1;
   }
 }
@@ -82,6 +89,10 @@ if (!function_exists('vikinger_pmpro_user_membership_level_get')) {
   function vikinger_pmpro_user_membership_level_get($user_id) {
     $membership_level = pmpro_getMembershipLevelForUser($user_id);
 
+    if ($membership_level) {
+      $membership_level = (array) $membership_level;
+    }
+
     return $membership_level;
   }
 }
@@ -93,7 +104,7 @@ if (!function_exists('vikinger_pmpro_logged_user_membership_level_get')) {
    * @return array|bool   $membership_level      User membership level or false if no membership.
    */
   function vikinger_pmpro_logged_user_membership_level_get() {
-    $membership_level = pmpro_getMembershipLevelForUser(get_current_user_id());
+    $membership_level = vikinger_pmpro_user_membership_level_get(get_current_user_id());
 
     return $membership_level;
   }
@@ -185,7 +196,7 @@ if (!function_exists('vikinger_pmpro_logged_user_restricted_categories_get')) {
     $membership_exclusive_categories = vikinger_pmpro_categories_get();
   
     if ($logged_user_membership_level) {
-      $logged_user_allowed_categories = vikinger_pmpro_membership_level_allowed_categories_get($logged_user_membership_level->ID);
+      $logged_user_allowed_categories = vikinger_pmpro_membership_level_allowed_categories_get($logged_user_membership_level['ID']);
   
       $membership_exclusive_categories = array_filter($membership_exclusive_categories, function ($category) use ($logged_user_allowed_categories) {
         return !in_array($category, $logged_user_allowed_categories);
@@ -207,7 +218,7 @@ if (!function_exists('vikinger_pmpro_logged_user_restricted_posts_get')) {
     $membership_exclusive_posts = vikinger_pmpro_posts_get();
   
     if ($logged_user_membership_level) {
-      $logged_user_allowed_posts = vikinger_pmpro_membership_level_allowed_posts_get($logged_user_membership_level->ID);
+      $logged_user_allowed_posts = vikinger_pmpro_membership_level_allowed_posts_get($logged_user_membership_level['ID']);
   
       $membership_exclusive_posts = array_filter($membership_exclusive_posts, function ($category) use ($logged_user_allowed_posts) {
         return !in_array($category, $logged_user_allowed_posts);

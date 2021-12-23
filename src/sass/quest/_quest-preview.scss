@@ -41,7 +41,7 @@
 
     .achievement-preview-text {
       margin-top: 4px;
-      color: var(--color-text);
+      color: var(--color-text) !important;
       font-size: $fs-12;
       font-weight: $weight-medium;
       line-height: (16 / 12) * 1em;

@@ -40,7 +40,7 @@ button {
 label {
   display: block;
   margin: 0;
-  color: var(--color-text);
+  color: var(--color-text) !important;
   line-height: 1em;
 
   &.label-disabled {
@@ -78,7 +78,7 @@ textarea,
 select {
   background-color: var(--color-box-background);
   border: 1px solid var(--color-border);
-  color: var(--color-text);
+  color: var(--color-text) !important;
   transition: border-color .2s ease-in-out;
 
   &:focus {
@@ -148,7 +148,7 @@ textarea {
     &.vk-form-counter-control-increase {
       top: 0;
       padding-top: 11px;
-      
+
       .vk-form-counter-icon {
         transform: rotate(-90deg);
       }
@@ -158,7 +158,7 @@ textarea {
       align-items: flex-end;
       bottom: 0;
       padding-bottom: 11px;
-      
+
       .vk-form-counter-icon {
         transform: rotate(90deg);
       }
@@ -284,7 +284,7 @@ textarea {
     & > * {
       width: 100%;
       margin-right: 12px;
-  
+
       &:last-child {
         margin-right: 0;
       }
@@ -595,7 +595,7 @@ textarea {
   &.v2 {
     width: auto;
     height: auto;
-    
+
     select {
       width: auto;
       height: auto;
@@ -647,7 +647,7 @@ textarea {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  
+
   .checkbox-line-text {
     color: var(--color-primary-dark);
     font-size: $fs-14;
@@ -867,12 +867,12 @@ textarea {
     .interactive-input-action {
       display: none;
     }
-    
+
     &.active {
       .interactive-input-action {
         display: flex;
       }
-  
+
       .interactive-input-icon {
         display: none;
       }
@@ -960,8 +960,8 @@ textarea {
     color: $gray;
     font-size: $fs-12;
     font-weight: $weight-semibold;
-  } 
-  
+  }
+
   .form-add-items-info {
     margin-top: 12px;
     display: flex;
@@ -1074,7 +1074,7 @@ textarea {
 
     &.form-counter-control-increase {
       top: 10px;
-      
+
       .form-counter-icon {
         transform: rotate(-90deg);
       }
@@ -1083,7 +1083,7 @@ textarea {
     &.form-counter-control-decrease {
       align-items: flex-end;
       bottom: 10px;
-      
+
       .form-counter-icon {
         transform: rotate(90deg);
       }
@@ -1171,7 +1171,7 @@ textarea {
 .form-field-message,
 .error-field-message,
 .required-field-message {
-  color: var(--color-text);
+  color: var(--color-text) !important;
   font-size: $fs-12;
   font-weight: $weight-bold;
 
@@ -1204,7 +1204,7 @@ textarea {
     line-height: 70px;
     text-align: center;
     cursor: pointer;
-    
+
     &:first-child {
       border-right: 1px solid var(--color-divider);
     }
@@ -1285,7 +1285,7 @@ textarea {
         &:last-child {
           margin-bottom: 0;
         }
-        
+
         textarea {
           height: 124px;
         }
@@ -1297,13 +1297,13 @@ textarea {
     &.split {
       &.join-on-mobile {
         display: block;
-  
+
         &.medium {
           & > * {
             margin-right: 0;
           }
         }
-    
+
         & > * {
           margin-right: 0;
 
@@ -1313,7 +1313,7 @@ textarea {
         }
       }
     }
-  } 
+  }
 }
 
 @media screen and (max-width: 768px) {

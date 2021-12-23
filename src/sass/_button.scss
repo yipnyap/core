@@ -13,7 +13,7 @@
   height: 48px;
   border-radius: 10px;
   background-color: $color-button-background;
-  color: $white;
+  color: $white !important;
   font-family: var(--font-primary);
   font-size: $fs-14;
   font-weight: $weight-bold;
@@ -33,7 +33,7 @@
       .button-text {
         display: none;
       }
-      
+
       .button-loading-text,
       .loader-spinner {
         display: block;
@@ -97,7 +97,7 @@
 
     .loader-spinner {
       background: linear-gradient(to right, #23d2e2 10%, rgba(35, 210, 226, 0) 42%);
-  
+
       &:before {
         background-color: #23d2e2;
       }
@@ -160,7 +160,7 @@
 
     .loader-spinner {
       background: linear-gradient(to right, var(--color-primary-background) 10%, rgba(35, 210, 226, 0) 42%);
-  
+
       &:before {
         background-color: var(--color-primary);
       }
@@ -169,7 +169,7 @@
     .button-icon {
       fill: var(--color-icon);
     }
-    
+
     &:hover {
       color: $white;
       background-color: $color-button-white-background-hover;

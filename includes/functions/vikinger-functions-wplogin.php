@@ -54,7 +54,7 @@ function vikinger_wplogin_logo_styles()
     wp_enqueue_style('vikinger-wplogin-fonts', 'https://fonts.googleapis.com/css?family=' . $fonts['primary'] . ':400,500,600,700|' . $fonts['secondary'] . ':400,900&display=swap');
 
     // add custom stylesheets
-    wp_enqueue_style('vikinger-wplogin-styles', get_template_directory_uri() . '/css/vklogin-style.css', [], '1.0.1');
+    wp_enqueue_style('vikinger-wplogin-styles', get_template_directory_uri() . '/src/css/vklogin-style.css', [], '1.0.1');
 
     // get user custom theme fonts
     $custom_fonts = vikinger_customizer_theme_fonts_get_style();

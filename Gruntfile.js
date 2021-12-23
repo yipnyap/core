@@ -4,10 +4,6 @@ module.exports = function (grunt) {
         cssnano = require('cssnano');
 
     grunt.initConfig({
-
-        // get the configuration info from package.json
-        pkg: grunt.file.readJSON('package.json'),
-
         sass: {
             options: {
                 implementation: sass,
@@ -18,7 +14,9 @@ module.exports = function (grunt) {
                     outputStyle: 'expanded'
                 },
                 files: {
-                    'src/css/raw/styles.css': 'src/sass/main.scss'
+                    'style.css': 'sass/main.scss',
+                    'src/css/admin-style.css': 'src/sass/wordpress/main.scss',
+                    'src/css/vklogin-style.css': 'src/sass/wordpress-login/main.scss'
                 }
             }
         },
@@ -26,22 +24,22 @@ module.exports = function (grunt) {
             autoprefix: {
                 options: {
                     processors: [
-                        require('tailwindcss')(),
                         require('autoprefixer')()
                     ],
                     map: {
-                        inline: false,
-                        annotation: 'src/css/raw/'
+                        inline: false
                     }
                 },
                 files: {
-                    'src/css/raw/styles.css': 'src/css/raw/styles.css'
+                    'style.css': 'style.css',
+                    'src/css/admin-style.css': 'src/css/admin-style.css',
+                    'src/css/vklogin-style.css': 'src/css/vklogin-style.css'
                 }
             },
             compressed: {
                 options: {
                     processors: [
-                        () => cssnano()
+                        cssnano()
                     ],
                     map: {
                         inline: false,
@@ -49,70 +47,58 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    'src/css/styles.min.css': 'src/css/raw/styles.css'
+                    'src/css/admin-style.min.css': 'src/css/admin-style.css',
+                    'src/css/vklogin-style.min.css': 'src/css/vklogin-style.css'
                 }
             }
         },
         browserify: {
             options: {
-                browserifyOptions: {debug: true},
-                transform: [['babelify', {presets: ['@babel/env']}]]
+                browserifyOptions: {
+                    extensions: ['.jsx', '.js']
+                },
+                transform: [
+                    [
+                        'babelify',
+                        {
+                            presets: ['@babel/env', '@babel/preset-react'],
+                            compact: true
+                        }
+                    ]
+                ]
             },
             build: {
                 files: {
-                    'src/js/bundle/app.bundle.js': 'src/js/app.js'
+                    'src/js/bundle/app.bundle.js': 'src/js/source/app.js',
+                    'src/js/bundle/admin.bundle.js': 'src/js/source/admin.js',
+                    'src/js/bundle/vklogin.bundle.js': 'src/js/source/vklogin.js'
                 }
             }
         },
         uglify: {
             build: {
                 files: {
-                    'src/app.bundle.min.js': 'src/js/bundle/app.bundle.js'
-                }
-            }
-        },
-        // concat: {
-        //     build: {
-        //         files: {
-        //             'src/app.bundle.min.js': [
-        //                 'swiper.min.js',
-        //                 'src/js/vendor/xm_accordion.min.js',
-        //                 'src/js/vendor/xm_dropdown.min.js',
-        //                 'src/js/vendor/xm_hexagon.min.js',
-        //                 'src/js/vendor/xm_popup.min.js',
-        //                 'src/js/vendor/xm_progressBar.min.js',
-        //                 'src/js/vendor/xm_tab.min.js',
-        //                 'src/js/vendor/xm_tooltip.min.js',
-        //                 'src/app.bundle.min.js'
-        //             ]
-        //         }
-        //     }
-        // },
-        connect: {
-            build: {
-                options: {
-                    base: 'src/',
-                    hostname: 'localhost',
-                    port: 8123,
-                    protocol: 'http',
-                    open: true,
-                    livereload: 9152
+                    'src/js/vklogin.bundle.min.js': 'src/js/bundle/vklogin.bundle.js'
                 }
             }
         },
         watch: {
-            // options: {
-            //   livereload: 9152
-            // },
-            // html: {
-            //   files: ['src/*.html']
-            // },
-            // sass: {
-            //   files: ['src/sass/**'],
-            //   tasks: ['styles']
-            // },
+            options: {
+                livereload: true
+            },
+            php: {
+                files: ['*.php', '**/*.php']
+            },
+            sass: {
+                files: ['src/sass/**'],
+                tasks: ['styles']
+            },
             js: {
-                files: ['src/js/**/*.js', '!src/js/bundle/**', '!src/js/vendor/*.min.js'],
+                files: ['src/js/**/*.js', '!src/js/bundle/**', '!src/js/vendor/*.min.js', '!src/js/*.min.js'],
+                tasks: ['scripts']
+            },
+            jsx: {
+                files: ['src/js/**/*.jsx'],
                 tasks: ['scripts']
             }
         }
@@ -123,15 +109,13 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-sass');
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-contrib-uglify');
-    grunt.loadNpmTasks('grunt-contrib-concat');
-    grunt.loadNpmTasks('grunt-contrib-connect');
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Register global tasks
     grunt.registerTask('default', ['styles', 'scripts', 'launch']);
 
     // Register custom tasks
-    grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix', 'postcss:compressed']);
-    grunt.registerTask('scripts', ['browserify:build', 'uglify:build', /*'concat:build'*/]);
-    grunt.registerTask('launch', ['connect:build', 'watch']);
+    grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix']);
+    grunt.registerTask('scripts', ['browserify:build', 'uglify:build']);
+    grunt.registerTask('launch', ['watch']);
 };

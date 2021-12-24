@@ -18442,6 +18442,10 @@ a:hover {
 
 .profile-header + .section-navigation {
   margin-bottom: 16px;
+  top: 6em !important;
+  position: -webkit-sticky;
+  position: sticky;
+  z-index: 1;
 }
 
 .profile-header.v2 .profile-header-info {

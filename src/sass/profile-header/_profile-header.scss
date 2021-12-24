@@ -18,6 +18,9 @@
 
     .section-navigation {
       margin-bottom: 16px;
+      top: 6em !important;
+      position: sticky;
+      z-index: 1;
     }
   }
 
@@ -66,7 +69,7 @@
 
       .profile-header-info-actions {
         top: 32px;
-  
+
         .profile-header-info-action {
           &.button {
             width: 58px;
@@ -197,13 +200,13 @@
           min-height: auto;
           padding: 52px 0 0;
           position: static;
-  
+
           .user-short-description-avatar {
             top: -116px;
             left: 50%;
             margin-left: -74px;
           }
-  
+
           .user-short-description-title,
           .user-short-description-text {
             text-align: center;
@@ -214,7 +217,7 @@
 
     .profile-header-info {
       padding-bottom: 0;
-      
+
       .user-stats,
       .profile-header-info-actions {
         position: static;
@@ -259,7 +262,7 @@
                 display: block;
               }
             }
-  
+
             &:last-child {
               display: block;
             }
@@ -287,7 +290,7 @@
         .user-short-description-title {
           font-size: $fs-18;
         }
-      
+
         .user-short-description-text {
           font-size: $fs-11;
         }

@@ -164,7 +164,7 @@ $user = vikinger_get_logged_user_member_data();
           <p class="alert-line-text"><?php echo var_dump($user) ?>
             <!-- /ALERT LINE TEXT -->
         </div>
-      <? } ?>
+      <?php } ?>
 
       <!-- ACTIVITY FILTERABLE LIST -->
       <div id="activity-filterable-list" class="grid-column"></div>

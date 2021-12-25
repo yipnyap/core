@@ -33,6 +33,8 @@ $(document).ready(function () {
     const headerBackdrop = 'blur(5px) saturate(0.5)';
     const headerBackgroundOpacity = 90;
 
+    const header = $('#mixheader-timed-greeting');
+
     if (isDarkTheme) {
         $('header.header').css({
             'backdrop-filter': headerBackdrop,
@@ -59,4 +61,23 @@ $(document).ready(function () {
         if (!postCommentButton) return;
         postCommentButton.remove();
     }, 1000);
+
+    header.html(header.html().replace('[greeting]', timedGreeting()))
 });
+
+function timedGreeting() {
+    const d = new Date();
+    const time = d.getHours();
+
+    if (time < 5) {
+        return '🦉 There\'s a thing called sleeping';
+    } else if (time < 12) {
+        return 'Good morning';
+    } else if (time == 12) {
+        return 'Nice lunch';
+    } else if (time > 11 && time < 18) {
+        return 'Good afternoon';
+    } else if (time > 17) {
+        return 'Good evening';
+    }
+}

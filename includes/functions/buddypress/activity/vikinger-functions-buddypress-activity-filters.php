@@ -19,7 +19,7 @@ if (!function_exists('vikinger_filter_activity_activity_update_action')) {
    * @return string
    */
   function vikinger_filter_activity_activity_update_action($action, $activity) {
-    $action = esc_html_x('posted an update', 'Activity Update Action - Text', 'vikinger');
+    $action = ''; //esc_html_x('posted an update', 'Activity Update Action - Text', 'vikinger');
     
     return $action;
   }
@@ -36,7 +36,7 @@ if (!function_exists('vikinger_filter_activity_update_action_group')) {
    * @return string
    */
   function vikinger_filter_activity_update_action_group($action, $activity) {
-    $action = esc_html_x('posted an update in the group', 'Activity Update Group Action - Text', 'vikinger');
+    $action = esc_html_x('in', 'Activity Update Group Action - Text', 'vikinger');
     
     return $action;
   }

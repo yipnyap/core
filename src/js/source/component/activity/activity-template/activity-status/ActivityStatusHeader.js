@@ -10,44 +10,45 @@ function ActivityStatusHeader(props) {
   const displayVerifiedMemberBadge = vikinger_constants.plugin_active['bp-verified-member'] && vikinger_constants.settings.bp_verified_member_display_badge_in_activity_stream && props.data.author.verified;
 
   return (
-    <div className="widget-box-status-header">
-      <div className="user-status">
-        <div className="user-status-avatar">
-          <Avatar size="small"
-                  data={props.data.author}
-                  noBorder
-          />
-        </div>
-    
-        <div className="user-status-title medium">
-          <a href={props.data.author.link}>{props.data.author.name}</a>
-        {
-          displayVerifiedMemberBadge &&
-            <BadgeVerified />
-        }
-          <span dangerouslySetInnerHTML={{__html: ` ${props.data.action}`}}></span>
-        {
-          (props.data.component === 'groups') && (props.data.type !== 'bbp_topic_create') && (props.data.type !== 'bbp_reply_create') &&
-            <React.Fragment>
-              <Avatar size="micro"
-                      data={props.data.group}
-                      noBorder
-              />
-              <a href={props.data.group.link}>{props.data.group.name}</a>
-            </React.Fragment>
-        }
-        </div>
+      <div className="widget-box-status-header">
+        <div className="user-status">
+          <div className="user-status-avatar">
+            <Avatar size="small"
+                    data={props.data.author}
+                    noBorder
+            />
+          </div>
 
-        <p className="user-status-text small">
-        {props.data.timestamp}
-        {
-          props.data.last_edited &&
-            <EditedByStatus user={props.data.last_edited.user} />
-        }
-        </p>
+          <div className="user-status-title medium">
+            <a href={props.data.author.link}>{props.data.author.name}</a>
+            {
+                displayVerifiedMemberBadge &&
+                <BadgeVerified/>
+            }
+            <span dangerouslySetInnerHTML={{__html: ` ${props.data.action}`}}></span>
+            {
+                (props.data.component === 'groups') && (props.data.type !== 'bbp_topic_create') && (props.data.type !== 'bbp_reply_create') &&
+                <React.Fragment>
+                  <Avatar size="micro"
+                          data={props.data.group}
+                          noBorder
+                          group
+                  />
+                  <a href={props.data.group.link}>{props.data.group.name}</a>
+                </React.Fragment>
+            }
+          </div>
+
+          <p className="user-status-text small">
+            {props.data.timestamp}
+            {
+                props.data.last_edited &&
+                <EditedByStatus user={props.data.last_edited.user}/>
+            }
+          </p>
+        </div>
       </div>
-    </div>
   );
 }
 
-export { ActivityStatusHeader as default };
+export {ActivityStatusHeader as default};

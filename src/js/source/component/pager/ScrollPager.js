@@ -1,57 +1,57 @@
-import React, { useRef, useEffect } from 'react';
+import React, {useRef, useEffect} from 'react';
 
 import Loader from '../loader/Loader';
 
 function ScrollPager(props) {
-  const loaderRef = useRef(null);
+    const loaderRef = useRef(null);
 
-  useEffect(() => {
-    if (!props.initialFetch && props.moreItems) {
-      window.addEventListener('scroll', loadMoreOnScroll);
-    }
+    useEffect(() => {
+        if (!props.initialFetch && props.moreItems) {
+            window.addEventListener('scroll', loadMoreOnScroll);
+        }
 
-    return () => {
-      window.removeEventListener('scroll', loadMoreOnScroll);
+        return () => {
+            window.removeEventListener('scroll', loadMoreOnScroll);
+        };
+    }, [props.initialFetch]);
+
+    const scrolledThrough = (el) => {
+        const elementScrollPosition = {
+                y: el.offsetTop + el.offsetHeight - window.innerHeight
+            },
+            windowScrollPosition = {
+                y: window.scrollY
+            };
+
+        return windowScrollPosition.y > elementScrollPosition.y;
     };
-  }, [props.initialFetch]);
 
-  const scrolledThrough = (el) => {
-    const elementScrollPosition = {
-            y: el.offsetTop + el.offsetHeight - window.innerHeight
-          },
-          windowScrollPosition = {
-            y: window.scrollY
-          };
+    const loadMoreOnScroll = () => {
+        // console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
 
-    return windowScrollPosition.y > elementScrollPosition.y;
-  };
+        if (scrolledThrough(loaderRef.current)) {
+            window.removeEventListener('scroll', loadMoreOnScroll);
+            loadMoreItems();
+        }
+    };
 
-  const loadMoreOnScroll = () => {
-    console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
+    const loadMoreItems = () => {
+        props.loadMoreItems((moreItems) => {
+            if (moreItems) {
+                window.addEventListener('scroll', loadMoreOnScroll);
+            }
+        });
+    };
 
-    if (scrolledThrough(loaderRef.current)) {
-      window.removeEventListener('scroll', loadMoreOnScroll);
-      loadMoreItems();
-    }
-  };
-
-  const loadMoreItems = () => {
-    props.loadMoreItems((moreItems) => {
-      if (moreItems) {
-        window.addEventListener('scroll', loadMoreOnScroll);
-      }
-    });
-  };
-
-  return (
-    <div ref={loaderRef} className={`${props.modifiers || ''}`}>
-      { props.children }
-      {
-        props.moreItems &&
-          <Loader />
-      }
-    </div>
-  );
+    return (
+        <div ref={loaderRef} className={`${props.modifiers || ''}`}>
+            {props.children}
+            {
+                props.moreItems &&
+                <Loader/>
+            }
+        </div>
+    );
 }
 
-export { ScrollPager as default };
+export {ScrollPager as default};

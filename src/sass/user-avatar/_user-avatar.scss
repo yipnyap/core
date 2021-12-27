@@ -1288,15 +1288,18 @@
   }
 
   .user-avatar-circle-image {
-    position: unset !important;
-    display: inline;
-    margin-right: 4px;
-    margin-left: 4px;
     width: 74px;
     height: 74px;
     border-radius: 50%;
     top: 16px;
     left: 16px;
+
+    &[alt="group-avatar"] {
+      position: unset !important;
+      display: inline;
+      margin-right: 4px;
+      margin-left: 4px;
+    }
   }
 
   .user-avatar-circle-progress {

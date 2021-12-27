@@ -337,7 +337,7 @@ endif;
 
         <!-- NAVIGATION WIDGET BUTTON -->
         <a class="navigation-widget-info-button button small secondary"
-           href="<?php echo esc_url(wp_logout_url()); ?>"><?php esc_html_e('Logout', 'vikinger'); ?></a>
+           href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'vikinger'); ?></a>
         <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->

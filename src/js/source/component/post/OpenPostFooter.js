@@ -44,9 +44,9 @@ function OpenPostFooter(props) {
     jQuery
     .when(getPostsPromise, getLoggedInMemberPromise, getReactionsPromise)
     .done((getPostsResponse, getLoggedInMemberResponse, getReactionsResponse) => {
-      // console.log('OPEN POST FOOTER - POST DATA: ', getPostsResponse);
-      // console.log('OPEN POST FOOTER - LOGGED IN USER: ', getLoggedInMemberResponse);
-      // console.log('OPEN POST FOOTER - REACTIONS: ', getReactionsResponse);
+      console.log('OPEN POST FOOTER - POST DATA: ', getPostsResponse);
+      console.log('OPEN POST FOOTER - LOGGED IN USER: ', getLoggedInMemberResponse);
+      console.log('OPEN POST FOOTER - REACTIONS: ', getReactionsResponse);
 
       const postResponse = getPostsResponse[0],
             loggedUserResponse = getLoggedInMemberResponse[0];
@@ -65,7 +65,7 @@ function OpenPostFooter(props) {
   }, []);
 
   const onPostUpdate = (newPostData) => {
-    // console.log('OPEN POST FOOTER - ON POST UPDATE - NEW POST DATA: ', newPostData);
+    console.log('OPEN POST FOOTER - ON POST UPDATE - NEW POST DATA: ', newPostData);
 
     setPost(newPostData);
   };

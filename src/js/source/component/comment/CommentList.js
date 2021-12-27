@@ -11,7 +11,7 @@ function CommentList(props) {
     setDeleting(config.comment_id);
 
     props.deleteComment(config, (response) => {
-      // console.log('COMMENT LIST - DELETE COMMENT RESPONSE: ', response);
+      console.log('COMMENT LIST - DELETE COMMENT RESPONSE: ', response);
 
       if (!response) {
         setDeleting(false);

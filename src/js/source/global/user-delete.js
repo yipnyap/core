@@ -41,7 +41,7 @@ querySelector('#vk-user-account-delete', (els) => {
 
     deleteLoggedUserPromise
     .done((response) => {
-      // console.log('USER DELETE - RESPONSE: ', response);
+      console.log('USER DELETE - RESPONSE: ', response);
 
       // user successfully deleted, reload
       if (response) {
@@ -54,7 +54,7 @@ querySelector('#vk-user-account-delete', (els) => {
       }
     })
     .fail((error) => {
-      // console.log('USER DELETE - ERROR: ', error);
+      console.log('USER DELETE - ERROR: ', error);
 
       // user failed to delete, show error message
       loading = false;

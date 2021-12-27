@@ -97,7 +97,7 @@ function ActivityFilterableList(props) {
   }, []);
 
   const onFiltersChange = (newFilters) => {
-    // console.log('ACTIVITY FILTERABLE LIST - ON FILTERS CHANGE: ', newFilters);
+    console.log('ACTIVITY FILTERABLE LIST - ON FILTERS CHANGE: ', newFilters);
 
     deepExtend(filters.current, newFilters);
 
@@ -153,7 +153,7 @@ function ActivityFilterableList(props) {
       filters.current.filter.object.push('bbpress');
     }
 
-    // console.log('ACTIVITY FILTERABLE LIST - ON FILTERS CHANGE: ', filters.current);
+    console.log('ACTIVITY FILTERABLE LIST - ON FILTERS CHANGE: ', filters.current);
 
     reloadActivities();
   };
@@ -193,7 +193,7 @@ function ActivityFilterableList(props) {
       config.filter.object = 'groups';
     }
 
-    // console.log('ACTIVITY FILTERABLE LIST - ACTIVITY FILTERS: ', config);
+    console.log('ACTIVITY FILTERABLE LIST - ACTIVITY FILTERS: ', config);
 
     activityRouter.getActivities(config, callback);
   };
@@ -218,7 +218,7 @@ function ActivityFilterableList(props) {
     const preloadedActivities = jQuery.Deferred();
 
     getActivities((response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - PRELOADED ACTIVITY DATA: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - PRELOADED ACTIVITY DATA: ', response);
 
       // cancel if scope changed
       const newScope = filters.current.scope;
@@ -246,7 +246,7 @@ function ActivityFilterableList(props) {
 
     if (currentPage.current === 1) {
       getActivities((response) => {
-        // console.log('ACTIVITY FILTERABLE LIST - ACTIVITY DATA: ', response);
+        console.log('ACTIVITY FILTERABLE LIST - ACTIVITY DATA: ', response);
   
         // cancel if scope changed
         const newScope = filters.current.scope;
@@ -283,7 +283,7 @@ function ActivityFilterableList(props) {
       // dump preloaded activities and preload next page if has more items
       preloadedActivities.current
       .done((activities, hasMoreItems) => {
-        // console.log('ACTIVITY FILTERABLE LIST - PRELOADED ACTIVITY DATA: ', activities);
+        console.log('ACTIVITY FILTERABLE LIST - PRELOADED ACTIVITY DATA: ', activities);
 
         setActivities(previousActivities => {
           return {
@@ -305,7 +305,7 @@ function ActivityFilterableList(props) {
   };
 
   const createActivity = (data, callback) => {
-    // console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY WITH DATA: ', data);
+    console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY WITH DATA: ', data);
 
     const itemID = Number.parseInt(data.postIn, 10);
 
@@ -371,10 +371,10 @@ function ActivityFilterableList(props) {
       uploadable_media_type: data.uploadable_media_type
     };
 
-    // console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY: ', activityData);
+    console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY: ', activityData);
 
     activityRouter.createActivity(activityData, (response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY RESPONSE: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - CREATE ACTIVITY RESPONSE: ', response);
 
       // activity created
       if (response) {
@@ -402,7 +402,7 @@ function ActivityFilterableList(props) {
       getCreatedActivityFilters.in = activityID;
 
       activityRouter.getActivities(getCreatedActivityFilters, (createdActivityResponse) => {
-        // console.log('ACTIVITY FILTERABLE LIST - CREATED ACTIVITY GET: ', createdActivityResponse);
+        console.log('ACTIVITY FILTERABLE LIST - CREATED ACTIVITY GET: ', createdActivityResponse);
 
         if (createdActivityResponse.activities.length) {
           const createdActivity = createdActivityResponse.activities[0];
@@ -426,13 +426,13 @@ function ActivityFilterableList(props) {
   };
 
   const updateActivity = (data, callback) => {
-    // console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - DATA: ', data);
+    console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - DATA: ', data);
 
     const activityUpdatePromise = activityRouter.updateActivity(data);
 
     activityUpdatePromise
     .done((response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - RESPONSE: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - RESPONSE: ', response);
 
       // activity updated successfully
       if (response) {
@@ -442,7 +442,7 @@ function ActivityFilterableList(props) {
         };
 
         activityRouter.getActivities(getUpdatedActivityFilters, (updatedActivityResponse) => {
-          // console.log('ACTIVITY FILTERABLE LIST - UPDATED ACTIVITY GET: ', updatedActivityResponse);
+          console.log('ACTIVITY FILTERABLE LIST - UPDATED ACTIVITY GET: ', updatedActivityResponse);
 
           if (updatedActivityResponse.activities.length) {
             const updatedActivity = updatedActivityResponse.activities[0];
@@ -455,15 +455,15 @@ function ActivityFilterableList(props) {
       }
     })
     .fail((error) => {
-      // console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - ERROR: ', error);
+      console.log('ACTIVITY FILTERABLE LIST - UPDATE ACTIVITY - ERROR: ', error);
     });
   };
 
   const deleteActivity = (activity_id, callback) => {
-    // console.log('ACTIVITY FILTERABLE LIST - DELETE ACTIVITY: ', activity_id);
+    console.log('ACTIVITY FILTERABLE LIST - DELETE ACTIVITY: ', activity_id);
 
     activityRouter.deleteActivity(activity_id, (response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - DELETE ACTIVITY RESPONSE: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - DELETE ACTIVITY RESPONSE: ', response);
 
       callback(response);
 
@@ -487,7 +487,7 @@ function ActivityFilterableList(props) {
   };
 
   const pinActivity = (activityID, callback) => {
-    // console.log('ACTIVITY FILTERABLE LIST - PIN ACTIVITY ID: ', activityID, 'FROM USER: ', loggedUser.id);
+    console.log('ACTIVITY FILTERABLE LIST - PIN ACTIVITY ID: ', activityID, 'FROM USER: ', loggedUser.id);
 
     const config = {
       userID: loggedUser.id,
@@ -495,7 +495,7 @@ function ActivityFilterableList(props) {
     };
 
     activityRouter.pinActivity(config, (response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - PIN RESPONSE: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - PIN RESPONSE: ', response);
 
       if (response) {
         setPinnedActivityID(activityID);
@@ -506,14 +506,14 @@ function ActivityFilterableList(props) {
   };
 
   const unpinActivity = (callback) => {
-    // console.log('ACTIVITY FILTERABLE LIST - UNPIN ACTIVITY FROM USER: ', loggedUser.id);
+    console.log('ACTIVITY FILTERABLE LIST - UNPIN ACTIVITY FROM USER: ', loggedUser.id);
 
     const config = {
       userID: loggedUser.id
     };
 
     activityRouter.unpinActivity(config, (response) => {
-      // console.log('ACTIVITY FILTERABLE LIST - UNPIN RESPONSE: ', response);
+      console.log('ACTIVITY FILTERABLE LIST - UNPIN RESPONSE: ', response);
 
       if (response) {
         setPinnedActivityID(false);
@@ -528,7 +528,7 @@ function ActivityFilterableList(props) {
 
     userRouter.getLoggedInMember('user-activity')
     .done((loggedUser) => {
-      // console.log('ACTIVITY FILTERABLE LIST - LOGGED IN USER: ', loggedUser);
+      console.log('ACTIVITY FILTERABLE LIST - LOGGED IN USER: ', loggedUser);
 
       setLoggedUser(loggedUser);
       setFetchingUser(false);
@@ -539,7 +539,7 @@ function ActivityFilterableList(props) {
     setActivities(previousActivities => {
       const activities = previousActivities.items.slice();
 
-      // console.log('ACTIVITY FILTERABLE LIST - ON PLAY ACTIVITY ID: ', activityID);
+      console.log('ACTIVITY FILTERABLE LIST - ON PLAY ACTIVITY ID: ', activityID);
 
       for (const activity of activities) {
         if (activity.meta && activity.meta.attached_media_type && (activity.meta.attached_media_type[0] === 'youtube')) {
@@ -553,7 +553,7 @@ function ActivityFilterableList(props) {
         }
       }
 
-      // console.log('ACTIVITY FILTERABLE LIST - ON PLAY NEW ACTIVITIES: ', activities);
+      console.log('ACTIVITY FILTERABLE LIST - ON PLAY NEW ACTIVITIES: ', activities);
 
       return {
         ...previousActivities,
@@ -566,7 +566,7 @@ function ActivityFilterableList(props) {
     if (vikinger_constants.plugin_active.vkreact && vikinger_constants.plugin_active['vkreact-buddypress']) {
       reactionRouter.getReactions()
       .done((response) => {
-        // console.log('ACTIVITY FILTERABLE IST - REACTIONS: ', response);
+        console.log('ACTIVITY FILTERABLE IST - REACTIONS: ', response);
 
         setReactions(response);
       });
@@ -574,7 +574,7 @@ function ActivityFilterableList(props) {
   };
 
   const onActivityUpdate = (newActivityData) => {
-    // console.log('ACTIVITY FILTERABLE LIST - ON ACTIVITY UPDATE - NEW ACTIVITY DATA: ', newActivityData);
+    console.log('ACTIVITY FILTERABLE LIST - ON ACTIVITY UPDATE - NEW ACTIVITY DATA: ', newActivityData);
 
     setActivities(previousActivities => {
       return {

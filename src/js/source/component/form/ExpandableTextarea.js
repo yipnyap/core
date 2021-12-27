@@ -1,333 +1,333 @@
-import React, { useState, useRef, useEffect, useLayoutEffect } from 'react';
+import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
 
 import MentionList from '../mention/MentionList';
 
 import LoaderSpinner from '../loader/LoaderSpinner';
 
-import { getWordInPosition, getPositionInInput, updateShadowInput, insertWordInText } from '../../utils/core';
-import { createFormInput } from '../../utils/plugins';
+import {getWordInPosition, getPositionInInput, updateShadowInput, insertWordInText} from '../../utils/core';
+import {createFormInput} from '../../utils/plugins';
 
 function ExpandableTextarea(props) {
-  const [mentioning, setMentioning] = useState(false);
-  const [mentionChars, setMentionChars] = useState('');
-  const [mentionPositionData, setMentionPositionData] = useState(false);
+    const [mentioning, setMentioning] = useState(false);
+    const [mentionChars, setMentionChars] = useState('');
+    const [mentionPositionData, setMentionPositionData] = useState(false);
 
-  const maxLength = useRef(props.maxLength || 1000);
-  const minHeight = useRef(props.minHeight || 48);
+    const maxLength = useRef(props.maxLength || 1000);
+    const minHeight = useRef(props.minHeight || 48);
 
-  const formTextareaRef = useRef(null);
-  const textareaRef = useRef(null);
-  const shadowTextareaRef = useRef(null);
+    const formTextareaRef = useRef(null);
+    const textareaRef = useRef(null);
+    const shadowTextareaRef = useRef(null);
 
-  const mounting = useRef(true);
+    const mounting = useRef(true);
 
-  const wordInCursor = useRef({});
+    const wordInCursor = useRef({});
 
-  const pressedKeys = useRef({});
+    const pressedKeys = useRef({});
 
-  const savePressedKey = (e) => {
-    pressedKeys.current[e.keyCode] = true;
-  };
+    const savePressedKey = (e) => {
+        pressedKeys.current[e.keyCode] = true;
+    };
 
-  const resetPressedKey = (e) => {
-    pressedKeys.current[e.keyCode] = false;
-  };
+    const resetPressedKey = (e) => {
+        pressedKeys.current[e.keyCode] = false;
+    };
 
-  const resetPressedKeys = () => {
-    pressedKeys.current = {};
-  };
+    const resetPressedKeys = () => {
+        pressedKeys.current = {};
+    };
 
-  const clearInput = () => {
-    formTextareaRef.current.classList.remove('active');
-  };
+    const clearInput = () => {
+        formTextareaRef.current.classList.remove('active');
+    };
 
-  const updateTextareaDimensions = () => {
-    // set minimum textarea height
-    textareaRef.current.style.height = `${minHeight.current}px`;
+    const updateTextareaDimensions = () => {
+        // set minimum textarea height
+        textareaRef.current.style.height = `${minHeight.current}px`;
 
-    const scrollHeight = textareaRef.current.scrollHeight;
+        const scrollHeight = textareaRef.current.scrollHeight;
 
-    // if scroll height is greater that minimum height, set it as textarea height
-    if (scrollHeight > minHeight.current) {
-      textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
-    }
-  };
-
-  const submitOnEnterKeyPress = () => {
-    const shift = 16,
-          enter = 13;
-
-    // enter key
-    if (pressedKeys.current[enter] && !pressedKeys.current[shift]) {
-      resetPressedKeys();
-      props.onSubmit();
-    }
-  };
-
-  const addNewlineOnShiftEnterKeyPress = () => {
-    const shift = 16,
-          enter = 13;
-
-    // shift + enter
-    if (pressedKeys.current[shift] && pressedKeys.current[enter]) {
-      // put newline in textarea
-      props.handleChange({
-        target: {
-          name: props.name,
-          value: props.value + '\n'
+        // if scroll height is greater that minimum height, set it as textarea height
+        if (scrollHeight > minHeight.current) {
+            textareaRef.current.style.height = `${textareaRef.current.scrollHeight}px`;
         }
-      });
-    }
-  };
+    };
 
-  const disableEnterKey = (e) => {
-    const enter = 13;
+    const submitOnEnterKeyPress = () => {
+        const shift = 16,
+            enter = 13;
 
-    if (e.keyCode === enter) {
-      e.preventDefault();
-    }
-  };
+        // enter key
+        if (pressedKeys.current[enter] && !pressedKeys.current[shift]) {
+            resetPressedKeys();
+            props.onSubmit();
+        }
+    };
 
-  const disableInputArrows = (e) => {
-    // arrow up/down pressed
-    if ((e.keyCode === 38) || (e.keyCode === 40)) {
-      e.preventDefault();
-    }
-  };
+    const addNewlineOnShiftEnterKeyPress = () => {
+        const shift = 16,
+            enter = 13;
 
-  const oneTimeDisableInput = (e) => {
-    // spacebar or enter key pressed
-    if ((e.keyCode === 32) || (e.keyCode === 13)) {
-      e.preventDefault();
-      textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
-    }
-  };
+        // shift + enter
+        if (pressedKeys.current[shift] && pressedKeys.current[enter]) {
+            // put newline in textarea
+            props.handleChange({
+                target: {
+                    name: props.name,
+                    value: props.value + '\n'
+                }
+            });
+        }
+    };
 
-  const getTextWithMention = (mentionText) => {
-    // console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - TEXT: ', textareaRef.current.value);
-    // console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - WORD IN CURSOR: ', wordInCursor.current);
+    const disableEnterKey = (e) => {
+        const enter = 13;
 
-    const newText = insertWordInText(textareaRef.current.value, `@${mentionText}`, wordInCursor.current.startIndex, wordInCursor.current.word.length);
+        if (e.keyCode === enter) {
+            e.preventDefault();
+        }
+    };
 
-    return newText;
-  };
+    const disableInputArrows = (e) => {
+        // arrow up/down pressed
+        if ((e.keyCode === 38) || (e.keyCode === 40)) {
+            e.preventDefault();
+        }
+    };
 
-  const closeMention = (mentionData, event) => {
-    setMentioning(false);
+    const oneTimeDisableInput = (e) => {
+        // spacebar or enter key pressed
+        if ((e.keyCode === 32) || (e.keyCode === 13)) {
+            e.preventDefault();
+            textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
+        }
+    };
 
-    // don't interrupt writing focus
-    textareaRef.current.focus();
-    
-    // set cursor position to be after user mention
-    if (mentionData) {
-      textareaRef.current.selectionEnd = wordInCursor.current.startIndex + mentionData.length + 1;
-    }
+    const getTextWithMention = (mentionText) => {
+        console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - TEXT: ', textareaRef.current.value);
+        console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - WORD IN CURSOR: ', wordInCursor.current);
 
-    // enable arrows
-    textareaRef.current.removeEventListener('keydown', disableInputArrows);
+        const newText = insertWordInText(textareaRef.current.value, `@${mentionText}`, wordInCursor.current.startIndex, wordInCursor.current.word.length);
 
-    // console.log('APPLY SELECTED MENTION - EVENT: ', event);
+        return newText;
+    };
 
-    // if event is not keydown (user didn't press spacebar/enter to select mention), remove enter/spacebar block
-    if (event !== 'keydown') {
-      textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
-    }
-  };
-
-  const checkForMentions = (text) => {
-    // get word in current cursor position
-    const currentCursorPosition = textareaRef.current.selectionStart,
-          currentWordInCursor = getWordInPosition(text, currentCursorPosition);
-
-    // console.log('CURSOR POSITION: ', currentCursorPosition);
-    // console.log('WORD IN CURSOR POSITION: ', currentWordInCursor.word);
-    // console.log('WORD IN CURSOR START INDEX: ', currentWordInCursor.startIndex);
-
-    // if word has @, user is trying to mention
-    const mentionRegex = /@/igm,
-          wordInCursorIsMention = mentionRegex.test(currentWordInCursor.word);
-
-    // if user is trying to mention
-    if (wordInCursorIsMention) {
-      wordInCursor.current = currentWordInCursor;
-
-      setMentionChars(currentWordInCursor.word.substring(1));
-
-      // if user already mentioning (adding/removing characters from mention)
-      if (!mentioning) {
-      // if user just started mentioning
-
-        // disable textarea input enter/spacebar (only one stroke)
-        textareaRef.current.addEventListener('keydown', oneTimeDisableInput);
-        // disable textarea arrows
-        textareaRef.current.addEventListener('keydown', disableInputArrows);
-
-        // calculate cursor position
-        updateShadowInput(shadowTextareaRef.current, text);
-        const dimensions = getPositionInInput(textareaRef.current, shadowTextareaRef.current, currentWordInCursor.startIndex + 1);
-
-        setMentioning(true);
-        setMentionPositionData(dimensions);
-      }
-    } else {
-    // if user isn't trying to mention
-      // if user just ended doing a mention (deleted mention characters including @)
-      if (mentioning) {
+    const closeMention = (mentionData, event) => {
         setMentioning(false);
+
+        // don't interrupt writing focus
+        textareaRef.current.focus();
+
+        // set cursor position to be after user mention
+        if (mentionData) {
+            textareaRef.current.selectionEnd = wordInCursor.current.startIndex + mentionData.length + 1;
+        }
 
         // enable arrows
         textareaRef.current.removeEventListener('keydown', disableInputArrows);
-        
-        // remove one time spacebar/enter block
-        textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
-      }
-    }
-  };
 
-  const handleChange = (e) => {
-    // console.log('EXPANDABLE TEXTAREA - HANDLE CHANGE: ', e.target.value);
-    // check for mentions (@name)
-    checkForMentions(e.target.value);
+        console.log('APPLY SELECTED MENTION - EVENT: ', event);
 
-    props.handleChange(e);
-  };
-
-  const applySelectedMention = (user, event) => {
-    // console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION: ', user);
-
-    const newText = getTextWithMention(user.mention_name);
-
-    // console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION NEW TEXT: ', newText);
-
-    closeMention(user.mention_name, event);
-
-    props.handleChange({
-      target: {
-        name: props.name,
-        value: newText,
-        user: user
-      }
-    });
-  };
-
-  useEffect(() => {
-    if (props.label) {
-      createFormInput([formTextareaRef.current]);
-    }
-  }, []);
-
-  useEffect(() => {
-    // disable enter for space
-    if (props.disableEnter) {
-      // disable enter key
-      textareaRef.current.addEventListener('keypress', disableEnterKey);
-    }
-
-    return () => {
-      if (props.disableEnter) {
-        textareaRef.current.removeEventListener('keypress', disableEnterKey);
-      }
+        // if event is not keydown (user didn't press spacebar/enter to select mention), remove enter/spacebar block
+        if (event !== 'keydown') {
+            textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
+        }
     };
-  });
 
-  useEffect(() => {
-    // submit content on enter key press
-    if (props.submitOnEnter) {
-      textareaRef.current.addEventListener('keypress', submitOnEnterKeyPress);
-      textareaRef.current.addEventListener('keypress', addNewlineOnShiftEnterKeyPress);
+    const checkForMentions = (text) => {
+        // get word in current cursor position
+        const currentCursorPosition = textareaRef.current.selectionStart,
+            currentWordInCursor = getWordInPosition(text, currentCursorPosition);
 
-      // disable enter key
-      textareaRef.current.addEventListener('keypress', disableEnterKey);
+        console.log('CURSOR POSITION: ', currentCursorPosition);
+        console.log('WORD IN CURSOR POSITION: ', currentWordInCursor.word);
+        console.log('WORD IN CURSOR START INDEX: ', currentWordInCursor.startIndex);
 
-      // insert newline on shift + enter
-      textareaRef.current.addEventListener('keydown', savePressedKey);
-      textareaRef.current.addEventListener('keyup', resetPressedKey);
-    }
+        // if word has @, user is trying to mention
+        const mentionRegex = /@/igm,
+            wordInCursorIsMention = mentionRegex.test(currentWordInCursor.word);
 
-    return () => {
-      if (props.submitOnEnter) {
-        textareaRef.current.removeEventListener('keypress', submitOnEnterKeyPress);
-        textareaRef.current.removeEventListener('keypress', addNewlineOnShiftEnterKeyPress);
+        // if user is trying to mention
+        if (wordInCursorIsMention) {
+            wordInCursor.current = currentWordInCursor;
 
-        textareaRef.current.removeEventListener('keypress', disableEnterKey);
+            setMentionChars(currentWordInCursor.word.substring(1));
 
-        textareaRef.current.removeEventListener('keydown', savePressedKey);
-        textareaRef.current.removeEventListener('keyup', resetPressedKey);
-      }
-    };
-  });
+            // if user already mentioning (adding/removing characters from mention)
+            if (!mentioning) {
+                // if user just started mentioning
 
-  useLayoutEffect(() => {
-    // if text changed, refresh textarea size
-    updateTextareaDimensions();
-  }, [props.value]);
+                // disable textarea input enter/spacebar (only one stroke)
+                textareaRef.current.addEventListener('keydown', oneTimeDisableInput);
+                // disable textarea arrows
+                textareaRef.current.addEventListener('keydown', disableInputArrows);
 
-  useEffect(() => {
-    if (!mounting.current) {
-      clearInput();
-    } else {
-      mounting.current = false;
-    }
-  }, [props.clearInput]);
+                // calculate cursor position
+                updateShadowInput(shadowTextareaRef.current, text);
+                const dimensions = getPositionInInput(textareaRef.current, shadowTextareaRef.current, currentWordInCursor.startIndex + 1);
 
-  useEffect(() => {
-    if (props.focus && textareaRef.current) {
-      // set cursor to end of textarea after focus
-      const selectionPosition = textareaRef.current.value.length * 2;
-      textareaRef.current.setSelectionRange(selectionPosition, selectionPosition);
-    }
-  }, [props.focus]);
-
-  return (
-    <div ref={formTextareaRef} className={`form-textarea ${props.focus ? 'active' : ''} ${props.modifiers || ''}`}>
-      {/* FORM TEXTAREA SHADOW */}
-      <p ref={shadowTextareaRef} className={`form-textarea-shadow ${props.modifiers || ''}`}></p>
-      {/* FORM TEXTAREA SHADOW */}
-
-      {/* LABEL */}
-      {
-        props.label &&
-          <label className={`${props.loading ? 'label-disabled' : ''}`}>{props.label}</label>
-      }
-      {/* LABEL */}
-
-      {/* MENTION LIST */}
-      {
-        props.userFriends && mentioning &&
-          <MentionList  data={props.userFriends}
-                        searchText={mentionChars}
-                        positionData={mentionPositionData}
-                        onItemSelection={applySelectedMention}
-          />
-      }
-      {/* MENTION LIST */}
-
-      {/* TEXTAREA */}
-      <textarea ref={textareaRef}
-                name={props.name}
-                value={props.value}
-                className={`${props.loading ? 'input-disabled' : ''} ${props.error ? 'input-error' : ''}`}
-                {...(props.placeholder ? { placeholder: props.placeholder } : {})}
-                maxLength={maxLength.current}
-                autoFocus={props.focus}
-                disabled={props.disabled}
-                onChange={handleChange}
-      >
-      </textarea>
-      {/* TEXTAREA */}
-
-      {
-        !props.hideLimit &&
-          <div className={`form-textarea-limit ${props.modifiers || ''}`}>
-            {
-              props.loading &&
-                <LoaderSpinner />
+                setMentioning(true);
+                setMentionPositionData(dimensions);
             }
-            <p className="form-textarea-limit-text">{props.value.length}/{maxLength.current}</p>
-          </div>
-      }
-    </div>
-  );
+        } else {
+            // if user isn't trying to mention
+            // if user just ended doing a mention (deleted mention characters including @)
+            if (mentioning) {
+                setMentioning(false);
+
+                // enable arrows
+                textareaRef.current.removeEventListener('keydown', disableInputArrows);
+
+                // remove one time spacebar/enter block
+                textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
+            }
+        }
+    };
+
+    const handleChange = (e) => {
+        console.log('EXPANDABLE TEXTAREA - HANDLE CHANGE: ', e.target.value);
+        // check for mentions (@name)
+        checkForMentions(e.target.value);
+
+        props.handleChange(e);
+    };
+
+    const applySelectedMention = (user, event) => {
+        console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION: ', user);
+
+        const newText = getTextWithMention(user.mention_name);
+
+        console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION NEW TEXT: ', newText);
+
+        closeMention(user.mention_name, event);
+
+        props.handleChange({
+            target: {
+                name: props.name,
+                value: newText,
+                user: user
+            }
+        });
+    };
+
+    useEffect(() => {
+        if (props.label) {
+            createFormInput([formTextareaRef.current]);
+        }
+    }, []);
+
+    useEffect(() => {
+        // disable enter for space
+        if (props.disableEnter) {
+            // disable enter key
+            textareaRef.current.addEventListener('keypress', disableEnterKey);
+        }
+
+        return () => {
+            if (props.disableEnter) {
+                textareaRef.current.removeEventListener('keypress', disableEnterKey);
+            }
+        };
+    });
+
+    useEffect(() => {
+        // submit content on enter key press
+        if (props.submitOnEnter) {
+            textareaRef.current.addEventListener('keypress', submitOnEnterKeyPress);
+            textareaRef.current.addEventListener('keypress', addNewlineOnShiftEnterKeyPress);
+
+            // disable enter key
+            textareaRef.current.addEventListener('keypress', disableEnterKey);
+
+            // insert newline on shift + enter
+            textareaRef.current.addEventListener('keydown', savePressedKey);
+            textareaRef.current.addEventListener('keyup', resetPressedKey);
+        }
+
+        return () => {
+            if (props.submitOnEnter) {
+                textareaRef.current.removeEventListener('keypress', submitOnEnterKeyPress);
+                textareaRef.current.removeEventListener('keypress', addNewlineOnShiftEnterKeyPress);
+
+                textareaRef.current.removeEventListener('keypress', disableEnterKey);
+
+                textareaRef.current.removeEventListener('keydown', savePressedKey);
+                textareaRef.current.removeEventListener('keyup', resetPressedKey);
+            }
+        };
+    });
+
+    useLayoutEffect(() => {
+        // if text changed, refresh textarea size
+        updateTextareaDimensions();
+    }, [props.value]);
+
+    useEffect(() => {
+        if (!mounting.current) {
+            clearInput();
+        } else {
+            mounting.current = false;
+        }
+    }, [props.clearInput]);
+
+    useEffect(() => {
+        if (props.focus && textareaRef.current) {
+            // set cursor to end of textarea after focus
+            const selectionPosition = textareaRef.current.value.length * 2;
+            textareaRef.current.setSelectionRange(selectionPosition, selectionPosition);
+        }
+    }, [props.focus]);
+
+    return (
+        <div ref={formTextareaRef} className={`form-textarea ${props.focus ? 'active' : ''} ${props.modifiers || ''}`}>
+            {/* FORM TEXTAREA SHADOW */}
+            <p ref={shadowTextareaRef} className={`form-textarea-shadow ${props.modifiers || ''}`}></p>
+            {/* FORM TEXTAREA SHADOW */}
+
+            {/* LABEL */}
+            {
+                props.label &&
+                <label className={`${props.loading ? 'label-disabled' : ''}`}>{props.label}</label>
+            }
+            {/* LABEL */}
+
+            {/* MENTION LIST */}
+            {
+                props.userFriends && mentioning &&
+                <MentionList data={props.userFriends}
+                             searchText={mentionChars}
+                             positionData={mentionPositionData}
+                             onItemSelection={applySelectedMention}
+                />
+            }
+            {/* MENTION LIST */}
+
+            {/* TEXTAREA */}
+            <textarea ref={textareaRef}
+                      name={props.name}
+                      value={props.value}
+                      className={`${props.loading ? 'input-disabled' : ''} ${props.error ? 'input-error' : ''}`}
+                      {...(props.placeholder ? {placeholder: props.placeholder} : {})}
+                      maxLength={maxLength.current}
+                      autoFocus={props.focus}
+                      disabled={props.disabled}
+                      onChange={handleChange}
+            >
+      </textarea>
+            {/* TEXTAREA */}
+
+            {
+                !props.hideLimit &&
+                <div className={`form-textarea-limit ${props.modifiers || ''}`}>
+                    {
+                        props.loading &&
+                        <LoaderSpinner/>
+                    }
+                    <p className="form-textarea-limit-text">{props.value.length}/{maxLength.current}</p>
+                </div>
+            }
+        </div>
+    );
 }
 
-export { ExpandableTextarea as default };
+export {ExpandableTextarea as default};

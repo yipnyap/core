@@ -47,7 +47,7 @@ function Comment(props) {
       content: commentContent
     };
 
-    // console.log('COMMENT - UPDATE COMMENT - CONFIG: ', commentData);
+    console.log('COMMENT - UPDATE COMMENT - CONFIG: ', commentData);
 
     props.updateComment(commentData, stopEditingComment);
   };

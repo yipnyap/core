@@ -9,8 +9,8 @@ const Paginator = {
 
     deepExtend(config, options);
 
-    // console.log('PAGINATOR - CREATE COUNT: ', config.createCount);
-    // console.log('PAGINATOR - DELETE COUNT: ', config.deleteCount);
+    console.log('PAGINATOR - CREATE COUNT: ', config.createCount);
+    console.log('PAGINATOR - DELETE COUNT: ', config.deleteCount);
 
     let pageOffset = 0,
         countDiff = config.createCount - config.deleteCount;
@@ -25,9 +25,9 @@ const Paginator = {
       pageOffset = -Math.ceil(Math.abs(countDiff) / config.per_page);
     }
 
-    // console.log('PAGINATOR - PAGE OFFSET: ', pageOffset);
-    // console.log('PAGINATOR - PAGE: ', config.page);
-    // console.log('PAGINATOR - PAGE WITH OFFSET: ', config.page + pageOffset);
+    console.log('PAGINATOR - PAGE OFFSET: ', pageOffset);
+    console.log('PAGINATOR - PAGE: ', config.page);
+    console.log('PAGINATOR - PAGE WITH OFFSET: ', config.page + pageOffset);
   
     return config.page + pageOffset;
   },
@@ -40,7 +40,7 @@ const Paginator = {
         if (item[compareKey] === newItem[compareKey]) {
           duplicateItemKeys.push(item[compareKey]);
 
-          // console.log('PAGINATOR - DUPLICATE FOUND: ', newItem);
+          console.log('PAGINATOR - DUPLICATE FOUND: ', newItem);
           break;
         }
       }
@@ -48,18 +48,18 @@ const Paginator = {
 
     // if any duplicates were found
     if (duplicateItemKeys.length > 0) {
-      // console.log('PAGINATOR - DUPLICATE ITEM KEYS: ', duplicateItemKeys);
+      console.log('PAGINATOR - DUPLICATE ITEM KEYS: ', duplicateItemKeys);
 
       const itemsWithoutDuplicates = newItems.filter((item) => {
         return !(duplicateItemKeys.includes(item[compareKey]));
       });
 
-      // console.log('PAGINATOR - ITEMS WITHOUT DUPLICATES: ', itemsWithoutDuplicates);
+      console.log('PAGINATOR - ITEMS WITHOUT DUPLICATES: ', itemsWithoutDuplicates);
 
       return itemsWithoutDuplicates;
     }
 
-    // console.log('PAGINATOR - NO DUPLICATES FOUND: ', newItems);
+    console.log('PAGINATOR - NO DUPLICATES FOUND: ', newItems);
 
     return newItems;
   }

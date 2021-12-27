@@ -41,7 +41,7 @@ function ChatMessageList(props) {
   const onSearchSubmit = (e) => {
     e.preventDefault();
 
-    // console.log('CHAT MESSAGE LIST - SEARCH SUBMIT: ', searchText);
+    console.log('CHAT MESSAGE LIST - SEARCH SUBMIT: ', searchText);
 
     updateFilters({
       search: searchText

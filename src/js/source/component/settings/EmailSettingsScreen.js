@@ -92,7 +92,7 @@ function EmailSettingsScreen(props) {
   const getLoggedInMember = () => {
     userRouter.getLoggedInMember('user-settings-notification')
     .done((response) => {
-      // console.log('EMAIL SETTINGS SCREEN - LOGGED IN USER: ', response);
+      console.log('EMAIL SETTINGS SCREEN - LOGGED IN USER: ', response);
 
       setLoggedUser(response);
       setSettings(deepMerge(response.email_settings));

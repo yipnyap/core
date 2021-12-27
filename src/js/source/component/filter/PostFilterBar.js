@@ -21,7 +21,7 @@ function PostFilterBar(props) {
   useEffect(() => {
     if (!props.hideCategories) {
       postRouter.getCategories((categories) => {
-        // console.log('POST FILTER BAR - CATEGORIES: ', categories);
+        console.log('POST FILTER BAR - CATEGORIES: ', categories);
 
         setCategories(categories);
       });

@@ -70,7 +70,7 @@ function MessagesSettingsScreen(props) {
   const getLoggedInMember = () => {
     userRouter.getLoggedInMember('user-friends')
     .done((response) => {
-      // console.log('MESSAGES SETTINGS SCREEN - LOGGED IN USER: ', response);
+      console.log('MESSAGES SETTINGS SCREEN - LOGGED IN USER: ', response);
 
       setLoggedUser(response);
 
@@ -87,7 +87,7 @@ function MessagesSettingsScreen(props) {
   }, []);
 
   const refreshMessages = (selectFirst = false, refreshMessagesFilters = false) => {
-    // console.log('MESSAGES SETTINGS SCREEN - REFRESH MESSAGES');
+    console.log('MESSAGES SETTINGS SCREEN - REFRESH MESSAGES');
 
     replaceMessages.current = true;
 
@@ -103,7 +103,7 @@ function MessagesSettingsScreen(props) {
   };
 
   const updateFiltersRefresh = (newFilters) => {
-    // console.log('MESSAGES SETTINGS SCREEN - UPDATE FILTERS REFRESH: ', filters);
+    console.log('MESSAGES SETTINGS SCREEN - UPDATE FILTERS REFRESH: ', filters);
 
     const updatedFilters = mergeFilters(filters, newFilters);
 
@@ -120,7 +120,7 @@ function MessagesSettingsScreen(props) {
 
     getMessagesPromise
     .done((response) => {
-      // console.log('MESSAGES SETTINGS SCREEN - GET MESSAGES PAGE ', getMessagesPageFilters.page, ' RESPONSE: ', response);
+      console.log('MESSAGES SETTINGS SCREEN - GET MESSAGES PAGE ', getMessagesPageFilters.page, ' RESPONSE: ', response);
 
       const newMessages = replaceMessages.current ? response.data : messages.concat(response.data);
       const moreItems = response.headers['X-WP-TotalPages'] > getMessagesPageFilters.page;
@@ -162,7 +162,7 @@ function MessagesSettingsScreen(props) {
       setLoadingMore(false);
     })
     .fail((error) => {
-      // console.log('MESSAGES SETTINGS SCREEN - GET MESSAGES PAGE ', getMessagesPageFilters.page, ' ERROR: ', error);
+      console.log('MESSAGES SETTINGS SCREEN - GET MESSAGES PAGE ', getMessagesPageFilters.page, ' ERROR: ', error);
     });
   };
 
@@ -171,10 +171,10 @@ function MessagesSettingsScreen(props) {
 
     markMessageThreadAsReadPromise
     .done((response) => {
-      // console.log('MESSAGE SETTINGS SCREEN - MARK THREAD AS READ RESPONSE: ', response);
+      console.log('MESSAGE SETTINGS SCREEN - MARK THREAD AS READ RESPONSE: ', response);
     })
     .fail((error) => {
-      // console.log('MESSAGE SETTINGS SCREEN - MARK THREAD AS READ ERROR: ', error);
+      console.log('MESSAGE SETTINGS SCREEN - MARK THREAD AS READ ERROR: ', error);
     });
 
     // optimistic mark as read
@@ -187,7 +187,7 @@ function MessagesSettingsScreen(props) {
       return;
     }
 
-    // console.log('MESSAGE SETTINGS SCREEN - SELECTED MESSAGE: ', message);
+    console.log('MESSAGE SETTINGS SCREEN - SELECTED MESSAGE: ', message);
 
     // if selected message thread is unread, mark it as read
     if (message.unread_count > 0) {
@@ -225,8 +225,8 @@ function MessagesSettingsScreen(props) {
       }
     }
 
-    // console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES: ', newMessages);
-    // console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
+    console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES: ', newMessages);
+    console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
 
     setSelectedMessage(newSelectedMessage);
     setMessages(newMessages);
@@ -254,8 +254,8 @@ function MessagesSettingsScreen(props) {
       }
     }
 
-    // console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES: ', newMessages);
-    // console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
+    console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES: ', newMessages);
+    console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
 
     setSelectedMessage(newSelectedMessage);
     setMessages(newMessages);
@@ -278,10 +278,10 @@ function MessagesSettingsScreen(props) {
 
     deleteMessagePromise
     .done((response) => {
-      // console.log('CHAT MESSAGE OPEN - DELETE MESSAGE RESPONSE: ', response);
+      console.log('CHAT MESSAGE OPEN - DELETE MESSAGE RESPONSE: ', response);
     })
     .fail((error) => {
-      // console.log('CHAT MESSAGE OPEN - DELETE MESSAGE ERROR: ', error);
+      console.log('CHAT MESSAGE OPEN - DELETE MESSAGE ERROR: ', error);
     });
 
     // check if user wants to delete message while being on another box
@@ -315,9 +315,9 @@ function MessagesSettingsScreen(props) {
         }
       }
 
-      // console.log('MESSAGE SETTINGS SCREEN - MESSAGES AFTER DELETION: ', newMessages);
-      // console.log('MESSAGE SETTINGS SCREEN - SELECTED MESSAGE INDEX: ', selectedMessageIndex);
-      // console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
+      console.log('MESSAGE SETTINGS SCREEN - MESSAGES AFTER DELETION: ', newMessages);
+      console.log('MESSAGE SETTINGS SCREEN - SELECTED MESSAGE INDEX: ', selectedMessageIndex);
+      console.log('MESSAGE SETTINGS SCREEN - NEW SELECTED MESSAGE: ', newSelectedMessage);
 
       setMessages(newMessages);
       setSelectedMessage(newSelectedMessage);
@@ -332,7 +332,7 @@ function MessagesSettingsScreen(props) {
   };
 
   const createThread = (messageContent, recipients) => {
-    // console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD: ', messageContent, recipients);
+    console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD: ', messageContent, recipients);
 
     const createThreadPromise = messageRouter.sendMessage({
       message: messageContent,
@@ -342,7 +342,7 @@ function MessagesSettingsScreen(props) {
 
     createThreadPromise
     .done((response) => {
-      // console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD RESPONSE: ', response);
+      console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD RESPONSE: ', response);
 
       const newFilters = mergeFilters(filters, { box: 'sentbox' });
 
@@ -351,7 +351,7 @@ function MessagesSettingsScreen(props) {
       refreshMessages(true, newFilters);
     })
     .fail((error) => {
-      // console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD ERROR: ', error);
+      console.log('MESSAGE SETTINGS SCREEN - CREATE THREAD ERROR: ', error);
     });
   };
 
@@ -372,23 +372,23 @@ function MessagesSettingsScreen(props) {
     
     const sendMessagePromise = messageRouter.sendMessage(sendMessageConfig);
 
-    // console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE: ', sendMessageConfig);
+    console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE: ', sendMessageConfig);
 
     sendMessagePromise
     .done((response) => {
-      // console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE RESPONSE: ', response);
+      console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE RESPONSE: ', response);
 
       const getSentMessagePromise = messageRouter.getMessage(threadID);
 
       getSentMessagePromise
       .done((response) => {
-        // console.log('MESSAGE SETTINGS SCREEN - GET SENT MESSAGE RESPONSE: ', response);
+        console.log('MESSAGE SETTINGS SCREEN - GET SENT MESSAGE RESPONSE: ', response);
 
         callback();
 
         const newMessages = messages.slice();
 
-        // console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES TO SHOW: ', newMessages);
+        console.log('MESSAGE SETTINGS SCREEN - NEW MESSAGES TO SHOW: ', newMessages);
 
         for (const message of newMessages) {
           if (message.id === threadID) {
@@ -400,14 +400,14 @@ function MessagesSettingsScreen(props) {
         setSendingMessage(false);
       })
       .fail((error) => {
-        // console.log('MESSAGE SETTINGS SCREEN - GET SENT MESSAGE ERROR: ', error);
+        console.log('MESSAGE SETTINGS SCREEN - GET SENT MESSAGE ERROR: ', error);
 
         setSendingMessage(false);
       });
 
     })
     .fail((error) => {
-      // console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE ERROR: ', error);
+      console.log('MESSAGE SETTINGS SCREEN - SEND MESSAGE ERROR: ', error);
 
       setSendingMessage(false);
     });

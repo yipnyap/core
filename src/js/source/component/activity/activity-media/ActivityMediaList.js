@@ -74,7 +74,7 @@ function ActivityMediaList(props) {
     deepExtend(config, filters.current);
     deepExtend(config, options);
 
-    // console.log('ACTIVITY MEDIA LIST - ACTIVITY FILTERS: ', config);
+    console.log('ACTIVITY MEDIA LIST - ACTIVITY FILTERS: ', config);
 
     activityRouter.getActivities(config, callback);
   };
@@ -126,10 +126,10 @@ function ActivityMediaList(props) {
       }
     }
 
-    // console.log('ACTIVITY MEDIA LIST - DELETE SELECTED: ', activityMediaToDelete);
+    console.log('ACTIVITY MEDIA LIST - DELETE SELECTED: ', activityMediaToDelete);
 
     activityRouter.deleteActivityMedia(activityMediaToDelete, (response) => {
-      // console.log('ACTIVITY MEDIA LIST - DELETED RESPONSE: ', response);
+      console.log('ACTIVITY MEDIA LIST - DELETED RESPONSE: ', response);
 
       callback();
 
@@ -148,7 +148,7 @@ function ActivityMediaList(props) {
             });
           });
     
-          // console.log('ACTIVITY MEDIA LIST - ACTIVITIES AFTER DELETE: ', newActivities);
+          console.log('ACTIVITY MEDIA LIST - ACTIVITIES AFTER DELETE: ', newActivities);
     
           return {
             ...previousActivities,
@@ -158,7 +158,7 @@ function ActivityMediaList(props) {
           };
         });
       } else {
-        // console.log('ACTIVITY MEDIA LIST - DELETE ERROR');
+        console.log('ACTIVITY MEDIA LIST - DELETE ERROR');
       }
     });
   };
@@ -169,7 +169,7 @@ function ActivityMediaList(props) {
 
       newSelectedActivities[i] = !newSelectedActivities[i];
 
-      // console.log('ACTIVITY MEDIA LIST - SELECTED ACTIVITIES: ', newSelectedActivities);
+      console.log('ACTIVITY MEDIA LIST - SELECTED ACTIVITIES: ', newSelectedActivities);
 
       return {
         ...previousActivities,
@@ -208,7 +208,7 @@ function ActivityMediaList(props) {
 
   const getActivitiesPage = (callback = () => {}) => {
     getActivities((response) => {
-      // console.log('ACTIVITY MEDIA LIST - ACTIVITY DATA: ', response);
+      console.log('ACTIVITY MEDIA LIST - ACTIVITY DATA: ', response);
 
       currentPage.current += 1;
 
@@ -230,7 +230,7 @@ function ActivityMediaList(props) {
   };
 
   const onUpload = (data, callback) => {
-    // console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY WITH DATA: ', data);
+    console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY WITH DATA: ', data);
 
     // post to own profile or group and hide sitewide according to group status
     const itemID = props.groupID ? props.groupID : 0,
@@ -266,10 +266,10 @@ function ActivityMediaList(props) {
       uploadable_media_type: data.uploadable_media_type
     };
 
-    // console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY: ', activityData);
+    console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY: ', activityData);
 
     activityRouter.createActivity(activityData, (response) => {
-      // console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY RESPONSE: ', response);
+      console.log('ACTIVITY MEDIA LIST - CREATE ACTIVITY RESPONSE: ', response);
 
       callback(response);
 
@@ -286,7 +286,7 @@ function ActivityMediaList(props) {
   const getLoggedUser = () => {
     userRouter.getLoggedInMember('user-activity')
     .done((loggedUser) => {
-      // console.log('ACTIVITY MEDIA LIST - LOGGED IN USER: ', loggedUser);
+      console.log('ACTIVITY MEDIA LIST - LOGGED IN USER: ', loggedUser);
 
       setLoggedUser(loggedUser);
     });
@@ -296,7 +296,7 @@ function ActivityMediaList(props) {
     if (props.userID) {
       memberRouter.getMembers({ include: [props.userID] })
       .done((user) => {
-        // console.log('ACTIVITY MEDIA LIST - ACTIVITY USER: ', user[0]);
+        console.log('ACTIVITY MEDIA LIST - ACTIVITY USER: ', user[0]);
 
         setActivityUser(user[0]);
         setLoading(false);
@@ -304,7 +304,7 @@ function ActivityMediaList(props) {
     } else if (props.groupID) {
       groupRouter.getGroups({include: [props.groupID]})
       .done((group) => {
-        // console.log('ACTIVITY MEDIA LIST - ACTIVITY GROUP: ', group[0]);
+        console.log('ACTIVITY MEDIA LIST - ACTIVITY GROUP: ', group[0]);
 
         setActivityUser(group[0]);
         setLoading(false);
@@ -318,10 +318,10 @@ function ActivityMediaList(props) {
       filter: filters.current.filter
     };
 
-    // console.log('ACTIVITY MEDIA LIST - ACTIVITY COUNT FILTERS: ', config);
+    console.log('ACTIVITY MEDIA LIST - ACTIVITY COUNT FILTERS: ', config);
 
     activityRouter.getActivities(config, (response) => {
-      // console.log('ACTIVITY MEDIA LIST - ACTIVITY TOTAL COUNT: ', response.activities.length);
+      console.log('ACTIVITY MEDIA LIST - ACTIVITY TOTAL COUNT: ', response.activities.length);
 
       setActivityCount(response.activities.length);
     });
@@ -330,14 +330,14 @@ function ActivityMediaList(props) {
   const getReactions = () => {
     reactionRouter.getReactions()
     .done((response) => {
-      // console.log('ACTIVITY MEDIA LIST - REACTIONS: ', response);
+      console.log('ACTIVITY MEDIA LIST - REACTIONS: ', response);
 
       setReactions(response);
     });
   };
 
   const onActivityUpdate = (newActivityData) => {
-    // console.log('ACTIVITY MEDIA LIST - ON ACTIVITY UPDATE - NEW ACTIVITY DATA: ', newActivityData);
+    console.log('ACTIVITY MEDIA LIST - ON ACTIVITY UPDATE - NEW ACTIVITY DATA: ', newActivityData);
 
     setActivities(previousActivities => {
       return {

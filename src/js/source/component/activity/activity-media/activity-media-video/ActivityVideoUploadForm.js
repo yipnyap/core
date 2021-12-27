@@ -54,10 +54,10 @@ function ActivityVideoUploadForm(props) {
       };
     });
 
-    // console.log('ACTIVITY MEDIA UPLOAD FORM - POST CONTENT: ', formData);
+    console.log('ACTIVITY MEDIA UPLOAD FORM - POST CONTENT: ', formData);
 
     props.onSubmit(formData, (response) => {
-      // console.log('ACTIVITY MEDIA UPLOAD FORM - CREATED ACTIVITY: ', response);
+      console.log('ACTIVITY MEDIA UPLOAD FORM - CREATED ACTIVITY: ', response);
 
       if (response) {
         discardContent();
@@ -66,7 +66,7 @@ function ActivityVideoUploadForm(props) {
           props.popup.hide();
         }
       } else {
-        // console.log('ACTIVITY MEDIA UPLOAD FORM - ERROR CREATING ACTIVITY');
+        console.log('ACTIVITY MEDIA UPLOAD FORM - ERROR CREATING ACTIVITY');
       }
 
       setFormData(previousFormData => {
@@ -91,11 +91,11 @@ function ActivityVideoUploadForm(props) {
       };
     });
 
-    // console.log('ACTIVITY MEDIA UPLOAD FORM - STATE:', formData);
+    console.log('ACTIVITY MEDIA UPLOAD FORM - STATE:', formData);
   };
 
   const addUploadableMedia = (data) => {
-    // console.log('ACTIVITY MEDIA UPLOAD FORM - ADD UPLOADABLE MEDIA: ', data);
+    console.log('ACTIVITY MEDIA UPLOAD FORM - ADD UPLOADABLE MEDIA: ', data);
 
     // only add video data if user didn't cancel
     if (data.length > 0) {

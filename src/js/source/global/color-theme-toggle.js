@@ -17,10 +17,10 @@ querySelector('.vk-theme-toggle', (el) => {
     
     toggleLoggedUserColorThemePromise
     .done((response) => {
-      // console.log('TOGGLE LOGGED USER COLOR THEME - RESPONSE', response);
+      console.log('TOGGLE LOGGED USER COLOR THEME - RESPONSE', response);
     })
     .fail((error) => {
-      // console.log('TOGGLE LOGGED USER COLOR THEME - ERROR', error);
+      console.log('TOGGLE LOGGED USER COLOR THEME - ERROR', error);
     })
     .always(() => {
       window.location.reload();

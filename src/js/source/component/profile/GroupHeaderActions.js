@@ -1,4 +1,4 @@
-import React, { useState, useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 
 import TagSticker from '../tag/TagSticker';
 
@@ -12,117 +12,118 @@ import ButtonLink from '../button/ButtonLink';
 import * as userRouter from '../../router/user/user-router';
 import * as groupRouter from '../../router/group/group-router';
 
-import groupUtils from'../utils/group';
+import groupUtils from '../utils/group';
 
 function GroupHeaderActions(props) {
-  const [loggedUser, setLoggedUser] = useState(false);
-  const [group, setGroup] = useState(false);
+    const [loggedUser, setLoggedUser] = useState(false);
+    const [group, setGroup] = useState(false);
 
-  const getLoggedInMember = (callback = () => {}) => {
-    userRouter.getLoggedInMember('user-groups')
-    .done((response) => {
-      // console.log('GROUP HEADER ACTIONS - GET LOGGED USER RESPONSE: ', response);
+    const getLoggedInMember = (callback = () => {
+    }) => {
+        userRouter.getLoggedInMember('user-groups')
+            .done((response) => {
+                console.log('GROUP HEADER ACTIONS - GET LOGGED USER RESPONSE: ', response);
 
-      setLoggedUser(response);
+                setLoggedUser(response);
 
-      callback();
-    });
-  };
+                callback();
+            });
+    };
 
-  const getGroup = () => {
-    groupRouter.getGroups({ include: [props.groupID] })
-    .done((response) => {
-      // console.log('GROUP HEADER ACTIONS - GET GROUP RESPONSE: ', response);
+    const getGroup = () => {
+        groupRouter.getGroups({include: [props.groupID]})
+            .done((response) => {
+                console.log('GROUP HEADER ACTIONS - GET GROUP RESPONSE: ', response);
 
-      setGroup(response[0]);
-    });
-  };
+                setGroup(response[0]);
+            });
+    };
 
-  const reloadWindow = () => {
-    window.location.reload();
-  };
+    const reloadWindow = () => {
+        window.location.reload();
+    };
 
-  useEffect(() => {
-    getLoggedInMember();
-    getGroup();
-  }, []);
+    useEffect(() => {
+        getLoggedInMember();
+        getGroup();
+    }, []);
 
-  const groupable = groupUtils(loggedUser, group);
+    const groupable = groupUtils(loggedUser, group);
 
-  return (
-    <div className="profile-header-info-actions">
-    {
-      loggedUser && group &&
-        <React.Fragment>
-        {
-          groupable.isBannedFromGroup() &&
-            <TagSticker modifiers="button-tag tertiary"
-                        title="Banned"
-                        icon="ban"
-                        iconModifiers="white"
-            />
-        }
-        {
-          !groupable.isBannedFromGroup() &&
-            <React.Fragment>
+    return (
+        <div className="profile-header-info-actions">
             {
-              groupable.isGroupPublic() && !groupable.isGroupMember() &&
-                <JoinGroupButton  modifiers="profile-header-info-action secondary"
-                                  title={vikinger_translation.join_group}
-                                  icon="join-group"
-                                  loggedUser={loggedUser}
-                                  group={group}
-                                  onActionComplete={reloadWindow}
-                />
-            }
+                loggedUser && group &&
+                <React.Fragment>
+                    {
+                        groupable.isBannedFromGroup() &&
+                        <TagSticker modifiers="button-tag tertiary"
+                                    title="Banned"
+                                    icon="ban"
+                                    iconModifiers="white"
+                        />
+                    }
+                    {
+                        !groupable.isBannedFromGroup() &&
+                        <React.Fragment>
+                            {
+                                groupable.isGroupPublic() && !groupable.isGroupMember() &&
+                                <JoinGroupButton modifiers="profile-header-info-action secondary"
+                                                 title={vikinger_translation.join_group}
+                                                 icon="join-group"
+                                                 loggedUser={loggedUser}
+                                                 group={group}
+                                                 onActionComplete={reloadWindow}
+                                />
+                            }
 
-            {
-              groupable.isGroupMember() && !groupable.isGroupAdmin() &&
-                <LeaveGroupButton modifiers="profile-header-info-action tertiary"
-                                  title={vikinger_translation.leave_group}
-                                  icon="leave-group"
-                                  loggedUser={loggedUser}
-                                  group={group}
-                                  onActionComplete={reloadWindow}
-                />
-            }
+                            {
+                                groupable.isGroupMember() && !groupable.isGroupAdmin() &&
+                                <LeaveGroupButton modifiers="profile-header-info-action tertiary"
+                                                  title={vikinger_translation.leave_group}
+                                                  icon="leave-group"
+                                                  loggedUser={loggedUser}
+                                                  group={group}
+                                                  onActionComplete={reloadWindow}
+                                />
+                            }
 
-            {
-              groupable.isGroupPrivate() && !groupable.isGroupMember() && !groupable.groupMembershipRequestSent() &&
-                <RequestGroupMembershipButton modifiers="profile-header-info-action secondary"
-                                              title={vikinger_translation.send_join_request}
-                                              icon="join-group"
-                                              loggedUser={loggedUser}
-                                              group={group}
-                                              onActionComplete={getLoggedInMember}
-                />
-            }
+                            {
+                                groupable.isGroupPrivate() && !groupable.isGroupMember() && !groupable.groupMembershipRequestSent() &&
+                                <RequestGroupMembershipButton modifiers="profile-header-info-action secondary"
+                                                              title={vikinger_translation.send_join_request}
+                                                              icon="join-group"
+                                                              loggedUser={loggedUser}
+                                                              group={group}
+                                                              onActionComplete={getLoggedInMember}
+                                />
+                            }
 
-            {
-              groupable.isGroupPrivate() && !groupable.isGroupMember() && groupable.groupMembershipRequestSent() &&
-                <RemoveGroupMembershipButton  modifiers="profile-header-info-action tertiary"
-                                              title={vikinger_translation.cancel_join_request}
-                                              icon="leave-group"
-                                              loggedUser={loggedUser}
-                                              group={group}
-                                              onActionComplete={getLoggedInMember}
-                />
-            }
+                            {
+                                groupable.isGroupPrivate() && !groupable.isGroupMember() && groupable.groupMembershipRequestSent() &&
+                                <RemoveGroupMembershipButton modifiers="profile-header-info-action tertiary"
+                                                             title={vikinger_translation.cancel_join_request}
+                                                             icon="leave-group"
+                                                             loggedUser={loggedUser}
+                                                             group={group}
+                                                             onActionComplete={getLoggedInMember}
+                                />
+                            }
 
-            {
-              (groupable.isGroupAdmin() || groupable.isGroupMod()) &&
-                <ButtonLink link={loggedUser.manage_groups_link}
-                            modifiers="profile-header-info-action"
-                            icon="more-dots"
-                            title={vikinger_translation.manage_groups}
-                />
+                            {
+                                (groupable.isGroupAdmin() || groupable.isGroupMod()) &&
+                                <ButtonLink link={loggedUser.manage_groups_link}
+                                            modifiers="profile-header-info-action"
+                                            icon="more-dots"
+                                            title={vikinger_translation.manage_groups}
+                                />
+                            }
+                        </React.Fragment>
+                    }
+                </React.Fragment>
             }
-            </React.Fragment>
-        }
-        </React.Fragment> 
-    }
-    </div>
-  );
+        </div>
+    );
 }
 
-export { GroupHeaderActions as default };
+export {GroupHeaderActions as default};

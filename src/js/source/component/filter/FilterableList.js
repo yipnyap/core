@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import Loader from '../loader/Loader';
 
@@ -6,202 +6,206 @@ import ItemPreviewList from './ItemPreviewList';
 
 import Pager from '../pager/Pager';
 
-import { deepExtend } from '../../utils/core';
+import {deepExtend} from '../../utils/core';
 
 import * as userRouter from '../../router/user/user-router';
 
 function FilterableList(props) {
-  const [items, setItems] = useState([]);
-  const [itemCount, setItemCount] = useState(0);
+    const [items, setItems] = useState([]);
+    const [itemCount, setItemCount] = useState(0);
 
-  const [gridType, setGridType] = useState(props.gridType || 'small');
+    const [gridType, setGridType] = useState(props.gridType || 'small');
 
-  const [loadingItems, setLoadingItems] = useState(false);
+    const [loadingItems, setLoadingItems] = useState(false);
 
-  const [loggedUser, setLoggedUser] = useState(false);
-  const [loadingUser, setLoadingUser] = useState(true);
+    const [loggedUser, setLoggedUser] = useState(false);
+    const [loadingUser, setLoadingUser] = useState(true);
 
-  const filterableListRef = useRef(null);
+    const filterableListRef = useRef(null);
 
-  const getLoggedInMember = (callback = () => {}) => {
-    const getLoggedInMemberScope = props.loggedUserScope ? props.loggedUserScope : 'user-status';
+    const getLoggedInMember = (callback = () => {
+    }) => {
+        const getLoggedInMemberScope = props.loggedUserScope ? props.loggedUserScope : 'user-status';
 
-    const getLoggedInMemberPromise = userRouter.getLoggedInMember(getLoggedInMemberScope);
+        const getLoggedInMemberPromise = userRouter.getLoggedInMember(getLoggedInMemberScope);
 
-    getLoggedInMemberPromise
-    .done((loggedUser) => {
-      // console.log('FILTERABLE LIST - LOGGED USER: ', loggedUser);
+        getLoggedInMemberPromise
+            .done((loggedUser) => {
+                console.log('FILTERABLE LIST - LOGGED USER: ', loggedUser);
 
-      setLoggedUser(loggedUser);
-      setLoadingUser(false);
+                setLoggedUser(loggedUser);
+                setLoadingUser(false);
 
-      callback();
-    });
-  };
+                callback();
+            });
+    };
 
-  useEffect(() => {
-    getLoggedInMember();
-  }, []);
+    useEffect(() => {
+        getLoggedInMember();
+    }, []);
 
-  const themeColor = props.themeColor || 'primary';
-  const filters = useRef({});
-  
-  const currentPage = useRef(1);
-  
-  const getItems = () => {
-    const config = props.getItemsFilters(currentPage.current);
+    const themeColor = props.themeColor || 'primary';
+    const filters = useRef({});
 
-    deepExtend(config, filters.current);
-    
-    // console.log('FILTERABLE LIST - GET ITEMS CONFIG: ', config);
+    const currentPage = useRef(1);
 
-    return props.getItems(config);
-  };
+    const getItems = () => {
+        const config = props.getItemsFilters(currentPage.current);
 
-  const getItemsCount = (callback) => {
-    const config = props.getItemsCountFilters(filters.current);
+        deepExtend(config, filters.current);
 
-    // console.log('FILTERABLE LIST - GET ITEMS COUNT CONFIG: ', config);
+        console.log('FILTERABLE LIST - GET ITEMS CONFIG: ', config);
 
-    props.getItemsCount(config, callback);
-  };
+        return props.getItems(config);
+    };
 
-  const updateItems = () => {
-    setLoadingItems(true);
+    const getItemsCount = (callback) => {
+        const config = props.getItemsCountFilters(filters.current);
 
-    getItems()
-    .done((items) => {
-      // console.log('FILTERABLE LIST - ITEMS: ', items);
+        console.log('FILTERABLE LIST - GET ITEMS COUNT CONFIG: ', config);
 
-      setItems(items);
-    })
-    .fail((error) => {
-      // console.log('FILTERABLE LIST - ERROR: ', error);
-    })
-    .always(() => {
-      setLoadingItems(false);
-    });
-  };
+        props.getItemsCount(config, callback);
+    };
 
-  const updateItemsCount = () => {
-    getItemsCount((itemCount) => {
-      // console.log('FILTERABLE LIST - ITEM COUNT: ', itemCount);
+    const updateItems = () => {
+        setLoadingItems(true);
 
-      setItemCount(itemCount);
-    });
-  };
+        getItems()
+            .done((items) => {
+                console.log('FILTERABLE LIST - ITEMS: ', items);
 
-  const applyFilters = (filtersData) => {
-    // console.log('FILTERABLE LIST - APPLY FILTERS: ', filtersData);
+                setItems(items);
+            })
+            .fail((error) => {
+                console.log('FILTERABLE LIST - ERROR: ', error);
+            })
+            .always(() => {
+                setLoadingItems(false);
+            });
+    };
 
-    // check if filters changed
-    let filtersChanged = false;
+    const updateItemsCount = () => {
+        getItemsCount((itemCount) => {
+            console.log('FILTERABLE LIST - ITEM COUNT: ', itemCount);
 
-    for (const filter in filtersData) {
-      if (filters.current[filter] !== filtersData[filter]) {
-        filtersChanged = true;
-        break;
-      }
-    }
+            setItemCount(itemCount);
+        });
+    };
 
-    // if filters didn't change, don't update
-    if (!filtersChanged) {
-      return;
-    }
+    const applyFilters = (filtersData) => {
+        console.log('FILTERABLE LIST - APPLY FILTERS: ', filtersData);
 
-    deepExtend(filters.current, filtersData);
+        // check if filters changed
+        let filtersChanged = false;
 
-    // filters changed, update count
-    // and reset to first page
-    currentPage.current = 1;
-    updateItemsCount();
-    updateItems();
-  };
+        for (const filter in filtersData) {
+            if (filters.current[filter] !== filtersData[filter]) {
+                filtersChanged = true;
+                break;
+            }
+        }
 
-  const setGrid = (gridType) => {
-    setGridType(gridType);
+        // if filters didn't change, don't update
+        if (!filtersChanged) {
+            return;
+        }
 
-    // only save grid type if there is a user logged in
-    if (loggedUser) {
-      const updateLoggedUserGridTypePromise = userRouter.updateLoggedUserGridType({grid_component: props.itemType, grid_type: gridType});
+        deepExtend(filters.current, filtersData);
 
-      // console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE: ', props.itemType, gridType);
+        // filters changed, update count
+        // and reset to first page
+        currentPage.current = 1;
+        updateItemsCount();
+        updateItems();
+    };
 
-      updateLoggedUserGridTypePromise
-      .done((response) => {
-        // console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE RESPONSE: ', response);
-      })
-      .fail((error) => {
-        // console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE ERROR: ', error);
-      });
-    }
-  };
+    const setGrid = (gridType) => {
+        setGridType(gridType);
 
-  const onPageChange = () => {
-    // console.log('FILTERABLE LIST - ON PAGE CHANGE: ', filterableListRef.current);
-    
-    if (filterableListRef.current) {
-      filterableListRef.current.scrollIntoView();
-      window.scrollBy({
-        top: -120
-      });
-    }
-  };
+        // only save grid type if there is a user logged in
+        if (loggedUser) {
+            const updateLoggedUserGridTypePromise = userRouter.updateLoggedUserGridType({
+                grid_component: props.itemType,
+                grid_type: gridType
+            });
 
-  const showPage = (pageNumber) => {
-    // if page didn't change, don't update items
-    if (currentPage.current === pageNumber) {
-      return;
-    }
+            console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE: ', props.itemType, gridType);
 
-    currentPage.current = pageNumber;
-    onPageChange();
-    updateItems();
-  };
-  
-  const FilterBar = props.filterBar;
+            updateLoggedUserGridTypePromise
+                .done((response) => {
+                    console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE RESPONSE: ', response);
+                })
+                .fail((error) => {
+                    console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE ERROR: ', error);
+                });
+        }
+    };
 
-  const itemTypeText = itemCount === 1 ? vikinger_translation.result : vikinger_translation.results;
-  
-  return (
-    <div ref={filterableListRef}>
-      <FilterBar  extraFilters={props.extraFilters}
-                  applyFilters={applyFilters}
-                  gridType={gridType}
-                  setGrid={setGrid}
-                  themeColor={themeColor}
-                  searchTerm={props.searchTerm}
-      />
-      {
-        (loadingItems || loadingUser) &&
-          <Loader />
-      }
-      {
-        !(loadingItems || loadingUser) &&
-          <React.Fragment>
-            <ItemPreviewList  itemType={props.itemType}
-                              gridType={gridType}
-                              data={items}
-                              loggedUser={loggedUser}
-                              onActionComplete={getLoggedInMember}
+    const onPageChange = () => {
+        console.log('FILTERABLE LIST - ON PAGE CHANGE: ', filterableListRef.current);
+
+        if (filterableListRef.current) {
+            filterableListRef.current.scrollIntoView();
+            window.scrollBy({
+                top: -120
+            });
+        }
+    };
+
+    const showPage = (pageNumber) => {
+        // if page didn't change, don't update items
+        if (currentPage.current === pageNumber) {
+            return;
+        }
+
+        currentPage.current = pageNumber;
+        onPageChange();
+        updateItems();
+    };
+
+    const FilterBar = props.filterBar;
+
+    const itemTypeText = itemCount === 1 ? vikinger_translation.result : vikinger_translation.results;
+
+    return (
+        <div ref={filterableListRef}>
+            <FilterBar extraFilters={props.extraFilters}
+                       applyFilters={applyFilters}
+                       gridType={gridType}
+                       setGrid={setGrid}
+                       themeColor={themeColor}
+                       searchTerm={props.searchTerm}
             />
-          {
-            itemCount !== 0 &&
-              <React.Fragment>
-                <Pager  pageCount={Math.ceil(itemCount / props.itemsPerPage)}
-                        activePage={currentPage.current}
-                        showPage={showPage}
-                        themeColor={themeColor}
-                />
-                <p className="section-results-text">
-                {vikinger_translation.showing_results_text_1} {currentPage.current === 1 ? 1 : (props.itemsPerPage * (currentPage.current - 1)) + 1} - {(props.itemsPerPage * currentPage.current) > itemCount ? itemCount : props.itemsPerPage * currentPage.current} {vikinger_translation.showing_results_text_2} {itemCount} {itemTypeText.toLowerCase()}
-                </p>
-              </React.Fragment>
-          }
-          </React.Fragment>
-      }
-    </div>
-  );
+            {
+                (loadingItems || loadingUser) &&
+                <Loader/>
+            }
+            {
+                !(loadingItems || loadingUser) &&
+                <React.Fragment>
+                    <ItemPreviewList itemType={props.itemType}
+                                     gridType={gridType}
+                                     data={items}
+                                     loggedUser={loggedUser}
+                                     onActionComplete={getLoggedInMember}
+                    />
+                    {
+                        itemCount !== 0 &&
+                        <React.Fragment>
+                            <Pager pageCount={Math.ceil(itemCount / props.itemsPerPage)}
+                                   activePage={currentPage.current}
+                                   showPage={showPage}
+                                   themeColor={themeColor}
+                            />
+                            <p className="section-results-text">
+                                {vikinger_translation.showing_results_text_1} {currentPage.current === 1 ? 1 : (props.itemsPerPage * (currentPage.current - 1)) + 1} - {(props.itemsPerPage * currentPage.current) > itemCount ? itemCount : props.itemsPerPage * currentPage.current} {vikinger_translation.showing_results_text_2} {itemCount} {itemTypeText.toLowerCase()}
+                            </p>
+                        </React.Fragment>
+                    }
+                </React.Fragment>
+            }
+        </div>
+    );
 }
 
-export { FilterableList as default };
+export {FilterableList as default};

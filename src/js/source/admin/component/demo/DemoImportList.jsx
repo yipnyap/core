@@ -54,7 +54,7 @@ class DemoImportList extends React.Component {
   }
 
   processImport(importData, i, callback) {
-    // console.log('DEMO IMPORT LIST - PROCESS IMPORT: ', i);
+    console.log('DEMO IMPORT LIST - PROCESS IMPORT: ', i);
 
     const importItem = importData[i];
 
@@ -75,7 +75,7 @@ class DemoImportList extends React.Component {
 
       importItem.process()
       .done((response) => {
-        // console.log('DEMO IMPORT LIST - IMPORT ITEM PROCESS RESPONSE: ', response);
+        console.log('DEMO IMPORT LIST - IMPORT ITEM PROCESS RESPONSE: ', response);
 
         if (response) {
           importItem.result = 'success';
@@ -84,7 +84,7 @@ class DemoImportList extends React.Component {
         }
       })
       .fail((error) => {
-        // console.log('DEMO IMPORT LIST - IMPORT ITEM PROCESS ERROR: ', error);
+        console.log('DEMO IMPORT LIST - IMPORT ITEM PROCESS ERROR: ', error);
 
         importItem.result = 'error';
       })
@@ -127,7 +127,7 @@ class DemoImportList extends React.Component {
   }
 
   resetImport(importData, i, callback) {
-    // console.log('DEMO IMPORT LIST - RESET IMPORT: ', i);
+    console.log('DEMO IMPORT LIST - RESET IMPORT: ', i);
 
     const importItem = importData[i];
 
@@ -148,7 +148,7 @@ class DemoImportList extends React.Component {
 
       importItem.reset()
       .done((response) => {
-        // console.log('DEMO IMPORT LIST - IMPORT ITEM RESET RESPONSE: ', response);
+        console.log('DEMO IMPORT LIST - IMPORT ITEM RESET RESPONSE: ', response);
 
         if (response) {
           importItem.result = 'success';
@@ -157,7 +157,7 @@ class DemoImportList extends React.Component {
         }
       })
       .fail((error) => {
-        // console.log('DEMO IMPORT LIST - IMPORT ITEM RESET ERROR: ', error);
+        console.log('DEMO IMPORT LIST - IMPORT ITEM RESET ERROR: ', error);
 
         importItem.result = 'error';
       })

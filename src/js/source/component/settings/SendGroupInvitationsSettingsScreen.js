@@ -54,7 +54,7 @@ function SendGroupInvitationsSettingsScreen(props) {
   const getLoggedInMember = () => {
     userRouter.getLoggedInMember('user-groups-invitations')
     .done((response) => {
-      // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - LOGGED IN USER: ', response);
+      console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - LOGGED IN USER: ', response);
 
       let groupOptions = [];
       let newSelectedGroupID = false;
@@ -121,13 +121,13 @@ function SendGroupInvitationsSettingsScreen(props) {
     jQuery
     .when(...sendInvitationPromises)
     .done((...sendInvitationResults) => {
-      // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SEND INVITATIONS RESPONSE: ', sendInvitationResults);
+      console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SEND INVITATIONS RESPONSE: ', sendInvitationResults);
       
       // update logged in member
       getLoggedInMember();
     })
     .fail((error) => {
-      // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SEND INVITATIONS ERROR: ', error);
+      console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SEND INVITATIONS ERROR: ', error);
 
       setSendingInvitations(false);
     });
@@ -139,8 +139,8 @@ function SendGroupInvitationsSettingsScreen(props) {
     friends.current = getInviteableFriends(loggedUser, selectedGroup);
   }
 
-  // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SELECTED GROUP: ', selectedGroup);
-  // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - INVITABLE FRIENDS: ', friends.current);
+  console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SELECTED GROUP: ', selectedGroup);
+  console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - INVITABLE FRIENDS: ', friends.current);
 
   const sentGroupInvitations = [];
 
@@ -160,7 +160,7 @@ function SendGroupInvitationsSettingsScreen(props) {
     }
   }
 
-  // console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SENT GROUP INVITATIONS: ', sentGroupInvitations);
+  console.log('SEND GROUP INVITATIONS SETTINGS SCREEN - SENT GROUP INVITATIONS: ', sentGroupInvitations);
 
   return (
     <div className="account-hub-content">

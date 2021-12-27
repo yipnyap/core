@@ -155,7 +155,7 @@ const activityEditableTimeHasElapsed = (activityData) => {
 
     const minutesSinceActivityWasCreated = dateMinutesDiff(activityDate, currentDateUTC);
 
-    // console.log('ACTIVITY - EDITABLE TIME ELAPSED: ', minutesSinceActivityWasCreated);
+    console.log('ACTIVITY - EDITABLE TIME ELAPSED: ', minutesSinceActivityWasCreated);
 
     if (minutesSinceActivityWasCreated >= editableTimeLimit) {
       return true;

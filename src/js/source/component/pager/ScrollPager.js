@@ -27,7 +27,7 @@ function ScrollPager(props) {
   };
 
   const loadMoreOnScroll = () => {
-    // console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
+    console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
 
     if (scrolledThrough(loaderRef.current)) {
       window.removeEventListener('scroll', loadMoreOnScroll);

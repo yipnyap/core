@@ -16,7 +16,7 @@ function FriendRequestsSettingsScreen(props) {
   const getLoggedInMember = () => {
     userRouter.getLoggedInMember('user-friends')
     .done((response) => {
-      // console.log('FRIEND REQUESTS SETTINGS SCREEN - LOGGED IN USER: ', response);
+      console.log('FRIEND REQUESTS SETTINGS SCREEN - LOGGED IN USER: ', response);
 
       setLoggedUser(response);
     });

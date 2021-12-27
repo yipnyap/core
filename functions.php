@@ -58,7 +58,7 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-define('VIKINGER_VERSION', '1.7.0.1');
+define('VIKINGER_VERSION', '1.9.1.0');
 define('VIKINGER_VERSION_OPTION', 'vikinger_version');
 
 /**
@@ -114,7 +114,7 @@ function vikinger_load_scripts()
     wp_enqueue_style('vikinger-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
     wp_enqueue_style('vikinger-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
     wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['vikinger-simplebar-styles', 'vikinger-swiper-slider-styles'], '3.8.1');
-    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '1.10.0');
+    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '1.11.0');
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], '1.0.2');
 
     // get user custom theme fonts
@@ -152,10 +152,10 @@ function vikinger_load_scripts()
     ];
 
     // add main script
-    wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/src/js/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.8.1', true);
+    wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/src/js/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.9.0', true);
 
     // add EX script
-    wp_enqueue_script('yapex-main-scripts', VIKINGER_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.3', true);
+    wp_enqueue_script('yapex-main-scripts', VIKINGER_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);
 
     global $vikinger_settings;
 

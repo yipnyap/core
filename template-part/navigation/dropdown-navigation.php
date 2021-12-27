@@ -106,7 +106,7 @@
     <!-- /USER STATUS -->
 
     <!-- DROPDOWN NAVIGATION BUTTON -->
-    <a class="dropdown-navigation-button button small secondary" href="<?php echo esc_url(wp_logout_url()); ?>"><?php esc_html_e('Logout', 'vikinger'); ?></a>
+    <a class="dropdown-navigation-button button small secondary" href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'vikinger'); ?></a>
     <!-- /DROPDOWN NAVIGATION BUTTON -->
   </div>
   <!-- /DROPDOWN NAVIGATION HEADER -->

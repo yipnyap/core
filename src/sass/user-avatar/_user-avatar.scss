@@ -229,7 +229,7 @@
     &.smaller {
       width: 34px;
       height: 36px;
-  
+
       .user-avatar-content {
         top: 2px;
         left: 2px;
@@ -674,7 +674,7 @@
     &.smaller {
       width: 34px;
       height: 36px;
-  
+
       .user-avatar-content {
         top: 2px;
         left: 2px;
@@ -1288,6 +1288,10 @@
   }
 
   .user-avatar-circle-image {
+    position: unset !important;
+    display: inline;
+    margin-right: 4px;
+    margin-left: 4px;
     width: 74px;
     height: 74px;
     border-radius: 50%;
@@ -1319,7 +1323,7 @@
       height: 24px;
       border-radius: 50%;
       background-color: var(--color-avatar-rank-hexagon);
-      
+
       .user-avatar-circle-badge-content-text {
         margin-top: 1px;
         color: $white;

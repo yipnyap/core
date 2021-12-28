@@ -11152,8 +11152,7 @@ a:hover {
     padding-bottom: 0;
   }
   .error-section .error-section-image {
-    width: 100%;
-    height: auto;
+    height: 30em;
   }
   .error-section .error-section-title {
     font-size: 6.5rem;

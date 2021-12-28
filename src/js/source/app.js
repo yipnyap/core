@@ -1,5 +1,7 @@
-console.log = function () {
-};
+if (localStorage.get('verboselogging') !== "yes") {
+    console.log = function () {
+    };
+}
 
 /*-------------
     SIDEBAR 

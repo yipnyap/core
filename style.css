@@ -11110,6 +11110,10 @@ a:hover {
       align-items: center;
 }
 
+.error-section .error-section-image {
+  height: 30em;
+}
+
 .error-section .error-section-title {
   margin-top: 36px;
   color: var(--color-secondary);

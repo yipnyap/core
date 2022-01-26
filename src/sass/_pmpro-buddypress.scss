@@ -1,15 +1,15 @@
-.vikinger-pmpro-level-tag {
+.yipnyap-pmpro-level-tag {
   display: flex;
   justify-content: center;
 
-  &.vikinger-pmpro-level-tag_small {
-    .vikinger-pmpro-level-tag-text {
+  &.yipnyap-pmpro-level-tag_small {
+    .yipnyap-pmpro-level-tag-text {
       padding-top: 5px;
       font-size: $fs-11;
     }
   }
 
-  .vikinger-pmpro-level-tag-text {
+  .yipnyap-pmpro-level-tag-text {
     padding: 4px 8px;
     border-radius: 200px;
     background-color: var(--color-secondary);

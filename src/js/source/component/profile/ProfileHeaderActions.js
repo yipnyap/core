@@ -17,133 +17,133 @@ import friendUtils from '../utils/friend';
 import followUtils from '../utils/follow';
 
 function ProfileHeaderActions(props) {
-  const [loggedUser, setLoggedUser] = useState(false);
-  const [rejecting, setRejecting] = useState(false);
-  const [accepting, setAccepting] = useState(false);
+    const [loggedUser, setLoggedUser] = useState(false);
+    const [rejecting, setRejecting] = useState(false);
+    const [accepting, setAccepting] = useState(false);
 
-  const startRejecting = () => {
-    setRejecting(true);
-  };
+    const startRejecting = () => {
+        setRejecting(true);
+    };
 
-  const startAccepting = () => {
-    setAccepting(true);
-  };
+    const startAccepting = () => {
+        setAccepting(true);
+    };
 
-  const getLoggedInMember = (callback = () => {
-  }) => {
-    userRouter.getLoggedInMember('user-friends')
-        .done((response) => {
-          console.log('PROFILE HEADER ACTIONS - LOGGED USER: ', response);
+    const getLoggedInMember = (callback = () => {
+    }) => {
+        userRouter.getLoggedInMember('user-friends')
+            .done((response) => {
+                console.log('PROFILE HEADER ACTIONS - LOGGED USER: ', response);
 
-          setLoggedUser(response);
-          setRejecting(false);
-          setAccepting(false);
+                setLoggedUser(response);
+                setRejecting(false);
+                setAccepting(false);
 
-          callback();
-        });
-  };
+                callback();
+            });
+    };
 
-  const reloadWindow = () => {
-    window.location.reload();
-  };
+    const reloadWindow = () => {
+        window.location.reload();
+    };
 
-  useEffect(() => {
-    getLoggedInMember();
-  }, []);
+    useEffect(() => {
+        getLoggedInMember();
+    }, []);
 
-  const friendable = friendUtils(loggedUser, props.userID);
-  const followable = followUtils(loggedUser, props.userID);
+    const friendable = friendUtils(loggedUser, props.userID);
+    const followable = followUtils(loggedUser, props.userID);
 
-  return (
-      <div className="profile-header-info-actions">
-        {
-            loggedUser && (loggedUser.id !== props.userID) &&
-            <React.Fragment>
-              {
-                  !followable.isFollowing() &&
-                  <FollowButton modifiers="profile-header-info-action secondary"
-                                text={vikinger_translation.follow}
-                                loggedUser={loggedUser}
-                                userID={props.userID}
-                                onActionComplete={getLoggedInMember}
-                  />
-              }
-              {
-                  followable.isFollowing() &&
-                  <UnfollowButton modifiers="profile-header-info-action tertiary"
-                                  text={vikinger_translation.unfollow}
-                                  loggedUser={loggedUser}
-                                  userID={props.userID}
-                                  onActionComplete={getLoggedInMember}
-                  />
-              }
-              {
-                  !friendable.isFriend() &&
-                  <React.Fragment>
+    return (
+        <div className="profile-header-info-actions">
+            {
+                loggedUser && (loggedUser.id !== props.userID) &&
+                <React.Fragment>
                     {
-                        !friendable.friendRequestSent() && !friendable.friendRequestReceived() &&
-                        <AddFriendButton modifiers="profile-header-info-action secondary small"
-                                         icon="add-friend"
-                                         loggedUser={loggedUser}
-                                         userID={props.userID}
-                                         onActionComplete={getLoggedInMember}
+                        !followable.isFollowing() &&
+                        <FollowButton modifiers="profile-header-info-action secondary"
+                                      text={yipnyap_translation.follow}
+                                      loggedUser={loggedUser}
+                                      userID={props.userID}
+                                      onActionComplete={getLoggedInMember}
                         />
                     }
                     {
-                        friendable.friendRequestSent() &&
-                        <WithdrawFriendRequestButton modifiers="profile-header-info-action tertiary"
-                                                     text={vikinger_translation.withdraw_friend}
-                                                     loggedUser={loggedUser}
-                                                     userID={props.userID}
-                                                     onActionComplete={getLoggedInMember}
-                        />
-                    }
-                    {
-                        friendable.friendRequestReceived() &&
-                        <RejectFriendRequestButton modifiers="profile-header-info-action tertiary"
-                                                   text={vikinger_translation.reject_friend}
-                                                   loggedUser={loggedUser}
-                                                   userID={props.userID}
-                                                   onActionStart={startRejecting}
-                                                   onActionComplete={getLoggedInMember}
-                                                   locked={accepting}
-                        />
-                    }
-                    {
-                        friendable.friendRequestReceived() &&
-                        <AcceptFriendRequestButton modifiers="profile-header-info-action secondary"
-                                                   text={vikinger_translation.accept_friend}
-                                                   loggedUser={loggedUser}
-                                                   userID={props.userID}
-                                                   onActionStart={startAccepting}
-                                                   onActionComplete={reloadWindow}
-                                                   locked={rejecting}
-                        />
-                    }
-                  </React.Fragment>
-              }
-              {
-                  friendable.isFriend() &&
-                  <React.Fragment>
-                    <RemoveFriendButton modifiers="profile-header-info-action tertiary "
-                                        icon="remove-friend"
+                        followable.isFollowing() &&
+                        <UnfollowButton modifiers="profile-header-info-action tertiary"
+                                        text={yipnyap_translation.unfollow}
                                         loggedUser={loggedUser}
                                         userID={props.userID}
-                                        onActionComplete={reloadWindow}
-                    />
-                    {
-                        vikinger_constants.plugin_active.buddypress_messages &&
-                        <ButtonLink modifiers="profile-header-info-action primary"
-                                    text={vikinger_translation.send_message}
-                                    link={`${loggedUser.messages_link}?user_id=${props.userID}`}
+                                        onActionComplete={getLoggedInMember}
                         />
                     }
-                  </React.Fragment>
-              }
-            </React.Fragment>
-        }
-      </div>
-  );
+                    {
+                        !friendable.isFriend() &&
+                        <React.Fragment>
+                            {
+                                !friendable.friendRequestSent() && !friendable.friendRequestReceived() &&
+                                <AddFriendButton modifiers="profile-header-info-action secondary small"
+                                                 icon="add-friend"
+                                                 loggedUser={loggedUser}
+                                                 userID={props.userID}
+                                                 onActionComplete={getLoggedInMember}
+                                />
+                            }
+                            {
+                                friendable.friendRequestSent() &&
+                                <WithdrawFriendRequestButton modifiers="profile-header-info-action tertiary"
+                                                             text={yipnyap_translation.withdraw_friend}
+                                                             loggedUser={loggedUser}
+                                                             userID={props.userID}
+                                                             onActionComplete={getLoggedInMember}
+                                />
+                            }
+                            {
+                                friendable.friendRequestReceived() &&
+                                <RejectFriendRequestButton modifiers="profile-header-info-action tertiary"
+                                                           text={yipnyap_translation.reject_friend}
+                                                           loggedUser={loggedUser}
+                                                           userID={props.userID}
+                                                           onActionStart={startRejecting}
+                                                           onActionComplete={getLoggedInMember}
+                                                           locked={accepting}
+                                />
+                            }
+                            {
+                                friendable.friendRequestReceived() &&
+                                <AcceptFriendRequestButton modifiers="profile-header-info-action secondary"
+                                                           text={yipnyap_translation.accept_friend}
+                                                           loggedUser={loggedUser}
+                                                           userID={props.userID}
+                                                           onActionStart={startAccepting}
+                                                           onActionComplete={reloadWindow}
+                                                           locked={rejecting}
+                                />
+                            }
+                        </React.Fragment>
+                    }
+                    {
+                        friendable.isFriend() &&
+                        <React.Fragment>
+                            <RemoveFriendButton modifiers="profile-header-info-action tertiary "
+                                                icon="remove-friend"
+                                                loggedUser={loggedUser}
+                                                userID={props.userID}
+                                                onActionComplete={reloadWindow}
+                            />
+                            {
+                                yipnyap_constants.plugin_active.buddypress_messages &&
+                                <ButtonLink modifiers="profile-header-info-action primary"
+                                            text={yipnyap_translation.send_message}
+                                            link={`${loggedUser.messages_link}?user_id=${props.userID}`}
+                                />
+                            }
+                        </React.Fragment>
+                    }
+                </React.Fragment>
+            }
+        </div>
+    );
 }
 
 export {ProfileHeaderActions as default};

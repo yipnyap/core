@@ -8,12 +8,12 @@
 /**
  * Get filtered messages
  */
-function vikinger_get_messages_ajax() {
+function yipnyap_get_messages_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = (isset($_POST['args']) && is_array($_POST['args'])) ? $_POST['args'] : [];
-  $messages = vikinger_get_messages($args);
+  $messages = yipnyap_get_messages($args);
 
   header('Content-Type: application/json');
   echo json_encode($messages);
@@ -21,17 +21,17 @@ function vikinger_get_messages_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_messages_ajax', 'vikinger_get_messages_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_messages_ajax', 'vikinger_get_messages_ajax');
+add_action('wp_ajax_yipnyap_get_messages_ajax', 'yipnyap_get_messages_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_messages_ajax', 'yipnyap_get_messages_ajax');
 
 /**
  * Get a message thread
  */
-function vikinger_get_message_ajax() {
+function yipnyap_get_message_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
-  $message = vikinger_get_message($_POST['args']);
+  $message = yipnyap_get_message($_POST['args']);
 
   header('Content-Type: application/json');
   echo json_encode($message);
@@ -39,15 +39,15 @@ function vikinger_get_message_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_message_ajax', 'vikinger_get_message_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_message_ajax', 'vikinger_get_message_ajax');
+add_action('wp_ajax_yipnyap_get_message_ajax', 'yipnyap_get_message_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_message_ajax', 'yipnyap_get_message_ajax');
 
 /**
  * Send a message or start a new thread
  */
-function vikinger_send_message_ajax() {
+function yipnyap_send_message_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -70,7 +70,7 @@ function vikinger_send_message_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_send_message($args);
+  $result = yipnyap_send_message($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -78,14 +78,14 @@ function vikinger_send_message_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_send_message_ajax', 'vikinger_send_message_ajax');
+add_action('wp_ajax_yipnyap_send_message_ajax', 'yipnyap_send_message_ajax');
 
 /**
  * Star a message
  */
-function vikinger_star_message_ajax() {
+function yipnyap_star_message_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $message_id = isset($_POST['args']) ? (int) $_POST['args'] : false;
 
@@ -93,13 +93,13 @@ function vikinger_star_message_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $thread_id = vikinger_messages_get_thread_id($message_id);
+  $thread_id = yipnyap_messages_get_thread_id($message_id);
 
   if (!$thread_id) {
     wp_die('Thread not found');
   }
 
-  $thread = vikinger_get_message($thread_id);
+  $thread = yipnyap_get_message($thread_id);
 
   if (!$thread) {
     wp_die('Thread not found');
@@ -121,7 +121,7 @@ function vikinger_star_message_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_star_message($message_id);
+  $result = yipnyap_star_message($message_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -129,14 +129,14 @@ function vikinger_star_message_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_star_message_ajax', 'vikinger_star_message_ajax');
+add_action('wp_ajax_yipnyap_star_message_ajax', 'yipnyap_star_message_ajax');
 
 /**
  * Unstar a message
  */
-function vikinger_unstar_message_ajax() {
+function yipnyap_unstar_message_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $message_id = isset($_POST['args']) ? (int) $_POST['args'] : false;
 
@@ -144,13 +144,13 @@ function vikinger_unstar_message_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $thread_id = vikinger_messages_get_thread_id($message_id);
+  $thread_id = yipnyap_messages_get_thread_id($message_id);
 
   if (!$thread_id) {
     wp_die('Thread not found');
   }
 
-  $thread = vikinger_get_message($thread_id);
+  $thread = yipnyap_get_message($thread_id);
 
   if (!$thread) {
     wp_die('Thread not found');
@@ -172,7 +172,7 @@ function vikinger_unstar_message_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_unstar_message($message_id);
+  $result = yipnyap_unstar_message($message_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -180,14 +180,14 @@ function vikinger_unstar_message_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_unstar_message_ajax', 'vikinger_unstar_message_ajax');
+add_action('wp_ajax_yipnyap_unstar_message_ajax', 'yipnyap_unstar_message_ajax');
 
 /**
  * Mark a message thread as read
  */
-function vikinger_message_mark_thread_as_read_ajax() {
+function yipnyap_message_mark_thread_as_read_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $thread_id = isset($_POST['args']) ? (int) $_POST['args'] : false;
 
@@ -195,7 +195,7 @@ function vikinger_message_mark_thread_as_read_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $thread = vikinger_get_message($thread_id);
+  $thread = yipnyap_get_message($thread_id);
 
   if (!$thread) {
     wp_die('Thread not found');
@@ -217,7 +217,7 @@ function vikinger_message_mark_thread_as_read_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_message_mark_thread_as_read($thread_id);
+  $result = yipnyap_message_mark_thread_as_read($thread_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -225,14 +225,14 @@ function vikinger_message_mark_thread_as_read_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_message_mark_thread_as_read_ajax', 'vikinger_message_mark_thread_as_read_ajax');
+add_action('wp_ajax_yipnyap_message_mark_thread_as_read_ajax', 'yipnyap_message_mark_thread_as_read_ajax');
 
 /**
  * Delete a message thread
  */
-function vikinger_delete_message_thread_ajax() {
+function yipnyap_delete_message_thread_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -255,7 +255,7 @@ function vikinger_delete_message_thread_ajax() {
     wp_die('Unauthorized');
   }
   
-  $result = vikinger_delete_message_thread($args);
+  $result = yipnyap_delete_message_thread($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -263,7 +263,7 @@ function vikinger_delete_message_thread_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_delete_message_thread_ajax', 'vikinger_delete_message_thread_ajax');
+add_action('wp_ajax_yipnyap_delete_message_thread_ajax', 'yipnyap_delete_message_thread_ajax');
 
 
 

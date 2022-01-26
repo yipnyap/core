@@ -31,12 +31,12 @@ class RequirePluginList extends React.Component {
                 'gamipress-bbpress-integration',
                 'woocommerce',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ]
         };
 
@@ -83,46 +83,46 @@ class RequirePluginList extends React.Component {
             bp: [
                 'buddypress',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_gp: [
                 'buddypress',
                 'gamipress',
                 'gamipress-buddypress-integration',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_bbp: [
                 'buddypress',
                 'bbpress',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_wc: [
                 'buddypress',
                 'woocommerce',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_gp_bbp: [
                 'buddypress',
@@ -131,12 +131,12 @@ class RequirePluginList extends React.Component {
                 'gamipress-buddypress-integration',
                 'gamipress-bbpress-integration',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_gp_wc: [
                 'buddypress',
@@ -144,24 +144,24 @@ class RequirePluginList extends React.Component {
                 'gamipress-buddypress-integration',
                 'woocommerce',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_bbp_wc: [
                 'buddypress',
                 'bbpress',
                 'woocommerce',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ],
             bp_gp_bbp_wc: [
                 'buddypress',
@@ -171,12 +171,12 @@ class RequirePluginList extends React.Component {
                 'gamipress-bbpress-integration',
                 'woocommerce',
                 'elementor',
-                'vikinger-buddypress-extension',
+                'yipnyap-buddypress-extension',
                 'vkreact',
                 'vkreact-buddypress',
                 'vkmedia',
-                'vikinger-widgets',
-                'vikinger-metaboxes'
+                'yipnyap-widgets',
+                'yipnyap-metaboxes'
             ]
         };
 
@@ -629,13 +629,13 @@ class RequirePluginList extends React.Component {
                                 {
                                     this.state.processing &&
                                     <React.Fragment>
-                                        {vikinger_translation.processing}
+                                        {yipnyap_translation.processing}
                                         <LoaderSpinnerSmall/>
                                     </React.Fragment>
                                 }
                                 {
                                     !this.state.processing &&
-                                    vikinger_translation.required_plugins_install_button_text
+                                    yipnyap_translation.required_plugins_install_button_text
                                 }
                             </div>
                         }
@@ -643,7 +643,7 @@ class RequirePluginList extends React.Component {
                         {
                             !this.requiredPluginMissing() && this.state.processing &&
                             <div className="button short primary">
-                                {vikinger_translation.processing}
+                                {yipnyap_translation.processing}
                                 <LoaderSpinnerSmall/>
                             </div>
                         }

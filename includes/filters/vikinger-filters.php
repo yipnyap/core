@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap filters
- * 
+ *
  * @since 1.0.0
  */
 
 /**
  * BLOG filters
  */
-require_once VIKINGER_PATH . '/includes/filters/vikinger-filters-blog.php';
+require_once YIPNYAP_PATH . '/includes/filters/vikinger-filters-blog.php';
 
 ?>

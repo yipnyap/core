@@ -11,7 +11,7 @@
  * 
  */
 
-$user = vikinger_get_logged_user_member_data();
+$user = yipnyap_get_logged_user_member_data();
 ?>
 
 <!-- CONTENT GRID -->
@@ -23,17 +23,17 @@ $user = vikinger_get_logged_user_member_data();
                                               } ?>;">
   <?php
 
-  $page_header_status = get_theme_mod('vikinger_pageheader_setting_display', 'display');
+  $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
 
   if ($page_header_status === 'display') {
-    $activity_header_icon_id      = get_theme_mod('vikinger_pageheader_activity_setting_image', false);
-    $activity_header_title        = get_theme_mod('vikinger_pageheader_activity_setting_title', esc_html_x('Newsfeed', 'Activity Page - Title', 'vikinger'));
-    $activity_header_description  = get_theme_mod('vikinger_pageheader_activity_setting_description', esc_html_x('Check what your friends have been up to!', 'Activity Page - Description', 'vikinger'));
+    $activity_header_icon_id      = get_theme_mod('yipnyap_pageheader_activity_setting_image', false);
+    $activity_header_title        = get_theme_mod('yipnyap_pageheader_activity_setting_title', esc_html_x('Newsfeed', 'Activity Page - Title', 'yipnyap'));
+    $activity_header_description  = get_theme_mod('yipnyap_pageheader_activity_setting_description', esc_html_x('Check what your friends have been up to!', 'Activity Page - Description', 'yipnyap'));
 
     if ($activity_header_icon_id) {
       $activity_header_icon_url = wp_get_attachment_image_src($activity_header_icon_id, 'full')[0];
     } else {
-      $activity_header_icon_url = vikinger_customizer_activity_page_image_get_default();
+      $activity_header_icon_url = yipnyap_customizer_activity_page_image_get_default();
     }
 
     /**
@@ -102,41 +102,41 @@ $user = vikinger_get_logged_user_member_data();
     <div class="grid-column">
       <?php
 
-      $online_members = vikinger_members_get(['type' => 'online', 'per_page' => 5]);
+      $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 5]);
 
       /**
        * Widget Online User List Tabbed
        */
       get_template_part('template-part/widget/widget-user-list', null, [
-        'widget_title'    => esc_html__('Online', 'vikinger'),
-        'widget_subtext'  => esc_html__('Showing latest 5', 'vikinger'),
+        'widget_title'    => esc_html__('Online', 'yipnyap'),
+        'widget_subtext'  => esc_html__('Showing latest 5', 'yipnyap'),
         'users'           => $online_members,
-        'no_results_text' => esc_html__('No members found', 'vikinger')
+        'no_results_text' => esc_html__('No members found', 'yipnyap')
       ]);
 
-      $active_members = vikinger_members_get(['type' => 'active', 'per_page' => 10]);
+      $active_members = yipnyap_members_get(['type' => 'active', 'per_page' => 10]);
 
       /**
        * Widget Recently Active User List Tabbed
        */
       get_template_part('template-part/widget/widget-user-list', null, [
-        'widget_title'    => esc_html__('Recently Active', 'vikinger'),
+        'widget_title'    => esc_html__('Recently Active', 'yipnyap'),
         'users'           => $active_members,
-        'no_results_text' => esc_html__('No members found', 'vikinger')
+        'no_results_text' => esc_html__('No members found', 'yipnyap')
       ]);
 
       // if GamiPress plugin is active, show quests widget
-      if (vikinger_plugin_gamipress_is_active() && vikinger_gamipress_achievement_type_exists('quest')) {
+      if (yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('quest')) {
         // display 5 random user quests
-        $quests         = vikinger_gamipress_get_logged_user_achievements('quest');
-        $quests_to_show = vikinger_get_random_items_from($quests, 5);
+        $quests         = yipnyap_gamipress_get_logged_user_achievements('quest');
+        $quests_to_show = yipnyap_get_random_items_from($quests, 5);
 
         /**
          * Widget Quests Preview
          */
         if ($show_quests) {
           get_template_part('template-part/widget/widget-quests', 'preview', [
-            'widget_title' => esc_html__('Quests', 'vikinger'),
+            'widget_title' => esc_html__('Quests', 'yipnyap'),
             'achievements' => $quests_to_show
           ]);
         }
@@ -177,30 +177,30 @@ $user = vikinger_get_logged_user_member_data();
 
       // if the groups component is active, show groups widget
       if (bp_is_active('groups')) {
-        $popular_groups = vikinger_groups_get(['type' => 'popular', 'per_page' => 10]);
+        $popular_groups = yipnyap_groups_get(['type' => 'popular', 'per_page' => 10]);
 
         /**
          * Widget Group List Tabbed
          */
         get_template_part('template-part/widget/widget-group-list', null, [
-          'widget_title'    => esc_html__('Popular Groups', 'vikinger'),
+          'widget_title'    => esc_html__('Popular Groups', 'yipnyap'),
           'groups'          => $popular_groups,
-          'no_results_text' => esc_html__('No groups found', 'vikinger')
+          'no_results_text' => esc_html__('No groups found', 'yipnyap')
         ]);
       }
 
       // if GamiPress plugin is active, show badges widget
-      if (vikinger_plugin_gamipress_is_active() && vikinger_gamipress_achievement_type_exists('badge')) {
+      if (yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge')) {
         // display 5 random user badges
-        $badges         = vikinger_gamipress_get_logged_user_achievements('badge');
-        $badges_to_show = vikinger_get_random_items_from($badges, 5);
+        $badges         = yipnyap_gamipress_get_logged_user_achievements('badge');
+        $badges_to_show = yipnyap_get_random_items_from($badges, 5);
 
         /**
          * Widget Badges Preview
          */
         if ($show_badges) {
           get_template_part('template-part/widget/widget-badges', 'preview', [
-            'widget_title' => esc_html__('Badges', 'vikinger'),
+            'widget_title' => esc_html__('Badges', 'yipnyap'),
             'achievements' => $badges_to_show
           ]);
         }

@@ -8,9 +8,9 @@
 /**
  * Add a friend
  */
-function vikinger_friend_add_ajax() {
+function yipnyap_friend_add_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -34,7 +34,7 @@ function vikinger_friend_add_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_friend_add($args);
+  $result = yipnyap_friend_add($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -42,14 +42,14 @@ function vikinger_friend_add_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_friend_add_ajax', 'vikinger_friend_add_ajax');
+add_action('wp_ajax_yipnyap_friend_add_ajax', 'yipnyap_friend_add_ajax');
 
 /**
  * Remove a friend
  */
-function vikinger_friend_remove_ajax() {
+function yipnyap_friend_remove_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -63,7 +63,7 @@ function vikinger_friend_remove_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $friendship_user_ids = vikinger_friend_friendship_user_ids_get($friendship_id);
+  $friendship_user_ids = yipnyap_friend_friendship_user_ids_get($friendship_id);
 
   if (!$friendship_user_ids) {
     wp_die('Friendship not found');
@@ -81,7 +81,7 @@ function vikinger_friend_remove_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_friend_remove($friendship_id);
+  $result = yipnyap_friend_remove($friendship_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -89,14 +89,14 @@ function vikinger_friend_remove_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_friend_remove_ajax', 'vikinger_friend_remove_ajax');
+add_action('wp_ajax_yipnyap_friend_remove_ajax', 'yipnyap_friend_remove_ajax');
 
 /**
  * Withdraw a friend request
  */
-function vikinger_friend_withdraw_ajax() {
+function yipnyap_friend_withdraw_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -120,7 +120,7 @@ function vikinger_friend_withdraw_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_friend_withdraw($initiator_userid, $friend_userid);
+  $result = yipnyap_friend_withdraw($initiator_userid, $friend_userid);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -128,14 +128,14 @@ function vikinger_friend_withdraw_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_friend_withdraw_ajax', 'vikinger_friend_withdraw_ajax');
+add_action('wp_ajax_yipnyap_friend_withdraw_ajax', 'yipnyap_friend_withdraw_ajax');
 
 /**
  * Reject a friend request
  */
-function vikinger_friend_reject_ajax() {
+function yipnyap_friend_reject_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -149,7 +149,7 @@ function vikinger_friend_reject_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $friendship_user_ids = vikinger_friend_friendship_user_ids_get($friendship_id);
+  $friendship_user_ids = yipnyap_friend_friendship_user_ids_get($friendship_id);
 
   if (!$friendship_user_ids) {
     wp_die('Friendship not found');
@@ -166,7 +166,7 @@ function vikinger_friend_reject_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_friend_reject($friendship_id);
+  $result = yipnyap_friend_reject($friendship_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -174,14 +174,14 @@ function vikinger_friend_reject_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_friend_reject_ajax', 'vikinger_friend_reject_ajax');
+add_action('wp_ajax_yipnyap_friend_reject_ajax', 'yipnyap_friend_reject_ajax');
 
 /**
  * Accept a friend request
  */
-function vikinger_friend_accept_ajax() {
+function yipnyap_friend_accept_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -195,7 +195,7 @@ function vikinger_friend_accept_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $friendship_user_ids = vikinger_friend_friendship_user_ids_get($friendship_id);
+  $friendship_user_ids = yipnyap_friend_friendship_user_ids_get($friendship_id);
 
   if (!$friendship_user_ids) {
     wp_die('Friendship not found');
@@ -212,7 +212,7 @@ function vikinger_friend_accept_ajax() {
     wp_die('Unauthorized');
   }
   
-  $result = vikinger_friend_accept($friendship_id);
+  $result = yipnyap_friend_accept($friendship_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -220,6 +220,6 @@ function vikinger_friend_accept_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_friend_accept_ajax', 'vikinger_friend_accept_ajax');
+add_action('wp_ajax_yipnyap_friend_accept_ajax', 'yipnyap_friend_accept_ajax');
 
 ?>

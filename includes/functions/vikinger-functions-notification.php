@@ -5,14 +5,14 @@
  * @since 1.0.0
  */
 
-if (!function_exists('vikinger_get_notifications')) {
+if (!function_exists('yipnyap_get_notifications')) {
   /**
    * Returns filtered notification data, or false on error
    * 
    * @param array     $args      Filters for the notifications query
    * @return array|boolean
    */
-  function vikinger_get_notifications($args = []) {
+  function yipnyap_get_notifications($args = []) {
     $defaults = [
       'order_by'    => 'date_notified',
       'sort_order'  => 'DESC',
@@ -23,16 +23,16 @@ if (!function_exists('vikinger_get_notifications')) {
 
     $notifications = [];
 
-    $notifications = vikinger_get_notifications_data($args);
+    $notifications = yipnyap_get_notifications_data($args);
 
     if (array_key_exists('is_new', $args)) {
-      $notifications = vikinger_get_notifications_data($args);
+      $notifications = yipnyap_get_notifications_data($args);
     } else {
       $unread_args = array_merge($args, ['is_new' => true]);
-      $unread_notifications = vikinger_get_notifications_data($unread_args);
+      $unread_notifications = yipnyap_get_notifications_data($unread_args);
 
       $read_args = array_merge($args, ['is_new' => false]);
-      $read_notifications = vikinger_get_notifications_data($read_args);
+      $read_notifications = yipnyap_get_notifications_data($read_args);
 
       $notifications = array_merge($read_notifications, $unread_notifications);
     }
@@ -59,13 +59,13 @@ if (!function_exists('vikinger_get_notifications')) {
   }
 }
 
-if (!function_exists('vikinger_get_unread_notifications_count')) {
+if (!function_exists('yipnyap_get_unread_notifications_count')) {
   /**
    * Get unread notifications count
    * 
    * @param array $args     Filters for the notification data
    */
-  function vikinger_get_unread_notifications_count($args = []) {
+  function yipnyap_get_unread_notifications_count($args = []) {
     $defaults = [
       'page'      => 1,
       'per_page'  => 100,
@@ -77,7 +77,7 @@ if (!function_exists('vikinger_get_unread_notifications_count')) {
     $unread_notifications = [];
 
     // get page of notifications
-    $notifications = vikinger_get_notifications_data($args);
+    $notifications = yipnyap_get_notifications_data($args);
 
     // merge page of notifications into complete results array
     $unread_notifications = array_merge($unread_notifications, $notifications);
@@ -88,7 +88,7 @@ if (!function_exists('vikinger_get_unread_notifications_count')) {
       $args['page'] = $args['page'] + 1;
 
       // get page of notifications
-      $notifications = vikinger_get_notifications_data($args);
+      $notifications = yipnyap_get_notifications_data($args);
 
       // merge page of notifications into complete results array
       $unread_notifications = array_merge($unread_notifications, $notifications);
@@ -98,14 +98,14 @@ if (!function_exists('vikinger_get_unread_notifications_count')) {
   }
 }
 
-if (!function_exists('vikinger_get_notifications_data')) {
+if (!function_exists('yipnyap_get_notifications_data')) {
   /**
    * Get notification data with extra information depending on the notification component and action, or false on error
    * 
    * @param array $args       Filters for the notification data
    * @return array
    */
-  function vikinger_get_notifications_data($args) {
+  function yipnyap_get_notifications_data($args) {
     $request = new WP_REST_Request('GET', '/buddypress/v1/notifications');
 
     // set parameters
@@ -124,37 +124,37 @@ if (!function_exists('vikinger_get_notifications_data')) {
 
         // add component specific data
         if ($notification['component'] === 'friends') {
-          $notification['user'] = vikinger_members_get_fallback($notification['item_id']);
+          $notification['user'] = yipnyap_members_get_fallback($notification['item_id']);
 
           // add data according to action
           switch ($notification['action']) {
             case 'friendship_accepted':
-              $notification['description'] = sprintf(esc_html__('accepted your %sfriend request%s', 'vikinger'), '<span class="highlighted">', '</span>');
+              $notification['description'] = sprintf(esc_html__('accepted your %sfriend request%s', 'yipnyap'), '<span class="highlighted">', '</span>');
               break;
             case 'friendship_request':
-              $notification['description'] = sprintf(esc_html__('sent you a %sfriend request%s', 'vikinger'), '<a class="highlighted" href="' . bp_loggedin_user_domain() . 'settings/friend-requests">', '</a>');
+              $notification['description'] = sprintf(esc_html__('sent you a %sfriend request%s', 'yipnyap'), '<a class="highlighted" href="' . bp_loggedin_user_domain() . 'settings/friend-requests">', '</a>');
               break;
           }
         } else if ($notification['component'] === 'groups') {
           // add group data
-          $notification['group'] = vikinger_groups_get(['include' => [$notification['item_id']]])[0];
+          $notification['group'] = yipnyap_groups_get(['include' => [$notification['item_id']]])[0];
 
           // add data according to action
           switch ($notification['action']) {
             case 'group_invite':
-              $user = vikinger_members_get(['include' => [$notification['user_id']]])[0];
+              $user = yipnyap_members_get(['include' => [$notification['user_id']]])[0];
               $notification['description'] = sprintf(
-                esc_html__('You were %sinvited%s to join the group %s', 'vikinger'),
+                esc_html__('You were %sinvited%s to join the group %s', 'yipnyap'),
                 '<a href="' . $user['received_group_invitations_link'] . '" class="highlighted">',
                 '</a>',
                 '<a href="' . $notification['group']['link'] . '" class="bold">' . $notification['group']['name'] . '</a>'
               );
               break;
             case 'new_membership_request':
-              $logged_user = vikinger_get_logged_user_member_data();
-              $notification['user'] = vikinger_members_get(['include' => [$notification['secondary_item_id']]])[0];
+              $logged_user = yipnyap_get_logged_user_member_data();
+              $notification['user'] = yipnyap_members_get(['include' => [$notification['secondary_item_id']]])[0];
               $notification['description'] = sprintf(
-                esc_html__('sent a %srequest%s to join the group %s', 'vikinger'),
+                esc_html__('sent a %srequest%s to join the group %s', 'yipnyap'),
                 '<a href="' . $logged_user['membership_requests_link'] . '" class="highlighted">',
                 '</a>',
                 '<a href="' . $notification['group']['link'] . '" class="bold">' . $notification['group']['name'] . '</a>'
@@ -162,7 +162,7 @@ if (!function_exists('vikinger_get_notifications_data')) {
               break;
             case 'membership_request_rejected':
               $notification['description'] = sprintf(
-                esc_html__('Your %srequest%s to join the group %s was %srejected%s', 'vikinger'),
+                esc_html__('Your %srequest%s to join the group %s was %srejected%s', 'yipnyap'),
                 '<span class="highlighted">',
                 '</span>',
                 '<a href="' . $notification['group']['link'] . '" class="bold">' . $notification['group']['name'] . '</a>',
@@ -172,7 +172,7 @@ if (!function_exists('vikinger_get_notifications_data')) {
               break;
             case 'membership_request_accepted':
               $notification['description'] = sprintf(
-                esc_html__('Your %srequest%s to join the group %s was %saccepted%s', 'vikinger'),
+                esc_html__('Your %srequest%s to join the group %s was %saccepted%s', 'yipnyap'),
                 '<span class="highlighted">',
                 '</span>',
                 '<a href="' . $notification['group']['link'] . '" class="bold">' . $notification['group']['name'] . '</a>',
@@ -182,7 +182,7 @@ if (!function_exists('vikinger_get_notifications_data')) {
               break;
             case 'member_promoted_to_mod':
               $notification['description'] = sprintf(
-                esc_html__('You were %spromoted%s to %smod%s in the group %s', 'vikinger'),
+                esc_html__('You were %spromoted%s to %smod%s in the group %s', 'yipnyap'),
                 '<span class="highlighted">',
                 '</span>',
                 '<span class="highlighted">',
@@ -192,7 +192,7 @@ if (!function_exists('vikinger_get_notifications_data')) {
               break;
             case 'member_promoted_to_admin':
               $notification['description'] = sprintf(
-                esc_html__('You were %spromoted%s to %sadmin%s in the group %s', 'vikinger'),
+                esc_html__('You were %spromoted%s to %sadmin%s in the group %s', 'yipnyap'),
                 '<span class="highlighted">',
                 '</span>',
                 '<span class="highlighted">',
@@ -203,53 +203,53 @@ if (!function_exists('vikinger_get_notifications_data')) {
           }
         } else if ($notification['component'] === 'messages') {
           // add message data
-          // $notification['message'] = vikinger_get_message($notification['item_id']);
-          $notification['user'] = vikinger_members_get_fallback($notification['secondary_item_id']);
-          $thread_id = vikinger_messages_get_thread_id($notification['item_id']);
+          // $notification['message'] = yipnyap_get_message($notification['item_id']);
+          $notification['user'] = yipnyap_members_get_fallback($notification['secondary_item_id']);
+          $thread_id = yipnyap_messages_get_thread_id($notification['item_id']);
 
           // add data according to action
           switch ($notification['action']) {
             case 'new_message':
-              $notification['description'] = sprintf(esc_html__('sent you a %smessage%s', 'vikinger'), '<a class="highlighted" href="' . bp_loggedin_user_domain() . 'settings/messages?message_id=' . $thread_id . '">', '</a>');
+              $notification['description'] = sprintf(esc_html__('sent you a %smessage%s', 'yipnyap'), '<a class="highlighted" href="' . bp_loggedin_user_domain() . 'settings/messages?message_id=' . $thread_id . '">', '</a>');
               break;
           }
         } else if ($notification['component'] === 'activity') {
           // add activity link
           $notification['link'] = bp_activity_get_permalink($notification['item_id']);
-          $notification['user'] = vikinger_members_get(['include' => [$notification['secondary_item_id']]])[0];
+          $notification['user'] = yipnyap_members_get(['include' => [$notification['secondary_item_id']]])[0];
 
           // add data according to action
           switch ($notification['action']) {
             case 'update_reply':
-              $notification['description'] = sprintf(esc_html__('posted a comment on your %sstatus update%s', 'vikinger'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
+              $notification['description'] = sprintf(esc_html__('posted a comment on your %sstatus update%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
               break;
             case 'new_at_mention':
-              $notification['description'] = sprintf(esc_html__('mentioned you on a %sstatus update%s', 'vikinger'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
+              $notification['description'] = sprintf(esc_html__('mentioned you on a %sstatus update%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
               break;
             case 'comment_reply':
-              $notification['description'] = sprintf(esc_html__('replied to your %scomment%s', 'vikinger'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
+              $notification['description'] = sprintf(esc_html__('replied to your %scomment%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
               break;
           }
         } else if ($notification['component'] === 'forums') {
           // if bbPress plugin is not active, ignore notification
-          if (!vikinger_plugin_bbpress_is_active()) {
+          if (!yipnyap_plugin_bbpress_is_active()) {
             continue;
           }
 
-          $notification['user'] = vikinger_members_get_fallback($notification['secondary_item_id']);
+          $notification['user'] = yipnyap_members_get_fallback($notification['secondary_item_id']);
           $reply_id = $notification['item_id'];
 
           // add data according to action
           switch ($notification['action']) {
             case 'bbp_new_reply':
               $reply_url = bbp_get_reply_url($reply_id);
-              $reply_content = vikinger_truncate_text(wp_strip_all_tags(bbp_get_reply_content($reply_id)), 15);
+              $reply_content = yipnyap_truncate_text(wp_strip_all_tags(bbp_get_reply_content($reply_id)), 15);
 
               $topic_id = bbp_get_reply_topic_id($reply_id);
               $topic_title = bbp_get_topic_title($topic_id);
 
               $notification['description'] = sprintf(
-                esc_html__('replied %s"%s"%s in %s%s%s', 'vikinger'),
+                esc_html__('replied %s"%s"%s in %s%s%s', 'yipnyap'),
                 '<span class="bold">',
                 $reply_content,
                 '</span>',
@@ -265,7 +265,7 @@ if (!function_exists('vikinger_get_notifications_data')) {
         }
 
         $notification['timestamp'] = sprintf(
-          esc_html_x('%s ago', 'Notification Timestamp', 'vikinger'),
+          esc_html_x('%s ago', 'Notification Timestamp', 'yipnyap'),
           human_time_diff(
             mysql2date('U', get_date_from_gmt($notification['date'])),
             current_time('timestamp')
@@ -282,14 +282,14 @@ if (!function_exists('vikinger_get_notifications_data')) {
   }
 }
 
-if (!function_exists('vikinger_get_notification')) {
+if (!function_exists('yipnyap_get_notification')) {
   /**
    * Get notification by id.
    * 
    * @param int $notification_id      ID of the notification to get.
    * @return array|bool
    */
-  function vikinger_get_notification($notification_id) {
+  function yipnyap_get_notification($notification_id) {
     $request = new WP_REST_Request('GET', '/buddypress/v1/notifications/' . $notification_id);
 
     $bp_notification = rest_do_request($request);
@@ -305,30 +305,30 @@ if (!function_exists('vikinger_get_notification')) {
   }
 }
 
-if (!function_exists('vikinger_mark_notifications_as_read')) {
+if (!function_exists('yipnyap_mark_notifications_as_read')) {
   /**
    * Mark multiple notifications as read
    * 
    * @param array $notifications      Array of ids of notifications to mark as read
    * @return array
    */
-  function vikinger_mark_notifications_as_read($notifications) {
+  function yipnyap_mark_notifications_as_read($notifications) {
     foreach ($notifications as $notification_id) {
-      $result = vikinger_mark_notification_as_read($notification_id);
+      $result = yipnyap_mark_notification_as_read($notification_id);
     }
 
     return $result;
   }
 }
 
-if (!function_exists('vikinger_mark_notification_as_read')) {
+if (!function_exists('yipnyap_mark_notification_as_read')) {
   /**
    * Mark a notification as read
    * 
    * @param int $notification_id      ID of the notification to mark as read
    * @return array
    */
-  function vikinger_mark_notification_as_read($notification_id) {
+  function yipnyap_mark_notification_as_read($notification_id) {
     $request = new WP_REST_Request('PUT', '/buddypress/v1/notifications/' . $notification_id);
 
     // set parameters
@@ -341,30 +341,30 @@ if (!function_exists('vikinger_mark_notification_as_read')) {
   }
 }
 
-if (!function_exists('vikinger_mark_notifications_as_unread')) {
+if (!function_exists('yipnyap_mark_notifications_as_unread')) {
   /**
    * Mark multiple notifications as unread
    * 
    * @param array $notifications      Array of ids of notifications to mark as unread
    * @return array
    */
-  function vikinger_mark_notifications_as_unread($notifications) {
+  function yipnyap_mark_notifications_as_unread($notifications) {
     foreach ($notifications as $notification_id) {
-      $result = vikinger_mark_notification_as_unread($notification_id);
+      $result = yipnyap_mark_notification_as_unread($notification_id);
     }
 
     return $result;
   }
 }
 
-if (!function_exists('vikinger_mark_notification_as_unread')) {
+if (!function_exists('yipnyap_mark_notification_as_unread')) {
   /**
    * Mark a notification as unread
    * 
    * @param int $notification_id      ID of the notification to mark as unread
    * @return array
    */
-  function vikinger_mark_notification_as_unread($notification_id) {
+  function yipnyap_mark_notification_as_unread($notification_id) {
     $request = new WP_REST_Request('PUT', '/buddypress/v1/notifications/' . $notification_id);
 
     // set parameters
@@ -377,30 +377,30 @@ if (!function_exists('vikinger_mark_notification_as_unread')) {
   }
 }
 
-if (!function_exists('vikinger_delete_notifications')) {
+if (!function_exists('yipnyap_delete_notifications')) {
   /**
    * Delete multiple notifications
    * 
    * @param array $notifications      Array of ids of notifications to delete
    * @return array
    */
-  function vikinger_delete_notifications($notifications) {
+  function yipnyap_delete_notifications($notifications) {
     foreach ($notifications as $notification_id) {
-      $result = vikinger_delete_notification($notification_id);
+      $result = yipnyap_delete_notification($notification_id);
     }
 
     return $result;
   }
 }
 
-if (!function_exists('vikinger_delete_notification')) {
+if (!function_exists('yipnyap_delete_notification')) {
   /**
    * Delete a notification
    * 
    * @param int $notification_id      ID of the notification to delete
    * @return array
    */
-  function vikinger_delete_notification($notification_id) {
+  function yipnyap_delete_notification($notification_id) {
     $request = new WP_REST_Request('DELETE', '/buddypress/v1/notifications/' . $notification_id);
 
     // set parameters
@@ -412,14 +412,14 @@ if (!function_exists('vikinger_delete_notification')) {
   }
 }
 
-if (!function_exists('vikinger_notification_get_settings')) {
+if (!function_exists('yipnyap_notification_get_settings')) {
   /**
    * Returns member notification email settings
    * 
    * @param int     $member_id        ID of the user to return settings from.
    * @return array  $email_settings   User email settings.
    */
-  function vikinger_notification_get_settings($member_id) {
+  function yipnyap_notification_get_settings($member_id) {
     $email_settings_data = [
       /**
        * Activity email settings

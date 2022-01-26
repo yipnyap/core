@@ -10,7 +10,7 @@
 
   $group = get_query_var('group');
 
-  $nav_items = vikinger_groups_get_navigation_items($group);
+  $nav_items = yipnyap_groups_get_navigation_items($group);
   
 ?>
 
@@ -41,8 +41,8 @@
      */
     get_template_part('template-part/alert/alert', 'box', [
       'type'  => 'info',
-      'title' => esc_html__('Private Group', 'vikinger'),
-      'text'  => esc_html__('You need to be a member of this group to be able to see its content. If you are interested in joining this group, please send a membership request and wait for approval!.', 'vikinger')
+      'title' => esc_html__('Private Group', 'yipnyap'),
+      'text'  => esc_html__('You need to be a member of this group to be able to see its content. If you are interested in joining this group, please send a membership request and wait for approval!.', 'yipnyap')
     ]);
   }
 

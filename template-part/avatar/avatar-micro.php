@@ -1,25 +1,25 @@
 <?php
 /**
  * Yipnyap Template Part - Avatar Micro
- * 
- * @package Yipnyap
+ *
+ * @param array $args {
+ * @type array $user User data.
+ * @type string $modifiers Optional. Additional class names to add to the HTML wrapper.
+ * @type bool $no_border Optional. Adds a border if set.
+ * @type bool $linked Optional. Adds a link to the user profile if set.
+ * }
  * @since 1.3.6
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
- * @see vikinger_members_get, vikinger_groups_get
- * 
- * @param array $args {
- *   @type array   $user        User data.
- *   @type string  $modifiers   Optional. Additional class names to add to the HTML wrapper.
- *   @type bool    $no_border   Optional. Adds a border if set.
- *   @type bool    $linked      Optional. Adds a link to the user profile if set.
- * }
+ *
+ * @see yipnyap_members_get, yipnyap_groups_get
+ *
+ * @package Yipnyap
  */
 
-  global $vikinger_settings;
+global $yipnyap_settings;
 
-  $avatar_type = !is_null($vikinger_settings) ? $vikinger_settings['avatar_type'] : get_theme_mod('vikinger_avatar_setting_type', 'hexagon');
+$avatar_type = !is_null($yipnyap_settings) ? $yipnyap_settings['avatar_type'] : get_theme_mod('yipnyap_avatar_setting_type', 'hexagon');
 
-  get_template_part('template-part/avatar/avatar-micro', $avatar_type, $args);
+get_template_part('template-part/avatar/avatar-micro', $avatar_type, $args);
 
 ?>

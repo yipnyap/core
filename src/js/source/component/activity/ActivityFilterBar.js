@@ -1,181 +1,200 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import IconSVG from '../icon/IconSVG';
 
 function ActivityFilterBar(props) {
-  const [action, setAction] = useState('all');
-  const [filters, setFilters] = useState({
-    scope: 'myfollowing',
-    filter: {}
-  });
+    const [action, setAction] = useState('all');
+    const [filters, setFilters] = useState({
+        scope: 'myfollowing',
+        filter: {}
+    });
 
-  const mounting = useRef(true);
+    const mounting = useRef(true);
 
-  useEffect(() => {
-    if (!mounting.current) {
-      props.onFiltersChange(filters);
-    } else {
-      mounting.current = false;
-    }
-  }, [filters]);
+    useEffect(() => {
+        if (!mounting.current) {
+            props.onFiltersChange(filters);
+        } else {
+            mounting.current = false;
+        }
+    }, [filters]);
 
-  const setScopeAll = () => { changeScope(false); };
-  const setScopeMentions = () => { changeScope('mentions'); };
-  const setScopeFavorites = () => { changeScope('favorites'); };
-  const setScopeFriends = () => { changeScope('friends'); };
-  const setScopeFollowing = () => { changeScope('myfollowing'); };
-  const setScopeGroups = () => { changeScope('groups'); };
-
-  const changeScope = (newScope) => {
-    // if scope didn't change, return
-    if (newScope === filters.scope) {
-      return;
-    }
-
-    const newFilters = {
-      ...filters,
-      scope: newScope
+    const setScopeAll = () => {
+        changeScope(false);
+    };
+    const setScopeMentions = () => {
+        changeScope('mentions');
+    };
+    const setScopeFavorites = () => {
+        changeScope('favorites');
+    };
+    const setScopeFriends = () => {
+        changeScope('friends');
+    };
+    const setScopeFollowing = () => {
+        changeScope('myfollowing');
+    };
+    const setScopeGroups = () => {
+        changeScope('groups');
     };
 
-    setFilters(newFilters);
-  };
+    const changeScope = (newScope) => {
+        // if scope didn't change, return
+        if (newScope === filters.scope) {
+            return;
+        }
 
-  const handleScopeChange = (e) => {
-    const value = e.target.value === 'false' ? false : e.target.value;
+        const newFilters = {
+            ...filters,
+            scope: newScope
+        };
 
-    changeScope(value);
-  };
+        setFilters(newFilters);
+    };
 
-  const handleActionChange = (e) => {
-    const actionValue = e.target.value,
-          filter = actionValue === 'all' ? {} : { action: actionValue };
+    const handleScopeChange = (e) => {
+        const value = e.target.value === 'false' ? false : e.target.value;
 
-    setAction(actionValue);
+        changeScope(value);
+    };
 
-    setFilters({
-      ...filters,
-      filter: filter
-    });
-  };
+    const handleActionChange = (e) => {
+        const actionValue = e.target.value,
+            filter = actionValue === 'all' ? {} : {action: actionValue};
 
-  return (
-    <div className="quick-filters">
-      {/* QUICK FILTERS TABS */}
-      <div className="quick-filters-tabs">
-      <p className={`quick-filters-tab ${filters.scope === 'myfollowing' ? 'active' : ''}`} onClick={setScopeFollowing}>{vikinger_translation.following}</p>
-      {
-        !props.hideSecondaryFilters &&
-          <React.Fragment>
-            <p className={`quick-filters-tab ${!filters.scope ? 'active' : ''}`} onClick={setScopeAll}>
-              {vikinger_translation.everything}
-            </p>
+        setAction(actionValue);
 
-            <p className={`quick-filters-tab ${filters.scope === 'favorites' ? 'active' : ''}`} onClick={setScopeFavorites}>
-              {vikinger_translation.favorites}
-            </p>
-          {
-            vikinger_constants.plugin_active.buddypress_friends &&
-              <p className={`quick-filters-tab ${filters.scope === 'friends' ? 'active' : ''}`} onClick={setScopeFriends}>
-                {vikinger_translation.friends}
-              </p>
-          }
-          {
-            vikinger_constants.plugin_active.buddypress_groups && !props.hideGroupsFilter &&
-              <p className={`quick-filters-tab ${filters.scope === 'groups' ? 'active' : ''}`} onClick={setScopeGroups}>
-                {vikinger_translation.groups}
-              </p>
-          }
-          </React.Fragment>
-      }
-      </div>
-      {/* /QUICK FILTERS TABS */}
+        setFilters({
+            ...filters,
+            filter: filter
+        });
+    };
 
-      {/* QUICK FILTERS FORM */}
-      <form className="quick-filters-form quick-filters-form-mobile">
-        <div className="form-row">
-          <div className="form-item">
-            <div className="form-select">
-              <label htmlFor="activity-scope">{vikinger_translation.scope}</label>
-              <select id="activity-scope" name="scope" value={filters.scope} onChange={handleScopeChange}>
-                <option value="false">{vikinger_translation.all_updates}</option>
-              {
-                !props.hideSecondaryFilters &&
-                  <React.Fragment>
-                    <option value="mentions">{vikinger_translation.mentions}</option>
-                    <option value="favorites">{vikinger_translation.favorites}</option>
-                  {
-                    vikinger_constants.plugin_active.buddypress_friends &&
-                      <option value="friends">{vikinger_translation.friends}</option>
-                  }
-                  {
-                    vikinger_constants.plugin_active.buddypress_groups && !props.hideGroupsFilter &&
-                      <option value="groups">{vikinger_translation.groups}</option>
-                  }
-                  </React.Fragment>
-              }
-              </select>
-              <IconSVG  icon="small-arrow"
-                        modifiers="form-select-icon"
-              />
+    return (
+        <div className="quick-filters">
+            {/* QUICK FILTERS TABS */}
+            <div className="quick-filters-tabs">
+                <p className={`quick-filters-tab ${filters.scope === 'myfollowing' ? 'active' : ''}`}
+                   onClick={setScopeFollowing}>{yipnyap_translation.following}</p>
+                {
+                    !props.hideSecondaryFilters &&
+                    <React.Fragment>
+                        <p className={`quick-filters-tab ${!filters.scope ? 'active' : ''}`} onClick={setScopeAll}>
+                            {yipnyap_translation.everything}
+                        </p>
+
+                        <p className={`quick-filters-tab ${filters.scope === 'favorites' ? 'active' : ''}`}
+                           onClick={setScopeFavorites}>
+                            {yipnyap_translation.favorites}
+                        </p>
+                        {
+                            yipnyap_constants.plugin_active.buddypress_friends &&
+                            <p className={`quick-filters-tab ${filters.scope === 'friends' ? 'active' : ''}`}
+                               onClick={setScopeFriends}>
+                                {yipnyap_translation.friends}
+                            </p>
+                        }
+                        {
+                            yipnyap_constants.plugin_active.buddypress_groups && !props.hideGroupsFilter &&
+                            <p className={`quick-filters-tab ${filters.scope === 'groups' ? 'active' : ''}`}
+                               onClick={setScopeGroups}>
+                                {yipnyap_translation.groups}
+                            </p>
+                        }
+                    </React.Fragment>
+                }
             </div>
-          </div>
-        </div>
-      </form>
-      {/* QUICK FILTERS FORM */}
+            {/* /QUICK FILTERS TABS */}
 
-      {/* QUICK FILTERS FORM */}
-      <form className="quick-filters-form">
-        <div className="form-row">
-          <div className="form-item">
-            <div className="form-select">
-              <label htmlFor="activity-show">{vikinger_translation.show}</label>
-              <select id="activity-show" name="action" value={action} onChange={handleActionChange}>
-                <option value="all">{vikinger_translation.everything}</option>
-                <option value="activity_update">{vikinger_translation.status}</option>
-                <option value="activity_share,post_share">{vikinger_translation.shares}</option>
-              {
-                vikinger_constants.plugin_active.vkmedia &&
-                  <React.Fragment>
-                  {
-                    vikinger_constants.settings.media_photo_upload_enabled && vikinger_constants.settings.media_video_upload_enabled &&
-                      <option value="activity_media_update,activity_media_upload,activity_video_update,activity_video_upload">{vikinger_translation.media}</option>
-                  }
-                  {
-                    vikinger_constants.settings.media_photo_upload_enabled &&
-                      <option value="activity_media_update,activity_media_upload">{vikinger_translation.photos}</option>
-                  }
-                  {
-                    vikinger_constants.settings.media_video_upload_enabled &&
-                      <option value="activity_video_update,activity_video_upload">{vikinger_translation.videos}</option>
-                  }
-                  </React.Fragment>
-              }
-              {
-                vikinger_constants.plugin_active.buddypress_friends &&
-                  <option value="friendship_created">{vikinger_translation.friendships}</option>
-              }
-              {
-                vikinger_constants.plugin_active.buddypress_groups &&
-                  <option value="created_group">{vikinger_translation.new_groups}</option>
-              }
-              {
-                vikinger_constants.plugin_active.bbpress &&
-                  <React.Fragment>
-                    <option value="bbp_topic_create">{vikinger_translation.forum_topics}</option>
-                    <option value="bbp_reply_create">{vikinger_translation.forum_replies}</option>
-                  </React.Fragment>
-              }
-              </select>
-              <IconSVG  icon="small-arrow"
-                        modifiers="form-select-icon"
-              />
-            </div>
-          </div>
+            {/* QUICK FILTERS FORM */}
+            <form className="quick-filters-form quick-filters-form-mobile">
+                <div className="form-row">
+                    <div className="form-item">
+                        <div className="form-select">
+                            <label htmlFor="activity-scope">{yipnyap_translation.scope}</label>
+                            <select id="activity-scope" name="scope" value={filters.scope} onChange={handleScopeChange}>
+                                <option value="false">{yipnyap_translation.all_updates}</option>
+                                {
+                                    !props.hideSecondaryFilters &&
+                                    <React.Fragment>
+                                        <option value="mentions">{yipnyap_translation.mentions}</option>
+                                        <option value="favorites">{yipnyap_translation.favorites}</option>
+                                        {
+                                            yipnyap_constants.plugin_active.buddypress_friends &&
+                                            <option value="friends">{yipnyap_translation.friends}</option>
+                                        }
+                                        {
+                                            yipnyap_constants.plugin_active.buddypress_groups && !props.hideGroupsFilter &&
+                                            <option value="groups">{yipnyap_translation.groups}</option>
+                                        }
+                                    </React.Fragment>
+                                }
+                            </select>
+                            <IconSVG icon="small-arrow"
+                                     modifiers="form-select-icon"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {/* QUICK FILTERS FORM */}
+
+            {/* QUICK FILTERS FORM */}
+            <form className="quick-filters-form">
+                <div className="form-row">
+                    <div className="form-item">
+                        <div className="form-select">
+                            <label htmlFor="activity-show">{yipnyap_translation.show}</label>
+                            <select id="activity-show" name="action" value={action} onChange={handleActionChange}>
+                                <option value="all">{yipnyap_translation.everything}</option>
+                                <option value="activity_update">{yipnyap_translation.status}</option>
+                                <option value="activity_share,post_share">{yipnyap_translation.shares}</option>
+                                {
+                                    yipnyap_constants.plugin_active.vkmedia &&
+                                    <React.Fragment>
+                                        {
+                                            yipnyap_constants.settings.media_photo_upload_enabled && yipnyap_constants.settings.media_video_upload_enabled &&
+                                            <option
+                                                value="activity_media_update,activity_media_upload,activity_video_update,activity_video_upload">{yipnyap_translation.media}</option>
+                                        }
+                                        {
+                                            yipnyap_constants.settings.media_photo_upload_enabled &&
+                                            <option
+                                                value="activity_media_update,activity_media_upload">{yipnyap_translation.photos}</option>
+                                        }
+                                        {
+                                            yipnyap_constants.settings.media_video_upload_enabled &&
+                                            <option
+                                                value="activity_video_update,activity_video_upload">{yipnyap_translation.videos}</option>
+                                        }
+                                    </React.Fragment>
+                                }
+                                {
+                                    yipnyap_constants.plugin_active.buddypress_friends &&
+                                    <option value="friendship_created">{yipnyap_translation.friendships}</option>
+                                }
+                                {
+                                    yipnyap_constants.plugin_active.buddypress_groups &&
+                                    <option value="created_group">{yipnyap_translation.new_groups}</option>
+                                }
+                                {
+                                    yipnyap_constants.plugin_active.bbpress &&
+                                    <React.Fragment>
+                                        <option value="bbp_topic_create">{yipnyap_translation.forum_topics}</option>
+                                        <option value="bbp_reply_create">{yipnyap_translation.forum_replies}</option>
+                                    </React.Fragment>
+                                }
+                            </select>
+                            <IconSVG icon="small-arrow"
+                                     modifiers="form-select-icon"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </form>
+            {/* QUICK FILTERS FORM */}
         </div>
-      </form>
-      {/* QUICK FILTERS FORM */}
-    </div>
-  );
+    );
 }
 
-export { ActivityFilterBar as default };
+export {ActivityFilterBar as default};

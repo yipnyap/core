@@ -2,7 +2,7 @@
 /**
  * Yipnyap Template - BuddyPress Entry Point
  *
- * @package Vikinger
+ * @package Yipnyap
  * @since 1.0.0
  * @author Odin Design Themes (https://odindesignthemes.com/)
  *
@@ -15,8 +15,8 @@ if (have_posts()) {
 
     $logged_user_has_membership_access = true;
 
-    if (vikinger_plugin_pmpro_is_active()) {
-        $post_access_data = vikinger_pmpro_post_access_data_get();
+    if (yipnyap_plugin_pmpro_is_active()) {
+        $post_access_data = yipnyap_pmpro_post_access_data_get();
         $logged_user_has_membership_access = $post_access_data['accessible'];
     }
 

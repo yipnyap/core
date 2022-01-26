@@ -165,7 +165,7 @@ function FilterableList(props) {
 
     const FilterBar = props.filterBar;
 
-    const itemTypeText = itemCount === 1 ? vikinger_translation.result : vikinger_translation.results;
+    const itemTypeText = itemCount === 1 ? yipnyap_translation.result : yipnyap_translation.results;
 
     return (
         <div ref={filterableListRef}>
@@ -198,7 +198,7 @@ function FilterableList(props) {
                                    themeColor={themeColor}
                             />
                             <p className="section-results-text">
-                                {vikinger_translation.showing_results_text_1} {currentPage.current === 1 ? 1 : (props.itemsPerPage * (currentPage.current - 1)) + 1} - {(props.itemsPerPage * currentPage.current) > itemCount ? itemCount : props.itemsPerPage * currentPage.current} {vikinger_translation.showing_results_text_2} {itemCount} {itemTypeText.toLowerCase()}
+                                {yipnyap_translation.showing_results_text_1} {currentPage.current === 1 ? 1 : (props.itemsPerPage * (currentPage.current - 1)) + 1} - {(props.itemsPerPage * currentPage.current) > itemCount ? itemCount : props.itemsPerPage * currentPage.current} {yipnyap_translation.showing_results_text_2} {itemCount} {itemTypeText.toLowerCase()}
                             </p>
                         </React.Fragment>
                     }

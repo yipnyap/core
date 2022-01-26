@@ -2,7 +2,7 @@
 /**
  * Functions - BuddyPress - Member
  *
- * @package Vikinger
+ * @package Yipnyap
  *
  * @since 1.9.1
  *
@@ -10,54 +10,54 @@
  *
  */
 
-if (!function_exists('vikinger_get_default_member_avatar_url')) {
+if (!function_exists('yipnyap_get_default_member_avatar_url')) {
     /**
      * Returns default member avatar URL.
      *
      * @return string $members_default_avatar_url
      */
-    function vikinger_get_default_member_avatar_url()
+    function yipnyap_get_default_member_avatar_url()
     {
-        $members_default_avatar_id = get_theme_mod('vikinger_members_setting_default_avatar', false);
+        $members_default_avatar_id = get_theme_mod('yipnyap_members_setting_default_avatar', false);
 
         if ($members_default_avatar_id) {
             $members_default_avatar_url = wp_get_attachment_image_src($members_default_avatar_id, 'full')[0];
         } else {
-            $members_default_avatar_url = VIKINGER_URL . '/img/avatar/default-avatar.jpg';
+            $members_default_avatar_url = YIPNYAP_URL . '/img/avatar/default-avatar.jpg';
         }
 
         return $members_default_avatar_url;
     }
 }
 
-if (!function_exists('vikinger_get_default_member_cover_url')) {
+if (!function_exists('yipnyap_get_default_member_cover_url')) {
     /**
      * Returns default member cover URL.
      *
      * @return string $members_default_cover_url
      */
-    function vikinger_get_default_member_cover_url()
+    function yipnyap_get_default_member_cover_url()
     {
-        $members_default_cover_id = get_theme_mod('vikinger_members_setting_default_cover', false);
+        $members_default_cover_id = get_theme_mod('yipnyap_members_setting_default_cover', false);
 
         if ($members_default_cover_id) {
             $members_default_cover_url = wp_get_attachment_image_src($members_default_cover_id, 'full')[0];
         } else {
-            $members_default_cover_url = VIKINGER_URL . '/img/cover/default-cover.png';
+            $members_default_cover_url = YIPNYAP_URL . '/img/cover/default-cover.png';
         }
 
         return $members_default_cover_url;
     }
 }
 
-if (!function_exists('vikinger_member_get_cover_url')) {
+if (!function_exists('yipnyap_member_get_cover_url')) {
     /**
      * Returns member cover url
      *
      * @param int $member_id Member id.
      * @return string $cover_url      Member cover url.
      */
-    function vikinger_member_get_cover_url($member_id)
+    function yipnyap_member_get_cover_url($member_id)
     {
         $cover_url = bp_attachments_get_attachment('url', [
             'object_dir' => 'members',
@@ -66,27 +66,27 @@ if (!function_exists('vikinger_member_get_cover_url')) {
 
         // get default cover url if user hasn't uploaded one yet
         if (!$cover_url) {
-            $cover_url = vikinger_get_default_member_cover_url();
+            $cover_url = yipnyap_get_default_member_cover_url();
         }
 
         return $cover_url;
     }
 }
 
-if (!function_exists('vikinger_get_logged_user_member_data')) {
+if (!function_exists('yipnyap_get_logged_user_member_data')) {
     /**
      * Returns logged user member data, or false if no user is logged in
      *
      * @param string $data_scope Scope of the user data.
      * @return array|bool $user           User if logged in, false otherwise.
      */
-    function vikinger_get_logged_user_member_data($data_scope = 'user-status')
+    function yipnyap_get_logged_user_member_data($data_scope = 'user-status')
     {
         $user = false;
 
         if (is_user_logged_in()) {
             $user_id = get_current_user_id();
-            $user = vikinger_members_get(['include' => [$user_id], 'data_scope' => $data_scope])[0];
+            $user = yipnyap_members_get(['include' => [$user_id], 'data_scope' => $data_scope])[0];
             $user['followers'] = bp_follow_get_followers(array(
                 'user_id' => $user_id
             ));
@@ -99,7 +99,7 @@ if (!function_exists('vikinger_get_logged_user_member_data')) {
     }
 }
 
-if (!function_exists('vikinger_members_get_fallback')) {
+if (!function_exists('yipnyap_members_get_fallback')) {
     /**
      * Returns member data or member deleted placeholder data if the member doesn't exist
      *
@@ -107,21 +107,21 @@ if (!function_exists('vikinger_members_get_fallback')) {
      * @param string $data_scope Member scope.
      * @return array  $member_data      Member data.
      */
-    function vikinger_members_get_fallback($member_id, $data_scope = 'user-status')
+    function yipnyap_members_get_fallback($member_id, $data_scope = 'user-status')
     {
-        $member = vikinger_members_get(['include' => $member_id, 'data_scope' => $data_scope]);
+        $member = yipnyap_members_get(['include' => $member_id, 'data_scope' => $data_scope]);
 
         if (count($member)) {
             $member_data = $member[0];
         } else {
             $member_data = [
                 'id' => $member_id,
-                'name' => esc_html__('[deleted]', 'vikinger'),
-                'mention_name' => esc_html__('[deleted]', 'vikinger'),
+                'name' => esc_html__('[deleted]', 'yipnyap'),
+                'mention_name' => esc_html__('[deleted]', 'yipnyap'),
                 'link' => '',
                 'media_link' => '',
                 'badges_link' => '',
-                'avatar_url' => vikinger_get_default_member_avatar_url(),
+                'avatar_url' => yipnyap_get_default_member_avatar_url(),
                 'verified' => false
             ];
         }
@@ -130,14 +130,14 @@ if (!function_exists('vikinger_members_get_fallback')) {
     }
 }
 
-if (!function_exists('vikinger_members_get')) {
+if (!function_exists('yipnyap_members_get')) {
     /**
      * Returns filtered members
      *
      * @param array $args Filter for the members query.
      * @return array  $members    Filtered members.
      */
-    function vikinger_members_get($args = [])
+    function yipnyap_members_get($args = [])
     {
         $request = new WP_REST_Request('GET', '/buddypress/v1/members');
 
@@ -161,7 +161,7 @@ if (!function_exists('vikinger_members_get')) {
          * @since 1.9.1
          *
          */
-        $args = apply_filters('vikinger_members_get_args', $args);
+        $args = apply_filters('yipnyap_members_get_args', $args);
 
         // set parameters
         foreach ($args as $key => $value) {
@@ -175,7 +175,7 @@ if (!function_exists('vikinger_members_get')) {
         // if request was succesfull
         if ($bp_members->status === 200) {
             foreach ($bp_members->data as $bp_member) {
-                $members[] = vikinger_member_get_data($bp_member, $data_scope);
+                $members[] = yipnyap_member_get_data($bp_member, $data_scope);
             }
         }
 
@@ -186,20 +186,20 @@ if (!function_exists('vikinger_members_get')) {
          * @since 1.9.1
          *
          */
-        $members = apply_filters('vikinger_members_get_results', $members);
+        $members = apply_filters('yipnyap_members_get_results', $members);
 
         return $members;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_base_data')) {
+if (!function_exists('yipnyap_member_get_user_base_data')) {
     /**
      * Returns base user data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_base_data       user-base scope member data.
      */
-    function vikinger_member_get_user_base_data($bp_member)
+    function yipnyap_member_get_user_base_data($bp_member)
     {
         $user_base_data = [
             'id' => $bp_member['id'],
@@ -227,131 +227,131 @@ if (!function_exists('vikinger_member_get_user_base_data')) {
         }
 
         // add membership data if the plugin is active
-        if (vikinger_plugin_pmpro_is_active()) {
-            $user_base_data['membership'] = vikinger_pmpro_user_membership_level_get($bp_member['id']);
+        if (yipnyap_plugin_pmpro_is_active()) {
+            $user_base_data['membership'] = yipnyap_pmpro_user_membership_level_get($bp_member['id']);
         }
 
         return $user_base_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_status_data')) {
+if (!function_exists('yipnyap_member_get_user_status_data')) {
     /**
      * Returns user-status scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_status_data     user-status scope member data.
      */
-    function vikinger_member_get_user_status_data($bp_member)
+    function yipnyap_member_get_user_status_data($bp_member)
     {
         // add user base data
-        $user_status_data = vikinger_member_get_user_base_data($bp_member);
+        $user_status_data = yipnyap_member_get_user_base_data($bp_member);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_status_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_status_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add Verified Member for BuddyPress data if plugin is active
-        if (vikinger_plugin_bpverifiedmember_is_active()) {
-            $user_status_data['verified'] = vikinger_bpverifiedmember_user_is_verified($user_status_data['id']);
+        if (yipnyap_plugin_bpverifiedmember_is_active()) {
+            $user_status_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_status_data['id']);
         }
 
         return $user_status_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_sidebar_data')) {
+if (!function_exists('yipnyap_member_get_user_sidebar_data')) {
     /**
      * Returns user-sidebar scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_status_data     user-sidebar scope member data.
      */
-    function vikinger_member_get_user_sidebar_data($bp_member)
+    function yipnyap_member_get_user_sidebar_data($bp_member)
     {
         $user_sidebar_data = [
-            'cover_url' => vikinger_member_get_cover_url($bp_member['id']),
+            'cover_url' => yipnyap_member_get_cover_url($bp_member['id']),
             'stats' => [
-                'post_count' => bp_is_active('activity') ? vikinger_members_get_post_count($bp_member['id']) : 0,
+                'post_count' => bp_is_active('activity') ? yipnyap_members_get_post_count($bp_member['id']) : 0,
                 'friend_count' => bp_is_active('friends') ? absint(bp_get_total_friend_count($bp_member['id'])) : 0,
-                'comment_count' => bp_is_active('activity') ? vikinger_members_get_comment_count($bp_member['id']) : 0
+                'comment_count' => bp_is_active('activity') ? yipnyap_members_get_comment_count($bp_member['id']) : 0
             ],
             'badges' => []
         ];
 
         // add user base data
-        $user_sidebar_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_sidebar_data);
+        $user_sidebar_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_sidebar_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            $user_sidebar_data['badges'] = vikinger_gamipress_get_user_completed_achievements('badge', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            $user_sidebar_data['badges'] = yipnyap_gamipress_get_user_completed_achievements('badge', $bp_member['id'], 'simple');
 
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_sidebar_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_sidebar_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add Verified Member for BuddyPress data if plugin is active
-        if (vikinger_plugin_bpverifiedmember_is_active()) {
-            $user_sidebar_data['verified'] = vikinger_bpverifiedmember_user_is_verified($user_sidebar_data['id']);
+        if (yipnyap_plugin_bpverifiedmember_is_active()) {
+            $user_sidebar_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_sidebar_data['id']);
         }
 
         return $user_sidebar_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_preview_data')) {
+if (!function_exists('yipnyap_member_get_user_preview_data')) {
     /**
      * Returns user-preview scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_preview_data    user-preview scope member data.
      */
-    function vikinger_member_get_user_preview_data($bp_member)
+    function yipnyap_member_get_user_preview_data($bp_member)
     {
         $user_preview_data = [
-            'cover_url' => vikinger_member_get_cover_url($bp_member['id']),
+            'cover_url' => yipnyap_member_get_cover_url($bp_member['id']),
             'stats' => [
-                'post_count' => bp_is_active('activity') ? vikinger_members_get_post_count($bp_member['id']) : 0,
+                'post_count' => bp_is_active('activity') ? yipnyap_members_get_post_count($bp_member['id']) : 0,
                 'friend_count' => bp_is_active('friends') ? absint(bp_get_total_friend_count($bp_member['id'])) : 0,
-                'comment_count' => bp_is_active('activity') ? vikinger_members_get_comment_count($bp_member['id']) : 0
+                'comment_count' => bp_is_active('activity') ? yipnyap_members_get_comment_count($bp_member['id']) : 0
             ],
             'badges' => [],
-            'profile_data' => vikinger_member_get_xprofile_data($bp_member['id'])
+            'profile_data' => yipnyap_member_get_xprofile_data($bp_member['id'])
         ];
 
         // add user base data
-        $user_preview_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_preview_data);
+        $user_preview_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_preview_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            $user_preview_data['badges'] = vikinger_gamipress_get_user_completed_achievements('badge', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            $user_preview_data['badges'] = yipnyap_gamipress_get_user_completed_achievements('badge', $bp_member['id'], 'simple');
 
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_preview_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_preview_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add Verified Member for BuddyPress data if plugin is active
-        if (vikinger_plugin_bpverifiedmember_is_active()) {
-            $user_preview_data['verified'] = vikinger_bpverifiedmember_user_is_verified($user_preview_data['id']);
+        if (yipnyap_plugin_bpverifiedmember_is_active()) {
+            $user_preview_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_preview_data['id']);
         }
 
         return $user_preview_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_friends_data')) {
+if (!function_exists('yipnyap_member_get_user_friends_data')) {
     /**
      * Returns user-friends scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_friends_data    user-friends scope member data.
      */
-    function vikinger_member_get_user_friends_data($bp_member)
+    function yipnyap_member_get_user_friends_data($bp_member)
     {
         $user_friends_data = [
             'friends' => [],
@@ -360,34 +360,34 @@ if (!function_exists('vikinger_member_get_user_friends_data')) {
         ];
 
         // add user base data
-        $user_friends_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_friends_data);
+        $user_friends_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_friends_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_friends_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_friends_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_friends_data['friends'] = vikinger_get_friends(['user_id' => $bp_member['id']]);
-            $user_friends_data['friend_requests_received'] = vikinger_get_friend_requests_received($bp_member['id']);
-            $user_friends_data['friend_requests_sent'] = vikinger_get_friend_requests_sent($bp_member['id']);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
+            $user_friends_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
+            $user_friends_data['friend_requests_received'] = yipnyap_get_friend_requests_received($bp_member['id']);
+            $user_friends_data['friend_requests_sent'] = yipnyap_get_friend_requests_sent($bp_member['id']);
         }
 
         return $user_friends_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_status_groups_data')) {
+if (!function_exists('yipnyap_member_get_user_status_groups_data')) {
     /**
      * Returns user-status-groups scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_status_groups_data     user-groups scope member data.
      */
-    function vikinger_member_get_user_status_groups_data($bp_member)
+    function yipnyap_member_get_user_status_groups_data($bp_member)
     {
         $user_status_groups_data = [
             'groups' => [],
@@ -395,34 +395,34 @@ if (!function_exists('vikinger_member_get_user_status_groups_data')) {
         ];
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_status_groups_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_status_groups_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add user base data
-        $user_status_groups_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_status_groups_data);
+        $user_status_groups_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_status_groups_data);
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_status_groups_data['groups'] = vikinger_get_user_groups($bp_member['id']);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_status_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
 
-            $user_status_groups_data['group_membership_requests_sent'] = vikinger_group_membership_requests_get(['user_id' => $bp_member['id']]);
+            $user_status_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
         }
 
         return $user_status_groups_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_groups_data')) {
+if (!function_exists('yipnyap_member_get_user_groups_data')) {
     /**
      * Returns user-groups scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_groups_data     user-groups scope member data.
      */
-    function vikinger_member_get_user_groups_data($bp_member)
+    function yipnyap_member_get_user_groups_data($bp_member)
     {
         $user_groups_data = [
             'groups' => [],
@@ -430,52 +430,52 @@ if (!function_exists('vikinger_member_get_user_groups_data')) {
         ];
 
         // add user base data
-        $user_groups_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_groups_data);
+        $user_groups_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_data);
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_data['groups'] = vikinger_get_user_groups($bp_member['id']);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
 
-            $user_groups_data['group_membership_requests_sent'] = vikinger_group_membership_requests_get(['user_id' => $bp_member['id']]);
+            $user_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
         }
 
         return $user_groups_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_groups_preview_data')) {
+if (!function_exists('yipnyap_member_get_user_groups_preview_data')) {
     /**
      * Returns user-groups-preview scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_groups_preview_data     user-groups-preview scope member data.
      */
-    function vikinger_member_get_user_groups_preview_data($bp_member)
+    function yipnyap_member_get_user_groups_preview_data($bp_member)
     {
         $user_groups_preview_data = [
             'groups' => []
         ];
 
         // add user base data
-        $user_groups_preview_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_groups_preview_data);
+        $user_groups_preview_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_preview_data);
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_preview_data['groups'] = vikinger_get_user_groups($bp_member['id'], 'user-groups-preview');
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_groups_preview_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-preview');
         }
 
         return $user_groups_preview_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_activity_data')) {
+if (!function_exists('yipnyap_member_get_user_activity_data')) {
     /**
      * Returns user-activity scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_activity_data   user-activity scope member data.
      */
-    function vikinger_member_get_user_activity_data($bp_member)
+    function yipnyap_member_get_user_activity_data($bp_member)
     {
         $user_activity_data = [
             'friends' => [],
@@ -483,42 +483,42 @@ if (!function_exists('vikinger_member_get_user_activity_data')) {
         ];
 
         // add user base data
-        $user_activity_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_activity_data);
+        $user_activity_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_activity_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_activity_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_activity_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_activity_data['friends'] = vikinger_get_friends(['user_id' => $bp_member['id']]);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
+            $user_activity_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
         }
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_activity_data['groups'] = vikinger_get_user_groups($bp_member['id']);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_activity_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
         }
 
         // add Verified Member for BuddyPress data if plugin is active
-        if (vikinger_plugin_bpverifiedmember_is_active()) {
-            $user_activity_data['verified'] = vikinger_bpverifiedmember_user_is_verified($user_activity_data['id']);
+        if (yipnyap_plugin_bpverifiedmember_is_active()) {
+            $user_activity_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_data['id']);
         }
 
         return $user_activity_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_groups_invitations_data')) {
+if (!function_exists('yipnyap_member_get_user_groups_invitations_data')) {
     /**
      * Returns user-groups-invitations scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_groups_invitations_data   user-groups-invitations scope member data.
      */
-    function vikinger_member_get_user_groups_invitations_data($bp_member)
+    function yipnyap_member_get_user_groups_invitations_data($bp_member)
     {
         $user_groups_invitations_data = [
             'friends' => [],
@@ -527,65 +527,65 @@ if (!function_exists('vikinger_member_get_user_groups_invitations_data')) {
         ];
 
         // add user base data
-        $user_groups_invitations_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_groups_invitations_data);
+        $user_groups_invitations_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_invitations_data);
 
         // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_groups_invitations_data['friends'] = vikinger_get_friends(['user_id' => $bp_member['id']]);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
+            $user_groups_invitations_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
         }
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_invitations_data['groups'] = vikinger_get_user_groups($bp_member['id'], 'user-groups-members');
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_groups_invitations_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-members');
 
             $group_invitations_sent_args = [
                 'inviter_id' => $bp_member['id']
             ];
 
-            $user_groups_invitations_data['group_invitations_sent'] = vikinger_group_get_invitations($group_invitations_sent_args);
+            $user_groups_invitations_data['group_invitations_sent'] = yipnyap_group_get_invitations($group_invitations_sent_args);
         }
 
         return $user_groups_invitations_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_groups_received_invitations_data')) {
+if (!function_exists('yipnyap_member_get_user_groups_received_invitations_data')) {
     /**
      * Returns user-groups-received-invitations scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_groups_received_invitations_data    user-groups-received-invitations scope member data.
      */
-    function vikinger_member_get_user_groups_received_invitations_data($bp_member)
+    function yipnyap_member_get_user_groups_received_invitations_data($bp_member)
     {
         $user_groups_received_invitations_data = [
             'group_invitations_received' => []
         ];
 
         // add user base data
-        $user_groups_received_invitations_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_groups_received_invitations_data);
+        $user_groups_received_invitations_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_received_invitations_data);
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
             $group_invitations_received_args = [
                 'user_id' => $bp_member['id']
             ];
 
-            $user_groups_received_invitations_data['group_invitations_received'] = vikinger_group_get_invitations($group_invitations_received_args);
+            $user_groups_received_invitations_data['group_invitations_received'] = yipnyap_group_get_invitations($group_invitations_received_args);
         }
 
         return $user_groups_received_invitations_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_groups_memberships_data')) {
+if (!function_exists('yipnyap_member_get_user_groups_memberships_data')) {
     /**
      * Returns user-groups-memberships scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_groups_memberships_data     user-groups-memberships scope member data.
      */
-    function vikinger_member_get_user_groups_memberships_data($bp_member)
+    function yipnyap_member_get_user_groups_memberships_data($bp_member)
     {
         $user_groups_memberships_data = [
             'groups' => [],
@@ -594,16 +594,16 @@ if (!function_exists('vikinger_member_get_user_groups_memberships_data')) {
         ];
 
         // add user base data
-        $user_groups_memberships_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_groups_memberships_data);
+        $user_groups_memberships_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_memberships_data);
 
         // add BuddyPress group data if BuddyPress and the groups component are active
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_memberships_data['groups'] = vikinger_get_user_groups($bp_member['id']);
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
+            $user_groups_memberships_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
 
-            $user_groups_memberships_data['group_membership_requests_sent'] = vikinger_group_membership_requests_get(['user_id' => $bp_member['id']]);
+            $user_groups_memberships_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
 
             foreach ($user_groups_memberships_data['groups'] as $user_group) {
-                $user_groups_memberships_data['group_membership_requests_received'] = array_merge(vikinger_group_membership_requests_get(['group_id' => $user_group['id']]), $user_groups_memberships_data['group_membership_requests_received']);
+                $user_groups_memberships_data['group_membership_requests_received'] = array_merge(yipnyap_group_membership_requests_get(['group_id' => $user_group['id']]), $user_groups_memberships_data['group_membership_requests_received']);
             }
         }
 
@@ -611,79 +611,79 @@ if (!function_exists('vikinger_member_get_user_groups_memberships_data')) {
     }
 }
 
-if (!function_exists('vikinger_member_get_user_activity_friend_data')) {
+if (!function_exists('yipnyap_member_get_user_activity_friend_data')) {
     /**
      * Returns user-activity-friend scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_activity_friend_data    user-activity-friend scope member data.
      */
-    function vikinger_member_get_user_activity_friend_data($bp_member)
+    function yipnyap_member_get_user_activity_friend_data($bp_member)
     {
         $user_activity_friend_data = [
-            'cover_url' => vikinger_member_get_cover_url($bp_member['id'])
+            'cover_url' => yipnyap_member_get_cover_url($bp_member['id'])
         ];
 
         // add user base data
-        $user_activity_friend_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_activity_friend_data);
+        $user_activity_friend_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_activity_friend_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_activity_friend_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_activity_friend_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
         // add Verified Member for BuddyPress data if plugin is active
-        if (vikinger_plugin_bpverifiedmember_is_active()) {
-            $user_activity_friend_data['verified'] = vikinger_bpverifiedmember_user_is_verified($user_activity_friend_data['id']);
+        if (yipnyap_plugin_bpverifiedmember_is_active()) {
+            $user_activity_friend_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_friend_data['id']);
         }
 
         return $user_activity_friend_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_settings_data')) {
+if (!function_exists('yipnyap_member_get_user_settings_data')) {
     /**
      * Returns user-settings scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_settings_data   user-settings scope member data.
      */
-    function vikinger_member_get_user_settings_data($bp_member)
+    function yipnyap_member_get_user_settings_data($bp_member)
     {
         $user_settings_data = [
-            'profile_data' => vikinger_member_get_xprofile_data($bp_member['id'])
+            'profile_data' => yipnyap_member_get_xprofile_data($bp_member['id'])
         ];
 
         // add user base data
-        $user_settings_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_settings_data);
+        $user_settings_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_settings_data);
 
         return $user_settings_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_settings_profile_data')) {
+if (!function_exists('yipnyap_member_get_user_settings_profile_data')) {
     /**
      * Returns user-settings-profile scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_settings_profile_data   user-settings-profile scope member data.
      */
-    function vikinger_member_get_user_settings_profile_data($bp_member)
+    function yipnyap_member_get_user_settings_profile_data($bp_member)
     {
         $user_settings_profile_data = [
-            'cover_url' => vikinger_member_get_cover_url($bp_member['id']),
-            'profile_data' => vikinger_member_get_xprofile_data($bp_member['id'])
+            'cover_url' => yipnyap_member_get_cover_url($bp_member['id']),
+            'profile_data' => yipnyap_member_get_xprofile_data($bp_member['id'])
         ];
 
         // add user base data
-        $user_settings_profile_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_settings_profile_data);
+        $user_settings_profile_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_settings_profile_data);
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
-            if (vikinger_gamipress_rank_type_exists('rank')) {
-                $user_settings_profile_data['rank'] = vikinger_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
+        if (yipnyap_plugin_gamipress_is_active()) {
+            if (yipnyap_gamipress_rank_type_exists('rank')) {
+                $user_settings_profile_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
         }
 
@@ -691,14 +691,14 @@ if (!function_exists('vikinger_member_get_user_settings_profile_data')) {
     }
 }
 
-if (!function_exists('vikinger_member_get_user_settings_password_data')) {
+if (!function_exists('yipnyap_member_get_user_settings_password_data')) {
     /**
      * Returns user-settings-password scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_settings_password_data  user-settings-password scope member data.
      */
-    function vikinger_member_get_user_settings_password_data($bp_member)
+    function yipnyap_member_get_user_settings_password_data($bp_member)
     {
         $user = get_userdata($bp_member['id']);
 
@@ -707,33 +707,33 @@ if (!function_exists('vikinger_member_get_user_settings_password_data')) {
         ];
 
         // add user base data
-        $user_settings_password_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_settings_password_data);
+        $user_settings_password_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_settings_password_data);
 
         return $user_settings_password_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_user_settings_notification_data')) {
+if (!function_exists('yipnyap_member_get_user_settings_notification_data')) {
     /**
      * Returns user-settings-notification scope member data
      *
      * @param array $bp_member BP member data.
      * @return array  $user_settings_notification_data  user-settings-notification scope member data.
      */
-    function vikinger_member_get_user_settings_notification_data($bp_member)
+    function yipnyap_member_get_user_settings_notification_data($bp_member)
     {
         $user_settings_notification_data = [
-            'email_settings' => vikinger_notification_get_settings($bp_member['id'])
+            'email_settings' => yipnyap_notification_get_settings($bp_member['id'])
         ];
 
         // add user base data
-        $user_settings_notification_data = array_merge(vikinger_member_get_user_base_data($bp_member), $user_settings_notification_data);
+        $user_settings_notification_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_settings_notification_data);
 
         return $user_settings_notification_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_data')) {
+if (!function_exists('yipnyap_member_get_data')) {
     /**
      * Returns scoped member data,
      *
@@ -741,72 +741,72 @@ if (!function_exists('vikinger_member_get_data')) {
      * @param string $data_scope Scope of the member data to return.
      * @return array  $member_data    Member data.
      */
-    function vikinger_member_get_data($bp_member, $data_scope = 'user-status')
+    function yipnyap_member_get_data($bp_member, $data_scope = 'user-status')
     {
         $member_data = [];
 
         if ($data_scope === 'user-status') {
-            $member_data = vikinger_member_get_user_status_data($bp_member);
+            $member_data = yipnyap_member_get_user_status_data($bp_member);
         }
 
         if ($data_scope === 'user-preview') {
-            $member_data = vikinger_member_get_user_preview_data($bp_member);
+            $member_data = yipnyap_member_get_user_preview_data($bp_member);
         }
 
         if ($data_scope === 'user-sidebar') {
-            $member_data = vikinger_member_get_user_sidebar_data($bp_member);
+            $member_data = yipnyap_member_get_user_sidebar_data($bp_member);
         }
 
         if ($data_scope === 'user-friends') {
-            $member_data = vikinger_member_get_user_friends_data($bp_member);
+            $member_data = yipnyap_member_get_user_friends_data($bp_member);
         }
 
         if ($data_scope === 'user-status-groups') {
-            $member_data = vikinger_member_get_user_status_groups_data($bp_member);
+            $member_data = yipnyap_member_get_user_status_groups_data($bp_member);
         }
 
         if ($data_scope === 'user-groups') {
-            $member_data = vikinger_member_get_user_groups_data($bp_member);
+            $member_data = yipnyap_member_get_user_groups_data($bp_member);
         }
 
         if ($data_scope === 'user-groups-preview') {
-            $member_data = vikinger_member_get_user_groups_preview_data($bp_member);
+            $member_data = yipnyap_member_get_user_groups_preview_data($bp_member);
         }
 
         if ($data_scope === 'user-groups-invitations') {
-            $member_data = vikinger_member_get_user_groups_invitations_data($bp_member);
+            $member_data = yipnyap_member_get_user_groups_invitations_data($bp_member);
         }
 
         if ($data_scope === 'user-groups-received-invitations') {
-            $member_data = vikinger_member_get_user_groups_received_invitations_data($bp_member);
+            $member_data = yipnyap_member_get_user_groups_received_invitations_data($bp_member);
         }
 
         if ($data_scope === 'user-groups-memberships') {
-            $member_data = vikinger_member_get_user_groups_memberships_data($bp_member);
+            $member_data = yipnyap_member_get_user_groups_memberships_data($bp_member);
         }
 
         if ($data_scope === 'user-activity') {
-            $member_data = vikinger_member_get_user_activity_data($bp_member);
+            $member_data = yipnyap_member_get_user_activity_data($bp_member);
         }
 
         if ($data_scope === 'user-activity-friend') {
-            $member_data = vikinger_member_get_user_activity_friend_data($bp_member);
+            $member_data = yipnyap_member_get_user_activity_friend_data($bp_member);
         }
 
         if ($data_scope === 'user-settings') {
-            $member_data = vikinger_member_get_user_settings_data($bp_member);
+            $member_data = yipnyap_member_get_user_settings_data($bp_member);
         }
 
         if ($data_scope === 'user-settings-profile') {
-            $member_data = vikinger_member_get_user_settings_profile_data($bp_member);
+            $member_data = yipnyap_member_get_user_settings_profile_data($bp_member);
         }
 
         if ($data_scope === 'user-settings-password') {
-            $member_data = vikinger_member_get_user_settings_password_data($bp_member);
+            $member_data = yipnyap_member_get_user_settings_password_data($bp_member);
         }
 
         if ($data_scope === 'user-settings-notification') {
-            $member_data = vikinger_member_get_user_settings_notification_data($bp_member);
+            $member_data = yipnyap_member_get_user_settings_notification_data($bp_member);
         }
 
         /**
@@ -816,20 +816,20 @@ if (!function_exists('vikinger_member_get_data')) {
          * @since 1.9.1
          *
          */
-        $member_data = apply_filters('vikinger_members_get_data', $member_data);
+        $member_data = apply_filters('yipnyap_members_get_data', $member_data);
 
         return $member_data;
     }
 }
 
-if (!function_exists('vikinger_member_get_xprofile_data')) {
+if (!function_exists('yipnyap_member_get_xprofile_data')) {
     /**
      * Returns member xprofile data
      *
      * @param int $member_id Member id.
      * @return array  $member_xprofile_data   Structured member xprofile data.
      */
-    function vikinger_member_get_xprofile_data($member_id)
+    function yipnyap_member_get_xprofile_data($member_id)
     {
         $request = new WP_REST_Request('GET', '/buddypress/v1/xprofile/groups');
 
@@ -907,14 +907,14 @@ if (!function_exists('vikinger_member_get_xprofile_data')) {
     }
 }
 
-if (!function_exists('vikinger_member_update_xprofile_data')) {
+if (!function_exists('yipnyap_member_update_xprofile_data')) {
     /**
      * Update member xprofile data
      *
      * @param array $fields Fields to update (field_id => field_value)
      * @param int $member_id ID of the member to update the field data of
      */
-    function vikinger_member_update_xprofile_data($fields, $member_id)
+    function yipnyap_member_update_xprofile_data($fields, $member_id)
     {
         foreach ($fields as $field_id => $field_value) {
             $result = xprofile_set_field_data($field_id, $member_id, $field_value);
@@ -924,14 +924,14 @@ if (!function_exists('vikinger_member_update_xprofile_data')) {
     }
 }
 
-if (!function_exists('vikinger_members_get_count')) {
+if (!function_exists('yipnyap_members_get_count')) {
     /**
      * Returns filtered members count.
      *
      * @param array $args Filters for the members query.
      * @return int  $members_count    Filtered members count.
      */
-    function vikinger_members_get_count($args = [])
+    function yipnyap_members_get_count($args = [])
     {
         $request = new WP_REST_Request('GET', '/buddypress/v1/members');
 
@@ -948,7 +948,7 @@ if (!function_exists('vikinger_members_get_count')) {
          * @since 1.9.1
          *
          */
-        $args = apply_filters('vikinger_members_get_count_args', $args);
+        $args = apply_filters('yipnyap_members_get_count_args', $args);
 
         // set parameters
         foreach ($args as $key => $value) {
@@ -970,14 +970,14 @@ if (!function_exists('vikinger_members_get_count')) {
     }
 }
 
-if (!function_exists('vikinger_members_get_post_count')) {
+if (!function_exists('yipnyap_members_get_post_count')) {
     /**
      * Get member activity post count.
      *
      * @param int $member_id ID of the user to get the activity post count from.
      * @return int
      */
-    function vikinger_members_get_post_count($member_id)
+    function yipnyap_members_get_post_count($member_id)
     {
         global $wpdb;
 
@@ -993,7 +993,7 @@ if (!function_exists('vikinger_members_get_post_count')) {
          * @since 1.9.1
          *
          */
-        $activity_components = apply_filters('vikinger_members_get_post_count_activity_components', $activity_components);
+        $activity_components = apply_filters('yipnyap_members_get_post_count_activity_components', $activity_components);
 
         $activity_types = [
             'activity_update',
@@ -1014,7 +1014,7 @@ if (!function_exists('vikinger_members_get_post_count')) {
          * @since 1.9.1
          *
          */
-        $activity_types = apply_filters('vikinger_members_get_post_count_activity_types', $activity_types);
+        $activity_types = apply_filters('yipnyap_members_get_post_count_activity_types', $activity_types);
 
         $prefix = $wpdb->base_prefix;
         $table_name = "bp_activity";
@@ -1037,14 +1037,14 @@ if (!function_exists('vikinger_members_get_post_count')) {
     }
 }
 
-if (!function_exists('vikinger_members_get_comment_count')) {
+if (!function_exists('yipnyap_members_get_comment_count')) {
     /**
      * Get member activity comment count.
      *
      * @param int $member_id ID of the user to get the activity comment count from.
      * @return int
      */
-    function vikinger_members_get_comment_count($member_id)
+    function yipnyap_members_get_comment_count($member_id)
     {
         global $wpdb;
 
@@ -1060,7 +1060,7 @@ if (!function_exists('vikinger_members_get_comment_count')) {
          * @since 1.9.1
          *
          */
-        $activity_components = apply_filters('vikinger_members_get_comment_count_activity_components', $activity_components);
+        $activity_components = apply_filters('yipnyap_members_get_comment_count_activity_components', $activity_components);
 
         $activity_types = [
             'activity_comment'
@@ -1073,7 +1073,7 @@ if (!function_exists('vikinger_members_get_comment_count')) {
          * @since 1.9.1
          *
          */
-        $activity_types = apply_filters('vikinger_members_get_comment_count_activity_types', $activity_types);
+        $activity_types = apply_filters('yipnyap_members_get_comment_count_activity_types', $activity_types);
 
         $prefix = $wpdb->base_prefix;
         $table_name = "bp_activity";
@@ -1096,7 +1096,7 @@ if (!function_exists('vikinger_members_get_comment_count')) {
     }
 }
 
-if (!function_exists('vikinger_members_get_navigation_items')) {
+if (!function_exists('yipnyap_members_get_navigation_items')) {
     /**
      * Returns member navigation items
      *
@@ -1104,34 +1104,34 @@ if (!function_exists('vikinger_members_get_navigation_items')) {
      * @param boolean $activity_single True if activity single, false if not
      * @return array
      */
-    function vikinger_members_get_navigation_items($member, $activity_single = false)
+    function yipnyap_members_get_navigation_items($member, $activity_single = false)
     {
         $nav_items = [];
 
         $member_profile_page_navigation_items = [
             [
-                'name' => esc_html__('Timeline', 'vikinger'),
+                'name' => esc_html__('Timeline', 'yipnyap'),
                 'icon' => 'timeline',
                 'slug' => 'activity',
                 'active' => bp_is_user_activity() && !$activity_single,
                 'enabled' => bp_is_active('activity'),
-                'order' => get_theme_mod('vikinger_members_setting_profile_timeline_page_order', vikinger_member_bp_navigation_item_default_order_get('activity'))
+                'order' => get_theme_mod('yipnyap_members_setting_profile_timeline_page_order', yipnyap_member_bp_navigation_item_default_order_get('activity'))
             ],
             [
-                'name' => esc_html__('Friends', 'vikinger'),
+                'name' => esc_html__('Friends', 'yipnyap'),
                 'icon' => 'friend',
                 'slug' => 'friends',
                 'active' => bp_is_user_friends(),
                 'enabled' => bp_is_active('friends'),
-                'order' => get_theme_mod('vikinger_members_setting_profile_friends_page_order', vikinger_member_bp_navigation_item_default_order_get('friends'))
+                'order' => get_theme_mod('yipnyap_members_setting_profile_friends_page_order', yipnyap_member_bp_navigation_item_default_order_get('friends'))
             ],
             [
-                'name' => esc_html__('Groups', 'vikinger'),
+                'name' => esc_html__('Groups', 'yipnyap'),
                 'icon' => 'group',
                 'slug' => 'groups',
                 'active' => bp_is_user_groups(),
                 'enabled' => bp_is_active('groups'),
-                'order' => get_theme_mod('vikinger_members_setting_profile_groups_page_order', vikinger_member_bp_navigation_item_default_order_get('groups'))
+                'order' => get_theme_mod('yipnyap_members_setting_profile_groups_page_order', yipnyap_member_bp_navigation_item_default_order_get('groups'))
             ]
         ];
 
@@ -1154,7 +1154,7 @@ if (!function_exists('vikinger_members_get_navigation_items')) {
             ];
         }
 
-        $nav_items = array_merge($nav_items, vikinger_member_bp_navigation_items_get($member));
+        $nav_items = array_merge($nav_items, yipnyap_member_bp_navigation_items_get($member));
 
         // sort nav items by order
         usort($nav_items, function ($a, $b) {
@@ -1178,13 +1178,13 @@ if (!function_exists('vikinger_members_get_navigation_items')) {
          * @since 1.9.1
          *
          */
-        $nav_items = apply_filters('vikinger_members_profile_navigation_items', $nav_items, $member, $activity_single);
+        $nav_items = apply_filters('yipnyap_members_profile_navigation_items', $nav_items, $member, $activity_single);
 
         return $nav_items;
     }
 }
 
-if (!function_exists('vikinger_member_bp_navigation_item_default_position_get')) {
+if (!function_exists('yipnyap_member_bp_navigation_item_default_position_get')) {
     /**
      * Returns navigation item default position number.
      *
@@ -1193,7 +1193,7 @@ if (!function_exists('vikinger_member_bp_navigation_item_default_position_get'))
      * @since 1.9.1
      *
      */
-    function vikinger_member_bp_navigation_item_default_order_get($slug)
+    function yipnyap_member_bp_navigation_item_default_order_get($slug)
     {
         $navigation_items = [
             'about' => 1,
@@ -1221,20 +1221,20 @@ if (!function_exists('vikinger_member_bp_navigation_item_default_position_get'))
          * @since 1.9.1
          *
          */
-        $default_position = apply_filters('vikinger_members_profile_navigation_items_default_position', $default_position, $slug);
+        $default_position = apply_filters('yipnyap_members_profile_navigation_items_default_position', $default_position, $slug);
 
         return $default_position;
     }
 }
 
-if (!function_exists('vikinger_member_bp_navigation_items_get')) {
+if (!function_exists('yipnyap_member_bp_navigation_items_get')) {
     /**
      * Get member profile navigation items.
      *
      * @param array $member Member from which to get navigation items for.
      * @return array  $member_navigation_items    Member navigation items.
      */
-    function vikinger_member_bp_navigation_items_get($member)
+    function yipnyap_member_bp_navigation_items_get($member)
     {
         $bp = buddypress();
 
@@ -1269,14 +1269,14 @@ if (!function_exists('vikinger_member_bp_navigation_items_get')) {
                 $nav_item = (array)$bp_nav_item;
                 $nav_item_link = $member['link'] . $bp_nav_item->slug;
 
-                $nav_item_default_order = vikinger_member_bp_navigation_item_default_order_get($nav_item['slug']);
+                $nav_item_default_order = yipnyap_member_bp_navigation_item_default_order_get($nav_item['slug']);
 
                 $member_nav_item = [
                     'name' => $nav_item['name'],
                     'link' => $nav_item_link,
                     'icon' => array_key_exists($nav_item['slug'], $member_nav_item_icons) ? $member_nav_item_icons[$nav_item['slug']] : false,
                     'active' => bp_is_current_component($nav_item['slug']),
-                    'order' => get_theme_mod('vikinger_members_setting_profile_' . $nav_item['component_id'] . '_page_order', $nav_item_default_order)
+                    'order' => get_theme_mod('yipnyap_members_setting_profile_' . $nav_item['component_id'] . '_page_order', $nav_item_default_order)
                 ];
 
                 $member_navigation_items[] = $member_nav_item;
@@ -1287,7 +1287,7 @@ if (!function_exists('vikinger_member_bp_navigation_items_get')) {
     }
 }
 
-if (!function_exists('vikinger_member_bp_subnavigation_items_get')) {
+if (!function_exists('yipnyap_member_bp_subnavigation_items_get')) {
     /**
      * Get member profile navigation subitems.
      *
@@ -1295,7 +1295,7 @@ if (!function_exists('vikinger_member_bp_subnavigation_items_get')) {
      * @param string $slug Slug of the navigation item from which to get subnavigation items for.
      * @return array  $member_navigation_subitems     Member navigation subitems.
      */
-    function vikinger_member_bp_subnavigation_items_get($member, $slug)
+    function yipnyap_member_bp_subnavigation_items_get($member, $slug)
     {
         $bp_nav_item_blacklist = [
             'activity',
@@ -1344,32 +1344,32 @@ if (!function_exists('vikinger_member_bp_subnavigation_items_get')) {
          * @since 1.9.1
          *
          */
-        $member_navigation_subitems = apply_filters('vikinger_members_profile_navigation_subitems', $member_navigation_subitems, $member, $slug);
+        $member_navigation_subitems = apply_filters('yipnyap_members_profile_navigation_subitems', $member_navigation_subitems, $member, $slug);
 
         return $member_navigation_subitems;
     }
 }
 
-if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
+if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
     /**
      * Returns member settings navigation items
      *
      * @param array $member Member data
      * @return array
      */
-    function vikinger_members_get_settings_navigation_sections($member)
+    function yipnyap_members_get_settings_navigation_sections($member)
     {
         $menu_sections = [];
 
-        if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
+        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('settings')) {
             // profile sections
             $profile_sections = [
-                'title' => esc_html_x('My Profile', 'Profile Settings Menu - Title', 'vikinger'),
-                'description' => esc_html_x('Change your avatar &amp; cover, accept friends, read messages and more!', 'Profile Settings Menu - Description', 'vikinger'),
+                'title' => esc_html_x('My Profile', 'Profile Settings Menu - Title', 'yipnyap'),
+                'description' => esc_html_x('Change your avatar &amp; cover, accept friends, read messages and more!', 'Profile Settings Menu - Description', 'yipnyap'),
                 'icon' => 'profile',
                 'menu_items' => [
                     [
-                        'name' => esc_html_x('Profile Info', 'Profile Settings Menu - Profile Info Link', 'vikinger'),
+                        'name' => esc_html_x('Profile Info', 'Profile Settings Menu - Profile Info Link', 'yipnyap'),
                         'slug' => 'general',
                         'link' => $member['link'] . 'settings/general',
                         'active' => bp_is_current_action('general')
@@ -1379,16 +1379,16 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
 
             if (bp_is_active('xprofile')) {
                 $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Social', 'Profile Settings Menu - Social Link', 'vikinger'),
+                    'name' => esc_html_x('Social', 'Profile Settings Menu - Social Link', 'yipnyap'),
                     'slug' => 'social',
                     'link' => $member['link'] . 'settings/social',
                     'active' => bp_is_current_action('social')
                 ];
             }
 
-            if (vikinger_settings_stream_profile_is_enabled()) {
+            if (yipnyap_settings_stream_profile_is_enabled()) {
                 $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Stream', 'Profile Settings Menu - Stream Link', 'vikinger'),
+                    'name' => esc_html_x('Stream', 'Profile Settings Menu - Stream Link', 'yipnyap'),
                     'slug' => 'stream',
                     'link' => $member['link'] . 'settings/stream',
                     'active' => bp_is_current_action('stream')
@@ -1397,7 +1397,7 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
 
             if (bp_is_active('notifications')) {
                 $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Notifications', 'Profile Settings Menu - Notifications Link', 'vikinger'),
+                    'name' => esc_html_x('Notifications', 'Profile Settings Menu - Notifications Link', 'yipnyap'),
                     'slug' => 'notifications',
                     'link' => $member['link'] . 'settings/notifications',
                     'active' => bp_is_current_action('notifications')
@@ -1407,7 +1407,7 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             // if BuddyPress messages component is active, add message related pages
             if (bp_is_active('messages') && bp_is_active('friends')) {
                 $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Messages', 'Profile Settings Menu - Messages Link', 'vikinger'),
+                    'name' => esc_html_x('Messages', 'Profile Settings Menu - Messages Link', 'yipnyap'),
                     'slug' => 'messages',
                     'link' => $member['link'] . 'settings/messages',
                     'active' => bp_is_current_action('messages')
@@ -1417,7 +1417,7 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             // if BuddyPress friends component is active, add friend related pages
             if (bp_is_active('friends')) {
                 $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Friend Requests', 'Profile Settings Menu - Friend Requests Link', 'vikinger'),
+                    'name' => esc_html_x('Friend Requests', 'Profile Settings Menu - Friend Requests Link', 'yipnyap'),
                     'slug' => 'friend-requests',
                     'link' => $member['link'] . 'settings/friend-requests',
                     'active' => bp_is_current_action('friend-requests')
@@ -1425,15 +1425,15 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             }
 
             $account_sections = [
-                'title' => esc_html_x('Account', 'Account Settings Menu - Title', 'vikinger'),
-                'description' => esc_html_x('Change your account information, password and settings!', 'Account Settings Menu - Description', 'vikinger'),
+                'title' => esc_html_x('Account', 'Account Settings Menu - Title', 'yipnyap'),
+                'description' => esc_html_x('Change your account information, password and settings!', 'Account Settings Menu - Description', 'yipnyap'),
                 'icon' => 'settings',
                 'menu_items' => []
             ];
 
             if (bp_is_active('xprofile')) {
                 $account_sections['menu_items'][] = [
-                    'name' => esc_html_x('Account Info', 'Account Settings Menu - Account Info Link', 'vikinger'),
+                    'name' => esc_html_x('Account Info', 'Account Settings Menu - Account Info Link', 'yipnyap'),
                     'slug' => 'account',
                     'link' => $member['link'] . 'settings/account',
                     'active' => bp_is_current_action('account')
@@ -1442,19 +1442,19 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
 
             $account_sections['menu_items'] = array_merge($account_sections['menu_items'], [
                 [
-                    'name' => esc_html_x('Account Settings', 'Account Settings Menu - Account Settings Link', 'vikinger'),
+                    'name' => esc_html_x('Account Settings', 'Account Settings Menu - Account Settings Link', 'yipnyap'),
                     'slug' => 'account-settings',
                     'link' => $member['link'] . 'settings/account-settings',
                     'active' => bp_is_current_action('account-settings')
                 ],
                 [
-                    'name' => esc_html_x('Change Password', 'Account Settings Menu - Change Password Link', 'vikinger'),
+                    'name' => esc_html_x('Change Password', 'Account Settings Menu - Change Password Link', 'yipnyap'),
                     'slug' => 'password',
                     'link' => $member['link'] . 'settings/password',
                     'active' => bp_is_current_action('password')
                 ],
                 [
-                    'name' => esc_html_x('Email Settings', 'Account Settings Menu - Email Settings Link', 'vikinger'),
+                    'name' => esc_html_x('Email Settings', 'Account Settings Menu - Email Settings Link', 'yipnyap'),
                     'slug' => 'email-settings',
                     'link' => $member['link'] . 'settings/email-settings',
                     'active' => bp_is_current_action('email-settings')
@@ -1467,30 +1467,30 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             // if BuddyPress groups component is active, add group manage related pages
             if (bp_is_active('groups')) {
                 $manage_groups_sections = [
-                    'title' => esc_html_x('Groups', 'Group Settings Menu - Title', 'vikinger'),
-                    'description' => esc_html_x('Create new groups, manage the ones you created or accept invites!', 'Group Settings Menu - Description', 'vikinger'),
+                    'title' => esc_html_x('Groups', 'Group Settings Menu - Title', 'yipnyap'),
+                    'description' => esc_html_x('Create new groups, manage the ones you created or accept invites!', 'Group Settings Menu - Description', 'yipnyap'),
                     'icon' => 'group',
                     'menu_items' => [
                         [
-                            'name' => esc_html_x('Manage Groups', 'Group Settings Menu - Manage Groups Link', 'vikinger'),
+                            'name' => esc_html_x('Manage Groups', 'Group Settings Menu - Manage Groups Link', 'yipnyap'),
                             'slug' => 'manage-groups',
                             'link' => $member['link'] . 'settings/manage-groups',
                             'active' => bp_is_current_action('manage-groups')
                         ],
                         [
-                            'name' => esc_html_x('Send Invitations', 'Group Settings Menu - Send Invitations Link', 'vikinger'),
+                            'name' => esc_html_x('Send Invitations', 'Group Settings Menu - Send Invitations Link', 'yipnyap'),
                             'slug' => 'send-group-invitations',
                             'link' => $member['link'] . 'settings/send-group-invitations',
                             'active' => bp_is_current_action('send-group-invitations')
                         ],
                         [
-                            'name' => esc_html_x('Received Invitations', 'Group Settings Menu - Received Invitations Link', 'vikinger'),
+                            'name' => esc_html_x('Received Invitations', 'Group Settings Menu - Received Invitations Link', 'yipnyap'),
                             'slug' => 'received-group-invitations',
                             'link' => $member['link'] . 'settings/received-group-invitations',
                             'active' => bp_is_current_action('received-group-invitations')
                         ],
                         [
-                            'name' => esc_html_x('Membership Requests', 'Group Settings Menu - Membership Requests Link', 'vikinger'),
+                            'name' => esc_html_x('Membership Requests', 'Group Settings Menu - Membership Requests Link', 'yipnyap'),
                             'slug' => 'membership-requests',
                             'link' => $member['link'] . 'settings/membership-requests',
                             'active' => bp_is_current_action('membership-requests')
@@ -1502,7 +1502,7 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             }
         }
 
-        if (vikinger_plugin_woocommerce_is_active()) {
+        if (yipnyap_plugin_woocommerce_is_active()) {
             $wc_myaccount_menu_items = [];
 
             $wc_account_menu_items = wc_get_account_menu_items();
@@ -1523,8 +1523,8 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             }
 
             $wc_myaccount_sections = [
-                'title' => esc_html_x('Shop', 'Shop Settings Menu - Title', 'vikinger'),
-                'description' => esc_html_x('Review your account, manage orders and more!', 'Shop Settings Menu - Description', 'vikinger'),
+                'title' => esc_html_x('Shop', 'Shop Settings Menu - Title', 'yipnyap'),
+                'description' => esc_html_x('Review your account, manage orders and more!', 'Shop Settings Menu - Description', 'yipnyap'),
                 'icon' => 'marketplace',
                 'menu_items' => $wc_myaccount_menu_items
             ];
@@ -1532,30 +1532,30 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
             $menu_sections[] = $wc_myaccount_sections;
         }
 
-        if (vikinger_plugin_pmpro_is_active()) {
+        if (yipnyap_plugin_pmpro_is_active()) {
             global $wp;
 
             $current_page_url = trailingslashit(home_url($wp->request));
 
             $pmpro_sections = [
-                'title' => esc_html_x('Membership', 'Membership Settings Menu - Title', 'vikinger'),
-                'description' => esc_html_x('Manage your membership level, update your billing information and more!', 'Membership Settings Menu - Description', 'vikinger'),
+                'title' => esc_html_x('Membership', 'Membership Settings Menu - Title', 'yipnyap'),
+                'description' => esc_html_x('Manage your membership level, update your billing information and more!', 'Membership Settings Menu - Description', 'yipnyap'),
                 'icon' => 'memberships',
                 'menu_items' => [
                     [
-                        'name' => esc_html_x('Account', 'Membership Settings Menu - Account Link', 'vikinger'),
+                        'name' => esc_html_x('Account', 'Membership Settings Menu - Account Link', 'yipnyap'),
                         'slug' => 'membership-account',
                         'link' => pmpro_url('account'),
                         'active' => $current_page_url === trailingslashit(pmpro_url('account'))
                     ],
                     [
-                        'name' => esc_html_x('Invoices', 'Membership Settings Menu - Invoices Link', 'vikinger'),
+                        'name' => esc_html_x('Invoices', 'Membership Settings Menu - Invoices Link', 'yipnyap'),
                         'slug' => 'membership-invoice',
                         'link' => pmpro_url('invoice'),
                         'active' => $current_page_url === trailingslashit(pmpro_url('invoice'))
                     ],
                     [
-                        'name' => esc_html_x('Billing', 'Membership Settings Menu - Billing Link', 'vikinger'),
+                        'name' => esc_html_x('Billing', 'Membership Settings Menu - Billing Link', 'yipnyap'),
                         'slug' => 'membership-billing',
                         'link' => pmpro_url('billing'),
                         'active' => $current_page_url === trailingslashit(pmpro_url('billing'))
@@ -1574,20 +1574,20 @@ if (!function_exists('vikinger_members_get_settings_navigation_sections')) {
          * @since 1.9.1
          *
          */
-        $menu_sections = apply_filters('vikinger_members_accounthub_navigation_sections', $menu_sections, $member);
+        $menu_sections = apply_filters('yipnyap_members_accounthub_navigation_sections', $menu_sections, $member);
 
         return $menu_sections;
     }
 }
 
-if (!function_exists('vikinger_members_get_xprofile_social_links')) {
+if (!function_exists('yipnyap_members_get_xprofile_social_links')) {
     /**
      * Returns member xprofile social links data
      *
      * @param array $member Member with xprofile data
      * @return array
      */
-    function vikinger_members_get_xprofile_social_links($member)
+    function yipnyap_members_get_xprofile_social_links($member)
     {
         $social_links = [];
 
@@ -1623,9 +1623,9 @@ if (!function_exists('vikinger_members_get_xprofile_social_links')) {
          * @since 1.9.1
          *
          */
-        $valid_social_networks = apply_filters('vikinger_members_xprofile_valid_social_networks', $valid_social_networks);
+        $valid_social_networks = apply_filters('yipnyap_members_xprofile_valid_social_networks', $valid_social_networks);
 
-        $social_links_group_name = vikinger_settings_xprofile_group_social_links_name_get();
+        $social_links_group_name = yipnyap_settings_xprofile_group_social_links_name_get();
 
         if (!array_key_exists($social_links_group_name, $member['profile_data']['group'])) {
             return $social_links;
@@ -1644,7 +1644,7 @@ if (!function_exists('vikinger_members_get_xprofile_social_links')) {
     }
 }
 
-if (!function_exists('vikinger_members_xprofile_get_field_value')) {
+if (!function_exists('yipnyap_members_xprofile_get_field_value')) {
     /**
      * Returns xprofile field value
      *
@@ -1652,7 +1652,7 @@ if (!function_exists('vikinger_members_xprofile_get_field_value')) {
      * @param string $field_name Name of the field to retrieve value from
      * @return string
      */
-    function vikinger_members_xprofile_get_field_value($member, $field_name)
+    function yipnyap_members_xprofile_get_field_value($member, $field_name)
     {
         if (!array_key_exists($field_name, $member['profile_data']['field'])) {
             return '';
@@ -1660,18 +1660,18 @@ if (!function_exists('vikinger_members_xprofile_get_field_value')) {
 
         $field = $member['profile_data']['field'][$field_name];
 
-        return vikinger_members_xprofile_parse_field_value($field);
+        return yipnyap_members_xprofile_parse_field_value($field);
     }
 }
 
-if (!function_exists('vikinger_members_xprofile_parse_field_value')) {
+if (!function_exists('yipnyap_members_xprofile_parse_field_value')) {
     /**
      * Parse xprofile field data and return formatted value
      *
      * @param array $field xprofile field data
      * @return string
      */
-    function vikinger_members_xprofile_parse_field_value($field)
+    function yipnyap_members_xprofile_parse_field_value($field)
     {
         // if field has a value and its type is datebox, format date using user configuration
         if ($field['value'] !== '' && $field['type'] === 'datebox') {
@@ -1690,7 +1690,7 @@ if (!function_exists('vikinger_members_xprofile_parse_field_value')) {
     }
 }
 
-if (!function_exists('vikinger_members_xprofile_get_group_fields')) {
+if (!function_exists('yipnyap_members_xprofile_get_group_fields')) {
     /**
      * Returns xprofile group fields
      *
@@ -1699,7 +1699,7 @@ if (!function_exists('vikinger_members_xprofile_get_group_fields')) {
      * @param array $exclude_fields Array of field names to exclude from results
      * @return array
      */
-    function vikinger_members_xprofile_get_group_fields($member, $group_name, $exclude_fields = [])
+    function yipnyap_members_xprofile_get_group_fields($member, $group_name, $exclude_fields = [])
     {
         $group_fields = [];
 
@@ -1719,7 +1719,7 @@ if (!function_exists('vikinger_members_xprofile_get_group_fields')) {
                 'id' => $field['id'],
                 'title' => $field['name'],
                 'type' => $field['type'],
-                'value' => vikinger_members_xprofile_parse_field_value($field)
+                'value' => yipnyap_members_xprofile_parse_field_value($field)
             ];
         }
 
@@ -1727,14 +1727,14 @@ if (!function_exists('vikinger_members_xprofile_get_group_fields')) {
     }
 }
 
-if (!function_exists('vikinger_member_avatar_delete')) {
+if (!function_exists('yipnyap_member_avatar_delete')) {
     /**
      * Delete member avatar
      *
      * @param int $member_id ID of the member to delete avatar from.
      * @return bool|array         Delete data on success, false on error.
      */
-    function vikinger_member_avatar_delete($member_id)
+    function yipnyap_member_avatar_delete($member_id)
     {
         $request = new WP_REST_Request('DELETE', '/buddypress/v1/members/' . $member_id . '/avatar');
 
@@ -1749,14 +1749,14 @@ if (!function_exists('vikinger_member_avatar_delete')) {
     }
 }
 
-if (!function_exists('vikinger_member_cover_delete')) {
+if (!function_exists('yipnyap_member_cover_delete')) {
     /**
      * Delete member cover
      *
      * @param int $member_id ID of the member to delete cover from.
      * @return bool|array         Delete data on success, false on error.
      */
-    function vikinger_member_cover_delete($member_id)
+    function yipnyap_member_cover_delete($member_id)
     {
         $request = new WP_REST_Request('DELETE', '/buddypress/v1/members/' . $member_id . '/cover');
 

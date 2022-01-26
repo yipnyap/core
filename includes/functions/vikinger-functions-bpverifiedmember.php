@@ -12,11 +12,11 @@
  *                                Optional. Default: 'all'.
  * @return array  $settings       Settings.
  */
-function vikinger_bpverifiedmember_settings_get($scope = 'all') {
+function yipnyap_bpverifiedmember_settings_get($scope = 'all') {
   $settings = [];
 
   // only get settings if the plugin is active
-  if (vikinger_plugin_bpverifiedmember_is_active()) {
+  if (yipnyap_plugin_bpverifiedmember_is_active()) {
     $settings = [
       'bp_verified_member_display_badge_in_profile_username'  => get_option('bp_verified_member_display_badge_in_profile_username', 1) == 1,
       'bp_verified_member_display_badge_in_profile_fullname'  => get_option('bp_verified_member_display_badge_in_profile_fullname', 0) == 1
@@ -53,7 +53,7 @@ function vikinger_bpverifiedmember_settings_get($scope = 'all') {
 /**
  * Check if a user is verified
  */
-function vikinger_bpverifiedmember_user_is_verified($user_id) {
+function yipnyap_bpverifiedmember_user_is_verified($user_id) {
   global $bp_verified_member;
 
   return $bp_verified_member->is_user_verified($user_id);
@@ -64,11 +64,11 @@ function vikinger_bpverifiedmember_user_is_verified($user_id) {
  * 
  * @return string $badge        Verified badge HTML content.
  */
-function vikinger_bpverifiedmember_badge_get() {
+function yipnyap_bpverifiedmember_badge_get() {
   $badge = '';
 
   // only get settings if the plugin is active
-  if (vikinger_plugin_bpverifiedmember_is_active()) {
+  if (yipnyap_plugin_bpverifiedmember_is_active()) {
     global $bp_verified_member;
 
     $badge = $bp_verified_member->get_verified_badge();
@@ -77,15 +77,15 @@ function vikinger_bpverifiedmember_badge_get() {
   return $badge;
 }
 
-if (!function_exists('vikinger_comment_author_filter')) {
+if (!function_exists('yipnyap_comment_author_filter')) {
   /**
    * Undo HTML entities encoding so that verified badge span is not escaped
    */
-  function vikinger_comment_author_filter($author, $comment_id) {
+  function yipnyap_comment_author_filter($author, $comment_id) {
     return wp_specialchars_decode($author, ENT_QUOTES);
   }
 }
 
-add_filter('comment_author', 'vikinger_comment_author_filter', 10, 2);
+add_filter('comment_author', 'yipnyap_comment_author_filter', 10, 2);
 
 ?>

@@ -8,8 +8,8 @@
 /**
  * Filter excerpt 'more' text
  */
-function vikinger_excerpt_more($more) {
+function yipnyap_excerpt_more($more) {
   return '...';
 }
 
-add_filter('excerpt_more', 'vikinger_excerpt_more');
+add_filter('excerpt_more', 'yipnyap_excerpt_more');

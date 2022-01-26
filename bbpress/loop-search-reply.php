@@ -31,8 +31,8 @@ defined( 'ABSPATH' ) || exit;
 
 		<?php
 		
-			$reply_author_data = vikinger_bbpress_reply_author_get(bbp_get_reply_id());
-			$reply_author_data['role'] = vikinger_bbpress_author_role_get($reply_author_data['id']);
+			$reply_author_data = yipnyap_bbpress_reply_author_get(bbp_get_reply_id());
+			$reply_author_data['role'] = yipnyap_bbpress_author_role_get($reply_author_data['id']);
 		
 			/**
 			 * Forum Reply Author

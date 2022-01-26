@@ -5,42 +5,42 @@
  * @since 1.5.0
  */
 
-if (vikinger_plugin_buddypress_is_active()) {
-  if (vikinger_settings_members_profile_page_is_enabled('about')) {
+if (yipnyap_plugin_buddypress_is_active()) {
+  if (yipnyap_settings_members_profile_page_is_enabled('about')) {
 
-    if (!function_exists('vikinger_members_about_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_about_page_setup_nav')) {
       /**
        * Creates member about page navigation
        */
-      function vikinger_members_about_page_setup_nav() {
+      function yipnyap_members_about_page_setup_nav() {
         global $bp;
 
         bp_core_new_nav_item([
-          'name'            => esc_html__('About', 'vikinger'),
+          'name'            => esc_html__('About', 'yipnyap'),
           'slug'            => 'about',
-          'screen_function' => 'vikinger_members_about_page',
+          'screen_function' => 'yipnyap_members_about_page',
           'position'        => 1
         ]);
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_about_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_about_page_setup_nav');
 
-    if (!function_exists('vikinger_members_about_page')) {
+    if (!function_exists('yipnyap_members_about_page')) {
       /**
        * Members post page setup
        */
-      function vikinger_members_about_page() {
-        add_action('bp_template_content', 'vikinger_members_about_page_screen_content');
+      function yipnyap_members_about_page() {
+        add_action('bp_template_content', 'yipnyap_members_about_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_about_page_screen_content')) {
+    if (!function_exists('yipnyap_members_about_page_screen_content')) {
       /**
        * Members post page HTML content
        */
-      function vikinger_members_about_page_screen_content() {
+      function yipnyap_members_about_page_screen_content() {
         $member = get_query_var('member');
 
         ?>
@@ -97,65 +97,65 @@ if (vikinger_plugin_buddypress_is_active()) {
     }
   }
 
-  if (vikinger_settings_members_profile_page_is_enabled('posts')) {
-    if (!function_exists('vikinger_members_posts_page_setup_nav')) {
+  if (yipnyap_settings_members_profile_page_is_enabled('posts')) {
+    if (!function_exists('yipnyap_members_posts_page_setup_nav')) {
       /**
        * Creates member posts page navigation
        */
-      function vikinger_members_posts_page_setup_nav() {
+      function yipnyap_members_posts_page_setup_nav() {
         global $bp;
 
         bp_core_new_nav_item([
-          'name'            => esc_html__('Blog Posts', 'vikinger'),
+          'name'            => esc_html__('Blog Posts', 'yipnyap'),
           'slug'            => 'posts',
-          'screen_function' => 'vikinger_members_posts_page',
+          'screen_function' => 'yipnyap_members_posts_page',
           'position'        => 5
         ]);
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_posts_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_posts_page_setup_nav');
 
-    if (!function_exists('vikinger_members_posts_page')) {
+    if (!function_exists('yipnyap_members_posts_page')) {
       /**
        * Members post page setup
        */
-      function vikinger_members_posts_page() {
-        add_action('bp_template_content', 'vikinger_members_posts_page_screen_content');
+      function yipnyap_members_posts_page() {
+        add_action('bp_template_content', 'yipnyap_members_posts_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_posts_page_screen_content')) {
+    if (!function_exists('yipnyap_members_posts_page_screen_content')) {
       /**
        * Members post page HTML content
        */
-      function vikinger_members_posts_page_screen_content() {
+      function yipnyap_members_posts_page_screen_content() {
         $member = get_query_var('member');
 
         $post_args = [
           'author'  => $member['id']
         ];
 
-        if (vikinger_plugin_pmpro_is_active() && vikinger_pmpro_search_archives_limit_enabled()) {
-          $restricted_categories = vikinger_pmpro_logged_user_restricted_categories_get();
-          $restricted_posts = vikinger_pmpro_logged_user_restricted_posts_get();
+        if (yipnyap_plugin_pmpro_is_active() && yipnyap_pmpro_search_archives_limit_enabled()) {
+          $restricted_categories = yipnyap_pmpro_logged_user_restricted_categories_get();
+          $restricted_posts = yipnyap_pmpro_logged_user_restricted_posts_get();
 
           $post_args['category__not_in'] = $restricted_categories;
           $post_args['post__not_in'] = $restricted_posts;
         }
 
-        $post_count = vikinger_get_post_count($post_args);
+        $post_count = yipnyap_get_post_count($post_args);
 
         /**
          * Section Header
          */
         get_template_part('template-part/section/section', 'header', [
           'section_pretitle'    => sprintf(
-            esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+            esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
             $member['name']
           ),
-          'section_title'       => esc_html__('Blog Posts', 'vikinger'),
+          'section_title'       => esc_html__('Blog Posts', 'yipnyap'),
           'section_text'        => $post_count
         ]);
 
@@ -164,7 +164,7 @@ if (vikinger_plugin_buddypress_is_active()) {
          */
         get_template_part('template-part/post/post-filterable-list', null, [
           'allow_post_types'  => true,
-          'post_types'        => vikinger_blog_post_types_to_display_in_blog_get(),
+          'post_types'        => yipnyap_blog_post_types_to_display_in_blog_get(),
           'attributes'        => [
             'userid'  => $member['id']
           ]
@@ -174,41 +174,41 @@ if (vikinger_plugin_buddypress_is_active()) {
   }
 
   // add vkmedia photos page if plugin is active
-  if (bp_is_active('activity') && vikinger_plugin_vkmedia_is_active()) {
-    if (vikinger_settings_media_file_upload_is_enabled('image')) {
-      if (!function_exists('vikinger_members_photos_page_setup_nav')) {
+  if (bp_is_active('activity') && yipnyap_plugin_vkmedia_is_active()) {
+    if (yipnyap_settings_media_file_upload_is_enabled('image')) {
+      if (!function_exists('yipnyap_members_photos_page_setup_nav')) {
         /**
          * Creates member photos page navigation
          */
-        function vikinger_members_photos_page_setup_nav() {
+        function yipnyap_members_photos_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Photos', 'vikinger'),
+            'name'            => esc_html__('Photos', 'yipnyap'),
             'slug'            => 'photos',
-            'screen_function' => 'vikinger_members_photos_page',
+            'screen_function' => 'yipnyap_members_photos_page',
             'position'        => 7
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_photos_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_photos_page_setup_nav');
 
-      if (!function_exists('vikinger_members_photos_page')) {
+      if (!function_exists('yipnyap_members_photos_page')) {
         /**
          * Members photos page setup
          */
-        function vikinger_members_photos_page() {
-          add_action('bp_template_content', 'vikinger_members_photos_page_screen_content');
+        function yipnyap_members_photos_page() {
+          add_action('bp_template_content', 'yipnyap_members_photos_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_photos_page_screen_content')) {
+      if (!function_exists('yipnyap_members_photos_page_screen_content')) {
         /**
          * Members photos page HTML content
          */
-        function vikinger_members_photos_page_screen_content() {
+        function yipnyap_members_photos_page_screen_content() {
           $member = get_query_var('member');
 
           ?>
@@ -218,40 +218,40 @@ if (vikinger_plugin_buddypress_is_active()) {
       }
     }
 
-    if (vikinger_settings_media_file_upload_is_enabled('video')) {
-      if (!function_exists('vikinger_members_videos_page_setup_nav')) {
+    if (yipnyap_settings_media_file_upload_is_enabled('video')) {
+      if (!function_exists('yipnyap_members_videos_page_setup_nav')) {
         /**
          * Creates member videos page navigation
          */
-        function vikinger_members_videos_page_setup_nav() {
+        function yipnyap_members_videos_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Videos', 'vikinger'),
+            'name'            => esc_html__('Videos', 'yipnyap'),
             'slug'            => 'videos',
-            'screen_function' => 'vikinger_members_videos_page',
+            'screen_function' => 'yipnyap_members_videos_page',
             'position'        => 8
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_videos_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_videos_page_setup_nav');
 
-      if (!function_exists('vikinger_members_videos_page')) {
+      if (!function_exists('yipnyap_members_videos_page')) {
         /**
          * Members videos page setup
          */
-        function vikinger_members_videos_page() {
-          add_action('bp_template_content', 'vikinger_members_videos_page_screen_content');
+        function yipnyap_members_videos_page() {
+          add_action('bp_template_content', 'yipnyap_members_videos_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_videos_page_screen_content')) {
+      if (!function_exists('yipnyap_members_videos_page_screen_content')) {
         /**
          * Members videos page HTML content
          */
-        function vikinger_members_videos_page_screen_content() {
+        function yipnyap_members_videos_page_screen_content() {
           $member = get_query_var('member');
 
           ?>
@@ -263,43 +263,43 @@ if (vikinger_plugin_buddypress_is_active()) {
   }
 
   // if GamiPress plugin is active, create profile pages for points, badges, quests and ranks
-  if (vikinger_plugin_gamipress_is_active()) {
-    if (vikinger_settings_members_profile_page_is_enabled('credits')) {
-      if (!function_exists('vikinger_members_credits_page_setup_nav')) {
+  if (yipnyap_plugin_gamipress_is_active()) {
+    if (yipnyap_settings_members_profile_page_is_enabled('credits')) {
+      if (!function_exists('yipnyap_members_credits_page_setup_nav')) {
         /**
          * Creates member credits page navigation
          */
-        function vikinger_members_credits_page_setup_nav() {
+        function yipnyap_members_credits_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Credits', 'vikinger'),
+            'name'            => esc_html__('Credits', 'yipnyap'),
             'slug'            => 'credits',
-            'screen_function' => 'vikinger_members_credits_page',
+            'screen_function' => 'yipnyap_members_credits_page',
             'position'        => 9
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_credits_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_credits_page_setup_nav');
 
-      if (!function_exists('vikinger_members_credits_page')) {
+      if (!function_exists('yipnyap_members_credits_page')) {
         /**
          * Members credits page setup
          */
-        function vikinger_members_credits_page() {
-          add_action('bp_template_content', 'vikinger_members_credits_page_screen_content');
+        function yipnyap_members_credits_page() {
+          add_action('bp_template_content', 'yipnyap_members_credits_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_credits_page_screen_content')) {
+      if (!function_exists('yipnyap_members_credits_page_screen_content')) {
         /**
          * Members credits page HTML content
          */
-        function vikinger_members_credits_page_screen_content() {
+        function yipnyap_members_credits_page_screen_content() {
           $member = get_query_var('member');
-          $points = vikinger_gamipress_get_user_points($member['id']);
+          $points = yipnyap_gamipress_get_user_points($member['id']);
           $point_count = count($points);
 
           /**
@@ -307,10 +307,10 @@ if (vikinger_plugin_buddypress_is_active()) {
            */
           get_template_part('template-part/section/section', 'header', [
             'section_pretitle'  => sprintf(
-              esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+              esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
               $member['name']
             ),
-            'section_title'     => esc_html__('Credits Balance', 'vikinger')
+            'section_title'     => esc_html__('Credits Balance', 'yipnyap')
           ]);
 
           if ($point_count > 0) {
@@ -335,42 +335,42 @@ if (vikinger_plugin_buddypress_is_active()) {
       }
     }
 
-    if (vikinger_settings_members_profile_page_is_enabled('badges') && vikinger_gamipress_achievement_type_exists('badge')) {
-      if (!function_exists('vikinger_members_badges_page_setup_nav')) {
+    if (yipnyap_settings_members_profile_page_is_enabled('badges') && yipnyap_gamipress_achievement_type_exists('badge')) {
+      if (!function_exists('yipnyap_members_badges_page_setup_nav')) {
         /**
          * Creates member badges page navigation
          */
-        function vikinger_members_badges_page_setup_nav() {
+        function yipnyap_members_badges_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Badges', 'vikinger'),
+            'name'            => esc_html__('Badges', 'yipnyap'),
             'slug'            => 'badges',
-            'screen_function' => 'vikinger_members_badges_page',
+            'screen_function' => 'yipnyap_members_badges_page',
             'position'        => 10
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_badges_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_badges_page_setup_nav');
 
-      if (!function_exists('vikinger_members_badges_page')) {
+      if (!function_exists('yipnyap_members_badges_page')) {
         /**
          * Members badges page setup
          */
-        function vikinger_members_badges_page() {
-          add_action('bp_template_content', 'vikinger_members_badges_page_screen_content');
+        function yipnyap_members_badges_page() {
+          add_action('bp_template_content', 'yipnyap_members_badges_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_badges_page_screen_content')) {
+      if (!function_exists('yipnyap_members_badges_page_screen_content')) {
         /**
          * Members badges page HTML content
          */
-        function vikinger_members_badges_page_screen_content() {
+        function yipnyap_members_badges_page_screen_content() {
           $member = get_query_var('member');
-          $badges = vikinger_gamipress_get_user_completed_achievements('badge', $member['id']);
+          $badges = yipnyap_gamipress_get_user_completed_achievements('badge', $member['id']);
           $badges_count = count($badges);
 
           /**
@@ -378,10 +378,10 @@ if (vikinger_plugin_buddypress_is_active()) {
            */
           get_template_part('template-part/section/section', 'header', [
             'section_pretitle'  => sprintf(
-              esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+              esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
               $member['name']
             ),
-            'section_title'     => esc_html__('Badges', 'vikinger'),
+            'section_title'     => esc_html__('Badges', 'yipnyap'),
             'section_text'      => $badges_count
           ]);
 
@@ -405,42 +405,42 @@ if (vikinger_plugin_buddypress_is_active()) {
       }
     }
 
-    if (vikinger_settings_members_profile_page_is_enabled('quests') && vikinger_gamipress_achievement_type_exists('quest')) {
-      if (!function_exists('vikinger_members_quests_page_setup_nav')) {
+    if (yipnyap_settings_members_profile_page_is_enabled('quests') && yipnyap_gamipress_achievement_type_exists('quest')) {
+      if (!function_exists('yipnyap_members_quests_page_setup_nav')) {
         /**
          * Creates member quests page navigation
          */
-        function vikinger_members_quests_page_setup_nav() {
+        function yipnyap_members_quests_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Quests', 'vikinger'),
+            'name'            => esc_html__('Quests', 'yipnyap'),
             'slug'            => 'quests',
-            'screen_function' => 'vikinger_members_quests_page',
+            'screen_function' => 'yipnyap_members_quests_page',
             'position'        => 11
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_quests_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_quests_page_setup_nav');
 
-      if (!function_exists('vikinger_members_quests_page')) {
+      if (!function_exists('yipnyap_members_quests_page')) {
         /**
          * Members quests page setup
          */
-        function vikinger_members_quests_page() {
-          add_action('bp_template_content', 'vikinger_members_quests_page_screen_content');
+        function yipnyap_members_quests_page() {
+          add_action('bp_template_content', 'yipnyap_members_quests_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_quests_page_screen_content')) {
+      if (!function_exists('yipnyap_members_quests_page_screen_content')) {
         /**
          * Members quests page HTML content
          */
-        function vikinger_members_quests_page_screen_content() {
+        function yipnyap_members_quests_page_screen_content() {
           $member = get_query_var('member');
-          $quests = vikinger_gamipress_get_user_completed_achievements('quest', $member['id']);
+          $quests = yipnyap_gamipress_get_user_completed_achievements('quest', $member['id']);
           $quests_count = count($quests);
 
           /**
@@ -448,10 +448,10 @@ if (vikinger_plugin_buddypress_is_active()) {
            */
           get_template_part('template-part/section/section', 'header', [
             'section_pretitle'  => sprintf(
-              esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+              esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
               $member['name']
             ),
-            'section_title'     => esc_html__('Quests', 'vikinger'),
+            'section_title'     => esc_html__('Quests', 'yipnyap'),
             'section_text'      => $quests_count
           ]);
 
@@ -476,42 +476,42 @@ if (vikinger_plugin_buddypress_is_active()) {
       }
     }
 
-    if (vikinger_settings_members_profile_page_is_enabled('ranks')) {
-      if (!function_exists('vikinger_members_ranks_page_setup_nav')) {
+    if (yipnyap_settings_members_profile_page_is_enabled('ranks')) {
+      if (!function_exists('yipnyap_members_ranks_page_setup_nav')) {
         /**
          * Creates member ranks page navigation
          */
-        function vikinger_members_ranks_page_setup_nav() {
+        function yipnyap_members_ranks_page_setup_nav() {
           global $bp;
 
           bp_core_new_nav_item([
-            'name'            => esc_html__('Ranks', 'vikinger'),
+            'name'            => esc_html__('Ranks', 'yipnyap'),
             'slug'            => 'ranks',
-            'screen_function' => 'vikinger_members_ranks_page',
+            'screen_function' => 'yipnyap_members_ranks_page',
             'position'        => 12
           ]);
         }
       }
 
-      add_action('bp_setup_nav', 'vikinger_members_ranks_page_setup_nav');
+      add_action('bp_setup_nav', 'yipnyap_members_ranks_page_setup_nav');
 
-      if (!function_exists('vikinger_members_ranks_page')) {
+      if (!function_exists('yipnyap_members_ranks_page')) {
         /**
          * Members ranks page setup
          */
-        function vikinger_members_ranks_page() {
-          add_action('bp_template_content', 'vikinger_members_ranks_page_screen_content');
+        function yipnyap_members_ranks_page() {
+          add_action('bp_template_content', 'yipnyap_members_ranks_page_screen_content');
           bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         }
       }
 
-      if (!function_exists('vikinger_members_ranks_page_screen_content')) {
+      if (!function_exists('yipnyap_members_ranks_page_screen_content')) {
         /**
          * Members ranks page HTML content
          */
-        function vikinger_members_ranks_page_screen_content() {
+        function yipnyap_members_ranks_page_screen_content() {
           $member = get_query_var('member');
-          $ranks = vikinger_gamipress_get_user_completed_ranks('rank', $member['id']);
+          $ranks = yipnyap_gamipress_get_user_completed_ranks('rank', $member['id']);
           $ranks_count = count($ranks);
 
           /**
@@ -519,10 +519,10 @@ if (vikinger_plugin_buddypress_is_active()) {
            */
           get_template_part('template-part/section/section', 'header', [
             'section_pretitle'  => sprintf(
-              esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+              esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
               $member['name']
             ),
-            'section_title'     => esc_html__('Rank', 'vikinger')
+            'section_title'     => esc_html__('Rank', 'yipnyap')
           ]);
 
           if ($ranks_count > 0) {
@@ -549,42 +549,42 @@ if (vikinger_plugin_buddypress_is_active()) {
 }
 
 // if buddypress and the settings component are active, create profile settings pages
-if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
-  if (!function_exists('vikinger_members_settings_social_page_setup_nav')) {
+if (yipnyap_plugin_buddypress_is_active() && bp_is_active('settings')) {
+  if (!function_exists('yipnyap_members_settings_social_page_setup_nav')) {
     /**
      * Creates member social settings page navigation
      */
-    function vikinger_members_settings_social_page_setup_nav() {
+    function yipnyap_members_settings_social_page_setup_nav() {
       global $bp;
 
       bp_core_new_subnav_item([
-        'name'            => esc_html__('Social Settings', 'vikinger'),
+        'name'            => esc_html__('Social Settings', 'yipnyap'),
         'slug'            => 'social',
         'parent_slug'     => bp_get_settings_slug(),
         'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-        'screen_function' => 'vikinger_members_settings_social_page',
+        'screen_function' => 'yipnyap_members_settings_social_page',
         'user_has_access' => bp_core_can_edit_settings()
       ], 'members');
     }
   }
 
-  add_action('bp_setup_nav', 'vikinger_members_settings_social_page_setup_nav');
+  add_action('bp_setup_nav', 'yipnyap_members_settings_social_page_setup_nav');
 
-  if (!function_exists('vikinger_members_settings_social_page')) {
+  if (!function_exists('yipnyap_members_settings_social_page')) {
     /**
      * Members social page setup
      */
-    function vikinger_members_settings_social_page() {
-      add_action('bp_template_content', 'vikinger_members_settings_social_page_screen_content');
+    function yipnyap_members_settings_social_page() {
+      add_action('bp_template_content', 'yipnyap_members_settings_social_page_screen_content');
       bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
     }
   }
 
-  if (!function_exists('vikinger_members_settings_social_page_screen_content')) {
+  if (!function_exists('yipnyap_members_settings_social_page_screen_content')) {
     /**
      * Members social page HTML content
      */
-    function vikinger_members_settings_social_page_screen_content() {
+    function yipnyap_members_settings_social_page_screen_content() {
       ?>
         <div id="social-settings-screen"></div>
       </div>
@@ -595,43 +595,43 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
 
   // if BuddyPress messages component is active, create message related pages
   if (bp_is_active('messages') && bp_is_active('friends')) {
-    if (!function_exists('vikinger_members_settings_messages_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_messages_page_setup_nav')) {
       /**
        * Creates member messages settings page navigation
        */
-      function vikinger_members_settings_messages_page_setup_nav() {
+      function yipnyap_members_settings_messages_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Message Settings', 'vikinger'),
+          'name'            => esc_html__('Message Settings', 'yipnyap'),
           'slug'            => 'messages',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_messages_page',
+          'screen_function' => 'yipnyap_members_settings_messages_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_messages_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_messages_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_messages_page')) {
+    if (!function_exists('yipnyap_members_settings_messages_page')) {
       /**
        * Members messages page setup
        */
-      function vikinger_members_settings_messages_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_messages_page_screen_content');
+      function yipnyap_members_settings_messages_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_messages_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_messages_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_messages_page_screen_content')) {
       /**
        * Members messages page HTML content
        */
-      function vikinger_members_settings_messages_page_screen_content() {
+      function yipnyap_members_settings_messages_page_screen_content() {
         // if BP Better Messages plugin is active, show its messages screen
-        if (vikinger_plugin_bpbettermessages_is_active()) {
+        if (yipnyap_plugin_bpbettermessages_is_active()) {
         ?>
           <!-- ACCOUNT HUB CONTENT -->
           <div class="account-hub-content">
@@ -640,8 +640,8 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
            * Section Header
            */
           get_template_part('template-part/section/section', 'header', [
-            'section_pretitle'  => esc_html__('My Profile', 'vikinger'),
-            'section_title'     => esc_html__('Messages', 'vikinger')
+            'section_pretitle'  => esc_html__('My Profile', 'yipnyap'),
+            'section_title'     => esc_html__('Messages', 'yipnyap')
           ]);
     
           echo BP_Better_Messages()->functions->get_page();
@@ -682,41 +682,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
 
   // if BuddyPress friends component is active, create friend related pages
   if (bp_is_active('friends')) {
-    if (!function_exists('vikinger_members_settings_friend_requests_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_friend_requests_page_setup_nav')) {
       /**
        * Creates member friend requests settings page navigation
        */
-      function vikinger_members_settings_friend_requests_page_setup_nav() {
+      function yipnyap_members_settings_friend_requests_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Friend Requests Settings', 'vikinger'),
+          'name'            => esc_html__('Friend Requests Settings', 'yipnyap'),
           'slug'            => 'friend-requests',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_friend_requests_page',
+          'screen_function' => 'yipnyap_members_settings_friend_requests_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_friend_requests_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_friend_requests_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_friend_requests_page')) {
+    if (!function_exists('yipnyap_members_settings_friend_requests_page')) {
       /**
        * Members friend requests page setup
        */
-      function vikinger_members_settings_friend_requests_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_friend_requests_page_screen_content');
+      function yipnyap_members_settings_friend_requests_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_friend_requests_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_friend_requests_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_friend_requests_page_screen_content')) {
       /**
        * Members friend requests page HTML content
        */
-      function vikinger_members_settings_friend_requests_page_screen_content() {
+      function yipnyap_members_settings_friend_requests_page_screen_content() {
         ?>
           <div id="friend-requests-settings-screen"></div>
         </div>
@@ -726,41 +726,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
     }
   }
 
-  if (!function_exists('vikinger_members_settings_account_info_page_setup_nav')) {
+  if (!function_exists('yipnyap_members_settings_account_info_page_setup_nav')) {
     /**
      * Creates member account info settings page navigation
      */
-    function vikinger_members_settings_account_info_page_setup_nav() {
+    function yipnyap_members_settings_account_info_page_setup_nav() {
       global $bp;
 
       bp_core_new_subnav_item([
-        'name'            => esc_html__('Account Info Settings', 'vikinger'),
+        'name'            => esc_html__('Account Info Settings', 'yipnyap'),
         'slug'            => 'account',
         'parent_slug'     => bp_get_settings_slug(),
         'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-        'screen_function' => 'vikinger_members_settings_account_info_page',
+        'screen_function' => 'yipnyap_members_settings_account_info_page',
         'user_has_access' => bp_core_can_edit_settings()
       ], 'members');
     }
   }
 
-  add_action('bp_setup_nav', 'vikinger_members_settings_account_info_page_setup_nav');
+  add_action('bp_setup_nav', 'yipnyap_members_settings_account_info_page_setup_nav');
 
-  if (!function_exists('vikinger_members_settings_account_info_page')) {
+  if (!function_exists('yipnyap_members_settings_account_info_page')) {
     /**
      * Members account info page setup
      */
-    function vikinger_members_settings_account_info_page() {
-      add_action('bp_template_content', 'vikinger_members_settings_account_info_page_screen_content');
+    function yipnyap_members_settings_account_info_page() {
+      add_action('bp_template_content', 'yipnyap_members_settings_account_info_page_screen_content');
       bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
     }
   }
 
-  if (!function_exists('vikinger_members_settings_account_info_page_screen_content')) {
+  if (!function_exists('yipnyap_members_settings_account_info_page_screen_content')) {
     /**
      * Members account info page HTML content
      */
-    function vikinger_members_settings_account_info_page_screen_content() {
+    function yipnyap_members_settings_account_info_page_screen_content() {
       ?>
         <div id="account-info-settings-screen"></div>
       </div>
@@ -769,41 +769,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
     }
   }
 
-  if (!function_exists('vikinger_members_settings_account_settings_page_setup_nav')) {
+  if (!function_exists('yipnyap_members_settings_account_settings_page_setup_nav')) {
     /**
      * Creates member account settings settings page navigation
      */
-    function vikinger_members_settings_account_settings_page_setup_nav() {
+    function yipnyap_members_settings_account_settings_page_setup_nav() {
       global $bp;
 
       bp_core_new_subnav_item([
-        'name'            => esc_html__('Account Settings', 'vikinger'),
+        'name'            => esc_html__('Account Settings', 'yipnyap'),
         'slug'            => 'account-settings',
         'parent_slug'     => bp_get_settings_slug(),
         'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-        'screen_function' => 'vikinger_members_settings_account_settings_page',
+        'screen_function' => 'yipnyap_members_settings_account_settings_page',
         'user_has_access' => bp_core_can_edit_settings()
       ], 'members');
     }
   }
 
-  add_action('bp_setup_nav', 'vikinger_members_settings_account_settings_page_setup_nav');
+  add_action('bp_setup_nav', 'yipnyap_members_settings_account_settings_page_setup_nav');
 
-  if (!function_exists('vikinger_members_settings_account_settings_page')) {
+  if (!function_exists('yipnyap_members_settings_account_settings_page')) {
     /**
      * Members account settings page setup
      */
-    function vikinger_members_settings_account_settings_page() {
-      add_action('bp_template_content', 'vikinger_members_settings_account_settings_page_screen_content');
+    function yipnyap_members_settings_account_settings_page() {
+      add_action('bp_template_content', 'yipnyap_members_settings_account_settings_page_screen_content');
       bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
     }
   }
 
-  if (!function_exists('vikinger_members_settings_account_settings_page_screen_content')) {
+  if (!function_exists('yipnyap_members_settings_account_settings_page_screen_content')) {
     /**
      * Members account settings page HTML content
      */
-    function vikinger_members_settings_account_settings_page_screen_content() {
+    function yipnyap_members_settings_account_settings_page_screen_content() {
       $member = get_query_var('member');
 
     ?>
@@ -815,8 +815,8 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
          * Section Header
          */
         get_template_part('template-part/section/section', 'header', [
-          'section_pretitle'  => esc_html__('Account', 'vikinger'),
-          'section_title'     => esc_html__('Account Settings', 'vikinger')
+          'section_pretitle'  => esc_html__('Account', 'yipnyap'),
+          'section_title'     => esc_html__('Account Settings', 'yipnyap')
         ]);
 
       ?>
@@ -825,7 +825,7 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
           <!-- WIDGET BOX -->
           <div class="widget-box">
             <!-- WIDGET BOX TITLE -->
-            <p class="widget-box-title"><?php esc_html_e('Delete Account', 'vikinger'); ?></p>
+            <p class="widget-box-title"><?php esc_html_e('Delete Account', 'yipnyap'); ?></p>
             <!-- /WIDGET BOX TITLE -->
 
             <!-- WIDGET BOX CONTENT -->
@@ -839,7 +839,7 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
                 get_template_part('template-part/alert/alert', 'line', [
                   'type'  =>  'info',
                   'text'  =>  sprintf(
-                                esc_html__('%sDelete Account:%s Site admins cannot be deleted.', 'vikinger'),
+                                esc_html__('%sDelete Account:%s Site admins cannot be deleted.', 'yipnyap'),
                                 '<span class="bold">',
                                 '</span>'
                               )
@@ -851,7 +851,7 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
                 get_template_part('template-part/alert/alert', 'line', [
                   'type'  =>  'info',
                   'text'  =>  sprintf(
-                                esc_html__('%sDelete Account Disabled:%s Please contact the site administrator to request account deletion.', 'vikinger'),
+                                esc_html__('%sDelete Account Disabled:%s Please contact the site administrator to request account deletion.', 'yipnyap'),
                                 '<span class="bold">',
                                 '</span>'
                               )
@@ -863,7 +863,7 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
                 get_template_part('template-part/alert/alert', 'line', [
                   'type'  =>  'error',
                   'text'  =>  sprintf(
-                                esc_html__('%sWarning:%s deleting your account will delete all of the content you have created. It will be completely irrecoverable.', 'vikinger'),
+                                esc_html__('%sWarning:%s deleting your account will delete all of the content you have created. It will be completely irrecoverable.', 'yipnyap'),
                                 '<span class="bold">',
                                 '</span>'
                               )
@@ -873,8 +873,8 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
 
               <!-- BUTTON -->
               <div id="vk-user-account-delete" class="button tertiary button-loader">
-                <span class="button-text"><?php esc_html_e('Delete My Account', 'vikinger'); ?></span>
-                <span class="button-loading-text"><?php esc_html_e('Deleting...', 'vikinger'); ?></span>
+                <span class="button-text"><?php esc_html_e('Delete My Account', 'yipnyap'); ?></span>
+                <span class="button-loading-text"><?php esc_html_e('Deleting...', 'yipnyap'); ?></span>
                 <!-- LOADER SPINNER WRAP -->
                 <div class="loader-spinner-wrap small">
                   <!-- LOADER SPINNER -->
@@ -903,41 +903,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
     }
   }
 
-  if (!function_exists('vikinger_members_settings_password_page_setup_nav')) {
+  if (!function_exists('yipnyap_members_settings_password_page_setup_nav')) {
     /**
      * Creates member password settings page navigation
      */
-    function vikinger_members_settings_password_page_setup_nav() {
+    function yipnyap_members_settings_password_page_setup_nav() {
       global $bp;
 
       bp_core_new_subnav_item([
-        'name'            => esc_html__('Password Settings', 'vikinger'),
+        'name'            => esc_html__('Password Settings', 'yipnyap'),
         'slug'            => 'password',
         'parent_slug'     => bp_get_settings_slug(),
         'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-        'screen_function' => 'vikinger_members_settings_password_page',
+        'screen_function' => 'yipnyap_members_settings_password_page',
         'user_has_access' => bp_core_can_edit_settings()
       ], 'members');
     }
   }
 
-  add_action('bp_setup_nav', 'vikinger_members_settings_password_page_setup_nav');
+  add_action('bp_setup_nav', 'yipnyap_members_settings_password_page_setup_nav');
 
-  if (!function_exists('vikinger_members_settings_password_page')) {
+  if (!function_exists('yipnyap_members_settings_password_page')) {
     /**
      * Members password page setup
      */
-    function vikinger_members_settings_password_page() {
-      add_action('bp_template_content', 'vikinger_members_settings_password_page_screen_content');
+    function yipnyap_members_settings_password_page() {
+      add_action('bp_template_content', 'yipnyap_members_settings_password_page_screen_content');
       bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
     }
   }
 
-  if (!function_exists('vikinger_members_settings_password_page_screen_content')) {
+  if (!function_exists('yipnyap_members_settings_password_page_screen_content')) {
     /**
      * Members password page HTML content
      */
-    function vikinger_members_settings_password_page_screen_content() {
+    function yipnyap_members_settings_password_page_screen_content() {
       ?>
         <div id="password-settings-screen"></div>
       </div>
@@ -946,41 +946,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
     }
   }
 
-  if (!function_exists('vikinger_members_settings_email_settings_page_setup_nav')) {
+  if (!function_exists('yipnyap_members_settings_email_settings_page_setup_nav')) {
     /**
      * Creates member email settings page navigation
      */
-    function vikinger_members_settings_email_settings_page_setup_nav() {
+    function yipnyap_members_settings_email_settings_page_setup_nav() {
       global $bp;
 
       bp_core_new_subnav_item([
-        'name'            => esc_html__('Email Settings', 'vikinger'),
+        'name'            => esc_html__('Email Settings', 'yipnyap'),
         'slug'            => 'email-settings',
         'parent_slug'     => bp_get_settings_slug(),
         'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-        'screen_function' => 'vikinger_members_settings_email_settings_page',
+        'screen_function' => 'yipnyap_members_settings_email_settings_page',
         'user_has_access' => bp_core_can_edit_settings()
       ], 'members');
     }
   }
 
-  add_action('bp_setup_nav', 'vikinger_members_settings_email_settings_page_setup_nav');
+  add_action('bp_setup_nav', 'yipnyap_members_settings_email_settings_page_setup_nav');
 
-  if (!function_exists('vikinger_members_settings_email_settings_page')) {
+  if (!function_exists('yipnyap_members_settings_email_settings_page')) {
     /**
      * Members email settings page setup
      */
-    function vikinger_members_settings_email_settings_page() {
-      add_action('bp_template_content', 'vikinger_members_settings_email_settings_page_screen_content');
+    function yipnyap_members_settings_email_settings_page() {
+      add_action('bp_template_content', 'yipnyap_members_settings_email_settings_page_screen_content');
       bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
     }
   }
 
-  if (!function_exists('vikinger_members_settings_email_settings_page_screen_content')) {
+  if (!function_exists('yipnyap_members_settings_email_settings_page_screen_content')) {
     /**
      * Members email settings page HTML content
      */
-    function vikinger_members_settings_email_settings_page_screen_content() {
+    function yipnyap_members_settings_email_settings_page_screen_content() {
       ?>
         <div id="email-settings-screen"></div>
       </div>
@@ -991,41 +991,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
 
   // if BuddyPress groups component is active, create group manage related pages
   if (bp_is_active('groups')) {
-    if (!function_exists('vikinger_members_settings_manage_groups_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_manage_groups_page_setup_nav')) {
       /**
        * Creates member manage groups settings page navigation
        */
-      function vikinger_members_settings_manage_groups_page_setup_nav() {
+      function yipnyap_members_settings_manage_groups_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Manage Groups Settings', 'vikinger'),
+          'name'            => esc_html__('Manage Groups Settings', 'yipnyap'),
           'slug'            => 'manage-groups',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_manage_groups_page',
+          'screen_function' => 'yipnyap_members_settings_manage_groups_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_manage_groups_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_manage_groups_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_manage_groups_page')) {
+    if (!function_exists('yipnyap_members_settings_manage_groups_page')) {
       /**
        * Members manage groups page setup
        */
-      function vikinger_members_settings_manage_groups_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_manage_groups_page_screen_content');
+      function yipnyap_members_settings_manage_groups_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_manage_groups_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_manage_groups_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_manage_groups_page_screen_content')) {
       /**
        * Members manage groups page HTML content
        */
-      function vikinger_members_settings_manage_groups_page_screen_content() {
+      function yipnyap_members_settings_manage_groups_page_screen_content() {
         ?>
           <div id="manage-groups-settings-screen"></div>
         </div>
@@ -1034,41 +1034,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
       }
     }
 
-    if (!function_exists('vikinger_members_settings_send_group_invitations_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_send_group_invitations_page_setup_nav')) {
       /**
        * Creates member send group invitations settings page navigation
        */
-      function vikinger_members_settings_send_group_invitations_page_setup_nav() {
+      function yipnyap_members_settings_send_group_invitations_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Send Group Invitations Settings', 'vikinger'),
+          'name'            => esc_html__('Send Group Invitations Settings', 'yipnyap'),
           'slug'            => 'send-group-invitations',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_send_group_invitations_page',
+          'screen_function' => 'yipnyap_members_settings_send_group_invitations_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_send_group_invitations_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_send_group_invitations_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_send_group_invitations_page')) {
+    if (!function_exists('yipnyap_members_settings_send_group_invitations_page')) {
       /**
        * Members send group invitations page setup
        */
-      function vikinger_members_settings_send_group_invitations_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_send_group_invitations_page_screen_content');
+      function yipnyap_members_settings_send_group_invitations_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_send_group_invitations_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_send_group_invitations_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_send_group_invitations_page_screen_content')) {
       /**
        * Members send group invitations page HTML content
        */
-      function vikinger_members_settings_send_group_invitations_page_screen_content() {
+      function yipnyap_members_settings_send_group_invitations_page_screen_content() {
         ?>
           <div id="send-group-invitations-settings-screen"></div>
         </div>
@@ -1077,41 +1077,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
       }
     }
 
-    if (!function_exists('vikinger_members_settings_received_group_invitations_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_received_group_invitations_page_setup_nav')) {
       /**
        * Creates member received group invitations settings page navigation
        */
-      function vikinger_members_settings_received_group_invitations_page_setup_nav() {
+      function yipnyap_members_settings_received_group_invitations_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Received Group Invitations Settings', 'vikinger'),
+          'name'            => esc_html__('Received Group Invitations Settings', 'yipnyap'),
           'slug'            => 'received-group-invitations',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_received_group_invitations_page',
+          'screen_function' => 'yipnyap_members_settings_received_group_invitations_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_received_group_invitations_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_received_group_invitations_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_received_group_invitations_page')) {
+    if (!function_exists('yipnyap_members_settings_received_group_invitations_page')) {
       /**
        * Members received group invitations page setup
        */
-      function vikinger_members_settings_received_group_invitations_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_received_group_invitations_page_screen_content');
+      function yipnyap_members_settings_received_group_invitations_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_received_group_invitations_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_received_group_invitations_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_received_group_invitations_page_screen_content')) {
       /**
        * Members received group invitations page HTML content
        */
-      function vikinger_members_settings_received_group_invitations_page_screen_content() {
+      function yipnyap_members_settings_received_group_invitations_page_screen_content() {
         ?>
           <div id="received-group-invitations-settings-screen"></div>
         </div>
@@ -1120,41 +1120,41 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
       }
     }
 
-    if (!function_exists('vikinger_members_settings_group_membership_requests_page_setup_nav')) {
+    if (!function_exists('yipnyap_members_settings_group_membership_requests_page_setup_nav')) {
       /**
        * Creates group membership requests settings page navigation
        */
-      function vikinger_members_settings_group_membership_requests_page_setup_nav() {
+      function yipnyap_members_settings_group_membership_requests_page_setup_nav() {
         global $bp;
 
         bp_core_new_subnav_item([
-          'name'            => esc_html__('Membership Requests Settings', 'vikinger'),
+          'name'            => esc_html__('Membership Requests Settings', 'yipnyap'),
           'slug'            => 'membership-requests',
           'parent_slug'     => bp_get_settings_slug(),
           'parent_url'      => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-          'screen_function' => 'vikinger_members_settings_group_membership_requests_page',
+          'screen_function' => 'yipnyap_members_settings_group_membership_requests_page',
           'user_has_access' => bp_core_can_edit_settings()
         ], 'members');
       }
     }
 
-    add_action('bp_setup_nav', 'vikinger_members_settings_group_membership_requests_page_setup_nav');
+    add_action('bp_setup_nav', 'yipnyap_members_settings_group_membership_requests_page_setup_nav');
 
-    if (!function_exists('vikinger_members_settings_group_membership_requests_page')) {
+    if (!function_exists('yipnyap_members_settings_group_membership_requests_page')) {
       /**
        * Members received group invitations page setup
        */
-      function vikinger_members_settings_group_membership_requests_page() {
-        add_action('bp_template_content', 'vikinger_members_settings_group_membership_requests_page_screen_content');
+      function yipnyap_members_settings_group_membership_requests_page() {
+        add_action('bp_template_content', 'yipnyap_members_settings_group_membership_requests_page_screen_content');
         bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
       }
     }
 
-    if (!function_exists('vikinger_members_settings_group_membership_requests_page_screen_content')) {
+    if (!function_exists('yipnyap_members_settings_group_membership_requests_page_screen_content')) {
       /**
        * Members received group invitations page HTML content
        */
-      function vikinger_members_settings_group_membership_requests_page_screen_content() {
+      function yipnyap_members_settings_group_membership_requests_page_screen_content() {
         ?>
           <div id="group-membership-requests-settings-screen"></div>
         </div>
@@ -1165,11 +1165,11 @@ if (vikinger_plugin_buddypress_is_active() && bp_is_active('settings')) {
   }
 }
 
-if (!function_exists('vikinger_members_remove_unused_subnav_items')) {
+if (!function_exists('yipnyap_members_remove_unused_subnav_items')) {
   /**
    * Remove unused member subnav pages
    */
-  function vikinger_members_remove_unused_subnav_items() {
+  function yipnyap_members_remove_unused_subnav_items() {
     bp_core_remove_nav_item('profile', 'members');
     bp_core_remove_nav_item('notifications', 'members');
     bp_core_remove_nav_item('messages', 'members');
@@ -1188,13 +1188,13 @@ if (!function_exists('vikinger_members_remove_unused_subnav_items')) {
   }
 }
 
-add_action('bp_setup_nav', 'vikinger_members_remove_unused_subnav_items');
+add_action('bp_setup_nav', 'yipnyap_members_remove_unused_subnav_items');
 
-if (!function_exists('vikinger_groups_remove_unused_subnav_items')) {
+if (!function_exists('yipnyap_groups_remove_unused_subnav_items')) {
   /**
    * Remove unused group subnav pages
    */
-  function vikinger_groups_remove_unused_subnav_items() {
+  function yipnyap_groups_remove_unused_subnav_items() {
     if (!bp_is_group()) {
       return;
     }
@@ -1226,6 +1226,6 @@ if (!function_exists('vikinger_groups_remove_unused_subnav_items')) {
   }
 }
 
-add_action('bp_actions', 'vikinger_groups_remove_unused_subnav_items');
+add_action('bp_actions', 'yipnyap_groups_remove_unused_subnav_items');
 
 ?>

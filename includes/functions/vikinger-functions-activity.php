@@ -11,7 +11,7 @@
  * @param array $args Filter activities using args data
  * @return array
  */
-function vikinger_get_activities($args = [])
+function yipnyap_get_activities($args = [])
 {
     $activities_args = [
         'display_comments' => 'threaded',
@@ -22,7 +22,7 @@ function vikinger_get_activities($args = [])
 
     if (array_key_exists('include_pinned_from', $args) && $args['include_pinned_from']) {
         $user_id = $args['include_pinned_from'];
-        $pinned_activity = vikinger_get_pinned_activity($user_id);
+        $pinned_activity = yipnyap_get_pinned_activity($user_id);
 
         if ($pinned_activity) {
             $pinned_activity['pinned'] = true;
@@ -54,7 +54,7 @@ function vikinger_get_activities($args = [])
         $my_comments = [];
 
         if ($comments) {
-            vikinger_get_activity_comments_with_children_recursive($comments, $my_comments);
+            yipnyap_get_activity_comments_with_children_recursive($comments, $my_comments);
         }
 
         $activity = [
@@ -66,9 +66,9 @@ function vikinger_get_activities($args = [])
             'action' => $bp_activity->action,
             'content' => convert_smilies(stripslashes($bp_activity->content)),
             'date' => $bp_activity->date_recorded,
-            'last_edited' => vikinger_activity_last_edited_by_get($bp_activity->id),
+            'last_edited' => yipnyap_activity_last_edited_by_get($bp_activity->id),
             'timestamp' => sprintf(
-                esc_html_x('%s ago', 'Activity Comment Timestamp', 'vikinger'),
+                esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'),
                 human_time_diff(
                     mysql2date('U', get_date_from_gmt($bp_activity->date_recorded)),
                     current_time('timestamp')
@@ -78,7 +78,7 @@ function vikinger_get_activities($args = [])
             'comments' => $my_comments,
             'comment_count' => bp_activity_recurse_comment_count($bp_activity),
             'meta' => bp_activity_get_meta($bp_activity->id),
-            'author' => vikinger_members_get_fallback($bp_activity->user_id),
+            'author' => yipnyap_members_get_fallback($bp_activity->user_id),
             'favorite' => $logged_in_user_favorites ? in_array($bp_activity->id, $logged_in_user_favorites) : false,
             'reactions' => [],
             'permalink' => bp_activity_get_permalink($bp_activity->id),
@@ -87,34 +87,34 @@ function vikinger_get_activities($args = [])
 
         // override bbPress group component activity action
         if (($activity['component'] === 'groups') && (($activity['type'] === 'bbp_topic_create') || ($activity['type'] === 'bbp_reply_create'))) {
-            $activity['action'] = vikinger_bbpress_format_activity_action_new_topic($activity['action'], $bp_activity);
+            $activity['action'] = yipnyap_bbpress_format_activity_action_new_topic($activity['action'], $bp_activity);
         }
 
         // add vkreact-buddypress reactions data if plugin is active
-        if (vikinger_plugin_vkreact_is_active() && vikinger_plugin_vkreact_buddypress_is_active()) {
-            $activity['reactions'] = vikinger_reactions_insert_user_data(vkreact_bp_get_activity_reactions($bp_activity->id));
+        if (yipnyap_plugin_vkreact_is_active() && yipnyap_plugin_vkreact_buddypress_is_active()) {
+            $activity['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($bp_activity->id));
         }
 
         // add group information
         if ($activity['component'] === 'groups') {
-            $activity['group'] = vikinger_groups_get(['include' => [$bp_activity->item_id], 'data_scope' => 'group-activity'])[0];
+            $activity['group'] = yipnyap_groups_get(['include' => [$bp_activity->item_id], 'data_scope' => 'group-activity'])[0];
         }
 
         // add friend information
         if ($activity['type'] === 'friendship_created') {
-            $activity['friend'] = vikinger_members_get_fallback($bp_activity->secondary_item_id, 'user-activity-friend');
+            $activity['friend'] = yipnyap_members_get_fallback($bp_activity->secondary_item_id, 'user-activity-friend');
         }
 
         // add share information
         if ($activity['type'] === 'activity_share') {
-            $shared_item = vikinger_get_activities(['in' => $bp_activity->secondary_item_id, 'display_comments' => false])['activities'];
+            $shared_item = yipnyap_get_activities(['in' => $bp_activity->secondary_item_id, 'display_comments' => false])['activities'];
 
             $activity['shared_item'] = count($shared_item) === 1 ? $shared_item[0] : false;
         }
 
         // add share information
         if ($activity['type'] === 'post_share') {
-            $shared_item = vikinger_get_posts(['include' => [$bp_activity->secondary_item_id]]);
+            $shared_item = yipnyap_get_posts(['include' => [$bp_activity->secondary_item_id]]);
 
             $activity['shared_item'] = count($shared_item) === 1 ? $shared_item[0] : false;
         }
@@ -122,7 +122,7 @@ function vikinger_get_activities($args = [])
         // add media information
         if (($activity['type'] === 'activity_media') || ($activity['type'] === 'activity_video')) {
             // add vkmedia data if plugin is active
-            if (vikinger_plugin_vkmedia_is_active()) {
+            if (yipnyap_plugin_vkmedia_is_active()) {
                 $activity['media'] = vkmedia_get_media($bp_activity->secondary_item_id);
             } else {
                 $activity['media'] = [];
@@ -143,7 +143,7 @@ function vikinger_get_activities($args = [])
                     $activity_media_type = 'activity_video';
                 }
 
-                $media_activity = vikinger_get_activities(['filter' => ['secondary_id' => $uploaded_media_id, 'action' => $activity_media_type]])['activities'];
+                $media_activity = yipnyap_get_activities(['filter' => ['secondary_id' => $uploaded_media_id, 'action' => $activity_media_type]])['activities'];
 
                 if ((count($media_activity) > 0) && !is_null($media_activity[0]['media'])) {
                     $uploaded_media[] = $media_activity[0];
@@ -183,7 +183,7 @@ function vikinger_get_activities($args = [])
  * @param array $args Activity filters.
  * @return array  $activities_count   Filtered activities count.
  */
-function vikinger_activities_get_count($args = [])
+function yipnyap_activities_get_count($args = [])
 {
     $request = new WP_REST_Request('GET', '/buddypress/v1/activity');
 
@@ -196,7 +196,7 @@ function vikinger_activities_get_count($args = [])
  * @param int $member_id ID of the user to get the activity post count from
  * @return int
  */
-function vikinger_activity_get_member_post_count($member_id)
+function yipnyap_activity_get_member_post_count($member_id)
 {
     $args = [
         'filter' => [
@@ -228,7 +228,7 @@ function vikinger_activity_get_member_post_count($member_id)
  * @param int $member_id ID of the user to get the activity comment count from
  * @return int
  */
-function vikinger_activity_get_member_comment_count($member_id)
+function yipnyap_activity_get_member_comment_count($member_id)
 {
     $args = [
         'display_comments' => 'stream',
@@ -250,7 +250,7 @@ function vikinger_activity_get_member_comment_count($member_id)
 /**
  * Recursively re-format comment info
  */
-function vikinger_get_activity_comments_with_children_recursive($comments, &$my_comments)
+function yipnyap_get_activity_comments_with_children_recursive($comments, &$my_comments)
 {
     foreach ($comments as $comment) {
         // only send required data
@@ -261,28 +261,28 @@ function vikinger_get_activity_comments_with_children_recursive($comments, &$my_
             'item_id' => $comment->item_id,
             'secondary_item_id' => $comment->secondary_item_id,
             'parent' => $comment->item_id === $comment->secondary_item_id ? 0 : $comment->secondary_item_id,
-            'author' => vikinger_members_get_fallback($comment->user_id),
+            'author' => yipnyap_members_get_fallback($comment->user_id),
             'date' => $comment->date_recorded,
             'content' => convert_smilies(stripslashes($comment->content)),
             'timestamp' => sprintf(
-                esc_html_x('%s ago', 'Activity Comment Timestamp', 'vikinger'),
+                esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'),
                 human_time_diff(
                     mysql2date('U', get_date_from_gmt($comment->date_recorded)),
                     current_time('timestamp')
                 )
             ),
-            'last_edited' => vikinger_activity_last_edited_by_get($comment->id),
+            'last_edited' => yipnyap_activity_last_edited_by_get($comment->id),
             'reactions' => []
         ];
 
         // add vkreact-buddypress reactions data if plugin is active
-        if (vikinger_plugin_vkreact_is_active() && vikinger_plugin_vkreact_buddypress_is_active()) {
-            $com['reactions'] = vikinger_reactions_insert_user_data(vkreact_bp_get_activity_reactions($comment->id));
+        if (yipnyap_plugin_vkreact_is_active() && yipnyap_plugin_vkreact_buddypress_is_active()) {
+            $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($comment->id));
         }
 
         if ($comment->children) {
             $com['children'] = [];
-            vikinger_get_activity_comments_with_children_recursive($comment->children, $com['children']);
+            yipnyap_get_activity_comments_with_children_recursive($comment->children, $com['children']);
         }
 
         $my_comments[] = $com;
@@ -295,7 +295,7 @@ function vikinger_get_activity_comments_with_children_recursive($comments, &$my_
  * @param array $args Filter activities using args data
  * @return int|boolean
  */
-function vikinger_create_activity($args)
+function yipnyap_create_activity($args)
 {
     $result = bp_activity_add($args);
 
@@ -323,7 +323,7 @@ function vikinger_create_activity($args)
  * }
  * @return bool $result      True if successfull update, false otherwise.
  */
-function vikinger_activity_update($args)
+function yipnyap_activity_update($args)
 {
     // on successfull update, $result equals the activity id
     $result = bp_activity_add($args);
@@ -332,7 +332,7 @@ function vikinger_activity_update($args)
 
     // save edited by information on successfull update
     if (is_numeric($result) && (((int)$result) === $activity_id)) {
-        vikinger_activity_last_edited_by_update($activity_id, get_current_user_id());
+        yipnyap_activity_last_edited_by_update($activity_id, get_current_user_id());
     }
 
     return $result;
@@ -344,9 +344,9 @@ function vikinger_activity_update($args)
  * @param int $activity_id ID of the activity to delete
  * @return boolean
  */
-function vikinger_delete_activity($activity_id)
+function yipnyap_delete_activity($activity_id)
 {
-    vikinger_activity_associated_media_delete($activity_id);
+    yipnyap_activity_associated_media_delete($activity_id);
 
     $result = bp_activity_delete_by_activity_id($activity_id);
 
@@ -360,7 +360,7 @@ function vikinger_delete_activity($activity_id)
  * @param int $activity_id ID of the activity to get associated media activities of.
  * @return bool|array         Associated media activities, false if there aren't any.
  */
-function vikinger_activity_associated_media_activities_get($activity_id)
+function yipnyap_activity_associated_media_activities_get($activity_id)
 {
     $activity_meta = bp_activity_get_meta($activity_id);
 
@@ -371,7 +371,7 @@ function vikinger_activity_associated_media_activities_get($activity_id)
     $media_activities = [];
 
     foreach ($activity_meta['uploaded_media_id'] as $uploaded_media_id) {
-        $media_activities[] = vikinger_get_activities([
+        $media_activities[] = yipnyap_get_activities([
             'filter' => [
                 'action' => [
                     'activity_media',
@@ -391,7 +391,7 @@ function vikinger_activity_associated_media_activities_get($activity_id)
  * @param int $activity_id ID of the activity to delete associated media of.
  * @return bool
  */
-function vikinger_activity_associated_media_delete($activity_id)
+function yipnyap_activity_associated_media_delete($activity_id)
 {
     $activity_meta = bp_activity_get_meta($activity_id);
 
@@ -430,8 +430,8 @@ function vikinger_activity_associated_media_delete($activity_id)
                 $vkmedia_entry_delete_result = vkmedia_delete_media((int)$media_activity['media']['id']);
 
                 // remove media file from server
-                $file_path = vikinger_get_component_upload_path($media_activity['component']) . '/' . $media_activity['media']['name'] . '.' . $media_activity['media']['type'];
-                $file_delete_result = vikinger_delete_file($file_path);
+                $file_path = yipnyap_get_component_upload_path($media_activity['component']) . '/' . $media_activity['media']['name'] . '.' . $media_activity['media']['type'];
+                $file_delete_result = yipnyap_delete_file($file_path);
             }
         }
     }
@@ -446,7 +446,7 @@ function vikinger_activity_associated_media_delete($activity_id)
  * @param int $comment_id ID of the activity comment to delete.
  * @return bool $result           True if successful delete, false otherwise.
  */
-function vikinger_activity_comment_delete($activity_id, $comment_id)
+function yipnyap_activity_comment_delete($activity_id, $comment_id)
 {
     $result = bp_activity_delete_comment($activity_id, $comment_id);
 
@@ -459,7 +459,7 @@ function vikinger_activity_comment_delete($activity_id, $comment_id)
  * @param array $args Filter activities using args data
  * @return int|boolean
  */
-function vikinger_update_activity_meta($args)
+function yipnyap_update_activity_meta($args)
 {
     $result = bp_activity_update_meta($args['activity_id'], $args['meta_key'], $args['meta_value']);
 
@@ -473,7 +473,7 @@ function vikinger_update_activity_meta($args)
  * @param array $args Filter activities using args data
  * @return int|boolean
  */
-function vikinger_add_activity_meta($args)
+function yipnyap_add_activity_meta($args)
 {
     $result = bp_activity_add_meta($args['activity_id'], $args['meta_key'], $args['meta_value']);
 
@@ -488,7 +488,7 @@ function vikinger_add_activity_meta($args)
  * @param int $userID ID of the user to add the activity to favorites
  * @return boolean
  */
-function vikinger_add_favorite_activity($activityID, $userID)
+function yipnyap_add_favorite_activity($activityID, $userID)
 {
     $result = bp_activity_add_user_favorite($activityID, $userID);
 
@@ -503,7 +503,7 @@ function vikinger_add_favorite_activity($activityID, $userID)
  * @param int $userID ID of the user to remove the activity from favorites
  * @return boolean
  */
-function vikinger_remove_favorite_activity($activityID, $userID)
+function yipnyap_remove_favorite_activity($activityID, $userID)
 {
     $result = bp_activity_remove_user_favorite($activityID, $userID);
 
@@ -518,9 +518,9 @@ function vikinger_remove_favorite_activity($activityID, $userID)
  * @param int $userID ID of the user that pins the activity
  * @return int|boolean
  */
-function vikinger_pin_activity($activityID, $userID)
+function yipnyap_pin_activity($activityID, $userID)
 {
-    $result = bp_update_user_meta($userID, 'vikinger_pinned_activity', $activityID);
+    $result = bp_update_user_meta($userID, 'yipnyap_pinned_activity', $activityID);
 
     // metaID if it didn't exist, true on success, false on error
     return $result;
@@ -532,9 +532,9 @@ function vikinger_pin_activity($activityID, $userID)
  * @param int $userID ID of the user that unpins the activity
  * @return int|boolean
  */
-function vikinger_unpin_activity($userID)
+function yipnyap_unpin_activity($userID)
 {
-    $result = bp_update_user_meta($userID, 'vikinger_pinned_activity', '');
+    $result = bp_update_user_meta($userID, 'yipnyap_pinned_activity', '');
 
     // metaID if it didn't exist, true on success, false on error
     return $result;
@@ -549,7 +549,7 @@ function vikinger_unpin_activity($userID)
  *                  metadata, returns true. On successful creation of new metadata,
  *                  returns the integer ID of the new metadata row.
  */
-function vikinger_activity_last_edited_by_update($activity_id, $user_id)
+function yipnyap_activity_last_edited_by_update($activity_id, $user_id)
 {
     $result = bp_activity_update_meta($activity_id, 'last_edited_by_user', $user_id);
 
@@ -562,7 +562,7 @@ function vikinger_activity_last_edited_by_update($activity_id, $user_id)
  * @param int $activity_id ID of the activity.
  * @return bool|array $last_edited_by_data     Last edited by data if activity was edited, false otherwise.
  */
-function vikinger_activity_last_edited_by_get($activity_id)
+function yipnyap_activity_last_edited_by_get($activity_id)
 {
     $last_edited_by_data = false;
 
@@ -570,7 +570,7 @@ function vikinger_activity_last_edited_by_get($activity_id)
 
     if ($last_edited_by_user) {
         $last_edited_by_data = [
-            'user' => vikinger_members_get_fallback((int)$last_edited_by_user)
+            'user' => yipnyap_members_get_fallback((int)$last_edited_by_user)
         ];
     }
 
@@ -583,10 +583,10 @@ function vikinger_activity_last_edited_by_get($activity_id)
  * @param int $user_id ID of the user to get pinned activity from.
  * @return bool|array
  */
-function vikinger_get_pinned_activity($user_id)
+function yipnyap_get_pinned_activity($user_id)
 {
     // meta value if key exists, empty string if not
-    $pinned_activity_id = (int)bp_get_user_meta($user_id, 'vikinger_pinned_activity', true);
+    $pinned_activity_id = (int)bp_get_user_meta($user_id, 'yipnyap_pinned_activity', true);
 
     $pinned_activity = false;
 
@@ -596,7 +596,7 @@ function vikinger_get_pinned_activity($user_id)
             'show_hidden' => true
         ];
 
-        $pinned_activity = vikinger_get_activities($pinned_activity_args)['activities'];
+        $pinned_activity = yipnyap_get_activities($pinned_activity_args)['activities'];
 
         if (count($pinned_activity) === 1) {
             $pinned_activity = $pinned_activity[0];
@@ -609,7 +609,7 @@ function vikinger_get_pinned_activity($user_id)
 /**
  * Get id of the activity that corresponds to the meta value provided
  */
-function vikinger_activity_meta_activity_id_get($meta_value)
+function yipnyap_activity_meta_activity_id_get($meta_value)
 {
     global $wpdb;
 
@@ -632,7 +632,7 @@ function vikinger_activity_meta_activity_id_get($meta_value)
 /**
  * Get count of media associated to the provided activity id
  */
-function vikinger_activity_meta_media_count_get($activity_id)
+function yipnyap_activity_meta_media_count_get($activity_id)
 {
     global $wpdb;
 
@@ -656,9 +656,9 @@ function vikinger_activity_meta_media_count_get($activity_id)
  * Get activity media creation task
  *
  * @param array $args Parameters to give to the task
- * @return Vikinger_Task
+ * @return Yipnyap_Task
  */
-function vikinger_activity_media_create_task($args)
+function yipnyap_activity_media_create_task($args)
 {
     $task_execute = function ($args, $media_id) {
         $activity_media_args = [
@@ -673,7 +673,7 @@ function vikinger_activity_media_create_task($args)
             $activity_media_args['content'] = $args['content'];
         }
 
-        $result = vikinger_create_activity($activity_media_args);
+        $result = yipnyap_create_activity($activity_media_args);
 
         return $result;
     };
@@ -682,7 +682,7 @@ function vikinger_activity_media_create_task($args)
 
     };
 
-    $task = new Vikinger_Task($task_execute, $task_rewind, $args);
+    $task = new Yipnyap_Task($task_execute, $task_rewind, $args);
 
     return $task;
 }
@@ -691,9 +691,9 @@ function vikinger_activity_media_create_task($args)
  * Get activity attached media type meta creation task
  *
  * @param array $args Parameters to give to the task
- * @return Vikinger_Task
+ * @return Yipnyap_Task
  */
-function vikinger_activity_create_meta_attachedmedia_type_task($args)
+function yipnyap_activity_create_meta_attachedmedia_type_task($args)
 {
     $task_execute = function ($args) {
         $meta_args = [
@@ -702,7 +702,7 @@ function vikinger_activity_create_meta_attachedmedia_type_task($args)
             'meta_value' => $args['type']
         ];
 
-        $result = vikinger_update_activity_meta($meta_args);
+        $result = yipnyap_update_activity_meta($meta_args);
 
         return $result;
     };
@@ -711,7 +711,7 @@ function vikinger_activity_create_meta_attachedmedia_type_task($args)
 
     };
 
-    $task = new Vikinger_Task($task_execute, $task_rewind, $args);
+    $task = new Yipnyap_Task($task_execute, $task_rewind, $args);
 
     return $task;
 }
@@ -720,9 +720,9 @@ function vikinger_activity_create_meta_attachedmedia_type_task($args)
  * Get activity attached media id meta creation task
  *
  * @param array $args Parameters to give to the task
- * @return Vikinger_Task
+ * @return Yipnyap_Task
  */
-function vikinger_activity_create_meta_attachedmedia_id_task($args)
+function yipnyap_activity_create_meta_attachedmedia_id_task($args)
 {
     $task_execute = function ($args) {
         $meta_args = [
@@ -731,7 +731,7 @@ function vikinger_activity_create_meta_attachedmedia_id_task($args)
             'meta_value' => $args['id']
         ];
 
-        $result = vikinger_update_activity_meta($meta_args);
+        $result = yipnyap_update_activity_meta($meta_args);
 
         return $result;
     };
@@ -740,7 +740,7 @@ function vikinger_activity_create_meta_attachedmedia_id_task($args)
 
     };
 
-    $task = new Vikinger_Task($task_execute, $task_rewind, $args);
+    $task = new Yipnyap_Task($task_execute, $task_rewind, $args);
 
     return $task;
 }
@@ -749,9 +749,9 @@ function vikinger_activity_create_meta_attachedmedia_id_task($args)
  * Get activity uploaded media id meta creation task
  *
  * @param array $args Parameters to give to the task
- * @return Vikinger_Task
+ * @return Yipnyap_Task
  */
-function vikinger_activity_create_meta_uploadedmedia_id_task($activity_id)
+function yipnyap_activity_create_meta_uploadedmedia_id_task($activity_id)
 {
     $task_execute = function ($activity_id, $media_id) {
         $meta_args = [
@@ -760,7 +760,7 @@ function vikinger_activity_create_meta_uploadedmedia_id_task($activity_id)
             'meta_value' => $media_id
         ];
 
-        $result = vikinger_add_activity_meta($meta_args);
+        $result = yipnyap_add_activity_meta($meta_args);
 
         if ($result) {
             return $media_id;
@@ -773,7 +773,7 @@ function vikinger_activity_create_meta_uploadedmedia_id_task($activity_id)
 
     };
 
-    $task = new Vikinger_Task($task_execute, $task_rewind, $activity_id);
+    $task = new Yipnyap_Task($task_execute, $task_rewind, $activity_id);
 
     return $task;
 }
@@ -782,9 +782,9 @@ function vikinger_activity_create_meta_uploadedmedia_id_task($activity_id)
  * Get activity share count meta creation task
  *
  * @param array $args Parameters to give to the task
- * @return Vikinger_Task
+ * @return Yipnyap_Task
  */
-function vikinger_activity_create_meta_share_count_task($args)
+function yipnyap_activity_create_meta_share_count_task($args)
 {
     $task_execute = function ($args) {
         $meta_args = [
@@ -793,7 +793,7 @@ function vikinger_activity_create_meta_share_count_task($args)
             'meta_value' => $args['count']
         ];
 
-        $result = vikinger_update_activity_meta($meta_args);
+        $result = yipnyap_update_activity_meta($meta_args);
 
         if ($result) {
             return $args['id'];
@@ -806,7 +806,7 @@ function vikinger_activity_create_meta_share_count_task($args)
 
     };
 
-    $task = new Vikinger_Task($task_execute, $task_rewind, $args);
+    $task = new Yipnyap_Task($task_execute, $task_rewind, $args);
 
     return $task;
 }
@@ -814,34 +814,34 @@ function vikinger_activity_create_meta_share_count_task($args)
 /**
  * Register activity_media_upload custom action
  */
-function vikinger_register_activity_media_upload_action()
+function yipnyap_register_activity_media_upload_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_media_upload',
-        esc_html_x('Posted a photo upload', '(Backend) Activity Media Upload Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media_upload',
-        esc_html_x('Media upload post', '(Backend) Activity Media Upload Action - Label', 'vikinger')
+        esc_html_x('Posted a photo upload', '(Backend) Activity Media Upload Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media_upload',
+        esc_html_x('Media upload post', '(Backend) Activity Media Upload Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_upload_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_upload_action');
 
 /**
  * Register activity_media_upload custom group action
  */
-function vikinger_register_activity_media_upload_group_action()
+function yipnyap_register_activity_media_upload_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_media_upload',
-        esc_html_x('Posted a photo upload', '(Backend) Activity Media Upload Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media_upload_group',
-        esc_html_x('Media upload post', '(Backend) Activity Media Upload Group Action - Label', 'vikinger')
+        esc_html_x('Posted a photo upload', '(Backend) Activity Media Upload Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media_upload_group',
+        esc_html_x('Media upload post', '(Backend) Activity Media Upload Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_upload_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_upload_group_action');
 
 /**
  * Action string format for the activity_media_upload action
@@ -850,9 +850,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_media_upl
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media_upload($action, $activity)
+function yipnyap_format_action_activity_media_upload($action, $activity)
 {
-    $action = esc_html_x('uploaded photos', 'Activity Media Upload Action - Text', 'vikinger');
+    $action = esc_html_x('uploaded photos', 'Activity Media Upload Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -864,9 +864,9 @@ function vikinger_format_action_activity_media_upload($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media_upload_group($action, $activity)
+function yipnyap_format_action_activity_media_upload_group($action, $activity)
 {
-    $action = esc_html_x('uploaded photos in the group', 'Activity Media Upload Action Group - Text', 'vikinger');
+    $action = esc_html_x('uploaded photos in the group', 'Activity Media Upload Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -874,34 +874,34 @@ function vikinger_format_action_activity_media_upload_group($action, $activity)
 /**
  * Register activity_media_update custom action
  */
-function vikinger_register_activity_media_update_action()
+function yipnyap_register_activity_media_update_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_media_update',
-        esc_html_x('Posted a photo update', '(Backend) Activity Media Update Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media_update',
-        esc_html_x('Media update', '(Backend) Activity Media Update Action - Label', 'vikinger')
+        esc_html_x('Posted a photo update', '(Backend) Activity Media Update Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media_update',
+        esc_html_x('Media update', '(Backend) Activity Media Update Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_update_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_update_action');
 
 /**
  * Register activity_media_update custom group action
  */
-function vikinger_register_activity_media_update_group_action()
+function yipnyap_register_activity_media_update_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_media_update',
-        esc_html_x('Posted a photo update', '(Backend) Activity Media Update Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media_update_group',
-        esc_html_x('Media update', '(Backend) Activity Media Update Group Action - Label', 'vikinger')
+        esc_html_x('Posted a photo update', '(Backend) Activity Media Update Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media_update_group',
+        esc_html_x('Media update', '(Backend) Activity Media Update Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_update_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_update_group_action');
 
 /**
  * Action string format for the activity_media_update action
@@ -910,9 +910,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_media_upd
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media_update($action, $activity)
+function yipnyap_format_action_activity_media_update($action, $activity)
 {
-    $action = ''; //esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'vikinger');
+    $action = ''; //esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -924,9 +924,9 @@ function vikinger_format_action_activity_media_update($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media_update_group($action, $activity)
+function yipnyap_format_action_activity_media_update_group($action, $activity)
 {
-    $action = esc_html_x('in', 'Activity Media Update Action Group - Text', 'vikinger');
+    $action = esc_html_x('in', 'Activity Media Update Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -934,34 +934,34 @@ function vikinger_format_action_activity_media_update_group($action, $activity)
 /**
  * Register activity_media custom action
  */
-function vikinger_register_activity_media_action()
+function yipnyap_register_activity_media_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_media',
-        esc_html_x('Uploaded a photo', '(Backend) Activity Media Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media',
-        esc_html_x('Media upload', '(Backend) Activity Media Action - Label', 'vikinger')
+        esc_html_x('Uploaded a photo', '(Backend) Activity Media Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media',
+        esc_html_x('Media upload', '(Backend) Activity Media Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_action');
 
 /**
  * Register activity_media custom group action
  */
-function vikinger_register_activity_media_group_action()
+function yipnyap_register_activity_media_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_media',
-        esc_html_x('Uploaded a photo', '(Backend) Activity Media Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_media_group',
-        esc_html_x('Media upload', '(Backend) Activity Media Group Action - Label', 'vikinger')
+        esc_html_x('Uploaded a photo', '(Backend) Activity Media Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_media_group',
+        esc_html_x('Media upload', '(Backend) Activity Media Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_media_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_media_group_action');
 
 /**
  * Action string format for the activity_media action
@@ -970,9 +970,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_media_gro
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media($action, $activity)
+function yipnyap_format_action_activity_media($action, $activity)
 {
-    $action = esc_html_x('uploaded a photo', 'Activity Media Action - Text', 'vikinger');
+    $action = esc_html_x('uploaded a photo', 'Activity Media Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -984,9 +984,9 @@ function vikinger_format_action_activity_media($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_media_group($action, $activity)
+function yipnyap_format_action_activity_media_group($action, $activity)
 {
-    $action = esc_html_x('uploaded a photo in the group', 'Activity Media Action Group - Text', 'vikinger');
+    $action = esc_html_x('uploaded a photo in the group', 'Activity Media Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -994,34 +994,34 @@ function vikinger_format_action_activity_media_group($action, $activity)
 /**
  * Register activity_video_upload custom action
  */
-function vikinger_register_activity_video_upload_action()
+function yipnyap_register_activity_video_upload_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_video_upload',
-        esc_html_x('Posted a video upload', '(Backend) Activity Video Upload Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video_upload',
-        esc_html_x('Video upload post', '(Backend) Activity Video Upload Action - Label', 'vikinger')
+        esc_html_x('Posted a video upload', '(Backend) Activity Video Upload Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video_upload',
+        esc_html_x('Video upload post', '(Backend) Activity Video Upload Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_upload_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_upload_action');
 
 /**
  * Register activity_video_upload custom group action
  */
-function vikinger_register_activity_video_upload_group_action()
+function yipnyap_register_activity_video_upload_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_video_upload',
-        esc_html_x('Posted a video upload', '(Backend) Activity Video Upload Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video_upload_group',
-        esc_html_x('Video upload post', '(Backend) Activity Video Upload Group Action - Label', 'vikinger')
+        esc_html_x('Posted a video upload', '(Backend) Activity Video Upload Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video_upload_group',
+        esc_html_x('Video upload post', '(Backend) Activity Video Upload Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_upload_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_upload_group_action');
 
 /**
  * Action string format for the activity_video_upload action
@@ -1030,9 +1030,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_video_upl
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video_upload($action, $activity)
+function yipnyap_format_action_activity_video_upload($action, $activity)
 {
-    $action = esc_html_x('uploaded a video', 'Activity Video Upload Action - Text', 'vikinger');
+    $action = esc_html_x('uploaded a video', 'Activity Video Upload Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -1044,9 +1044,9 @@ function vikinger_format_action_activity_video_upload($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video_upload_group($action, $activity)
+function yipnyap_format_action_activity_video_upload_group($action, $activity)
 {
-    $action = esc_html_x('uploaded a video in the group', 'Activity Video Upload Action Group - Text', 'vikinger');
+    $action = esc_html_x('uploaded a video in the group', 'Activity Video Upload Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -1054,34 +1054,34 @@ function vikinger_format_action_activity_video_upload_group($action, $activity)
 /**
  * Register activity_video_update custom action
  */
-function vikinger_register_activity_video_update_action()
+function yipnyap_register_activity_video_update_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_video_update',
-        esc_html_x('Posted a video update', '(Backend) Activity Video Update Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video_update',
-        esc_html_x('Video update', '(Backend) Activity Video Update Action - Label', 'vikinger')
+        esc_html_x('Posted a video update', '(Backend) Activity Video Update Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video_update',
+        esc_html_x('Video update', '(Backend) Activity Video Update Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_update_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_update_action');
 
 /**
  * Register activity_video_update custom group action
  */
-function vikinger_register_activity_video_update_group_action()
+function yipnyap_register_activity_video_update_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_video_update',
-        esc_html_x('Posted a video update', '(Backend) Activity Video Update Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video_update_group',
-        esc_html_x('Video update', '(Backend) Activity Video Update Group Action - Label', 'vikinger')
+        esc_html_x('Posted a video update', '(Backend) Activity Video Update Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video_update_group',
+        esc_html_x('Video update', '(Backend) Activity Video Update Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_update_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_update_group_action');
 
 /**
  * Action string format for the activity_video_update action
@@ -1090,9 +1090,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_video_upd
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video_update($action, $activity)
+function yipnyap_format_action_activity_video_update($action, $activity)
 {
-    $action = esc_html_x('posted a video update', 'Activity Video Update Action - Text', 'vikinger');
+    $action = esc_html_x('posted a video update', 'Activity Video Update Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -1104,9 +1104,9 @@ function vikinger_format_action_activity_video_update($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video_update_group($action, $activity)
+function yipnyap_format_action_activity_video_update_group($action, $activity)
 {
-    $action = esc_html_x('posted a video update in the group', 'Activity Video Update Action Group - Text', 'vikinger');
+    $action = esc_html_x('posted a video update in the group', 'Activity Video Update Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -1114,34 +1114,34 @@ function vikinger_format_action_activity_video_update_group($action, $activity)
 /**
  * Register activity_video custom action
  */
-function vikinger_register_activity_video_action()
+function yipnyap_register_activity_video_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_video',
-        esc_html_x('Uploaded a video', '(Backend) Activity Video Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video',
-        esc_html_x('Video upload', '(Backend) Activity Video Action - Label', 'vikinger')
+        esc_html_x('Uploaded a video', '(Backend) Activity Video Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video',
+        esc_html_x('Video upload', '(Backend) Activity Video Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_action');
 
 /**
  * Register activity_video custom group action
  */
-function vikinger_register_activity_video_group_action()
+function yipnyap_register_activity_video_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_video',
-        esc_html_x('Uploaded a video', '(Backend) Activity Video Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_video_group',
-        esc_html_x('Video upload', '(Backend) Activity Video Group Action - Label', 'vikinger')
+        esc_html_x('Uploaded a video', '(Backend) Activity Video Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_video_group',
+        esc_html_x('Video upload', '(Backend) Activity Video Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_video_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_group_action');
 
 /**
  * Action string format for the activity_video action
@@ -1150,9 +1150,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_video_gro
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video($action, $activity)
+function yipnyap_format_action_activity_video($action, $activity)
 {
-    $action = esc_html_x('uploaded a video', 'Activity Video Action - Text', 'vikinger');
+    $action = esc_html_x('uploaded a video', 'Activity Video Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -1164,9 +1164,9 @@ function vikinger_format_action_activity_video($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_video_group($action, $activity)
+function yipnyap_format_action_activity_video_group($action, $activity)
 {
-    $action = esc_html_x('uploaded a video in the group', 'Activity Video Action Group - Text', 'vikinger');
+    $action = esc_html_x('uploaded a video in the group', 'Activity Video Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -1174,34 +1174,34 @@ function vikinger_format_action_activity_video_group($action, $activity)
 /**
  * Register activity_share custom action
  */
-function vikinger_register_activity_share_action()
+function yipnyap_register_activity_share_action()
 {
     bp_activity_set_action(
         'activity',
         'activity_share',
-        esc_html_x('Shared an activity', '(Backend) Activity Share Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_share',
-        esc_html_x('Activity Share', '(Backend) Activity Share Action - Label', 'vikinger')
+        esc_html_x('Shared an activity', '(Backend) Activity Share Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_share',
+        esc_html_x('Activity Share', '(Backend) Activity Share Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_share_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_share_action');
 
 /**
  * Register activity_share custom group action
  */
-function vikinger_register_activity_share_group_action()
+function yipnyap_register_activity_share_group_action()
 {
     bp_activity_set_action(
         'groups',
         'activity_share',
-        esc_html_x('Shared an activity', '(Backend) Activity Share Group Action - Description', 'vikinger'),
-        'vikinger_format_action_activity_share_group',
-        esc_html_x('Activity Share', '(Backend) Activity Share Group Action - Label', 'vikinger')
+        esc_html_x('Shared an activity', '(Backend) Activity Share Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_activity_share_group',
+        esc_html_x('Activity Share', '(Backend) Activity Share Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_activity_share_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_activity_share_group_action');
 
 /**
  * Action string format for the activity_share action
@@ -1210,9 +1210,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_activity_share_gro
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_share($action, $activity)
+function yipnyap_format_action_activity_share($action, $activity)
 {
-    $action = esc_html_x('reposted', 'Activity Share - Text', 'vikinger');
+    $action = esc_html_x('reposted', 'Activity Share - Text', 'yipnyap');
 
     return $action;
 }
@@ -1224,9 +1224,9 @@ function vikinger_format_action_activity_share($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_activity_share_group($action, $activity)
+function yipnyap_format_action_activity_share_group($action, $activity)
 {
-    $action = esc_html_x('reposted in the group', 'Activity Share Group - Text', 'vikinger');
+    $action = esc_html_x('reposted in the group', 'Activity Share Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -1234,34 +1234,34 @@ function vikinger_format_action_activity_share_group($action, $activity)
 /**
  * Register post_share custom action
  */
-function vikinger_register_post_share_action()
+function yipnyap_register_post_share_action()
 {
     bp_activity_set_action(
         'activity',
         'post_share',
-        esc_html_x('Shared a blog post', '(Backend) Post Share Action - Description', 'vikinger'),
-        'vikinger_format_action_post_share',
-        esc_html_x('Post Share', '(Backend) Post Share Action - Label', 'vikinger')
+        esc_html_x('Shared a blog post', '(Backend) Post Share Action - Description', 'yipnyap'),
+        'yipnyap_format_action_post_share',
+        esc_html_x('Post Share', '(Backend) Post Share Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_post_share_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_post_share_action');
 
 /**
  * Register post_share custom group action
  */
-function vikinger_register_post_share_group_action()
+function yipnyap_register_post_share_group_action()
 {
     bp_activity_set_action(
         'groups',
         'post_share',
-        esc_html_x('Shared a blog post', '(Backend) Post Share Group Action - Description', 'vikinger'),
-        'vikinger_format_action_post_share_group',
-        esc_html_x('Post Share', '(Backend) Post Share Group Action - Label', 'vikinger')
+        esc_html_x('Shared a blog post', '(Backend) Post Share Group Action - Description', 'yipnyap'),
+        'yipnyap_format_action_post_share_group',
+        esc_html_x('Post Share', '(Backend) Post Share Group Action - Label', 'yipnyap')
     );
 }
 
-add_action('bp_register_activity_actions', 'vikinger_register_post_share_group_action');
+add_action('bp_register_activity_actions', 'yipnyap_register_post_share_group_action');
 
 /**
  * Action string format for the post_share action
@@ -1270,9 +1270,9 @@ add_action('bp_register_activity_actions', 'vikinger_register_post_share_group_a
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_post_share($action, $activity)
+function yipnyap_format_action_post_share($action, $activity)
 {
-    $action = esc_html_x('reposted', 'Post Share Action - Text', 'vikinger');
+    $action = esc_html_x('reposted', 'Post Share Action - Text', 'yipnyap');
 
     return $action;
 }
@@ -1284,9 +1284,9 @@ function vikinger_format_action_post_share($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_format_action_post_share_group($action, $activity)
+function yipnyap_format_action_post_share_group($action, $activity)
 {
-    $action = esc_html_x('reposted in the group', 'Post Share Action Group - Text', 'vikinger');
+    $action = esc_html_x('reposted in the group', 'Post Share Action Group - Text', 'yipnyap');
 
     return $action;
 }
@@ -1298,14 +1298,14 @@ function vikinger_format_action_post_share_group($action, $activity)
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_filter_activity_activity_update_action($action, $activity)
+function yipnyap_filter_activity_activity_update_action($action, $activity)
 {
-    $action = ''; //esc_html_x('posted an update', 'Activity Update Action - Text', 'vikinger');
+    $action = ''; //esc_html_x('posted an update', 'Activity Update Action - Text', 'yipnyap');
 
     return $action;
 }
 
-add_filter('bp_activity_new_update_action', 'vikinger_filter_activity_activity_update_action', 10, 2);
+add_filter('bp_activity_new_update_action', 'yipnyap_filter_activity_activity_update_action', 10, 2);
 
 /**
  * Custom filter for group activity_update action
@@ -1314,14 +1314,14 @@ add_filter('bp_activity_new_update_action', 'vikinger_filter_activity_activity_u
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_filter_activity_update_action_group($action, $activity)
+function yipnyap_filter_activity_update_action_group($action, $activity)
 {
-    $action = esc_html_x('in', 'Activity Update Group Action - Text', 'vikinger');
+    $action = esc_html_x('in', 'Activity Update Group Action - Text', 'yipnyap');
 
     return $action;
 }
 
-add_filter('bp_groups_format_activity_action_group_activity_update', 'vikinger_filter_activity_update_action_group', 10, 2);
+add_filter('bp_groups_format_activity_action_group_activity_update', 'yipnyap_filter_activity_update_action_group', 10, 2);
 
 /**
  * Custom filter for group friendship_created / friendship_accepted action
@@ -1330,15 +1330,15 @@ add_filter('bp_groups_format_activity_action_group_activity_update', 'vikinger_f
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_filter_activity_action_friendship_created($action, $activity)
+function yipnyap_filter_activity_action_friendship_created($action, $activity)
 {
-    $action = esc_html_x('are now friends', 'Activity Friendship Created Action - Text', 'vikinger');
+    $action = esc_html_x('are now friends', 'Activity Friendship Created Action - Text', 'yipnyap');
 
     return $action;
 }
 
-add_filter('bp_friends_format_activity_action_friendship_created', 'vikinger_filter_activity_action_friendship_created', 10, 2);
-add_filter('bp_friends_format_activity_action_friendship_accepted', 'vikinger_filter_activity_action_friendship_created', 10, 2);
+add_filter('bp_friends_format_activity_action_friendship_created', 'yipnyap_filter_activity_action_friendship_created', 10, 2);
+add_filter('bp_friends_format_activity_action_friendship_accepted', 'yipnyap_filter_activity_action_friendship_created', 10, 2);
 
 /**
  * Action string format for the joined_group action
@@ -1347,7 +1347,7 @@ add_filter('bp_friends_format_activity_action_friendship_accepted', 'vikinger_fi
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_filter_activity_action_joined_group($action, $activity)
+function yipnyap_filter_activity_action_joined_group($action, $activity)
 {
     $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
@@ -1355,7 +1355,7 @@ function vikinger_filter_activity_action_joined_group($action, $activity)
     return preg_replace($pattern, '', $action, 1);
 }
 
-add_filter('bp_groups_format_activity_action_joined_group', 'vikinger_filter_activity_action_joined_group', 10, 2);
+add_filter('bp_groups_format_activity_action_joined_group', 'yipnyap_filter_activity_action_joined_group', 10, 2);
 
 /**
  * Action string format for the created_group action
@@ -1364,7 +1364,7 @@ add_filter('bp_groups_format_activity_action_joined_group', 'vikinger_filter_act
  * @param Object $activity Activity item object
  * @return string
  */
-function vikinger_filter_activity_action_created_group($action, $activity)
+function yipnyap_filter_activity_action_created_group($action, $activity)
 {
     $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
@@ -1372,12 +1372,12 @@ function vikinger_filter_activity_action_created_group($action, $activity)
     return preg_replace($pattern, '', $action, 1);
 }
 
-add_filter('groups_activity_created_group_action', 'vikinger_filter_activity_action_created_group', 10, 2);
+add_filter('groups_activity_created_group_action', 'yipnyap_filter_activity_action_created_group', 10, 2);
 
 /**
  * Action string format for GamiPress activity_update activities
  */
-function vikinger_gamipress_filter_activity_action_earned_achievement($activity, $user_id, $post_id, $trigger_type, $site_id, $args)
+function yipnyap_gamipress_filter_activity_action_earned_achievement($activity, $user_id, $post_id, $trigger_type, $site_id, $args)
 {
     $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
@@ -1387,12 +1387,12 @@ function vikinger_gamipress_filter_activity_action_earned_achievement($activity,
     return $activity;
 }
 
-add_filter('gamipress_bp_activity_details', 'vikinger_gamipress_filter_activity_action_earned_achievement', 15, 6);
+add_filter('gamipress_bp_activity_details', 'yipnyap_gamipress_filter_activity_action_earned_achievement', 15, 6);
 
 /**
  * Action string format for new_avatar type
  */
-function vikinger_filter_activity_action_new_avatar($action, $activity)
+function yipnyap_filter_activity_action_new_avatar($action, $activity)
 {
     $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
@@ -1400,6 +1400,6 @@ function vikinger_filter_activity_action_new_avatar($action, $activity)
     return preg_replace($pattern, '', $action, 1);
 }
 
-add_filter('bp_xprofile_format_activity_action_new_avatar', 'vikinger_filter_activity_action_new_avatar', 10, 2);
+add_filter('bp_xprofile_format_activity_action_new_avatar', 'yipnyap_filter_activity_action_new_avatar', 10, 2);
 
 ?>

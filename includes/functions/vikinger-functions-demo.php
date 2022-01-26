@@ -14,7 +14,7 @@
  * }
  * @return int/WP_Error Menu ID on success, WP_Error object on failure.
  */
-function vikinger_navigation_menu_update($menu_id, $menu_data = []) {
+function yipnyap_navigation_menu_update($menu_id, $menu_data = []) {
   return wp_update_nav_menu_object($menu_id, $menu_data);
 }
 
@@ -33,7 +33,7 @@ function vikinger_navigation_menu_update($menu_id, $menu_data = []) {
  * }
  * @return int/WP_Error Menu item ID on success, WP_Error object on failure.
  */
-function vikinger_navigation_menu_item_update($menu_id, $menu_item_id, $menu_item_data = []) {
+function yipnyap_navigation_menu_item_update($menu_id, $menu_item_id, $menu_item_data = []) {
   return wp_update_nav_menu_item($menu_id, $menu_item_id, $menu_item_data);
 }
 
@@ -43,7 +43,7 @@ function vikinger_navigation_menu_item_update($menu_id, $menu_item_id, $menu_ite
  * @param $menu_id        ID of the menu to delete.
  * @return bool/WP_Error  True on success, false or WP_Error object on failure.
  */
-function vikinger_navigation_menu_delete($menu_id) {
+function yipnyap_navigation_menu_delete($menu_id) {
   return wp_delete_nav_menu($menu_id);
 }
 
@@ -53,7 +53,7 @@ function vikinger_navigation_menu_delete($menu_id) {
  * @param string  $location      Name of the location to assign the menu to.
  * @param int     $menu_id       ID of the menu to assign to the location.
  */
-function vikinger_navigation_menu_location_update($location, $menu_id) {
+function yipnyap_navigation_menu_location_update($location, $menu_id) {
   $locations = get_nav_menu_locations();
 
   $locations[$location] = $menu_id;
@@ -67,7 +67,7 @@ function vikinger_navigation_menu_location_update($location, $menu_id) {
  * @param string  $theme_mod      Theme mod name.
  * @param int     $item_id        ID of the item to delete from the theme mod.
  */
-function vikinger_demo_content_theme_mod_entry_delete($theme_mod, $item_id) {
+function yipnyap_demo_content_theme_mod_entry_delete($theme_mod, $item_id) {
   $theme_mod_items_ids = get_theme_mod($theme_mod, '');
 
   if ($theme_mod_items_ids !== '') {
@@ -93,9 +93,9 @@ function vikinger_demo_content_theme_mod_entry_delete($theme_mod, $item_id) {
  * 
  * @return bool   True if successful, false otherwise.
  */
-function vikinger_demo_content_menus_create() {
+function yipnyap_demo_content_menus_create() {
   // delete demo content menus if they exist
-  vikinger_demo_content_menus_delete();
+  yipnyap_demo_content_menus_delete();
 
   $logged_in_user_id = get_current_user_id();
   $logged_in_user = get_userdata($logged_in_user_id);
@@ -107,7 +107,7 @@ function vikinger_demo_content_menus_create() {
       'menu_items'  => [
         [
           'menu-item-title'       => 'Home',
-          'menu-item-url'         => vikinger_site_url_get(),
+          'menu-item-url'         => yipnyap_site_url_get(),
           'menu-item-status'      => 'publish'
         ],
         [
@@ -138,55 +138,55 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Profile Timeline',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile About',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/about'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/about'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Friends',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/friends'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/friends'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Groups',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/groups'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/groups'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Blog Posts',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/posts'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/posts'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Photos',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/photos'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/photos'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Activity',
-          'menu-item-url'         => vikinger_site_url_get('activity'),
+          'menu-item-url'         => yipnyap_site_url_get('activity'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Members',
-          'menu-item-url'         => vikinger_site_url_get('members'),
+          'menu-item-url'         => yipnyap_site_url_get('members'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Groups',
-          'menu-item-url'         => vikinger_site_url_get('groups'),
+          'menu-item-url'         => yipnyap_site_url_get('groups'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
@@ -195,49 +195,49 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Badges',
-          'menu-item-url'         => vikinger_site_url_get('badges'),
+          'menu-item-url'         => yipnyap_site_url_get('badges'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Badges',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/badges'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/badges'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Quests',
-          'menu-item-url'         => vikinger_site_url_get('quests'),
+          'menu-item-url'         => yipnyap_site_url_get('quests'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Quests',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/quests'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/quests'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Ranks',
-          'menu-item-url'         => vikinger_site_url_get('ranks'),
+          'menu-item-url'         => yipnyap_site_url_get('ranks'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Rank',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/ranks'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/ranks'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Credits',
-          'menu-item-url'         => vikinger_site_url_get('credits'),
+          'menu-item-url'         => yipnyap_site_url_get('credits'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Credits',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/credits'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/credits'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
@@ -246,31 +246,31 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Forums',
-          'menu-item-url'         => vikinger_site_url_get('forums'),
+          'menu-item-url'         => yipnyap_site_url_get('forums'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Activity',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Replies',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/replies'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/replies'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Engagements',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/engagements'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/engagements'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Favorites',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/favorites'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/favorites'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
@@ -279,13 +279,13 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Blog',
-          'menu-item-url'         => vikinger_site_url_get('blog'),
+          'menu-item-url'         => yipnyap_site_url_get('blog'),
           'menu-item-attr-title'  => 'More Links',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Landing',
-          'menu-item-url'         => vikinger_site_url_get(),
+          'menu-item-url'         => yipnyap_site_url_get(),
           'menu-item-attr-title'  => 'More Links',
           'menu-item-status'      => 'publish'
         ]
@@ -297,61 +297,61 @@ function vikinger_demo_content_menus_create() {
       'menu_items'  => [
         [
           'menu-item-title'   => 'Newsfeed',
-          'menu-item-url'     => vikinger_site_url_get('activity'),
+          'menu-item-url'     => yipnyap_site_url_get('activity'),
           'menu-item-classes' => 'newsfeed',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Members',
-          'menu-item-url'     => vikinger_site_url_get('members'),
+          'menu-item-url'     => yipnyap_site_url_get('members'),
           'menu-item-classes' => 'members',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Groups',
-          'menu-item-url'     => vikinger_site_url_get('groups'),
+          'menu-item-url'     => yipnyap_site_url_get('groups'),
           'menu-item-classes' => 'group',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Badges',
-          'menu-item-url'     => vikinger_site_url_get('badges'),
+          'menu-item-url'     => yipnyap_site_url_get('badges'),
           'menu-item-classes' => 'badges',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Quests',
-          'menu-item-url'     => vikinger_site_url_get('quests'),
+          'menu-item-url'     => yipnyap_site_url_get('quests'),
           'menu-item-classes' => 'quests',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Ranks',
-          'menu-item-url'     => vikinger_site_url_get('ranks'),
+          'menu-item-url'     => yipnyap_site_url_get('ranks'),
           'menu-item-classes' => 'ranks',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Credits',
-          'menu-item-url'     => vikinger_site_url_get('credits'),
+          'menu-item-url'     => yipnyap_site_url_get('credits'),
           'menu-item-classes' => 'credits',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Blog',
-          'menu-item-url'     => vikinger_site_url_get('blog'),
+          'menu-item-url'     => yipnyap_site_url_get('blog'),
           'menu-item-classes' => 'blog-posts',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Forums',
-          'menu-item-url'     => vikinger_site_url_get('forums'),
+          'menu-item-url'     => yipnyap_site_url_get('forums'),
           'menu-item-classes' => 'forums',
           'menu-item-status'  => 'publish'
         ],
         [
           'menu-item-title'   => 'Shop',
-          'menu-item-url'     => vikinger_site_url_get('shop'),
+          'menu-item-url'     => yipnyap_site_url_get('shop'),
           'menu-item-classes' => 'marketplace',
           'menu-item-status'  => 'publish'
         ]
@@ -366,55 +366,55 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Profile Timeline',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile About',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/about'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/about'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Friends',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/friends'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/friends'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Groups',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/groups'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/groups'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Blog Posts',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/posts'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/posts'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Photos',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/photos'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/photos'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Activity',
-          'menu-item-url'         => vikinger_site_url_get('activity'),
+          'menu-item-url'         => yipnyap_site_url_get('activity'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Members',
-          'menu-item-url'         => vikinger_site_url_get('members'),
+          'menu-item-url'         => yipnyap_site_url_get('members'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Groups',
-          'menu-item-url'         => vikinger_site_url_get('groups'),
+          'menu-item-url'         => yipnyap_site_url_get('groups'),
           'menu-item-attr-title'  => 'BuddyPress',
           'menu-item-status'      => 'publish'
         ],
@@ -423,49 +423,49 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Badges',
-          'menu-item-url'         => vikinger_site_url_get('badges'),
+          'menu-item-url'         => yipnyap_site_url_get('badges'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Badges',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/badges'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/badges'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Quests',
-          'menu-item-url'         => vikinger_site_url_get('quests'),
+          'menu-item-url'         => yipnyap_site_url_get('quests'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Quests',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/quests'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/quests'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Ranks',
-          'menu-item-url'         => vikinger_site_url_get('ranks'),
+          'menu-item-url'         => yipnyap_site_url_get('ranks'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Rank',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/ranks'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/ranks'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Credits',
-          'menu-item-url'         => vikinger_site_url_get('credits'),
+          'menu-item-url'         => yipnyap_site_url_get('credits'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Credits',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/credits'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/credits'),
           'menu-item-attr-title'  => 'GamiPress',
           'menu-item-status'      => 'publish'
         ],
@@ -474,31 +474,31 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Forums',
-          'menu-item-url'         => vikinger_site_url_get('forums'),
+          'menu-item-url'         => yipnyap_site_url_get('forums'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Activity',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Replies',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/replies'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/replies'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Engagements',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/engagements'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/engagements'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Profile Forum Favorites',
-          'menu-item-url'         => vikinger_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/favorites'),
+          'menu-item-url'         => yipnyap_site_url_get('members/' . $logged_in_user->user_nicename . '/forums/favorites'),
           'menu-item-attr-title'  => 'bbPress',
           'menu-item-status'      => 'publish'
         ],
@@ -507,13 +507,13 @@ function vikinger_demo_content_menus_create() {
          */
         [
           'menu-item-title'       => 'Blog',
-          'menu-item-url'         => vikinger_site_url_get('blog'),
+          'menu-item-url'         => yipnyap_site_url_get('blog'),
           'menu-item-attr-title'  => 'More Links',
           'menu-item-status'      => 'publish'
         ],
         [
           'menu-item-title'       => 'Landing',
-          'menu-item-url'         => vikinger_site_url_get(),
+          'menu-item-url'         => yipnyap_site_url_get(),
           'menu-item-attr-title'  => 'More Links',
           'menu-item-status'      => 'publish'
         ]
@@ -526,17 +526,17 @@ function vikinger_demo_content_menus_create() {
 
   foreach ($menus as $menu) {
     // create menu
-    $menu_id = vikinger_navigation_menu_update(0, ['menu-name' => $menu['name']]);
+    $menu_id = yipnyap_navigation_menu_update(0, ['menu-name' => $menu['name']]);
 
     // menu creation failed
     if (is_wp_error($menu_id)) {
       // if there are any created menus, remove them
       if (count($created_menu_ids) > 0) {
         // update theme mod with created navigation menu ids (comma separated)
-        set_theme_mod('vikinger_demo_content_navigation_menus', implode(',', $created_menu_ids));
+        set_theme_mod('yipnyap_demo_content_navigation_menus', implode(',', $created_menu_ids));
 
         // remove created menus
-        vikinger_demo_content_menus_delete();
+        yipnyap_demo_content_menus_delete();
       }
 
       return false;
@@ -549,11 +549,11 @@ function vikinger_demo_content_menus_create() {
     $created_menus[] = $created_menu;
 
     // assign menu to the respective menu location
-    vikinger_navigation_menu_location_update($menu['location'], $menu_id);
+    yipnyap_navigation_menu_location_update($menu['location'], $menu_id);
   }
 
   // update theme mod with created navigation menu ids (comma separated)
-  set_theme_mod('vikinger_demo_content_navigation_menus', implode(',', $created_menu_ids));
+  set_theme_mod('yipnyap_demo_content_navigation_menus', implode(',', $created_menu_ids));
 
   // create menu items for each navigation menu
   foreach ($created_menus as $created_menu) {
@@ -565,13 +565,13 @@ function vikinger_demo_content_menus_create() {
         unset($menu_item_data['children']);
       }
 
-      $menu_item_id = vikinger_navigation_menu_item_update($created_menu['id'], 0, $menu_item_data);
+      $menu_item_id = yipnyap_navigation_menu_item_update($created_menu['id'], 0, $menu_item_data);
 
       if (!is_wp_error($menu_item_id) && count($menu_item_children_data) > 0) {
         foreach ($menu_item_children_data as $menu_item_child_data) {
           $menu_item_child_data['menu-item-parent-id'] = $menu_item_id;
 
-          $menu_item_child_id = vikinger_navigation_menu_item_update($created_menu['id'], 0, $menu_item_child_data);
+          $menu_item_child_id = yipnyap_navigation_menu_item_update($created_menu['id'], 0, $menu_item_child_data);
         }
       }
     }
@@ -585,8 +585,8 @@ function vikinger_demo_content_menus_create() {
  * 
  * @return bool   True if successful, false otherwise.
  */
-function vikinger_demo_content_menus_delete() {
-  $created_menus_ids = get_theme_mod('vikinger_demo_content_navigation_menus', '');
+function yipnyap_demo_content_menus_delete() {
+  $created_menus_ids = get_theme_mod('yipnyap_demo_content_navigation_menus', '');
 
   if ($created_menus_ids !== '') {
     $menu_ids = explode(',', $created_menus_ids);
@@ -594,7 +594,7 @@ function vikinger_demo_content_menus_delete() {
     $deleted_menu_ids = [];
 
     foreach ($menu_ids as $menu_id) {
-      $result = vikinger_navigation_menu_delete($menu_id);
+      $result = yipnyap_navigation_menu_delete($menu_id);
 
       // if successfully deleted navigation menu, add as deleted
       if (!is_wp_error($result) && $result) {
@@ -604,7 +604,7 @@ function vikinger_demo_content_menus_delete() {
 
     // remove deleted menu ids from the navigation menus theme mod entry
     foreach ($deleted_menu_ids as $deleted_menu_id) {
-      vikinger_demo_content_theme_mod_entry_delete('vikinger_demo_content_navigation_menus', $deleted_menu_id);
+      yipnyap_demo_content_theme_mod_entry_delete('yipnyap_demo_content_navigation_menus', $deleted_menu_id);
     }
 
     return count($menu_ids) === count($deleted_menu_ids);
@@ -623,7 +623,7 @@ function vikinger_demo_content_menus_delete() {
  * }
  * @return int/WP_Error Page ID on success, 0 or WP_Error object on failure.
  */
-function vikinger_page_update($args) {
+function yipnyap_page_update($args) {
   $defaults = [
     'post_content'  => '',
     'post_type'     => 'page'
@@ -640,7 +640,7 @@ function vikinger_page_update($args) {
  * @param int $page_id    ID of the page to delete.
  * @return WP_Post/false/null Page data on sucsess, false or null on failure.
  */
-function vikinger_page_delete($page_id) {
+function yipnyap_page_delete($page_id) {
   return wp_delete_post($page_id, true);
 }
 
@@ -651,14 +651,14 @@ function vikinger_page_delete($page_id) {
  * @param string  $theme_mod    Theme mod to use for storing created pages ids.
  * @return bool   True if successful, false otherwise.
  */
-function vikinger_demo_content_pages_create($pages, $theme_mod) {
+function yipnyap_demo_content_pages_create($pages, $theme_mod) {
   // delete demo content pages if they exist
-  vikinger_demo_content_pages_delete($theme_mod);
+  yipnyap_demo_content_pages_delete($theme_mod);
 
   $created_pages_ids = [];
 
   foreach ($pages as $page) {
-    $page_id = vikinger_page_update($page);
+    $page_id = yipnyap_page_update($page);
 
     if (is_wp_error($page_id) || $page_id === 0) {
       // if there are any created pages, remove them
@@ -667,7 +667,7 @@ function vikinger_demo_content_pages_create($pages, $theme_mod) {
         set_theme_mod($theme_mod, implode(',', $created_pages_ids));
 
         // remove created pages
-        vikinger_demo_content_pages_delete($theme_mod);
+        yipnyap_demo_content_pages_delete($theme_mod);
       }
 
       return false;
@@ -688,7 +688,7 @@ function vikinger_demo_content_pages_create($pages, $theme_mod) {
  * @param string  $theme_mod    Theme mod to use for getting ids of pages to delete.
  * @return bool   True if successful, false otherwise.
  */
-function vikinger_demo_content_pages_delete($theme_mod) {
+function yipnyap_demo_content_pages_delete($theme_mod) {
   $created_pages_ids = get_theme_mod($theme_mod, '');
 
   if ($created_pages_ids !== '') {
@@ -697,7 +697,7 @@ function vikinger_demo_content_pages_delete($theme_mod) {
     $deleted_pages_ids = [];
 
     foreach ($page_ids as $page_id) {
-      $result = vikinger_page_delete($page_id);
+      $result = yipnyap_page_delete($page_id);
 
       // if successfully deleted page, add as deleted
       if (!is_null($result) && $result !== false) {
@@ -707,7 +707,7 @@ function vikinger_demo_content_pages_delete($theme_mod) {
 
     // remove deleted menu ids from the pages theme mod entry
     foreach ($deleted_pages_ids as $deleted_page_id) {
-      vikinger_demo_content_theme_mod_entry_delete($theme_mod, $deleted_page_id);
+      yipnyap_demo_content_theme_mod_entry_delete($theme_mod, $deleted_page_id);
     }
 
     return count($page_ids) === count($deleted_pages_ids);
@@ -719,7 +719,7 @@ function vikinger_demo_content_pages_delete($theme_mod) {
 /**
  * Creates demo content base pages.
  */
-function vikinger_demo_content_base_pages_create() {
+function yipnyap_demo_content_base_pages_create() {
   $pages = [
     [
       'post_title'    => 'Blog',
@@ -727,20 +727,20 @@ function vikinger_demo_content_base_pages_create() {
     ]
   ];
 
-  return vikinger_demo_content_pages_create($pages, 'vikinger_demo_content_base_pages');
+  return yipnyap_demo_content_pages_create($pages, 'yipnyap_demo_content_base_pages');
 }
 
 /**
  * Deletes demo content base pages.
  */
-function vikinger_demo_content_base_pages_delete() {
-  return vikinger_demo_content_pages_delete('vikinger_demo_content_base_pages');
+function yipnyap_demo_content_base_pages_delete() {
+  return yipnyap_demo_content_pages_delete('yipnyap_demo_content_base_pages');
 }
 
 /**
  * Creates demo content Elementor pages.
  */
-function vikinger_demo_content_elementor_pages_create() {
+function yipnyap_demo_content_elementor_pages_create() {
   $pages = [
     [
       'post_title'    => 'Landing',
@@ -748,20 +748,20 @@ function vikinger_demo_content_elementor_pages_create() {
     ]
   ];
 
-  return vikinger_demo_content_pages_create($pages, 'vikinger_demo_content_elementor_pages');
+  return yipnyap_demo_content_pages_create($pages, 'yipnyap_demo_content_elementor_pages');
 }
 
 /**
  * Deletes demo content Elementor pages.
  */
-function vikinger_demo_content_elementor_pages_delete() {
-  return vikinger_demo_content_pages_delete('vikinger_demo_content_elementor_pages');
+function yipnyap_demo_content_elementor_pages_delete() {
+  return yipnyap_demo_content_pages_delete('yipnyap_demo_content_elementor_pages');
 }
 
 /**
  * Creates demo content GamiPress pages.
  */
-function vikinger_demo_content_gamipress_pages_create() {
+function yipnyap_demo_content_gamipress_pages_create() {
   $pages = [
     [
       'post_title'    => 'Badges',
@@ -785,14 +785,14 @@ function vikinger_demo_content_gamipress_pages_create() {
     ]
   ];
 
-  return vikinger_demo_content_pages_create($pages, 'vikinger_demo_content_gamipress_pages');
+  return yipnyap_demo_content_pages_create($pages, 'yipnyap_demo_content_gamipress_pages');
 }
 
 /**
  * Deletes demo content GamiPress pages.
  */
-function vikinger_demo_content_gamipress_pages_delete() {
-  return vikinger_demo_content_pages_delete('vikinger_demo_content_gamipress_pages');
+function yipnyap_demo_content_gamipress_pages_delete() {
+  return yipnyap_demo_content_pages_delete('yipnyap_demo_content_gamipress_pages');
 }
 
 /**
@@ -803,7 +803,7 @@ function vikinger_demo_content_gamipress_pages_delete() {
  * }
  * @return int|bool ID of the created field group if successful, false otherwise.
  */
-function vikinger_buddypress_xprofile_field_group_create($args) {
+function yipnyap_buddypress_xprofile_field_group_create($args) {
   return xprofile_insert_field_group($args);
 }
 
@@ -813,7 +813,7 @@ function vikinger_buddypress_xprofile_field_group_create($args) {
  * @param int $field_group_id     ID of the xprofile field group to delete.
  * @return bool True if successful, false otherwise.
  */
-function vikinger_buddypress_xprofile_field_group_delete($field_group_id) {
+function yipnyap_buddypress_xprofile_field_group_delete($field_group_id) {
   return xprofile_delete_field_group($field_group_id);
 }
 
@@ -827,7 +827,7 @@ function vikinger_buddypress_xprofile_field_group_delete($field_group_id) {
  * }
  * @return int|bool ID of the created field if successful, false otherwise.
  */
-function vikinger_buddypress_xprofile_field_update($args) {
+function yipnyap_buddypress_xprofile_field_update($args) {
   return xprofile_insert_field($args);
 }
 
@@ -836,14 +836,14 @@ function vikinger_buddypress_xprofile_field_update($args) {
  * 
  * @return bool True if successful, false otherwise.
  */
-function vikinger_demo_content_buddypress_xprofile_field_groups_create() {
+function yipnyap_demo_content_buddypress_xprofile_field_groups_create() {
   // if buddypress is not installed and activated, return
-  if (!vikinger_plugin_is_active('buddypress')) {
+  if (!yipnyap_plugin_is_active('buddypress')) {
     return false;
   }
 
   // delete demo content BuddyPress xprofile field groups if they exist
-  vikinger_demo_content_buddypress_xprofile_field_groups_delete();
+  yipnyap_demo_content_buddypress_xprofile_field_groups_delete();
 
   $groups = [
     [
@@ -952,16 +952,16 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_create() {
   $created_field_groups = [];
 
   foreach ($groups as $group) {
-    $field_group_id = vikinger_buddypress_xprofile_field_group_create($group);
+    $field_group_id = yipnyap_buddypress_xprofile_field_group_create($group);
 
     if (!$field_group_id) {
        // if there are any created field groups, remove them
        if (count($created_field_group_ids) > 0) {
         // update theme mod with created field group ids (comma separated)
-        set_theme_mod('vikinger_demo_content_buddypress_xprofile_field_groups', implode(',', $created_field_group_ids));
+        set_theme_mod('yipnyap_demo_content_buddypress_xprofile_field_groups', implode(',', $created_field_group_ids));
 
         // remove created field groups
-        vikinger_demo_content_buddypress_xprofile_field_groups_delete();
+        yipnyap_demo_content_buddypress_xprofile_field_groups_delete();
       }
 
       return false;
@@ -975,7 +975,7 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_create() {
   }
 
   // update theme mod with created field group ids (comma separated)
-  set_theme_mod('vikinger_demo_content_buddypress_xprofile_field_groups', implode(',', $created_field_group_ids));
+  set_theme_mod('yipnyap_demo_content_buddypress_xprofile_field_groups', implode(',', $created_field_group_ids));
 
   // create xprofile fields for each xprofile field group
   foreach ($created_field_groups as $created_field_group) {
@@ -983,7 +983,7 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_create() {
     if (array_key_exists('fields', $created_field_group)) {
       foreach ($created_field_group['fields'] as $field) {
         $field['field_group_id'] = $created_field_group['id'];
-        $field_id = vikinger_buddypress_xprofile_field_update($field);
+        $field_id = yipnyap_buddypress_xprofile_field_update($field);
       }
     }
   }
@@ -996,13 +996,13 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_create() {
  * 
  * @return bool   True if successful, false otherwise.
  */
-function vikinger_demo_content_buddypress_xprofile_field_groups_delete() {
+function yipnyap_demo_content_buddypress_xprofile_field_groups_delete() {
   // if buddypress is not installed and activated, return
-  if (!vikinger_plugin_is_active('buddypress')) {
+  if (!yipnyap_plugin_is_active('buddypress')) {
     return false;
   }
 
-  $created_field_group_ids = get_theme_mod('vikinger_demo_content_buddypress_xprofile_field_groups', '');
+  $created_field_group_ids = get_theme_mod('yipnyap_demo_content_buddypress_xprofile_field_groups', '');
 
   if ($created_field_group_ids !== '') {
     $field_group_ids = explode(',', $created_field_group_ids);
@@ -1010,7 +1010,7 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_delete() {
     $deleted_field_group_ids = [];
 
     foreach ($field_group_ids as $field_group_id) {
-      $result = vikinger_buddypress_xprofile_field_group_delete($field_group_id);
+      $result = yipnyap_buddypress_xprofile_field_group_delete($field_group_id);
 
       // if successfully deleted page, add as deleted
       if (!is_null($result) && $result !== false) {
@@ -1020,7 +1020,7 @@ function vikinger_demo_content_buddypress_xprofile_field_groups_delete() {
 
     // remove deleted menu ids from the pages theme mod entry
     foreach ($deleted_field_group_ids as $deleted_field_group_id) {
-      vikinger_demo_content_theme_mod_entry_delete('vikinger_demo_content_buddypress_xprofile_field_groups', $deleted_field_group_id);
+      yipnyap_demo_content_theme_mod_entry_delete('yipnyap_demo_content_buddypress_xprofile_field_groups', $deleted_field_group_id);
     }
 
     return count($field_group_ids) === count($deleted_field_group_ids);

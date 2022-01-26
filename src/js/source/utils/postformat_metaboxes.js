@@ -8,18 +8,18 @@ const getAttachments = function (attachmentIDS, callback) {
 };
 
 function loadPostFormatMetaboxes(postFormatSelect) {
-    const videoMetaContainer = document.querySelector('#vikinger_meta_video'),
-        audioMetaContainer = document.querySelector('#vikinger_meta_audio'),
-        galleryMetaContainer = document.querySelector('#vikinger_meta_gallery'),
-        galleryUploadImageButton = document.querySelector('#vikinger_upload_image_button'),
-        galleryImagesContainer = document.querySelector('#vikinger-meta-gallery-images'),
-        galleryInput = document.querySelector('#vikinger_gallery_ids');
+    const videoMetaContainer = document.querySelector('#yipnyap_meta_video'),
+        audioMetaContainer = document.querySelector('#yipnyap_meta_audio'),
+        galleryMetaContainer = document.querySelector('#yipnyap_meta_gallery'),
+        galleryUploadImageButton = document.querySelector('#yipnyap_upload_image_button'),
+        galleryImagesContainer = document.querySelector('#yipnyap-meta-gallery-images'),
+        galleryInput = document.querySelector('#yipnyap_gallery_ids');
 
     let gallery = [];
 
     const galleryImages = document.createElement('div');
 
-    galleryImages.classList.add('vikinger_gallery-images');
+    galleryImages.classList.add('yipnyap_gallery-images');
 
     const removeGalleryImage = function (id) {
         console.log('REMOVING IMAGE: ', id);
@@ -52,9 +52,9 @@ function loadPostFormatMetaboxes(postFormatSelect) {
             removeButtonIcon = createSVGCross();
 
 
-        image.classList.add('vikinger_gallery-image');
-        removeButton.classList.add('vikinger_remove-button');
-        removeButtonIcon.classList.add('vikinger_remove-button-icon');
+        image.classList.add('yipnyap_gallery-image');
+        removeButton.classList.add('yipnyap_remove-button');
+        removeButtonIcon.classList.add('yipnyap_remove-button-icon');
 
         removeButton.appendChild(removeButtonIcon);
         image.appendChild(removeButton);
@@ -98,7 +98,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
 
         if (!gallery.length) {
             const info = document.createElement('p');
-            info.classList.add('vikinger_gallery-info');
+            info.classList.add('yipnyap_gallery-info');
             info.innerHTML = 'You haven\'t added any images to the gallery yet!';
             galleryImagesContainer.appendChild(info);
             return;

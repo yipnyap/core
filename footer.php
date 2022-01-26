@@ -9,22 +9,22 @@
  */
 
   // footer status
-  $footer_status = get_theme_mod('vikinger_footer_setting_display', 'display');
+  $footer_status = get_theme_mod('yipnyap_footer_setting_display', 'display');
 
-  $buddypress_plugin_is_active = vikinger_plugin_buddypress_is_active();
+  $buddypress_plugin_is_active = yipnyap_plugin_buddypress_is_active();
 
   $display_footer = ($footer_status === 'display') && (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation_page()) || !$buddypress_plugin_is_active);
 
   if ($display_footer) :
 
     // footer logo
-    $footer_logo_id = get_theme_mod('vikinger_footer_setting_promo_logo', false);
+    $footer_logo_id = get_theme_mod('yipnyap_footer_setting_promo_logo', false);
 
     // footer text
-    $footer_promo_text = get_theme_mod('vikinger_footer_setting_promo_text', false);
+    $footer_promo_text = get_theme_mod('yipnyap_footer_setting_promo_text', false);
 
     // footer social links
-    $footer_setting_social_links = get_theme_mod('vikinger_footer_setting_social_links', []);
+    $footer_setting_social_links = get_theme_mod('yipnyap_footer_setting_social_links', []);
 
     $footer_social_items = [];
 
@@ -43,12 +43,12 @@
     }
 
     // footer navigation
-    $footer_menu_items = vikinger_menu_get_items('footer_menu')['threaded'];
-    $footer_menu_items = vikinger_menu_group_by_parent($footer_menu_items);
+    $footer_menu_items = yipnyap_menu_get_items('footer_menu')['threaded'];
+    $footer_menu_items = yipnyap_menu_group_by_parent($footer_menu_items);
 
     // footer bottom text
-    $footer_bottom_left_text = get_theme_mod('vikinger_footer_setting_bottom_left_text', false);
-    $footer_bottom_right_text = get_theme_mod('vikinger_footer_setting_bottom_right_text', false);
+    $footer_bottom_left_text = get_theme_mod('yipnyap_footer_setting_bottom_left_text', false);
+    $footer_bottom_right_text = get_theme_mod('yipnyap_footer_setting_bottom_right_text', false);
 
 ?>
 

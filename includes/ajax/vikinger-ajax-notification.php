@@ -8,13 +8,13 @@
 /**
  * Get filtered notifications
  */
-function vikinger_get_notifications_ajax()
+function yipnyap_get_notifications_ajax()
 {
     // nonce check, dies early if the nonce cannot be verified
-    if (check_ajax_referer('vikinger_ajax', false, false) && check_ajax_referer('houndkit-admin-bar-security-nonce', false, false)) die();
+    if (check_ajax_referer('yipnyap_ajax', false, false) && check_ajax_referer('houndkit-admin-bar-security-nonce', false, false)) die();
 
     $args = (isset($_POST['args']) && is_array($_POST['args'])) ? $_POST['args'] : [];
-    $notifications = vikinger_get_notifications($args);
+    $notifications = yipnyap_get_notifications($args);
 
     header('Content-Type: application/json');
     echo json_encode($notifications);
@@ -22,19 +22,19 @@ function vikinger_get_notifications_ajax()
     wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_notifications_ajax', 'vikinger_get_notifications_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_notifications_ajax', 'vikinger_get_notifications_ajax');
+add_action('wp_ajax_yipnyap_get_notifications_ajax', 'yipnyap_get_notifications_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_notifications_ajax', 'yipnyap_get_notifications_ajax');
 
 /**
  * Get filtered notifications count
  */
-function vikinger_get_unread_notifications_count_ajax()
+function yipnyap_get_unread_notifications_count_ajax()
 {
     // nonce check, dies early if the nonce cannot be verified
-    check_ajax_referer('vikinger_ajax');
+    check_ajax_referer('yipnyap_ajax');
 
     $args = (isset($_POST['args']) && is_array($_POST['args'])) ? $_POST['args'] : [];
-    $count = vikinger_get_unread_notifications_count($args);
+    $count = yipnyap_get_unread_notifications_count($args);
 
     header('Content-Type: application/json');
     echo json_encode($count);
@@ -42,16 +42,16 @@ function vikinger_get_unread_notifications_count_ajax()
     wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_unread_notifications_count_ajax', 'vikinger_get_unread_notifications_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_unread_notifications_count_ajax', 'vikinger_get_unread_notifications_count_ajax');
+add_action('wp_ajax_yipnyap_get_unread_notifications_count_ajax', 'yipnyap_get_unread_notifications_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_unread_notifications_count_ajax', 'yipnyap_get_unread_notifications_count_ajax');
 
 /**
  * Mark multiple notifications as read
  */
-function vikinger_mark_notifications_as_read_ajax()
+function yipnyap_mark_notifications_as_read_ajax()
 {
     // nonce check, dies early if the nonce cannot be verified
-    check_ajax_referer('vikinger_ajax');
+    check_ajax_referer('yipnyap_ajax');
 
     $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -65,7 +65,7 @@ function vikinger_mark_notifications_as_read_ajax()
     $logged_user_id = get_current_user_id();
 
     foreach ($args as $notification_id) {
-        $notification = vikinger_get_notification($notification_id);
+        $notification = yipnyap_get_notification($notification_id);
 
         if ($notification) {
             $notification_owner_id = (int)$notification['user_id'];
@@ -82,7 +82,7 @@ function vikinger_mark_notifications_as_read_ajax()
         wp_die('Unauthorized');
     }
 
-    $result = vikinger_mark_notifications_as_read($notification_ids);
+    $result = yipnyap_mark_notifications_as_read($notification_ids);
 
     header('Content-Type: application/json');
     echo json_encode($result);
@@ -90,15 +90,15 @@ function vikinger_mark_notifications_as_read_ajax()
     wp_die();
 }
 
-add_action('wp_ajax_vikinger_mark_notifications_as_read_ajax', 'vikinger_mark_notifications_as_read_ajax');
+add_action('wp_ajax_yipnyap_mark_notifications_as_read_ajax', 'yipnyap_mark_notifications_as_read_ajax');
 
 /**
  * Mark a notification as read
  */
-function vikinger_mark_notification_as_read_ajax()
+function yipnyap_mark_notification_as_read_ajax()
 {
     // nonce check, dies early if the nonce cannot be verified
-    check_ajax_referer('vikinger_ajax');
+    check_ajax_referer('yipnyap_ajax');
 
     $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -112,7 +112,7 @@ function vikinger_mark_notification_as_read_ajax()
         wp_die('Missing Parameters');
     }
 
-    $notification = vikinger_get_notification($notification_id);
+    $notification = yipnyap_get_notification($notification_id);
 
     if (!$notification) {
         wp_die('Notification not found');
@@ -129,7 +129,7 @@ function vikinger_mark_notification_as_read_ajax()
         wp_die('Unauthorized');
     }
 
-    $result = vikinger_mark_notification_as_read($notification_id);
+    $result = yipnyap_mark_notification_as_read($notification_id);
 
     header('Content-Type: application/json');
     echo json_encode($result);
@@ -137,15 +137,15 @@ function vikinger_mark_notification_as_read_ajax()
     wp_die();
 }
 
-add_action('wp_ajax_vikinger_mark_notification_as_read_ajax', 'vikinger_mark_notification_as_read_ajax');
+add_action('wp_ajax_yipnyap_mark_notification_as_read_ajax', 'yipnyap_mark_notification_as_read_ajax');
 
 /**
  * Delete a notification
  */
-function vikinger_delete_notifications_ajax()
+function yipnyap_delete_notifications_ajax()
 {
     // nonce check, dies early if the nonce cannot be verified
-    check_ajax_referer('vikinger_ajax');
+    check_ajax_referer('yipnyap_ajax');
 
     $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -159,7 +159,7 @@ function vikinger_delete_notifications_ajax()
     $logged_user_id = get_current_user_id();
 
     foreach ($args as $notification_id) {
-        $notification = vikinger_get_notification($notification_id);
+        $notification = yipnyap_get_notification($notification_id);
 
         if ($notification) {
             $notification_owner_id = (int)$notification['user_id'];
@@ -176,7 +176,7 @@ function vikinger_delete_notifications_ajax()
         wp_die('Unauthorized');
     }
 
-    $result = vikinger_delete_notifications($notification_ids);
+    $result = yipnyap_delete_notifications($notification_ids);
 
     header('Content-Type: application/json');
     echo json_encode($result);
@@ -184,6 +184,6 @@ function vikinger_delete_notifications_ajax()
     wp_die();
 }
 
-add_action('wp_ajax_vikinger_delete_notifications_ajax', 'vikinger_delete_notifications_ajax');
+add_action('wp_ajax_yipnyap_delete_notifications_ajax', 'yipnyap_delete_notifications_ajax');
 
 ?>

@@ -5,14 +5,14 @@
  * @since 1.0.0
  */
 
-if (!function_exists('vikinger_get_messages')) {
+if (!function_exists('yipnyap_get_messages')) {
   /**
    * Returns filtered message data, or false on error
    * 
    * @param array     $args      Filters for the notifications query
    * @return array|boolean
    */
-  function vikinger_get_messages($args = []) {
+  function yipnyap_get_messages($args = []) {
     $defaults = [
       'per_page'  => 20
     ];
@@ -33,7 +33,7 @@ if (!function_exists('vikinger_get_messages')) {
     // if request was succesfull
     if ($response->status === 200) {
       foreach ($response->data as $bp_message) {
-        $messages[] = vikinger_get_message_data($bp_message, $args);
+        $messages[] = yipnyap_get_message_data($bp_message, $args);
       }
     } else {
       return false;
@@ -46,21 +46,21 @@ if (!function_exists('vikinger_get_messages')) {
   }
 }
 
-if (!function_exists('vikinger_get_message')) {
+if (!function_exists('yipnyap_get_message')) {
   /**
    * Get a message thread
    * 
    * @param int     $thread_id        ID of the message thread to get
    * @return array|boolean
    */
-  function vikinger_get_message($thread_id) {
+  function yipnyap_get_message($thread_id) {
     $request = new WP_REST_Request('GET', '/buddypress/v1/messages/' . $thread_id);
 
     $response = rest_do_request($request);
 
     // if request was succesfull
     if ($response->status === 200) {
-      $message = vikinger_get_message_data($response->data[0]);
+      $message = yipnyap_get_message_data($response->data[0]);
 
       return $message;
     }
@@ -69,7 +69,7 @@ if (!function_exists('vikinger_get_message')) {
   }
 }
 
-if (!function_exists('vikinger_get_message_data')) {
+if (!function_exists('yipnyap_get_message_data')) {
   /**
    * Get message data from a bp_message object
    * 
@@ -77,7 +77,7 @@ if (!function_exists('vikinger_get_message_data')) {
    * @param array $args             Query args
    * @return array
    */
-  function vikinger_get_message_data($bp_message, $args = []) {
+  function yipnyap_get_message_data($bp_message, $args = []) {
     $thread = [
       'id'              => $bp_message['id'],
       'date'            => $bp_message['date'],
@@ -85,9 +85,9 @@ if (!function_exists('vikinger_get_message_data')) {
       'subject'         => $bp_message['subject']['rendered'],
       'content'         => html_entity_decode(wp_strip_all_tags($bp_message['message']['rendered']), ENT_QUOTES),
       'link'            => bp_get_message_thread_view_link($bp_message['id']),
-      'user'            => vikinger_members_get_fallback($bp_message['last_sender_id']),
+      'user'            => yipnyap_members_get_fallback($bp_message['last_sender_id']),
       'timestamp'       => sprintf(
-        esc_html_x('%s ago', 'Message Timestamp', 'vikinger'),
+        esc_html_x('%s ago', 'Message Timestamp', 'yipnyap'),
         human_time_diff(
           mysql2date('U', get_date_from_gmt($bp_message['date'])),
           current_time('timestamp')
@@ -114,7 +114,7 @@ if (!function_exists('vikinger_get_message_data')) {
         'is_deleted'    => $recipient['is_deleted'],
         'sender_only'   => $recipient['sender_only'],
         'unread_count'  => $recipient['unread_count'],
-        'user'          => vikinger_members_get_fallback($recipient['user_id'])
+        'user'          => yipnyap_members_get_fallback($recipient['user_id'])
       ];
     }
 
@@ -127,9 +127,9 @@ if (!function_exists('vikinger_get_message_data')) {
         'subject'     => $thread_message['subject'],
         'content'     => convert_smilies(stripslashes($thread_message['message']['raw'])),
         'link'        => bp_get_message_thread_view_link($thread_message['id']),
-        'user'        => vikinger_members_get_fallback($thread_message['sender_id']),
+        'user'        => yipnyap_members_get_fallback($thread_message['sender_id']),
         'timestamp'   => sprintf(
-          esc_html_x('%s ago', 'Message Timestamp', 'vikinger'),
+          esc_html_x('%s ago', 'Message Timestamp', 'yipnyap'),
           human_time_diff(
             mysql2date('U', get_date_from_gmt($thread_message['date_sent'])),
             current_time('timestamp')
@@ -142,7 +142,7 @@ if (!function_exists('vikinger_get_message_data')) {
   }
 }
 
-if (!function_exists('vikinger_send_message')) {
+if (!function_exists('yipnyap_send_message')) {
   /**
    * Start a new messages thread or reply to an existing one
    * 
@@ -153,7 +153,7 @@ if (!function_exists('vikinger_send_message')) {
    * @param int     $args['sender_id']      User ID of the message sender
    * @return array               
    */
-  function vikinger_send_message($args) {
+  function yipnyap_send_message($args) {
     $request = new WP_REST_Request('POST', '/buddypress/v1/messages');
 
     $request->set_param('context', 'edit');
@@ -169,7 +169,7 @@ if (!function_exists('vikinger_send_message')) {
   }
 }
 
-if (!function_exists('vikinger_delete_message_thread')) {
+if (!function_exists('yipnyap_delete_message_thread')) {
   /**
    * Delete a message thread
    * 
@@ -178,7 +178,7 @@ if (!function_exists('vikinger_delete_message_thread')) {
    * @param int   $args['user_id']          ID of the user that deletes the message thread (to be removed from the thread)
    * @return array
    */
-  function vikinger_delete_message_thread($args) {
+  function yipnyap_delete_message_thread($args) {
     $request = new WP_REST_Request('DELETE', '/buddypress/v1/messages/' . $args['thread_id']);
 
     // set parameters
@@ -191,26 +191,26 @@ if (!function_exists('vikinger_delete_message_thread')) {
   }
 }
 
-if (!function_exists('vikinger_message_mark_thread_as_read')) {
+if (!function_exists('yipnyap_message_mark_thread_as_read')) {
   /**
    * Mark a message thread as read
    * 
    * @param int $thread_id      ID of the thread to mark as read
    * @return int|boolean
    */
-  function vikinger_message_mark_thread_as_read($thread_id) {
+  function yipnyap_message_mark_thread_as_read($thread_id) {
     return messages_mark_thread_read($thread_id);
   }
 }
 
-if (!function_exists('vikinger_star_message')) {
+if (!function_exists('yipnyap_star_message')) {
   /**
    * Star a message
    * 
    * @param int $message_id       ID of the message to star
    * @return array
    */
-  function vikinger_star_message($message_id) {
+  function yipnyap_star_message($message_id) {
     $request = new WP_REST_Request('PUT', '/buddypress/v1/messages/starred/' . $message_id);
 
     // set parameters
@@ -222,14 +222,14 @@ if (!function_exists('vikinger_star_message')) {
   }
 }
 
-if (!function_exists('vikinger_unstar_message')) {
+if (!function_exists('yipnyap_unstar_message')) {
   /**
    * Unstar a message
    * 
    * @param int $message_id       ID of the message to unstar
    * @return array
    */
-  function vikinger_unstar_message($message_id) {
+  function yipnyap_unstar_message($message_id) {
     $request = new WP_REST_Request('PUT', '/buddypress/v1/messages/starred/' . $message_id);
 
     // set parameters
@@ -241,14 +241,14 @@ if (!function_exists('vikinger_unstar_message')) {
   }
 }
 
-if (!function_exists('vikinger_messages_get_thread_id')) {
+if (!function_exists('yipnyap_messages_get_thread_id')) {
   /**
    * Get message thread id from a message id
    * 
    * @param int $message_id         ID of the message.
    * @return bool|int $thread_id    ID of the thread, false on failure.  
    */
-  function vikinger_messages_get_thread_id($message_id) {
+  function yipnyap_messages_get_thread_id($message_id) {
     global $wpdb;
 
     $prefix = $wpdb->base_prefix;

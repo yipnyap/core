@@ -69,7 +69,7 @@ function GroupHeaderActions(props) {
                             {
                                 groupable.isGroupPublic() && !groupable.isGroupMember() &&
                                 <JoinGroupButton modifiers="profile-header-info-action secondary"
-                                                 title={vikinger_translation.join_group}
+                                                 title={yipnyap_translation.join_group}
                                                  icon="join-group"
                                                  loggedUser={loggedUser}
                                                  group={group}
@@ -80,7 +80,7 @@ function GroupHeaderActions(props) {
                             {
                                 groupable.isGroupMember() && !groupable.isGroupAdmin() &&
                                 <LeaveGroupButton modifiers="profile-header-info-action tertiary"
-                                                  title={vikinger_translation.leave_group}
+                                                  title={yipnyap_translation.leave_group}
                                                   icon="leave-group"
                                                   loggedUser={loggedUser}
                                                   group={group}
@@ -91,7 +91,7 @@ function GroupHeaderActions(props) {
                             {
                                 groupable.isGroupPrivate() && !groupable.isGroupMember() && !groupable.groupMembershipRequestSent() &&
                                 <RequestGroupMembershipButton modifiers="profile-header-info-action secondary"
-                                                              title={vikinger_translation.send_join_request}
+                                                              title={yipnyap_translation.send_join_request}
                                                               icon="join-group"
                                                               loggedUser={loggedUser}
                                                               group={group}
@@ -102,7 +102,7 @@ function GroupHeaderActions(props) {
                             {
                                 groupable.isGroupPrivate() && !groupable.isGroupMember() && groupable.groupMembershipRequestSent() &&
                                 <RemoveGroupMembershipButton modifiers="profile-header-info-action tertiary"
-                                                             title={vikinger_translation.cancel_join_request}
+                                                             title={yipnyap_translation.cancel_join_request}
                                                              icon="leave-group"
                                                              loggedUser={loggedUser}
                                                              group={group}
@@ -115,7 +115,7 @@ function GroupHeaderActions(props) {
                                 <ButtonLink link={loggedUser.manage_groups_link}
                                             modifiers="profile-header-info-action"
                                             icon="more-dots"
-                                            title={vikinger_translation.manage_groups}
+                                            title={yipnyap_translation.manage_groups}
                                 />
                             }
                         </React.Fragment>

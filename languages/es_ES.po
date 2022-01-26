@@ -1,6 +1,6 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Vikinger 1.0.0\n"
+"Project-Id-Version: Yipnyap 1.0.0\n"
 "POT-Creation-Date: 2021-06-15 12:36-0300\n"
 "PO-Revision-Date: 2021-06-15 12:44-0300\n"
 "Last-Translator: \n"
@@ -41,13 +41,13 @@ msgstr "UUPS!!...Te has perdido!!"
 msgid ""
 "Seems that you encountered a web black hole that absorbed the page you were "
 "looking for! But don't panic because you can go back!%sIf the problem "
-"persists, please send us an email to our support team at %ssupport@vikinger."
+"persists, please send us an email to our support team at %ssupport@yipnyap."
 "com%s"
 msgstr ""
 "Parace que te perdiste y encontraste un agujero negro que absorbió la página "
 "que estabas buscando! Pero no te preocupes, puedes volver atras!%sSi el "
 "problema persiste, porfavor envía un email a nuestro equipo de soporte a "
-"%ssupport@vikinger.com%s"
+"%ssupport@yipnyap.com%s"
 
 #: 404.php:18 includes/customizer/vikinger-customizer-404.php:68
 msgid "Go Back"
@@ -712,8 +712,8 @@ msgstr ""
 #: includes/customizer/vikinger-customizer-loginregister.php:123
 #: includes/functions/vikinger-functions-wplogin.php:86
 msgctxt "Login Page - Title"
-msgid "Vikinger"
-msgstr "Vikinger"
+msgid "Yipnyap"
+msgstr "Yipnyap"
 
 #: buddypress/members/activate.php:31 buddypress/members/register.php:31
 #: includes/customizer/vikinger-customizer-loginregister.php:139
@@ -1037,7 +1037,7 @@ msgid ""
 "From here, you can choose the default color preset of the site, enable the "
 "color theme switch, select which color preset to assign to your site light "
 "and dark color themes and select the default color theme the site uses.%sYou "
-"can customize individual preset colors from the Customizer -> Vikinger "
+"can customize individual preset colors from the Customizer -> Yipnyap "
 "Settings -> Colors - Preset menu."
 msgstr ""
 
@@ -2525,8 +2525,8 @@ msgstr ""
 #: includes/functions/vikinger-functions-woocommerce.php:28
 #: template-part/woocommerce/woocommerce-page.php:21
 msgctxt "WooCommerce Page - Title"
-msgid "Vikinger Shop"
-msgstr "Tienda Vikinger"
+msgid "Yipnyap Shop"
+msgstr "Tienda Yipnyap"
 
 #: includes/customizer/vikinger-customizer-pageheader-woocommerce.php:43
 msgctxt "(Customizer) WooCommerce Page Header Title - Title"
@@ -2589,8 +2589,8 @@ msgstr ""
 
 #: includes/customizer/vikinger-customizer-panel.php:13
 msgctxt "(Customizer) Settings - Title"
-msgid "Vikinger Settings"
-msgstr "Configuración de Vikinger"
+msgid "Yipnyap Settings"
+msgstr "Configuración de Yipnyap"
 
 #: includes/customizer/vikinger-customizer-panel.php:14
 msgctxt "(Customizer) Settings - Description"
@@ -3583,8 +3583,8 @@ msgid "Controls menu background color."
 msgstr ""
 
 #: includes/elementor/vikinger-functions-elementor-widget.php:494
-msgctxt "(Elementor) Vikinger Category - Title"
-msgid "Vikinger"
+msgctxt "(Elementor) Yipnyap Category - Title"
+msgid "Yipnyap"
 msgstr ""
 
 #: includes/functions/vikinger-functions-activity.php:75
@@ -5601,7 +5601,7 @@ msgstr "ilimitado"
 
 #: includes/sidebars/vikinger-sidebars.php:15
 msgctxt "(Backend) Blog Post Sidebar - Title"
-msgid "(Vikinger) Blog Post Sidebar"
+msgid "(Yipnyap) Blog Post Sidebar"
 msgstr ""
 
 #: includes/sidebars/vikinger-sidebars.php:16
@@ -5611,7 +5611,7 @@ msgstr ""
 
 #: includes/sidebars/vikinger-sidebars.php:27
 msgctxt "(Backend) Blog Post Bottom Sidebar - Title"
-msgid "(Vikinger) Blog Post Bottom Sidebar"
+msgid "(Yipnyap) Blog Post Bottom Sidebar"
 msgstr ""
 
 #: includes/sidebars/vikinger-sidebars.php:28
@@ -5953,14 +5953,14 @@ msgstr ""
 #: views/changelog.php:146
 msgid ""
 "Added an option that allows users to select which page the user is "
-"redirected to when they login to the site (\"Customizer\" -> \"Vikinger "
+"redirected to when they login to the site (\"Customizer\" -> \"Yipnyap "
 "Settings\" -> \"Login - Register\" -> \"Login - Redirect Page\")."
 msgstr ""
 
 #: views/changelog.php:154
 msgid ""
 "Added an option that allows users to select pages to be made accessible even "
-"when the force login option is enabled (\"Customizer\" -> \"Vikinger Settings"
+"when the force login option is enabled (\"Customizer\" -> \"Yipnyap Settings"
 "\" -> \"Login - Register\" -> \"Force Login - Exceptions\")."
 msgstr ""
 
@@ -6018,7 +6018,7 @@ msgstr ""
 #: views/changelog.php:267
 msgid ""
 "The loading screen logo can now be uploaded separately from the site "
-"identity logo in the \"Customizer\" -> \"Vikinger Settings\" -> \"Loading "
+"identity logo in the \"Customizer\" -> \"Yipnyap Settings\" -> \"Loading "
 "Screen\" section."
 msgstr ""
 
@@ -6255,8 +6255,8 @@ msgstr ""
 #: views/changelog.php:800
 msgid ""
 "Added new customizer options to allow to disable photo and video upload "
-"related features (\"Vikinger Settings\" -> \"Media\" -> Photo Upload - Status"
-"\" and \"Vikinger Settings\" -> \"Media\" -> \"Video Upload - Status\")."
+"related features (\"Yipnyap Settings\" -> \"Media\" -> Photo Upload - Status"
+"\" and \"Yipnyap Settings\" -> \"Media\" -> \"Video Upload - Status\")."
 msgstr ""
 
 #: views/changelog.php:808
@@ -6276,7 +6276,7 @@ msgstr ""
 
 #: views/changelog.php:832
 msgid ""
-"Added an option in the customizer \"Vikinger Settings\" -> \"Footer\" -> "
+"Added an option in the customizer \"Yipnyap Settings\" -> \"Footer\" -> "
 "\"Navigation - Mobile Status\", which allows users to choose if they want to "
 "display or hide the footer navigation on mobile."
 msgstr ""
@@ -6352,7 +6352,7 @@ msgstr ""
 #: views/changelog.php:920
 msgid ""
 "To solve this and allow users to translate them, we have included a new "
-"customizer section with this update (\"Vikinger Settings\" -> \"xProfile "
+"customizer section with this update (\"Yipnyap Settings\" -> \"xProfile "
 "Groups / Fields\")."
 msgstr ""
 
@@ -6417,7 +6417,7 @@ msgstr ""
 msgid ""
 "With this update, users can now edit all subgroup names from the backend "
 "\"Users\" -> \"Profile Fields\" page to translate them and then enter that "
-"same name on the respective customizer \"Vikinger Settings\" -> \"xProfile "
+"same name on the respective customizer \"Yipnyap Settings\" -> \"xProfile "
 "Groups / Fields\" option."
 msgstr ""
 
@@ -6450,7 +6450,7 @@ msgstr ""
 #: views/changelog.php:1008 views/troubleshooting.php:335
 msgid ""
 "xProfile subgroup names can be changed to translate them, but the new "
-"subgroup name has to be entered in the respective customizer \"Vikinger "
+"subgroup name has to be entered in the respective customizer \"Yipnyap "
 "Settings\" -> \"xProfile Groups / Fields\" option."
 msgstr ""
 
@@ -6458,7 +6458,7 @@ msgstr ""
 msgid ""
 "Any xProfile field names can be changed to translate them without further "
 "changes, except the \"Profile_Bio\" \"About\" field whose new name has to be "
-"entered in the respective customizer \"Vikinger Settings\" -> \"xProfile "
+"entered in the respective customizer \"Yipnyap Settings\" -> \"xProfile "
 "Groups / Fields\" option."
 msgstr ""
 
@@ -6639,7 +6639,7 @@ msgstr ""
 #: views/changelog.php:1336
 msgid ""
 "A new customizer section named \"Media\" has been added (\"Customizer\" -> "
-"\"Vikinger Settings\" -> \"Media\") that allow users to change media (photo "
+"\"Yipnyap Settings\" -> \"Media\") that allow users to change media (photo "
 "and video) related settings."
 msgstr ""
 
@@ -6761,7 +6761,7 @@ msgstr "Mejoras de Buscador"
 #: views/changelog.php:1560
 msgid ""
 "We introduced a new section called \"Search\" (in \"Customizer\" -> "
-"\"Vikinger Settings\") to allow search related customization."
+"\"Yipnyap Settings\") to allow search related customization."
 msgstr ""
 
 #: views/changelog.php:1564
@@ -6807,7 +6807,7 @@ msgstr ""
 #: views/changelog.php:1612
 msgid ""
 "We introduced a new section called \"Avatar\" (in \"Customizer\" -> "
-"\"Vikinger Settings\") to allow avatar related customization."
+"\"Yipnyap Settings\") to allow avatar related customization."
 msgstr ""
 
 #: views/changelog.php:1616
@@ -7018,7 +7018,7 @@ msgstr ""
 
 #: views/changelog.php:2005
 msgid ""
-"Several new options have been added to the \"Customizer\" -> \"Vikinger "
+"Several new options have been added to the \"Customizer\" -> \"Yipnyap "
 "Settings\" -> \"Newsfeed\" section which allow users more control over "
 "activity feed related settings."
 msgstr ""
@@ -7057,7 +7057,7 @@ msgstr "Configuración de Miembros"
 
 #: views/changelog.php:2049
 msgid ""
-"Several new options have been added to the \"Customizer\" -> \"Vikinger "
+"Several new options have been added to the \"Customizer\" -> \"Yipnyap "
 "Settings\" -> \"Members\" section which allow users more control over "
 "members related settings."
 msgstr ""
@@ -7119,7 +7119,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Added a new Customizer option that allows limiting YouTube embed video "
-"playbacks on the newsfeed. The option can be found on \"Vikinger Settings\" -"
+"playbacks on the newsfeed. The option can be found on \"Yipnyap Settings\" -"
 "> \"Newsfeed\" -> \"Limit YouTube Playback\". You can use this option to "
 "limit YouTube embedded video playbacks on the newsfeed of the site. If you "
 "select \"Yes\", only one YouTube video will be played at a time, this means "
@@ -7169,7 +7169,7 @@ msgstr ""
 #: views/changelog.php:2270
 msgid ""
 "You can now choose to enable a color theme switch via the \"Customizer\" -> "
-"\"Vikinger Settings\" -> \"Color Presets\" menu."
+"\"Yipnyap Settings\" -> \"Color Presets\" menu."
 msgstr ""
 
 #: views/changelog.php:2274
@@ -7558,14 +7558,14 @@ msgstr ""
 #: views/changelog.php:2786
 msgid ""
 "Deleting a user will now remove its uploads directory at wp-content/uploads/"
-"vikinger/member/member_id, deleting all media uploaded by the user from the "
+"yipnyap/member/member_id, deleting all media uploaded by the user from the "
 "server."
 msgstr ""
 
 #: views/changelog.php:2794
 msgid ""
 "Deleting a group will now remove its uploads directory at wp-content/uploads/"
-"vikinger/group/group_id, deleting all media uploaded to the group from the "
+"yipnyap/group/group_id, deleting all media uploaded to the group from the "
 "server."
 msgstr ""
 
@@ -7592,7 +7592,7 @@ msgstr ""
 #: views/changelog.php:2826
 msgid ""
 "Added an option in the Customizer that allows to display or hide all page "
-"banners from the theme pages. This new option is available in the Vikinger "
+"banners from the theme pages. This new option is available in the Yipnyap "
 "Settings -> Page Headers section."
 msgstr ""
 
@@ -7677,35 +7677,35 @@ msgid ""
 msgstr ""
 
 #: views/changelog.php:3006
-msgid "Vikinger Settings -> Color Presets."
+msgid "Yipnyap Settings -> Color Presets."
 msgstr ""
 
 #: views/changelog.php:3014
-msgid "Vikinger Settings -> Colors - Custom Preset."
+msgid "Yipnyap Settings -> Colors - Custom Preset."
 msgstr ""
 
 #: views/changelog.php:3022
-msgid "Vikinger Settings -> Colors - Light Preset."
+msgid "Yipnyap Settings -> Colors - Light Preset."
 msgstr ""
 
 #: views/changelog.php:3030
-msgid "Vikinger Settings -> Colors - Dark Preset."
+msgid "Yipnyap Settings -> Colors - Dark Preset."
 msgstr ""
 
 #: views/changelog.php:3038
-msgid "Vikinger Settings -> Colors - Dark Blue Preset."
+msgid "Yipnyap Settings -> Colors - Dark Blue Preset."
 msgstr ""
 
 #: views/changelog.php:3046
-msgid "Vikinger Settings -> Colors - Dark Purple Preset."
+msgid "Yipnyap Settings -> Colors - Dark Purple Preset."
 msgstr ""
 
 #: views/changelog.php:3054
-msgid "Vikinger Settings -> Colors - Dark Cyan Preset."
+msgid "Yipnyap Settings -> Colors - Dark Cyan Preset."
 msgstr ""
 
 #: views/changelog.php:3062
-msgid "Vikinger Settings -> Colors - Carbon Yellow Preset."
+msgid "Yipnyap Settings -> Colors - Carbon Yellow Preset."
 msgstr ""
 
 #: views/changelog.php:3070
@@ -7773,7 +7773,7 @@ msgid ""
 msgstr ""
 
 #: views/changelog.php:3106
-msgid "Vikinger Settings -> Login - Register."
+msgid "Yipnyap Settings -> Login - Register."
 msgstr ""
 
 #: views/changelog.php:3154
@@ -7818,7 +7818,7 @@ msgstr ""
 #, php-format
 msgid ""
 "Added a child theme, check %sthis link%s for information about what a "
-"WordPress child theme is. The child theme is called \"vikinger-child\" and "
+"WordPress child theme is. The child theme is called \"yipnyap-child\" and "
 "can be found in the Theme/ directory of the package."
 msgstr ""
 
@@ -7948,7 +7948,7 @@ msgstr ""
 
 #: views/changelog.php:3487
 msgid ""
-"Added a new customizer color option in the Vikinger Settings - Colors "
+"Added a new customizer color option in the Yipnyap Settings - Colors "
 "section to allow users to customize the header logo background color for the "
 "new header version (you can set this to the same color as the header to make "
 "it invisible)."
@@ -7980,21 +7980,21 @@ msgstr ""
 
 #: views/changelog.php:3527
 msgid ""
-"Added Header Logo - Background option in the Vikinger Settings - Colors "
+"Added Header Logo - Background option in the Yipnyap Settings - Colors "
 "section."
 msgstr ""
 
 #: views/changelog.php:3535
-msgid "Added Vikinger Settings - Side Menu section."
+msgid "Added Yipnyap Settings - Side Menu section."
 msgstr ""
 
 #: views/changelog.php:3543
 msgid ""
-"Added Display / Hide option in the Vikinger Settings - Side Menu section."
+"Added Display / Hide option in the Yipnyap Settings - Side Menu section."
 msgstr ""
 
 #: views/changelog.php:3551
-msgid "Added Display / Hide option in the Vikinger Settings - Footer section."
+msgid "Added Display / Hide option in the Yipnyap Settings - Footer section."
 msgstr ""
 
 #: views/changelog.php:3563
@@ -8315,7 +8315,7 @@ msgstr ""
 
 #: views/faqs.php:87
 msgid ""
-"Do I have a guide to what I can do with the Vikinger customizer options?"
+"Do I have a guide to what I can do with the Yipnyap customizer options?"
 msgstr ""
 
 #: views/faqs.php:99 views/faqs.php:382
@@ -8413,7 +8413,7 @@ msgstr ""
 
 #: views/faqs.php:361
 msgid ""
-"Do I have a guide to what can I do with the Vikinger customizer options?"
+"Do I have a guide to what can I do with the Yipnyap customizer options?"
 msgstr ""
 
 #: views/faqs.php:370
@@ -8437,7 +8437,7 @@ msgstr ""
 #, php-format
 msgid ""
 "You can remove the WordPress bar for all users except administrators by "
-"using the Customizer -> Vikinger Settings -> Admin Bar option.%sUsers can "
+"using the Customizer -> Yipnyap Settings -> Admin Bar option.%sUsers can "
 "also individually remove the toolbar by going to the WordPress admin, Users -"
 "> Profile and unchecking the Toolbar option.%sBuddyPress adds the toolbar "
 "for logged out users too, you can change this by going to Settings -> "
@@ -8465,21 +8465,21 @@ msgstr ""
 #: views/faqs.php:461
 #, php-format
 msgid ""
-"Yes! You have that option inside the customizer.%sJust go to Vikinger "
-"Settings -> Members and Vikinger Settings -> Groups."
+"Yes! You have that option inside the customizer.%sJust go to Yipnyap "
+"Settings -> Members and Yipnyap Settings -> Groups."
 msgstr ""
 
 #: views/faqs.php:481
 #, php-format
 msgid ""
-"Yes! You have that option inside the customizer.%sJust go to Vikinger "
+"Yes! You have that option inside the customizer.%sJust go to Yipnyap "
 "Settings -> Side Menu."
 msgstr ""
 
 #: views/faqs.php:501
 #, php-format
 msgid ""
-"Yes! You have that option inside the customizer.%sJust go to Vikinger "
+"Yes! You have that option inside the customizer.%sJust go to Yipnyap "
 "Settings -> Footer."
 msgstr ""
 
@@ -8516,7 +8516,7 @@ msgstr ""
 #: views/faqs.php:583
 #, php-format
 msgid ""
-"Yes! You can do it inside the WordPress Customizer.%sJust go to Vikinger "
+"Yes! You can do it inside the WordPress Customizer.%sJust go to Yipnyap "
 "\"Settings\" -> \"Page Headers\", and choose \"Hide\""
 msgstr ""
 
@@ -8524,27 +8524,27 @@ msgstr ""
 #, php-format
 msgid ""
 "Yes, we have an option in the Customizer that you can check to force users "
-"to login.%sGo to the \"Customizer\" -> \"Vikinger Settings\" -> \"Login - "
+"to login.%sGo to the \"Customizer\" -> \"Yipnyap Settings\" -> \"Login - "
 "Register\" -> \"Force Login\" and select \"Enabled\".\n"
 "          "
 msgstr ""
 
 #: views/faqs.php:624
 msgid ""
-"Yes, just go to  \"Customizer\" -> \"Vikinger Settings\" -> \"Members\" and "
+"Yes, just go to  \"Customizer\" -> \"Yipnyap Settings\" -> \"Members\" and "
 "change the numbers to order them in the way you want.."
 msgstr ""
 
 #: views/faqs.php:643
 msgid ""
-"Yes, just go to  \"Customizer\" -> \"Vikinger Settings\" -> \"Members\" and "
+"Yes, just go to  \"Customizer\" -> \"Yipnyap Settings\" -> \"Members\" and "
 "you can disable it. ."
 msgstr ""
 
 #: views/faqs.php:662
 msgid ""
 "Yes! You can change the shape of the avatars, just go to \"Customizer\" -> "
-"\"Vikinger Settings\" -> \"Avatar\" and choose the one you like the most."
+"\"Yipnyap Settings\" -> \"Avatar\" and choose the one you like the most."
 msgstr ""
 
 #: views/faqs.php:681
@@ -8573,7 +8573,7 @@ msgid ""
 "instead of creating them manually.%sThis official WordPress resource details "
 "how to localize themes: %shttps://developer.wordpress.org/apis/handbook/"
 "internationalization/localization/#translating-themes-and-plugins%s%sThe "
-"Poedit tool can be used to create your localized files using the vikinger."
+"Poedit tool can be used to create your localized files using the yipnyap."
 "pot file as a base, you can find more information about it here: %shttps://"
 "developer.wordpress.org/apis/handbook/internationalization/localization/"
 "#poedit%s"
@@ -8599,7 +8599,7 @@ msgid ""
 "lose changes after a theme update).%s\n"
 "          \n"
 "          You can use the theme script as an example, you will find it in "
-"the \"vikinger/js/source/utils/svg-loader.js\" file. You can copy it and "
+"the \"yipnyap/js/source/utils/svg-loader.js\" file. You can copy it and "
 "replace the svgData constant value with the SVG icons you want to include."
 "%s\n"
 "          \n"
@@ -8642,7 +8642,7 @@ msgstr ""
 msgid ""
 "c) You can then use the part after the icon-* name to use that icon in the "
 "theme. In this case, you can use \"custom\" to assign this icon to a menu "
-"item.%sThe \"vikinger/style.css\" file contains all theme styles that are "
+"item.%sThe \"yipnyap/style.css\" file contains all theme styles that are "
 "not related to third-party plugins, you will find the .icon-* CSS "
 "declarations in that file."
 msgstr ""
@@ -8650,15 +8650,15 @@ msgstr ""
 #: views/faqs.php:854
 msgid ""
 "Videos (and images) uploaded by users are saved in your WordPress install "
-"\"uploads\" directory (wp-content/uploads/vikinger)."
+"\"uploads\" directory (wp-content/uploads/yipnyap)."
 msgstr ""
 
 #: views/faqs.php:862
 msgid ""
 "Color presets are stored as options in your WordPress install database "
-"(“yourprefix_options” table), you can find each preset name in the “vikinger/"
+"(“yourprefix_options” table), you can find each preset name in the “yipnyap/"
 "includes/customizer/vikinger-customizer-utils.php” file, "
-"“vikinger_customizer_color_preset_setting_name_get” function on line 1152."
+"“yipnyap_customizer_color_preset_setting_name_get” function on line 1152."
 msgstr ""
 
 #: views/index.php:25 views/index.php:94 views/index.php:293
@@ -8698,8 +8698,8 @@ msgid ""
 msgstr ""
 
 #: views/index.php:118
-msgid "Vikinger Documentation"
-msgstr "Documentación de Vikinger"
+msgid "Yipnyap Documentation"
+msgstr "Documentación de Yipnyap"
 
 #: views/index.php:127
 #, php-format
@@ -8725,8 +8725,8 @@ msgid "%sClick here to check the documentation%s"
 msgstr ""
 
 #: views/index.php:175
-msgid "Vikinger Video Guides"
-msgstr "Guías de Video de Vikinger"
+msgid "Yipnyap Video Guides"
+msgstr "Guías de Video de Yipnyap"
 
 #: views/index.php:183
 msgid ""
@@ -8740,8 +8740,8 @@ msgid "%sClick here to check the video guides%s"
 msgstr ""
 
 #: views/index.php:209
-msgid "Vikinger FAQs Section"
-msgstr "Sección de Preguntas Frecuentes de Vikinger"
+msgid "Yipnyap FAQs Section"
+msgstr "Sección de Preguntas Frecuentes de Yipnyap"
 
 #: views/index.php:218
 #, php-format
@@ -8758,7 +8758,7 @@ msgid "%sClick here to check the FAQs%s"
 msgstr ""
 
 #: views/index.php:247
-msgid "Vikinger Troubleshooting Section"
+msgid "Yipnyap Troubleshooting Section"
 msgstr ""
 
 #: views/index.php:256
@@ -9162,7 +9162,7 @@ msgid ""
 "activity post with media (images or video) is due to having an outdated "
 "MariaDB database.%sIf you have an outdated MariaDB version installed, please "
 "update it to the latest version, and then uninstall and reinstall the "
-"\"Vikinger Media\" plugin, if the plugin is installed successfully, the "
+"\"Yipnyap Media\" plugin, if the plugin is installed successfully, the "
 "\"yourprefix_vkmedia_media\" table will be created and available in your "
 "WordPress database."
 msgstr ""
@@ -9192,7 +9192,7 @@ msgid ""
 "translations purposes, as the theme won't be able to find and display the "
 "group or field information if the name is not the one it is expecting.To "
 "solve this and allow users to translate them, we have included a new "
-"customizer section with this update (\"Vikinger Settings\" -> \"xProfile "
+"customizer section with this update (\"Yipnyap Settings\" -> \"xProfile "
 "Groups / Fields\").%sTo understand how to edit the profile groups and fields "
 "for translation purposes, we need to detail how the theme uses the group "
 "names.%sxProfile group names consist of a prefix part (i.e. \"Profile\") "
@@ -9214,7 +9214,7 @@ msgid ""
 "is displayed differently from the other fields (text only at the top of the "
 "widget after the title).%sWith this update, users can now edit all subgroup "
 "names from the backend \"Users\" -> \"Profile Fields\" page to translate "
-"them and then enter that same name on the respective customizer \"Vikinger "
+"them and then enter that same name on the respective customizer \"Yipnyap "
 "Settings\" -> \"xProfile Groups / Fields\" option.%sThis allows the theme to "
 "query the subgroup using the new name and display the information correctly "
 "on each widget.%sAs we mentioned before, the \"Profile_Bio\" \"About\" field "

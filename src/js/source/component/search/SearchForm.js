@@ -12,10 +12,10 @@ import * as postRouter from '../../router/post/post-router';
 import * as memberRouter from '../../router/member/member-router';
 import * as groupRouter from '../../router/group/group-router';
 
-const searchPlaceholderText = vikinger_translation.search_placeholder;
+const searchPlaceholderText = yipnyap_translation.search_placeholder;
 
-const postTypeSplitIsEnabled = vikinger_constants.settings.post_type_split_display_is_enabled;
-const postTypes = vikinger_constants.settings.post_types_to_display_in_search;
+const postTypeSplitIsEnabled = yipnyap_constants.settings.post_type_split_display_is_enabled;
+const postTypes = yipnyap_constants.settings.post_types_to_display_in_search;
 
 const splitPostsByPostType = (posts, postTypes, postTypeProp) => {
     const splittedPosts = {};
@@ -84,8 +84,8 @@ function SearchForm(props) {
             searchDropdown.current.showDropdowns();
 
             // only do member and group search if the BuddyPress plugin is active
-            if (vikinger_constants.plugin_active.buddypress) {
-                if (vikinger_constants.settings.search_members_enabled) {
+            if (yipnyap_constants.plugin_active.buddypress) {
+                if (yipnyap_constants.settings.search_members_enabled) {
                     // cancel previous search
                     if (searchMembersTimeoutID.current) {
                         window.clearTimeout(searchMembersTimeoutID.current);
@@ -94,7 +94,7 @@ function SearchForm(props) {
                     searchMembersTimeoutID.current = window.setTimeout(searchMembers, 500);
                 }
 
-                if (vikinger_constants.plugin_active.buddypress_groups && vikinger_constants.settings.search_groups_enabled) {
+                if (yipnyap_constants.plugin_active.buddypress_groups && yipnyap_constants.settings.search_groups_enabled) {
                     // cancel previous search
                     if (searchGroupsTimeoutID.current) {
                         window.clearTimeout(searchGroupsTimeoutID.current);
@@ -104,7 +104,7 @@ function SearchForm(props) {
                 }
             }
 
-            if (vikinger_constants.settings.search_blog_enabled) {
+            if (yipnyap_constants.settings.search_blog_enabled) {
                 // cancel previous search
                 if (searchPostsTimeoutID.current) {
                     window.clearTimeout(searchPostsTimeoutID.current);
@@ -267,7 +267,7 @@ function SearchForm(props) {
         <div className="search-form-wrap">
             {/* INTERACTIVE INPUT */}
             <div className="interactive-input dark">
-                <form className="form" method="get" action={vikinger_constants.home_url}>
+                <form className="form" method="get" action={yipnyap_constants.home_url}>
                     <input type="text"
                            name="s"
                            value={searchText}
@@ -301,11 +301,11 @@ function SearchForm(props) {
             <div ref={searchDropdownRef} className="dropdown-box padding-bottom-small">
                 <SimpleBar style={simplebarStyles.current}>
                     {
-                        vikinger_constants.plugin_active.buddypress &&
+                        yipnyap_constants.plugin_active.buddypress &&
                         <React.Fragment>
                             {
-                                vikinger_constants.settings.search_members_enabled &&
-                                <SearchFormSection title={vikinger_translation.members}
+                                yipnyap_constants.settings.search_members_enabled &&
+                                <SearchFormSection title={yipnyap_translation.members}
                                                    type="user"
                                                    data={members}
                                                    itemLinkProp="link"
@@ -314,8 +314,8 @@ function SearchForm(props) {
                                 />
                             }
                             {
-                                vikinger_constants.plugin_active.buddypress_groups && vikinger_constants.settings.search_groups_enabled &&
-                                <SearchFormSection title={vikinger_translation.groups}
+                                yipnyap_constants.plugin_active.buddypress_groups && yipnyap_constants.settings.search_groups_enabled &&
+                                <SearchFormSection title={yipnyap_translation.groups}
                                                    type="group"
                                                    data={groups}
                                                    itemLinkProp="link"
@@ -327,11 +327,11 @@ function SearchForm(props) {
                     }
 
                     {
-                        vikinger_constants.settings.search_blog_enabled &&
+                        yipnyap_constants.settings.search_blog_enabled &&
                         <React.Fragment>
                             {
                                 !postTypeSplitIsEnabled &&
-                                <SearchFormSection title={vikinger_translation.posts}
+                                <SearchFormSection title={yipnyap_translation.posts}
                                                    type="post"
                                                    data={posts}
                                                    itemLinkProp="permalink"

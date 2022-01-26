@@ -32,11 +32,11 @@ function ManageGroupsSettingsScreen(props) {
 
     // only show groups the user is an admin or mod of
     const groups = loggedUser ? loggedUser.groups.filter(group => group.is_admin || group.is_mod) : [],
-        userCanCreateGroups = !vikinger_constants.settings.bp_restrict_group_creation || vikinger_constants.settings.current_user_is_admin;
+        userCanCreateGroups = !yipnyap_constants.settings.bp_restrict_group_creation || yipnyap_constants.settings.current_user_is_admin;
 
     return (
         <div className="account-hub-content">
-            <SectionHeader pretitle={vikinger_translation.groups} title={vikinger_translation.manage_groups}/>
+            <SectionHeader pretitle={yipnyap_translation.groups} title={yipnyap_translation.manage_groups}/>
             {
                 !loggedUser &&
                 <Loader/>
@@ -49,9 +49,9 @@ function ManageGroupsSettingsScreen(props) {
                         <div className="grid grid-3-3-3 centered-on-mobile">
                             {
                                 userCanCreateGroups &&
-                                <ActionBox title={vikinger_translation.create_new_group}
-                                           text={vikinger_translation.create_new_group_text}
-                                           actionText={vikinger_translation.start_creating}
+                                <ActionBox title={yipnyap_translation.create_new_group}
+                                           text={yipnyap_translation.create_new_group_text}
+                                           actionText={yipnyap_translation.start_creating}
                                            loggedUser={loggedUser}
                                 />
                             }
@@ -63,11 +63,11 @@ function ManageGroupsSettingsScreen(props) {
                                     const groupable = groupUtils(loggedUser, group);
 
                                     if (groupable.isGroupCreator()) {
-                                        groupPreviewDescriptionText = vikinger_translation.group_creator;
+                                        groupPreviewDescriptionText = yipnyap_translation.group_creator;
                                     } else if (groupable.isGroupAdmin()) {
-                                        groupPreviewDescriptionText = vikinger_translation.group_admin;
+                                        groupPreviewDescriptionText = yipnyap_translation.group_admin;
                                     } else if (groupable.isGroupMod()) {
-                                        groupPreviewDescriptionText = vikinger_translation.group_mod;
+                                        groupPreviewDescriptionText = yipnyap_translation.group_mod;
                                     }
 
                                     return (
@@ -83,8 +83,8 @@ function ManageGroupsSettingsScreen(props) {
                     }
                     {
                         !userCanCreateGroups && (groups.length === 0) &&
-                        <Notification title={vikinger_translation.no_groups_found}
-                                      text={vikinger_translation.cant_manage_groups_message}
+                        <Notification title={yipnyap_translation.no_groups_found}
+                                      text={yipnyap_translation.cant_manage_groups_message}
                         />
                     }
                 </React.Fragment>

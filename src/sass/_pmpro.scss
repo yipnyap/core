@@ -1,6 +1,6 @@
 .section-banner {
   & + {
-    .vikinger-pmpro-page-wrap {
+    .yipnyap-pmpro-page-wrap {
       margin-top: 64px;
     }
   }
@@ -78,8 +78,8 @@
   }
 }
 
-.vikinger-pmpro-page-wrap {
-  .vikinger-pmpro-page-title {
+.yipnyap-pmpro-page-wrap {
+  .yipnyap-pmpro-page-title {
     margin-bottom: 32px;
     font-size: 2em;
   }
@@ -693,13 +693,13 @@ textarea {
 @media screen and (max-width: 1365px) {
   .section-banner {
     & + {
-      .vikinger-pmpro-page-wrap {
+      .yipnyap-pmpro-page-wrap {
         margin-top: 32px;
       }
     }
   }
 
-  .vikinger-pmpro-page-wrap {
+  .yipnyap-pmpro-page-wrap {
     .section-header {
       &:first-child {
         margin-top: 60px;

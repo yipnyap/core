@@ -10,7 +10,7 @@
  * 
  */
 
-  $groups_grid_type = vikinger_logged_user_grid_type_get('group');
+  $groups_grid_type = yipnyap_logged_user_grid_type_get('group');
 
 ?>
 

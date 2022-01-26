@@ -16,7 +16,7 @@
 
   $current_component = get_query_var('current_component');
 
-  $social_links = vikinger_members_get_xprofile_social_links($member);
+  $social_links = yipnyap_members_get_xprofile_social_links($member);
 
 ?>
 
@@ -57,8 +57,8 @@
       if ($current_component === 'forums') {
         $sidebar_menu_sections = [
           [
-            'title'       => esc_html_x('Forum Activity', 'Forum Activity Menu - Title', 'vikinger'),
-            'description' => esc_html_x('Check out your topics, replies, engagements and more! ', 'Forum Activity Menu - Description', 'vikinger'),
+            'title'       => esc_html_x('Forum Activity', 'Forum Activity Menu - Title', 'yipnyap'),
+            'description' => esc_html_x('Check out your topics, replies, engagements and more! ', 'Forum Activity Menu - Description', 'yipnyap'),
             'icon'        => 'forum',
             'menu_items'  => $member_subnavigation_items
           ]

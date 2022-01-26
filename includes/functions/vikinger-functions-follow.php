@@ -5,7 +5,7 @@
  * @since 1.0.0
  */
 
-if (!function_exists('vikinger_follow_add')) {
+if (!function_exists('yipnyap_follow_add')) {
   /**
    * Sends a friend request (or adds a friend if $force_accept is true)
    * 
@@ -14,12 +14,12 @@ if (!function_exists('vikinger_follow_add')) {
    * @param int     $leader_id              ID of the user to become friends with
    * @return boolean
    */
-  function vikinger_follow_add($args) {
+  function yipnyap_follow_add($args) {
     return bp_follow_start_following($args);
   }
 }
 
-if (!function_exists('vikinger_follow_remove')) {
+if (!function_exists('yipnyap_follow_remove')) {
   /**
    * Sends a friend request (or adds a friend if $force_accept is true)
    * 
@@ -28,7 +28,7 @@ if (!function_exists('vikinger_follow_remove')) {
    * @param int     $leader_id              ID of the user to become friends with
    * @return boolean
    */
-  function vikinger_follow_remove($args) {
+  function yipnyap_follow_remove($args) {
     return bp_follow_stop_following($args);
   }
 }

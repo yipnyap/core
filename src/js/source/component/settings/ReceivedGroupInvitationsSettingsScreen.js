@@ -30,8 +30,8 @@ function ReceivedGroupInvitationsSettingsScreen(props) {
 
     return (
         <div className="account-hub-content">
-            <SectionHeader pretitle={vikinger_translation.groups}
-                           title={vikinger_translation.received_invitations}
+            <SectionHeader pretitle={yipnyap_translation.groups}
+                           title={yipnyap_translation.received_invitations}
                            titleCount={receivedInvitationsCount}
             />
             {
@@ -43,8 +43,8 @@ function ReceivedGroupInvitationsSettingsScreen(props) {
                 <React.Fragment>
                     {
                         (loggedUser.group_invitations_received.length === 0) &&
-                        <Notification title={vikinger_translation.received_invitations_no_results_title}
-                                      text={vikinger_translation.received_invitations_no_results_text}
+                        <Notification title={yipnyap_translation.received_invitations_no_results_title}
+                                      text={yipnyap_translation.received_invitations_no_results_text}
                         />
                     }
 

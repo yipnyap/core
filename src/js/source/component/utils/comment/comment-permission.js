@@ -9,7 +9,7 @@ const getUserCommentPermissions = (user, commentData, group) => {
         return permissions;
     }
 
-    const loggedUserIsSiteAdmin = vikinger_constants.settings.current_user_is_admin;
+    const loggedUserIsSiteAdmin = yipnyap_constants.settings.current_user_is_admin;
 
     if (loggedUserIsSiteAdmin) {
         permissions.settings = true;
@@ -106,7 +106,7 @@ const userIsCommentAuthor = (commentData, user) => {
 
 import {dateMinutesDiff} from '../../../utils/core';
 
-const editableTimeLimit = vikinger_constants.settings.activity_edit_time_limit;
+const editableTimeLimit = yipnyap_constants.settings.activity_edit_time_limit;
 
 const commentEditableTimeHasElapsed = (commentData) => {
     if (editableTimeLimit > 0) {

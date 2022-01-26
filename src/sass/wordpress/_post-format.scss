@@ -1,24 +1,24 @@
 /*--------------
     GALLERY
 --------------*/
-.vikinger_gallery-images {
+.yipnyap_gallery-images {
   margin: 28px 0 18px;
   display: grid;
   grid-gap: 12px;
   grid-template-columns: repeat(auto-fit, 100px);
 }
 
-.vikinger_gallery-image {
+.yipnyap_gallery-image {
   width: 100px;
   height: 100px;
   position: relative;
 }
 
-.vikinger_gallery-info {
+.yipnyap_gallery-info {
   margin-top: 24px;
 }
 
-.vikinger_remove-button {
+.yipnyap_remove-button {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -37,14 +37,14 @@
   }
 }
 
-.vikinger_remove-button-icon {
+.yipnyap_remove-button-icon {
   width: 8px;
   height: 8px;
   fill: #fff;
   pointer-events: none;
 }
 
-.vikinger_upload-button {
+.yipnyap_upload-button {
   height: 40px;
   padding: 0 28px;
   margin-top: 12px;

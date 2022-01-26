@@ -12,7 +12,7 @@
 
   $member = get_query_var('member');
 
-  $friends = vikinger_members_get(['user_id' => $member['id'], 'per_page' => 5]);
+  $friends = yipnyap_members_get(['user_id' => $member['id'], 'per_page' => 5]);
   
 ?>
 
@@ -30,24 +30,24 @@
     ]);
 
     // if GamiPress plugin is active, show badges and quests widget
-    if (vikinger_plugin_gamipress_is_active()) {
-      if (vikinger_gamipress_achievement_type_exists('badge')) {
+    if (yipnyap_plugin_gamipress_is_active()) {
+      if (yipnyap_gamipress_achievement_type_exists('badge')) {
         /**
          * Widget Badges
          */
         get_template_part('template-part/widget/widget-badges', null, [
-          'widget_title'  => esc_html__('Badges', 'vikinger'),
-          'badges'        => vikinger_gamipress_get_user_completed_achievements('badge', $member['id'])
+          'widget_title'  => esc_html__('Badges', 'yipnyap'),
+          'badges'        => yipnyap_gamipress_get_user_completed_achievements('badge', $member['id'])
         ]);
       }
 
-      if (vikinger_gamipress_achievement_type_exists('quest')) {
+      if (yipnyap_gamipress_achievement_type_exists('quest')) {
         /**
          * Widget Quests
          */
         get_template_part('template-part/widget/widget-quests', null, [
-          'widget_title'  => esc_html__('Quests', 'vikinger'),
-          'quests'        => vikinger_gamipress_get_user_completed_achievements('quest', $member['id'])
+          'widget_title'  => esc_html__('Quests', 'yipnyap'),
+          'quests'        => yipnyap_gamipress_get_user_completed_achievements('quest', $member['id'])
         ]);
       }
     }
@@ -58,11 +58,11 @@
        * Widget User List
        */
       get_template_part('template-part/widget/widget-user-list', null, [
-        'widget_title'    => esc_html__('Friends', 'vikinger'),
+        'widget_title'    => esc_html__('Friends', 'yipnyap'),
         'users'           => $friends,
-        'no_results_text' => esc_html__('No friends found', 'vikinger'),
+        'no_results_text' => esc_html__('No friends found', 'yipnyap'),
         'button'          => [
-          'text'  => esc_html__('See all friends', 'vikinger'),
+          'text'  => esc_html__('See all friends', 'yipnyap'),
           'link'  => bp_core_get_user_domain($member['id']) . 'friends'
         ]
       ]);
@@ -81,18 +81,18 @@
   <?php
 
     // if GamiPress plugin is active, show points widget
-    if (vikinger_plugin_gamipress_is_active()) {
+    if (yipnyap_plugin_gamipress_is_active()) {
       /**
        * Widget Points
        */
       get_template_part('template-part/widget/widget-points', null, [
-        'widget_title'  => esc_html__('Credits Balance', 'vikinger'),
-        'points'        => vikinger_gamipress_get_user_points($member['id'])
+        'widget_title'  => esc_html__('Credits Balance', 'yipnyap'),
+        'points'        => yipnyap_gamipress_get_user_points($member['id'])
       ]);
     }
 
     // add vkmedia photos widget if plugin is active
-    if (vikinger_plugin_vkmedia_is_active() && vikinger_settings_media_file_upload_is_enabled('image')) :
+    if (yipnyap_plugin_vkmedia_is_active() && yipnyap_settings_media_file_upload_is_enabled('image')) :
       
   ?>
 
@@ -106,17 +106,17 @@
 
     // if the groups component is active, show groups widget
     if (bp_is_active('groups')) {
-      $user_groups = vikinger_groups_get(['user_id' => $member['id'], 'type' => 'popular', 'per_page' => 5]);
+      $user_groups = yipnyap_groups_get(['user_id' => $member['id'], 'type' => 'popular', 'per_page' => 5]);
 
       /**
        * Widget Group List Tabbed
        */
       get_template_part('template-part/widget/widget-group-list', null, [
-        'widget_title'    => esc_html__('Groups', 'vikinger'),
+        'widget_title'    => esc_html__('Groups', 'yipnyap'),
         'groups'          => $user_groups,
-        'no_results_text' => esc_html__('No groups found', 'vikinger'),
+        'no_results_text' => esc_html__('No groups found', 'yipnyap'),
         'button'          => [
-          'text'  => esc_html__('See all groups', 'vikinger'),
+          'text'  => esc_html__('See all groups', 'yipnyap'),
           'link'  => bp_core_get_user_domain($member['id']) . 'groups'
         ]
       ]);

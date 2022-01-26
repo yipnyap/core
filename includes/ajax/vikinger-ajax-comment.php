@@ -9,9 +9,9 @@
  * Creates a new comment
  *
  */
-function vikinger_create_comment_ajax() {
+function yipnyap_create_comment_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $comment_data = isset($_POST['comment_data']) ? $_POST['comment_data'] : false;
 
@@ -31,7 +31,7 @@ function vikinger_create_comment_ajax() {
   }
 
   // comment ID on success, false on error
-  $result = vikinger_create_comment($comment_data);
+  $result = yipnyap_create_comment($comment_data);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -39,14 +39,14 @@ function vikinger_create_comment_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_create_comment_ajax', 'vikinger_create_comment_ajax');
+add_action('wp_ajax_yipnyap_create_comment_ajax', 'yipnyap_create_comment_ajax');
 
 /**
  * Update post comment
  */
-function vikinger_comment_update_ajax() {
+function yipnyap_comment_update_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -84,7 +84,7 @@ function vikinger_comment_update_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_comment_update($args);
+  $result = yipnyap_comment_update($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -92,14 +92,14 @@ function vikinger_comment_update_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_comment_update_ajax', 'vikinger_comment_update_ajax');
+add_action('wp_ajax_yipnyap_comment_update_ajax', 'yipnyap_comment_update_ajax');
 
 /**
  * Delete post comment
  */
-function vikinger_post_comment_delete_ajax() {
+function yipnyap_post_comment_delete_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -137,7 +137,7 @@ function vikinger_post_comment_delete_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_post_comment_delete($comment_id);
+  $result = yipnyap_post_comment_delete($comment_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -145,18 +145,18 @@ function vikinger_post_comment_delete_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_post_comment_delete_ajax', 'vikinger_post_comment_delete_ajax');
+add_action('wp_ajax_yipnyap_post_comment_delete_ajax', 'yipnyap_post_comment_delete_ajax');
 
 /**
  * Get filtered comments with children
  */
-function vikinger_get_comments_ajax() {
+function yipnyap_get_comments_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : [];
 
-  $comments = vikinger_get_comments($args);
+  $comments = yipnyap_get_comments($args);
 
   header('Content-Type: application/json');
   echo json_encode($comments);
@@ -164,18 +164,18 @@ function vikinger_get_comments_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_comments_ajax', 'vikinger_get_comments_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_comments_ajax', 'vikinger_get_comments_ajax');
+add_action('wp_ajax_yipnyap_get_comments_ajax', 'yipnyap_get_comments_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_comments_ajax', 'yipnyap_get_comments_ajax');
 
 /**
  * Get a post top level comments count (comments with no parent)
  */
-function vikinger_get_post_top_level_comment_count_ajax() {
+function yipnyap_get_post_top_level_comment_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
   
   // get comment count for postID
-  $comment_count = vikinger_get_post_top_level_comment_count($_POST['postID']);
+  $comment_count = yipnyap_get_post_top_level_comment_count($_POST['postID']);
 
   header('Content-Type: application/json');
   
@@ -185,7 +185,7 @@ function vikinger_get_post_top_level_comment_count_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_post_top_level_comment_count_ajax', 'vikinger_get_post_top_level_comment_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_post_top_level_comment_count_ajax', 'vikinger_get_post_top_level_comment_count_ajax');
+add_action('wp_ajax_yipnyap_get_post_top_level_comment_count_ajax', 'yipnyap_get_post_top_level_comment_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_post_top_level_comment_count_ajax', 'yipnyap_get_post_top_level_comment_count_ajax');
 
 ?>

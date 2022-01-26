@@ -28,7 +28,7 @@ defined( 'ABSPATH' ) || exit;
 
 	<?php
 
-		$forum_last_activity_description_data = vikinger_bbpress_forum_last_activity_description_get(bbp_get_forum_id());
+		$forum_last_activity_description_data = yipnyap_bbpress_forum_last_activity_description_get(bbp_get_forum_id());
 
 		/**
 		 * Forum Description Notice

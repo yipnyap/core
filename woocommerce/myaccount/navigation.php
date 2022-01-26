@@ -15,49 +15,49 @@
  * @version 2.6.0
  */
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
+if (!defined('ABSPATH')) {
+    exit;
 }
 
-do_action( 'woocommerce_before_account_navigation' );
+do_action('woocommerce_before_account_navigation');
 ?>
 
 <?php
 
-  if (vikinger_plugin_buddypress_is_active()) :
+if (yipnyap_plugin_buddypress_is_active()) :
 
 ?>
 
 <!-- GRID -->
 <div class="grid grid-3-9 medium-space">
 
-<?php
+    <?php
 
-    $member = vikinger_get_logged_user_member_data();
+    $member = yipnyap_get_logged_user_member_data();
 
-    $sidebar_menu_sections = vikinger_members_get_settings_navigation_sections($member);
+    $sidebar_menu_sections = yipnyap_members_get_settings_navigation_sections($member);
 
     /**
      * Sidebar Menu
      */
     get_template_part('template-part/sidebar/sidebar-menu', null, [
-      'sidebar_menu_sections' => $sidebar_menu_sections
+        'sidebar_menu_sections' => $sidebar_menu_sections
     ]);
 
-  else:
+    else:
 
-?>
+        ?>
 
-<nav class="woocommerce-MyAccount-navigation">
-	<ul>
-		<?php foreach ( wc_get_account_menu_items() as $endpoint => $label ) : ?>
-			<li class="<?php echo wc_get_account_menu_item_classes( $endpoint ); ?>">
-				<a href="<?php echo esc_url( wc_get_account_endpoint_url( $endpoint ) ); ?>"><?php echo esc_html( $label ); ?></a>
-			</li>
-		<?php endforeach; ?>
-	</ul>
-</nav>
+        <nav class="woocommerce-MyAccount-navigation">
+            <ul>
+                <?php foreach (wc_get_account_menu_items() as $endpoint => $label) : ?>
+                    <li class="<?php echo wc_get_account_menu_item_classes($endpoint); ?>">
+                        <a href="<?php echo esc_url(wc_get_account_endpoint_url($endpoint)); ?>"><?php echo esc_html($label); ?></a>
+                    </li>
+                <?php endforeach; ?>
+            </ul>
+        </nav>
 
-<?php endif; ?>
+    <?php endif; ?>
 
-<?php do_action( 'woocommerce_after_account_navigation' ); ?>
+    <?php do_action('woocommerce_after_account_navigation'); ?>

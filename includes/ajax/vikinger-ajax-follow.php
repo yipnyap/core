@@ -8,9 +8,9 @@
 /**
  * Add a follow
  */
-function vikinger_follow_add_ajax() {
+function yipnyap_follow_add_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -35,7 +35,7 @@ function vikinger_follow_add_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_follow_add($args);
+  $result = yipnyap_follow_add($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -43,14 +43,14 @@ function vikinger_follow_add_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_follow_add_ajax', 'vikinger_follow_add_ajax');
+add_action('wp_ajax_yipnyap_follow_add_ajax', 'yipnyap_follow_add_ajax');
 
 /**
  * Remove a follow
  */
-function vikinger_follow_remove_ajax() {
+function yipnyap_follow_remove_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -75,7 +75,7 @@ function vikinger_follow_remove_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_follow_remove($args);
+  $result = yipnyap_follow_remove($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -83,6 +83,6 @@ function vikinger_follow_remove_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_follow_remove_ajax', 'vikinger_follow_remove_ajax');
+add_action('wp_ajax_yipnyap_follow_remove_ajax', 'yipnyap_follow_remove_ajax');
 
 ?>

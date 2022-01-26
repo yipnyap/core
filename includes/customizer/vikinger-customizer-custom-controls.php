@@ -5,7 +5,7 @@
  * @since 1.6.3
  */
 
-function vikinger_customizer_custom_controls() {
+function yipnyap_customizer_custom_controls() {
   class WP_VK_MultiSelect_Control extends WP_Customize_Control {
     public $type = 'vk_multiselect';
 
@@ -37,6 +37,6 @@ function vikinger_customizer_custom_controls() {
   }
 }
 
-add_action('customize_register', 'vikinger_customizer_custom_controls');
+add_action('customize_register', 'yipnyap_customizer_custom_controls');
 
 ?>

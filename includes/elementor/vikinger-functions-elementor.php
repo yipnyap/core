@@ -1,18 +1,18 @@
 <?php
 /**
  * Yipnyap Elementor functions
- * 
+ *
  * @since 1.0.0
  */
 
 /**
  * Utils functions
  */
-require_once VIKINGER_PATH . '/includes/elementor/vikinger-functions-elementor-utils.php';
+require_once YIPNYAP_PATH . '/includes/elementor/vikinger-functions-elementor-utils.php';
 
 /**
  * Widget functions
  */
-require_once VIKINGER_PATH . '/includes/elementor/vikinger-functions-elementor-widget.php';
+require_once YIPNYAP_PATH . '/includes/elementor/vikinger-functions-elementor-widget.php';
 
 ?>

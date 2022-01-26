@@ -1,20 +1,20 @@
 import React from 'react';
 
-import groupUtils from'../../../utils/group';
+import groupUtils from '../../../utils/group';
 
 import ActionIconButton from '../ActionIconButton';
 
 function JoinGroupIconButton(props) {
-  const groupable = groupUtils(props.loggedUser, props.group);
+    const groupable = groupUtils(props.loggedUser, props.group);
 
-  return (
-    <ActionIconButton icon="join-group"
-                      type="accept"
-                      title={vikinger_translation.join_group}
-                      action={groupable.joinGroup}
-                      onActionComplete={props.onActionComplete}
-    />
-  );
+    return (
+        <ActionIconButton icon="join-group"
+                          type="accept"
+                          title={yipnyap_translation.join_group}
+                          action={groupable.joinGroup}
+                          onActionComplete={props.onActionComplete}
+        />
+    );
 }
 
-export { JoinGroupIconButton as default };
+export {JoinGroupIconButton as default};

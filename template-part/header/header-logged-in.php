@@ -16,18 +16,18 @@
  *
  * @see header.php
  *
- * @package Vikinger
+ * @package Yipnyap
  */
 
 // add BuddyPress member stats data if plugin is active
-if (vikinger_plugin_buddypress_is_active()) {
+if (yipnyap_plugin_buddypress_is_active()) {
     $post_count = $args['user']['stats']['post_count'];
     $friend_count = $args['user']['stats']['friend_count'];
     $comment_count = $args['user']['stats']['comment_count'];
 }
 
-$sidemenu_status = get_theme_mod('vikinger_sidemenu_setting_display', 'display');
-$header_version = get_theme_mod('vikinger_siteidentity_setting_header_type', 'v1');
+$sidemenu_status = get_theme_mod('yipnyap_sidemenu_setting_display', 'display');
+$header_version = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v1');
 
 $has_custom_logo = has_custom_logo();
 
@@ -36,14 +36,14 @@ if ($has_custom_logo) {
     $logo_url = wp_get_attachment_image_src($logo_id, 'full');
 }
 
-global $vikinger_settings;
+global $yipnyap_settings;
 
-$display_search = ($vikinger_settings['search_status'] === 'display') && ($vikinger_settings['search_members_enabled'] || $vikinger_settings['search_groups_enabled'] || $vikinger_settings['search_blog_enabled']);
+$display_search = ($yipnyap_settings['search_status'] === 'display') && ($yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled']);
 
-$display_verified = vikinger_plugin_bpverifiedmember_is_active();
+$display_verified = yipnyap_plugin_bpverifiedmember_is_active();
 
-$display_verified_in_fullname = $display_verified && $vikinger_settings['bp_verified_member_display_badge_in_profile_fullname'];
-$display_verified_in_username = $display_verified && $vikinger_settings['bp_verified_member_display_badge_in_profile_username'];
+$display_verified_in_fullname = $display_verified && $yipnyap_settings['bp_verified_member_display_badge_in_profile_fullname'];
+$display_verified_in_username = $display_verified && $yipnyap_settings['bp_verified_member_display_badge_in_profile_username'];
 
 $verified_user = $display_verified && $args['user']['verified'];
 
@@ -51,7 +51,7 @@ if ($sidemenu_status === 'display') :
     ?>
     <!-- NAVIGATION WIDGET -->
     <nav id="navigation-widget-small"
-         class="navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left <?php echo $vikinger_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
+         class="navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
         <?php
 
         /**
@@ -59,7 +59,7 @@ if ($sidemenu_status === 'display') :
          */
         get_template_part('template-part/avatar/avatar', 'small', [
             'user' => $args['user'],
-            'linked' => vikinger_plugin_buddypress_is_active(),
+            'linked' => yipnyap_plugin_buddypress_is_active(),
             'no_border' => true
         ]);
 
@@ -81,7 +81,7 @@ if ($sidemenu_status === 'display') :
 
     <!-- NAVIGATION WIDGET -->
     <nav id="navigation-widget"
-         class="navigation-widget navigation-widget-desktop sidebar left <?php echo $vikinger_settings['sidemenu_active'] ? 'navigation-widget-delayed' : 'navigation-widget-hidden'; ?>"
+         class="navigation-widget navigation-widget-desktop sidebar left <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-delayed' : 'navigation-widget-hidden'; ?>"
          data-simplebar>
         <!-- NAVIGATION WIDGET COVER -->
         <div class="navigation-widget-cover"
@@ -98,7 +98,7 @@ if ($sidemenu_status === 'display') :
             get_template_part('template-part/avatar/avatar', 'medium', [
                 'user' => $args['user'],
                 'modifiers' => 'user-short-description-avatar',
-                'linked' => vikinger_plugin_buddypress_is_active()
+                'linked' => yipnyap_plugin_buddypress_is_active()
             ]);
 
             ?>
@@ -110,7 +110,7 @@ if ($sidemenu_status === 'display') :
                 echo esc_html($args['user']['name']);
 
                 if ($display_verified_in_fullname && $verified_user) {
-                    echo $vikinger_settings['bp_verified_member_badge'];
+                    echo $yipnyap_settings['bp_verified_member_badge'];
                 }
 
                 ?>
@@ -119,7 +119,7 @@ if ($sidemenu_status === 'display') :
 
             <?php
 
-            $display_membership_tag = vikinger_plugin_pmpro_buddypress_is_active() && vikinger_pmpro_buddypress_membership_level_tag_display_on_profile_is_enabled() && $args['user']['membership'];
+            $display_membership_tag = yipnyap_plugin_pmpro_buddypress_is_active() && yipnyap_pmpro_buddypress_membership_level_tag_display_on_profile_is_enabled() && $args['user']['membership'];
 
             if ($display_membership_tag) {
                 /**
@@ -139,7 +139,7 @@ if ($sidemenu_status === 'display') :
                 echo '&#64;' . esc_html($args['user']['mention_name']);
 
                 if ($display_verified_in_username && $verified_user) {
-                    echo $vikinger_settings['bp_verified_member_badge'];
+                    echo $yipnyap_settings['bp_verified_member_badge'];
                 }
 
                 ?>
@@ -151,7 +151,7 @@ if ($sidemenu_status === 'display') :
         <?php
 
         // add GamiPress badges data if plugin is active
-        if (vikinger_plugin_gamipress_is_active() && vikinger_gamipress_achievement_type_exists('badge')) :
+        if (yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge')) :
             $badges = $args['user']['badges'];
 
             if (!is_null($badges)) :
@@ -176,14 +176,14 @@ if ($sidemenu_status === 'display') :
                     ]);
                 else :
                     ?>
-                    <p class="no-results-text"><?php esc_html_e('No badges unlocked', 'vikinger'); ?></p>
+                    <p class="no-results-text"><?php esc_html_e('No badges unlocked', 'yipnyap'); ?></p>
                 <?php
                 endif;
             endif;
         endif;
 
         // add BuddyPress member stats data if plugin is active
-        if (vikinger_plugin_buddypress_is_active()) :
+        if (yipnyap_plugin_buddypress_is_active()) :
 
             ?>
 
@@ -196,7 +196,7 @@ if ($sidemenu_status === 'display') :
                     <!-- /USER STAT TITLE -->
 
                     <!-- USER STAT TEXT -->
-                    <p class="user-stat-text"><?php echo esc_html(_n('post', 'posts', $post_count, 'vikinger')); ?></p>
+                    <p class="user-stat-text"><?php echo esc_html(_n('post', 'posts', $post_count, 'yipnyap')); ?></p>
                     <!-- /USER STAT TEXT -->
                 </div>
                 <!-- /USER STAT -->
@@ -214,7 +214,7 @@ if ($sidemenu_status === 'display') :
                         <!-- /USER STAT TITLE -->
 
                         <!-- USER STAT TEXT -->
-                        <p class="user-stat-text"><?php echo esc_html(_n('friend', 'friends', $friend_count, 'vikinger')); ?></p>
+                        <p class="user-stat-text"><?php echo esc_html(_n('friend', 'friends', $friend_count, 'yipnyap')); ?></p>
                         <!-- /USER STAT TEXT -->
                     </div>
                     <!-- /USER STAT -->
@@ -230,7 +230,7 @@ if ($sidemenu_status === 'display') :
                     <!-- /USER STAT TITLE -->
 
                     <!-- USER STAT TEXT -->
-                    <p class="user-stat-text"><?php echo esc_html(_n('comment', 'comments', $comment_count, 'vikinger')); ?></p>
+                    <p class="user-stat-text"><?php echo esc_html(_n('comment', 'comments', $comment_count, 'yipnyap')); ?></p>
                     <!-- /USER STAT TEXT -->
                 </div>
                 <!-- /USER STAT -->
@@ -291,7 +291,7 @@ endif;
              */
             get_template_part('template-part/avatar/avatar', 'small', [
                 'user' => $args['user'],
-                'linked' => vikinger_plugin_buddypress_is_active(),
+                'linked' => yipnyap_plugin_buddypress_is_active(),
                 'no_border' => true
             ]);
 
@@ -305,7 +305,7 @@ endif;
                 echo esc_html($args['user']['name']);
 
                 if ($verified_user) {
-                    echo $vikinger_settings['bp_verified_member_badge'];
+                    echo $yipnyap_settings['bp_verified_member_badge'];
                 }
 
                 ?>
@@ -313,7 +313,7 @@ endif;
             <!-- /NAVIGATION WIDGET INFO TITLE -->
 
             <!-- NAVIGATION WIDGET INFO TEXT -->
-            <p class="navigation-widget-info-text"><?php esc_html_e('Welcome Back!', 'vikinger'); ?></p>
+            <p class="navigation-widget-info-text"><?php esc_html_e('Welcome Back!', 'yipnyap'); ?></p>
             <!-- /NAVIGATION WIDGET INFO TEXT -->
         </div>
         <!-- /NAVIGATION WIDGET INFO -->
@@ -321,7 +321,7 @@ endif;
         <?php
 
         // add GamiPress points data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) {
+        if (yipnyap_plugin_gamipress_is_active()) {
             if (count($args['points'])) {
                 /**
                  * Point Item List
@@ -337,19 +337,19 @@ endif;
 
         <!-- NAVIGATION WIDGET BUTTON -->
         <a class="navigation-widget-info-button button small secondary"
-           href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'vikinger'); ?></a>
+           href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'yipnyap'); ?></a>
         <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->
 
-    <?php if (vikinger_customizer_color_theme_switch_is_active()) : ?>
+    <?php if (yipnyap_customizer_color_theme_switch_is_active()) : ?>
         <!-- ACTION ITEM WRAP -->
         <div class="action-item-wrap">
             <!-- ACTION ITEM -->
             <div class="action-item hoverable vk-theme-toggle">
                 <?php
 
-                $color_theme = vikinger_logged_user_color_theme_get();
+                $color_theme = yipnyap_logged_user_color_theme_get();
 
                 $toggle_color_theme = 'light';
 
@@ -357,7 +357,7 @@ endif;
                     $toggle_color_theme = 'dark';
                 }
 
-                $color_theme_name = $color_theme === 'light' ? esc_html__('Switch to Dark', 'vikinger') : esc_html__('Switch to Light', 'vikinger');
+                $color_theme_name = $color_theme === 'light' ? esc_html__('Switch to Dark', 'yipnyap') : esc_html__('Switch to Light', 'yipnyap');
 
                 /**
                  * Icon SVG
@@ -382,7 +382,7 @@ endif;
         <!-- NAVIGATION WIDGET SECTION -->
         <div class="navigation-widget-section">
             <!-- NAVIGATION WIDGET SECTION TITLE -->
-            <p class="navigation-widget-section-title"><?php esc_html_e('Sections', 'vikinger'); ?></p>
+            <p class="navigation-widget-section-title"><?php esc_html_e('Sections', 'yipnyap'); ?></p>
             <!-- /NAVIGATION WIDGET SECTION TITLE -->
 
             <?php
@@ -478,7 +478,7 @@ endif;
 
         <?php if ($sidemenu_status === 'display') : ?>
             <!-- SIDEMENU TRIGGER -->
-            <div class="sidemenu-trigger navigation-widget-trigger <?php echo $vikinger_settings['sidemenu_active'] ? 'active' : ''; ?>">
+            <div class="sidemenu-trigger navigation-widget-trigger <?php echo $yipnyap_settings['sidemenu_active'] ? 'active' : ''; ?>">
                 <?php
 
                 /**
@@ -546,14 +546,14 @@ endif;
         <!-- /HEADER ACTIONS -->
     <?php endif; ?>
 
-    <?php if (vikinger_plugin_buddypress_is_active() || vikinger_plugin_woocommerce_is_active() || $display_search) : ?>
+    <?php if (yipnyap_plugin_buddypress_is_active() || yipnyap_plugin_woocommerce_is_active() || $display_search) : ?>
         <!-- HEADER ACTIONS -->
         <div class="header-actions">
             <!-- ACTION LIST -->
             <div class="action-list action-list-small action-list-mobile dark">
                 <?php
 
-                if (vikinger_plugin_woocommerce_is_active()) {
+                if (yipnyap_plugin_woocommerce_is_active()) {
                     /**
                      * WooCommerce Header Mini Cart Icon Link
                      */
@@ -562,8 +562,8 @@ endif;
 
                 ?>
 
-                <?php if (vikinger_plugin_buddypress_is_active()) : ?>
-                    <?php if (!vikinger_plugin_woocommerce_is_active()) : ?>
+                <?php if (yipnyap_plugin_buddypress_is_active()) : ?>
+                    <?php if (!yipnyap_plugin_woocommerce_is_active()) : ?>
                         <?php if (bp_is_active('friends')) : ?>
                             <!-- ACTION LIST ITEM -->
                             <a class="action-list-item"
@@ -612,7 +612,7 @@ endif;
                     <?php
 
                     if (bp_is_active('notifications')) :
-                        $unread_notifications_count = vikinger_get_unread_notifications_count($args['user']['id']);
+                        $unread_notifications_count = yipnyap_get_unread_notifications_count($args['user']['id']);
                         $unread_notifications_count_classes = $unread_notifications_count > 0 ? 'unread' : '';
 
                         ?>
@@ -683,7 +683,7 @@ endif;
         <?php
 
         // add GamiPress rank data if plugin is active
-        if (vikinger_plugin_gamipress_is_active()) :
+        if (yipnyap_plugin_gamipress_is_active()) :
             if (array_key_exists('rank', $args['user']) && ($args['user']['rank']['total'] !== 0)) :
 
                 ?>
@@ -692,7 +692,7 @@ endif;
                     <!-- BAR PROGRESS WRAP -->
                     <div class="bar-progress-wrap">
                         <!-- BAR PROGRESS INFO -->
-                        <p class="bar-progress-info"><?php esc_html_e('Rank', 'vikinger'); ?>: <span
+                        <p class="bar-progress-info"><?php esc_html_e('Rank', 'yipnyap'); ?>: <span
                                     class="bar-progress-text"></span></p>
                         <!-- /BAR PROGRESS INFO -->
                     </div>
@@ -720,7 +720,7 @@ endif;
 
         endif;
 
-        if (vikinger_plugin_woocommerce_is_active()) {
+        if (yipnyap_plugin_woocommerce_is_active()) {
             /**
              * WooCommerce Header Mini Cart
              */
@@ -728,7 +728,7 @@ endif;
         }
 
         // add BuddyPress notifications if plugin is active
-        if (vikinger_plugin_buddypress_is_active()) :
+        if (yipnyap_plugin_buddypress_is_active()) :
             ?>
 
             <!-- HEADER NOTIFICATIONS -->
@@ -738,7 +738,7 @@ endif;
         <?php
         endif;
 
-        if (vikinger_customizer_color_theme_switch_is_active()) :
+        if (yipnyap_customizer_color_theme_switch_is_active()) :
             ?>
 
             <!-- ACTION ITEM WRAP -->
@@ -747,7 +747,7 @@ endif;
                 <div class="action-item hoverable vk-theme-toggle">
                     <?php
 
-                    $color_theme = vikinger_logged_user_color_theme_get();
+                    $color_theme = yipnyap_logged_user_color_theme_get();
 
                     $toggle_color_theme = 'light';
 

@@ -8,7 +8,7 @@
  * @since 1.8.0
  * @author Odin Design Themes (https://odindesignthemes.com/)
  *
- * @package Vikinger
+ * @package Yipnyap
  */
 
 $attributes = isset($args['attributes']) ? $args['attributes'] : [];
@@ -16,9 +16,9 @@ $attributes = isset($args['attributes']) ? $args['attributes'] : [];
 $search_form_attributes = [];
 
 // add pmpro membership post and category restrictions
-if (vikinger_plugin_pmpro_is_active() && vikinger_pmpro_search_archives_limit_enabled()) {
-    $restricted_categories = vikinger_pmpro_logged_user_restricted_categories_get();
-    $restricted_posts = vikinger_pmpro_logged_user_restricted_posts_get();
+if (yipnyap_plugin_pmpro_is_active() && yipnyap_pmpro_search_archives_limit_enabled()) {
+    $restricted_categories = yipnyap_pmpro_logged_user_restricted_categories_get();
+    $restricted_posts = yipnyap_pmpro_logged_user_restricted_posts_get();
 
     $search_form_attributes['category-exclude'] = implode(',', $restricted_categories);
     $search_form_attributes['post-exclude'] = implode(',', $restricted_posts);

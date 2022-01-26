@@ -2,7 +2,7 @@
     ADMIN BAR
 ---------------*/
 body {
-  &.vikinger-top-space {
+  &.yipnyap-top-space {
     .header {
       top: 32px;
     }
@@ -1298,7 +1298,7 @@ svg {
 
 @media screen and (max-width: 960px) {
   body {
-    &.vikinger-top-space {
+    &.yipnyap-top-space {
       .content-grid {
         padding-top: 92px;
 
@@ -1328,7 +1328,7 @@ svg {
 
 @media screen and (max-width: 782px) {
   body {
-    &.vikinger-top-space {
+    &.yipnyap-top-space {
       .header {
         top: 46px;
 

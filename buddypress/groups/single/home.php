@@ -15,7 +15,7 @@
       bp_the_group();
 
       $group_id = bp_get_current_group_id();
-      $group = vikinger_groups_get(['include' => [$group_id], 'data_scope' => 'group-open'])[0];
+      $group = yipnyap_groups_get(['include' => [$group_id], 'data_scope' => 'group-open'])[0];
 
       set_query_var('group', $group);
 

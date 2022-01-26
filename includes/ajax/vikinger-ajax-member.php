@@ -8,13 +8,13 @@
 /**
  * Get filtered members
  */
-function vikinger_members_get_ajax() {
+function yipnyap_members_get_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $filters = isset($_POST['filters']) ? $_POST['filters'] : [];
 
-  $members = vikinger_members_get($filters);
+  $members = yipnyap_members_get($filters);
 
   header('Content-Type: application/json');
   
@@ -24,19 +24,19 @@ function vikinger_members_get_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_members_get_ajax', 'vikinger_members_get_ajax');
-add_action('wp_ajax_nopriv_vikinger_members_get_ajax', 'vikinger_members_get_ajax');
+add_action('wp_ajax_yipnyap_members_get_ajax', 'yipnyap_members_get_ajax');
+add_action('wp_ajax_nopriv_yipnyap_members_get_ajax', 'yipnyap_members_get_ajax');
 
 /**
  * Get filtered members count
  */
-function vikinger_members_get_count_ajax() {
+function yipnyap_members_get_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $filters = isset($_POST['filters']) ? $_POST['filters'] : [];
 
-  $members_count = vikinger_members_get_count($filters);
+  $members_count = yipnyap_members_get_count($filters);
 
   header('Content-Type: application/json');
   
@@ -46,15 +46,15 @@ function vikinger_members_get_count_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_members_get_count_ajax', 'vikinger_members_get_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_members_get_count_ajax', 'vikinger_members_get_count_ajax');
+add_action('wp_ajax_yipnyap_members_get_count_ajax', 'yipnyap_members_get_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_members_get_count_ajax', 'yipnyap_members_get_count_ajax');
 
 /**
  * Update member xprofile data
  */
-function vikinger_member_update_xprofile_data_ajax() {
+function yipnyap_member_update_xprofile_data_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -77,7 +77,7 @@ function vikinger_member_update_xprofile_data_ajax() {
     wp_die('Unauthorized');
   }
   
-  $result = vikinger_member_update_xprofile_data($args['fields'], $member_id);
+  $result = yipnyap_member_update_xprofile_data($args['fields'], $member_id);
 
   do_action('gamipress_bp_update_profile', $member_id);
 
@@ -88,14 +88,14 @@ function vikinger_member_update_xprofile_data_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_member_update_xprofile_data_ajax', 'vikinger_member_update_xprofile_data_ajax');
+add_action('wp_ajax_yipnyap_member_update_xprofile_data_ajax', 'yipnyap_member_update_xprofile_data_ajax');
 
 /**
  * Call avatar upload triggers
  */
-function vikinger_member_avatar_upload_triggers_call_ajax() {
+function yipnyap_member_avatar_upload_triggers_call_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $user_id = isset($_POST['user_id']) ? (int) $_POST['user_id'] : false;
 
@@ -123,14 +123,14 @@ function vikinger_member_avatar_upload_triggers_call_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_member_avatar_upload_triggers_call_ajax', 'vikinger_member_avatar_upload_triggers_call_ajax');
+add_action('wp_ajax_yipnyap_member_avatar_upload_triggers_call_ajax', 'yipnyap_member_avatar_upload_triggers_call_ajax');
 
 /**
  * Call cover upload triggers
  */
-function vikinger_member_cover_upload_triggers_call_ajax() {
+function yipnyap_member_cover_upload_triggers_call_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $user_id = isset($_POST['user_id']) ? (int) $_POST['user_id'] : false;
 
@@ -158,14 +158,14 @@ function vikinger_member_cover_upload_triggers_call_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_member_cover_upload_triggers_call_ajax', 'vikinger_member_cover_upload_triggers_call_ajax');
+add_action('wp_ajax_yipnyap_member_cover_upload_triggers_call_ajax', 'yipnyap_member_cover_upload_triggers_call_ajax');
 
 /**
  * Delete member avatar
  */
-function vikinger_member_avatar_delete_ajax() {
+function yipnyap_member_avatar_delete_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $user_id = isset($_POST['user_id']) ? (int) $_POST['user_id'] : false;
 
@@ -182,7 +182,7 @@ function vikinger_member_avatar_delete_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_member_avatar_delete($user_id);
+  $result = yipnyap_member_avatar_delete($user_id);
 
   header('Content-Type: application/json');
   
@@ -191,14 +191,14 @@ function vikinger_member_avatar_delete_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_member_avatar_delete_ajax', 'vikinger_member_avatar_delete_ajax');
+add_action('wp_ajax_yipnyap_member_avatar_delete_ajax', 'yipnyap_member_avatar_delete_ajax');
 
 /**
  * Delete member cover
  */
-function vikinger_member_cover_delete_ajax() {
+function yipnyap_member_cover_delete_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $user_id = isset($_POST['user_id']) ? (int) $_POST['user_id'] : false;
 
@@ -215,7 +215,7 @@ function vikinger_member_cover_delete_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_member_cover_delete($user_id);
+  $result = yipnyap_member_cover_delete($user_id);
 
   header('Content-Type: application/json');
   
@@ -224,14 +224,14 @@ function vikinger_member_cover_delete_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_member_cover_delete_ajax', 'vikinger_member_cover_delete_ajax');
+add_action('wp_ajax_yipnyap_member_cover_delete_ajax', 'yipnyap_member_cover_delete_ajax');
 
 /**
  * Update user metadata
  */
-function vikinger_user_meta_update_ajax() {
+function yipnyap_user_meta_update_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -254,7 +254,7 @@ function vikinger_user_meta_update_ajax() {
     wp_die('Unauthorized');
   }
   
-  $result = vikinger_user_meta_update($user_id, $args['metadata']);
+  $result = yipnyap_user_meta_update($user_id, $args['metadata']);
 
   header('Content-Type: application/json');
   
@@ -263,14 +263,14 @@ function vikinger_user_meta_update_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_user_meta_update_ajax', 'vikinger_user_meta_update_ajax');
+add_action('wp_ajax_yipnyap_user_meta_update_ajax', 'yipnyap_user_meta_update_ajax');
 
 /**
  * Check if a password plain text can be used to generated the password hash
  */
-function vikinger_check_password_ajax() {
+function yipnyap_check_password_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -301,14 +301,14 @@ function vikinger_check_password_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_check_password_ajax', 'vikinger_check_password_ajax');
+add_action('wp_ajax_yipnyap_check_password_ajax', 'yipnyap_check_password_ajax');
 
 /**
  * Update user password
  */
-function vikinger_update_password_ajax() {
+function yipnyap_update_password_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -350,16 +350,16 @@ function vikinger_update_password_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_update_password_ajax', 'vikinger_update_password_ajax');
+add_action('wp_ajax_yipnyap_update_password_ajax', 'yipnyap_update_password_ajax');
 
 /**
  * Delete logged user account
  */
-function vikinger_logged_user_delete_account_ajax() {
+function yipnyap_logged_user_delete_account_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
   
-  $result = vikinger_logged_user_delete_account();
+  $result = yipnyap_logged_user_delete_account();
 
   header('Content-Type: application/json');
   
@@ -368,6 +368,6 @@ function vikinger_logged_user_delete_account_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_logged_user_delete_account_ajax', 'vikinger_logged_user_delete_account_ajax');
+add_action('wp_ajax_yipnyap_logged_user_delete_account_ajax', 'yipnyap_logged_user_delete_account_ajax');
 
 ?>

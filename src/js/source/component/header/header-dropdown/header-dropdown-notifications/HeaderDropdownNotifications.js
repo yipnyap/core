@@ -97,7 +97,7 @@ function HeaderDropdownNotifications(props) {
                 props.loggedUser &&
                 <React.Fragment>
                     <div className="dropdown-box-header">
-                        <p className="dropdown-box-header-title">{vikinger_translation.notifications} <span
+                        <p className="dropdown-box-header-title">{yipnyap_translation.notifications} <span
                             className="highlighted">{unreadNotificationsCount}</span></p>
                     </div>
 
@@ -123,13 +123,13 @@ function HeaderDropdownNotifications(props) {
 
                             {
                                 (notifications.length === 0) &&
-                                <p className="no-results-text">{vikinger_translation.no_notifications_received}</p>
+                                <p className="no-results-text">{yipnyap_translation.no_notifications_received}</p>
                             }
                         </SimpleBar>
                     </div>
 
                     <a className="dropdown-box-button secondary"
-                       href={props.loggedUser.notifications_link}>{vikinger_translation.view_all_notifications}</a>
+                       href={props.loggedUser.notifications_link}>{yipnyap_translation.view_all_notifications}</a>
                 </React.Fragment>
             }
         </HeaderDropdown>

@@ -247,12 +247,12 @@
 /*---------------------------
     FORUM REPLY AUTHOR
 ---------------------------*/
-.vikinger-forum-reply-author {
+.yipnyap-forum-reply-author {
   display: flex;
   flex-direction: column;
   align-items: center;
 
-  .vikinger-forum-reply-author-title {
+  .yipnyap-forum-reply-author-title {
     margin-top: 8px;
     font-size: $fs-14;
 
@@ -262,7 +262,7 @@
     }
   }
 
-  .vikinger-forum-reply-author-text {
+  .yipnyap-forum-reply-author-text {
     margin-top: 4px;
     font-size: $fs-12;
 
@@ -276,7 +276,7 @@
     }
   }
 
-  .vikinger-forum-reply-author-role {
+  .yipnyap-forum-reply-author-role {
     height: 20px;
     margin-top: 12px;
     padding: 0 8px;
@@ -322,8 +322,8 @@
     margin-bottom: 16px;
   }
 
-  .vikinger-forum-search-bar {
-    .vikinger-create-discussion-button {
+  .yipnyap-forum-search-bar {
+    .yipnyap-create-discussion-button {
       padding: 0 32px;
     }
 
@@ -419,16 +419,16 @@
     margin-top: 32px;
   }
 
-  .vikinger-forum-replies {
+  .yipnyap-forum-replies {
     display: flex;
     flex-wrap: nowrap;
 
-    .vikinger-forum-replies-posts {
+    .yipnyap-forum-replies-posts {
       width: 884px;
       margin-right: 16px;
     }
 
-    .vikinger-forum-replies-sidebar {
+    .yipnyap-forum-replies-sidebar {
       width: 284px;
       margin-top: 40px;
 
@@ -441,7 +441,7 @@
       }
     }
 
-    .vikinger-forum-replies-sidebar-actions {
+    .yipnyap-forum-replies-sidebar-actions {
       display: flex;
 
       & > * {
@@ -454,7 +454,7 @@
     }
   }
 
-  .vikinger-forum-topic-tags {
+  .yipnyap-forum-topic-tags {
     font-size: $fs-14;
   }
 
@@ -750,7 +750,7 @@
       font-family: var(--font-primary);
     }
 
-    .vikinger-forum-media-wrap {
+    .yipnyap-forum-media-wrap {
       position: relative;
       padding-top: 56.25%;
 
@@ -784,11 +784,11 @@
           margin-bottom: 0;
         }
 
-        .vikinger-forum-reply-revision-author-avatar {
+        .yipnyap-forum-reply-revision-author-avatar {
           margin-left: 4px;
         }
 
-        .vikinger-forum-reply-revision-author-title {
+        .yipnyap-forum-reply-revision-author-title {
           margin-left: 4px;
           color: var(--color-primary-dark);
           font-weight: $weight-bold;
@@ -921,8 +921,8 @@
         .bbp-topic-permalink {
           line-height: 20px;
 
-          .vikinger-forum-pinned-tag,
-          .vikinger-forum-closed-tag {
+          .yipnyap-forum-pinned-tag,
+          .yipnyap-forum-closed-tag {
             display: inline-block;
             height: 20px;
             padding: 0 8px;
@@ -935,11 +935,11 @@
             line-height: 20px;
           }
 
-          .vikinger-forum-pinned-tag {
+          .yipnyap-forum-pinned-tag {
             background-color: var(--color-primary);
           }
 
-          .vikinger-forum-closed-tag {
+          .yipnyap-forum-closed-tag {
             background-color: var(--color-tertiary);
           }
         }
@@ -988,11 +988,11 @@
     }
   }
 
-  .vikinger-forum-info-wrap {
+  .yipnyap-forum-info-wrap {
     display: flex;
     align-items: center;
 
-    .vikinger-forum-thumbnail {
+    .yipnyap-forum-thumbnail {
       display: block;
       margin-right: 28px;
     }
@@ -1002,7 +1002,7 @@
       margin-right: 32px;
     }
 
-    .vikinger-forum-info {
+    .yipnyap-forum-info {
       .bbp-forum-title {
         font-size: $fs-18;
         font-weight: $weight-bold;
@@ -1181,7 +1181,7 @@
     }
   }
 
-  .vikinger-forum-topic-form-wrap {
+  .yipnyap-forum-topic-form-wrap {
     margin-top: 28px;
     padding: 32px 28px;
     border-radius: 12px;
@@ -1510,26 +1510,26 @@
       }
     }
 
-    .vikinger-forum-replies {
+    .yipnyap-forum-replies {
       display: flex;
       flex-wrap: nowrap;
       flex-direction: column;
 
-      .vikinger-forum-replies-posts {
+      .yipnyap-forum-replies-posts {
         width: 100%;
         margin-right: 0;
         margin-top: 16px;
         order: 2;
       }
 
-      .vikinger-forum-replies-sidebar {
+      .yipnyap-forum-replies-sidebar {
         width: 100%;
         margin-top: 0;
         order: 1;
       }
     }
 
-    .vikinger-forum-topic-tags {
+    .yipnyap-forum-topic-tags {
       font-size: $fs-14;
     }
   }
@@ -1537,7 +1537,7 @@
 
 @media screen and (max-width: 960px) {
   #bbpress-forums {
-    .vikinger-forum-search-bar {
+    .yipnyap-forum-search-bar {
       .section-filters-bar-actions {
         &.full {
           display: block;
@@ -1567,8 +1567,8 @@
 
       li.bbp-body {
         ul.forum {
-          .vikinger-forum-info-wrap {
-            .vikinger-forum-thumbnail,
+          .yipnyap-forum-info-wrap {
+            .yipnyap-forum-thumbnail,
             .user-avatar,
             .user-avatar-circle {
               display: none;
@@ -1661,7 +1661,7 @@
     }
   }
 
-  .vikinger-forum-reply-author {
+  .yipnyap-forum-reply-author {
     align-items: flex-start;
   }
 }

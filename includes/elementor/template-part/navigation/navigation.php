@@ -6,7 +6,7 @@
  * @since 1.6.3
  * @author Yipnyap (https://yipnyap.xyz/)
  * 
- * @see vikinger_menu_get_items
+ * @see yipnyap_menu_get_items
  * 
  * @param array $args {
  *   @type array  $menu_items       Menu items data.
@@ -24,13 +24,13 @@
   $menu_item_icon_styles_key = $submenu ? 'submenu-item-icon' : 'menu-item-icon';
 
   $menu_styles_content = array_key_exists($menu_styles_key, $menu_styles) ? $menu_styles[$menu_styles_key] : [];
-  $menu_styles_attribute = vikinger_elementor_styles_encode_get($menu_styles_content);
+  $menu_styles_attribute = yipnyap_elementor_styles_encode_get($menu_styles_content);
 
   $menu_item_styles_content = array_key_exists($menu_item_styles_key, $menu_styles) ? $menu_styles[$menu_item_styles_key] : [];
-  $menu_item_styles_attribute = vikinger_elementor_styles_encode_get($menu_item_styles_content);
+  $menu_item_styles_attribute = yipnyap_elementor_styles_encode_get($menu_item_styles_content);
 
   $menu_item_icon_styles_content = array_key_exists($menu_item_icon_styles_key, $menu_styles) ? $menu_styles[$menu_item_icon_styles_key] : [];
-  $menu_item_icon_styles_attribute = vikinger_elementor_styles_encode_get($menu_item_icon_styles_content);
+  $menu_item_icon_styles_attribute = yipnyap_elementor_styles_encode_get($menu_item_icon_styles_content);
 
 ?>
 

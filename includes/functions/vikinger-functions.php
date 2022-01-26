@@ -8,128 +8,128 @@
 /**
  * UTILS functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-utils.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-utils.php';
 
 /**
  * DEMO functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-demo.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-demo.php';
 
 /**
  * SETTINGS functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-settings.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-settings.php';
 
 /**
  * PLUGIN functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-plugin.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-plugin.php';
 
 /**
  * WPLOGIN functions
  */
-//require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-wplogin.php';
+//require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-wplogin.php';
 
 /**
  * REGISTER functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-register.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-register.php';
 
 /**
  * BLOG functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-blog.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-blog.php';
 
 /**
  * COMMENT functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-comment.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-comment.php';
 
 /**
  * USER functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-user.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-user.php';
 
-if (vikinger_plugin_gamipress_is_active()) {
+if (yipnyap_plugin_gamipress_is_active()) {
     /**
      * GamiPress
      */
-    require_once VIKINGER_PATH . '/includes/functions/gamipress/vikinger-functions-gamipress.php';
+    require_once YIPNYAP_PATH . '/includes/functions/gamipress/vikinger-functions-gamipress.php';
 }
 
 /**
  * BuddyPress
  */
-require_once VIKINGER_PATH . '/includes/functions/buddypress/vikinger-functions-buddypress.php';
+require_once YIPNYAP_PATH . '/includes/functions/buddypress/vikinger-functions-buddypress.php';
 
 /**
  * MEMBER functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-member.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-member.php';
 
 /**
  * MEMBER PAGES functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-member-pages.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-member-pages.php';
 
 /**
  * FRIEND functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-friend.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-friend.php';
 
 /**
  * FOLLOW functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-follow.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-follow.php';
 
 /**
  * GROUP functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-group.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-group.php';
 
 /**
  * NOTIFICATION functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-notification.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-notification.php';
 
 /**
  * MESSAGE functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-message.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-message.php';
 
 /**
  * FILE functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-file.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-file.php';
 
 /**
  * ELEMENTOR functions
  */
-require_once VIKINGER_PATH . '/includes/elementor/vikinger-functions-elementor.php';
+require_once YIPNYAP_PATH . '/includes/elementor/vikinger-functions-elementor.php';
 
 /**
  * BBPRESS functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-bbpress.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-bbpress.php';
 
 /**
  * BP BETTER MESSAGES functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-bpbettermessages.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-bpbettermessages.php';
 
 /**
  * VERIFIED MEMBER FOR BUDDYPRESS functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-bpverifiedmember.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-bpverifiedmember.php';
 
 /**
  * WOOCOMMERCE functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-woocommerce.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-woocommerce.php';
 
 /**
  * Paid Memberships Pro
  */
-require_once VIKINGER_PATH . '/includes/functions/pmpro/vikinger-functions-pmpro.php';
+require_once YIPNYAP_PATH . '/includes/functions/pmpro/vikinger-functions-pmpro.php';
 
 ?>

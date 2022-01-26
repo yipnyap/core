@@ -8,12 +8,12 @@
 /**
  * Get filtered posts
  */
-function vikinger_get_posts_ajax() {
+function yipnyap_get_posts_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   // get posts
-  $posts = vikinger_get_posts($_POST['post_data']);
+  $posts = yipnyap_get_posts($_POST['post_data']);
 
   header('Content-Type: application/json');
   
@@ -23,18 +23,18 @@ function vikinger_get_posts_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_posts_ajax', 'vikinger_get_posts_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_posts_ajax', 'vikinger_get_posts_ajax');
+add_action('wp_ajax_yipnyap_get_posts_ajax', 'yipnyap_get_posts_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_posts_ajax', 'yipnyap_get_posts_ajax');
 
 /**
  * Get filtered pages
  */
-function vikinger_get_pages_ajax() {
+function yipnyap_get_pages_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   // get pages
-  $pages = vikinger_get_pages($_POST['args']);
+  $pages = yipnyap_get_pages($_POST['args']);
 
   header('Content-Type: application/json');
   
@@ -44,15 +44,15 @@ function vikinger_get_pages_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_pages_ajax', 'vikinger_get_pages_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_pages_ajax', 'vikinger_get_pages_ajax');
+add_action('wp_ajax_yipnyap_get_pages_ajax', 'yipnyap_get_pages_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_pages_ajax', 'yipnyap_get_pages_ajax');
 
 /**
  * Get filtered posts count
  */
-function vikinger_get_post_count_ajax() {
+function yipnyap_get_post_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   // get posts
   $posts = get_posts($_POST['post_data']);
@@ -67,15 +67,15 @@ function vikinger_get_post_count_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_post_count_ajax', 'vikinger_get_post_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_post_count_ajax', 'vikinger_get_post_count_ajax');
+add_action('wp_ajax_yipnyap_get_post_count_ajax', 'yipnyap_get_post_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_post_count_ajax', 'yipnyap_get_post_count_ajax');
 
 /**
  * Get all post categories
  */
-function vikinger_get_categories_ajax() {
+function yipnyap_get_categories_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   // get categories
   $categories = get_categories();
@@ -98,7 +98,7 @@ function vikinger_get_categories_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_get_categories_ajax', 'vikinger_get_categories_ajax');
-add_action('wp_ajax_nopriv_vikinger_get_categories_ajax', 'vikinger_get_categories_ajax');
+add_action('wp_ajax_yipnyap_get_categories_ajax', 'yipnyap_get_categories_ajax');
+add_action('wp_ajax_nopriv_yipnyap_get_categories_ajax', 'yipnyap_get_categories_ajax');
 
 ?>

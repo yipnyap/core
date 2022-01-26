@@ -5,51 +5,51 @@
  * @since 1.4.0
  */
 
-function vikinger_customizer_media($wp_customize) {
+function yipnyap_customizer_media($wp_customize) {
   /**
    * Media section
    */
-  $wp_customize->add_section('vikinger_media', [
-    'title'       => esc_html_x('Media', '(Customizer) Media - Title', 'vikinger'),
-    'description' => esc_html_x('From here, you can change media related settings.', '(Customizer) Media - Description', 'vikinger'),
+  $wp_customize->add_section('yipnyap_media', [
+    'title'       => esc_html_x('Media', '(Customizer) Media - Title', 'yipnyap'),
+    'description' => esc_html_x('From here, you can change media related settings.', '(Customizer) Media - Description', 'yipnyap'),
     'priority'    => 277,
-    'panel'       => 'vikinger_customizer'
+    'panel'       => 'yipnyap_customizer'
   ]);
 
-  $upload_max_size = vikinger_upload_max_size_get();
+  $upload_max_size = yipnyap_upload_max_size_get();
 
   /**
    * Media Photo Upload Status
    */
-  $wp_customize->add_setting('vikinger_media_setting_photo_upload_status', [
+  $wp_customize->add_setting('yipnyap_media_setting_photo_upload_status', [
     'sanitize_callback' => 'sanitize_text_field',
     'default'           => 'enabled'
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_photo_upload_status', [
-    'label'       => esc_html_x('Photo Upload - Status', '(Customizer) Photo Upload Option - Status - Title', 'vikinger'),
-    'description' => esc_html_x('Disabling this option removes photo upload related functionality and pages.', '(Customizer) Photo Upload Option - Status - Description', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_photo_upload_status', [
+    'label'       => esc_html_x('Photo Upload - Status', '(Customizer) Photo Upload Option - Status - Title', 'yipnyap'),
+    'description' => esc_html_x('Disabling this option removes photo upload related functionality and pages.', '(Customizer) Photo Upload Option - Status - Description', 'yipnyap'),
     'type'        => 'radio',
     'choices'     => [
-      'enabled'   => esc_html__('Enabled', 'vikinger'),
-      'disabled'  => esc_html__('Disabled', 'vikinger')
+      'enabled'   => esc_html__('Enabled', 'yipnyap'),
+      'disabled'  => esc_html__('Disabled', 'yipnyap')
     ],
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_photo_upload_status'
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_photo_upload_status'
   ]);
 
   /**
    * Media Photo Upload Maximum Size
    */
-  $wp_customize->add_setting('vikinger_media_setting_photo_upload_maximum_size', [
-    'sanitize_callback' => 'vikinger_customizer_sanitize_upload_maximum_size',
+  $wp_customize->add_setting('yipnyap_media_setting_photo_upload_maximum_size', [
+    'sanitize_callback' => 'yipnyap_customizer_sanitize_upload_maximum_size',
     'default'           => $upload_max_size
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_photo_upload_maximum_size', [
-    'label'       => esc_html_x('Photo Upload - Maximum Size in MB', '(Customizer) Media Option - Photo Upload Maximum Size - Title', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_photo_upload_maximum_size', [
+    'label'       => esc_html_x('Photo Upload - Maximum Size in MB', '(Customizer) Media Option - Photo Upload Maximum Size - Title', 'yipnyap'),
     'description' => sprintf(
-      esc_html_x('You can choose the maximum size (in Megabytes) allowed for photos uploaded by users on BuddyPress activities (this value can\'t be higher than your server maximum upload file size).%s%sYour server maximum upload file size is ' . $upload_max_size . 'MB.%s%s', '(Customizer) Media Option - Photo Upload Maximum Size - Description', 'vikinger'),
+      esc_html_x('You can choose the maximum size (in Megabytes) allowed for photos uploaded by users on BuddyPress activities (this value can\'t be higher than your server maximum upload file size).%s%sYour server maximum upload file size is ' . $upload_max_size . 'MB.%s%s', '(Customizer) Media Option - Photo Upload Maximum Size - Description', 'yipnyap'),
       '<br><br>',
       '<strong>',
       '</strong>',
@@ -61,58 +61,58 @@ function vikinger_customizer_media($wp_customize) {
       'max'   => $upload_max_size,
       'step'  => 1
     ],
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_photo_upload_maximum_size',
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_photo_upload_maximum_size',
   ]);
 
   /**
    * Media Photo Allowed Extensions
    */
-  $wp_customize->add_setting('vikinger_media_setting_photo_allowed_extensions', [
-    'sanitize_callback' => 'vikinger_customizer_sanitize_text_comma_separated',
-    'default'           => vikinger_file_default_allowed_extensions_get('image')
+  $wp_customize->add_setting('yipnyap_media_setting_photo_allowed_extensions', [
+    'sanitize_callback' => 'yipnyap_customizer_sanitize_text_comma_separated',
+    'default'           => yipnyap_file_default_allowed_extensions_get('image')
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_photo_allowed_extensions', [
-    'label'       => esc_html_x('Photo Upload - Allowed Extensions', '(Customizer) Media Option - Photo Upload Allowed Extensions - Title', 'vikinger'),
-    'description' => esc_html_x('You can enter the file extensions allowed for photos uploaded by users on BuddyPress activities. Enter each extension you want to allow separated by a comma (,)', '(Customizer) Media Option - Photo Upload Allowed Extensions - Description', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_photo_allowed_extensions', [
+    'label'       => esc_html_x('Photo Upload - Allowed Extensions', '(Customizer) Media Option - Photo Upload Allowed Extensions - Title', 'yipnyap'),
+    'description' => esc_html_x('You can enter the file extensions allowed for photos uploaded by users on BuddyPress activities. Enter each extension you want to allow separated by a comma (,)', '(Customizer) Media Option - Photo Upload Allowed Extensions - Description', 'yipnyap'),
     'type'        => 'text',
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_photo_allowed_extensions',
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_photo_allowed_extensions',
   ]);
 
   /**
    * Media Video Upload Status
    */
-  $wp_customize->add_setting('vikinger_media_setting_video_upload_status', [
+  $wp_customize->add_setting('yipnyap_media_setting_video_upload_status', [
     'sanitize_callback' => 'sanitize_text_field',
     'default'           => 'enabled'
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_video_upload_status', [
-    'label'       => esc_html_x('Video Upload - Status', '(Customizer) Video Upload Option - Status - Title', 'vikinger'),
-    'description' => esc_html_x('Disabling this option removes video upload related functionality and pages.', '(Customizer) Video Upload Option - Status - Description', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_video_upload_status', [
+    'label'       => esc_html_x('Video Upload - Status', '(Customizer) Video Upload Option - Status - Title', 'yipnyap'),
+    'description' => esc_html_x('Disabling this option removes video upload related functionality and pages.', '(Customizer) Video Upload Option - Status - Description', 'yipnyap'),
     'type'        => 'radio',
     'choices'     => [
-      'enabled'   => esc_html__('Enabled', 'vikinger'),
-      'disabled'  => esc_html__('Disabled', 'vikinger')
+      'enabled'   => esc_html__('Enabled', 'yipnyap'),
+      'disabled'  => esc_html__('Disabled', 'yipnyap')
     ],
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_video_upload_status'
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_video_upload_status'
   ]);
 
   /**
    * Media Video Upload Maximum Size
    */
-  $wp_customize->add_setting('vikinger_media_setting_video_upload_maximum_size', [
-    'sanitize_callback' => 'vikinger_customizer_sanitize_upload_maximum_size',
+  $wp_customize->add_setting('yipnyap_media_setting_video_upload_maximum_size', [
+    'sanitize_callback' => 'yipnyap_customizer_sanitize_upload_maximum_size',
     'default'           => $upload_max_size
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_video_upload_maximum_size', [
-    'label'       => esc_html_x('Video Upload - Maximum Size in MB', '(Customizer) Media Option - Video Upload Maximum Size - Title', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_video_upload_maximum_size', [
+    'label'       => esc_html_x('Video Upload - Maximum Size in MB', '(Customizer) Media Option - Video Upload Maximum Size - Title', 'yipnyap'),
     'description' => sprintf(
-      esc_html_x('You can choose the maximum size (in Megabytes) allowed for videos uploaded by users on BuddyPress activities (this value can\'t be higher than your server maximum upload file size).%s%sYour server maximum upload file size is ' . $upload_max_size . 'MB.%s%s', '(Customizer) Media Option - Video Upload Maximum Size - Description', 'vikinger'),
+      esc_html_x('You can choose the maximum size (in Megabytes) allowed for videos uploaded by users on BuddyPress activities (this value can\'t be higher than your server maximum upload file size).%s%sYour server maximum upload file size is ' . $upload_max_size . 'MB.%s%s', '(Customizer) Media Option - Video Upload Maximum Size - Description', 'yipnyap'),
       '<br><br>',
       '<strong>',
       '</strong>',
@@ -124,25 +124,25 @@ function vikinger_customizer_media($wp_customize) {
       'max'   => $upload_max_size,
       'step'  => 1
     ],
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_video_upload_maximum_size',
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_video_upload_maximum_size',
   ]);
 
   /**
    * Media Video Allowed Extensions
    */
-  $wp_customize->add_setting('vikinger_media_setting_video_allowed_extensions', [
-    'sanitize_callback' => 'vikinger_customizer_sanitize_text_comma_separated',
-    'default'           => vikinger_file_default_allowed_extensions_get('video')
+  $wp_customize->add_setting('yipnyap_media_setting_video_allowed_extensions', [
+    'sanitize_callback' => 'yipnyap_customizer_sanitize_text_comma_separated',
+    'default'           => yipnyap_file_default_allowed_extensions_get('video')
   ]);
 
-  $wp_customize->add_control('vikinger_media_control_video_allowed_extensions', [
-    'label'       => esc_html_x('Video Upload - Allowed Extensions', '(Customizer) Media Option - Video Upload Allowed Extensions - Title', 'vikinger'),
-    'description' => esc_html_x('You can enter the file extensions allowed for videos uploaded by users on BuddyPress activities. Enter each extension you want to allow separated by a comma (,)', '(Customizer) Media Option - Video Upload Allowed Extensions - Description', 'vikinger'),
+  $wp_customize->add_control('yipnyap_media_control_video_allowed_extensions', [
+    'label'       => esc_html_x('Video Upload - Allowed Extensions', '(Customizer) Media Option - Video Upload Allowed Extensions - Title', 'yipnyap'),
+    'description' => esc_html_x('You can enter the file extensions allowed for videos uploaded by users on BuddyPress activities. Enter each extension you want to allow separated by a comma (,)', '(Customizer) Media Option - Video Upload Allowed Extensions - Description', 'yipnyap'),
     'type'        => 'text',
-    'section'     => 'vikinger_media',
-    'settings'    => 'vikinger_media_setting_video_allowed_extensions',
+    'section'     => 'yipnyap_media',
+    'settings'    => 'yipnyap_media_setting_video_allowed_extensions',
   ]);
 }
 
-add_action('customize_register', 'vikinger_customizer_media');
+add_action('customize_register', 'yipnyap_customizer_media');

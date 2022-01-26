@@ -11,21 +11,21 @@
  */
 
   $member = get_query_var('member');
-  $group_count = vikinger_groups_get_count(['user_id' => $member['id']]);
+  $group_count = yipnyap_groups_get_count(['user_id' => $member['id']]);
 
   /**
    * Section Header
    */
   get_template_part('template-part/section/section', 'header', [
     'section_pretitle'    => sprintf(
-      esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+      esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
       $member['name']
     ),
-    'section_title'       => esc_html__('Groups', 'vikinger'),
+    'section_title'       => esc_html__('Groups', 'yipnyap'),
     'section_text'        => $group_count
   ]);
 
-  $groups_grid_type = vikinger_logged_user_grid_type_get('group');
+  $groups_grid_type = yipnyap_logged_user_grid_type_get('group');
   
 ?>
 

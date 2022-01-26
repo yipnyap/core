@@ -2,7 +2,7 @@ import React from 'react';
 
 function AvatarCircleMicro(props) {
     const noBorderClasses = props.noBorder ? 'no-border' : '';
-    const Element = props.noLink || !vikinger_constants.plugin_active.buddypress ? 'div' : 'a';
+    const Element = props.noLink || !yipnyap_constants.plugin_active.buddypress ? 'div' : 'a';
 
     return (
         <Element className={`user-avatar-circle micro ${noBorderClasses} ${props.modifiers || ''}`}

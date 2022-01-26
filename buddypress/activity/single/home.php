@@ -11,9 +11,9 @@
  */
 
   $displayed_user   = bp_get_displayed_user();
-  $displayed_member = vikinger_members_get(['include' => [$displayed_user->id], 'data_scope' => 'user-preview'])[0];
+  $displayed_member = yipnyap_members_get(['include' => [$displayed_user->id], 'data_scope' => 'user-preview'])[0];
 
-  $nav_items = vikinger_members_get_navigation_items($displayed_member, true);
+  $nav_items = yipnyap_members_get_navigation_items($displayed_member, true);
   $subnav_items = false;
   
   set_query_var('member', $displayed_member);

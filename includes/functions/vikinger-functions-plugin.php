@@ -10,9 +10,9 @@
  *
  * @return string       Last selected preset name.
  */
-function vikinger_plugin_selected_preset_get()
+function yipnyap_plugin_selected_preset_get()
 {
-    return get_theme_mod('vikinger_plugin_selected_preset', 'custom');
+    return get_theme_mod('yipnyap_plugin_selected_preset', 'custom');
 }
 
 /**
@@ -21,9 +21,9 @@ function vikinger_plugin_selected_preset_get()
  * @param string $preset Preset name to save.
  * @return bool               True if the value was updated, false otherwise.
  */
-function vikinger_plugin_selected_preset_save($preset)
+function yipnyap_plugin_selected_preset_save($preset)
 {
-    return set_theme_mod('vikinger_plugin_selected_preset', $preset);
+    return set_theme_mod('yipnyap_plugin_selected_preset', $preset);
 }
 
 /**
@@ -31,9 +31,9 @@ function vikinger_plugin_selected_preset_save($preset)
  *
  * @return array|bool $custom_preset_plugins       Custom preset plugins, false if not set or on error.
  */
-function vikinger_plugin_custom_preset_plugins_get()
+function yipnyap_plugin_custom_preset_plugins_get()
 {
-    $custom_preset_plugins = get_theme_mod('vikinger_plugin_custom_preset_plugins', false);
+    $custom_preset_plugins = get_theme_mod('yipnyap_plugin_custom_preset_plugins', false);
 
     if ($custom_preset_plugins) {
         $custom_preset_plugins = explode(',', $custom_preset_plugins);
@@ -48,9 +48,9 @@ function vikinger_plugin_custom_preset_plugins_get()
  * @param string $plugins Comma separated custom preset plugins.
  * @return bool               True if the value was updated, false otherwise.
  */
-function vikinger_plugin_custom_preset_plugins_save($plugins)
+function yipnyap_plugin_custom_preset_plugins_save($plugins)
 {
-    return set_theme_mod('vikinger_plugin_custom_preset_plugins', $plugins);
+    return set_theme_mod('yipnyap_plugin_custom_preset_plugins', $plugins);
 }
 
 /**
@@ -59,7 +59,7 @@ function vikinger_plugin_custom_preset_plugins_save($plugins)
  * @param string $plugin Plugin name.
  * @return string $download_link      Plugin zip file download link.
  */
-function vikinger_plugin_get_wp_org_download_link($plugin)
+function yipnyap_plugin_get_wp_org_download_link($plugin)
 {
     $download_link = 'https://downloads.wordpress.org/plugin/' . $plugin . '.latest-stable.zip';
 
@@ -71,82 +71,82 @@ function vikinger_plugin_get_wp_org_download_link($plugin)
  *
  * @return array $required_plugins
  */
-function vikinger_plugin_get_required_plugins()
+function yipnyap_plugin_get_required_plugins()
 {
     $required_plugins = [
         'buddypress' => [
             'name' => 'BuddyPress',
             'slug' => 'buddypress/bp-loader.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('buddypress'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('buddypress'),
             'plugin_name' => 'buddypress'
         ],
         'bp-better-messages' => [
             'name' => 'BP Better Messages',
             'slug' => 'bp-better-messages/bp-better-messages.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('bp-better-messages'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('bp-better-messages'),
             'plugin_name' => 'bp-better-messages'
         ],
         'bp-verified-member' => [
             'name' => 'Verified Member for BuddyPress',
             'slug' => 'bp-verified-member/bp-verified-member.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('bp-verified-member'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('bp-verified-member'),
             'plugin_name' => 'bp-verified-member'
         ],
         'bbpress' => [
             'name' => 'bbPress',
             'slug' => 'bbpress/bbpress.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('bbpress'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('bbpress'),
             'plugin_name' => 'bbpress'
         ],
         'gamipress' => [
             'name' => 'GamiPress',
             'slug' => 'gamipress/gamipress.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('gamipress'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('gamipress'),
             'plugin_name' => 'gamipress'
         ],
         'gamipress-buddypress-integration' => [
             'name' => 'GamiPress - BuddyPress Integration',
             'slug' => 'gamipress-buddypress-integration/gamipress-buddypress.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('gamipress-buddypress-integration'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('gamipress-buddypress-integration'),
             'plugin_name' => 'gamipress-buddypress-integration'
         ],
         'gamipress-bbpress-integration' => [
             'name' => 'GamiPress - bbPress Integration',
             'slug' => 'gamipress-bbpress-integration/gamipress-bbpress.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('gamipress-bbpress-integration'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('gamipress-bbpress-integration'),
             'plugin_name' => 'gamipress-bbpress-integration'
         ],
         'woocommerce' => [
             'name' => 'WooCommerce',
             'slug' => 'woocommerce/woocommerce.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('woocommerce'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('woocommerce'),
             'plugin_name' => 'woocommerce'
         ],
         'elementor' => [
             'name' => 'Elementor',
             'slug' => 'elementor/elementor.php',
             'type' => 'wordpress',
-            'url' => vikinger_plugin_get_wp_org_download_link('elementor'),
+            'url' => yipnyap_plugin_get_wp_org_download_link('elementor'),
             'plugin_name' => 'elementor'
         ],
-        'vikinger-buddypress-extension' => [
+        'yipnyap-buddypress-extension' => [
             'name' => 'YapEX - BuddyPress Extension',
-            'slug' => 'vikinger-buddypress-extension/vikinger-buddypress-extension.php',
+            'slug' => 'yipnyap-buddypress-extension/vikinger-buddypress-extension.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vikinger-buddypress-extension/archive/v1.1.0.zip',
             'latest_version' => '1.1.0',
-            'plugin_name' => 'vikinger-buddypress-extension'
+            'plugin_name' => 'yipnyap-buddypress-extension'
         ],
         'vkreact' => [
-            'name' => 'Vikinger Reactions',
+            'name' => 'Yipnyap Reactions',
             'slug' => 'vkreact/vkreact.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vkreact/archive/v1.0.3.zip',
@@ -154,7 +154,7 @@ function vikinger_plugin_get_required_plugins()
             'plugin_name' => 'vkreact'
         ],
         'vkreact-buddypress' => [
-            'name' => 'Vikinger Reactions - BuddyPress Integration',
+            'name' => 'Yipnyap Reactions - BuddyPress Integration',
             'slug' => 'vkreact-buddypress/vkreact-buddypress.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vkreact-buddypress/archive/v1.0.3.zip',
@@ -162,28 +162,28 @@ function vikinger_plugin_get_required_plugins()
             'plugin_name' => 'vkreact-buddypress'
         ],
         'vkmedia' => [
-            'name' => 'Vikinger Media',
+            'name' => 'Yipnyap Media',
             'slug' => 'vkmedia/vkmedia.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vkmedia/archive/v1.0.0.zip',
             'latest_version' => '1.0.0',
             'plugin_name' => 'vkmedia'
         ],
-        'vikinger-widgets' => [
-            'name' => 'Vikinger Widgets',
-            'slug' => 'vikinger-widgets/vikinger-widgets.php',
+        'yipnyap-widgets' => [
+            'name' => 'Yipnyap Widgets',
+            'slug' => 'yipnyap-widgets/vikinger-widgets.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vikinger-widgets/archive/v1.0.0.zip',
             'latest_version' => '1.0.0',
-            'plugin_name' => 'vikinger-widgets'
+            'plugin_name' => 'yipnyap-widgets'
         ],
-        'vikinger-metaboxes' => [
-            'name' => 'Vikinger Metaboxes',
-            'slug' => 'vikinger-metaboxes/vikinger-metaboxes.php',
+        'yipnyap-metaboxes' => [
+            'name' => 'Yipnyap Metaboxes',
+            'slug' => 'yipnyap-metaboxes/vikinger-metaboxes.php',
             'type' => 'github',
             'url' => 'https://github.com/odindesign-themes/vikinger-metaboxes/archive/v1.0.2.zip',
             'latest_version' => '1.0.2',
-            'plugin_name' => 'vikinger-metaboxes'
+            'plugin_name' => 'yipnyap-metaboxes'
         ]
     ];
 
@@ -196,7 +196,7 @@ function vikinger_plugin_get_required_plugins()
  * @param string $plugin Plugin name.
  * @return string $version      Plugin repository version.
  */
-function vikinger_plugin_get_wp_repository_version($plugin)
+function yipnyap_plugin_get_wp_repository_version($plugin)
 {
     $url = 'https://api.wordpress.org/plugins/info/1.2/?action=plugin_information&request[slugs][]=' . $plugin;
 
@@ -218,14 +218,14 @@ function vikinger_plugin_get_wp_repository_version($plugin)
  *
  * @return array $required_plugins_status     Status of the required plugins.
  */
-function vikinger_plugin_get_required_plugins_status()
+function yipnyap_plugin_get_required_plugins_status()
 {
-    $required_plugins = vikinger_plugin_get_required_plugins();
+    $required_plugins = yipnyap_plugin_get_required_plugins();
 
     $required_plugins_status = [];
 
     foreach ($required_plugins as $required_plugin => $required_plugin_value) {
-        $required_plugin_installed = vikinger_plugin_is_installed($required_plugin);
+        $required_plugin_installed = yipnyap_plugin_is_installed($required_plugin);
 
         $required_plugin_status_data = [
             'installed' => $required_plugin_installed,
@@ -239,7 +239,7 @@ function vikinger_plugin_get_required_plugins_status()
         ];
 
         if ($required_plugin_value['type'] === 'wordpress') {
-            $required_plugin_latest_version = vikinger_plugin_get_wp_repository_version($required_plugin);
+            $required_plugin_latest_version = yipnyap_plugin_get_wp_repository_version($required_plugin);
         } else if ($required_plugin_value['type'] === 'github') {
             // check if git can be queried for this information
             $required_plugin_latest_version = $required_plugin_value['latest_version'];
@@ -248,13 +248,13 @@ function vikinger_plugin_get_required_plugins_status()
         $required_plugin_status_data['latest_version'] = $required_plugin_latest_version;
 
         if ($required_plugin_installed) {
-            $required_plugin_data = vikinger_plugin_installed_get_data($required_plugin);
+            $required_plugin_data = yipnyap_plugin_installed_get_data($required_plugin);
             $required_plugin_data_merge = [
                 'current_version' => $required_plugin_data['Version']
             ];
 
             $required_plugin_status_data = array_merge($required_plugin_status_data, $required_plugin_data_merge);
-            $required_plugin_status_data['active'] = vikinger_plugin_is_active($required_plugin);
+            $required_plugin_status_data['active'] = yipnyap_plugin_is_active($required_plugin);
             $required_plugin_status_data['updated'] = $required_plugin_status_data['current_version'] === $required_plugin_latest_version;
             // all repository data
             $required_plugin_status_data['data'] = $required_plugin_data;
@@ -272,9 +272,9 @@ function vikinger_plugin_get_required_plugins_status()
  * @param string $plugin PLugin name.
  * @return array  $plugin_data      Plugin information data.
  */
-function vikinger_plugin_installed_get_data($plugin)
+function yipnyap_plugin_installed_get_data($plugin)
 {
-    $required_plugins = vikinger_plugin_get_required_plugins();
+    $required_plugins = yipnyap_plugin_get_required_plugins();
     $installed_plugins = get_plugins();
 
     $plugin_slug = $required_plugins[$plugin]['slug'];
@@ -290,9 +290,9 @@ function vikinger_plugin_installed_get_data($plugin)
  * @param string $plugin PLugin name.
  * @return bool   $is_installed     True if plugin is installed, false otherwise.
  */
-function vikinger_plugin_is_installed($plugin)
+function yipnyap_plugin_is_installed($plugin)
 {
-    $required_plugins = vikinger_plugin_get_required_plugins();
+    $required_plugins = yipnyap_plugin_get_required_plugins();
     $installed_plugins = get_plugins();
 
     $plugin_slug = $required_plugins[$plugin]['slug'];
@@ -308,19 +308,19 @@ function vikinger_plugin_is_installed($plugin)
  * @param string $plugin_url Plugin name.
  * @return bool   $result         True if installed and activated plugin, false otherwise.
  */
-function vikinger_plugin_install_and_activate($plugin_name)
+function yipnyap_plugin_install_and_activate($plugin_name)
 {
     $tries = 3;
     $result = false;
 
-    $plugin = vikinger_plugin_get_required_plugins()[$plugin_name];
+    $plugin = yipnyap_plugin_get_required_plugins()[$plugin_name];
 
     while ($tries > 0 && !$result) {
         $tries = $tries - 1;
         if ($plugin['type'] === 'wordpress') {
-            $result = vikinger_plugin_install($plugin['url']);
+            $result = yipnyap_plugin_install($plugin['url']);
         } else if ($plugin['type'] === 'github') {
-            $result = vikinger_plugin_install_from_github($plugin['plugin_name'], $plugin['latest_version'], $plugin['url']);
+            $result = yipnyap_plugin_install_from_github($plugin['plugin_name'], $plugin['latest_version'], $plugin['url']);
         } else {
             $result = false;
             break;
@@ -333,7 +333,7 @@ function vikinger_plugin_install_and_activate($plugin_name)
 
         while ($tries > 0 && !$result) {
             $tries = $tries - 1;
-            $result = vikinger_plugin_activate($plugin['slug']);
+            $result = yipnyap_plugin_activate($plugin['slug']);
         }
     }
 
@@ -348,7 +348,7 @@ function vikinger_plugin_install_and_activate($plugin_name)
  * @param string $plugin_url Plugin url.
  * @return bool   $installed        True if installed plugin, false otherwise.
  */
-function vikinger_plugin_install_from_github($plugin_name, $plugin_version, $plugin_url)
+function yipnyap_plugin_install_from_github($plugin_name, $plugin_version, $plugin_url)
 {
     $download_file_name = $plugin_name . '-' . $plugin_version;
 
@@ -405,7 +405,7 @@ function vikinger_plugin_install_from_github($plugin_name, $plugin_version, $plu
  * @param string $plugin_url Plugin url.
  * @return bool   $installed      True if installed plugin, false otherwise.
  */
-function vikinger_plugin_install($plugin_url)
+function yipnyap_plugin_install($plugin_url)
 {
     require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
@@ -427,20 +427,20 @@ function vikinger_plugin_install($plugin_url)
  * @param string $plugin_name Plugin name.
  * @return bool   $result         True if updated and activated plugin, false otherwise.
  */
-function vikinger_plugin_update_and_activate($plugin_name)
+function yipnyap_plugin_update_and_activate($plugin_name)
 {
-    $plugin = vikinger_plugin_get_required_plugins()[$plugin_name];
+    $plugin = yipnyap_plugin_get_required_plugins()[$plugin_name];
 
     if ($plugin['type'] === 'wordpress') {
-        $result = vikinger_plugin_update($plugin['slug']);
+        $result = yipnyap_plugin_update($plugin['slug']);
     } else if ($plugin['type'] === 'github') {
-        $result = vikinger_plugin_install_from_github($plugin['plugin_name'], $plugin['latest_version'], $plugin['url']);
+        $result = yipnyap_plugin_install_from_github($plugin['plugin_name'], $plugin['latest_version'], $plugin['url']);
     } else {
         $result = false;
     }
 
     if ($result) {
-        $result = vikinger_plugin_activate($plugin['slug']);
+        $result = yipnyap_plugin_activate($plugin['slug']);
     }
 
     return $result;
@@ -452,7 +452,7 @@ function vikinger_plugin_update_and_activate($plugin_name)
  * @param string $plugin_slug Plugin slug.
  * @return bool   $updated        True if updated plugin, false otherwise.
  */
-function vikinger_plugin_update($plugin_slug)
+function yipnyap_plugin_update($plugin_slug)
 {
     require_once ABSPATH . 'wp-admin/includes/class-wp-upgrader.php';
 
@@ -474,7 +474,7 @@ function vikinger_plugin_update($plugin_slug)
  * @param string $plugin_slug Plugin slug.
  * @return bool   $activated        True if activated plugin, false otherwise.
  */
-function vikinger_plugin_activate($plugin_slug)
+function yipnyap_plugin_activate($plugin_slug)
 {
     $activated = activate_plugin($plugin_slug);
 
@@ -487,7 +487,7 @@ function vikinger_plugin_activate($plugin_slug)
  * @param string $plugin PLugin name.
  * @return bool   $is_active      True if plugin is active, false otherwise.
  */
-function vikinger_plugin_is_active($plugin)
+function yipnyap_plugin_is_active($plugin)
 {
     switch ($plugin) {
         case 'buddypress':
@@ -523,8 +523,8 @@ function vikinger_plugin_is_active($plugin)
         case 'elementor':
             $is_active = class_exists('Elementor\Plugin');
             break;
-        case 'vikinger-buddypress-extension':
-            $is_active = function_exists('vikinger_buddypress_extension_init');
+        case 'yipnyap-buddypress-extension':
+            $is_active = function_exists('yipnyap_buddypress_extension_init');
             break;
         case 'vkreact':
             $is_active = function_exists('vkreact_activate');
@@ -535,10 +535,10 @@ function vikinger_plugin_is_active($plugin)
         case 'vkmedia':
             $is_active = function_exists('vkmedia_activate');
             break;
-        case 'vikinger-widgets':
+        case 'yipnyap-widgets':
             $is_active = function_exists('vkwidgets_activate');
             break;
-        case 'vikinger-metaboxes':
+        case 'yipnyap-metaboxes':
             $is_active = function_exists('vkmetaboxes_activate');
             break;
         default:
@@ -553,9 +553,9 @@ function vikinger_plugin_is_active($plugin)
  *
  * @return bool $is_active    True if the BuddyPress plugin is active, false otherwise.
  */
-function vikinger_plugin_buddypress_is_active()
+function yipnyap_plugin_buddypress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('buddypress');
+    $is_active = yipnyap_plugin_is_active('buddypress');
 
     return $is_active;
 }
@@ -565,9 +565,9 @@ function vikinger_plugin_buddypress_is_active()
  *
  * @return bool $is_active    True if the GamiPress plugin is active, false otherwise.
  */
-function vikinger_plugin_gamipress_is_active()
+function yipnyap_plugin_gamipress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('gamipress');
+    $is_active = yipnyap_plugin_is_active('gamipress');
 
     return $is_active;
 }
@@ -577,9 +577,9 @@ function vikinger_plugin_gamipress_is_active()
  *
  * @return bool $is_active    True if the vkreact plugin is active, false otherwise.
  */
-function vikinger_plugin_vkreact_is_active()
+function yipnyap_plugin_vkreact_is_active()
 {
-    $is_active = vikinger_plugin_is_active('vkreact');
+    $is_active = yipnyap_plugin_is_active('vkreact');
 
     return $is_active;
 }
@@ -589,9 +589,9 @@ function vikinger_plugin_vkreact_is_active()
  *
  * @return bool $is_active    True if the vkreact-buddypress plugin is active, false otherwise.
  */
-function vikinger_plugin_vkreact_buddypress_is_active()
+function yipnyap_plugin_vkreact_buddypress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('vkreact-buddypress');
+    $is_active = yipnyap_plugin_is_active('vkreact-buddypress');
 
     return $is_active;
 }
@@ -601,9 +601,9 @@ function vikinger_plugin_vkreact_buddypress_is_active()
  *
  * @return bool $is_active    True if the vkmedia plugin is active, false otherwise.
  */
-function vikinger_plugin_vkmedia_is_active()
+function yipnyap_plugin_vkmedia_is_active()
 {
-    $is_active = vikinger_plugin_is_active('vkmedia');
+    $is_active = yipnyap_plugin_is_active('vkmedia');
 
     return $is_active;
 }
@@ -613,9 +613,9 @@ function vikinger_plugin_vkmedia_is_active()
  *
  * @return bool $is_active    True if the elementor plugin is active, false otherwise.
  */
-function vikinger_plugin_elementor_is_active()
+function yipnyap_plugin_elementor_is_active()
 {
-    $is_active = vikinger_plugin_is_active('elementor');
+    $is_active = yipnyap_plugin_is_active('elementor');
 
     return $is_active;
 }
@@ -625,9 +625,9 @@ function vikinger_plugin_elementor_is_active()
  *
  * @return bool $is_active    True if the bbpress plugin is active, false otherwise.
  */
-function vikinger_plugin_bbpress_is_active()
+function yipnyap_plugin_bbpress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('bbpress');
+    $is_active = yipnyap_plugin_is_active('bbpress');
 
     return $is_active;
 }
@@ -637,9 +637,9 @@ function vikinger_plugin_bbpress_is_active()
  *
  * @return bool $is_active    True if the woocommerce plugin is active, false otherwise.
  */
-function vikinger_plugin_woocommerce_is_active()
+function yipnyap_plugin_woocommerce_is_active()
 {
-    $is_active = vikinger_plugin_is_active('woocommerce');
+    $is_active = yipnyap_plugin_is_active('woocommerce');
 
     return $is_active;
 }
@@ -649,9 +649,9 @@ function vikinger_plugin_woocommerce_is_active()
  *
  * @return bool $is_active    True if the pmpro plugin is active, false otherwise.
  */
-function vikinger_plugin_pmpro_is_active()
+function yipnyap_plugin_pmpro_is_active()
 {
-    $is_active = vikinger_plugin_is_active('paid-memberships-pro');
+    $is_active = yipnyap_plugin_is_active('paid-memberships-pro');
 
     return $is_active;
 }
@@ -661,9 +661,9 @@ function vikinger_plugin_pmpro_is_active()
  *
  * @return bool $is_active    True if the pmpro - buddypress plugin is active, false otherwise.
  */
-function vikinger_plugin_pmpro_buddypress_is_active()
+function yipnyap_plugin_pmpro_buddypress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('pmpro-buddypress');
+    $is_active = yipnyap_plugin_is_active('pmpro-buddypress');
 
     return $is_active;
 }
@@ -673,9 +673,9 @@ function vikinger_plugin_pmpro_buddypress_is_active()
  *
  * @return bool $is_active    True if the pmpro - bbpress plugin is active, false otherwise.
  */
-function vikinger_plugin_pmpro_bbpress_is_active()
+function yipnyap_plugin_pmpro_bbpress_is_active()
 {
-    $is_active = vikinger_plugin_is_active('pmpro-bbpress');
+    $is_active = yipnyap_plugin_is_active('pmpro-bbpress');
 
     return $is_active;
 }
@@ -685,9 +685,9 @@ function vikinger_plugin_pmpro_bbpress_is_active()
  *
  * @return bool $is_active    True if the Advanced Ads plugin is active, false otherwise.
  */
-function vikinger_plugin_advancedads_is_active()
+function yipnyap_plugin_advancedads_is_active()
 {
-    $is_active = vikinger_plugin_is_active('advanced-ads');
+    $is_active = yipnyap_plugin_is_active('advanced-ads');
 
     return $is_active;
 }
@@ -697,9 +697,9 @@ function vikinger_plugin_advancedads_is_active()
  *
  * @return bool $is_active    True if the Advanced Ads Pro plugin is active, false otherwise.
  */
-function vikinger_plugin_advancedads_pro_is_active()
+function yipnyap_plugin_advancedads_pro_is_active()
 {
-    $is_active = vikinger_plugin_is_active('advanced-ads-pro');
+    $is_active = yipnyap_plugin_is_active('advanced-ads-pro');
 
     return $is_active;
 }
@@ -709,9 +709,9 @@ function vikinger_plugin_advancedads_pro_is_active()
  *
  * @return bool $is_active    True if the bp better messages plugin is active, false otherwise.
  */
-function vikinger_plugin_bpbettermessages_is_active()
+function yipnyap_plugin_bpbettermessages_is_active()
 {
-    $is_active = vikinger_plugin_is_active('bp-better-messages');
+    $is_active = yipnyap_plugin_is_active('bp-better-messages');
 
     return $is_active;
 }
@@ -721,9 +721,9 @@ function vikinger_plugin_bpbettermessages_is_active()
  *
  * @return bool $is_active    True if the verified member for buddypress plugin is active, false otherwise.
  */
-function vikinger_plugin_bpverifiedmember_is_active()
+function yipnyap_plugin_bpverifiedmember_is_active()
 {
-    $is_active = vikinger_plugin_is_active('bp-verified-member');
+    $is_active = yipnyap_plugin_is_active('bp-verified-member');
 
     return $is_active;
 }
@@ -733,25 +733,25 @@ function vikinger_plugin_bpverifiedmember_is_active()
  *
  * @return $required_plugins_status       Required plugin with activation status.
  */
-function vikinger_plugin_get_required_plugins_activation_status()
+function yipnyap_plugin_get_required_plugins_activation_status()
 {
     $required_plugins_status = [];
 
-    $required_plugins = vikinger_plugin_get_required_plugins();
+    $required_plugins = yipnyap_plugin_get_required_plugins();
 
     foreach ($required_plugins as $required_plugin) {
-        $required_plugins_status[$required_plugin['plugin_name']] = vikinger_plugin_is_active($required_plugin['plugin_name']);
+        $required_plugins_status[$required_plugin['plugin_name']] = yipnyap_plugin_is_active($required_plugin['plugin_name']);
     }
 
     // add buddypress component related activation status
-    if (vikinger_plugin_buddypress_is_active()) {
+    if (yipnyap_plugin_buddypress_is_active()) {
         $required_plugins_status['buddypress_groups'] = bp_is_active('groups');
         $required_plugins_status['buddypress_friends'] = bp_is_active('friends');
         $required_plugins_status['buddypress_messages'] = bp_is_active('messages');
         $required_plugins_status['buddypress_notifications'] = bp_is_active('notifications');
     }
 
-    $required_plugins_status['bp-verified-member'] = vikinger_plugin_bpverifiedmember_is_active();
+    $required_plugins_status['bp-verified-member'] = yipnyap_plugin_bpverifiedmember_is_active();
 
     return $required_plugins_status;
 }

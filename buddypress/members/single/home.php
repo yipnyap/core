@@ -22,7 +22,7 @@
 
   $displayed_user   = bp_get_displayed_user();
   // xprofile and groups necessary
-  $displayed_member = vikinger_members_get(['include' => [$displayed_user->id], 'data_scope' => 'user-preview']);
+  $displayed_member = yipnyap_members_get(['include' => [$displayed_user->id], 'data_scope' => 'user-preview']);
 
   // if user isn't activated (user_status = 2) or marked as spam (user_status = 1)
   // redirect to home
@@ -33,7 +33,7 @@
 
   $displayed_member = $displayed_member[0];
 
-  $sidebar_menu_sections = vikinger_members_get_settings_navigation_sections($displayed_member);
+  $sidebar_menu_sections = yipnyap_members_get_settings_navigation_sections($displayed_member);
 
   set_query_var('member', $displayed_member);
 
@@ -46,17 +46,17 @@
 <div class="content-grid">
 <?php
 
-  $page_header_status = get_theme_mod('vikinger_pageheader_setting_display', 'display');
+  $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
 
   if ($page_header_status === 'display') {
-    $settings_header_icon_id      = get_theme_mod('vikinger_pageheader_settings_setting_image', false);
-    $settings_header_title        = get_theme_mod('vikinger_pageheader_settings_setting_title', esc_html_x('Account Hub', 'Settings Page - Title', 'vikinger'));
-    $settings_header_description  = get_theme_mod('vikinger_pageheader_settings_setting_description', esc_html_x('Profile info, notifications, friends, groups, messages and much more!', 'Settings Page - Description', 'vikinger'));
+    $settings_header_icon_id      = get_theme_mod('yipnyap_pageheader_settings_setting_image', false);
+    $settings_header_title        = get_theme_mod('yipnyap_pageheader_settings_setting_title', esc_html_x('Account Hub', 'Settings Page - Title', 'yipnyap'));
+    $settings_header_description  = get_theme_mod('yipnyap_pageheader_settings_setting_description', esc_html_x('Profile info, notifications, friends, groups, messages and much more!', 'Settings Page - Description', 'yipnyap'));
 
     if ($settings_header_icon_id) {
       $settings_header_icon_url = wp_get_attachment_image_src($settings_header_icon_id , 'full')[0];
     } else {
-      $settings_header_icon_url = vikinger_customizer_settings_page_image_get_default();
+      $settings_header_icon_url = yipnyap_customizer_settings_page_image_get_default();
     }
 
     /**
@@ -85,8 +85,8 @@
   else :
     $current_component = bp_current_component();
   
-    $nav_items    = vikinger_members_get_navigation_items($displayed_member);
-    $subnav_items = vikinger_member_bp_subnavigation_items_get($displayed_member, $current_component);
+    $nav_items    = yipnyap_members_get_navigation_items($displayed_member);
+    $subnav_items = yipnyap_member_bp_subnavigation_items_get($displayed_member, $current_component);
   
     set_query_var('member', $displayed_member);
     set_query_var('member_navigation_items', $nav_items);

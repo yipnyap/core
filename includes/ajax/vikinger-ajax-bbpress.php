@@ -8,9 +8,9 @@
 /**
  * Creates group forum
  */
-function vikinger_bbpress_group_forum_create_ajax() {
+function yipnyap_bbpress_group_forum_create_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
   $group_id = isset($_POST['group_id']) ? (int) $_POST['group_id'] : false;
@@ -27,7 +27,7 @@ function vikinger_bbpress_group_forum_create_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_bbpress_group_forum_create($args, $group_id);
+  $result = yipnyap_bbpress_group_forum_create($args, $group_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -35,14 +35,14 @@ function vikinger_bbpress_group_forum_create_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_bbpress_group_forum_create_ajax', 'vikinger_bbpress_group_forum_create_ajax');
+add_action('wp_ajax_yipnyap_bbpress_group_forum_create_ajax', 'yipnyap_bbpress_group_forum_create_ajax');
 
 /**
  * Deletes a forum
  */
-function vikinger_bbpress_group_forum_delete_ajax() {
+function yipnyap_bbpress_group_forum_delete_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -65,7 +65,7 @@ function vikinger_bbpress_group_forum_delete_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_bbpress_group_forum_delete($forum_id, $group_id);
+  $result = yipnyap_bbpress_group_forum_delete($forum_id, $group_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -73,14 +73,14 @@ function vikinger_bbpress_group_forum_delete_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_bbpress_group_forum_delete_ajax', 'vikinger_bbpress_group_forum_delete_ajax');
+add_action('wp_ajax_yipnyap_bbpress_group_forum_delete_ajax', 'yipnyap_bbpress_group_forum_delete_ajax');
 
 /**
  * Returns id of forum associated with a group
  */
-function vikinger_bbpress_group_forum_associate_get_ajax() {
+function yipnyap_bbpress_group_forum_associate_get_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -102,7 +102,7 @@ function vikinger_bbpress_group_forum_associate_get_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_bbpress_group_forum_associate_get($group_id);
+  $result = yipnyap_bbpress_group_forum_associate_get($group_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -110,6 +110,6 @@ function vikinger_bbpress_group_forum_associate_get_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_bbpress_group_forum_associate_get_ajax', 'vikinger_bbpress_group_forum_associate_get_ajax');
+add_action('wp_ajax_yipnyap_bbpress_group_forum_associate_get_ajax', 'yipnyap_bbpress_group_forum_associate_get_ajax');
 
 ?>

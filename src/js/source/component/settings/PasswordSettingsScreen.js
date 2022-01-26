@@ -65,8 +65,8 @@ function PasswordSettingsScreen(props) {
         if (currentPassword && newPassword && newPasswordRepeat) {
             // if new password doesn't match confirmation, show error popup
             if (newPassword !== newPasswordRepeat) {
-                setMessageBoxTitle(vikinger_translation.new_password_mismatch_error_title);
-                setMessageBoxText(vikinger_translation.new_password_mismatch_error_text);
+                setMessageBoxTitle(yipnyap_translation.new_password_mismatch_error_title);
+                setMessageBoxText(yipnyap_translation.new_password_mismatch_error_text);
 
                 popup.current.show();
 
@@ -106,8 +106,8 @@ function PasswordSettingsScreen(props) {
                                     window.location.reload();
                                 } else {
                                     // password couldn't be updated
-                                    setMessageBoxTitle(vikinger_translation.change_password_error_title);
-                                    setMessageBoxText(vikinger_translation.change_password_error_text);
+                                    setMessageBoxTitle(yipnyap_translation.change_password_error_title);
+                                    setMessageBoxText(yipnyap_translation.change_password_error_text);
                                     setSaving(false);
 
                                     popup.current.show();
@@ -115,16 +115,16 @@ function PasswordSettingsScreen(props) {
                             })
                             .fail((error) => {
                                 // password couldn't be updated
-                                setMessageBoxTitle(vikinger_translation.change_password_error_title);
-                                setMessageBoxText(vikinger_translation.change_password_error_text);
+                                setMessageBoxTitle(yipnyap_translation.change_password_error_title);
+                                setMessageBoxText(yipnyap_translation.change_password_error_text);
                                 setSaving(false);
 
                                 popup.current.show();
                             });
                     } else {
                         // password doesn't match, show error popup
-                        setMessageBoxTitle(vikinger_translation.current_password_mismatch_error_title);
-                        setMessageBoxText(vikinger_translation.current_password_mismatch_error_text);
+                        setMessageBoxTitle(yipnyap_translation.current_password_mismatch_error_title);
+                        setMessageBoxText(yipnyap_translation.current_password_mismatch_error_text);
                         setSaving(false);
 
                         popup.current.show();
@@ -141,7 +141,7 @@ function PasswordSettingsScreen(props) {
 
     return (
         <div className="account-hub-content">
-            <SectionHeader pretitle={vikinger_translation.account} title={vikinger_translation.change_password}/>
+            <SectionHeader pretitle={yipnyap_translation.account} title={yipnyap_translation.change_password}/>
 
             {/* MESSAGE BOX */}
             <MessageBox forwardedRef={messageBoxRef}
@@ -167,7 +167,7 @@ function PasswordSettingsScreen(props) {
                                 <div className="form-row">
                                     {/* FORM ITEM */}
                                     <div className="form-item">
-                                        <FormInputPassword label={vikinger_translation.enter_your_current_password}
+                                        <FormInputPassword label={yipnyap_translation.enter_your_current_password}
                                                            name="current_password"
                                                            modifiers="small"
                                                            onChange={setCurrentPassword}
@@ -181,7 +181,7 @@ function PasswordSettingsScreen(props) {
                                 <div className="form-row split">
                                     {/* FORM ITEM */}
                                     <div className="form-item">
-                                        <FormInputPassword label={vikinger_translation.your_new_password}
+                                        <FormInputPassword label={yipnyap_translation.your_new_password}
                                                            name="new_password"
                                                            modifiers="small"
                                                            onChange={setNewPassword}
@@ -191,7 +191,7 @@ function PasswordSettingsScreen(props) {
 
                                     {/* FORM ITEM */}
                                     <div className="form-item">
-                                        <FormInputPassword label={vikinger_translation.confirm_new_password}
+                                        <FormInputPassword label={yipnyap_translation.confirm_new_password}
                                                            name="new_password_repeat"
                                                            modifiers="small"
                                                            onChange={setNewPasswordRepeat}
@@ -212,12 +212,12 @@ function PasswordSettingsScreen(props) {
                         <div className="button primary" onClick={save}>
                             {
                                 !saving &&
-                                vikinger_translation.save_changes
+                                yipnyap_translation.save_changes
                             }
                             {
                                 saving &&
                                 <React.Fragment>
-                                    {vikinger_translation.saving}
+                                    {yipnyap_translation.saving}
                                     <LoaderSpinnerSmall/>
                                 </React.Fragment>
                             }

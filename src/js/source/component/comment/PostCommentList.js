@@ -84,7 +84,7 @@ function PostCommentList(props) {
                           reactions={props.reactions}
                           reactionable={PostCommentReactionable}
                           disableComments={props.disableComments}
-                          showVerifiedBadge={vikinger_constants.plugin_active['bp-verified-member'] && vikinger_constants.settings.bp_verified_member_display_badge_in_wp_comments}
+                          showVerifiedBadge={yipnyap_constants.plugin_active['bp-verified-member'] && yipnyap_constants.settings.bp_verified_member_display_badge_in_wp_comments}
         />
     );
 }

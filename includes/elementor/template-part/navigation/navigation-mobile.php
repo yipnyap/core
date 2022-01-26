@@ -6,7 +6,7 @@
  * @since 1.6.3
  * @author Yipnyap (https://yipnyap.xyz/)
  * 
- * @see vikinger_menu_get_items
+ * @see yipnyap_menu_get_items
  * 
  * @param array $args {
  *   @type array  $menu_items               Menu items data.
@@ -21,16 +21,16 @@
   $menu_styles = isset($args['menu_styles']) ? $args['menu_styles'] : [];
 
   $menu_styles_content = array_key_exists('menu', $menu_styles) ? $menu_styles['menu'] : [];
-  $menu_styles_attribute = vikinger_elementor_styles_encode_get($menu_styles_content);
+  $menu_styles_attribute = yipnyap_elementor_styles_encode_get($menu_styles_content);
 
   $menu_title_styles_content = array_key_exists('menu-title', $menu_styles) ? $menu_styles['menu-title'] : [];
-  $menu_title_styles_attribute = vikinger_elementor_styles_encode_get($menu_title_styles_content);
+  $menu_title_styles_attribute = yipnyap_elementor_styles_encode_get($menu_title_styles_content);
 
   $menu_trigger_open_styles_content = array_key_exists('menu-trigger-open', $menu_styles) ? $menu_styles['menu-trigger-open'] : [];
-  $menu_trigger_open_styles_attribute = vikinger_elementor_styles_encode_get($menu_trigger_open_styles_content);
+  $menu_trigger_open_styles_attribute = yipnyap_elementor_styles_encode_get($menu_trigger_open_styles_content);
 
   $menu_trigger_close_styles_content = array_key_exists('menu-trigger-close', $menu_styles) ? $menu_styles['menu-trigger-close'] : [];
-  $menu_trigger_close_styles_attribute = vikinger_elementor_styles_encode_get($menu_trigger_close_styles_content);
+  $menu_trigger_close_styles_attribute = yipnyap_elementor_styles_encode_get($menu_trigger_close_styles_content);
 
   $menu_trigger_open_icon = $args['menu_trigger_open_icon'];
   $menu_trigger_close_icon = $args['menu_trigger_close_icon'];

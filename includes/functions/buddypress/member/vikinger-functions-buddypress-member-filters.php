@@ -1,52 +1,55 @@
 <?php
 /**
  * Functions - BuddyPress - Member - Filters
- * 
- * @package Vikinger
- * 
+ *
+ * @package Yipnyap
+ *
  * @since 1.9.1
- * 
+ *
  * @author Odin Design Themes (https://odindesignthemes.com/)
- * 
+ *
  */
 
-if (!function_exists('vikinger_member_gravatar_disable')) {
-  /**
-   * Disable Gravatar
-   */
-  function vikinger_member_gravatar_disable() {
-    return true;
-  }
+if (!function_exists('yipnyap_member_gravatar_disable')) {
+    /**
+     * Disable Gravatar
+     */
+    function yipnyap_member_gravatar_disable()
+    {
+        return true;
+    }
 }
 
-add_filter('bp_core_fetch_avatar_no_grav', 'vikinger_member_gravatar_disable');
+add_filter('bp_core_fetch_avatar_no_grav', 'yipnyap_member_gravatar_disable');
 
-if (!function_exists('vikinger_set_default_member_avatar')) {
-  /**
-   * Set default member avatar
-   */
-  function vikinger_set_default_member_avatar() {
-    $members_default_avatar_url = vikinger_get_default_member_avatar_url();
+if (!function_exists('yipnyap_set_default_member_avatar')) {
+    /**
+     * Set default member avatar
+     */
+    function yipnyap_set_default_member_avatar()
+    {
+        $members_default_avatar_url = yipnyap_get_default_member_avatar_url();
 
-    return $members_default_avatar_url;
-  }
+        return $members_default_avatar_url;
+    }
 }
 
-add_filter('bp_core_default_avatar_user', 'vikinger_set_default_member_avatar');
+add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 
-if (!function_exists('vikinger_members_cover_image_setup')) {
-  /**
-   * Setup member cover preferred image size
-   */
-  function vikinger_members_cover_image_setup($settings = []) {
-    // dimension settings
-    $settings['width'] = 1184;
-    $settings['height'] = 300;
+if (!function_exists('yipnyap_members_cover_image_setup')) {
+    /**
+     * Setup member cover preferred image size
+     */
+    function yipnyap_members_cover_image_setup($settings = [])
+    {
+        // dimension settings
+        $settings['width'] = 1184;
+        $settings['height'] = 300;
 
-    return $settings;
-  }
+        return $settings;
+    }
 }
 
-add_filter('bp_before_members_cover_image_settings_parse_args', 'vikinger_members_cover_image_setup', 10, 1);
+add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_members_cover_image_setup', 10, 1);
 
 ?>

@@ -109,21 +109,21 @@ const getCustomGroupMeta = (data) => {
 };
 
 const createGroupData = {
-    name: vikinger_translation.create_new_group,
+    name: yipnyap_translation.create_new_group,
     status: 'public',
-    avatar_url: vikinger_constants.settings.group_avatar_url_default,
-    cover_image_url: vikinger_constants.settings.group_cover_image_url_default,
+    avatar_url: yipnyap_constants.settings.group_avatar_url_default,
+    cover_image_url: yipnyap_constants.settings.group_cover_image_url_default,
     enable_forum: false
 };
 
 const groupStatusOptions = [
     {
         id: 'public',
-        name: vikinger_translation.public
+        name: yipnyap_translation.public
     },
     {
         id: 'private',
-        name: vikinger_translation.private
+        name: yipnyap_translation.private
     }
 ];
 
@@ -185,11 +185,11 @@ function GroupManagePopup(props) {
 
     const [avatarFile, setAvatarFile] = useState(false);
     const [uploadAvatarActive, setUploadAvatarActive] = useState(false);
-    const [uploadAvatarTitle, setUploadAvatarTitle] = useState(vikinger_translation.change_avatar);
+    const [uploadAvatarTitle, setUploadAvatarTitle] = useState(yipnyap_translation.change_avatar);
 
     const [coverFile, setCoverFile] = useState(false);
     const [uploadCoverActive, setUploadCoverActive] = useState(false);
-    const [uploadCoverTitle, setUploadCoverTitle] = useState(vikinger_translation.change_cover);
+    const [uploadCoverTitle, setUploadCoverTitle] = useState(yipnyap_translation.change_cover);
 
     const [markAsRequired, setMarkAsRequired] = useState(false);
 
@@ -251,7 +251,7 @@ function GroupManagePopup(props) {
                 setForum(newForumData);
 
                 // only fetch group associated forum if bbPress is active and the forums option is enabled
-                if (!creatingGroup && vikinger_constants.plugin_active.bbpress && vikinger_constants.settings['bbp_is_group_forums_active']) {
+                if (!creatingGroup && yipnyap_constants.plugin_active.bbpress && yipnyap_constants.settings['bbp_is_group_forums_active']) {
                     getGroupAssociatedForum();
                 }
             })
@@ -387,11 +387,11 @@ function GroupManagePopup(props) {
 
         setAvatarFile(false);
         setUploadAvatarActive(false);
-        setUploadAvatarTitle(vikinger_translation.change_avatar);
+        setUploadAvatarTitle(yipnyap_translation.change_avatar);
 
         setCoverFile(false);
         setUploadCoverActive(false);
-        setUploadCoverTitle(vikinger_translation.change_cover);
+        setUploadCoverTitle(yipnyap_translation.change_cover);
 
         setMarkAsRequired(false);
         setError(false);
@@ -536,7 +536,7 @@ function GroupManagePopup(props) {
             // if required fields have no value, show message and return
             const emptyGroupName = groupData.name === '',
                 emptyGroupDescription = groupData.description === '',
-                usingForum = vikinger_constants.plugin_active.bbpress && vikinger_constants.settings['bbp_is_group_forums_active'] && groupData.enable_forum,
+                usingForum = yipnyap_constants.plugin_active.bbpress && yipnyap_constants.settings['bbp_is_group_forums_active'] && groupData.enable_forum,
                 emptyForumName = forum.post_title === '',
                 emptyForumDescription = forum.post_content === '';
 
@@ -720,21 +720,21 @@ function GroupManagePopup(props) {
                                            onClick={() => {
                                                setActiveTab('group-info');
                                            }}>
-                                            {vikinger_translation.group_info}
+                                            {yipnyap_translation.group_info}
                                         </p>
 
                                         <p className={`sidebar-menu-link ${activeTab === 'group-avatar-cover' ? 'active' : ''}`}
                                            onClick={() => {
                                                setActiveTab('group-avatar-cover');
                                            }}>
-                                            {vikinger_translation.avatar_and_cover}
+                                            {yipnyap_translation.avatar_and_cover}
                                         </p>
 
                                         <p className={`sidebar-menu-link ${activeTab === 'group-social' ? 'active' : ''}`}
                                            onClick={() => {
                                                setActiveTab('group-social');
                                            }}>
-                                            {vikinger_translation.social_networks}
+                                            {yipnyap_translation.social_networks}
                                         </p>
 
 
@@ -749,19 +749,19 @@ function GroupManagePopup(props) {
                                                onClick={() => {
                                                    setActiveTab('group-members');
                                                }}>
-                                                {vikinger_translation.members}
+                                                {yipnyap_translation.members}
                                             </p>
                                         }
                                         {
                                             props.data.is_admin &&
                                             <React.Fragment>
                                                 {
-                                                    vikinger_constants.plugin_active.bbpress && vikinger_constants.settings['bbp_is_group_forums_active'] &&
+                                                    yipnyap_constants.plugin_active.bbpress && yipnyap_constants.settings['bbp_is_group_forums_active'] &&
                                                     <p className={`sidebar-menu-link ${activeTab === 'group-forum' ? 'active' : ''}`}
                                                        onClick={() => {
                                                            setActiveTab('group-forum');
                                                        }}>
-                                                        {vikinger_translation.forum}
+                                                        {yipnyap_translation.forum}
                                                     </p>
                                                 }
 
@@ -769,7 +769,7 @@ function GroupManagePopup(props) {
                                                    onClick={() => {
                                                        setActiveTab('group-delete');
                                                    }}>
-                                                    {vikinger_translation.delete_group}
+                                                    {yipnyap_translation.delete_group}
                                                 </p>
                                             </React.Fragment>
                                         }
@@ -785,27 +785,27 @@ function GroupManagePopup(props) {
                                     {
                                         !saving &&
                                         <React.Fragment>
-                                            {creatingGroup ? vikinger_translation.create_group : vikinger_translation.save_changes}
+                                            {creatingGroup ? yipnyap_translation.create_group : yipnyap_translation.save_changes}
                                         </React.Fragment>
                                     }
                                     {
                                         saving &&
                                         <React.Fragment>
-                                            {creatingGroup ? vikinger_translation.creating : vikinger_translation.saving}
+                                            {creatingGroup ? yipnyap_translation.creating : yipnyap_translation.saving}
                                             <LoaderSpinnerSmall/>
                                         </React.Fragment>
                                     }
                                 </div>
                                 {
                                     markAsRequired &&
-                                    <p className="required-field-message">* {vikinger_translation.required_fields_message}</p>
+                                    <p className="required-field-message">* {yipnyap_translation.required_fields_message}</p>
                                 }
                                 {
                                     error &&
-                                    <p className="required-field-message">* {vikinger_translation.save_error_message}</p>
+                                    <p className="required-field-message">* {yipnyap_translation.save_error_message}</p>
                                 }
                                 <p className="button white full"
-                                   onClick={discardAll}>{vikinger_translation.discard_all}</p>
+                                   onClick={discardAll}>{yipnyap_translation.discard_all}</p>
                             </div>
                         }
                     </div>
@@ -814,14 +814,14 @@ function GroupManagePopup(props) {
                         {
                             activeTab === 'group-info' &&
                             <div className="widget-box">
-                                <p className="widget-box-title">{vikinger_translation.group_info}</p>
+                                <p className="widget-box-title">{yipnyap_translation.group_info}</p>
 
                                 <div className="widget-box-content">
                                     <div className="form">
                                         <div className="form-row split">
                                             <div className="form-item">
                                                 <FormInput name="name"
-                                                           label={vikinger_translation.group_name}
+                                                           label={yipnyap_translation.group_name}
                                                            value={groupData.name}
                                                            handleValue
                                                            onChange={handleChange}
@@ -833,7 +833,7 @@ function GroupManagePopup(props) {
 
                                             <div className="form-item">
                                                 <FormSelect name="status"
-                                                            label={vikinger_translation.group_status}
+                                                            label={yipnyap_translation.group_status}
                                                             options={groupStatusOptions}
                                                             value={groupData.status}
                                                             handleValue
@@ -846,7 +846,7 @@ function GroupManagePopup(props) {
                                         <div className="form-row">
                                             <div className="form-item">
                                                 <FormTextarea name="description"
-                                                              label={vikinger_translation.group_description}
+                                                              label={yipnyap_translation.group_description}
                                                               value={groupData.description}
                                                               handleValue
                                                               onChange={handleChange}
@@ -864,7 +864,7 @@ function GroupManagePopup(props) {
                         {
                             activeTab === 'group-avatar-cover' &&
                             <div className="widget-box">
-                                <p className="widget-box-title">{vikinger_translation.avatar_and_cover}</p>
+                                <p className="widget-box-title">{yipnyap_translation.avatar_and_cover}</p>
 
                                 <div className="widget-box-content">
                                     {/* GRID */}
@@ -889,7 +889,7 @@ function GroupManagePopup(props) {
                         {
                             activeTab === 'group-social' &&
                             <div className="widget-box">
-                                <p className="widget-box-title">{vikinger_translation.social_networks}</p>
+                                <p className="widget-box-title">{yipnyap_translation.social_networks}</p>
 
                                 <div className="widget-box-content">
                                     <div className="form">
@@ -916,7 +916,7 @@ function GroupManagePopup(props) {
                                 {
                                     activeTab === 'group-members' &&
                                     <div className="widget-box right-padded">
-                                        <p className="widget-box-title">{`${vikinger_translation.administrators} (${group.admins.length})`}</p>
+                                        <p className="widget-box-title">{`${yipnyap_translation.administrators} (${group.admins.length})`}</p>
 
                                         <div className="widget-box-content">
                                             <GroupMemberStatusList data={group.admins}
@@ -926,11 +926,11 @@ function GroupManagePopup(props) {
                                             />
                                         </div>
 
-                                        <p className="widget-box-title">{`${vikinger_translation.mods} (${group.mods.length})`}</p>
+                                        <p className="widget-box-title">{`${yipnyap_translation.mods} (${group.mods.length})`}</p>
 
                                         {
                                             (group.mods.length === 0) &&
-                                            <p className="no-results-text">{vikinger_translation.no_mods_found}</p>
+                                            <p className="no-results-text">{yipnyap_translation.no_mods_found}</p>
                                         }
 
                                         {
@@ -944,11 +944,11 @@ function GroupManagePopup(props) {
                                             </div>
                                         }
 
-                                        <p className="widget-box-title">{`${vikinger_translation.members} (${group.members.length})`}</p>
+                                        <p className="widget-box-title">{`${yipnyap_translation.members} (${group.members.length})`}</p>
 
                                         {
                                             (group.members.length === 0) &&
-                                            <p className="no-results-text">{vikinger_translation.no_members_found}</p>
+                                            <p className="no-results-text">{yipnyap_translation.no_members_found}</p>
                                         }
 
                                         {
@@ -962,11 +962,11 @@ function GroupManagePopup(props) {
                                             </div>
                                         }
 
-                                        <p className="widget-box-title">{`${vikinger_translation.banned_members} (${group.banned.length})`}</p>
+                                        <p className="widget-box-title">{`${yipnyap_translation.banned_members} (${group.banned.length})`}</p>
 
                                         {
                                             (group.banned.length === 0) &&
-                                            <p className="no-results-text">{vikinger_translation.no_banned_members_found}</p>
+                                            <p className="no-results-text">{yipnyap_translation.no_banned_members_found}</p>
                                         }
 
                                         {
@@ -985,13 +985,13 @@ function GroupManagePopup(props) {
                                 {
                                     activeTab === 'group-forum' &&
                                     <div className="widget-box">
-                                        <p className="widget-box-title">{vikinger_translation.forum}</p>
+                                        <p className="widget-box-title">{yipnyap_translation.forum}</p>
 
                                         <div className="widget-box-content">
                                             <p className="widget-box-text"><span
-                                                className="bold">{vikinger_translation.group_forum}</span></p>
-                                            <p className="widget-box-text">{vikinger_translation.group_forum_enable_title}</p>
-                                            <FormInputCheckbox text={vikinger_translation.group_forum_enable_text}
+                                                className="bold">{yipnyap_translation.group_forum}</span></p>
+                                            <p className="widget-box-text">{yipnyap_translation.group_forum_enable_title}</p>
+                                            <FormInputCheckbox text={yipnyap_translation.group_forum_enable_text}
                                                                active={groupData.enable_forum}
                                                                toggleActive={toggleForumActive}
                                             />
@@ -1000,7 +1000,7 @@ function GroupManagePopup(props) {
                                                 groupData.enable_forum &&
                                                 <div className="widget-box-form">
                                                     <FormInput name="post_title"
-                                                               label={vikinger_translation.forum_name}
+                                                               label={yipnyap_translation.forum_name}
                                                                value={forum.post_title}
                                                                handleValue
                                                                onChange={handleForumChange}
@@ -1010,7 +1010,7 @@ function GroupManagePopup(props) {
                                                     />
 
                                                     <FormTextarea name="post_content"
-                                                                  label={vikinger_translation.forum_description}
+                                                                  label={yipnyap_translation.forum_description}
                                                                   value={forum.post_content}
                                                                   handleValue
                                                                   onChange={handleForumChange}
@@ -1020,7 +1020,7 @@ function GroupManagePopup(props) {
                                                     />
 
                                                     <FormSelect name="post_status"
-                                                                label={vikinger_translation.forum_privacy}
+                                                                label={yipnyap_translation.forum_privacy}
                                                                 options={forumPrivacyOptions}
                                                                 value={forum.post_status}
                                                                 handleValue
@@ -1036,15 +1036,15 @@ function GroupManagePopup(props) {
                                 {
                                     activeTab === 'group-delete' &&
                                     <div className="widget-box">
-                                        <p className="widget-box-title">{vikinger_translation.delete_group}</p>
+                                        <p className="widget-box-title">{yipnyap_translation.delete_group}</p>
 
                                         <div className="widget-box-content">
-                                            <p className="widget-box-text">{vikinger_translation.delete_group_text}</p>
+                                            <p className="widget-box-text">{yipnyap_translation.delete_group_text}</p>
                                             <p className="widget-box-text"><span
-                                                className="bold">{vikinger_translation.delete_group_confirmation}</span>
+                                                className="bold">{yipnyap_translation.delete_group_confirmation}</span>
                                             </p>
                                             <div className="button tertiary" onClick={deleteGroup}>
-                                                {vikinger_translation.delete_group}
+                                                {yipnyap_translation.delete_group}
                                                 {
                                                     deleting &&
                                                     <LoaderSpinnerSmall/>

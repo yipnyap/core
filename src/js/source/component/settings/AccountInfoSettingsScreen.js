@@ -83,7 +83,7 @@ function AccountInfoSettingsScreen(props) {
 
     return (
         <div className="account-hub-content">
-            <SectionHeader pretitle={vikinger_translation.account} title={vikinger_translation.account_info}/>
+            <SectionHeader pretitle={yipnyap_translation.account} title={yipnyap_translation.account_info}/>
             {
                 !loggedUser &&
                 <Loader/>
@@ -110,12 +110,12 @@ function AccountInfoSettingsScreen(props) {
                                 <div className="button primary" onClick={save}>
                                     {
                                         !saving &&
-                                        vikinger_translation.save_changes
+                                        yipnyap_translation.save_changes
                                     }
                                     {
                                         saving &&
                                         <React.Fragment>
-                                            {vikinger_translation.saving}
+                                            {yipnyap_translation.saving}
                                             <LoaderSpinnerSmall/>
                                         </React.Fragment>
                                     }
@@ -126,7 +126,7 @@ function AccountInfoSettingsScreen(props) {
                     }
                     {
                         (profileDataGroups.length === 0) &&
-                        <p className="no-results-text">{vikinger_translation.no_account_info_available}</p>
+                        <p className="no-results-text">{yipnyap_translation.no_account_info_available}</p>
                     }
                 </React.Fragment>
             }

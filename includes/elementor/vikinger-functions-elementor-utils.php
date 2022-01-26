@@ -10,13 +10,13 @@
  * 
  * @return bool $elementor_page      True if elementor page, false otherwise.
  */
-function vikinger_is_elementor_page(){
+function yipnyap_is_elementor_page(){
   global $post;
 
   return \Elementor\Plugin::$instance->db->is_built_with_elementor($post->ID);
 }
 
-function vikinger_elementor_styles_encode_get($styles) {
+function yipnyap_elementor_styles_encode_get($styles) {
   $output = 'style=';
 
   foreach ($styles as $key => $value) {

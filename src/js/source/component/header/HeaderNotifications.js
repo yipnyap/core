@@ -1,44 +1,46 @@
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect} from 'react';
 
-import HeaderDropdownFriendRequests from './header-dropdown/header-dropdown-friend-requests/HeaderDropdownFriendRequests';
+import HeaderDropdownFriendRequests
+    from './header-dropdown/header-dropdown-friend-requests/HeaderDropdownFriendRequests';
 import HeaderDropdownMessages from './header-dropdown/header-dropdown-messages/HeaderDropdownMessages';
 import HeaderDropdownNotifications from './header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications';
 
 import * as userRouter from '../../router/user/user-router';
 
 function HeaderNotifications(props) {
-  const [loggedUser, setLoggedUser] = useState(false);
+    const [loggedUser, setLoggedUser] = useState(false);
 
-  const getLoggedInMember = (callback = () => {}) => {
-    userRouter.getLoggedInMember('user-friends')
-    .done((loggedUser) => {
-      console.log('HEADER NOTIFICATIONS - GET LOGGED USER RESPONSE: ', loggedUser);
+    const getLoggedInMember = (callback = () => {
+    }) => {
+        userRouter.getLoggedInMember('user-friends')
+            .done((loggedUser) => {
+                console.log('HEADER NOTIFICATIONS - GET LOGGED USER RESPONSE: ', loggedUser);
 
-      setLoggedUser(loggedUser);
+                setLoggedUser(loggedUser);
 
-      callback();
-    });
-  };
+                callback();
+            });
+    };
 
-  useEffect(() => {
-    getLoggedInMember();
-  }, []);
+    useEffect(() => {
+        getLoggedInMember();
+    }, []);
 
-  return (
-    <div className="action-list dark">
-    {
-      vikinger_constants.plugin_active.buddypress_friends &&
-        <HeaderDropdownFriendRequests loggedUser={loggedUser}
-                                      onActionComplete={getLoggedInMember}
-        />
-    }
-    {
-      vikinger_constants.plugin_active.buddypress_messages && vikinger_constants.plugin_active.buddypress_friends &&
-        <HeaderDropdownMessages loggedUser={loggedUser} />
-    }
-      <HeaderDropdownNotifications loggedUser={loggedUser} />
-    </div>
-  );
+    return (
+        <div className="action-list dark">
+            {
+                yipnyap_constants.plugin_active.buddypress_friends &&
+                <HeaderDropdownFriendRequests loggedUser={loggedUser}
+                                              onActionComplete={getLoggedInMember}
+                />
+            }
+            {
+                yipnyap_constants.plugin_active.buddypress_messages && yipnyap_constants.plugin_active.buddypress_friends &&
+                <HeaderDropdownMessages loggedUser={loggedUser}/>
+            }
+            <HeaderDropdownNotifications loggedUser={loggedUser}/>
+        </div>
+    );
 }
 
-export { HeaderNotifications as default };
+export {HeaderNotifications as default};

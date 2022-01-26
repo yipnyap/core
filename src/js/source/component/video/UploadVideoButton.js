@@ -7,7 +7,7 @@ import {createTooltip} from '../../utils/plugins';
 function UploadVideoButton(props) {
     const fileID = useRef(1);
 
-    const allowedExtensions = useRef(`.${vikinger_constants.settings.media_video_allowed_extensions.join(',.')}`);
+    const allowedExtensions = useRef(`.${yipnyap_constants.settings.media_video_allowed_extensions.join(',.')}`);
 
     const fileInputRef = useRef(null);
     const videoTooltipRef = useRef(null);
@@ -53,7 +53,7 @@ function UploadVideoButton(props) {
     return (
         <div className="quick-post-footer-action"
              ref={videoTooltipRef}
-             data-title={vikinger_translation.add_video}
+             data-title={yipnyap_translation.add_video}
              onClick={() => {
                  fileInputRef.current.click();
              }}

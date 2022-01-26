@@ -10,25 +10,25 @@
  *
  */
 
-$login_page_default_logo_id = get_theme_mod('vikinger_loginregister_setting_login_logo', false);
+$login_page_default_logo_id = get_theme_mod('yipnyap_loginregister_setting_login_logo', false);
 
 if ($login_page_default_logo_id) {
     $login_page_default_logo_url = wp_get_attachment_image_src($login_page_default_logo_id, 'full')[0];
 } else {
-    $login_page_default_logo_url = VIKINGER_URL . '/img/login/logo.png';
+    $login_page_default_logo_url = YIPNYAP_URL . '/img/login/logo.png';
 }
 
-$login_page_default_background_id = get_theme_mod('vikinger_loginregister_setting_login_background', false);
+$login_page_default_background_id = get_theme_mod('yipnyap_loginregister_setting_login_background', false);
 
 if ($login_page_default_background_id) {
     $login_page_default_background_url = wp_get_attachment_image_src($login_page_default_background_id, 'full')[0];
 } else {
-    $login_page_default_background_url = VIKINGER_URL . '/img/login/background.png';
+    $login_page_default_background_url = YIPNYAP_URL . '/img/login/background.png';
 }
 
-$login_page_pretitle = get_theme_mod('vikinger_loginregister_setting_login_pretitle', esc_html_x('Welcome to', 'Login Page - Pre Title', 'vikinger'));
-$login_page_title = get_theme_mod('vikinger_loginregister_setting_login_title', esc_html_x('Vikinger', 'Login Page - Title', 'vikinger'));
-$login_page_text = get_theme_mod('vikinger_loginregister_setting_login_text', sprintf(esc_html__('%sThe next generation WordPress+Buddypress social community!%s Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and %smuch more to come!%s', 'vikinger'), '<span class="bold">', '</span>', '<span class="bold">', '</span>'));
+$login_page_pretitle = get_theme_mod('yipnyap_loginregister_setting_login_pretitle', esc_html_x('Welcome to', 'Login Page - Pre Title', 'yipnyap'));
+$login_page_title = get_theme_mod('yipnyap_loginregister_setting_login_title', esc_html_x('Yipnyap', 'Login Page - Title', 'yipnyap'));
+$login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', sprintf(esc_html__('%sThe next generation WordPress+Buddypress social community!%s Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and %smuch more to come!%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>'));
 
 ?>
 
@@ -54,7 +54,7 @@ $login_page_text = get_theme_mod('vikinger_loginregister_setting_login_text', sp
     <!-- /VKREGISTER LOGO -->
 
     <!-- VKREGISTER FORM TITLE -->
-    <p class="vkregister-form-title"><?php esc_html_e('Account Activation', 'vikinger'); ?></p>
+    <p class="vkregister-form-title"><?php esc_html_e('Account Activation', 'yipnyap'); ?></p>
     <!-- /VKREGISTER FORM TITLE -->
 
     <?php
@@ -152,9 +152,9 @@ $login_page_text = get_theme_mod('vikinger_loginregister_setting_login_text', sp
     ?>
 
     <p class="vk-bp-register-page-nav">
-        <a href="<?php echo esc_url(wp_login_url()); ?>"><?php esc_html_e('Login', 'vikinger'); ?></a>
+        <a href="<?php echo esc_url(wp_login_url()); ?>"><?php esc_html_e('Login', 'yipnyap'); ?></a>
         |
-        <a href="<?php echo esc_url($register_page_link); ?>"><?php esc_html_e('Register', 'vikinger'); ?></a>
+        <a href="<?php echo esc_url($register_page_link); ?>"><?php esc_html_e('Register', 'yipnyap'); ?></a>
     </p>
 
 </div><!-- #buddypress -->

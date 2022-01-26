@@ -21,7 +21,7 @@ function CommentForm(props) {
 
     const handleSubmit = () => {
         if (replyText === '') {
-            setError(vikinger_translation.comment_empty_message);
+            setError(yipnyap_translation.comment_empty_message);
             return;
         }
 
@@ -74,9 +74,9 @@ function CommentForm(props) {
                     <div className="form-item">
                         <ExpandableTextarea name="replyText"
                                             value={replyText}
-                                            label={vikinger_translation.your_reply}
+                                            label={yipnyap_translation.your_reply}
                                             modifiers="small"
-                                            maxLength={vikinger_constants.settings.activity_comment_character_limit}
+                                            maxLength={yipnyap_constants.settings.activity_comment_character_limit}
                                             userFriends={props.user.friends}
                                             handleChange={handleReplyTextChange}
                                             loading={loading}

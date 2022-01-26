@@ -17,15 +17,15 @@
    */
   get_template_part('template-part/section/section', 'header', [
     'section_pretitle'    => sprintf(
-      esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+      esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
       $group['name']
     ),
-    'section_title'       => esc_html__('Members', 'vikinger'),
+    'section_title'       => esc_html__('Members', 'yipnyap'),
     'section_text'        => $group['total_member_count'],
     'section_text_color'  => 'secondary'
   ]);
 
-  $members_grid_type = vikinger_logged_user_grid_type_get('member');
+  $members_grid_type = yipnyap_logged_user_grid_type_get('member');
   
 ?>
 

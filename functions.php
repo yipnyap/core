@@ -58,133 +58,133 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-define('VIKINGER_VERSION', '1.9.1.0');
-define('VIKINGER_VERSION_OPTION', 'vikinger_version');
+define('YIPNYAP_VERSION', '1.9.1.0');
+define('YIPNYAP_VERSION_OPTION', 'yipnyap_version');
 
 /**
  * Theme paths and urls
  */
-define('VIKINGER_PATH', get_template_directory());
-define('VIKINGER_URL', get_template_directory_uri());
-define('VIKINGER_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/vikinger');
-define('VIKINGER_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/vikinger');
+define('YIPNYAP_PATH', get_template_directory());
+define('YIPNYAP_URL', get_template_directory_uri());
+define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
+define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
 /**
  * TRANSLATION functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions-translation.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-translation.php';
 
 /**
  * Load admin styles and scripts
  */
-function vikinger_admin_load_scripts()
+function yipnyap_admin_load_scripts()
 {
     // load fonts
-    wp_enqueue_style('vikinger-admin-fonts', 'https://fonts.googleapis.com/css?family=Rajdhani:400,500,600,700|Titillium+Web:400,900&display=swap');
+    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Rajdhani:400,500,600,700|Titillium+Web:400,900&display=swap');
 
     // add custom stylesheets
-    wp_enqueue_style('vikinger-admin-styles', VIKINGER_URL . '/src/css/admin-style.min.css', array(), '1.3.1');
+    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.3.1');
 
     // add custom scripts
-    wp_enqueue_script('vikinger-admin-scripts', VIKINGER_URL . '/src/js/admin.bundle.min.js', [], '3.8.1', true);
+    wp_enqueue_script('yipnyap-admin-scripts', YIPNYAP_URL . '/src/js/admin.bundle.min.js', [], '3.8.1', true);
 
     // pass php variables to javascript file
-    wp_localize_script('vikinger-admin-scripts', 'vikinger_constants', array(
-        'vikinger_admin_ajax_nonce' => wp_create_nonce('vikinger_admin_ajax')
+    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', array(
+        'yipnyap_admin_ajax_nonce' => wp_create_nonce('yipnyap_admin_ajax')
     ));
 
     // pass translation strings to javascript file
-    wp_localize_script('vikinger-admin-scripts', 'vikinger_translation', vikinger_translation_get());
+    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_translation', yipnyap_translation_get());
 }
 
-add_action('admin_enqueue_scripts', 'vikinger_admin_load_scripts');
+add_action('admin_enqueue_scripts', 'yipnyap_admin_load_scripts');
 
 /**
  * Load theme styles and scripts
  */
-function vikinger_load_scripts()
+function yipnyap_load_scripts()
 {
     // get fonts
-    $fonts = vikinger_customizer_theme_fonts_get_for_enqueue();
+    $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
     // load fonts
-    wp_enqueue_style('vikinger-fonts', 'https://fonts.googleapis.com/css?family=' . $fonts['primary'] . ':400,500,600,700|' . $fonts['secondary'] . ':400,900&display=swap');
+    wp_enqueue_style('yipnyap-fonts', 'https://fonts.googleapis.com/css?family=' . $fonts['primary'] . ':400,500,600,700|' . $fonts['secondary'] . ':400,900&display=swap');
 
     // add custom stylesheets
-    wp_enqueue_style('vikinger-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
-    wp_enqueue_style('vikinger-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
-    wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['vikinger-simplebar-styles', 'vikinger-swiper-slider-styles'], '3.8.1');
+    wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
+    wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
+    wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], '3.8.1');
     wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '1.11.0');
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], '1.0.2');
 
     // get user custom theme fonts
-    $custom_fonts = vikinger_customizer_theme_fonts_get_style();
+    $custom_fonts = yipnyap_customizer_theme_fonts_get_style();
 
     // add user custom theme fonts
     wp_add_inline_style('oldkiner-styles', $custom_fonts);
 
     // get user custom theme colors
-    $custom_colors = vikinger_customizer_theme_colors_get();
+    $custom_colors = yipnyap_customizer_theme_colors_get();
 
     // add user custom theme colors
     wp_add_inline_style('oldkiner-styles', $custom_colors);
 
     // add plugins
-    wp_enqueue_script('vikinger-swiper-scripts', VIKINGER_URL . '/src/js/source/vendor/swiper.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmaccordion-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_accordion.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmdropdown-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_dropdown.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmhexagon-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_hexagon.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmpopup-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_popup.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmprogressBar-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_progressBar.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmtab-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_tab.min.js', [], '1.0.0', true);
-    wp_enqueue_script('vikinger-xmtooltip-scripts', VIKINGER_URL . '/src/js/source/vendor/xm_tooltip.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-swiper-scripts', YIPNYAP_URL . '/src/js/source/vendor/swiper.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmaccordion-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_accordion.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmdropdown-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_dropdown.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmhexagon-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_hexagon.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmpopup-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_popup.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmprogressBar-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_progressBar.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmtab-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_tab.min.js', [], '1.0.0', true);
+    wp_enqueue_script('yipnyap-xmtooltip-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_tooltip.min.js', [], '1.0.0', true);
 
-    $vikinger_main_scripts_dependencies = [
+    $yipnyap_main_scripts_dependencies = [
         'jquery',
-        'vikinger-swiper-scripts',
-        'vikinger-xmaccordion-scripts',
-        'vikinger-xmdropdown-scripts',
-        'vikinger-xmhexagon-scripts',
-        'vikinger-xmpopup-scripts',
-        'vikinger-xmprogressBar-scripts',
-        'vikinger-xmtab-scripts',
-        'vikinger-xmtooltip-scripts'
+        'yipnyap-swiper-scripts',
+        'yipnyap-xmaccordion-scripts',
+        'yipnyap-xmdropdown-scripts',
+        'yipnyap-xmhexagon-scripts',
+        'yipnyap-xmpopup-scripts',
+        'yipnyap-xmprogressBar-scripts',
+        'yipnyap-xmtab-scripts',
+        'yipnyap-xmtooltip-scripts'
     ];
 
     // add main script
-    wp_enqueue_script('vikinger-main-scripts', VIKINGER_URL . '/src/js/app.bundle.min.js', $vikinger_main_scripts_dependencies, '3.9.0', true);
+    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '3.9.0', true);
 
     // add EX script
-    wp_enqueue_script('yapex-main-scripts', VIKINGER_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);
+    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);
 
-    global $vikinger_settings;
+    global $yipnyap_settings;
 
-    $vikinger_settings = vikinger_settings_get();
+    $yipnyap_settings = yipnyap_settings_get();
 
     // pass php variables to javascript file
-    wp_localize_script('vikinger-main-scripts', 'vikinger_constants', [
-        'vikinger_url' => VIKINGER_URL,
+    wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
+        'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk'),
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
-        'vikinger_ajax_nonce' => wp_create_nonce('vikinger_ajax'),
+        'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
         'rest_root' => esc_url_raw(rest_url()),
-        'plugin_active' => vikinger_plugin_get_required_plugins_activation_status(),
-        'gamipress_badge_type_exists' => vikinger_plugin_gamipress_is_active() && vikinger_gamipress_achievement_type_exists('badge'),
-        'colors' => vikinger_customizer_theme_colors_get_array(),
-        'settings' => $vikinger_settings
+        'plugin_active' => yipnyap_plugin_get_required_plugins_activation_status(),
+        'gamipress_badge_type_exists' => yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge'),
+        'colors' => yipnyap_customizer_theme_colors_get_array(),
+        'settings' => $yipnyap_settings
     ]);
 
     // pass translation strings to javascript file
-    wp_localize_script('vikinger-main-scripts', 'vikinger_translation', vikinger_translation_get());
+    wp_localize_script('yipnyap-main-scripts', 'yipnyap_translation', yipnyap_translation_get());
 }
 
-add_action('wp_enqueue_scripts', 'vikinger_load_scripts');
+add_action('wp_enqueue_scripts', 'yipnyap_load_scripts');
 
 /**
  * Remove plugin styles that are not needed to reduce file queries
  */
-function vikinger_dequeue_styles()
+function yipnyap_dequeue_styles()
 {
     // remove BuddyPress styles
     wp_dequeue_style('bp-legacy-css');
@@ -193,179 +193,179 @@ function vikinger_dequeue_styles()
     wp_dequeue_style('gamipress-css');
 }
 
-add_action('wp_enqueue_scripts', 'vikinger_dequeue_styles', 20);
+add_action('wp_enqueue_scripts', 'yipnyap_dequeue_styles', 20);
 
 /**
  * Add body class filters
  */
-function vikinger_body_classes($classes)
+function yipnyap_body_classes($classes)
 {
     if (is_admin_bar_showing()) {
-        $classes[] = 'vikinger-top-space';
+        $classes[] = 'yipnyap-top-space';
     }
 
     if (!is_user_logged_in()) {
-        $classes[] = 'vikinger-logged-out';
+        $classes[] = 'yipnyap-logged-out';
     }
 
     return $classes;
 }
 
-add_filter('body_class', 'vikinger_body_classes');
+add_filter('body_class', 'yipnyap_body_classes');
 
 /**
  * Theme Options
  */
-function vikinger_admin_page_index_html()
+function yipnyap_admin_page_index_html()
 {
-    $filepath = VIKINGER_PATH . '/views/index.php';
+    $filepath = YIPNYAP_PATH . '/views/index.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_plugins_html()
+function yipnyap_admin_page_plugins_html()
 {
-    $filepath = VIKINGER_PATH . '/views/plugins.php';
+    $filepath = YIPNYAP_PATH . '/views/plugins.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_documentation_html()
+function yipnyap_admin_page_documentation_html()
 {
-    $filepath = VIKINGER_PATH . '/views/documentation.php';
+    $filepath = YIPNYAP_PATH . '/views/documentation.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_faqs_html()
+function yipnyap_admin_page_faqs_html()
 {
-    $filepath = VIKINGER_PATH . '/views/faqs.php';
+    $filepath = YIPNYAP_PATH . '/views/faqs.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_troubleshooting_html()
+function yipnyap_admin_page_troubleshooting_html()
 {
-    $filepath = VIKINGER_PATH . '/views/troubleshooting.php';
+    $filepath = YIPNYAP_PATH . '/views/troubleshooting.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_changelog_html()
+function yipnyap_admin_page_changelog_html()
 {
-    $filepath = VIKINGER_PATH . '/views/changelog.php';
+    $filepath = YIPNYAP_PATH . '/views/changelog.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_support_html()
+function yipnyap_admin_page_support_html()
 {
-    $filepath = VIKINGER_PATH . '/views/support.php';
+    $filepath = YIPNYAP_PATH . '/views/support.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_demo_import_html()
+function yipnyap_admin_page_demo_import_html()
 {
-    $filepath = VIKINGER_PATH . '/views/demo-import.php';
+    $filepath = YIPNYAP_PATH . '/views/demo-import.php';
     require_once($filepath);
 }
 
-function vikinger_admin_page_index()
+function yipnyap_admin_page_index()
 {
     add_menu_page(
         'YapEX - Index',
         'YapSDK',
         'manage_options',
-        'vikinger_index',
-        'vikinger_admin_page_index_html',
-        VIKINGER_URL . '/img/admin/options-icon.png'
+        'yipnyap_index',
+        'yipnyap_admin_page_index_html',
+        YIPNYAP_URL . '/img/admin/options-icon.png'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Index',
         'Getting Started',
         'manage_options',
-        'vikinger_index',
-        'vikinger_admin_page_index_html'
+        'yipnyap_index',
+        'yipnyap_admin_page_index_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - General',
         'General',
         'manage_options',
-        'vikinger_plugins',
-        'vikinger_admin_page_plugins_html'
+        'yipnyap_plugins',
+        'yipnyap_admin_page_plugins_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Documentation',
         'Documentation',
         'manage_options',
-        'vikinger_documentation',
-        'vikinger_admin_page_documentation_html'
+        'yipnyap_documentation',
+        'yipnyap_admin_page_documentation_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - FAQs',
         'FAQs',
         'manage_options',
-        'vikinger_faqs',
-        'vikinger_admin_page_faqs_html'
+        'yipnyap_faqs',
+        'yipnyap_admin_page_faqs_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Troubleshooting',
         'Troubleshooting',
         'manage_options',
-        'vikinger_troubleshooting',
-        'vikinger_admin_page_troubleshooting_html'
+        'yipnyap_troubleshooting',
+        'yipnyap_admin_page_troubleshooting_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Changelog',
         'Changelog',
         'manage_options',
-        'vikinger_changelog',
-        'vikinger_admin_page_changelog_html'
+        'yipnyap_changelog',
+        'yipnyap_admin_page_changelog_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Support',
         'Support',
         'manage_options',
-        'vikinger_support',
-        'vikinger_admin_page_support_html'
+        'yipnyap_support',
+        'yipnyap_admin_page_support_html'
     );
 
     add_submenu_page(
-        'vikinger_index',
+        'yipnyap_index',
         'YapEX - Demo Import',
         'Demo Import',
         'manage_options',
-        'vikinger_demo_import',
-        'vikinger_admin_page_demo_import_html'
+        'yipnyap_demo_import',
+        'yipnyap_admin_page_demo_import_html'
     );
 }
 
-add_action('admin_menu', 'vikinger_admin_page_index');
+add_action('admin_menu', 'yipnyap_admin_page_index');
 
 /**
  * Navigation Menus
  */
-function vikinger_register_menus()
+function yipnyap_register_menus()
 {
     register_nav_menus(
         array(
-            'header_menu' => esc_html_x('Header Menu', '(Backend) Menu Location Name', 'vikinger'),
-            'header_features_menu' => esc_html_x('Header Features Menu', '(Backend) Menu Location Name', 'vikinger'),
-            'side_menu' => esc_html_x('Side Menu', '(Backend) Menu Location Name', 'vikinger'),
-            'footer_menu' => esc_html_x('Footer Menu', '(Backend) Menu Location Name', 'vikinger')
+            'header_menu' => esc_html_x('Header Menu', '(Backend) Menu Location Name', 'yipnyap'),
+            'header_features_menu' => esc_html_x('Header Features Menu', '(Backend) Menu Location Name', 'yipnyap'),
+            'side_menu' => esc_html_x('Side Menu', '(Backend) Menu Location Name', 'yipnyap'),
+            'footer_menu' => esc_html_x('Footer Menu', '(Backend) Menu Location Name', 'yipnyap')
         )
     );
 }
 
-add_action('init', 'vikinger_register_menus');
+add_action('init', 'yipnyap_register_menus');
 
 
 add_filter('admin_title', 'my_admin_title', 10, 2);
@@ -378,7 +378,7 @@ function my_admin_title($admin_title, $title)
 /**
  * Add support for features
  */
-function vikinger_support_features()
+function yipnyap_support_features()
 {
     add_theme_support('post-formats', array('video', 'audio', 'gallery'));
 
@@ -400,13 +400,13 @@ function vikinger_support_features()
     set_post_thumbnail_size(584);
 
     // Add custom image sizes used in post versions cover.
-    add_image_size('vikinger-postlist-thumb', 40, 40, true);
-    add_image_size('vikinger-postv1-fullscreen', 1980);
-    add_image_size('vikinger-postv2-fullscreen', 1184);
+    add_image_size('yipnyap-postlist-thumb', 40, 40, true);
+    add_image_size('yipnyap-postv1-fullscreen', 1980);
+    add_image_size('yipnyap-postv2-fullscreen', 1184);
 
     // bbPress images
     add_post_type_support('forum', 'thumbnail');
-    add_image_size('vikinger-forum-thumb', 64, 64, true);
+    add_image_size('yipnyap-forum-thumb', 64, 64, true);
 
     // WooCommerce support
     add_theme_support('woocommerce');
@@ -416,12 +416,12 @@ function vikinger_support_features()
     add_theme_support('wc-product-gallery-slider');
 }
 
-add_action('after_setup_theme', 'vikinger_support_features');
+add_action('after_setup_theme', 'yipnyap_support_features');
 
 /**
  * Hide admin bar for non administrators
  */
-$admin_bar_status = get_theme_mod('vikinger_adminbar_setting_display', 'display');
+$admin_bar_status = get_theme_mod('yipnyap_adminbar_setting_display', 'display');
 
 if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
     show_admin_bar(false);
@@ -430,38 +430,38 @@ if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
 /**
  * Yipnyap functions
  */
-require_once VIKINGER_PATH . '/includes/functions/vikinger-functions.php';
+require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions.php';
 
 /**
  * Yipnyap filters
  */
-require_once VIKINGER_PATH . '/includes/filters/vikinger-filters.php';
+require_once YIPNYAP_PATH . '/includes/filters/vikinger-filters.php';
 
 /**
  * Yipnyap AJAX
  */
-require_once VIKINGER_PATH . '/includes/ajax/vikinger-ajax.php';
+require_once YIPNYAP_PATH . '/includes/ajax/vikinger-ajax.php';
 
 /**
  * Yipnyap sidebars
  */
-require_once VIKINGER_PATH . '/includes/sidebars/vikinger-sidebars.php';
+require_once YIPNYAP_PATH . '/includes/sidebars/vikinger-sidebars.php';
 
 /**
  * Yipnyap customizer
  */
-require_once VIKINGER_PATH . '/includes/customizer/vikinger-customizer.php';
+require_once YIPNYAP_PATH . '/includes/customizer/vikinger-customizer.php';
 
 /**
  * PHP Autoloader
  */
-function vikinger_class_autoloader($class_name)
+function yipnyap_class_autoloader($class_name)
 {
-    $base_path = VIKINGER_PATH . '/includes/classes';
+    $base_path = YIPNYAP_PATH . '/includes/classes';
 
     // utils classes
     $utils_path = $base_path . '/utils';
-    $utils_classes = ['Vikinger_Scheduler', 'Vikinger_Task'];
+    $utils_classes = ['Yipnyap_Scheduler', 'Yipnyap_Task'];
 
     foreach ($utils_classes as $utils_class) {
         if ($class_name === $utils_class) {
@@ -470,22 +470,22 @@ function vikinger_class_autoloader($class_name)
     }
 }
 
-spl_autoload_register('vikinger_class_autoloader');
+spl_autoload_register('yipnyap_class_autoloader');
 
 /**
  * Allow the use of wp_redirect / wp_safe_redirect after headers are sent (after the get_header() function is called)
  */
-function vikinger_allow_redirect_after_header()
+function yipnyap_allow_redirect_after_header()
 {
     ob_start();
 }
 
-add_action('init', 'vikinger_allow_redirect_after_header');
+add_action('init', 'yipnyap_allow_redirect_after_header');
 
 /**
  * Setup member cover preferred image size
  */
-function vikinger_members_cover_image_setup($settings = [])
+function yipnyap_members_cover_image_setup($settings = [])
 {
     // dimension settings
     $settings['width'] = 1184;
@@ -494,12 +494,12 @@ function vikinger_members_cover_image_setup($settings = [])
     return $settings;
 }
 
-add_filter('bp_before_members_cover_image_settings_parse_args', 'vikinger_members_cover_image_setup', 10, 1);
+add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_members_cover_image_setup', 10, 1);
 
 /**
  * Setup group cover preferred image size
  */
-function vikinger_group_cover_image_setup($settings = [])
+function yipnyap_group_cover_image_setup($settings = [])
 {
     // dimension settings
     $settings['width'] = 1184;
@@ -508,7 +508,7 @@ function vikinger_group_cover_image_setup($settings = [])
     return $settings;
 }
 
-add_filter('bp_before_groups_cover_image_settings_parse_args', 'vikinger_group_cover_image_setup', 10, 1);
+add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_group_cover_image_setup', 10, 1);
 
 /**
  * Disable Gravatar
@@ -518,36 +518,36 @@ add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
 /**
  * Set default member avatar
  */
-function vikinger_set_default_member_avatar()
+function yipnyap_set_default_member_avatar()
 {
-    $members_default_avatar_url = vikinger_get_default_member_avatar_url();
+    $members_default_avatar_url = yipnyap_get_default_member_avatar_url();
 
     return $members_default_avatar_url;
 }
 
-add_filter('bp_core_default_avatar_user', 'vikinger_set_default_member_avatar');
+add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 
 /**
  * Set default group avatar
  */
-function vikinger_set_default_group_avatar()
+function yipnyap_set_default_group_avatar()
 {
-    $groups_default_avatar_url = vikinger_get_default_group_avatar_url();
+    $groups_default_avatar_url = yipnyap_get_default_group_avatar_url();
 
     return $groups_default_avatar_url;
 }
 
-add_filter('bp_core_default_avatar_group', 'vikinger_set_default_group_avatar');
+add_filter('bp_core_default_avatar_group', 'yipnyap_set_default_group_avatar');
 
 /**
  * Load translations
  */
-function vikinger_translations_load()
+function yipnyap_translations_load()
 {
-    load_theme_textdomain('vikinger', VIKINGER_PATH . '/languages');
+    load_theme_textdomain('yipnyap', YIPNYAP_PATH . '/languages');
 }
 
-add_action('after_setup_theme', 'vikinger_translations_load');
+add_action('after_setup_theme', 'yipnyap_translations_load');
 
 add_filter('login_title', function ($login_title) {
     return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'),), array(' &lsaquo;', ''), $login_title);

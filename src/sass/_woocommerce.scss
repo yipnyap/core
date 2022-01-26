@@ -5,25 +5,25 @@
   & + {
     .woocommerce,
     .woocommerce-breadcrumb,
-    .vikinger-woocommerce-page-title,
-    .vikinger-wc-content {
+    .yipnyap-woocommerce-page-title,
+    .yipnyap-wc-content {
       margin-top: 64px;
     }
   }
 }
 
-.vikinger-wc-content {
-  &.vikinger-wc-content-with-sidebar {
+.yipnyap-wc-content {
+  &.yipnyap-wc-content-with-sidebar {
     display: grid;
     grid-template-areas: "sidebar body";
     gap: 16px;
     grid-template-columns: $col-3 $col-9;
 
-    .vikinger-wc-sidebar {
+    .yipnyap-wc-sidebar {
       grid-area: sidebar;
     }
 
-    .vikinger-wc-body {
+    .yipnyap-wc-body {
       grid-area: body;
     }
   }
@@ -123,7 +123,7 @@
   }
 }
 
-.vikinger-woocommerce-page-title {
+.yipnyap-woocommerce-page-title {
   margin-bottom: 32px;
   font-size: 2em;
 }
@@ -219,7 +219,7 @@
     }
   }
 
-  .vikinger-wc-categories {
+  .yipnyap-wc-categories {
     color: var(--color-text) !important;
     font-size: $fs-12;
     font-weight: $weight-bold;
@@ -405,12 +405,12 @@
         }
       }
 
-      .vikinger-wc-product-info {
+      .yipnyap-wc-product-info {
         padding: 28px 28px 0;
         position: relative;
       }
 
-      .vikinger-wc-categories {
+      .yipnyap-wc-categories {
         margin-top: 6px;
       }
 
@@ -460,7 +460,7 @@
       }
 
       &:hover {
-        .vikinger-woocommerce-product-actions {
+        .yipnyap-woocommerce-product-actions {
           .button,
           .added_to_cart {
             transform: translate(0, 0);
@@ -470,7 +470,7 @@
         }
       }
 
-      .vikinger-woocommerce-product-actions {
+      .yipnyap-woocommerce-product-actions {
         display: flex;
         flex-direction: column;
         justify-content: center;
@@ -742,7 +742,7 @@
         }
       }
 
-      .vikinger-wc-categories {
+      .yipnyap-wc-categories {
         margin-top: 8px;
         font-size: $fs-14;
 
@@ -2129,19 +2129,19 @@
 
   .section-banner {
     & + {
-      .vikinger-wc-content {
+      .yipnyap-wc-content {
         margin-top: 32px;
       }
     }
   }
 
-  .vikinger-wc-content {
-    &.vikinger-wc-content-with-sidebar {
+  .yipnyap-wc-content {
+    &.yipnyap-wc-content-with-sidebar {
       grid-template-areas: "sidebar"
                             "body";
       grid-template-columns: 100%;
 
-      .vikinger-wc-sidebar {
+      .yipnyap-wc-sidebar {
         margin-bottom: 32px;
       }
     }
@@ -2258,7 +2258,7 @@
           .form-row {
             float: none;
             width: 100%;
-  
+
             .button {
               width: 100%;
               margin: 0;

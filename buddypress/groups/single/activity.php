@@ -24,14 +24,14 @@
       'group_id'  => $group['id']
     ];
 
-    $group_meta = vikinger_group_get_meta($group_meta_args);
+    $group_meta = yipnyap_group_get_meta($group_meta_args);
 
     /**
      * Widget Social
      */
     get_template_part('template-part/widget/widget-social', null, [
-      'widget_title'  => esc_html__('Social Networks', 'vikinger'),
-      'social_links'  => vikinger_groups_meta_get_social_links($group_meta)
+      'widget_title'  => esc_html__('Social Networks', 'yipnyap'),
+      'social_links'  => yipnyap_groups_meta_get_social_links($group_meta)
     ]);
 
     /**
@@ -41,15 +41,15 @@
       'group' => $group
     ]);
 
-    $newest_members = vikinger_groups_get_members(['group_id' => $group['id'], 'exclude_admins' => false, 'per_page' => 5]);
+    $newest_members = yipnyap_groups_get_members(['group_id' => $group['id'], 'exclude_admins' => false, 'per_page' => 5]);
 
     /**
      * Widget User List
      */
     get_template_part('template-part/widget/widget-user-list', null, [
-      'widget_title'    => esc_html__('Newest Members', 'vikinger'),
+      'widget_title'    => esc_html__('Newest Members', 'yipnyap'),
       'users'           => $newest_members,
-      'no_results_text' => esc_html__('No members found', 'vikinger')
+      'no_results_text' => esc_html__('No members found', 'yipnyap')
     ]);
 
   ?>
@@ -64,29 +64,29 @@
   <div class="grid-column">
   <?php
 
-    $group_admins = vikinger_get_group_admins($group['id']);
+    $group_admins = yipnyap_get_group_admins($group['id']);
 
     /**
      * Widget User List
      */
     get_template_part('template-part/widget/widget-user-list', null, [
-      'widget_title'  => esc_html__('Group Administrators', 'vikinger'),
+      'widget_title'  => esc_html__('Group Administrators', 'yipnyap'),
       'users'         => $group_admins
     ]);
 
-    $group_mods = vikinger_get_group_mods($group['id']);
+    $group_mods = yipnyap_get_group_mods($group['id']);
 
     /**
      * Widget User List
      */
     get_template_part('template-part/widget/widget-user-list', null, [
-      'widget_title'    => esc_html__('Group Moderators', 'vikinger'),
+      'widget_title'    => esc_html__('Group Moderators', 'yipnyap'),
       'users'           => $group_mods,
-      'no_results_text' => esc_html__('This group doesn\'t have any moderators', 'vikinger')
+      'no_results_text' => esc_html__('This group doesn\'t have any moderators', 'yipnyap')
     ]);
 
     // add vkmedia photos widget if plugin is active
-    if (vikinger_plugin_vkmedia_is_active()) :
+    if (yipnyap_plugin_vkmedia_is_active()) :
 
   ?>
 

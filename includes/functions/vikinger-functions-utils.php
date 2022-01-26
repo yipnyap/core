@@ -5,7 +5,7 @@
  * @since 1.0.0
  */
 
-if (!function_exists('vikinger_truncate_text')) {
+if (!function_exists('yipnyap_truncate_text')) {
   /**
    * Truncates text with given length and adds a line finisher
    * 
@@ -14,7 +14,7 @@ if (!function_exists('vikinger_truncate_text')) {
    * @param string  $more_text            Line finisher.
    * @return string $truncated_text       Truncated text.
    */
-  function vikinger_truncate_text($text, $word_limit = 40, $more_text = '&hellip;') {
+  function yipnyap_truncate_text($text, $word_limit = 40, $more_text = '&hellip;') {
     $truncated_text = $text;
 
     if (strlen($text) > $word_limit) {
@@ -26,28 +26,28 @@ if (!function_exists('vikinger_truncate_text')) {
   }
 }
 
-if (!function_exists('vikinger_join_text')) {
+if (!function_exists('yipnyap_join_text')) {
   /**
    * Replaces text white spaces with a separator
    * 
    * @param string  $text           Text to replace white spaces with a separator.
    * @param string  $separator      Optiona. Separator to use. Default: '-'
    */
-  function vikinger_join_text($text, $separator = '-') {
+  function yipnyap_join_text($text, $separator = '-') {
     $joined_text = preg_replace('/\s+/', $separator, $text);
 
     return $joined_text;
   }
 }
 
-if (!function_exists('vikinger_menu_get_items')) {
+if (!function_exists('yipnyap_menu_get_items')) {
   /**
    * Returns menu items
    * 
    * @param string $menu_location       Menu location.
    * @return array 
    */
-  function vikinger_menu_get_items($menu_location, $args = []) {
+  function yipnyap_menu_get_items($menu_location, $args = []) {
     $menu_items = [
       'flat'      => [],
       'threaded'  => []
@@ -74,7 +74,7 @@ if (!function_exists('vikinger_menu_get_items')) {
       $current_post_id = get_queried_object_id();
 
       // if BuddyPress plugin is active and a BuddyPress page is front page, get page on front id
-      if (vikinger_plugin_buddypress_is_active() && bp_is_component_front_page()) {
+      if (yipnyap_plugin_buddypress_is_active() && bp_is_component_front_page()) {
         $current_post_id = get_option('page_on_front');
       }
 
@@ -107,7 +107,7 @@ if (!function_exists('vikinger_menu_get_items')) {
 
           // put menu in children on threaded array if there is a parent item
           if (($menu_parent !== 0)) {
-            vikinger_menu_add_children($menu_item_data, $menu_items['threaded']);
+            yipnyap_menu_add_children($menu_item_data, $menu_items['threaded']);
           } else {
             $menu_items['threaded'][] = $menu_item_data;
           }
@@ -119,11 +119,11 @@ if (!function_exists('vikinger_menu_get_items')) {
   }
 }
 
-if (!function_exists('vikinger_menu_add_children')) {
+if (!function_exists('yipnyap_menu_add_children')) {
   /**
    * Recursively add children to menu items
    */
-  function vikinger_menu_add_children($menu_item_child, &$menu_items) {
+  function yipnyap_menu_add_children($menu_item_child, &$menu_items) {
     for ($i = 0; $i < count($menu_items); $i++) {
       if ($menu_items[$i]['id'] === $menu_item_child['parent_id']) {
         $menu_items[$i]['children'][] = $menu_item_child;
@@ -132,17 +132,17 @@ if (!function_exists('vikinger_menu_add_children')) {
 
       // iterate over children if they exist
       if (count($menu_items[$i]['children']) > 0) {
-        vikinger_menu_add_children($menu_item_child, $menu_items[$i]['children']);
+        yipnyap_menu_add_children($menu_item_child, $menu_items[$i]['children']);
       }
     }
   }
 }
 
-if (!function_exists('vikinger_menu_group_by_parent')) {
+if (!function_exists('yipnyap_menu_group_by_parent')) {
   /**
    * Groups menu items by parent
    */
-  function vikinger_menu_group_by_parent($menu_items) {
+  function yipnyap_menu_group_by_parent($menu_items) {
     $grouped_menu_items = [];
 
     foreach ($menu_items as $menu_item) {
@@ -157,7 +157,7 @@ if (!function_exists('vikinger_menu_group_by_parent')) {
   }
 }
 
-if (!function_exists('vikinger_get_random_items_from')) {
+if (!function_exists('yipnyap_get_random_items_from')) {
   /**
    * Get random items from an array
    * 
@@ -165,7 +165,7 @@ if (!function_exists('vikinger_get_random_items_from')) {
    * @param int   $max        The number of random items to get
    * @return array
    */
-  function vikinger_get_random_items_from($array, $max = false) {
+  function yipnyap_get_random_items_from($array, $max = false) {
     $total_count = count($array);
     $show_max = $max ? $max : $total_count;
     $show_count = min($show_max, $total_count);
@@ -192,13 +192,13 @@ if (!function_exists('vikinger_get_random_items_from')) {
   }
 }
 
-if (!function_exists('vikinger_wp_kses_admin_text_get_allowed_tags')) {
+if (!function_exists('yipnyap_wp_kses_admin_text_get_allowed_tags')) {
   /**
    * Returns wp_kses allowed tags for admin text
    * 
    * @return array $allowed_tags        HTML tags allowed
    */
-  function vikinger_wp_kses_admin_text_get_allowed_tags() {
+  function yipnyap_wp_kses_admin_text_get_allowed_tags() {
     $allowed_tags = [
       'a'       => [
         'href'    => [],
@@ -216,13 +216,13 @@ if (!function_exists('vikinger_wp_kses_admin_text_get_allowed_tags')) {
   }
 }
 
-if (!function_exists('vikinger_wp_kses_post_title_get_allowed_tags')) {
+if (!function_exists('yipnyap_wp_kses_post_title_get_allowed_tags')) {
   /**
    * Returns wp_kses allowed tags for post title
    * 
    * @return array $allowed_tags        HTML tags allowed
    */
-  function vikinger_wp_kses_post_title_get_allowed_tags() {
+  function yipnyap_wp_kses_post_title_get_allowed_tags() {
     $allowed_tags = [
       'strong'  => [],
       'em'      => [],
@@ -234,13 +234,13 @@ if (!function_exists('vikinger_wp_kses_post_title_get_allowed_tags')) {
   }
 }
 
-if (!function_exists('vikinger_wp_kses_post_excerpt_get_allowed_tags')) {
+if (!function_exists('yipnyap_wp_kses_post_excerpt_get_allowed_tags')) {
   /**
    * Returns wp_kses allowed tags for post excerpt
    * 
    * @return array $allowed_tags        HTML tags allowed
    */
-  function vikinger_wp_kses_post_excerpt_get_allowed_tags() {
+  function yipnyap_wp_kses_post_excerpt_get_allowed_tags() {
     $allowed_tags = [
       'strong'  => [],
       'em'      => [],
@@ -252,14 +252,14 @@ if (!function_exists('vikinger_wp_kses_post_excerpt_get_allowed_tags')) {
   }
 }
 
-if (!function_exists('vikinger_reactions_insert_user_data')) {
+if (!function_exists('yipnyap_reactions_insert_user_data')) {
   /**
    * Inserts user data into reactions
    * 
    * @param array   $reactions_data             Reactions data, each with an array of user ids
    * @return array  $reactions_data_with_users  Reactions data with user data inserted
    */
-  function vikinger_reactions_insert_user_data($reactions_data) {
+  function yipnyap_reactions_insert_user_data($reactions_data) {
     $reactions_data_with_users = [];
 
     foreach ($reactions_data as $reaction_data) {
@@ -268,10 +268,10 @@ if (!function_exists('vikinger_reactions_insert_user_data')) {
 
       foreach ($reaction_data->users as $user_id) {
         // add BuddyPress member data if plugin is active
-        if (vikinger_plugin_buddypress_is_active()) {
-          $reaction_data_cp['users'][] = vikinger_members_get_fallback($user_id);
+        if (yipnyap_plugin_buddypress_is_active()) {
+          $reaction_data_cp['users'][] = yipnyap_members_get_fallback($user_id);
         } else {
-          $reaction_data_cp['users'][] = vikinger_user_get_data($user_id);
+          $reaction_data_cp['users'][] = yipnyap_user_get_data($user_id);
         }
       }
 
@@ -282,13 +282,13 @@ if (!function_exists('vikinger_reactions_insert_user_data')) {
   }
 }
 
-if (!function_exists('vikinger_site_url_get')) {
+if (!function_exists('yipnyap_site_url_get')) {
   /**
    * Returns site url with appended path
    * 
    * @param string $path      Path to append. Optiona.
    */
-  function vikinger_site_url_get($path = '') {
+  function yipnyap_site_url_get($path = '') {
     return get_site_url(null, $path);
   }
 }

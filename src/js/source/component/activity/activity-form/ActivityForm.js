@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, {useState, useRef, useEffect} from 'react';
 
 import Avatar from '../../avatar/Avatar';
 
@@ -14,10 +14,10 @@ import ExpandableTextarea from '../../form/ExpandableTextarea';
 import UploadVideoButton from '../../video/UploadVideoButton';
 import VideoPreview from '../../video/VideoPreview';
 
-import { extractAttachedMedia } from '../../../utils/core';
-import { createTooltip } from '../../../utils/plugins';
+import {extractAttachedMedia} from '../../../utils/core';
+import {createTooltip} from '../../../utils/plugins';
 
-import { getActivityTemplate } from '../../utils/activity/activity-template';
+import {getActivityTemplate} from '../../utils/activity/activity-template';
 
 function ActivityForm(props) {
   const [formData, setFormData] = useState({
@@ -33,7 +33,7 @@ function ActivityForm(props) {
   const photoTooltipRef = useRef(null);
 
   useEffect(() => {
-    if (!props.shareData && vikinger_constants.plugin_active.vkmedia && vikinger_constants.settings.media_photo_upload_enabled) {
+    if (!props.shareData && yipnyap_constants.plugin_active.vkmedia && yipnyap_constants.settings.media_photo_upload_enabled) {
       createTooltip({
         containerElement: photoTooltipRef.current,
         offset: 8,
@@ -90,7 +90,7 @@ function ActivityForm(props) {
           ...previousFormData,
           errors: [
             {
-              text: vikinger_translation.activity_form_empty_error
+              text: yipnyap_translation.activity_form_empty_error
             }
           ]
         };
@@ -176,10 +176,10 @@ function ActivityForm(props) {
     if (data.length > 0) {
       // only add video if size is not higher than maximum allowed
       const videoData = data[0],
-            videoSizeInMB = videoData.file.size / (1024 * 1024);
+          videoSizeInMB = videoData.file.size / (1024 * 1024);
 
       // only add photo if file extension is allowed
-      const extensionAllowed = vikinger_constants.settings.media_video_allowed_extensions.includes(videoData.extension);
+      const extensionAllowed = yipnyap_constants.settings.media_video_allowed_extensions.includes(videoData.extension);
 
       // if photo extension is not allowed, add error
       if (!extensionAllowed) {
@@ -188,22 +188,22 @@ function ActivityForm(props) {
             ...previousFormData,
             errors: [
               {
-                text: `"${videoData.file.name}" ${vikinger_translation.file_extension_is_not_allowed}.`
+                text: `"${videoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`
               }
             ]
           };
         });
-      // if video size is higher than allowed, show error
-      } else if (videoSizeInMB > vikinger_constants.settings.media_video_upload_maximum_size) {
+        // if video size is higher than allowed, show error
+      } else if (videoSizeInMB > yipnyap_constants.settings.media_video_upload_maximum_size) {
         setFormData(previousFormData => {
           return {
             ...previousFormData,
             errors: [
               {
-                text: `"${videoData.file.name}" ${vikinger_translation.size_is_too_big} (${Number.parseFloat(videoSizeInMB).toFixed(2)}MB).`
+                text: `"${videoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(videoSizeInMB).toFixed(2)}MB).`
               },
               {
-                text: `${vikinger_translation.maximum_size_accepted_is} ${vikinger_constants.settings.media_video_upload_maximum_size}MB.`
+                text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_video_upload_maximum_size}MB.`
               }
             ]
           };
@@ -227,7 +227,7 @@ function ActivityForm(props) {
     // only add photos data if user didn't cancel
     if (data.length > 0) {
       const errors = [],
-            photosData = [];
+          photosData = [];
 
       let fileSizeError = false;
 
@@ -236,19 +236,19 @@ function ActivityForm(props) {
         const photoSizeInMB = photoData.file.size / (1024 * 1024);
 
         // only add photo if file extension is allowed
-        const extensionAllowed = vikinger_constants.settings.media_photo_allowed_extensions.includes(photoData.extension);
+        const extensionAllowed = yipnyap_constants.settings.media_photo_allowed_extensions.includes(photoData.extension);
 
         // if photo extension is not allowed, add error
         if (!extensionAllowed) {
           errors.push({
-            text: `"${photoData.file.name}" ${vikinger_translation.file_extension_is_not_allowed}.`
+            text: `"${photoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`
           });
-        // if photo size is higher than allowed, add error
-        } else if (photoSizeInMB > vikinger_constants.settings.media_photo_upload_maximum_size) {
+          // if photo size is higher than allowed, add error
+        } else if (photoSizeInMB > yipnyap_constants.settings.media_photo_upload_maximum_size) {
           fileSizeError = true;
 
           errors.push({
-            text: `"${photoData.file.name}" ${vikinger_translation.size_is_too_big} (${Number.parseFloat(photoSizeInMB).toFixed(2)}MB).`
+            text: `"${photoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(photoSizeInMB).toFixed(2)}MB).`
           });
         } else {
           photosData.push(photoData);
@@ -257,7 +257,7 @@ function ActivityForm(props) {
 
       if ((errors.length > 0) && fileSizeError) {
         errors.push({
-          text: `${vikinger_translation.maximum_size_accepted_is} ${vikinger_constants.settings.media_photo_upload_maximum_size}MB.`
+          text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_photo_upload_maximum_size}MB.`
         });
       }
 
@@ -312,168 +312,169 @@ function ActivityForm(props) {
     user: props.user
   }) : '';
 
-  const displayVerifiedMemberBadge = vikinger_constants.plugin_active['bp-verified-member'] && vikinger_constants.settings.bp_verified_member_display_badge_in_activity_stream && props.user.verified;
+  const displayVerifiedMemberBadge = yipnyap_constants.plugin_active['bp-verified-member'] && yipnyap_constants.settings.bp_verified_member_display_badge_in_activity_stream && props.user.verified;
 
   const userGroups = props.user.groups.filter(group => !group.is_banned);
 
   return (
-    <div ref={props.forwardedRef} className={`quick-post ${formData.submitting ? 'disabled' : ''}`}>
-      <div className="quick-post-header">
-        <div className="quick-post-header-filters-wrap">
-          {/* USER STATUS */}
-          <div className="user-status">
-            <div className="user-status-avatar">
-              <Avatar size="small"
-                      data={props.user}
-                      noBorder
-                      noLink
-              />
-            </div>
-        
-            <p className="user-status-title medium">
-              <span className="bold">{props.user.name}</span>
-              {
-                displayVerifiedMemberBadge &&
-                  <BadgeVerified />
-              }
-            </p>
-            <p className="user-status-text small">{vikinger_translation.status_update}</p>
-          </div>  
-          {/* USER STATUS */}
+      <div ref={props.forwardedRef} className={`quick-post ${formData.submitting ? 'disabled' : ''}`}>
+        <div className="quick-post-header">
+          <div className="quick-post-header-filters-wrap">
+            {/* USER STATUS */}
+            <div className="user-status">
+              <div className="user-status-avatar">
+                <Avatar size="small"
+                        data={props.user}
+                        noBorder
+                        noLink
+                />
+              </div>
 
-          {/* QUICK POST HEADER FILTERS */}
-          <form className="quick-post-header-filters">
-            <div className="form-row split">
-              <div className="form-item">
-                <div className="form-select">
-                  <label htmlFor="post-in">{vikinger_translation.post_in}</label>
-                  <select id="post-in" name="postIn" value={formData.postIn} onChange={handlePostInChange}>
-                    <option value="0">{vikinger_translation.my_profile}</option>
-                    {
-                      vikinger_constants.plugin_active.buddypress_groups &&
-                        userGroups.map((group) => {
-                          return (
-                            <option key={group.id} value={group.id}>{group.name}</option>
-                          );
-                        })
-                    }
-                  </select>
-                  <IconSVG  icon="small-arrow"
-                            modifiers="form-select-icon"
-                  />
+              <p className="user-status-title medium">
+                <span className="bold">{props.user.name}</span>
+                {
+                    displayVerifiedMemberBadge &&
+                    <BadgeVerified/>
+                }
+              </p>
+              <p className="user-status-text small">{yipnyap_translation.status_update}</p>
+            </div>
+            {/* USER STATUS */}
+
+            {/* QUICK POST HEADER FILTERS */}
+            <form className="quick-post-header-filters">
+              <div className="form-row split">
+                <div className="form-item">
+                  <div className="form-select">
+                    <label htmlFor="post-in">{yipnyap_translation.post_in}</label>
+                    <select id="post-in" name="postIn" value={formData.postIn} onChange={handlePostInChange}>
+                      <option value="0">{yipnyap_translation.my_profile}</option>
+                      {
+                          yipnyap_constants.plugin_active.buddypress_groups &&
+                          userGroups.map((group) => {
+                            return (
+                                <option key={group.id} value={group.id}>{group.name}</option>
+                            );
+                          })
+                      }
+                    </select>
+                    <IconSVG icon="small-arrow"
+                             modifiers="form-select-icon"
+                    />
+                  </div>
                 </div>
+              </div>
+            </form>
+            {/* QUICK POST HEADER FILTERS */}
+          </div>
+        </div>
+
+        {/* QUICK POST BODY */}
+        <div className={`quick-post-body ${props.shareData ? 'with-share-data' : ''}`}>
+          <form className={`form ${formData.submitting ? 'disabled' : ''}`}>
+            <div className="form-row">
+              <div className="form-item">
+                <ExpandableTextarea name='text'
+                                    value={formData.text}
+                                    maxLength={yipnyap_constants.settings.activity_character_limit}
+                                    minHeight={120}
+                                    placeholder={`${yipnyap_translation.activity_form_placeholder_1} ${props.user.name}! ${yipnyap_translation.activity_form_placeholder_2}`}
+                                    userFriends={props.user.friends}
+                                    handleChange={handleTextChange}
+                                    loading={formData.submitting}
+                                    disabled={formData.submitting}
+                />
               </div>
             </div>
           </form>
-          {/* QUICK POST HEADER FILTERS */}
-        </div>
-      </div>
-      
-      {/* QUICK POST BODY */}
-      <div className={`quick-post-body ${props.shareData ? 'with-share-data' : ''}`}>
-        <form className={`form ${formData.submitting ? 'disabled' : ''}`}>
-          <div className="form-row">
-            <div className="form-item">
-              <ExpandableTextarea name='text'
-                                  value={formData.text}
-                                  maxLength={vikinger_constants.settings.activity_character_limit}
-                                  minHeight={120}
-                                  placeholder={`${vikinger_translation.activity_form_placeholder_1} ${props.user.name}! ${vikinger_translation.activity_form_placeholder_2}`}
-                                  userFriends={props.user.friends}
-                                  handleChange={handleTextChange}
-                                  loading={formData.submitting}
-                                  disabled={formData.submitting}
-              />
-            </div>
-          </div>
-        </form>
-        
-        {
-          formData.attached_media &&
-            <MediaLinkPreview iframeSrc={formData.attached_media.link}
-                              onCloseButtonClick={resetAttachedMedia}
-                              disabled={formData.submitting}
-            />
-        }
 
-        {
-          !props.shareData && formData.uploadable_media &&
-            <React.Fragment>
-            {
-              (formData.uploadable_media_type === 'video') &&
-                <VideoPreview src={formData.uploadable_media[0].url} />
-            }
-            {
-              (formData.uploadable_media_type === 'image') &&
-                <UploadableMediaList  data={formData.uploadable_media}
-                                      onSelect={addUploadableMedia}
-                                      onRemove={removeUploadableMedia}
-                                      disabled={formData.submitting}
-                />
-            }
-            </React.Fragment>
-        }
-
-        {
-          props.shareData &&
-            <div className="widget-box no-padding">
-              { ActivityTemplate }
-            </div>
-        }
-      </div>
-      {/* QUICK POST BODY */}
-
-      {/* QUICK POST FOOTER WRAP */}
-      <div className="quick-post-footer-wrap">
-      {
-        formData.errors.length > 0 &&
-          <div className="quick-post-footer-errors">
           {
-            formData.errors.map((error, i) => {
-              return (
-              <p key={i} className="quick-post-footer-error error-field-message">* {error.text}</p>
-              );
-            })
+              formData.attached_media &&
+              <MediaLinkPreview iframeSrc={formData.attached_media.link}
+                                onCloseButtonClick={resetAttachedMedia}
+                                disabled={formData.submitting}
+              />
           }
-          </div>
-      }
 
-        {/* QUICK POST FOOTER */}
-        <div className="quick-post-footer">
-          {/* QUICK POST FOOTER ACTIONS */}
-          <div className="quick-post-footer-actions">
-            {
-              !props.shareData && vikinger_constants.plugin_active.vkmedia &&
-                <React.Fragment>
+          {
+              !props.shareData && formData.uploadable_media &&
+              <React.Fragment>
                 {
-                  vikinger_constants.settings.media_photo_upload_enabled && 
-                    <div className="quick-post-footer-action" ref={photoTooltipRef} data-title={vikinger_translation.add_photo} onClick={toggleUploadablePhotosBar}>
-                      <IconSVG  icon="camera"
-                                modifiers="quick-post-footer-action-icon"
-                      />
-                    </div>
+                    (formData.uploadable_media_type === 'video') &&
+                    <VideoPreview src={formData.uploadable_media[0].url}/>
                 }
                 {
-                  vikinger_constants.settings.media_video_upload_enabled &&
-                    <UploadVideoButton onSelect={addUploadableVideo} />
+                    (formData.uploadable_media_type === 'image') &&
+                    <UploadableMediaList data={formData.uploadable_media}
+                                         onSelect={addUploadableMedia}
+                                         onRemove={removeUploadableMedia}
+                                         disabled={formData.submitting}
+                    />
                 }
-                </React.Fragment>
-            }
-          </div>
-          {/* QUICK POST FOOTER ACTIONS */}
+              </React.Fragment>
+          }
 
-          {/* QUICK POST FOOTER ACTIONS */}
-          <div className="quick-post-footer-actions">
-            <p className="button small void" onClick={discardContent}>{vikinger_translation.discard}</p>
-            <p className="button small secondary" onClick={submitContent}>{vikinger_translation.post_action}</p>
-          </div>
-          {/* QUICK POST FOOTER ACTIONS */}
+          {
+              props.shareData &&
+              <div className="widget-box no-padding">
+                {ActivityTemplate}
+              </div>
+          }
         </div>
-        {/* QUICK POST FOOTER */}
+        {/* QUICK POST BODY */}
+
+        {/* QUICK POST FOOTER WRAP */}
+        <div className="quick-post-footer-wrap">
+          {
+              formData.errors.length > 0 &&
+              <div className="quick-post-footer-errors">
+                {
+                  formData.errors.map((error, i) => {
+                    return (
+                        <p key={i} className="quick-post-footer-error error-field-message">* {error.text}</p>
+                    );
+                  })
+                }
+              </div>
+          }
+
+          {/* QUICK POST FOOTER */}
+          <div className="quick-post-footer">
+            {/* QUICK POST FOOTER ACTIONS */}
+            <div className="quick-post-footer-actions">
+              {
+                  !props.shareData && yipnyap_constants.plugin_active.vkmedia &&
+                  <React.Fragment>
+                    {
+                        yipnyap_constants.settings.media_photo_upload_enabled &&
+                        <div className="quick-post-footer-action" ref={photoTooltipRef}
+                             data-title={yipnyap_translation.add_photo} onClick={toggleUploadablePhotosBar}>
+                          <IconSVG icon="camera"
+                                   modifiers="quick-post-footer-action-icon"
+                          />
+                        </div>
+                    }
+                    {
+                        yipnyap_constants.settings.media_video_upload_enabled &&
+                        <UploadVideoButton onSelect={addUploadableVideo}/>
+                    }
+                  </React.Fragment>
+              }
+            </div>
+            {/* QUICK POST FOOTER ACTIONS */}
+
+            {/* QUICK POST FOOTER ACTIONS */}
+            <div className="quick-post-footer-actions">
+              <p className="button small void" onClick={discardContent}>{yipnyap_translation.discard}</p>
+              <p className="button small secondary" onClick={submitContent}>{yipnyap_translation.post_action}</p>
+            </div>
+            {/* QUICK POST FOOTER ACTIONS */}
+          </div>
+          {/* QUICK POST FOOTER */}
+        </div>
+        {/* QUICK POST FOOTER WRAP */}
       </div>
-      {/* QUICK POST FOOTER WRAP */}
-    </div>
   );
 }
 
-export { ActivityForm as default };
+export {ActivityForm as default};

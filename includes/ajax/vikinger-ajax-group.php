@@ -8,12 +8,12 @@
 /**
  * Get filtered groups
  */
-function vikinger_groups_get_ajax() {
+function yipnyap_groups_get_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : [];
-  $groups = vikinger_groups_get($_POST['args']);
+  $groups = yipnyap_groups_get($_POST['args']);
 
   header('Content-Type: application/json');
   echo json_encode($groups);
@@ -21,18 +21,18 @@ function vikinger_groups_get_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_groups_get_ajax', 'vikinger_groups_get_ajax');
-add_action('wp_ajax_nopriv_vikinger_groups_get_ajax', 'vikinger_groups_get_ajax');
+add_action('wp_ajax_yipnyap_groups_get_ajax', 'yipnyap_groups_get_ajax');
+add_action('wp_ajax_nopriv_yipnyap_groups_get_ajax', 'yipnyap_groups_get_ajax');
 
 /**
  * Get groups count
  */
-function vikinger_groups_get_count_ajax() {
+function yipnyap_groups_get_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : [];
-  $groups_count = vikinger_groups_get_count($args);
+  $groups_count = yipnyap_groups_get_count($args);
 
   header('Content-Type: application/json');
   echo json_encode($groups_count);
@@ -40,18 +40,18 @@ function vikinger_groups_get_count_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_groups_get_count_ajax', 'vikinger_groups_get_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_groups_get_count_ajax', 'vikinger_groups_get_count_ajax');
+add_action('wp_ajax_yipnyap_groups_get_count_ajax', 'yipnyap_groups_get_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_groups_get_count_ajax', 'yipnyap_groups_get_count_ajax');
 
 /**
  * Get filtered group members
  */
-function vikinger_groups_get_members_ajax() {
+function yipnyap_groups_get_members_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : [];
-  $group_members = vikinger_groups_get_members($_POST['args']);
+  $group_members = yipnyap_groups_get_members($_POST['args']);
 
   header('Content-Type: application/json');
   echo json_encode($group_members);
@@ -59,18 +59,18 @@ function vikinger_groups_get_members_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_groups_get_members_ajax', 'vikinger_groups_get_members_ajax');
-add_action('wp_ajax_nopriv_vikinger_groups_get_members_ajax', 'vikinger_groups_get_members_ajax');
+add_action('wp_ajax_yipnyap_groups_get_members_ajax', 'yipnyap_groups_get_members_ajax');
+add_action('wp_ajax_nopriv_yipnyap_groups_get_members_ajax', 'yipnyap_groups_get_members_ajax');
 
 /**
  * Get filtered group members
  */
-function vikinger_groups_get_members_count_ajax() {
+function yipnyap_groups_get_members_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : [];
-  $group_members = vikinger_groups_get_members_count($_POST['args']);
+  $group_members = yipnyap_groups_get_members_count($_POST['args']);
 
   header('Content-Type: application/json');
   echo json_encode($group_members);
@@ -78,15 +78,15 @@ function vikinger_groups_get_members_count_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_groups_get_members_count_ajax', 'vikinger_groups_get_members_count_ajax');
-add_action('wp_ajax_nopriv_vikinger_groups_get_members_count_ajax', 'vikinger_groups_get_members_count_ajax');
+add_action('wp_ajax_yipnyap_groups_get_members_count_ajax', 'yipnyap_groups_get_members_count_ajax');
+add_action('wp_ajax_nopriv_yipnyap_groups_get_members_count_ajax', 'yipnyap_groups_get_members_count_ajax');
 
 /**
  * Creates a group
  */
-function vikinger_group_create_ajax() {
+function yipnyap_group_create_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -109,7 +109,7 @@ function vikinger_group_create_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_create($args);
+  $result = yipnyap_group_create($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -117,14 +117,14 @@ function vikinger_group_create_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_create_ajax', 'vikinger_group_create_ajax');
+add_action('wp_ajax_yipnyap_group_create_ajax', 'yipnyap_group_create_ajax');
 
 /**
  * Updates a group
  */
-function vikinger_group_update_ajax() {
+function yipnyap_group_update_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -147,7 +147,7 @@ function vikinger_group_update_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_update($args);
+  $result = yipnyap_group_update($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -155,14 +155,14 @@ function vikinger_group_update_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_update_ajax', 'vikinger_group_update_ajax');
+add_action('wp_ajax_yipnyap_group_update_ajax', 'yipnyap_group_update_ajax');
 
 /**
  * Deletes a group
  */
-function vikinger_group_delete_ajax() {
+function yipnyap_group_delete_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $group_id = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -179,7 +179,7 @@ function vikinger_group_delete_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_delete($group_id);
+  $result = yipnyap_group_delete($group_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -187,14 +187,14 @@ function vikinger_group_delete_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_delete_ajax', 'vikinger_group_delete_ajax');
+add_action('wp_ajax_yipnyap_group_delete_ajax', 'yipnyap_group_delete_ajax');
 
 /**
  * Request a group membership
  */
-function vikinger_group_membership_requests_send_ajax() {
+function yipnyap_group_membership_requests_send_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -218,7 +218,7 @@ function vikinger_group_membership_requests_send_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_membership_requests_send($args);
+  $result = yipnyap_group_membership_requests_send($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -226,14 +226,14 @@ function vikinger_group_membership_requests_send_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_membership_requests_send_ajax', 'vikinger_group_membership_requests_send_ajax');
+add_action('wp_ajax_yipnyap_group_membership_requests_send_ajax', 'yipnyap_group_membership_requests_send_ajax');
 
 /**
  * Remove a group membership
  */
-function vikinger_group_membership_requests_remove_ajax() {
+function yipnyap_group_membership_requests_remove_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $membership_request_id = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -241,7 +241,7 @@ function vikinger_group_membership_requests_remove_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $result = vikinger_group_membership_requests_remove($membership_request_id);
+  $result = yipnyap_group_membership_requests_remove($membership_request_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -249,14 +249,14 @@ function vikinger_group_membership_requests_remove_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_membership_requests_remove_ajax', 'vikinger_group_membership_requests_remove_ajax');
+add_action('wp_ajax_yipnyap_group_membership_requests_remove_ajax', 'yipnyap_group_membership_requests_remove_ajax');
 
 /**
  * Accept a group membership
  */
-function vikinger_group_membership_requests_accept_ajax() {
+function yipnyap_group_membership_requests_accept_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $membership_request_id = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -264,7 +264,7 @@ function vikinger_group_membership_requests_accept_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $result = vikinger_group_membership_requests_accept($membership_request_id);
+  $result = yipnyap_group_membership_requests_accept($membership_request_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -272,14 +272,14 @@ function vikinger_group_membership_requests_accept_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_membership_requests_accept_ajax', 'vikinger_group_membership_requests_accept_ajax');
+add_action('wp_ajax_yipnyap_group_membership_requests_accept_ajax', 'yipnyap_group_membership_requests_accept_ajax');
 
 /**
  * Adds a member to a group
  */
-function vikinger_group_join_ajax() {
+function yipnyap_group_join_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -303,7 +303,7 @@ function vikinger_group_join_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_join($group_id, $user_id);
+  $result = yipnyap_group_join($group_id, $user_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -311,14 +311,14 @@ function vikinger_group_join_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_join_ajax', 'vikinger_group_join_ajax');
+add_action('wp_ajax_yipnyap_group_join_ajax', 'yipnyap_group_join_ajax');
 
 /**
  * Removes a member from a group
  */
-function vikinger_group_leave_ajax() {
+function yipnyap_group_leave_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -342,7 +342,7 @@ function vikinger_group_leave_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_leave($group_id, $user_id);
+  $result = yipnyap_group_leave($group_id, $user_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -350,14 +350,14 @@ function vikinger_group_leave_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_leave_ajax', 'vikinger_group_leave_ajax');
+add_action('wp_ajax_yipnyap_group_leave_ajax', 'yipnyap_group_leave_ajax');
 
 /**
  * Remove a group member
  */
-function vikinger_group_member_remove_ajax() {
+function yipnyap_group_member_remove_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -380,7 +380,7 @@ function vikinger_group_member_remove_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_remove($args);
+  $result = yipnyap_group_member_remove($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -388,14 +388,14 @@ function vikinger_group_member_remove_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_remove_ajax', 'vikinger_group_member_remove_ajax');
+add_action('wp_ajax_yipnyap_group_member_remove_ajax', 'yipnyap_group_member_remove_ajax');
 
 /**
  * Send a group invitation
  */
-function vikinger_group_send_invite_ajax() {
+function yipnyap_group_send_invite_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -403,7 +403,7 @@ function vikinger_group_send_invite_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $result = vikinger_group_send_invite($args);
+  $result = yipnyap_group_send_invite($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -411,14 +411,14 @@ function vikinger_group_send_invite_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_send_invite_ajax', 'vikinger_group_send_invite_ajax');
+add_action('wp_ajax_yipnyap_group_send_invite_ajax', 'yipnyap_group_send_invite_ajax');
 
 /**
  * Accept a group invitation
  */
-function vikinger_group_accept_invite_ajax() {
+function yipnyap_group_accept_invite_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $invite_id = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -426,7 +426,7 @@ function vikinger_group_accept_invite_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $result = vikinger_group_accept_invite($invite_id);
+  $result = yipnyap_group_accept_invite($invite_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -434,14 +434,14 @@ function vikinger_group_accept_invite_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_accept_invite_ajax', 'vikinger_group_accept_invite_ajax');
+add_action('wp_ajax_yipnyap_group_accept_invite_ajax', 'yipnyap_group_accept_invite_ajax');
 
 /**
  * Remove or reject a group invitation
  */
-function vikinger_group_remove_invite_ajax() {
+function yipnyap_group_remove_invite_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $invite_id = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -449,7 +449,7 @@ function vikinger_group_remove_invite_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $result = vikinger_group_remove_invite($invite_id);
+  $result = yipnyap_group_remove_invite($invite_id);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -457,14 +457,14 @@ function vikinger_group_remove_invite_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_remove_invite_ajax', 'vikinger_group_remove_invite_ajax');
+add_action('wp_ajax_yipnyap_group_remove_invite_ajax', 'yipnyap_group_remove_invite_ajax');
 
 /**
  * Promote a group member to admin
  */
-function vikinger_group_member_promote_to_admin_ajax() {
+function yipnyap_group_member_promote_to_admin_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -488,7 +488,7 @@ function vikinger_group_member_promote_to_admin_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_promote_to_admin($args);
+  $result = yipnyap_group_member_promote_to_admin($args);
 
   do_action('groups_promote_member', $group_id, $member_id, 'admin');
   do_action('groups_promoted_member', $member_id, $group_id);
@@ -499,14 +499,14 @@ function vikinger_group_member_promote_to_admin_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_promote_to_admin_ajax', 'vikinger_group_member_promote_to_admin_ajax');
+add_action('wp_ajax_yipnyap_group_member_promote_to_admin_ajax', 'yipnyap_group_member_promote_to_admin_ajax');
 
 /**
  * Promote a group member to mod
  */
-function vikinger_group_member_promote_to_mod_ajax() {
+function yipnyap_group_member_promote_to_mod_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -530,7 +530,7 @@ function vikinger_group_member_promote_to_mod_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_promote_to_mod($args);
+  $result = yipnyap_group_member_promote_to_mod($args);
 
   do_action('groups_promote_member', $group_id, $member_id, 'mod');
   do_action('groups_promoted_member', $member_id, $group_id);
@@ -541,14 +541,14 @@ function vikinger_group_member_promote_to_mod_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_promote_to_mod_ajax', 'vikinger_group_member_promote_to_mod_ajax');
+add_action('wp_ajax_yipnyap_group_member_promote_to_mod_ajax', 'yipnyap_group_member_promote_to_mod_ajax');
 
 /**
  * Demote a group member to member
  */
-function vikinger_group_member_demote_to_member_ajax() {
+function yipnyap_group_member_demote_to_member_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -572,7 +572,7 @@ function vikinger_group_member_demote_to_member_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_demote_to_member($args);
+  $result = yipnyap_group_member_demote_to_member($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -580,14 +580,14 @@ function vikinger_group_member_demote_to_member_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_demote_to_member_ajax', 'vikinger_group_member_demote_to_member_ajax');
+add_action('wp_ajax_yipnyap_group_member_demote_to_member_ajax', 'yipnyap_group_member_demote_to_member_ajax');
 
 /**
  * Demote a group member to mod
  */
-function vikinger_group_member_demote_to_mod_ajax() {
+function yipnyap_group_member_demote_to_mod_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -611,7 +611,7 @@ function vikinger_group_member_demote_to_mod_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_demote_to_mod($args);
+  $result = yipnyap_group_member_demote_to_mod($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -619,14 +619,14 @@ function vikinger_group_member_demote_to_mod_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_demote_to_mod_ajax', 'vikinger_group_member_demote_to_mod_ajax');
+add_action('wp_ajax_yipnyap_group_member_demote_to_mod_ajax', 'yipnyap_group_member_demote_to_mod_ajax');
 
 /**
  * Ban a group member
  */
-function vikinger_group_member_ban_ajax() {
+function yipnyap_group_member_ban_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -650,7 +650,7 @@ function vikinger_group_member_ban_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_ban($args);
+  $result = yipnyap_group_member_ban($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -658,14 +658,14 @@ function vikinger_group_member_ban_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_ban_ajax', 'vikinger_group_member_ban_ajax');
+add_action('wp_ajax_yipnyap_group_member_ban_ajax', 'yipnyap_group_member_ban_ajax');
 
 /**
  * Unban a group member
  */
-function vikinger_group_member_unban_ajax() {
+function yipnyap_group_member_unban_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -689,7 +689,7 @@ function vikinger_group_member_unban_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_member_unban($args);
+  $result = yipnyap_group_member_unban($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -697,14 +697,14 @@ function vikinger_group_member_unban_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_member_unban_ajax', 'vikinger_group_member_unban_ajax');
+add_action('wp_ajax_yipnyap_group_member_unban_ajax', 'yipnyap_group_member_unban_ajax');
 
 /**
  * Update group metadata fields
  */
-function vikinger_group_update_meta_fields_ajax() {
+function yipnyap_group_update_meta_fields_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -727,7 +727,7 @@ function vikinger_group_update_meta_fields_ajax() {
     wp_die('Unauthorized');
   }
 
-  $result = vikinger_group_update_meta_fields($args);
+  $result = yipnyap_group_update_meta_fields($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -735,14 +735,14 @@ function vikinger_group_update_meta_fields_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_update_meta_fields_ajax', 'vikinger_group_update_meta_fields_ajax');
+add_action('wp_ajax_yipnyap_group_update_meta_fields_ajax', 'yipnyap_group_update_meta_fields_ajax');
 
 /**
  * Delete group metadata fields
  */
-function vikinger_group_delete_meta_fields_ajax() {
+function yipnyap_group_delete_meta_fields_ajax() {
   // nonce check, dies early if the nonce cannot be verified
-  check_ajax_referer('vikinger_ajax');
+  check_ajax_referer('yipnyap_ajax');
 
   $args = isset($_POST['args']) ? $_POST['args'] : false;
 
@@ -765,7 +765,7 @@ function vikinger_group_delete_meta_fields_ajax() {
     wp_die('Unauthorized');
   }
   
-  $result = vikinger_group_delete_meta_fields($args);
+  $result = yipnyap_group_delete_meta_fields($args);
 
   header('Content-Type: application/json');
   echo json_encode($result);
@@ -773,6 +773,6 @@ function vikinger_group_delete_meta_fields_ajax() {
   wp_die();
 }
 
-add_action('wp_ajax_vikinger_group_delete_meta_fields_ajax', 'vikinger_group_delete_meta_fields_ajax');
+add_action('wp_ajax_yipnyap_group_delete_meta_fields_ajax', 'yipnyap_group_delete_meta_fields_ajax');
 
 ?>

@@ -6,7 +6,7 @@
  * @since 1.6.3
  * @author Yipnyap (https://yipnyap.xyz/)
  * 
- * @see vikinger_menu_get_items
+ * @see yipnyap_menu_get_items
  * 
  * @param array $args {
  *   @type array  $menu_items         Menu items data.
@@ -17,7 +17,7 @@
   $menu_styles = isset($args['menu_styles']) ? $args['menu_styles'] : [];
 
   $menu_item_styles_content = array_key_exists('menu-item', $menu_styles) ? $menu_styles['menu-item'] : [];
-  $menu_item_styles_attribute = vikinger_elementor_styles_encode_get($menu_item_styles_content);
+  $menu_item_styles_attribute = yipnyap_elementor_styles_encode_get($menu_item_styles_content);
 
 ?>
 

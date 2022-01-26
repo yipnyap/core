@@ -17,14 +17,14 @@
    */
   get_template_part('template-part/section/section', 'header', [
     'section_pretitle'  => sprintf(
-      esc_html_x('Browse %s', 'Section Header - Pretitle', 'vikinger'),
+      esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
       $member['name']
     ),
-    'section_title'     => esc_html__('Friends', 'vikinger'),
+    'section_title'     => esc_html__('Friends', 'yipnyap'),
     'section_text'      => $member['stats']['friend_count']
   ]);
 
-  $members_grid_type = vikinger_logged_user_grid_type_get('member');
+  $members_grid_type = yipnyap_logged_user_grid_type_get('member');
 
 ?>
 <!-- MEMBER FILTERABLE LIST -->

@@ -13,7 +13,7 @@ defined( 'ABSPATH' ) || exit;
 if ( bbp_allow_search() ) : ?>
 
   <!-- SECTION FILTERS BAR -->
-  <div class="section-filters-bar v2 vikinger-forum-search-bar">
+  <div class="section-filters-bar v2 yipnyap-forum-search-bar">
     <!-- SECTION FILTERS BAR ACTIONS -->
     <div class="section-filters-bar-actions full">
       <!-- BBP SEARCH FORM -->
@@ -28,7 +28,7 @@ if ( bbp_allow_search() ) : ?>
             <div class="form-item">
               <!-- FORM INPUT -->
               <div class="form-input small with-button">
-                <label for="bbp_search"><?php esc_html_e('Search Forums', 'vikinger'); ?></label>
+                <label for="bbp_search"><?php esc_html_e('Search Forums', 'yipnyap'); ?></label>
                 <input type="text" value="<?php bbp_search_terms(); ?>" name="bbp_search" id="bbp_search" />
                 <button class="button primary" type="submit" id="bbp_search_submit">
                 <?php
@@ -54,7 +54,7 @@ if ( bbp_allow_search() ) : ?>
 
     <?php if (is_user_logged_in() && (bbp_get_forum_id() !== 0) && !bbp_is_forum_category()) : ?>
       <!-- BUTTON -->
-      <a href="#new-topic-0" class="button secondary vikinger-create-discussion-button"><?php esc_html_e('+ Create Discussion', 'vikinger'); ?></a>
+      <a href="#new-topic-0" class="button secondary yipnyap-create-discussion-button"><?php esc_html_e('+ Create Discussion', 'yipnyap'); ?></a>
       <!-- /BUTTON -->
     <?php endif; ?>
 

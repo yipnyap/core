@@ -116,7 +116,7 @@ function CommentFormGuest(props) {
 
     return (
         <div className="post-comment-form guest-form animate-slide-down">
-            <p className="post-comment-form-title">{vikinger_translation.leave_a_comment}</p>
+            <p className="post-comment-form-title">{yipnyap_translation.leave_a_comment}</p>
             <p className="post-comment-form-text">Please sign in or register to comment with your account!</p>
             <form className="form comment-form" onSubmit={handleSubmit}>
                 <div className="form-row split">
@@ -166,8 +166,8 @@ function CommentFormGuest(props) {
                     <LoaderSpinner/>
                 }
                 <div className="post-comment-form-actions">
-                    <p className="button void" onClick={resetInput}>{vikinger_translation.discard}</p>
-                    <button type="submit" className="button secondary">{vikinger_translation.post_reply}</button>
+                    <p className="button void" onClick={resetInput}>{yipnyap_translation.discard}</p>
+                    <button type="submit" className="button secondary">{yipnyap_translation.post_reply}</button>
                 </div>
             </form>
         </div>

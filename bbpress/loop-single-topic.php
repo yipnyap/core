@@ -10,9 +10,9 @@
 // Exit if accessed directly
 defined( 'ABSPATH' ) || exit;
 
-	$vikinger_settings = vikinger_bpverifiedmember_settings_get('topics');
+	$yipnyap_settings = yipnyap_bpverifiedmember_settings_get('topics');
 
-	$display_verified = vikinger_plugin_bpverifiedmember_is_active() && $vikinger_settings['bp_verified_member_display_badge_in_bbp_topics'];
+	$display_verified = yipnyap_plugin_bpverifiedmember_is_active() && $yipnyap_settings['bp_verified_member_display_badge_in_bbp_topics'];
 
 ?>
 
@@ -53,11 +53,11 @@ defined( 'ABSPATH' ) || exit;
 
 		<a class="bbp-topic-permalink" href="<?php bbp_topic_permalink(); ?>">
 		<?php if (bbp_is_topic_sticky(bbp_get_topic_id())) : ?>
-			<span class="vikinger-forum-pinned-tag"><?php esc_html_e('Pinned', 'vikinger'); ?></span>
+			<span class="yipnyap-forum-pinned-tag"><?php esc_html_e('Pinned', 'yipnyap'); ?></span>
 		<?php endif; ?>
 
 		<?php if (bbp_is_topic_closed(bbp_get_topic_id())) : ?>
-			<span class="vikinger-forum-closed-tag"><?php esc_html_e('Closed', 'vikinger'); ?></span>
+			<span class="yipnyap-forum-closed-tag"><?php esc_html_e('Closed', 'yipnyap'); ?></span>
 		<?php endif; ?>
 
 		<?php bbp_topic_title(); ?>
@@ -73,13 +73,13 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php do_action( 'bbp_theme_before_topic_started_by' ); ?>
 
-			<span class="bbp-topic-started-by"><?php esc_html_e('Started by', 'vikinger'); ?></span>
+			<span class="bbp-topic-started-by"><?php esc_html_e('Started by', 'yipnyap'); ?></span>
 
 			<!-- FORUM TOPIC META AUTHOR -->
 			<div class="forum-topic-meta-author">
 			<?php
 
-				$topic_author = vikinger_bbpress_topic_author_get(bbp_get_topic_id());
+				$topic_author = yipnyap_bbpress_topic_author_get(bbp_get_topic_id());
 
 				$verified_topic_author = $topic_author['verified'];
 
@@ -102,7 +102,7 @@ defined( 'ABSPATH' ) || exit;
 				echo esc_html($topic_author['name']);
 
 				if ($display_verified && $verified_topic_author) {
-          echo vikinger_bpverifiedmember_badge_get();
+          echo yipnyap_bpverifiedmember_badge_get();
         }
 
 			?>
@@ -150,7 +150,7 @@ defined( 'ABSPATH' ) || exit;
 			<div class="forum-topic-meta-author">
 			<?php
 
-				$topic_last_active_author = vikinger_bbpress_topic_author_get(bbp_get_topic_last_active_id());
+				$topic_last_active_author = yipnyap_bbpress_topic_author_get(bbp_get_topic_last_active_id());
 
 				$verified_topic_last_active_author = $topic_last_active_author['verified'];
 
@@ -173,7 +173,7 @@ defined( 'ABSPATH' ) || exit;
 				echo esc_html($topic_last_active_author['name']);
 
 				if ($display_verified && $verified_topic_last_active_author) {
-          echo vikinger_bpverifiedmember_badge_get();
+          echo yipnyap_bpverifiedmember_badge_get();
 				}
 				
 			?>

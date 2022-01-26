@@ -142,7 +142,7 @@ function MentionList(props) {
                 }
                 {
                     (userMatches.current.length === 0) &&
-                    <p className="mention-list-error-text">{vikinger_translation.no_members_found}</p>
+                    <p className="mention-list-error-text">{yipnyap_translation.no_members_found}</p>
                 }
             </SimpleBar>
         </div>

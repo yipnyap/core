@@ -41,7 +41,7 @@ function Activity(props) {
 
     const activityReactionable = ActivityReactionable(activityReactionableProps);
 
-    const showMoreSettingIsEnabled = vikinger_constants.settings.activity_show_more_status === 'enabled';
+    const showMoreSettingIsEnabled = yipnyap_constants.settings.activity_show_more_status === 'enabled';
     const widgetBoxStatusRef = useRef(null);
 
     const showMoreActivity = () => {
@@ -55,7 +55,7 @@ function Activity(props) {
         setShowingMore(false);
 
         widgetBoxStatusRef.current.classList.add('widget-box-status-limited');
-        widgetBoxStatusRef.current.style.maxHeight = `${vikinger_constants.settings.activity_show_more_height}px`;
+        widgetBoxStatusRef.current.style.maxHeight = `${yipnyap_constants.settings.activity_show_more_height}px`;
     };
 
     const attachShowMoreElement = () => {
@@ -65,7 +65,7 @@ function Activity(props) {
     };
 
     useEffect(() => {
-        if (showMoreSettingIsEnabled && widgetBoxStatusRef.current && widgetBoxStatusRef.current.offsetHeight > vikinger_constants.settings.activity_show_more_height) {
+        if (showMoreSettingIsEnabled && widgetBoxStatusRef.current && widgetBoxStatusRef.current.offsetHeight > yipnyap_constants.settings.activity_show_more_height) {
             attachShowMoreElement();
         }
     }, []);
@@ -250,7 +250,7 @@ function Activity(props) {
 
             {
                 showMoreSettingIsEnabled && showMore && !showingMore &&
-                <p className="button-show-more" onClick={showMoreActivity}>{vikinger_translation.show_more}</p>
+                <p className="button-show-more" onClick={showMoreActivity}>{yipnyap_translation.show_more}</p>
             }
 
             <PostFooter commentCount={props.data.comment_count}

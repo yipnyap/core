@@ -1265,7 +1265,7 @@ endif;
                     >
                         <img
                                 class="h-8 text-white"
-                                src="https://cdn.yipnyap.xyz/bentostack/@rek/emoji-kddi/electric-torch.gif"
+                                src="data:image/gif;base64,R0lGODlhKgAtAPIHAP//mf/MAJmZmWZmZv9mM8zMzAAAAP///yH5BAUAAAcALAAAAAAqAC0AAAP3eLrc/jDKSau9OOvNeyegl4GEiJGmRhps67Kpsr50fMy0a+JB3wrAnLDW4PlYQMFwCSuCWr3AL8gcOqA9gDbaKni73jBN3DxgA1oAl0U2hNvgQmtxTq/dX/Zb/mrTWWlhOG17b3FzCi2BXoN5eIV8j4hmgFqCT3qRkI5+iZUAlwRTSkhJpqQGSZOKloyYqVSwp7GqZaygrqKlqLO1sqssUXZHBgPGLcbJysjHtsFZW8TJzMrTLNYGfwbC0VLXzcXV2NgLRt7hA1VWTrrb0uDqLw7m1PE5ETjrKflCNvz3IlDYmCBwIL4QBhMqXMiwocOHECNKnKggAQA7"
                                 style="padding-left: 2px; image-rendering: pixelated"
                                 alt="electric torch"
                         />

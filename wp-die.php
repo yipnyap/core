@@ -1297,7 +1297,7 @@ endif;
                 </div>
             </div>
             <div class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse">
-                <a href="/"
+                <a href="?attempt=<?php echo round(microtime(true) * 1000) ?>"
                 >
                     <button
                             type="button"
@@ -1323,7 +1323,7 @@ endif;
                   sm:text-sm
                 "
                     >
-                        OK, fine, I'm human
+                        Reload
                     </button>
                 </a
                 >

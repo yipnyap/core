@@ -19,7 +19,7 @@ function HeaderDropdownNotifications(props) {
     const markNotificationAsRead = (i) => {
         const selectedNotification = notifications[i];
 
-        console.log('HEADER DROPDOWN NOTIFICATIONS - MARK NOTIFICATION AS READ: ', notification);
+        console.log('HEADER DROPDOWN NOTIFICATIONS - MARK NOTIFICATION AS READ: ', notifications[i]);
 
         // update notification data to be marked as read
         const markNotificationAsReadPromise = notificationRouter.markNotificationAsRead({

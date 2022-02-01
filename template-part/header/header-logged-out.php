@@ -291,7 +291,7 @@ endif;
             ?>
             <!-- BUTTON -->
             <a class="button register-button"
-               href="<?php echo esc_url('https://yipnyap.xyz/oid-linkage-data-collection-middleman/'); ?>"><?php esc_html_e('Register', 'yipnyap'); ?></a>
+               href="<?php echo esc_url('https://yipnyap.xyz/register/?hellofrom=header'); ?>"><?php esc_html_e('Register', 'yipnyap'); ?></a>
             <!-- /BUTTON -->
         <?php
 

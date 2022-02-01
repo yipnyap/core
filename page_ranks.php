@@ -34,26 +34,26 @@ $rank_type = 'rank';
 
     $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
 
-    //     if ($page_header_status === 'display') {
-    $rank_header_icon_id = get_theme_mod('yipnyap_pageheader_rank_setting_image', false);
-    $rank_header_title = get_theme_mod('yipnyap_pageheader_rank_setting_title', esc_html_x('Ranks', 'Ranks Page - Title', 'yipnyap'));
-    $rank_header_description = get_theme_mod('yipnyap_pageheader_rank_setting_description', esc_html_x('Browse all the ranks of the community!', 'Ranks Page - Description', 'yipnyap'));
+    if ($page_header_status === 'display') {
+        $rank_header_icon_id = get_theme_mod('yipnyap_pageheader_rank_setting_image', false);
+        $rank_header_title = get_theme_mod('yipnyap_pageheader_rank_setting_title', esc_html_x('Ranks', 'Ranks Page - Title', 'yipnyap'));
+        $rank_header_description = get_theme_mod('yipnyap_pageheader_rank_setting_description', esc_html_x('Browse all the ranks of the community!', 'Ranks Page - Description', 'yipnyap'));
 
-    if ($rank_header_icon_id) {
-        $rank_header_icon_url = wp_get_attachment_image_src($rank_header_icon_id, 'full')[0];
-    } else {
-        $rank_header_icon_url = yipnyap_customizer_rank_page_image_get_default();
+        if ($rank_header_icon_id) {
+            $rank_header_icon_url = wp_get_attachment_image_src($rank_header_icon_id, 'full')[0];
+        } else {
+            $rank_header_icon_url = yipnyap_customizer_rank_page_image_get_default();
+        }
+
+        /**
+         * Section Banner
+         */
+        get_template_part('template-part/section/section', 'banner', [
+            'section_icon_url' => $rank_header_icon_url,
+            'section_title' => $rank_header_title,
+            'section_description' => $rank_header_description
+        ]);
     }
-
-    /**
-     * Section Banner
-     */
-    get_template_part('template-part/section/section', 'banner', [
-        'section_icon_url' => $rank_header_icon_url,
-        'section_title' => $rank_header_title,
-        'section_description' => $rank_header_description
-    ]);
-    //     }
 
     $ranks = yipnyap_gamipress_get_logged_user_ranks($rank_type);
     $user_points = yipnyap_gamipress_get_logged_user_points();

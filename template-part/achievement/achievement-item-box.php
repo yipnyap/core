@@ -43,9 +43,10 @@ $achievement_type = isset($args['achievement_type']) ? $args['achievement_type']
             <?php echo esc_html($args['achievement']['points']); ?>
 
             <!-- TEXT STICKER IMAGE -->
-            <img class="text-sticker-image"
-                 src="<?php echo esc_url($args['achievement']['points_type']['image_url']); ?>"
-                 alt="<?php echo esc_attr($args['achievement']['points_type']['slug']); ?>">
+            <!--            <img class="text-sticker-image"-->
+            <!--                 src="-->
+            <?php //echo esc_url($args['achievement']['points_type']['image_url']); ?><!--"-->
+            <!--                 alt="--><?php //echo esc_attr($args['achievement']['points_type']['slug']); ?><!--">-->
             <!-- /TEXT STICKER IMAGE -->
         </p>
         <!-- /TEXT STICKER -->

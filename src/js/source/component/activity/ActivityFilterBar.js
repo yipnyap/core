@@ -5,7 +5,7 @@ import IconSVG from '../icon/IconSVG';
 function ActivityFilterBar(props) {
     const [action, setAction] = useState('all');
     const [filters, setFilters] = useState({
-        scope: 'myfollowing',
+        scope: props.hideFollowing ? false : 'myfollowing',
         filter: {}
     });
 
@@ -18,6 +18,8 @@ function ActivityFilterBar(props) {
             mounting.current = false;
         }
     }, [filters]);
+
+    console.log(filters.scope);
 
     const setScopeAll = () => {
         changeScope(false);
@@ -74,15 +76,19 @@ function ActivityFilterBar(props) {
         <div className="quick-filters">
             {/* QUICK FILTERS TABS */}
             <div className="quick-filters-tabs">
-                <p className={`quick-filters-tab ${filters.scope === 'myfollowing' ? 'active' : ''}`}
-                   onClick={setScopeFollowing}>{yipnyap_translation.following}</p>
+                {
+                    !props.hideFollowing &&
+                    <p className={`quick-filters-tab ${filters.scope === 'myfollowing' ? 'active' : ''}`}
+                       onClick={setScopeFollowing}>{yipnyap_translation.following}</p>
+                }
+
+                <p className={`quick-filters-tab ${!filters.scope ? 'active' : ''}`} onClick={setScopeAll}>
+                    {yipnyap_translation.everything}
+                </p>
+
                 {
                     !props.hideSecondaryFilters &&
                     <React.Fragment>
-                        <p className={`quick-filters-tab ${!filters.scope ? 'active' : ''}`} onClick={setScopeAll}>
-                            {yipnyap_translation.everything}
-                        </p>
-
                         <p className={`quick-filters-tab ${filters.scope === 'favorites' ? 'active' : ''}`}
                            onClick={setScopeFavorites}>
                             {yipnyap_translation.favorites}

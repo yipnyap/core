@@ -38,6 +38,15 @@ if (!function_exists('yipnyap_get_activities')) {
             unset($args['include_pinned_from']);
         }
 
+        $current_user_id = get_current_user_id();
+        if ($args['scope'] === 'myfollowing' && $current_user_id !== 0) {
+            $following_ids = $current_user_id . ',' . bp_get_following_ids('user_id=' . $current_user_id);
+
+            $activities_args['filter'] = array(
+                'user_id' => $following_ids
+            );
+        }
+
         $activities_args = array_replace_recursive($activities_args, $args);
 
         /**

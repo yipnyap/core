@@ -152,7 +152,7 @@ function yipnyap_load_scripts()
     ];
 
     // add main script
-    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '3.9.0', true);
+    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '4.0.0', true);
 
     // add EX script
     wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);

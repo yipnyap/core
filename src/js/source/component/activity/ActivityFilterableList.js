@@ -46,7 +46,7 @@ function ActivityFilterableList(props) {
         per_page: props.perPage,
         sort: props.order,
         show_hidden: props.groupID ? true : false,
-        scope: false,
+        scope: 'myfollowing',
         filter: {}
     });
 
@@ -182,6 +182,9 @@ function ActivityFilterableList(props) {
         if (props.userID) {
             config.filter.user_id = props.userID;
 
+            // undo the default scope, if set, as we would want everything from the user
+            config.scope = config.scope === 'myfollowing' ? false : config.scope;
+
             if (currentPage.current === 1) {
                 config.include_pinned_from = props.userID;
             }
@@ -191,6 +194,9 @@ function ActivityFilterableList(props) {
         if (props.groupID) {
             config.filter.primary_id = props.groupID;
             config.filter.object = 'groups';
+
+            // undo the default scope, if set, as we would want everything from the group
+            config.scope = config.scope === 'myfollowing' ? false : config.scope;
         }
 
         console.log('ACTIVITY FILTERABLE LIST - ACTIVITY FILTERS: ', config);
@@ -633,6 +639,7 @@ function ActivityFilterableList(props) {
                         <ActivityFilterBar onFiltersChange={onFiltersChange}
                                            hideGroupsFilter={Boolean(props.groupID)}
                                            hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
+                                           hideFollowing={props.userID}
                         />
                     }
 

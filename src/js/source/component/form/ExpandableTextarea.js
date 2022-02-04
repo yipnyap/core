@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect, useLayoutEffect} from 'react';
+import React, {Fragment, useState, useRef, useEffect, useLayoutEffect} from 'react';
 
 import MentionList from '../mention/MentionList';
 
@@ -303,17 +303,44 @@ function ExpandableTextarea(props) {
             {/* MENTION LIST */}
 
             {/* TEXTAREA */}
-            <textarea ref={textareaRef}
-                      name={props.name}
-                      value={props.value}
-                      className={`${props.loading ? 'input-disabled' : ''} ${props.error ? 'input-error' : ''}`}
-                      {...(props.placeholder ? {placeholder: props.placeholder} : {})}
-                      maxLength={maxLength.current}
-                      autoFocus={props.focus}
-                      disabled={props.disabled}
-                      onChange={handleChange}
-            >
-      </textarea>
+            <div
+                className="rounded-xl overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                <label htmlFor="description" className="sr-only">
+                    Description
+                </label>
+                <textarea
+                    rows={2}
+                    id="activity-post-form-area"
+                    placeholder={''}
+                    defaultValue={''}
+                    ref={textareaRef}
+                    name={props.name}
+                    value={props.value}
+                    className={`block w-full border-0 py-0 resize-none placeholder-gray-500 focus:ring-0 sm:text-sm ${props.loading ? 'input-disabled' : ''} ${props.error ? 'input-error' : ''}`}
+                    {...(props.placeholder ? {placeholder: props.placeholder} : {})}
+                    maxLength={maxLength.current}
+                    autoFocus={props.focus}
+                    disabled={props.disabled}
+                    onChange={handleChange}
+                    wrap={'hard'}
+                />
+
+                {/* Spacer element to match the height of the toolbar */}
+                {
+                    props.kind === 'activity' &&
+                    <div aria-hidden="true">
+                        <div className="py-2">
+                            <div className="h-9"/>
+                        </div>
+                        <div className="h-px"/>
+                        <div className="py-2">
+                            <div className="py-px">
+                                <div className="h-9"/>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
             {/* TEXTAREA */}
 
             {

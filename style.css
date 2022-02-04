@@ -158,6 +158,10 @@ select {
 /*---------------------------
     1.2 SECONDARY COLORS
 ---------------------------*/
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
 /*---------------------------
     1.3 TERTIARY COLORS
 ---------------------------*/
@@ -167,12 +171,44 @@ select {
 /*-----------------------
     2.1 BODY COLORS
 -----------------------*/
+.bg-body {
+  background-color: var(--color-body);
+}
+
 /*-----------------------
     2.2 BOX COLORS
 -----------------------*/
+.bg-box {
+  background-color: var(--color-box-background);
+}
+
+.bg-box-alt {
+  background-color: var(--color-box-background-alt);
+}
+
+.bg-box-over {
+  background-color: var(--color-box-over-box-background);
+}
+
+.bg-box-over-light {
+  background-color: var(--color-box-over-box-light-background);
+}
+
 /*-----------------------
     2.3 TEXT COLORS
 -----------------------*/
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-alt {
+  color: var(--color-text-alt);
+}
+
+.text-alt-2 {
+  color: var(--color-text-alt-2);
+}
+
 /*-------------------------------
     2.4 TEXT SELECTION COLORS
 -------------------------------*/
@@ -185,6 +221,14 @@ select {
 /*-----------------------
     2.7 BORDER COLORS
 -----------------------*/
+.border-divider {
+  border-color: var(--color-divider);
+}
+
+.border-dark {
+  border-color: var(--color-border-dark);
+}
+
 /*-----------------------
     2.8 SHADOW COLORS
 -----------------------*/
@@ -2432,7 +2476,7 @@ body {
 
 h1, h2, h3, h4,
 h5, h6, a, p {
-  color: var(--color-text) !important;
+  color: var(--color-text);
   font-family: var(--font-primary);
   line-height: 1em;
 }
@@ -23955,8 +23999,7 @@ a:hover {
 }
 
 .xm-popup_close-button {
-  display: -ms-flexbox;
-  display: flex;
+  display: none;
   -ms-flex-pack: center;
       justify-content: center;
   -ms-flex-align: center;

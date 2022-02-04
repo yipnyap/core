@@ -64,6 +64,9 @@ $color-secondary-dark: $violet-dark;
 $color-secondary-darker: $violet-darker;
 $color-secondary-shadow: 4px 7px 12px 0 rgba(97, 93, 250, .2);
 $color-secondary-hover: $violet-hover;
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
 
 /*---------------------------
     1.3 TERTIARY COLORS
@@ -80,6 +83,9 @@ $color-tertiary-hover: $red-hover;
 -----------------------*/
 $color-body: #f8f8fb;
 $color-body-underlay: $white;
+.bg-body {
+  background-color: var(--color-body);
+}
 
 /*-----------------------
     2.2 BOX COLORS
@@ -88,6 +94,21 @@ $color-box-background: $white;
 $color-box-background-alt: $white-dark;
 $color-box-over-box-background: $white;
 $color-box-over-box-light-background: $white;
+.bg-box {
+  background-color: var(--color-box-background)
+}
+
+.bg-box-alt {
+  background-color: var(--color-box-background-alt)
+}
+
+.bg-box-over {
+  background-color: var(--color-box-over-box-background)
+}
+
+.bg-box-over-light {
+  background-color: var(--color-box-over-box-light-background)
+}
 
 /*-----------------------
     2.3 TEXT COLORS
@@ -95,6 +116,17 @@ $color-box-over-box-light-background: $white;
 $color-text: $black;
 $color-text-alt: $gray-dark;
 $color-text-alt-2: $gray;
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-alt {
+  color: var(--color-text-alt);
+}
+
+.text-alt-2 {
+  color: var(--color-text-alt-2);
+}
 
 /*-------------------------------
     2.4 TEXT SELECTION COLORS
@@ -121,6 +153,13 @@ $color-rating-icon-dark: $gray-dark;
 $color-divider: $gray-lighter;
 $color-border: $gray-light;
 $color-border-dark: #7a77fd;
+.border-divider {
+  border-color: var(--color-divider);
+}
+
+.border-dark {
+  border-color: var(--color-border-dark);
+}
 
 /*-----------------------
     2.8 SHADOW COLORS

@@ -114,7 +114,7 @@ function yipnyap_load_scripts()
     wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
     wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
     wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], '3.8.1');
-    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '1.11.0');
+    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], '4.1.0');
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], '1.0.2');
 
     // get user custom theme fonts
@@ -152,7 +152,7 @@ function yipnyap_load_scripts()
     ];
 
     // add main script
-    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '4.0.0', true);
+    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '4.1.0', true);
 
     // add EX script
     wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);

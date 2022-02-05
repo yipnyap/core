@@ -123,6 +123,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
         if ($bp_notifications->status === 200) {
             foreach ($bp_notifications->data as $bp_notification) {
                 $notification = $bp_notification;
+                unset($notification['_links']);
 
                 // add component specific data
                 if ($notification['component'] === 'friends') {
@@ -131,7 +132,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                     // add data according to action
                     switch ($notification['action']) {
                         case 'friendship_accepted':
-                            $notification['description'] = sprintf(esc_html__('accepted your %sfriend request%s', 'yipnyap'), '<span class="highlighted">', '</span>');
+                            $notification['description'] = esc_html__('accepted your friend request', 'yipnyap');
                             break;
                         case 'friendship_request':
                             $notification['description'] = sprintf(esc_html__('sent you a %sfriend request%s', 'yipnyap'), '<a class="highlighted" href="' . bp_loggedin_user_domain() . 'settings/friend-requests">', '</a>');

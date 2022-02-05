@@ -419,6 +419,29 @@ function yipnyap_support_features()
 add_action('after_setup_theme', 'yipnyap_support_features');
 
 /**
+ * Remove uneeded classes that Wordpress (and plugins) generate.
+ * They were for detecting plugins in the admin area, however there
+ * better standard ways of doing this now.
+ *
+ * @param $wp_classes
+ * @param $extra_classes
+ * @return array New classes.
+ */
+function yipnyap_body_class($wp_classes, $extra_classes)
+{
+    // List of the only WP generated classes allowed
+    $whitelist = array('portfolio', 'home', 'error404');
+
+    // Filter the body classes
+    $wp_classes = array_intersect($wp_classes, $whitelist);
+
+    // Add the extra classes back untouched
+    return array_merge($wp_classes, (array)$extra_classes);
+}
+
+add_filter('body_class', 'yipnyap_body_class', 10, 2);
+
+/**
  * Hide admin bar for non administrators
  */
 $admin_bar_status = get_theme_mod('yipnyap_adminbar_setting_display', 'display');

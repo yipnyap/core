@@ -617,3 +617,6 @@ add_filter('login_message', 'wpsd_add_login_message');
 
 /* Remove wp_generator */
 remove_action('wp_head', 'wp_generator');
+
+add_filter('bp_core_enable_root_profiles', '__return_true');
+

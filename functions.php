@@ -633,7 +633,7 @@ add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 1
 /* Add message above login form */
 function wpsd_add_login_message()
 {
-    return '<p class="message">👋 This is the new Login UI. Register pages are still using the old UI, so sorry for the mess!</p>';
+    return '<p class="message">👋 This is Yipnyap Accounts, an older Login UI. Register pages are using Kukiko ID, so sorry for the mess!</p>';
 }
 
 add_filter('login_message', 'wpsd_add_login_message');

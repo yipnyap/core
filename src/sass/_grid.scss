@@ -387,39 +387,39 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
     &:nth-child(1) {
       grid-area: a;
     }
-  
+
     &:nth-child(2) {
       grid-area: b;
     }
-  
+
     &:nth-child(3) {
       grid-area: c;
     }
-  
+
     &:nth-child(4) {
       grid-area: d;
     }
-  
+
     &:nth-child(5) {
       grid-area: e;
     }
-  
+
     &:nth-child(6) {
       grid-area: f;
     }
-  
+
     &:nth-child(7) {
       grid-area: g;
     }
-  
+
     &:nth-child(8) {
       grid-area: h;
     }
-  
+
     &:nth-child(9) {
       grid-area: i;
     }
-  
+
     &:nth-child(10) {
       grid-area: j;
     }
@@ -461,13 +461,13 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
       &.mobile-prefer-content {
         grid-template-areas: 'sidebar1 content';
 
-        & > {
-          .grid-column {
-            &:nth-child(3) {
-              display: none;
-            }
-          }
-        }
+        //& > {
+        //  .grid-column {
+        //    &:nth-child(3) {
+        //      display: none;
+        //    }
+        //  }
+        //}
       }
     }
 
@@ -505,7 +505,7 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
     grid-template-columns: repeat(auto-fit, $col-2-px);
     grid-template-rows: none;
     justify-content: center;
-    
+
     .photo-preview {
       height: 184px;
 
@@ -536,7 +536,7 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
   }
 }
 
-@media screen and (max-width: 1070px)  {
+@media screen and (max-width: 1070px) {
   .grid {
     &.grid-3-6-3 {
       grid-template-columns: 100%;
@@ -549,12 +549,12 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
                              'sidebar1'
                              'sidebar2';
 
-        .grid-column {
-          &:nth-child(1),
-          &:nth-child(3) {
-            display: none;
-          }
-        }
+        //.grid-column {
+        //  &:nth-child(1),
+        //  &:nth-child(3) {
+        //    display: none;
+        //  }
+        //}
       }
     }
 
@@ -568,7 +568,7 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
   }
 }
 
-@media screen and (max-width: 960px)  {
+@media screen and (max-width: 960px) {
   .grid {
     &.grid-half {
       grid-template-columns: 100%;

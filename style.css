@@ -2357,9 +2357,6 @@ textarea::placeholder {
   .grid.grid-3-6-3.mobile-prefer-content {
     grid-template-areas: 'sidebar1 content';
   }
-  .grid.grid-3-6-3.mobile-prefer-content > .grid-column:nth-child(3) {
-    display: none;
-  }
   .grid.grid-3-9, .grid.grid-9-3, .grid.grid-8-4 {
     grid-template-columns: 100%;
     grid-template-areas: 'content' 'sidebar';
@@ -2406,9 +2403,6 @@ textarea::placeholder {
   }
   .grid.grid-3-6-3.mobile-prefer-content {
     grid-template-areas: 'content' 'sidebar1' 'sidebar2';
-  }
-  .grid.grid-3-6-3.mobile-prefer-content .grid-column:nth-child(1), .grid.grid-3-6-3.mobile-prefer-content .grid-column:nth-child(3) {
-    display: none;
   }
   .grid.grid-3-9, .grid.grid-6-3_9, .grid.grid-3-6_9 {
     grid-template-columns: 100%;

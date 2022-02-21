@@ -586,7 +586,7 @@ add_filter(
 //		$new_error = substr($error["message"], 0, 100) . '...';
 //        $error["message"]
 
-        return 'A critical error on Houndkit has occurred. Go back.<br><br>Error Type ' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
     },
     10,
     2

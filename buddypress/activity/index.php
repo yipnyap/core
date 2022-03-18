@@ -97,9 +97,9 @@ $user = yipnyap_get_logged_user_member_data();
                         </div>
                     </div>
                     <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4" style="height: 3em;">
-                        <a href="https://forms.gle/F3nrztaU1hov8cme6" target="_blank"
+                        <a href="https://discord.gg/wrCGpAB" target="_blank"
                            class="button inline-flex items-center px-4 py-2 shadow-sm text-sm font-medium rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-cyan-500">
-                            Join Slack
+                            Join Discord
                         </a>
                     </div>
                 </div>

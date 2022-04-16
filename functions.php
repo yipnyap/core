@@ -80,7 +80,7 @@ require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-translation.
 function yipnyap_admin_load_scripts()
 {
     // load fonts
-    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Rajdhani:400,500,600,700|Titillium+Web:400,900&display=swap');
+    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,500,600,700|Titillium+Web:400,900&display=swap');
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.3.1');

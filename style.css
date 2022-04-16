@@ -2248,7 +2248,7 @@ textarea::placeholder {
 
 .grid.grid-layout-1 {
   grid-template-columns: repeat(4, 23.9864864865%);
-  grid-template-areas: 'sidebar header header header' 'sidebar content content contentsidebar';
+  grid-template-areas: 'sidebar header header header' 'sidebar content content contentsidebar';
 }
 
 .grid.grid-layout-1 .grid-sidebar {
@@ -2289,7 +2289,7 @@ textarea::placeholder {
   display: grid;
   grid-gap: 16px;
   grid-template-rows: repeat(3, 284px);
-  grid-template-areas: 'a b c c' 'a d e f' 'g h i j';
+  grid-template-areas: 'a b c c' 'a d e f' 'g h i j';
 }
 
 .photos-masonry .photo-preview:nth-child(1) {
@@ -2352,20 +2352,20 @@ textarea::placeholder {
   }
   .grid.grid-3-6-3 {
     grid-template-columns: 32.4324324324% 66.2162162162%;
-    grid-template-areas: 'sidebar1 content' 'sidebar2 content';
+    grid-template-areas: 'sidebar1 content' 'sidebar2 content';
   }
   .grid.grid-3-6-3.mobile-prefer-content {
     grid-template-areas: 'sidebar1 content';
   }
   .grid.grid-3-9, .grid.grid-9-3, .grid.grid-8-4 {
     grid-template-columns: 100%;
-    grid-template-areas: 'content' 'sidebar';
+    grid-template-areas: 'content' 'sidebar';
   }
   .grid.grid-3-9 .forum-sidebar, .grid.grid-9-3 .forum-sidebar, .grid.grid-8-4 .forum-sidebar {
     display: none;
   }
   .grid.grid-layout-1 {
-    grid-template-areas: 'header header header header' 'sidebar sidebar contentsidebar contentsidebar' 'content content content content';
+    grid-template-areas: 'header header header header' 'sidebar sidebar contentsidebar contentsidebar' 'content content content content';
   }
   .grid.grid-half.change-on-desktop {
     grid-template-columns: 100%;
@@ -2399,14 +2399,14 @@ textarea::placeholder {
 @media screen and (max-width: 1070px) {
   .grid.grid-3-6-3 {
     grid-template-columns: 100%;
-    grid-template-areas: 'sidebar1' 'sidebar2' 'content';
+    grid-template-areas: 'sidebar1' 'sidebar2' 'content';
   }
   .grid.grid-3-6-3.mobile-prefer-content {
-    grid-template-areas: 'content' 'sidebar1' 'sidebar2';
+    grid-template-areas: 'content' 'sidebar1' 'sidebar2';
   }
   .grid.grid-3-9, .grid.grid-6-3_9, .grid.grid-3-6_9 {
     grid-template-columns: 100%;
-    grid-template-areas: 'content' 'sidebar';
+    grid-template-areas: 'content' 'sidebar';
   }
 }
 
@@ -2416,7 +2416,7 @@ textarea::placeholder {
   }
   .grid.grid-layout-1 {
     grid-template-columns: 100%;
-    grid-template-areas: 'header' 'contentsidebar' 'sidebar' 'content';
+    grid-template-areas: 'header' 'contentsidebar' 'sidebar' 'content';
   }
   .grid.grid-6-6 {
     grid-template-columns: 100%;
@@ -12370,7 +12370,7 @@ a:hover {
 
 #bbpress-forums fieldset.bbp-form legend {
   color: var(--color-text) !important;
-  font-family: "Rajdhani", sans-serif;
+  font-family: "Nunito Sans", sans-serif;
   font-size: 1.625rem;
   font-weight: 700;
   line-height: 1.1em;
@@ -14922,7 +14922,7 @@ a:hover {
     margin-top: 32px;
   }
   .yipnyap-wc-content.yipnyap-wc-content-with-sidebar {
-    grid-template-areas: "sidebar" "body";
+    grid-template-areas: "sidebar" "body";
     grid-template-columns: 100%;
   }
   .yipnyap-wc-content.yipnyap-wc-content-with-sidebar .yipnyap-wc-sidebar {

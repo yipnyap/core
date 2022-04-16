@@ -1890,7 +1890,7 @@ function yipnyap_customizer_theme_font_options_get()
 function yipnyap_customizer_theme_fonts_custom_get()
 {
     $fonts = [
-        'primary' => get_theme_mod('yipnyap_font_setting_primary', 'Rajdhani'),
+        'primary' => get_theme_mod('yipnyap_font_setting_primary', 'Nunito Sans'),
         'secondary' => get_theme_mod('yipnyap_font_setting_secondary', 'Titillium Web')
     ];
 

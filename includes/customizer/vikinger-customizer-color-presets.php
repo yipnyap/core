@@ -22,7 +22,7 @@ function yipnyap_customizer_color_presets($wp_customize)
      */
     $wp_customize->add_setting('yipnyap_color_presets_setting_name', [
         'sanitize_callback' => 'sanitize_text_field',
-        'default' => 'custom'
+        'default' => 'light'
     ]);
 
     $wp_customize->add_control('yipnyap_color_presets_control_name', [

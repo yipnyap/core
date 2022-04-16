@@ -1280,7 +1280,7 @@ function yipnyap_customizer_color_preset_get()
         $user_color_theme = yipnyap_logged_user_color_theme_get();
         $preset_name = get_theme_mod('yipnyap_color_presets_setting_theme_switch_' . $user_color_theme, $user_color_theme);
     } else {
-        $preset_name = get_theme_mod('yipnyap_color_presets_setting_name', 'custom');
+        $preset_name = get_theme_mod('yipnyap_color_presets_setting_name', 'light');
     }
 
     return $preset_name;

@@ -47,7 +47,7 @@ function yipnyap_customizer_color_presets($wp_customize)
      */
     $wp_customize->add_setting('yipnyap_color_presets_setting_theme_switch_status', [
         'sanitize_callback' => 'sanitize_text_field',
-        'default' => 'disabled'
+        'default' => 'enabled'
     ]);
 
     $wp_customize->add_control('yipnyap_color_presets_control_theme_switch_status', [

@@ -23,7 +23,7 @@ $user = yipnyap_get_logged_user_member_data();
 } ?>;">
     <?php
 
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
+    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');
 
     if ($page_header_status === 'display') {
         $activity_header_icon_id = get_theme_mod('yipnyap_pageheader_activity_setting_image', false);

@@ -32,7 +32,7 @@ $rank_type = 'rank';
 <div class="content-grid">
     <?php
 
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
+    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');
 
     if ($page_header_status === 'display') {
         $rank_header_icon_id = get_theme_mod('yipnyap_pageheader_rank_setting_image', false);

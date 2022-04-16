@@ -21,7 +21,7 @@ function yipnyap_customizer_pageheader($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_pageheader_setting_display', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'display'
+    'default'           => 'hide'
   ]);
 
   $wp_customize->add_control('yipnyap_pageheader_control_display', [

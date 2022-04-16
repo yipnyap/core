@@ -52,7 +52,7 @@ function yipnyap_customizer_font($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_font_setting_secondary', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'Titillium Web'
+    'default'           => 'Poppins'
   ]);
 
   $wp_customize->add_control('yipnyap_font_control_secondary', [

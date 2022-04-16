@@ -25,7 +25,7 @@
 
 <?php
 
-$loading_screen_status = get_theme_mod('yipnyap_loadingscreen_setting_display', 'display');
+$loading_screen_status = get_theme_mod('yipnyap_loadingscreen_setting_display', 'hide');
 
 if ($loading_screen_status === 'display') :
 

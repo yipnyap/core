@@ -323,7 +323,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                  * Header Colors
                  */
                 '--color-header-background' => '#615dfa',
-                '--color-header-logo-background' => '#00c7d9',
+                '--color-header-logo-background' => '#f8f8fb',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#8b88ff',
                 '--color-header-icon-hover' => '#fff',

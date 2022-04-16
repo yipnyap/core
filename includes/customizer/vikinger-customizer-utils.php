@@ -1293,7 +1293,7 @@ function yipnyap_customizer_color_preset_get()
  */
 function yipnyap_customizer_color_theme_switch_is_active()
 {
-    $color_theme_switch_status = get_theme_mod('yipnyap_color_presets_setting_theme_switch_status', 'disabled');
+    $color_theme_switch_status = get_theme_mod('yipnyap_color_presets_setting_theme_switch_status', 'enabled');
 
     $active = $color_theme_switch_status === 'enabled';
 

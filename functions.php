@@ -583,10 +583,10 @@ add_filter(
 
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
         $date = date('m/d/Y h:i:s a', time());
-//		$new_error = substr($error["message"], 0, 100) . '...';
-//        $error["message"]
+		$new_error = substr($error["message"], 0, 100) . '...';
+        // $error["message"]
 
-        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter) . '<br><br>' . $error["message"];
     },
     10,
     2

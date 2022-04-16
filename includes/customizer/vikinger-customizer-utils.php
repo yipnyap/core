@@ -453,16 +453,16 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 /**
                  * Header Colors
                  */
-                '--color-header-background' => '#7750f8',
-                '--color-header-logo-background' => '#40d04f',
+                '--color-header-background' => '#161b28',
+                '--color-header-logo-background' => '#1d2333',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#9b7dff',
                 '--color-header-icon-hover' => '#fff',
                 '--color-header-profile-settings-icon' => '#fff',
                 '--color-header-mobilemenu-trigger-icon' => '#fff',
                 '--color-header-divider' => '#9b7dff',
-                '--color-header-input-background' => '#5538b5',
-                '--color-header-input-placeholder' => '#9b7dff',
+                '--color-header-input-background' => '#293249',
+                '--color-header-input-placeholder' => '#9aa4bf',
                 '--color-header-progressbar-line-gradient-start' => '#40d04f',
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',

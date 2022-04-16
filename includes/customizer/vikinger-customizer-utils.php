@@ -453,16 +453,16 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 /**
                  * Header Colors
                  */
-                '--color-header-background' => '#7750f8',
+                '--color-header-background' => '#f8f8fb',
                 '--color-header-logo-background' => '#40d04f',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#9b7dff',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
+                '--color-header-icon-hover' => '#615dfa',
+                '--color-header-profile-settings-icon' => '#9b7dff',
                 '--color-header-mobilemenu-trigger-icon' => '#fff',
                 '--color-header-divider' => '#9b7dff',
-                '--color-header-input-background' => '#5538b5',
-                '--color-header-input-placeholder' => '#9b7dff',
+                '--color-header-input-background' => '#dedeea',
+                '--color-header-input-placeholder' => '#adafca',
                 '--color-header-progressbar-line-gradient-start' => '#40d04f',
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
@@ -1891,7 +1891,7 @@ function yipnyap_customizer_theme_fonts_custom_get()
 {
     $fonts = [
         'primary' => get_theme_mod('yipnyap_font_setting_primary', 'Nunito Sans'),
-        'secondary' => get_theme_mod('yipnyap_font_setting_secondary', 'Titillium Web')
+        'secondary' => get_theme_mod('yipnyap_font_setting_secondary', 'Poppins')
     ];
 
     return $fonts;

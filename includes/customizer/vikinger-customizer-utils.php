@@ -322,8 +322,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 /**
                  * Header Colors
                  */
-                '--color-header-background' => '#615dfa',
-                '--color-header-logo-background' => '#f8f8fb',
+                '--color-header-background' => '#f8f8fb',
+                '--color-header-logo-background' => '#fff',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#8b88ff',
                 '--color-header-icon-hover' => '#fff',
@@ -453,16 +453,16 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 /**
                  * Header Colors
                  */
-                '--color-header-background' => '#f8f8fb',
+                '--color-header-background' => '#7750f8',
                 '--color-header-logo-background' => '#40d04f',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#9b7dff',
-                '--color-header-icon-hover' => '#615dfa',
-                '--color-header-profile-settings-icon' => '#9b7dff',
+                '--color-header-icon-hover' => '#fff',
+                '--color-header-profile-settings-icon' => '#fff',
                 '--color-header-mobilemenu-trigger-icon' => '#fff',
                 '--color-header-divider' => '#9b7dff',
-                '--color-header-input-background' => '#dedeea',
-                '--color-header-input-placeholder' => '#adafca',
+                '--color-header-input-background' => '#5538b5',
+                '--color-header-input-placeholder' => '#9b7dff',
                 '--color-header-progressbar-line-gradient-start' => '#40d04f',
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
@@ -1109,16 +1109,16 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 /**
                  * Header Colors
                  */
-                '--color-header-background' => '#615dfa',
+                '--color-header-background' => '#f8f8fb',
                 '--color-header-logo-background' => '#00c7d9',
                 '--color-header-text' => '#fff',
                 '--color-header-icon' => '#8b88ff',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
+                '--color-header-icon-hover' => '#615dfa',
+                '--color-header-profile-settings-icon' => '#9b7dff',
                 '--color-header-mobilemenu-trigger-icon' => '#fff',
                 '--color-header-divider' => '#7a77fd',
-                '--color-header-input-background' => '#4e4ac8',
-                '--color-header-input-placeholder' => '#8b88ff',
+                '--color-header-input-background' => '#dedeea',
+                '--color-header-input-placeholder' => '#adafca',
                 '--color-header-progressbar-line-gradient-start' => '#41efff',
                 '--color-header-progressbar-line-gradient-end' => '#41efff',
                 '--color-header-progressbar-underline' => '#4a46c8',

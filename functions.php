@@ -644,14 +644,10 @@ remove_action('wp_head', 'wp_generator');
 
 add_filter('bp_core_enable_root_profiles', '__return_true');
 
-<<<<<<< HEAD
 // This changes /no-admin-ajax/ -> /sdk/
 define('WP_NO_ADMIN_AJAX_URL','sdk');
 add_filter( 'no-admin-ajax/keyword', 'my_custom_no_admin_ajax_url' );
 function my_custom_no_admin_ajax_url( $ajax_url ) {
     return "sdk";
 }
-=======
-define('WP_NO_ADMIN_AJAX_URL','sdk');
->>>>>>> 90a7e3b2ef503a07cc08c0593c2bd8cf248f24d9
 

@@ -644,3 +644,5 @@ remove_action('wp_head', 'wp_generator');
 
 add_filter('bp_core_enable_root_profiles', '__return_true');
 
+define('WP_NO_ADMIN_AJAX_URL','sdk');
+

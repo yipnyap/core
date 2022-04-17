@@ -98,7 +98,7 @@ function yipnyap_settings_get()
         /**
          * Avatar
          */
-        'avatar_type' => get_theme_mod('yipnyap_avatar_setting_type', 'hexagon'),
+        'avatar_type' => get_theme_mod('yipnyap_avatar_setting_type', 'circle'),
         'member_avatar_url_default' => yipnyap_get_default_member_avatar_url(),
         'group_avatar_url_default' => yipnyap_get_default_group_avatar_url(),
 

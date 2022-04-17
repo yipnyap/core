@@ -21,7 +21,7 @@ function yipnyap_customizer_avatar($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_avatar_setting_type', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'hexagon'
+    'default'           => 'circle'
   ]);
 
   $wp_customize->add_control('yipnyap_avatar_control_type', [

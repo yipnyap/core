@@ -124,7 +124,7 @@ if (!function_exists('yipnyap_format_action_activity_media_update')) {
      */
     function yipnyap_format_action_activity_media_update($action, $activity)
     {
-        $action = esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'yipnyap');
+        $action = ''; //esc_html_x('posted a photo update', 'Activity Media Update Action - Text', 'yipnyap');
 
         return $action;
     }

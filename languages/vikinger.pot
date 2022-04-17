@@ -3674,16 +3674,6 @@ msgctxt "(Backend) Activity Media Update Group Action - Label"
 msgid "Media update"
 msgstr ""
 
-#: includes/functions/vikinger-functions-activity.php:899
-msgctxt "Activity Media Update Action - Text"
-msgid "posted a photo update"
-msgstr ""
-
-#: includes/functions/vikinger-functions-activity.php:912
-msgctxt "Activity Media Update Action Group - Text"
-msgid "posted a photo update in the group"
-msgstr ""
-
 #: includes/functions/vikinger-functions-activity.php:924
 msgctxt "(Backend) Activity Media Action - Description"
 msgid "Uploaded a photo"

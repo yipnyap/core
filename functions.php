@@ -646,8 +646,31 @@ add_filter('bp_core_enable_root_profiles', '__return_true');
 
 // This changes /no-admin-ajax/ -> /sdk/
 define('WP_NO_ADMIN_AJAX_URL','sdk');
-add_filter( 'no-admin-ajax/keyword', 'my_custom_no_admin_ajax_url' );
+add_filter('no-admin-ajax/keyword', 'my_custom_no_admin_ajax_url');
 function my_custom_no_admin_ajax_url( $ajax_url ) {
     return "sdk";
 }
 
+add_filter('login_url', 'yipnyap_custom_login_url', 10, 3);
+/**
+ * Filters the login URL.
+ *
+ * @since 1.10.1
+ *
+ * @param string $login_url    The login URL. Not HTML-encoded.
+ * @param string $redirect     The path to redirect to on login, if supplied.
+ * @param bool   $force_reauth Whether to force reauthorization, even if a cookie is present.
+ *
+ * @return string
+ */
+function yipnyap_custom_login_url($login_url, $redirect, $force_reauth){
+    // This will append /login/ to you main site URL as configured in general settings (ie https://yipnyap.xyz/login/)
+    $login_url = site_url('/login/', 'login');
+    if (!empty($redirect)) {
+        $login_url = add_query_arg('redirect_to', urlencode($redirect), $login_url);
+    }
+    if ($force_reauth) {
+        $login_url = add_query_arg('reauth', '1', $login_url);
+    }
+    return $login_url;
+}

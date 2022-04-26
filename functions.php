@@ -165,7 +165,7 @@ function yipnyap_load_scripts()
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
         'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
-        'ajax_url' => home_url('/wp-admin/admin-ajax.php'),
+        'ajax_url' => home_url('/sdk'),
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
         'rest_root' => esc_url_raw(rest_url()),

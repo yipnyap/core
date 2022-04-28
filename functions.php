@@ -651,3 +651,12 @@ function my_custom_no_admin_ajax_url( $ajax_url ) {
     return "sdk";
 }
 
+function yipnyap_dont_save_activity($activity_object) {
+ 
+    $exclude = array('new_avatar', 'updated_profile', 'friendship_created');
+ 
+    if(in_array($activity_object->type, $exclude))
+        $activity_object->type = false;
+ 
+}
+add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1, 1);

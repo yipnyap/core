@@ -586,7 +586,7 @@ add_filter(
 		$new_error = substr($error["message"], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
-        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter) . '<br><br>' . $error["message"];
     },
     10,
     2

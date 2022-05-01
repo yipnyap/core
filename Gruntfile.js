@@ -24,7 +24,7 @@ module.exports = function (grunt) {
             autoprefix: {
                 options: {
                     processors: [
-                        require('autoprefixer')()
+                        require('autoprefixer')({ overrideBrowserslist: 'last 3 versions' }),
                     ],
                     map: {
                         inline: false

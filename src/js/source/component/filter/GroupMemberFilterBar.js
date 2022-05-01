@@ -58,9 +58,6 @@ function GroupMemberFilterBar(props) {
                                     <option value="last_joined">{yipnyap_translation.newest_members}</option>
                                     <option value="group_activity">{yipnyap_translation.recently_active}</option>
                                 </select>
-                                <IconSVG icon="small-arrow"
-                                         modifiers="form-select-icon"
-                                />
                             </div>
                         </div>
                     </div>

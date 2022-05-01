@@ -114,10 +114,6 @@ function FormDatepicker(props) {
                         })
                     }
                 </select>
-
-                <IconSVG icon="small-arrow"
-                         modifiers="form-select-icon"
-                />
             </div>
             {/* FORM SELECT */}
 
@@ -134,10 +130,6 @@ function FormDatepicker(props) {
                         })
                     }
                 </select>
-
-                <IconSVG icon="small-arrow"
-                         modifiers="form-select-icon"
-                />
             </div>
             {/* FORM SELECT */}
 
@@ -154,10 +146,6 @@ function FormDatepicker(props) {
                         })
                     }
                 </select>
-
-                <IconSVG icon="small-arrow"
-                         modifiers="form-select-icon"
-                />
             </div>
             {/* FORM SELECT */}
         </div>

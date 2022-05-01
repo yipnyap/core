@@ -58,9 +58,6 @@ function MemberFilterBar(props) {
                                     <option value="newest">{yipnyap_translation.newest_members}</option>
                                     <option value="active">{yipnyap_translation.recently_active}</option>
                                 </select>
-                                <IconSVG icon="small-arrow"
-                                         modifiers="form-select-icon"
-                                />
                             </div>
                         </div>
                     </div>

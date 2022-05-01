@@ -136,9 +136,6 @@ function ActivityFilterBar(props) {
                                     </React.Fragment>
                                 }
                             </select>
-                            <IconSVG icon="small-arrow"
-                                     modifiers="form-select-icon"
-                            />
                         </div>
                     </div>
                 </div>
@@ -191,9 +188,6 @@ function ActivityFilterBar(props) {
                                     </React.Fragment>
                                 }
                             </select>
-                            <IconSVG icon="small-arrow"
-                                     modifiers="form-select-icon"
-                            />
                         </div>
                     </div>
                 </div>

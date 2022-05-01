@@ -71,9 +71,6 @@ function PostFilterBar(props) {
                                             })
                                         }
                                     </select>
-                                    <IconSVG icon="small-arrow"
-                                             modifiers="form-select-icon"
-                                    />
                                 </div>
                             </div>
                         }
@@ -87,9 +84,6 @@ function PostFilterBar(props) {
                                     <option value="date">{yipnyap_translation.date}</option>
                                     <option value="comment_count">{yipnyap_translation.popularity}</option>
                                 </select>
-                                <IconSVG icon="small-arrow"
-                                         modifiers="form-select-icon"
-                                />
                             </div>
                         </div>
 
@@ -102,9 +96,6 @@ function PostFilterBar(props) {
                                     <option value="DESC">{yipnyap_translation.descending}</option>
                                     <option value="ASC">{yipnyap_translation.ascending}</option>
                                 </select>
-                                <IconSVG icon="small-arrow"
-                                         modifiers="form-select-icon"
-                                />
                             </div>
                         </div>
 
@@ -125,9 +116,6 @@ function PostFilterBar(props) {
                                             })
                                         }
                                     </select>
-                                    <IconSVG icon="small-arrow"
-                                             modifiers="form-select-icon"
-                                    />
                                 </div>
                             </div>
                         }

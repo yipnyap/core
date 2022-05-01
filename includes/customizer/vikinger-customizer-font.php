@@ -35,7 +35,7 @@ function yipnyap_customizer_font($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_font_setting_primary', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'Nunito Sans'
+    'default'           => 'Inter'
   ]);
 
   $wp_customize->add_control('yipnyap_font_control_primary', [

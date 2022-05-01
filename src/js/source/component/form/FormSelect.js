@@ -36,10 +36,6 @@ function FormSelect(props) {
         })
       }
       </select>
-
-      <IconSVG  icon="small-arrow"
-                modifiers="form-select-icon"
-      />
     </div>
   );
 }

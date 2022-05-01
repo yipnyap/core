@@ -1890,7 +1890,7 @@ function yipnyap_customizer_theme_font_options_get()
 function yipnyap_customizer_theme_fonts_custom_get()
 {
     $fonts = [
-        'primary' => get_theme_mod('yipnyap_font_setting_primary', 'Nunito Sans'),
+        'primary' => get_theme_mod('yipnyap_font_setting_primary', 'Inter'),
         'secondary' => get_theme_mod('yipnyap_font_setting_secondary', 'Poppins')
     ];
 

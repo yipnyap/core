@@ -23,6 +23,7 @@
     5. MIXINS
 -----------------*/
 body.login {
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
   background: var(--color-wplogin-body);
@@ -51,12 +52,16 @@ body.login input.password-input {
 
 body.login .vklogin-header {
   width: 55%;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 body.login .vklogin-header .vklogin-header-pretitle,
@@ -98,12 +103,16 @@ body.login #login {
   width: 45%;
   padding-top: 0;
   margin: 0;
+  display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  -ms-flex-direction: column;
-      flex-direction: column;
-  -ms-flex-pack: center;
-      justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
 }
 
 body.login #login h1 {
@@ -118,7 +127,8 @@ body.login #login h1 a {
 
 body.login #login h1 a:focus {
   color: var(--color-text) !important;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 body.login #login form,
@@ -134,7 +144,8 @@ body.login #login form {
   padding: 0;
   background: transparent;
   border: none;
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   overflow: visible;
 }
 
@@ -170,6 +181,8 @@ body.login #login form div.user-pass1-wrap p > label {
   top: 20px;
   left: 20px;
   z-index: 2;
+  -webkit-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
   pointer-events: none;
 }
@@ -198,6 +211,8 @@ body.login #login form p:not(.forgetmenot) label {
   top: 20px;
   left: 20px;
   z-index: 2;
+  -webkit-transition: all .3s ease-in-out;
+  -o-transition: all .3s ease-in-out;
   transition: all .3s ease-in-out;
   pointer-events: none;
 }
@@ -228,6 +243,8 @@ body.login #login form input[type="password"] {
   border: 1px solid var(--color-border);
   background: var(--color-wplogin-body);
   color: var(--color-text) !important;
+  -webkit-transition: border-color .2s ease-in-out;
+  -o-transition: border-color .2s ease-in-out;
   transition: border-color .2s ease-in-out;
 }
 
@@ -235,14 +252,18 @@ body.login #login form input[type="text"]:focus,
 body.login #login form input[type="email"]:focus,
 body.login #login form input[type="password"]:focus {
   border-color: var(--color-secondary);
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 body.login #login form .wp-generate-pw {
   color: #fff;
-  box-shadow: var(--color-primary-shadow);
+  -webkit-box-shadow: var(--color-primary-shadow);
+          box-shadow: var(--color-primary-shadow);
   background: var(--color-primary);
   border-color: transparent;
+  -webkit-transition: background-color .2s ease-in-out;
+  -o-transition: background-color .2s ease-in-out;
   transition: background-color .2s ease-in-out;
 }
 
@@ -251,9 +272,12 @@ body.login #login form .wp-generate-pw:hover {
 }
 
 body.login #login form input[type="submit"] {
-  box-shadow: var(--color-secondary-shadow);
+  -webkit-box-shadow: var(--color-secondary-shadow);
+          box-shadow: var(--color-secondary-shadow);
   background: var(--color-secondary);
   border-color: transparent;
+  -webkit-transition: background-color .2s ease-in-out;
+  -o-transition: background-color .2s ease-in-out;
   transition: background-color .2s ease-in-out;
 }
 
@@ -279,7 +303,8 @@ body.login #login form input[type="checkbox"]::before {
 }
 
 body.login #login form input[type="checkbox"]:focus, body.login #login form input[type="checkbox"]:checked {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   border-color: var(--color-primary);
 }
 
@@ -300,7 +325,8 @@ body.login #login form .wp-pwd .button.wp-hide-pw .dashicons {
 }
 
 body.login #login form .wp-pwd .button.wp-hide-pw:focus {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   border-color: var(--color-secondary);
 }
 
@@ -328,12 +354,15 @@ body.login #login #nav {
 
 body.login #login #backtoblog a,
 body.login #login #nav a {
+  -webkit-transition: color .2s ease-in-out;
+  -o-transition: color .2s ease-in-out;
   transition: color .2s ease-in-out;
 }
 
 body.login #login #backtoblog a:focus,
 body.login #login #nav a:focus {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
 }
 
 body.login #login #backtoblog a:focus, body.login #login #backtoblog a:hover,
@@ -365,7 +394,8 @@ body.login #login #login_error {
   font-size: 0.875rem;
   font-weight: 500;
   line-height: 1.2857142857em;
-  box-shadow: var(--color-box-shadow);
+  -webkit-box-shadow: var(--color-box-shadow);
+          box-shadow: var(--color-box-shadow);
   position: relative;
 }
 
@@ -392,7 +422,8 @@ body.login #login #login_error a {
 
 body.login #login .message a:focus,
 body.login #login #login_error a:focus {
-  box-shadow: none;
+  -webkit-box-shadow: none;
+          box-shadow: none;
   border: 1px solid #fff;
 }
 

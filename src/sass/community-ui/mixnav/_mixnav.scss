@@ -1,0 +1,69 @@
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. .mixnav
+2. .bgimg
+-------------------------------------------------------------------*/
+/*--------------------------
+    1. MIX NAVIGATION
+--------------------------*/
+.mixnav {
+    position: sticky;
+    top: 80px;
+    z-index: 1;
+    overflow: hidden;
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    padding-left: 4vw;
+}
+
+/*--------------------------
+    1. MIX BACKGROUND
+--------------------------*/
+.bgimg {
+    position: absolute;
+    width: -webkit-fill-available;
+    height: 105%;
+    z-index: -1;
+    filter: opacity(0.3) blur(2px);
+}
+  
+  // Displays when the time is during the day...
+  .bgimg[data-time="day"] {
+    // ... and the user's rough location is metro/regional
+    &.bgimg[data-geo="city"], &.bgimg[data-geo="regional"] {
+      background: url(https://thumbs.gfycat.com/AgileFoolhardyJoey-small.gif) no-repeat;
+      background-size: cover;
+      background-position-y: -12em;
+    }
+}
+  
+  // Displays when the time is during sunset...
+  .bgimg[data-time="sunset"] {
+    // ... and the user's rough location is metro
+    &.bgimg[data-geo="city"] {
+      background: url(https://i.pinimg.com/originals/57/da/cd/57dacd36642d64b23464c988fc8b8088.gif) center no-repeat;
+      background-size: cover;
+    }
+  
+    &.bgimg[data-geo="regional"] {
+      background: url(https://64.media.tumblr.com/8a9f9f1c663730b0cd2c848d16e3053c/tumblr_ommbmm3pKp1rnbw6mo1_1280.gif) center no-repeat;
+      background-size: cover;
+      background-position-y: -30em;
+    }
+}
+  
+  // Displays when the time is after full sunset...
+  .bgimg[data-time="night"] {
+    // ... and the user's rough location is metro
+    &.bgimg[data-geo="city"] {
+      background: url(https://thumbs.gfycat.com/ConsciousUnfitFruitfly-small.gif) bottom no-repeat;
+      background-size: cover;
+    }
+  
+    // ... and the user's rough location is regional
+    &.bgimg[data-geo="regional"] {
+      background: url(https://data.whicdn.com/images/298586557/original.gif) bottom no-repeat;
+      background-size: cover;
+    }
+}

@@ -8,6 +8,7 @@ if (yipnyap_constants.settings.sidemenu_status === 'display') {
         CONTENT GRID
     -------------------*/
     querySelector('.content-grid', function (el) {
+        return; // keep the code, just dont run it.
         const sidebar = {
                 navigation: {
                     active: yipnyap_constants.settings.sidemenu_active,

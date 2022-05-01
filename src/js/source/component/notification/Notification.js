@@ -4,7 +4,7 @@ import IconSVG from '../icon/IconSVG';
 
 function Notification(props) {
   return (
-    <div className="notification-section animate-slide-down">
+    <div className="notification-section">
       <IconSVG  icon="no-results"
                 modifiers="notification-section-icon"
       />

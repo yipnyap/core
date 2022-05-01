@@ -3,6 +3,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@tailwind apply;
 
 @layer base {
   h1 {
@@ -83,6 +84,7 @@
 @import 'slider-panel/main';
 @import 'chart/main';
 @import 'demo-box/main';
+@import 'community-ui/main';
 
 /*-------------
     PLUGIN

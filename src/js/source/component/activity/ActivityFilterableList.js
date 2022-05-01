@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 import Paginator from '../utils/Paginator';
 
@@ -12,14 +12,14 @@ import Loader from '../loader/Loader';
 
 import ScrollPager from '../pager/ScrollPager';
 
-import {deepExtend, deepMerge} from '../../utils/core';
+import { deepExtend, deepMerge } from '../../utils/core';
 
 import * as userRouter from '../../router/user/user-router';
 import * as activityRouter from '../../router/activity/activity-router';
 import * as reactionRouter from '../../router/reaction/reaction-router';
 
-import {filterActivityContentForSave} from '../utils/activity/activity-filter';
-import {updateActivities} from '../utils/activity/activity-data';
+import { filterActivityContentForSave } from '../utils/activity/activity-filter';
+import { updateActivities } from '../utils/activity/activity-data';
 
 function ActivityFilterableList(props) {
     const [activities, setActivities] = useState({
@@ -249,7 +249,7 @@ function ActivityFilterableList(props) {
         const scope = filters.current.scope;
 
         // exclude pinned activity if exists
-        const options = pinnedActivityID ? {exclude: pinnedActivityID} : {};
+        const options = pinnedActivityID ? { exclude: pinnedActivityID } : {};
 
         if (currentPage.current === 1) {
             getActivities((response) => {
@@ -622,7 +622,7 @@ function ActivityFilterableList(props) {
         <div className="grid">
             {
                 fetchingUser &&
-                <Loader/>
+                <Loader />
             }
             {
                 !fetchingUser &&
@@ -630,41 +630,51 @@ function ActivityFilterableList(props) {
                     {
                         (onNewsfeed || ownProfile || ownGroup) &&
                         <ActivityForm user={loggedUser}
-                                      postIn={postInDefault}
-                                      onSubmit={createActivity}
+                            postIn={postInDefault}
+                            onSubmit={createActivity}
                         />
                     }
                     {
                         !props.activityID &&
                         <ActivityFilterBar onFiltersChange={onFiltersChange}
-                                           hideGroupsFilter={Boolean(props.groupID)}
-                                           hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
-                                           hideFollowing={props.userID}
+                            hideGroupsFilter={Boolean(props.groupID)}
+                            hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
+                            hideFollowing={props.userID}
                         />
                     }
 
                     <ScrollPager modifiers="grid" loadMoreItems={getActivitiesPage} moreItems={activities.moreItems}
-                                 initialFetch={activities.initialFetch}>
+                        initialFetch={activities.initialFetch}>
                         {
                             (activities.items.length === 0) && !activities.moreItems &&
-                            <Notification title={yipnyap_translation.no_results_found}
-                                          text={yipnyap_translation.item_list_no_results_text}
+                            <Notification title={`o((⊙﹏⊙))o we couldn't discover any content`}
+                                          text={`New to Yipnyap? Go hit "Everything" and follow those you like!`}
                             />
+                            // <>
+                            //     <h3 class="text-lg leading-6 font-medium">
+                            //         o((⊙﹏⊙))o we couldn't discover content you'd like
+                            //     </h3>
+                            //     <div class="mt-2 text-sm leading-5 text-gray-500">
+                            //         <p>New to Yipnyap? Go explore and follow those you love!</p>
+                            //         <p>For now, we'll keep checking in the background.</p>
+                            //     </div>
+                            // </>
+
                         }
                         {
                             (activities.items.length > 0) &&
                             <ActivityList data={activities.items}
-                                          user={loggedUser}
-                                          reactions={reactions}
-                                          profileUserID={props.userID}
-                                          pinnedActivityID={pinnedActivityID}
-                                          pinActivity={pinActivity}
-                                          unpinActivity={unpinActivity}
-                                          updateActivity={updateActivity}
-                                          deleteActivity={deleteActivity}
-                                          onShare={onCreatedActivity}
-                                          onPlay={onPlay}
-                                          onActivityUpdate={onActivityUpdate}
+                                user={loggedUser}
+                                reactions={reactions}
+                                profileUserID={props.userID}
+                                pinnedActivityID={pinnedActivityID}
+                                pinActivity={pinActivity}
+                                unpinActivity={unpinActivity}
+                                updateActivity={updateActivity}
+                                deleteActivity={deleteActivity}
+                                onShare={onCreatedActivity}
+                                onPlay={onPlay}
+                                onActivityUpdate={onActivityUpdate}
                             />
                         }
                     </ScrollPager>
@@ -674,4 +684,4 @@ function ActivityFilterableList(props) {
     );
 }
 
-export {ActivityFilterableList as default};
+export { ActivityFilterableList as default };

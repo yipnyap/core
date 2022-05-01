@@ -34,6 +34,7 @@ $(document).ready(function () {
     const headerBackgroundOpacity = 90;
 
     const header = $('#mixheader-timed-greeting');
+    const mixbg = $('.bgimg');
 
     if (isDarkTheme) {
         $('header.header').css({
@@ -62,22 +63,63 @@ $(document).ready(function () {
         postCommentButton.remove();
     }, 1000);
 
-    header.html(header.html().replace('[greeting]', timedGreeting()))
+    header.html(header.html().replace('Yipnyap is loading', timedGreeting()));
+    mixbg.attr('data-time', timeBG());
+
 });
 
-function timedGreeting() {
-    const d = new Date();
-    const time = d.getHours();
+function timeBG() {
+    const today = new Date();
+    const curHr = today.getHours();
 
-    if (time < 5) {
-        return '🦉 There\'s a thing called sleeping';
-    } else if (time < 12) {
-        return 'Good morning';
-    } else if (time == 12) {
-        return 'Nice lunch';
-    } else if (time > 11 && time < 18) {
-        return 'Good afternoon';
-    } else if (time > 17) {
-        return 'Good evening';
+    if (curHr < 5) {
+        return 'night';
+    } else if (curHr < 6) {
+        return 'day';
+    } else if (curHr < 17) {
+        return 'day';
+    } else if (curHr < 19) {
+        return 'sunset';
+    } else {
+        return 'night';
+    }
+}
+
+function timedGreeting() {
+    const simple = timedGreetingSimple();
+    switch (simple) {
+        case 'early':
+            return '🌆 Sunrise looks great';
+
+        case 'day':
+            return '🏙 Good morning';
+
+        case 'afternoon':
+            return '🧺 Afternoon';
+
+        case 'sunset':
+            return '🌇 Good evening';
+
+        case 'night':
+            return '🌃 Good night';
+    }
+}
+
+function timedGreetingSimple() {
+    const today = new Date();
+    const curHr = today.getHours();
+
+    if (curHr < 5) {
+        return 'night';
+    } else if (curHr < 6) {
+        return 'early';
+    } else if (curHr < 14) {
+        return 'day';
+    } else if (curHr < 17) {
+        return 'afternoon';
+    } else if (curHr < 19) {
+        return 'sunset';
+    } else {
+        return 'night';
     }
 }

@@ -9,9 +9,11 @@
     1. CONTENT GRID
 ----------------------*/
 .content-grid {
-  max-width: 1184px;
-  padding: 112px 0 100px;
+  // max-width: 1184px;
+  // padding: 112px 0 100px;
   margin: 0 auto;
+  margin-top: 80px;
+  padding: 0 1vw 6vw 6vw;
 
   &.full {
     width: 100%;

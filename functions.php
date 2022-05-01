@@ -83,7 +83,7 @@ function yipnyap_admin_load_scripts()
     wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,500,600,700|Poppins:400,900&display=swap');
 
     // add custom stylesheets
-    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.3.1');
+    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.11.0');
 
     // add custom scripts
     wp_enqueue_script('yipnyap-admin-scripts', YIPNYAP_URL . '/src/js/admin.bundle.min.js', [], '3.8.1', true);
@@ -155,7 +155,7 @@ function yipnyap_load_scripts()
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, '1.11.0', true);
 
     // add EX script
-    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.4', true);
+    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.5', true);
 
     global $yipnyap_settings;
 

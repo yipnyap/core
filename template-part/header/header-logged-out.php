@@ -99,19 +99,21 @@ endif;
     <div class="navigation-widget-actions">
         <?php
 
-        if ($args['yipnyap_settings']['users_can_register']) :
-            $bp_directory_page_ids = bp_core_get_directory_page_ids();
-            $register_page = get_post($bp_directory_page_ids['register']);
-            $register_page_link = get_permalink($register_page->ID);
+        // if ($args['yipnyap_settings']['users_can_register']) :
+        //     $bp_directory_page_ids = bp_core_get_directory_page_ids();
+        //     $register_page = get_post($bp_directory_page_ids['register']);
+        //     $register_page_link = get_permalink($register_page->ID);
 
             ?>
             <!-- BUTTON -->
-            <a class="button register-button"
-               href="<?php echo esc_url($register_page_link); ?>"><?php esc_html_e('Register', 'yipnyap'); ?></a>
+            <!-- <a class="button register-button"
+               href="<?php echo esc_url($register_page_link); ?>"><?php esc_html_e('Register', 'yipnyap'); ?></a> -->
+               <a class="button register-button"
+               href="https://yipnyap.xyz/id/create"><?php esc_html_e('Register', 'yipnyap'); ?></a>
             <!-- /BUTTON -->
         <?php
 
-        endif;
+        // endif;
 
         ?>
 

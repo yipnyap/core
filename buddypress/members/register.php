@@ -10,6 +10,8 @@
  *
  */
 
+ return wp_die('This resource was moved to a different server. Now at: snowsuit:/id/create')
+
 $login_page_default_logo_id = get_theme_mod('yipnyap_loginregister_setting_login_logo', false);
 
 if ($login_page_default_logo_id) {
@@ -28,7 +30,7 @@ if ($login_page_default_background_id) {
 
 $login_page_pretitle = get_theme_mod('yipnyap_loginregister_setting_login_pretitle', esc_html_x('Welcome to', 'Login Page - Pre Title', 'yipnyap'));
 $login_page_title = get_theme_mod('yipnyap_loginregister_setting_login_title', esc_html_x('Yipnyap', 'Login Page - Title', 'yipnyap'));
-$login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', sprintf(esc_html__('%sIt\'s a furry safe space%s%s%s%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>'));
+$login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', sprintf(esc_html__('%sIt\'s a furry safe space%s', 'yipnyap'), '<span class="bold">', '</span>'));
 
 ?>
 

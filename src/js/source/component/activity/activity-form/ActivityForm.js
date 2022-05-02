@@ -55,6 +55,7 @@ function ActivityForm(props) {
     const [formData, setFormData] = useState({
         text: '',
         postIn: props.postIn ? props.postIn : '0',
+        label: {name: 'Unlabelled', value: null},
         attached_media: false,
         uploadable_media_type: false,
         uploadable_media: false,
@@ -65,7 +66,6 @@ function ActivityForm(props) {
     const photoTooltipRef = useRef(null);
 
     const [assigned, setAssigned] = useState(assignees[0]);
-    const [labelled, setLabelled] = useState(labels[0]);
     const [dated, setDated] = useState(dueDates[0]);
 
     // useEffect(() => {
@@ -203,6 +203,22 @@ function ActivityForm(props) {
                 ...previousFormData,
                 text: e.target.value,
                 attached_media: attached_media
+            };
+        });
+    };
+
+    const handleLabelChange = (e) => {
+        // e can be default event or user generated with only target and value properties
+        if (e.persist) {
+            e.persist();
+        }
+
+        console.debug('ACTIVITY FORM - LABEL CHANGE: ', e);
+
+        setFormData(previousFormData => {
+            return {
+                ...previousFormData,
+                label: e
             };
         });
     };
@@ -422,7 +438,7 @@ function ActivityForm(props) {
                             <div className="absolute bottom-0 inset-x-px">
                                 {/* Actions: These are just examples to demonstrate the concept, replace/wire these up however makes sense for your project. */}
                                 <div className="flex flex-nowrap justify-end py-2 px-2 space-x-2 sm:px-3">
-                                    <Listbox as="div" value={labelled} onChange={setLabelled} className="flex-shrink-0">
+                                    <Listbox as="div" value={formData.label} onChange={handleLabelChange} className="flex-shrink-0">
                                         {({open}) => (
                                             <>
                                                 <Listbox.Label className="sr-only">Add a label</Listbox.Label>
@@ -431,18 +447,18 @@ function ActivityForm(props) {
                                                         className="relative inline-flex items-center rounded-full py-2 px-2 bg-box text-sm font-medium text-primary whitespace-nowrap hover:opacity-75 sm:px-3">
                                                         <TagIcon
                                                             className={classNames(
-                                                                labelled.value === null ? 'text-gray-300' : 'text-gray-500',
+                                                                formData.label.value === null ? 'text-gray-300' : 'text-gray-500',
                                                                 'flex-shrink-0 h-5 w-5 sm:-ml-1'
                                                             )}
                                                             aria-hidden="true"
                                                         />
                                                         <span
                                                             className={classNames(
-                                                                labelled.value === null ? '' : 'text-gray-900',
+                                                                formData.label.value === null ? '' : 'text-gray-900',
                                                                 'hidden truncate sm:ml-2 sm:block'
                                                             )}
                                                         >
-                      {labelled.value === null ? 'Label' : labelled.name}
+                      {formData.label.value === null ? 'Label' : formData.label.name}
                     </span>
                                                     </Listbox.Button>
 

@@ -371,7 +371,8 @@ function ActivityFilterableList(props) {
                 component: itemID === 0 ? 'activity' : 'groups',
                 type: activityType,
                 content: activityContent,
-                hide_sitewide: hideSitewide
+                hide_sitewide: hideSitewide,
+                label: (data.label ? data.label.value : null)
             },
             attached_media: data.attached_media,
             uploadable_media: uploadable_media,

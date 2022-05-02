@@ -10,7 +10,11 @@
  *
  */
 
- return wp_die('This resource was moved to a different server. Now at: snowsuit:/id/create')
+function yp_register_force_deactivate() {
+	wp_die('This resource was moved to a different server. Now at: snowsuit:/id/create');
+}
+
+yp_register_force_deactivate();
 
 $login_page_default_logo_id = get_theme_mod('yipnyap_loginregister_setting_login_logo', false);
 

@@ -632,6 +632,15 @@ if (bp_is_active('settings')) {
                         <!-- WIDGET BOX CONTENT -->
                         <div class="widget-box-content">
                             <?php
+                            get_template_part('template-part/alert/alert', 'line', [
+                                'type' => 'info',
+                                'text' => sprintf(
+                                    esc_html__('%sCareful:%s As soon as you click delete, everything linked to this user is removed! You cannot stop or undo this. Tell your friends on Yipnyap first, as there will be no trace of you existing on Yipnyap! Moderation notes about this user will not be purged, as they have no direct link to users on the database.', 'yipnyap'),
+                                    '<span class="bold">',
+                                    '</span>'
+                                    )
+                            ]);
+                            echo '<br>';
 
                             if (is_super_admin($member['id'])) {
                                 /**
@@ -664,7 +673,7 @@ if (bp_is_active('settings')) {
                                 get_template_part('template-part/alert/alert', 'line', [
                                     'type' => 'error',
                                     'text' => sprintf(
-                                        esc_html__('%sWarning:%s deleting your account will delete all of the content you have created. It will be completely irrecoverable.', 'yipnyap'),
+                                        esc_html__('%sWarning:%s deleting your account will delete all of the content you have created. It will be completely irrecoverable. this is your final warning.', 'yipnyap'),
                                         '<span class="bold">',
                                         '</span>'
                                     )

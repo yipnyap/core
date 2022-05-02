@@ -60,52 +60,12 @@ if (yipnyap_plugin_gamipress_is_active()) {
 /**
  * BuddyPress
  */
-require_once YIPNYAP_PATH . '/includes/functions/buddypress/vikinger-functions-buddypress.php';
-
-/**
- * MEMBER functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-member.php';
-
-/**
- * MEMBER PAGES functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-member-pages.php';
-
-/**
- * FRIEND functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-friend.php';
-
-/**
- * FOLLOW functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-follow.php';
-
-/**
- * GROUP functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-group.php';
-
-/**
- * NOTIFICATION functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-notification.php';
-
-/**
- * MESSAGE functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-message.php';
+require_once YIPNYAP_PATH . '/includes/functions/buddypress/functions-buddypress.php';
 
 /**
  * FILE functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-file.php';
-
-/**
- * ELEMENTOR functions
- */
-require_once YIPNYAP_PATH . '/includes/elementor/vikinger-functions-elementor.php';
 
 /**
  * BBPRESS functions

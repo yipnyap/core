@@ -6,8 +6,6 @@
  *
  * @since 1.9.1
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
- *
  */
 
 if (!function_exists('yipnyap_get_notifications')) {

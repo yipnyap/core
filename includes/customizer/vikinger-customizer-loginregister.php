@@ -137,7 +137,7 @@ function yipnyap_customizer_loginregister($wp_customize)
      */
     $wp_customize->add_setting('yipnyap_loginregister_setting_login_text', [
         'sanitize_callback' => 'yipnyap_customizer_sanitize_text',
-        'default' => sprintf(esc_html__('%sThe next generation WordPress+Buddypress social community!%s Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and %smuch more to come!%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>')
+        'default' => sprintf(esc_html__('%sIt\'s a furry safe space%s%s%s%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>')
     ]);
 
     $wp_customize->add_control('yipnyap_loginregister_control_login_text', [

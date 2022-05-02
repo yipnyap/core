@@ -89,7 +89,7 @@ function yipnyap_wplogin_header()
 
     $login_page_pretitle = get_theme_mod('yipnyap_loginregister_setting_login_pretitle', esc_html_x('Welcome to', 'Login Page - Pre Title', 'yipnyap'));
     $login_page_title = get_theme_mod('yipnyap_loginregister_setting_login_title', esc_html_x('Yipnyap', 'Login Page - Title', 'yipnyap'));
-    $login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', sprintf(esc_html__('%sThe next generation WordPress+Buddypress social community!%s Connect with your friends with full profiles, reactions, groups, badges, quests, ranks, credits and %smuch more to come!%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>'));
+    $login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', sprintf(esc_html__('%sIt\'s a furry safe space%s%s%s%s', 'yipnyap'), '<span class="bold">', '</span>', '<span class="bold">', '</span>'));
 
     ?>
     <div class="vklogin-header"

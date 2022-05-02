@@ -36,6 +36,11 @@ require_once YIPNYAP_PATH . '/includes/functions/buddypress/activity/functions-b
 require_once YIPNYAP_PATH . '/includes/functions/buddypress/functions-buddypress-friend.php';
 
 /**
+ * Friend
+ */
+require_once YIPNYAP_PATH . '/includes/functions/buddypress/functions-buddypress-follow.php';
+
+/**
  * Notification
  */
 require_once YIPNYAP_PATH . '/includes/functions/buddypress/functions-buddypress-notification.php';

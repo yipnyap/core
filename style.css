@@ -2584,6 +2584,10 @@ p a:focus, li a:focus {
   text-decoration: underline;
 }
 
+a {
+  color: var(--color-text);
+}
+
 a:hover {
   color: var(--color-primary-dark);
   text-decoration: none;
@@ -2619,18 +2623,18 @@ a:hover {
   height: 48px;
   border-radius: 10px;
   background-color: #3e3f5e;
-  color: #fff !important;
+  color: #fff;
   font-family: var(--font-primary);
   font-size: 0.875rem;
   font-weight: 700;
   text-align: center;
   line-height: 48px;
   cursor: pointer;
-  -webkit-transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
-  -o-transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out, -webkit-box-shadow .2s ease-in-out;
+  -webkit-transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, -webkit-box-shadow 150ms ease-in-out;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, -webkit-box-shadow 150ms ease-in-out;
+  -o-transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, box-shadow 150ms ease-in-out, -webkit-box-shadow 150ms ease-in-out;
   -webkit-box-shadow: 3px 5px 10px 0 rgba(62, 63, 94, 0.2);
           box-shadow: 3px 5px 10px 0 rgba(62, 63, 94, 0.2);
 }
@@ -2760,7 +2764,7 @@ a:hover {
 .button.white {
   background-color: transparent;
   border: 1px solid var(--color-border);
-  color: var(--color-text-alt-2);
+  color: var(--color-text);
   -webkit-box-shadow: none;
           box-shadow: none;
 }
@@ -7451,6 +7455,7 @@ a:hover {
 }
 
 .sidebar-menu-body .sidebar-menu-link {
+  color: var(--color-text);
   display: block;
   height: 34px;
   font-size: 0.875rem;
@@ -9340,6 +9345,7 @@ a:hover {
 .alert-line .alert-line-icon {
   fill: #fff;
   position: absolute;
+  margin-top: 4px;
   top: 20px;
   left: 20px;
 }
@@ -25199,10 +25205,7 @@ a:hover {
   display: -ms-inline-flexbox;
   display: inline-flex;
   position: relative;
-  padding-top: 0.5rem;
-  padding-bottom: 0.5rem;
-  padding-left: 1rem;
-  padding-right: 1rem;
+  padding: 0.5rem 1rem;
   -webkit-transition-property: background-color, border-color, color, fill, stroke, opacity, -webkit-box-shadow, -webkit-transform;
   transition-property: background-color, border-color, color, fill, stroke, opacity, -webkit-box-shadow, -webkit-transform;
   -o-transition-property: background-color, border-color, color, fill, stroke, opacity, box-shadow, transform;
@@ -25218,8 +25221,6 @@ a:hover {
   font-size: 0.875rem;
   line-height: 1.25rem;
   font-weight: 500;
-  line-height: 1.25rem;
-  display: inline-flex;
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;

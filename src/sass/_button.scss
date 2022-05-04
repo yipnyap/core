@@ -13,14 +13,14 @@
   height: 48px;
   border-radius: 10px;
   background-color: $color-button-background;
-  color: $white !important;
+  color: $white;
   font-family: var(--font-primary);
   font-size: $fs-14;
   font-weight: $weight-bold;
   text-align: center;
   line-height: 48px;
   cursor: pointer;
-  transition: background-color .2s ease-in-out, color .2s ease-in-out, border-color .2s ease-in-out, box-shadow .2s ease-in-out;
+  transition: background-color 150ms ease-in-out, color 150ms ease-in-out, border-color 150ms ease-in-out, box-shadow 150ms ease-in-out;
   box-shadow: $color-button-shadow;
 
   &.button-loader {
@@ -155,7 +155,7 @@
   &.white {
     background-color: transparent;
     border: 1px solid var(--color-border);
-    color: var(--color-text-alt-2);
+    color: var(--color-text);
     box-shadow: none;
 
     .loader-spinner {

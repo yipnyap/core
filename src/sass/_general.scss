@@ -60,6 +60,8 @@ p, li {
 }
 
 a {
+  color: var(--color-text);
+
   &:hover {
     color: $color-text-link;
     text-decoration: none;

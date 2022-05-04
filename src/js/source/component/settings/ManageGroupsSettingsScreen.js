@@ -13,6 +13,7 @@ import Loader from '../loader/Loader';
 import * as userRouter from '../../router/user/user-router';
 
 import groupUtils from '../utils/group';
+import AlertLine from "../alert/AlertLine";
 
 function ManageGroupsSettingsScreen(props) {
     const [loggedUser, setLoggedUser] = useState(false);
@@ -44,6 +45,12 @@ function ManageGroupsSettingsScreen(props) {
             {
                 loggedUser &&
                 <React.Fragment>
+                    <AlertLine type={'info'}
+                               title={'🔬 NSFW Groups Experiment'}
+                               text={'You can now test the ability to create NSFW groups. Ensure the group is set to private.'}
+                               margin={'b'}
+                    />
+
                     {
                         (userCanCreateGroups || (groups.length > 0)) &&
                         <div className="grid grid-3-3-3 centered-on-mobile">

@@ -4328,6 +4328,7 @@
   }
 
   .sidebar-menu-link {
+    color: var(--color-text);
     display: block;
     height: 34px;
     font-size: $fs-14;
@@ -6013,6 +6014,7 @@
   .alert-line-icon {
     fill: $white;
     position: absolute;
+    margin-top: 4px;
     top: 20px;
     left: 20px;
   }

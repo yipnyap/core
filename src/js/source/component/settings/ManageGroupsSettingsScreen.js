@@ -45,6 +45,12 @@ function ManageGroupsSettingsScreen(props) {
             {
                 loggedUser &&
                 <React.Fragment>
+                    <AlertLine type={'info'}
+                               title={'🔬 NSFW Groups Experiment'}
+                               text={'You can now test the ability to create NSFW groups. Ensure the group is set to private.'}
+                               margin={'b'}
+                    />
+
                     {
                         (userCanCreateGroups || (groups.length > 0)) &&
                         <div className="grid grid-3-3-3 centered-on-mobile">

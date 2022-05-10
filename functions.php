@@ -58,8 +58,8 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-define('YIPNYAP_VERSION', '1.9.1.0');
-define('YIPNYAP_VERSION_OPTION', 'yipnyap_version');
+const YIPNYAP_VERSION        = '2022.05.1';
+const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
  * Theme paths and urls

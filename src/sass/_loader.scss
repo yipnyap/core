@@ -1,10 +1,31 @@
 /*------------------------------------------------------------------
 [Table of contents]
 
-1. .loader-bars
+1. Loading Overrides & Logo
+2. .loader-bars
 -------------------------------------------------------------------*/
+
 /*---------------------
-    1. LOADER BARS
+    1. Loading Overrides & Logo
+---------------------*/
+.logo-image, .page-loader-logo {
+  width: 2em;
+}
+
+.page-loader-info {
+  display: none;
+}
+.page-open-title {
+  display: none;
+}
+
+img[alt='logo'].logo-image {
+  animation: 1s logoHue ease-out;
+  border-radius: .3em;
+}
+
+/*---------------------
+    2. LOADER BARS
 ---------------------*/
 .loader-bars {
   display: flex;
@@ -126,5 +147,15 @@
 
   100% {
     transform: scaleY(1);
+  }
+}
+
+@keyframes logoHue {
+  0% {
+    filter: hue-rotate(0);
+  }
+
+  100% {
+    filter: hue-rotate(360deg);
   }
 }

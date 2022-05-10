@@ -47,7 +47,7 @@ if (!$no_stats) {
     <div class="user-avatar-circle small <?php echo esc_attr($no_stats_classes); ?> <?php echo esc_attr($modifiers_classes); ?> <?php echo esc_attr($no_border_classes); ?>">
         <?php endif; ?>
         <!-- USER AVATAR CIRCLE IMAGE -->
-        <img class="<?php if ($img_class) { echo esc_attr($img_class); } else { ?> user-avatar-circle-image <? } ?>" src="<?php echo esc_url($args['user']['avatar_url']); ?>"
+        <img class="<?php if ($img_class) { echo esc_attr($img_class); } else { ?> user-avatar-circle-image <?php } ?>" src="<?php echo esc_url($args['user']['avatar_url']); ?>"
              alt="avatar-image">
         <!-- /USER AVATAR CIRCLE IMAGE -->
 

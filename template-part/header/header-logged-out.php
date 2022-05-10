@@ -21,7 +21,7 @@ global $yipnyap_settings;
 $display_search = ($yipnyap_settings['search_status'] === 'display') && ($yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled']);
 
 $sidemenu_status = get_theme_mod('yipnyap_sidemenu_setting_display', 'display');
-$header_version = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v1');
+$header_version = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v2');
 
 $has_custom_logo = has_custom_logo();
 

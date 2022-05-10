@@ -3,6 +3,7 @@
  * Yipnyap Template Part - Header Logged In
  *
  * @param array $args {
+ *
  * @type array $user User data.
  * @type array $points User points data.
  * @type array $side_menu_items Side menu items.
@@ -20,25 +21,27 @@
  */
 
 // add BuddyPress member stats data if plugin is active
-if (yipnyap_plugin_buddypress_is_active()) {
-    $post_count = $args['user']['stats']['post_count'];
-    $friend_count = $args['user']['stats']['friend_count'];
-    $comment_count = $args['user']['stats']['comment_count'];
+if ( yipnyap_plugin_buddypress_is_active() ) {
+	$post_count    = $args['user']['stats']['post_count'];
+	$friend_count  = $args['user']['stats']['friend_count'];
+	$comment_count = $args['user']['stats']['comment_count'];
 }
 
-$sidemenu_status = get_theme_mod('yipnyap_sidemenu_setting_display', 'display');
-$header_version = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v1');
+$sidemenu_status = get_theme_mod( 'yipnyap_sidemenu_setting_display', 'display' );
+$header_version  = get_theme_mod( 'yipnyap_siteidentity_setting_header_type', 'v2' );
 
 $has_custom_logo = has_custom_logo();
 
-if ($has_custom_logo) {
-    $logo_id = get_theme_mod('custom_logo');
-    $logo_url = wp_get_attachment_image_src($logo_id, 'full');
+if ( $has_custom_logo ) {
+	$logo_id  = get_theme_mod( 'custom_logo' );
+	$logo_url = wp_get_attachment_image_src( $logo_id, 'full' );
+} else {
+    $logo_url = array(YIPNYAP_URL . '/img/yipnyap-logo.png');
 }
 
 global $yipnyap_settings;
 
-$display_search = ($yipnyap_settings['search_status'] === 'display') && ($yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled']);
+$display_search = ( $yipnyap_settings['search_status'] === 'display' ) && ( $yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled'] );
 
 $display_verified = yipnyap_plugin_bpverifiedmember_is_active();
 
@@ -47,211 +50,57 @@ $display_verified_in_username = $display_verified && $yipnyap_settings['bp_verif
 
 $verified_user = $display_verified && $args['user']['verified'];
 
-if ($sidemenu_status === 'display') :
-    ?>
+if ( $sidemenu_status === 'display' ) :
+	?>
     <!-- NAVIGATION WIDGET -->
     <nav id="navigation-widget-small"
-         class="navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
-        <?php
-
-        /**
-         * Avatar Small
-         */
-        get_template_part('template-part/avatar/avatar', 'small', [
-            'user' => $args['user'],
-            'linked' => yipnyap_plugin_buddypress_is_active(),
-            'no_border' => true
-        ]);
-
-        // show side menu items if it has at least one item
-        if (count($args['side_menu_items']) > 0) {
-            /**
-             * Menu
-             */
-            get_template_part('template-part/navigation/menu', null, [
-                'menu_items' => $args['side_menu_items_flat'],
-                'modifiers' => 'small',
-                'show_tooltips' => true
-            ]);
-        }
-
-        ?>
-    </nav>
-    <!-- /NAVIGATION WIDGET -->
-
-    <!-- NAVIGATION WIDGET -->
-    <nav id="navigation-widget"
-         class="navigation-widget navigation-widget-desktop sidebar left <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-delayed' : 'navigation-widget-hidden'; ?>"
-         data-simplebar>
-        <!-- NAVIGATION WIDGET COVER -->
-        <div class="navigation-widget-cover"
-             style="<?php echo esc_attr('background: url(' . esc_url($args['user']['cover_url']) . ') center center / cover no-repeat'); ?>"></div>
-        <!-- /NAVIGATION WIDGET COVER -->
-
-        <!-- USER SHORT DESCRIPTION -->
-        <div class="user-short-description">
-            <?php
-
-            /**
-             * Avatar Medium
-             */
-            get_template_part('template-part/avatar/avatar', 'medium', [
-                'user' => $args['user'],
-                'modifiers' => 'user-short-description-avatar',
-                'linked' => yipnyap_plugin_buddypress_is_active()
-            ]);
-
-            ?>
-
-            <!-- USER SHORT DESCRIPTION TITLE -->
-            <p class="user-short-description-title">
-                <?php
-
-                echo esc_html($args['user']['name']);
-
-                if ($display_verified_in_fullname && $verified_user) {
-                    echo $yipnyap_settings['bp_verified_member_badge'];
-                }
-
-                ?>
-            </p>
-            <!-- /USER SHORT DESCRIPTION TITLE -->
-
-            <?php
-
-            $display_membership_tag = yipnyap_plugin_pmpro_buddypress_is_active() && yipnyap_pmpro_buddypress_membership_level_tag_display_on_profile_is_enabled() && $args['user']['membership'];
-
-            if ($display_membership_tag) {
-                /**
-                 * Membership Level Tag
-                 */
-                get_template_part('template-part/membership/membership-level', 'tag', [
-                    'name' => $args['user']['membership']['name']
-                ]);
-            }
-
-            ?>
-
-            <!-- USER SHORT DESCRIPTION TEXT -->
-            <p class="user-short-description-text">
-                <?php
-
-                echo '&#64;' . esc_html($args['user']['mention_name']);
-
-                if ($display_verified_in_username && $verified_user) {
-                    echo $yipnyap_settings['bp_verified_member_badge'];
-                }
-
-                ?>
-            </p>
-            <!-- /USER SHORT DESCRIPTION TEXT -->
+         style="margin-top: 0; z-index: 10001; padding-bottom: 0; left: 0;"
+         class="cmui navigator navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
+        <a class="flex items-center justify-center" href="#">
+            <img class="logo-image w-10 rounded"
+                 src="<?php echo esc_url($logo_url[0]) ?>" alt="logo">
+        </a>
+        <div class="border-divider">
+			<?php
+			// show side menu items if it has at least one item
+			if ( count( $args['side_menu_items'] ) > 0 ) {
+				/**
+				 * Menu
+				 */
+				get_template_part( 'template-part/navigation/menu', null, [
+					'menu_items'    => $args['side_menu_items_flat'],
+					'modifiers'     => 'small',
+					'show_tooltips' => true
+				] );
+			}
+			?>
         </div>
-        <!-- /USER SHORT DESCRIPTION -->
+        <div class="border-divider">
+            <!-- SETTINGS -->
+            <a class="cmui navigator-item <?php if ( str_contains( $_SERVER['REQUEST_URI'], "/settings" ) ) {
+				echo esc_attr('active');
+			} ?>" href="<?php echo esc_url( $args['user']['link'] . '/settings' ) ?>">
+                <svg class="w-6 h-6 stroke-current" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                     stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M12 6V4m0 2a2 2 0 100 4m0-4a2 2 0 110 4m-6 8a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4m6 6v10m6-2a2 2 0 100-4m0 4a2 2 0 110-4m0 4v2m0-6V4"></path>
+                </svg>
+            </a>
+        </div>
+		<?php
 
-        <?php
+		/**
+		 * Avatar Small
+		 */
+		get_template_part( 'template-part/avatar/avatar', 'small', [
+			'user'      => $args['user'],
+			'linked'    => yipnyap_plugin_buddypress_is_active(),
+			'no_border' => true,
+			'a_class'   => 'small no-stats no-border flex items-center justify-center w-16 h-16 mt-auto',
+			'img_class' => 'h-6 w-6 rounded-full'
+		] );
 
-        // add GamiPress badges data if plugin is active
-        if (yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge')) :
-            $badges = $args['user']['badges'];
-
-            if (!is_null($badges)) :
-                $badges_count = count($badges);
-
-                if ($badges_count > 0) :
-                    $badges_count = $badges_count;
-                    $max_display_count = 4;
-                    $display_count = min($max_display_count, $badges_count);
-
-                    $display_badges = array_slice($badges, 0, $display_count);
-                    $more_count = ($badges_count - $display_count) > 0 ? $badges_count - $display_count : 0;
-
-                    /**
-                     * Badge List
-                     */
-                    get_template_part('template-part/badge/badge', 'list', [
-                        'badges' => $display_badges,
-                        'modifiers' => 'small',
-                        'more_count' => $more_count,
-                        'more_link' => $args['user']['badges_link']
-                    ]);
-                else :
-                    ?>
-                    <p class="no-results-text"><?php esc_html_e('No badges unlocked', 'yipnyap'); ?></p>
-                <?php
-                endif;
-            endif;
-        endif;
-
-        // add BuddyPress member stats data if plugin is active
-        if (yipnyap_plugin_buddypress_is_active()) :
-
-            ?>
-
-            <!-- USER STATS -->
-            <div class="user-stats">
-                <!-- USER STAT -->
-                <div class="user-stat">
-                    <!-- USER STAT TITLE -->
-                    <p class="user-stat-title"><?php echo esc_html($post_count); ?></p>
-                    <!-- /USER STAT TITLE -->
-
-                    <!-- USER STAT TEXT -->
-                    <p class="user-stat-text"><?php echo esc_html(_n('post', 'posts', $post_count, 'yipnyap')); ?></p>
-                    <!-- /USER STAT TEXT -->
-                </div>
-                <!-- /USER STAT -->
-
-                <?php
-
-                // add BuddyPress friend stats data if friends component is active
-                if (bp_is_active('friends')) :
-
-                    ?>
-                    <!-- USER STAT -->
-                    <div class="user-stat">
-                        <!-- USER STAT TITLE -->
-                        <p class="user-stat-title"><?php echo esc_html($friend_count); ?></p>
-                        <!-- /USER STAT TITLE -->
-
-                        <!-- USER STAT TEXT -->
-                        <p class="user-stat-text"><?php echo esc_html(_n('friend', 'friends', $friend_count, 'yipnyap')); ?></p>
-                        <!-- /USER STAT TEXT -->
-                    </div>
-                    <!-- /USER STAT -->
-                <?php
-
-                endif;
-
-                ?>
-                <!-- USER STAT -->
-                <div class="user-stat">
-                    <!-- USER STAT TITLE -->
-                    <p class="user-stat-title"><?php echo esc_html($comment_count); ?></p>
-                    <!-- /USER STAT TITLE -->
-
-                    <!-- USER STAT TEXT -->
-                    <p class="user-stat-text"><?php echo esc_html(_n('comment', 'comments', $comment_count, 'yipnyap')); ?></p>
-                    <!-- /USER STAT TEXT -->
-                </div>
-                <!-- /USER STAT -->
-            </div>
-            <!-- /USER STATS -->
-
-        <?php
-
-        endif;
-
-        if (count($args['side_menu_items']) > 0) {
-            /**
-             * Menu
-             */
-            get_template_part('template-part/navigation/menu', null, [
-                'menu_items' => $args['side_menu_items'],
-                'show_menu_names' => true
-            ]);
-        }
-
-        ?>
+		?>
     </nav>
     <!-- /NAVIGATION WIDGET -->
 <?php
@@ -265,17 +114,17 @@ endif;
      class="navigation-widget navigation-widget-mobile sidebar left navigation-widget-hidden" data-simplebar>
     <!-- NAVIGATION WIDGET CLOSE BUTTON -->
     <div class="navigation-widget-close-button">
-        <?php
+		<?php
 
-        /**
-         * Icon SVG
-         */
-        get_template_part('template-part/icon/icon', 'svg', [
-            'icon' => 'back-arrow',
-            'modifiers' => 'navigation-widget-close-button-icon'
-        ]);
+		/**
+		 * Icon SVG
+		 */
+		get_template_part( 'template-part/icon/icon', 'svg', [
+			'icon'      => 'back-arrow',
+			'modifiers' => 'navigation-widget-close-button-icon'
+		] );
 
-        ?>
+		?>
     </div>
     <!-- /NAVIGATION WIDGET CLOSE BUTTON -->
 
@@ -284,161 +133,161 @@ endif;
         <!-- NAVIGATION WIDGET INFO -->
         <div class="navigation-widget-info">
             <!-- USER AVATAR -->
-            <?php
+			<?php
 
-            /**
-             * Avatar Small
-             */
-            get_template_part('template-part/avatar/avatar', 'small', [
-                'user' => $args['user'],
-                'linked' => yipnyap_plugin_buddypress_is_active(),
-                'no_border' => true
-            ]);
+			/**
+			 * Avatar Small
+			 */
+			get_template_part( 'template-part/avatar/avatar', 'small', [
+				'user'      => $args['user'],
+				'linked'    => yipnyap_plugin_buddypress_is_active(),
+				'no_border' => true
+			] );
 
-            ?>
+			?>
             <!-- /USER AVATAR -->
 
             <!-- NAVIGATION WIDGET INFO TITLE -->
             <p class="navigation-widget-info-title">
-                <?php
+				<?php
 
-                echo esc_html($args['user']['name']);
+				echo esc_html( $args['user']['name'] );
 
-                if ($verified_user) {
-                    echo $yipnyap_settings['bp_verified_member_badge'];
-                }
+				if ( $verified_user ) {
+					echo $yipnyap_settings['bp_verified_member_badge'];
+				}
 
-                ?>
+				?>
             </p>
             <!-- /NAVIGATION WIDGET INFO TITLE -->
 
             <!-- NAVIGATION WIDGET INFO TEXT -->
-            <p class="navigation-widget-info-text"><?php esc_html_e('Welcome Back!', 'yipnyap'); ?></p>
+            <p class="navigation-widget-info-text"><?php esc_html_e( 'Welcome Back!', 'yipnyap' ); ?></p>
             <!-- /NAVIGATION WIDGET INFO TEXT -->
         </div>
         <!-- /NAVIGATION WIDGET INFO -->
 
-        <?php
+		<?php
 
-        // add GamiPress points data if plugin is active
-        if (yipnyap_plugin_gamipress_is_active()) {
-            if (count($args['points'])) {
-                /**
-                 * Point Item List
-                 */
-                get_template_part('template-part/point/point-item', 'list', [
-                    'points' => $args['points'],
-                    'modifiers' => 'negative'
-                ]);
-            }
-        }
+		// add GamiPress points data if plugin is active
+		if ( yipnyap_plugin_gamipress_is_active() ) {
+			if ( count( $args['points'] ) ) {
+				/**
+				 * Point Item List
+				 */
+				get_template_part( 'template-part/point/point-item', 'list', [
+					'points'    => $args['points'],
+					'modifiers' => 'negative'
+				] );
+			}
+		}
 
-        ?>
+		?>
 
         <!-- NAVIGATION WIDGET BUTTON -->
         <a class="navigation-widget-info-button button small secondary"
-           href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'yipnyap'); ?></a>
+           href="<?php echo esc_url( wp_logout_url( '/activity' ) ); ?>"><?php esc_html_e( 'Logout', 'yipnyap' ); ?></a>
         <!-- /NAVIGATION WIDGET BUTTON -->
     </div>
     <!-- /NAVIGATION WIDGET INFO WRAP -->
 
-    <?php if (yipnyap_customizer_color_theme_switch_is_active()) : ?>
+	<?php if ( yipnyap_customizer_color_theme_switch_is_active() ) : ?>
         <!-- ACTION ITEM WRAP -->
         <div class="action-item-wrap">
             <!-- ACTION ITEM -->
             <div class="action-item hoverable vk-theme-toggle">
-                <?php
+				<?php
 
-                $color_theme = yipnyap_logged_user_color_theme_get();
+				$color_theme = yipnyap_logged_user_color_theme_get();
 
-                $toggle_color_theme = 'light';
+				$toggle_color_theme = 'light';
 
-                if ($color_theme === 'light') {
-                    $toggle_color_theme = 'dark';
-                }
+				if ( $color_theme === 'light' ) {
+					$toggle_color_theme = 'dark';
+				}
 
-                $color_theme_name = $color_theme === 'light' ? esc_html__('Switch to Dark', 'yipnyap') : esc_html__('Switch to Light', 'yipnyap');
+				$color_theme_name = $color_theme === 'light' ? esc_html__( 'Switch to Dark', 'yipnyap' ) : esc_html__( 'Switch to Light', 'yipnyap' );
 
-                /**
-                 * Icon SVG
-                 */
-                get_template_part('template-part/icon/icon', 'svg', [
-                    'icon' => $toggle_color_theme . '-theme',
-                    'modifiers' => 'action-item-icon'
-                ]);
+				/**
+				 * Icon SVG
+				 */
+				get_template_part( 'template-part/icon/icon', 'svg', [
+					'icon'      => $toggle_color_theme . '-theme',
+					'modifiers' => 'action-item-icon'
+				] );
 
-                ?>
+				?>
 
                 <!-- ACTION ITEM TEXT -->
-                <p class="action-item-text"><?php echo esc_html($color_theme_name); ?></p>
+                <p class="action-item-text"><?php echo esc_html( $color_theme_name ); ?></p>
                 <!-- /ACTION ITEM TEXT -->
             </div>
             <!-- /ACTION ITEM -->
         </div>
         <!-- /ACTION ITEM WRAP -->
-    <?php endif; ?>
+	<?php endif; ?>
 
-    <?php if (count($args['side_menu_items']) > 0) : ?>
+	<?php if ( count( $args['side_menu_items'] ) > 0 ) : ?>
         <!-- NAVIGATION WIDGET SECTION -->
         <div class="navigation-widget-section">
             <!-- NAVIGATION WIDGET SECTION TITLE -->
-            <p class="navigation-widget-section-title"><?php esc_html_e('Sections', 'yipnyap'); ?></p>
+            <p class="navigation-widget-section-title"><?php esc_html_e( 'Sections', 'yipnyap' ); ?></p>
             <!-- /NAVIGATION WIDGET SECTION TITLE -->
 
-            <?php
+			<?php
 
-            /**
-             * Menu
-             */
-            get_template_part('template-part/navigation/menu', null, [
-                'menu_items' => $args['side_menu_items'],
-                'show_menu_names' => true
-            ]);
+			/**
+			 * Menu
+			 */
+			get_template_part( 'template-part/navigation/menu', null, [
+				'menu_items'      => $args['side_menu_items'],
+				'show_menu_names' => true
+			] );
 
-            ?>
+			?>
         </div>
         <!-- /NAVIGATION WIDGET SECTION -->
-    <?php endif; ?>
+	<?php endif; ?>
 
-    <?php
+	<?php
 
-    // show settings menu
-    foreach ($args['settings_navigation_sections'] as $settings_navigation_section) {
-        /**
-         * Navigation Widget Section
-         */
-        get_template_part('template-part/navigation/navigation-widget-section', null, [
-            'section_name' => $settings_navigation_section['title'],
-            'section_links' => $settings_navigation_section['menu_items']
-        ]);
-    }
+	// show settings menu
+	foreach ( $args['settings_navigation_sections'] as $settings_navigation_section ) {
+		/**
+		 * Navigation Widget Section
+		 */
+		get_template_part( 'template-part/navigation/navigation-widget-section', null, [
+			'section_name'  => $settings_navigation_section['title'],
+			'section_links' => $settings_navigation_section['menu_items']
+		] );
+	}
 
-    // show header menu
-    if (count($args['header_menu_items']) > 0) {
-        $section_name = $args['header_menu_items'][0]['menu_name'];
+	// show header menu
+	if ( count( $args['header_menu_items'] ) > 0 ) {
+		$section_name = $args['header_menu_items'][0]['menu_name'];
 
-        /**
-         * Navigation Widget Section
-         */
-        get_template_part('template-part/navigation/navigation-widget-section', null, [
-            'section_name' => $section_name,
-            'section_links' => $args['header_menu_items']
-        ]);
-    }
+		/**
+		 * Navigation Widget Section
+		 */
+		get_template_part( 'template-part/navigation/navigation-widget-section', null, [
+			'section_name'  => $section_name,
+			'section_links' => $args['header_menu_items']
+		] );
+	}
 
-    // show header features menu
-    if (count($args['header_features_menu_items']) > 0) {
-        foreach ($args['header_features_menu_items'] as $header_features_menu_section => $header_features_menu_items) {
-            /**
-             * Navigation Widget Section
-             */
-            get_template_part('template-part/navigation/navigation-widget-section', null, [
-                'section_name' => $header_features_menu_section,
-                'section_links' => $header_features_menu_items
-            ]);
-        }
-    }
-    ?>
+	// show header features menu
+	if ( count( $args['header_features_menu_items'] ) > 0 ) {
+		foreach ( $args['header_features_menu_items'] as $header_features_menu_section => $header_features_menu_items ) {
+			/**
+			 * Navigation Widget Section
+			 */
+			get_template_part( 'template-part/navigation/navigation-widget-section', null, [
+				'section_name'  => $header_features_menu_section,
+				'section_links' => $header_features_menu_items
+			] );
+		}
+	}
+	?>
 </nav>
 <!-- /NAVIGATION WIDGET -->
 
@@ -446,52 +295,23 @@ endif;
 <header class="header">
     <!-- HEADER ACTIONS -->
     <div class="header-actions header-actions-full">
-        <?php if ($has_custom_logo && $header_version === 'v2') : ?>
-            <!-- LOGO -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="logo logo-encased">
-                <!-- LOGO IMAGE -->
-                <img class="logo-image" src="<?php echo esc_url($logo_url[0]); ?>" alt="logo">
-                <!-- /LOGO IMAGE -->
-            </a>
-            <!-- /LOGO -->
-        <?php endif; ?>
 
-        <?php if ($header_version === 'v1') : ?>
-            <!-- HEADER BRAND -->
-            <a href="<?php echo esc_url(home_url('/')); ?>" class="header-brand">
-                <?php if ($has_custom_logo) : ?>
-                    <!-- LOGO -->
-                    <div class="logo">
-                        <!-- LOGO IMAGE -->
-                        <img class="logo-image" src="<?php echo esc_url($logo_url[0]); ?>" alt="logo">
-                        <!-- /LOGO IMAGE -->
-                    </div>
-                    <!-- /LOGO -->
-                <?php endif; ?>
-
-                <!-- HEADER BRAND TEXT -->
-                <h1 class="header-brand-text"><?php bloginfo('name'); ?></h1>
-                <!-- /HEADER BRAND TEXT -->
-            </a>
-            <!-- /HEADER BRAND -->
-        <?php endif; ?>
-
-        <?php if ($sidemenu_status === 'display') : ?>
+		<?php if ( $sidemenu_status === 'display' ) : ?>
             <!-- SIDEMENU TRIGGER -->
-            <div class="sidemenu-trigger navigation-widget-trigger <?php echo $yipnyap_settings['sidemenu_active'] ? 'active' : ''; ?>">
-                <?php
+            <div class="ml-20 sidemenu-trigger navigation-widget-trigger <?php echo $yipnyap_settings['sidemenu_active'] ? 'active' : ''; ?>">
+				<?php
 
-                /**
-                 * Icon SVG
-                 */
-                get_template_part('template-part/icon/icon', 'svg', [
-                    'icon' => 'grid'
-                ]);
+				/**
+				 * Icon SVG
+				 */
+				get_template_part( 'template-part/icon/icon', 'svg', [
+					'icon' => 'grid'
+				] );
 
-                ?>
+				?>
             </div>
             <!-- /SIDEMENU TRIGGER -->
-        <?php endif; ?>
+		<?php endif; ?>
 
         <!-- MOBILEMENU TRIGGER -->
         <div class="mobilemenu-trigger navigation-widget-mobile-trigger">
@@ -513,186 +333,186 @@ endif;
         </div>
         <!-- /MOBILEMENU TRIGGER -->
 
-        <?php
+		<?php
 
-        /**
-         * Navigation
-         */
-        get_template_part('template-part/navigation/navigation', null, [
-            'header_menu_items' => $args['header_menu_items'],
-            'header_features_menu_items' => $args['header_features_menu_items']
-        ]);
+		/**
+		 * Navigation
+		 */
+		get_template_part( 'template-part/navigation/navigation', null, [
+			'header_menu_items'          => $args['header_menu_items'],
+			'header_features_menu_items' => $args['header_features_menu_items']
+		] );
 
-        ?>
+		?>
     </div>
     <!-- /HEADER ACTIONS -->
 
-    <?php if ($display_search) : ?>
+	<?php if ( $display_search ) : ?>
         <!-- HEADER ACTIONS -->
         <div class="header-actions search-bar">
-            <?php
+			<?php
 
-            /**
-             * Search Form
-             */
-            get_template_part('template-part/search/search', 'form', [
-                'attributes' => [
-                    'userid' => $args['user']['id']
-                ]
-            ]);
+			/**
+			 * Search Form
+			 */
+			get_template_part( 'template-part/search/search', 'form', [
+				'attributes' => [
+					'userid' => $args['user']['id']
+				]
+			] );
 
-            ?>
+			?>
         </div>
         <!-- /HEADER ACTIONS -->
-    <?php endif; ?>
+	<?php endif; ?>
 
-    <?php if (yipnyap_plugin_buddypress_is_active() || yipnyap_plugin_woocommerce_is_active() || $display_search) : ?>
+	<?php if ( yipnyap_plugin_buddypress_is_active() || yipnyap_plugin_woocommerce_is_active() || $display_search ) : ?>
         <!-- HEADER ACTIONS -->
         <div class="header-actions">
             <!-- ACTION LIST -->
             <div class="action-list action-list-small action-list-mobile dark">
-                <?php
+				<?php
 
-                if (yipnyap_plugin_woocommerce_is_active()) {
-                    /**
-                     * WooCommerce Header Mini Cart Icon Link
-                     */
-                    get_template_part('template-part/woocommerce/woocommerce-header-mini-cart-icon-link');
-                }
+				if ( yipnyap_plugin_woocommerce_is_active() ) {
+					/**
+					 * WooCommerce Header Mini Cart Icon Link
+					 */
+					get_template_part( 'template-part/woocommerce/woocommerce-header-mini-cart-icon-link' );
+				}
 
-                ?>
+				?>
 
-                <?php if (yipnyap_plugin_buddypress_is_active()) : ?>
-                    <?php if (!yipnyap_plugin_woocommerce_is_active()) : ?>
-                        <?php if (bp_is_active('friends')) : ?>
+				<?php if ( yipnyap_plugin_buddypress_is_active() ) : ?>
+					<?php if ( ! yipnyap_plugin_woocommerce_is_active() ) : ?>
+						<?php if ( bp_is_active( 'friends' ) ) : ?>
                             <!-- ACTION LIST ITEM -->
                             <a class="action-list-item"
-                               href="<?php echo esc_url($args['user']['friend_requests_link']); ?>">
-                                <?php
+                               href="<?php echo esc_url( $args['user']['friend_requests_link'] ); ?>">
+								<?php
 
-                                /**
-                                 * Icon SVG
-                                 */
-                                get_template_part('template-part/icon/icon', 'svg', [
-                                    'icon' => 'friend',
-                                    'modifiers' => 'action-list-item-icon'
-                                ]);
+								/**
+								 * Icon SVG
+								 */
+								get_template_part( 'template-part/icon/icon', 'svg', [
+									'icon'      => 'friend',
+									'modifiers' => 'action-list-item-icon'
+								] );
 
-                                ?>
+								?>
                             </a>
                             <!-- /ACTION LIST ITEM -->
-                        <?php endif; ?>
-                    <?php endif; ?>
+						<?php endif; ?>
+					<?php endif; ?>
 
-                    <?php
+					<?php
 
-                    if (bp_is_active('messages')) :
-                        $unread_messages_count = bp_get_total_unread_messages_count($args['user']['id']);
-                        $unread_messages_count_classes = $unread_messages_count > 0 ? 'unread' : '';
+					if ( bp_is_active( 'messages' ) ) :
+						$unread_messages_count = bp_get_total_unread_messages_count( $args['user']['id'] );
+						$unread_messages_count_classes = $unread_messages_count > 0 ? 'unread' : '';
 
-                        ?>
+						?>
                         <!-- ACTION LIST ITEM -->
-                        <a class="action-list-item <?php echo esc_attr($unread_messages_count_classes); ?>"
-                           href="<?php echo esc_url($args['user']['messages_link']); ?>">
-                            <?php
+                        <a class="action-list-item <?php echo esc_attr( $unread_messages_count_classes ); ?>"
+                           href="<?php echo esc_url( $args['user']['messages_link'] ); ?>">
+							<?php
 
-                            /**
-                             * Icon SVG
-                             */
-                            get_template_part('template-part/icon/icon', 'svg', [
-                                'icon' => 'messages',
-                                'modifiers' => 'action-list-item-icon'
-                            ]);
+							/**
+							 * Icon SVG
+							 */
+							get_template_part( 'template-part/icon/icon', 'svg', [
+								'icon'      => 'messages',
+								'modifiers' => 'action-list-item-icon'
+							] );
 
-                            ?>
+							?>
                         </a>
                         <!-- /ACTION LIST ITEM -->
-                    <?php endif; ?>
+					<?php endif; ?>
 
-                    <?php
+					<?php
 
-                    if (bp_is_active('notifications')) :
-                        $unread_notifications_count = yipnyap_get_unread_notifications_count($args['user']['id']);
-                        $unread_notifications_count_classes = $unread_notifications_count > 0 ? 'unread' : '';
+					if ( bp_is_active( 'notifications' ) ) :
+						$unread_notifications_count = yipnyap_get_unread_notifications_count( $args['user']['id'] );
+						$unread_notifications_count_classes = $unread_notifications_count > 0 ? 'unread' : '';
 
-                        ?>
+						?>
                         <!-- ACTION LIST ITEM -->
-                        <a class="action-list-item <?php echo esc_attr($unread_notifications_count_classes); ?>"
-                           href="<?php echo esc_url($args['user']['notifications_link']); ?>">
-                            <?php
+                        <a class="action-list-item <?php echo esc_attr( $unread_notifications_count_classes ); ?>"
+                           href="<?php echo esc_url( $args['user']['notifications_link'] ); ?>">
+							<?php
 
-                            /**
-                             * Icon SVG
-                             */
-                            get_template_part('template-part/icon/icon', 'svg', [
-                                'icon' => 'notification',
-                                'modifiers' => 'action-list-item-icon'
-                            ]);
+							/**
+							 * Icon SVG
+							 */
+							get_template_part( 'template-part/icon/icon', 'svg', [
+								'icon'      => 'notification',
+								'modifiers' => 'action-list-item-icon'
+							] );
 
-                            ?>
+							?>
                         </a>
                         <!-- /ACTION LIST ITEM -->
-                    <?php endif; ?>
-                <?php endif; ?>
+					<?php endif; ?>
+				<?php endif; ?>
 
-                <?php if ($display_search) : ?>
+				<?php if ( $display_search ) : ?>
                     <!-- ACTION LIST ITEM WRAP -->
                     <div class="action-list-item-wrap">
                         <!-- ACTION LIST ITEM -->
                         <div class="action-list-item header-search-push-open">
-                            <?php
+							<?php
 
-                            /**
-                             * Icon SVG
-                             */
-                            get_template_part('template-part/icon/icon', 'svg', [
-                                'icon' => 'magnifying-glass',
-                                'modifiers' => 'action-list-item-icon'
-                            ]);
+							/**
+							 * Icon SVG
+							 */
+							get_template_part( 'template-part/icon/icon', 'svg', [
+								'icon'      => 'magnifying-glass',
+								'modifiers' => 'action-list-item-icon'
+							] );
 
-                            ?>
+							?>
                         </div>
                         <!-- /ACTION LIST ITEM -->
 
                         <!-- ACTION LIST ITEM -->
                         <div class="action-list-item action-list-item-hidden header-search-push-close">
-                            <?php
+							<?php
 
-                            /**
-                             * Icon SVG
-                             */
-                            get_template_part('template-part/icon/icon', 'svg', [
-                                'icon' => 'cross-thin',
-                                'modifiers' => 'action-list-item-icon'
-                            ]);
+							/**
+							 * Icon SVG
+							 */
+							get_template_part( 'template-part/icon/icon', 'svg', [
+								'icon'      => 'cross-thin',
+								'modifiers' => 'action-list-item-icon'
+							] );
 
-                            ?>
+							?>
                         </div>
                         <!-- /ACTION LIST ITEM -->
                     </div>
                     <!-- /ACTION LIST ITEM WRAP -->
-                <?php endif; ?>
+				<?php endif; ?>
             </div>
             <!-- /ACTION LIST -->
         </div>
         <!-- /HEADER ACTIONS -->
-    <?php endif; ?>
+	<?php endif; ?>
 
     <!-- HEADER ACTIONS -->
     <div class="header-actions">
-        <?php
+		<?php
 
-        // add GamiPress rank data if plugin is active
-        if (yipnyap_plugin_gamipress_is_active()) :
-            if (array_key_exists('rank', $args['user']) && ($args['user']['rank']['total'] !== 0)) :
+		// add GamiPress rank data if plugin is active
+		if ( yipnyap_plugin_gamipress_is_active() ) :
+			if ( array_key_exists( 'rank', $args['user'] ) && ( $args['user']['rank']['total'] !== 0 ) ) :
 
-                ?>
+				?>
                 <!-- PROGRESS STAT -->
                 <div class="progress-stat">
                     <!-- BAR PROGRESS WRAP -->
                     <div class="bar-progress-wrap">
                         <!-- BAR PROGRESS INFO -->
-                        <p class="bar-progress-info"><?php esc_html_e('Rank', 'yipnyap'); ?>: <span
+                        <p class="bar-progress-info"><?php esc_html_e( 'Rank', 'yipnyap' ); ?>: <span
                                     class="bar-progress-text"></span></p>
                         <!-- /BAR PROGRESS INFO -->
                     </div>
@@ -700,108 +520,108 @@ endif;
 
                     <!-- PROGRESS STAT BAR -->
                     <div class="progress-stat-bar user-rank-pgb"
-                         data-scalestop="<?php echo esc_attr($args['user']['rank']['current']); ?>"
-                         data-scaleend="<?php echo esc_attr($args['user']['rank']['total']); ?>"></div>
+                         data-scalestop="<?php echo esc_attr( $args['user']['rank']['current'] ); ?>"
+                         data-scaleend="<?php echo esc_attr( $args['user']['rank']['total'] ); ?>"></div>
                     <!-- /PROGRESS STAT BAR -->
                 </div>
                 <!-- /PROGRESS STAT -->
-            <?php
+			<?php
 
-            endif;
+			endif;
 
-            if ($args['points'] && (count($args['points']) > 0)) {
-                /**
-                 * Point Item List
-                 */
-                get_template_part('template-part/point/point-item', 'list', [
-                    'points' => $args['points']
-                ]);
-            }
+			if ( $args['points'] && ( count( $args['points'] ) > 0 ) ) {
+				/**
+				 * Point Item List
+				 */
+				get_template_part( 'template-part/point/point-item', 'list', [
+					'points' => $args['points']
+				] );
+			}
 
-        endif;
+		endif;
 
-        if (yipnyap_plugin_woocommerce_is_active()) {
-            /**
-             * WooCommerce Header Mini Cart
-             */
-            get_template_part('template-part/woocommerce/woocommerce-header-mini-cart');
-        }
+		if ( yipnyap_plugin_woocommerce_is_active() ) {
+			/**
+			 * WooCommerce Header Mini Cart
+			 */
+			get_template_part( 'template-part/woocommerce/woocommerce-header-mini-cart' );
+		}
 
-        // add BuddyPress notifications if plugin is active
-        if (yipnyap_plugin_buddypress_is_active()) :
-            ?>
+		// add BuddyPress notifications if plugin is active
+		if ( yipnyap_plugin_buddypress_is_active() ) :
+			?>
 
             <!-- HEADER NOTIFICATIONS -->
             <div id="header-notifications"></div>
             <!-- /HEADER NOTIFICATIONS -->
 
-        <?php
-        endif;
+		<?php
+		endif;
 
-        if (yipnyap_customizer_color_theme_switch_is_active()) :
-            ?>
+		if ( yipnyap_customizer_color_theme_switch_is_active() ) :
+			?>
 
             <!-- ACTION ITEM WRAP -->
             <div class="action-item-wrap">
                 <!-- ACTION ITEM -->
                 <div class="action-item hoverable vk-theme-toggle">
-                    <?php
+					<?php
 
-                    $color_theme = yipnyap_logged_user_color_theme_get();
+					$color_theme = yipnyap_logged_user_color_theme_get();
 
-                    $toggle_color_theme = 'light';
+					$toggle_color_theme = 'light';
 
-                    if ($color_theme === 'light') {
-                        $toggle_color_theme = 'dark';
-                    }
+					if ( $color_theme === 'light' ) {
+						$toggle_color_theme = 'dark';
+					}
 
-                    /**
-                     * Icon SVG
-                     */
-                    get_template_part('template-part/icon/icon', 'svg', [
-                        'icon' => $toggle_color_theme . '-theme',
-                        'modifiers' => 'action-item-icon'
-                    ]);
+					/**
+					 * Icon SVG
+					 */
+					get_template_part( 'template-part/icon/icon', 'svg', [
+						'icon'      => $toggle_color_theme . '-theme',
+						'modifiers' => 'action-item-icon'
+					] );
 
-                    ?>
+					?>
                 </div>
                 <!-- /ACTION ITEM -->
             </div>
             <!-- /ACTION ITEM WRAP -->
-        <?php
-        endif;
-        ?>
+		<?php
+		endif;
+		?>
 
         <!-- ACTION ITEM WRAP -->
         <div class="action-item-wrap">
             <!-- ACTION ITEM -->
             <div class="action-item dark header-settings-dropdown-trigger">
-                <?php
+				<?php
 
-                /**
-                 * Icon SVG
-                 */
-                get_template_part('template-part/icon/icon', 'svg', [
-                    'icon' => 'settings',
-                    'modifiers' => 'action-item-icon'
-                ]);
+				/**
+				 * Icon SVG
+				 */
+				get_template_part( 'template-part/icon/icon', 'svg', [
+					'icon'      => 'settings',
+					'modifiers' => 'action-item-icon'
+				] );
 
-                ?>
+				?>
             </div>
             <!-- /ACTION ITEM -->
 
-            <?php
+			<?php
 
-            /**
-             * Dropdown Navigation
-             */
-            get_template_part('template-part/navigation/dropdown-navigation', null, [
-                'modifiers' => 'header-settings-dropdown',
-                'user' => $args['user'],
-                'navigation_sections' => $args['settings_navigation_sections']
-            ]);
+			/**
+			 * Dropdown Navigation
+			 */
+			get_template_part( 'template-part/navigation/dropdown-navigation', null, [
+				'modifiers'           => 'header-settings-dropdown',
+				'user'                => $args['user'],
+				'navigation_sections' => $args['settings_navigation_sections']
+			] );
 
-            ?>
+			?>
         </div>
         <!-- /ACTION ITEM WRAP -->
     </div>

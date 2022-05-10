@@ -11,7 +11,7 @@ function yipnyap_customizer_siteidentity($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_siteidentity_setting_header_type', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'v1'
+    'default'           => 'v2'
   ]);
 
   $wp_customize->add_control('yipnyap_siteidentity_control_header_type', [

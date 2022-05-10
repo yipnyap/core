@@ -1,0 +1,39 @@
+.cmui {
+  &.navigator {
+    display: flex;
+    background-color: var(--color-box-background);
+    color: var(--color-text);
+    flex-direction: column;
+    align-items: center;
+    width: 5rem;
+    height: 100%;
+    border-radius: 0.25rem;
+
+    .border-divider {
+      display: flex;
+      margin-top: 0.75rem;
+      flex-direction: column;
+      align-items: center;
+      border-top-width: 1px;
+      border-color: var(--color-header-input-background);
+    }
+  }
+
+  &.navigator-item {
+    display: flex;
+    margin-top: 0.5rem;
+    justify-content: center;
+    align-items: center;
+    width: 3rem;
+    height: 3rem;
+    border-radius: 0.25rem;
+
+    &.active {
+      background: var(--color-header-input-background);
+    }
+
+    &:hover {
+      background: var(--color-body);
+    }
+  }
+}

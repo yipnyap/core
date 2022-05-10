@@ -11588,10 +11588,32 @@ a:hover {
 /*------------------------------------------------------------------
 [Table of contents]
 
-1. .loader-bars
+1. Loading Overrides & Logo
+2. .loader-bars
 -------------------------------------------------------------------*/
 /*---------------------
-    1. LOADER BARS
+    1. Loading Overrides & Logo
+---------------------*/
+.logo-image, .page-loader-logo {
+  width: 2em;
+}
+
+.page-loader-info {
+  display: none;
+}
+
+.page-open-title {
+  display: none;
+}
+
+img[alt='logo'].logo-image {
+  -webkit-animation: 1s logoHue ease-out;
+          animation: 1s logoHue ease-out;
+  border-radius: .3em;
+}
+
+/*---------------------
+    2. LOADER BARS
 ---------------------*/
 .loader-bars {
   display: -webkit-box;
@@ -11752,6 +11774,28 @@ a:hover {
   100% {
     -webkit-transform: scaleY(1);
             transform: scaleY(1);
+  }
+}
+
+@-webkit-keyframes logoHue {
+  0% {
+    -webkit-filter: hue-rotate(0);
+            filter: hue-rotate(0);
+  }
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+            filter: hue-rotate(360deg);
+  }
+}
+
+@keyframes logoHue {
+  0% {
+    -webkit-filter: hue-rotate(0);
+            filter: hue-rotate(0);
+  }
+  100% {
+    -webkit-filter: hue-rotate(360deg);
+            filter: hue-rotate(360deg);
   }
 }
 
@@ -25261,6 +25305,64 @@ a:hover {
   background-color: #5850ec25;
   border-color: #4F46E5;
   outline: 0;
+}
+
+.cmui.navigator {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: var(--color-box-background);
+  color: var(--color-text);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 5rem;
+  height: 100%;
+  border-radius: 0.25rem;
+}
+
+.cmui.navigator .border-divider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0.75rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-top-width: 1px;
+  border-color: var(--color-header-input-background);
+}
+
+.cmui.navigator-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0.5rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.25rem;
+}
+
+.cmui.navigator-item.active {
+  background: var(--color-header-input-background);
+}
+
+.cmui.navigator-item:hover {
+  background: var(--color-body);
 }
 
 /*-------------

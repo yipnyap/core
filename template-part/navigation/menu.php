@@ -3,6 +3,7 @@
  * Yipnyap Template Part - Menu
  *
  * @param array $args {
+ *
  * @type array $menu_items Menu items data.
  * @type string $modifiers Optional. Additional class names to add to the HTML wrapper.
  * @type bool $show_tooltips Optional. Displays tooltips when hovering over the menu items if set.
@@ -16,67 +17,61 @@
  * @package Yipnyap
  */
 
-$modifiers = isset($args['modifiers']) ? $args['modifiers'] : false;
-$show_tooltips = isset($args['show_tooltips']) ? $args['show_tooltips'] : false;
-$show_menu_names = isset($args['show_menu_names']) ? $args['show_menu_names'] : false;
+$modifiers       = isset( $args['modifiers'] ) ? $args['modifiers'] : false;
+$show_tooltips   = isset( $args['show_tooltips'] ) ? $args['show_tooltips'] : false;
+$show_menu_names = isset( $args['show_menu_names'] ) ? $args['show_menu_names'] : false;
 
-$modifiers_classes = $modifiers ? $modifiers : '';
+$modifiers_classes      = $modifiers ? $modifiers : '';
 $menu_item_link_classes = $show_tooltips ? 'text-tooltip-tfr' : '';
 
 ?>
 
 <!-- MENU -->
-<ul class="menu <?php echo esc_attr($modifiers_classes); ?>">
-    <?php
+<?php
 
-    foreach ($args['menu_items'] as $menu_item) :
-        $menu_item_classes = $menu_item['active'] ? 'active' : '';
+foreach ( $args['menu_items'] as $menu_item ) :
+	$menu_item_classes = $menu_item['active'] ? 'cmui active' : '';
 
-        ?>
-        <!-- MENU ITEM -->
-        <li class="menu-item <?php echo esc_attr($menu_item_classes); ?>">
-            <!-- MENU ITEM LINK -->
-            <a class="menu-item-link <?php echo esc_attr($menu_item_link_classes); ?>"
-               href="<?php echo esc_url($menu_item['link']); ?>"
-                <?php echo $menu_item['target'] !== '' ? 'target="' . $menu_item['target'] . '"' : ''; ?>
-               data-title="<?php echo esc_attr($menu_item['name']); ?>"
-            >
-                <?php
+	?>
+    <!-- MENU ITEM LINK -->
+    <a class="cmui navigator-item <?php echo esc_attr( $menu_item_classes ); ?> <?php echo esc_attr( $menu_item_link_classes ); ?>"
+       href="<?php echo esc_url( $menu_item['link'] ); ?>"
+		<?php echo $menu_item['target'] !== '' ? 'target="' . $menu_item['target'] . '"' : ''; ?>
+       title="<?php echo esc_attr( $menu_item['name'] ); ?>"
+    >
+		<?php
 
-                /**
-                 * Icon SVG
-                 */
-                get_template_part('template-part/icon/icon', 'svg', [
-                    'icon' => $menu_item['icon'],
-                    'modifiers' => 'menu-item-link-icon'
-                ]);
+		/**
+		 * Icon SVG
+		 */
+		get_template_part( 'template-part/community-ui/icon/icon', 'svg', [
+			'icon'      => $menu_item['icon'],
+			'modifiers' => 'menu-item-link-icon w-6 h-6'
+		]);
 
 
-                if ($show_menu_names) {
-                    echo esc_html($menu_item['name']);
-                }
+		if ( $show_menu_names ) {
+			echo esc_html( $menu_item['name'] );
+		}
 
-                ?>
-            </a>
-            <!-- /MENU ITEM LINK -->
+		?>
+    </a>
+    <!-- /MENU ITEM LINK -->
 
-            <?php
+	<?php
 
-            if (count($menu_item['children']) > 0) {
-                /**
-                 * Menu
-                 */
-                get_template_part('template-part/navigation/menu', null, [
-                    'menu_items' => $menu_item['children'],
-                    'modifiers' => $modifiers,
-                    'show_tooltips' => $show_tooltips,
-                    'show_menu_names' => $show_menu_names
-                ]);
-            }
+	if ( count( $menu_item['children'] ) > 0 ) {
+		/**
+		 * Menu
+		 */
+		get_template_part( 'template-part/navigation/menu', null, [
+			'menu_items'      => $menu_item['children'],
+			'modifiers'       => $modifiers,
+			'show_tooltips'   => $show_tooltips,
+			'show_menu_names' => $show_menu_names
+		] );
+	}
 
-            ?>
-        </li>
-        <!-- /MENU ITEM -->
-    <?php endforeach; ?>
-</ul>
+	?>
+<?php endforeach; ?>
 <!-- /MENU -->

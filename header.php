@@ -128,7 +128,7 @@ if (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation
         /**
          * Header Logged In
          */
-        get_template_part('template-part/header/header', 'logged-in', [
+        get_template_part('template-part/header/header', 'cmui', [
             'user' => $user,
             'points' => $points,
             'side_menu_items' => $side_menu_items_threaded,
@@ -141,7 +141,7 @@ if (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation
         /**
          * Header Logged Out
          */
-        get_template_part('template-part/header/header', 'logged-out', [
+        get_template_part('template-part/header/header', 'cmui', [
             'header_menu_items' => $header_menu_items,
             'header_features_menu_items' => $header_features_menu_items,
             'side_menu_items' => $side_menu_items_threaded,

@@ -7,6 +7,7 @@ import './sidebar/sidebar';
     SVG 
 ------------*/
 import './utils/svg-loader';
+import './utils/svg-loader.cmui';
 
 /*----------------
     SCROLLBARS 

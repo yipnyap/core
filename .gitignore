@@ -120,3 +120,7 @@ out
 
 # fuk u lock
 package-lock.json
+
+# build
+/src/js/bundle/
+/src/js/app.bundle.min.js

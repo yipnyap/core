@@ -84,4 +84,38 @@ function yipnyap_logged_user_sidemenu_status_update_ajax() {
 add_action('wp_ajax_yipnyap_logged_user_sidemenu_status_update_ajax', 'yipnyap_logged_user_sidemenu_status_update_ajax');
 add_action('wp_ajax_nopriv_yipnyap_logged_user_sidemenu_status_update_ajax', 'yipnyap_logged_user_sidemenu_status_update_ajax');
 
-?>
+/**
+ * Get logged user stream username
+ */
+function yipnyap_logged_user_stream_username_get_ajax() {
+  // nonce check, dies early if the nonce cannot be verified
+  check_ajax_referer('yipnyap_ajax');
+
+  $result = yipnyap_logged_user_stream_username_get();
+
+  header('Content-Type: application/json');
+
+  echo json_encode($result);
+
+  wp_die();
+}
+
+add_action('wp_ajax_yipnyap_logged_user_stream_username_get_ajax', 'yipnyap_logged_user_stream_username_get_ajax');
+
+/**
+ * Update logged user stream username
+ */
+function yipnyap_logged_user_stream_username_update_ajax() {
+  // nonce check, dies early if the nonce cannot be verified
+  check_ajax_referer('yipnyap_ajax');
+
+  $result = yipnyap_logged_user_stream_username_update($_POST['args']['username']);
+
+  header('Content-Type: application/json');
+
+  echo json_encode($result);
+
+  wp_die();
+}
+
+add_action('wp_ajax_yipnyap_logged_user_stream_username_update_ajax', 'yipnyap_logged_user_stream_username_update_ajax');

@@ -13,7 +13,7 @@
  * @type array $settings_navigation_sections Settings navigation sections.
  * }
  * @since 1.0.0
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  * @see header.php
  *

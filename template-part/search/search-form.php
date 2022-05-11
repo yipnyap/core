@@ -6,7 +6,7 @@
  * @type array $attributes List additional attributes.
  * }
  * @since 1.8.0
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  * @package Yipnyap
  */

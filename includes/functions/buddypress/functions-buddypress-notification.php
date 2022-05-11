@@ -4,7 +4,7 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
  */
 
@@ -31,7 +31,7 @@ if (!function_exists('yipnyap_get_notifications')) {
          * Filter notification args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_notifications_get_args', $args);
@@ -72,7 +72,7 @@ if (!function_exists('yipnyap_get_notifications')) {
          * Filter notification results.
          *
          * @param array $notifications
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $notifications = apply_filters('yipnyap_notifications_get_results', $notifications);
@@ -288,7 +288,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                  * Filter notification data.
                  *
                  * @param array $notification
-                 * @since 1.9.1
+                 * @since 2022.05.2
                  *
                  */
                 $notification = apply_filters('yipnyap_notifications_get_data', $notification);

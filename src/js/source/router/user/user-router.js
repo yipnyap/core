@@ -43,9 +43,30 @@ const toggleLoggedUserColorTheme = () => {
     return jQuery.post(yipnyap_constants.ajax_url, data);
 };
 
+const getLoggedUserStreamUsername = () => {
+    const data = {
+        action: 'yipnyap_logged_user_stream_username_get_ajax',
+        _ajax_nonce: yipnyap_constants.yipnyap_ajax_nonce
+    };
+
+    return jQuery.post(yipnyap_constants.ajax_url, data);
+};
+
+const updateLoggedUserStreamUsername = (config) => {
+    const data = {
+        action: 'yipnyap_logged_user_stream_username_update_ajax',
+        args: config,
+        _ajax_nonce: yipnyap_constants.yipnyap_ajax_nonce
+    };
+
+    return jQuery.post(yipnyap_constants.ajax_url, data);
+};
+
 export {
     getLoggedInMember,
     updateLoggedUserGridType,
     updateLoggedUserSidemenuStatus,
-    toggleLoggedUserColorTheme
+    toggleLoggedUserColorTheme,
+    getLoggedUserStreamUsername,
+    updateLoggedUserStreamUsername
 };

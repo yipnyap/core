@@ -4,9 +4,9 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 
@@ -127,7 +127,7 @@ if (!function_exists('yipnyap_groups_get')) {
          * Filter group args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_groups_get_args', $args);
@@ -152,7 +152,7 @@ if (!function_exists('yipnyap_groups_get')) {
          * Filter group results.
          *
          * @param array $groups
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $groups = apply_filters('yipnyap_groups_get_results', $groups);
@@ -368,7 +368,7 @@ if (!function_exists('yipnyap_group_get_data')) {
          * Filter group data.
          *
          * @param array $group_data
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $group_data = apply_filters('yipnyap_groups_get_data', $group_data);
@@ -474,7 +474,7 @@ if (!function_exists('yipnyap_groups_get_members')) {
          * Filter group members args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_groups_get_members_args', $args);
@@ -507,7 +507,7 @@ if (!function_exists('yipnyap_groups_get_members')) {
          * Filter group members results.
          *
          * @param array $group_members
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $group_members = apply_filters('yipnyap_groups_get_members_results', $group_members);
@@ -537,7 +537,7 @@ if (!function_exists('yipnyap_groups_get_count')) {
          * Filter group count args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_groups_get_count_args', $args);
@@ -583,7 +583,7 @@ if (!function_exists('yipnyap_groups_get_members_count')) {
          * Filter group members count args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_groups_get_members_count_args', $args);
@@ -627,7 +627,7 @@ if (!function_exists('yipnyap_get_groups_post_count')) {
          * Filter groups post count activity components.
          *
          * @param array $activity_components
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_components = apply_filters('yipnyap_groups_get_post_count_activity_components', $activity_components);
@@ -648,7 +648,7 @@ if (!function_exists('yipnyap_get_groups_post_count')) {
          * Filter groups post count activity types.
          *
          * @param array $activity_types
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_types = apply_filters('yipnyap_groups_get_post_count_activity_types', $activity_types);
@@ -784,7 +784,7 @@ if (!function_exists('yipnyap_groups_meta_get_social_links')) {
          * Filter groups meta valid social networks.
          *
          * @param array $social_links_keys
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $social_links_keys = apply_filters('yipnyap_groups_meta_valid_social_networks', $social_links_keys);
@@ -845,7 +845,7 @@ if (!function_exists('yipnyap_groups_get_navigation_items')) {
          *
          * @param array $nav_items
          * @param array $group
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $nav_items = apply_filters('yipnyap_groups_profile_navigation_items', $nav_items, $group);

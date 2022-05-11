@@ -4,9 +4,9 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 
@@ -31,7 +31,7 @@ if (!function_exists('yipnyap_get_messages')) {
          * Filter messages args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_messages_get_args', $args);
@@ -63,7 +63,7 @@ if (!function_exists('yipnyap_get_messages')) {
          * Filter messages results.
          *
          * @param array $message_results
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $message_results = apply_filters('yipnyap_messages_get_results', $message_results);
@@ -170,7 +170,7 @@ if (!function_exists('yipnyap_get_message_data')) {
          * Filter message data.
          *
          * @param array $message_data
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $message_data = apply_filters('yipnyap_messages_get_data', $message_data);

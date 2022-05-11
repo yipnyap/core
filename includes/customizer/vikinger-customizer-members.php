@@ -51,7 +51,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_about_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_about_page_status', [
@@ -71,7 +71,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_posts_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_posts_page_status', [
@@ -91,7 +91,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_credits_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_credits_page_status', [
@@ -111,7 +111,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_badges_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_badges_page_status', [
@@ -131,7 +131,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_quests_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_quests_page_status', [
@@ -151,7 +151,7 @@ function yipnyap_customizer_members($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_members_setting_profile_ranks_page_status', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'enabled'
+    'default'           => 'disabled'
   ]);
 
   $wp_customize->add_control('yipnyap_members_control_profile_ranks_page_status', [

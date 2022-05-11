@@ -4,9 +4,9 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 
@@ -53,7 +53,7 @@ if (!function_exists('yipnyap_get_activities')) {
          * Filter activity args.
          *
          * @param array $activities_args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activities_args = apply_filters('yipnyap_activities_get_args', $activities_args);
@@ -76,7 +76,7 @@ if (!function_exists('yipnyap_get_activities')) {
          * Filter activity results.
          *
          * @param array $activities
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activities = apply_filters('yipnyap_activities_get_results', $activities);
@@ -220,7 +220,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
          * Filter activity data.
          *
          * @param array $activity_data
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_data = apply_filters('yipnyap_activities_get_data', $activity_data);
@@ -250,7 +250,7 @@ if (!function_exists('yipnyap_activities_get_count')) {
          * Filter activity count args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_activities_get_count_args', $args);

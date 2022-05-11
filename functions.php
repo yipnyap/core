@@ -72,7 +72,7 @@ define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 /**
  * TRANSLATION functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions-translation.php';
+require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 
 /**
  * Load admin styles and scripts
@@ -152,9 +152,11 @@ function yipnyap_load_scripts()
     ];
 
     // add main script
-//     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/bundle/app.bundle.js', $yipnyap_main_scripts_dependencies, '1.11.0', true);
-    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
-
+	if(str_contains($_SERVER['SERVER_NAME'], 'local')) {
+		wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/bundle/app.bundle.js', $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+	} else {
+		wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+	}
     // add EX script
     wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.5', true);
 
@@ -454,27 +456,27 @@ if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
 /**
  * Yipnyap functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/vikinger-functions.php';
+require_once YIPNYAP_PATH . '/includes/functions/functions.php';
 
 /**
  * Yipnyap filters
  */
-require_once YIPNYAP_PATH . '/includes/filters/vikinger-filters.php';
+require_once YIPNYAP_PATH . '/includes/filters/filters.php';
 
 /**
  * Yipnyap AJAX
  */
-require_once YIPNYAP_PATH . '/includes/ajax/vikinger-ajax.php';
+require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
 
 /**
  * Yipnyap sidebars
  */
-require_once YIPNYAP_PATH . '/includes/sidebars/vikinger-sidebars.php';
+require_once YIPNYAP_PATH . '/includes/sidebars/sidebars.php';
 
 /**
  * Yipnyap customizer
  */
-require_once YIPNYAP_PATH . '/includes/customizer/vikinger-customizer.php';
+require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
 
 /**
  * PHP Autoloader

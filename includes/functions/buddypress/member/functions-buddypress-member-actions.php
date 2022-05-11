@@ -4,9 +4,9 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 
@@ -128,7 +128,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('posts')) {
         }
     }
 
-    add_action('bp_setup_nav', 'yipnyap_members_posts_page_setup_nav');
+//    add_action('bp_setup_nav', 'yipnyap_members_posts_page_setup_nav');
 
     if (!function_exists('yipnyap_members_posts_page')) {
         /**
@@ -239,7 +239,7 @@ if (yipnyap_settings_stream_profile_is_enabled()) {
                 // show personalized message if current logged user is profile user
                 if (get_current_user_id() === $member['id']) {
                     $no_results_found_text = sprintf(
-                        __('You haven\'t linked a stream to your profile. Go to your account hub %sstream%s page to link one.'),
+                        __('You haven\'t linked a stream to your profile. Go to your %sstream%s settings to link one.'),
                         '<a href="' . esc_url($member['stream_link']) . '">',
                         '</a>'
                     );

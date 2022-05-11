@@ -4,7 +4,7 @@
  *
  * @package Yipnyap
  * @since 1.0.0
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 

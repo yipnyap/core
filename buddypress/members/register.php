@@ -189,7 +189,7 @@ $login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', spr
                     /**
                      * Fires and displays any extra member registration details fields.
                      *
-                     * @since 1.9.0
+                     * @since 2022.05.2
                      */
                     do_action('bp_account_details_fields'); ?>
 
@@ -262,7 +262,7 @@ $login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', spr
                         /**
                          * Fires and displays any extra member registration xprofile fields.
                          *
-                         * @since 1.9.0
+                         * @since 2022.05.2
                          */
                         do_action('bp_signup_profile_fields'); ?>
 
@@ -361,7 +361,7 @@ $login_page_text = get_theme_mod('yipnyap_loginregister_setting_login_text', spr
                             /**
                              * Fires and displays any extra member registration blog details fields.
                              *
-                             * @since 1.9.0
+                             * @since 2022.05.2
                              */
                             do_action('bp_blog_details_fields'); ?>
 

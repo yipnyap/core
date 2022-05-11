@@ -103,6 +103,7 @@ import './component-dom/widget/widget-photos';
 -----------------------*/
 import './component-dom/settings/settings-profile';
 import './component-dom/settings/settings-social';
+import './component-dom/settings/settings-stream';
 import './component-dom/settings/settings-notifications';
 import './component-dom/settings/settings-messages';
 import './component-dom/settings/settings-friend-requests';

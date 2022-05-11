@@ -4,9 +4,9 @@
  *
  * @package Yipnyap
  *
- * @since 1.9.1
+ * @since 2022.05.2
  *
- * @author Odin Design Themes (https://odindesignthemes.com/)
+ * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
 
@@ -158,7 +158,7 @@ if (!function_exists('yipnyap_members_get')) {
          * Filter member args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_members_get_args', $args);
@@ -183,7 +183,7 @@ if (!function_exists('yipnyap_members_get')) {
          * Filter member results.
          *
          * @param array $members
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $members = apply_filters('yipnyap_members_get_results', $members);
@@ -813,7 +813,7 @@ if (!function_exists('yipnyap_member_get_data')) {
          * Filter member data.
          *
          * @param array $member_data
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $member_data = apply_filters('yipnyap_members_get_data', $member_data);
@@ -945,7 +945,7 @@ if (!function_exists('yipnyap_members_get_count')) {
          * Filter member count args.
          *
          * @param array $args
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $args = apply_filters('yipnyap_members_get_count_args', $args);
@@ -990,7 +990,7 @@ if (!function_exists('yipnyap_members_get_post_count')) {
          * Filter members post count activity components.
          *
          * @param array $activity_components
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_components = apply_filters('yipnyap_members_get_post_count_activity_components', $activity_components);
@@ -1011,7 +1011,7 @@ if (!function_exists('yipnyap_members_get_post_count')) {
          * Filter members post count activity types.
          *
          * @param array $activity_types
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_types = apply_filters('yipnyap_members_get_post_count_activity_types', $activity_types);
@@ -1057,7 +1057,7 @@ if (!function_exists('yipnyap_members_get_comment_count')) {
          * Filter members comment count activity components.
          *
          * @param array $activity_components
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_components = apply_filters('yipnyap_members_get_comment_count_activity_components', $activity_components);
@@ -1070,7 +1070,7 @@ if (!function_exists('yipnyap_members_get_comment_count')) {
          * Filter members comment count activity types.
          *
          * @param array $activity_types
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $activity_types = apply_filters('yipnyap_members_get_comment_count_activity_types', $activity_types);
@@ -1175,7 +1175,7 @@ if (!function_exists('yipnyap_members_get_navigation_items')) {
          * @param array $nav_items
          * @param array $member
          * @param bool $activity_single
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $nav_items = apply_filters('yipnyap_members_profile_navigation_items', $nav_items, $member, $activity_single);
@@ -1190,7 +1190,7 @@ if (!function_exists('yipnyap_member_bp_navigation_item_default_position_get')) 
      *
      * @param string $slug Navigation item slug.
      * @return int    $default_position     Navigation item default position.
-     * @since 1.9.1
+     * @since 2022.05.2
      *
      */
     function yipnyap_member_bp_navigation_item_default_order_get($slug)
@@ -1218,7 +1218,7 @@ if (!function_exists('yipnyap_member_bp_navigation_item_default_position_get')) 
          *
          * @param int $default_position
          * @param string $slug
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $default_position = apply_filters('yipnyap_members_profile_navigation_items_default_position', $default_position, $slug);
@@ -1341,7 +1341,7 @@ if (!function_exists('yipnyap_member_bp_subnavigation_items_get')) {
          * @param array $member_navigation_subitems
          * @param array $member
          * @param string $slug
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $member_navigation_subitems = apply_filters('yipnyap_members_profile_navigation_subitems', $member_navigation_subitems, $member, $slug);
@@ -1571,7 +1571,7 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
          *
          * @param array $menu_sections
          * @param array $member
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $menu_sections = apply_filters('yipnyap_members_accounthub_navigation_sections', $menu_sections, $member);
@@ -1620,7 +1620,7 @@ if (!function_exists('yipnyap_members_get_xprofile_social_links')) {
          * Filter member xprofile valid social networks.
          *
          * @param array $valid_social_networks
-         * @since 1.9.1
+         * @since 2022.05.2
          *
          */
         $valid_social_networks = apply_filters('yipnyap_members_xprofile_valid_social_networks', $valid_social_networks);

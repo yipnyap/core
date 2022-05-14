@@ -59,27 +59,27 @@ function ActivityFilterableList(props) {
             filters.current.filter.object = [
                 'activity',
                 'profile',
-                'gamipress'
+                // 'gamipress'
             ];
 
             filters.current.filter.action = [
                 'activity_update',
                 'activity_share',
                 'post_share',
-                'new_avatar',
+                // 'new_avatar',
                 'new_member'
             ];
 
             // add group activity object and actions if the BuddyPress groups component is active
             if (yipnyap_constants.plugin_active.buddypress_groups) {
                 filters.current.filter.object.push('groups');
-                filters.current.filter.action.push('created_group', 'joined_group');
+                // filters.current.filter.action.push('created_group', 'joined_group');
             }
 
             // add friend activity object and actions if the BuddyPress friends component is active
             if (yipnyap_constants.plugin_active.buddypress_friends) {
                 filters.current.filter.object.push('friends');
-                filters.current.filter.action.push('friendship_created');
+                // filters.current.filter.action.push('friendship_created');
             }
 
             // add vkmedia activity actions if the plugin is active
@@ -106,19 +106,19 @@ function ActivityFilterableList(props) {
                 'activity_update',
                 'activity_share',
                 'post_share',
-                'new_avatar',
+                // 'new_avatar',
                 'new_member'
             ];
 
             // add group activity actions if the BuddyPress groups component is active
-            if (yipnyap_constants.plugin_active.buddypress_groups) {
-                filters.current.filter.action.push('created_group', 'joined_group');
-            }
+            // if (yipnyap_constants.plugin_active.buddypress_groups) {
+            //     filters.current.filter.action.push('created_group', 'joined_group');
+            // }
 
             // add friend activity actions if the BuddyPress friends component is active
-            if (yipnyap_constants.plugin_active.buddypress_friends) {
-                filters.current.filter.action.push('friendship_created');
-            }
+            // if (yipnyap_constants.plugin_active.buddypress_friends) {
+            //     filters.current.filter.action.push('friendship_created');
+            // }
 
             // add vkmedia activity actions if the plugin is active
             if (yipnyap_constants.plugin_active.vkmedia) {
@@ -135,7 +135,7 @@ function ActivityFilterableList(props) {
         filters.current.filter.object = [
             'activity',
             'profile',
-            'gamipress'
+            // 'gamipress'
         ];
 
         // add group activity object if the BuddyPress groups component is active

@@ -32,6 +32,18 @@ if (!function_exists('yipnyap_get_friends')) {
         $f = [];
 
         foreach ($friends['users'] as $friend) {
+            // Seriously, WHAT THE ACTUAL FUCK, BUDDYPRESS?
+            // WHO THE FUCK THOUUGHT "YEAH, LETS JUST RETURN EVERYTHING FROM THE DB, NO BIGGIE!!!!
+            // FUCK YOU, DEVELOPERS.
+            // AND FUCK YOUR RESPONSES IN SUPPORT FORMS ABOUT THIS AS WELL.
+            // FUCK. YOU.
+            unset($friend->user_email);
+            unset($friend->user_pass);
+            unset($friend->user_activation_key);
+            unset($friend->fullname);
+
+            unset($friend->user_registered);
+
             $user = yipnyap_members_get(['include' => [$friend->id], 'data_scope' => $data_scope])[0];
             $user['friendship_id'] = friends_get_friendship_id($friend_args['user_id'], $friend->id);
             $user['friendship_data'] = $friend;

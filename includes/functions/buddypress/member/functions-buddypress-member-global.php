@@ -80,13 +80,13 @@ if (!function_exists('yipnyap_get_logged_user_member_data')) {
      * @param string $data_scope Scope of the user data.
      * @return array|bool $user           User if logged in, false otherwise.
      */
-    function yipnyap_get_logged_user_member_data($data_scope = 'user-status')
+    function yipnyap_get_logged_user_member_data($data_scope = 'user-status', $include_member_links = false)
     {
         $user = false;
 
         if (is_user_logged_in()) {
             $user_id = get_current_user_id();
-            $user = yipnyap_members_get(['include' => [$user_id], 'data_scope' => $data_scope])[0];
+            $user = yipnyap_members_get(['include' => [$user_id], 'data_scope' => $data_scope, 'include_member_links' => $include_member_links])[0];
             $user['followers'] = bp_follow_get_followers(array(
                 'user_id' => $user_id
             ));
@@ -143,9 +143,16 @@ if (!function_exists('yipnyap_members_get')) {
 
         $data_scope = 'user-status';
 
+        $include_member_links = false;
+
         if (array_key_exists('data_scope', $args)) {
             $data_scope = $args['data_scope'];
             unset($args['data_scope']);
+        }
+
+        if (array_key_exists('include_member_links', $args)) {
+            $include_member_links = $args['include_member_links'];
+            unset($args['include_member_links']);
         }
 
         $defaults = [
@@ -175,7 +182,13 @@ if (!function_exists('yipnyap_members_get')) {
         // if request was succesfull
         if ($bp_members->status === 200) {
             foreach ($bp_members->data as $bp_member) {
-                $members[] = yipnyap_member_get_data($bp_member, $data_scope);
+                $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
+
+                if(!array_key_exists('include_profile_data', $args)) {
+                    unset($fetched_user->profile_data);
+                }
+
+                $members[] = $fetched_user;
             }
         }
 
@@ -741,7 +754,7 @@ if (!function_exists('yipnyap_member_get_data')) {
      * @param string $data_scope Scope of the member data to return.
      * @return array  $member_data    Member data.
      */
-    function yipnyap_member_get_data($bp_member, $data_scope = 'user-status')
+    function yipnyap_member_get_data($bp_member, $data_scope = 'user-status', $include_member_links = false)
     {
         $member_data = [];
 
@@ -807,6 +820,18 @@ if (!function_exists('yipnyap_member_get_data')) {
 
         if ($data_scope === 'user-settings-notification') {
             $member_data = yipnyap_member_get_user_settings_notification_data($bp_member);
+        }
+
+        if(!$include_member_links) {
+            unset($member_data['badges_link']);
+            unset($member_data['media_link']);
+            unset($member_data['stream_link']);
+            unset($member_data['friend_requests_link']);
+            unset($member_data['messages_link']);
+            unset($member_data['notifications_link']);
+            unset($member_data['manage_groups_link']);
+            unset($member_data['received_group_invitations_link']);
+            unset($member_data['membership_requests_link']);
         }
 
         /**

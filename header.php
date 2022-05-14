@@ -91,7 +91,7 @@ if (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation
 
     // add BuddyPress member data if plugin is active
     if ($buddypress_plugin_is_active) {
-        $user = yipnyap_get_logged_user_member_data('user-sidebar');
+        $user = yipnyap_get_logged_user_member_data('user-sidebar', true);
     } else {
         $user = yipnyap_get_logged_user_data();
     }

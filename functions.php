@@ -351,7 +351,7 @@ function yipnyap_admin_page_index()
     );
 }
 
-add_action('admin_menu', 'yipnyap_admin_page_index');
+//add_action('admin_menu', 'yipnyap_admin_page_index');
 
 /**
  * Navigation Menus

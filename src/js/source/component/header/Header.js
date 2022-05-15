@@ -78,11 +78,11 @@ export default function Header() {
         userRouter.getLoggedInMember()
             .done((res) => {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
+                setLoadingUser(false);
 
                 if (res === false) return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}));
 
                 setLoggedUser(res);
-                setLoadingUser(false);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));
 
                 userNavigationMobile = [

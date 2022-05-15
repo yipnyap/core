@@ -58,7 +58,7 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.05.2.1';
+const YIPNYAP_VERSION        = '2022.05.3';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -164,11 +164,20 @@ function yipnyap_load_scripts()
 
     $yipnyap_settings = yipnyap_settings_get();
 
+	if (has_custom_logo()) {
+		$logo_id  = get_theme_mod('custom_logo');
+		$logo_url = wp_get_attachment_image_src($logo_id, 'full');
+	} else {
+		$logo_url = array(YIPNYAP_URL . '/img/yipnyap-logo.png');
+	}
+
     // pass php variables to javascript file
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
         'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
+        'logout_url' => wp_logout_url('/activity'),
+        'logo_url' => $logo_url,
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
         'rest_root' => esc_url_raw(rest_url()),

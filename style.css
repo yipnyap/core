@@ -184,7 +184,15 @@ select {
   background-color: var(--color-box-background);
 }
 
+.hover\:bg-box:hover {
+  background-color: var(--color-box-background);
+}
+
 .bg-box-alt {
+  background-color: var(--color-box-background-alt);
+}
+
+.hover\:bg-box-alt:hover {
   background-color: var(--color-box-background-alt);
 }
 
@@ -340,7 +348,6 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
-input[type="search"],
 input[type="number"],
 textarea,
 select,
@@ -368,7 +375,6 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
-input[type="search"],
 input[type="number"],
 textarea,
 select,
@@ -383,7 +389,6 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
-input[type="search"],
 input[type="number"],
 textarea,
 select {
@@ -399,7 +404,6 @@ input[type="text"]:focus,
 input[type="password"]:focus,
 input[type="email"]:focus,
 input[type="tel"]:focus,
-input[type="search"]:focus,
 input[type="number"]:focus,
 textarea:focus,
 select:focus {
@@ -410,7 +414,6 @@ input[type="text"].input-error,
 input[type="password"].input-error,
 input[type="email"].input-error,
 input[type="tel"].input-error,
-input[type="search"].input-error,
 input[type="number"].input-error,
 textarea.input-error,
 select.input-error {
@@ -421,7 +424,6 @@ input[type="text"].input-disabled,
 input[type="password"].input-disabled,
 input[type="email"].input-disabled,
 input[type="tel"].input-disabled,
-input[type="search"].input-disabled,
 input[type="number"].input-disabled,
 textarea.input-disabled,
 select.input-disabled {
@@ -432,31 +434,30 @@ input[type="text"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
-input[type="search"],
 input[type="number"] {
   height: 54px;
   padding: 0 18px;
 }
 
-input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder, input[type="email"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder, input[type="search"]::-webkit-input-placeholder, input[type="number"]::-webkit-input-placeholder {
+input[type="text"]::-webkit-input-placeholder, input[type="password"]::-webkit-input-placeholder, input[type="email"]::-webkit-input-placeholder, input[type="tel"]::-webkit-input-placeholder, input[type="number"]::-webkit-input-placeholder {
   color: var(--color-text-alt-2);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-input[type="text"]::-moz-placeholder, input[type="password"]::-moz-placeholder, input[type="email"]::-moz-placeholder, input[type="tel"]::-moz-placeholder, input[type="search"]::-moz-placeholder, input[type="number"]::-moz-placeholder {
+input[type="text"]::-moz-placeholder, input[type="password"]::-moz-placeholder, input[type="email"]::-moz-placeholder, input[type="tel"]::-moz-placeholder, input[type="number"]::-moz-placeholder {
   color: var(--color-text-alt-2);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder, input[type="email"]:-ms-input-placeholder, input[type="tel"]:-ms-input-placeholder, input[type="search"]:-ms-input-placeholder, input[type="number"]:-ms-input-placeholder {
+input[type="text"]:-ms-input-placeholder, input[type="password"]:-ms-input-placeholder, input[type="email"]:-ms-input-placeholder, input[type="tel"]:-ms-input-placeholder, input[type="number"]:-ms-input-placeholder {
   color: var(--color-text-alt-2);
   font-size: 0.875rem;
   font-weight: 500;
 }
 
-input[type="text"]::-ms-input-placeholder, input[type="password"]::-ms-input-placeholder, input[type="email"]::-ms-input-placeholder, input[type="tel"]::-ms-input-placeholder, input[type="search"]::-ms-input-placeholder, input[type="number"]::-ms-input-placeholder {
+input[type="text"]::-ms-input-placeholder, input[type="password"]::-ms-input-placeholder, input[type="email"]::-ms-input-placeholder, input[type="tel"]::-ms-input-placeholder, input[type="number"]::-ms-input-placeholder {
   color: var(--color-text-alt-2);
   font-size: 0.875rem;
   font-weight: 500;
@@ -466,7 +467,6 @@ input[type="text"]::placeholder,
 input[type="password"]::placeholder,
 input[type="email"]::placeholder,
 input[type="tel"]::placeholder,
-input[type="search"]::placeholder,
 input[type="number"]::placeholder {
   color: var(--color-text-alt-2);
   font-size: 0.875rem;
@@ -25186,7 +25186,7 @@ img[alt='logo'].logo-image {
 --------------------------*/
 .mixnav {
   position: sticky;
-  top: 80px;
+  top: 64px;
   z-index: 1;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -25244,6 +25244,10 @@ img[alt='logo'].logo-image {
 /*--------------------------
     1. BUTTONS
 --------------------------*/
+.ypsdk.button-icon {
+  background: var(--color-box-background);
+}
+
 .ypsdk.button-upgrade {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
@@ -25308,9 +25312,6 @@ img[alt='logo'].logo-image {
 }
 
 .cmui.navigator {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
   background-color: var(--color-box-background);
   color: var(--color-text);
   -webkit-box-orient: vertical;

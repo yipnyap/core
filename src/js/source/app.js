@@ -47,8 +47,9 @@ import './global/search-mobile';
 import './component-dom/search/search-form';
 
 /*---------------------------
-    HEADER NOTIFICATIONS
+    HEADER
 ---------------------------*/
+import './component-dom/header/header';
 import './component-dom/header/header-notifications';
 
 /*---------------------------

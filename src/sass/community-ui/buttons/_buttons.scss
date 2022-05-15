@@ -11,6 +11,9 @@
     1. BUTTONS
 --------------------------*/
 .ypsdk {
+  &.button-icon {
+    background: var(--color-box-background);
+  }
   &.button-upgrade {
     display: inline-flex;
     position: relative;

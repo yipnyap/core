@@ -2,7 +2,7 @@ import { querySelector } from '../utils/core';
 
 import * as userRouter from '../router/user/user-router';
 
-querySelector('.vk-theme-toggle', (el) => {
+querySelector('.cmui-theme-toggle', (el) => {
   let changingColorTheme = false;
 
   const toggleLoggedUserColorTheme = function (e) {
@@ -29,6 +29,7 @@ querySelector('.vk-theme-toggle', (el) => {
 
   // add listeners
   for (const toggleThemeElement of el) {
+    console.log(el);
     toggleThemeElement.addEventListener('mousedown', toggleLoggedUserColorTheme);
   }
 });

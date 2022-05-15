@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import IconSVG from '../../icon/IconSVG';
+import {BellIcon} from "@heroicons/react/outline";
 
 function HeaderDropdown(props) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);
@@ -26,21 +27,18 @@ function HeaderDropdown(props) {
   };
 
   return (
-    <div className="action-list-item-wrap" tabIndex="0" onBlur={closeDropdown}>
-      {/* DROPDOWN TRIGGER */}
-      <div className={`action-list-item ${props.unread ? 'unread' : ''}`} onClick={toggleDropdown}>
-        <IconSVG  icon={props.icon}
-                  modifiers="action-list-item-icon"
-        />
-      </div>
-      {/* DROPDOWN TRIGGER */}
+    <span className="inline-flex" onBlur={closeDropdown}>
+      <a href="#" className={`ypsdk button-icon -mx-1 p-1 rounded-full text-gray-400 hover:text-gray-500 ${props.unread ? 'unread' : ''}`} tabIndex="0" onClick={toggleDropdown}>
+        <span className="sr-only">View notifications</span>
+        <BellIcon className="h-6 w-6" aria-hidden="true"/>
+      </a>
 
       {/* DROPDOWN BOX */}
-      <div  className="dropdown-box" style={dropdownBoxStyles}>
+      <div className="dropdown-box" style={dropdownBoxStyles}>
       { props.children }
       </div>
       {/* DROPDOWN BOX */}
-    </div>
+    </span>
   );
 }
 

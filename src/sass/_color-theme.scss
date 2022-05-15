@@ -98,7 +98,15 @@ $color-box-over-box-light-background: $white;
   background-color: var(--color-box-background)
 }
 
+.hover\:bg-box:hover {
+  background-color: var(--color-box-background)
+}
+
 .bg-box-alt {
+  background-color: var(--color-box-background-alt)
+}
+
+.hover\:bg-box-alt:hover {
   background-color: var(--color-box-background-alt)
 }
 

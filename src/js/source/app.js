@@ -53,6 +53,11 @@ import './component-dom/header/header';
 import './component-dom/header/header-notifications';
 
 /*---------------------------
+    ONBOARDING
+---------------------------*/
+import './component-dom/onboarding/landing-activity-header';
+
+/*---------------------------
     COMMENT LIST
 ---------------------------*/
 import './component-dom/comments/comment-list';

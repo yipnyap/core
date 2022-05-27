@@ -58,7 +58,7 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.05.3';
+const YIPNYAP_VERSION        = '2022.06pa1';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -184,7 +184,8 @@ function yipnyap_load_scripts()
         'plugin_active' => yipnyap_plugin_get_required_plugins_activation_status(),
         'gamipress_badge_type_exists' => yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge'),
         'colors' => yipnyap_customizer_theme_colors_get_array(),
-        'settings' => $yipnyap_settings
+        'settings' => $yipnyap_settings,
+	    'yipnyap_server_version' => YIPNYAP_VERSION
     ]);
 
     // pass translation strings to javascript file

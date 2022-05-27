@@ -138,9 +138,23 @@ $user = yipnyap_get_logged_user_member_data();
     </nav>
     <?php } ?>
 
+    <?php if(!$user) {
+	    if (bp_has_activities(array(
+		    'show_hidden' => true,
+		    'count_total' => true
+	    ))) {
+		    global $activities_template;
+		    $postCount = $activities_template->total_activity_count;
+	    } else {
+		    $postCount = 0;
+	    }
+    ?>
+        <div id="cmui-landing-activity-header" data-postcount="<?php echo $postCount ?>" data-usercount="<?php echo bp_total_site_member_count() ?>" data-groupcount="<?php echo groups_get_total_group_count() ?>" style="padding: 0 0 0 4vw"></div>
+    <?php } ?>
+
     <!-- GRID -->
     <div class="grid grid-3-6-3 mobile-prefer-content" style="padding:0 1vw 6vw 6vw">
-        <!-- GRID COLUMN -->
+        <!-- LEFT COLUMN -->
         <div class="grid-column">
             <?php
 
@@ -186,7 +200,7 @@ $user = yipnyap_get_logged_user_member_data();
 
             ?>
         </div>
-        <!-- /GRID COLUMN -->
+        <!-- /LEFT COLUMN -->
 
         <div class="grid-column">
             <!-- debug_user_account -->
@@ -247,7 +261,7 @@ $user = yipnyap_get_logged_user_member_data();
             <!-- /ACTIVITY FILTERABLE LIST -->
         </div>
 
-        <!-- GRID COLUMN -->
+        <!-- GROUPS COLUMN -->
         <div class="grid-column">
             <?php
 
@@ -284,7 +298,7 @@ $user = yipnyap_get_logged_user_member_data();
 
             ?>
         </div>
-        <!-- /GRID COLUMN -->
+        <!-- /GROUPS COLUMN -->
     </div>
     <!-- /GRID -->
 </div>

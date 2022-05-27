@@ -58,7 +58,7 @@ function ntwb_bbpress_custom_role_names()
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.06pa1';
+const YIPNYAP_VERSION        = '2022.06pa2';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**

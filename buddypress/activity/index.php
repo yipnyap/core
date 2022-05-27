@@ -139,10 +139,6 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <?php if(!$user) {
-<<<<<<< HEAD
-=======
-	    $userCount = count_users();
->>>>>>> 5e66c3f775ac92087212401a101e340a960155d7
 	    if (bp_has_activities(array(
 		    'show_hidden' => true,
 		    'count_total' => true
@@ -153,11 +149,7 @@ $user = yipnyap_get_logged_user_member_data();
 		    $postCount = 0;
 	    }
     ?>
-<<<<<<< HEAD
         <div id="cmui-landing-activity-header" data-postcount="<?php echo $postCount ?>" data-usercount="<?php echo bp_total_site_member_count() ?>" data-groupcount="<?php echo groups_get_total_group_count() ?>" style="padding: 0 0 0 4vw"></div>
-=======
-        <div id="cmui-landing-activity-header" data-postcount="<?php echo $postCount ?>" data-usercount="<?php echo $userCount['total_users'] ?>" data-groupcount="<?php echo groups_get_total_group_count() ?>" style="padding: 0 0 0 4vw"></div>
->>>>>>> 5e66c3f775ac92087212401a101e340a960155d7
     <?php } ?>
 
     <!-- GRID -->

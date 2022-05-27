@@ -21,7 +21,7 @@ const features = [
     {
         name: 'Verified Program for those who do great',
         description:
-            'Are you making a safe space for everyone, or doing greater stuff? We got a program for you that gives access to a bunch of goodies and licenses 👀',
+            'Are you making a safe space for everyone, or creating amazing stuff? We got a program for you that gives access to a bunch of goodies and licenses 👀',
         icon: BadgeCheckIcon,
     },
 ];

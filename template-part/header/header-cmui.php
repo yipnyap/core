@@ -87,11 +87,12 @@ if ( $sidemenu_status === 'display' ) :
 			 * Avatar Small
 			 */
 			get_template_part( 'template-part/avatar/avatar', 'small', [
-				'user'      => $args['user'],
-				'linked'    => yipnyap_plugin_buddypress_is_active(),
-				'no_border' => true,
-				'a_class'   => 'small no-stats no-border flex items-center justify-center w-16 h-16 mt-auto',
-				'img_class' => 'h-6 w-6 rounded-full'
+				'user'        => $args['user'],
+				'linked'      => yipnyap_plugin_buddypress_is_active(),
+				'no_border'   => true,
+				'a_class'     => 'small no-border flex items-center justify-center w-16 h-16 user-avatar-circle big user-short-description-avatar mt-auto',
+				'img_class'   => 'h-8 w-8 rounded-full',
+                'cmui_nav'    => true
 			] );
 
 		}

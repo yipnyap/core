@@ -1,21 +1,21 @@
 <?php
 /**
  * Yipnyap Template - Footer
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
-  // footer status
-  $footer_status = get_theme_mod('yipnyap_footer_setting_display', 'display');
+// footer status
+$footer_status = get_theme_mod('yipnyap_footer_setting_display', 'display');
 
-  $buddypress_plugin_is_active = yipnyap_plugin_buddypress_is_active();
+$buddypress_plugin_is_active = yipnyap_plugin_buddypress_is_active();
 
-  $display_footer = ($footer_status === 'display') && (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation_page()) || !$buddypress_plugin_is_active);
+$display_footer = ($footer_status === 'display') && (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation_page()) || !$buddypress_plugin_is_active);
 
-  if ($display_footer) :
+if ($display_footer) :
 
     // footer logo
     $footer_logo_id = get_theme_mod('yipnyap_footer_setting_promo_logo', false);
@@ -29,17 +29,17 @@
     $footer_social_items = [];
 
     foreach ($footer_setting_social_links as $key => $footer_setting_social_link) {
-      // if user entered a link
-      if ($footer_setting_social_link !== '') {
-        $footer_social_items[] = [
-          'name'  => $key,
-          'link'  => $footer_setting_social_link
-        ];
-      }
+        // if user entered a link
+        if ($footer_setting_social_link !== '') {
+            $footer_social_items[] = [
+                'name' => $key,
+                'link' => $footer_setting_social_link
+            ];
+        }
     }
 
     if (count($footer_social_items) === 0) {
-      $footer_social_items = false;
+        $footer_social_items = false;
     }
 
     // footer navigation
@@ -47,123 +47,176 @@
     $footer_menu_items = yipnyap_menu_group_by_parent($footer_menu_items);
 
     // footer bottom text
-    $footer_bottom_left_text = get_theme_mod('yipnyap_footer_setting_bottom_left_text', false);
-    $footer_bottom_right_text = get_theme_mod('yipnyap_footer_setting_bottom_right_text', false);
+    $footer_bottom_left_text = YIPNYAP_VERSION;
+    $footer_bottom_right_text = '© Studio Wychefur | <a href="https://twitter.com/itsrekki">@itsrekki</a>';
 
-?>
+    // floating banner settings (currently only for user registration notices)
+    // TODO: Make this configurable to be anything on the fly!
+    $floating_banner_show = YIPNYAP_REGISTRATION_DISABLED;
+    $floating_banner_can_dismiss = false;
+    $floating_banner_learn_more = false;
+    $floating_banner_brief_heading = 'Registration is disabled!';
+    $floating_banner_text = $floating_banner_brief_heading . ' New users can\'t make accounts.';
 
-<!-- FOOTER WRAP -->
-<footer class="footer-wrap">
-  <!-- FOOTER -->
-  <div class="footer content-grid">
-    <!-- FOOTER TOP -->
-    <div class="footer-top">
-      <!-- FOOTER INFO -->
-      <div class="footer-info">
-        <!-- FOOTER INFO BRAND -->
-        <div class="footer-info-brand">
-        <?php
+    ?>
 
-          if ($footer_logo_id) :
-            $footer_logo_url = wp_get_attachment_image_src($footer_logo_id , 'full');
+    <!-- FLOATING BANNER NOTICE -->
+    <div class="fixed bottom-0 inset-x-0 pb-2 sm:pb-5">
+        <div class="max-w-7xl mx-auto px-2 sm:px-6 lg:px-8">
+            <div class="p-2 rounded-lg bg-indigo-600 shadow-lg sm:p-3">
+                <div class="flex items-center justify-between flex-wrap">
+                    <div class="w-0 flex-1 flex items-center">
+          <span class="flex p-2 rounded-lg bg-indigo-800">
+            <!-- Heroicon name: outline/speakerphone -->
+            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+            </svg>
+          </span>
+                        <p class="ml-3 font-medium text-white">
+                            <span class="md:hidden"> <?php echo $floating_banner_brief_heading ?> </span>
+                            <span class="hidden md:inline"> <?php echo $floating_banner_text ?> </span>
+                        </p>
+                    </div>
 
-        ?>
-          <!-- FOOTER INFO BRAND IMAGE -->
-          <img class="footer-info-brand-image" src="<?php echo esc_url($footer_logo_url[0]); ?>" alt="brand-image">
-          <!-- /FOOTER INFO BRAND IMAGE -->
-        <?php
+                    <?php if ($floating_banner_learn_more) { ?>
+                    <div class="order-3 mt-2 flex-shrink-0 w-full sm:order-2 sm:mt-0 sm:w-auto">
+                        <a href="#" class="flex items-center justify-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-indigo-600 bg-white hover:bg-indigo-50"> Learn more </a>
+                    </div>
+                    <?php } ?>
 
-          endif;
+                    <?php if ($floating_banner_can_dismiss) { ?>
+                    <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-2">
+                        <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white">
+                            <span class="sr-only">Dismiss</span>
+                            <!-- Heroicon name: outline/x -->
+                            <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                            </svg>
+                        </button>
+                    </div>
+                    <?php } ?>
 
-        ?>
-
-          <!-- FOOTER INFO BRAND INFO -->
-          <div class="footer-info-brand-info">
-            <!-- FOOTER INFO BRAND TITLE -->
-            <p class="footer-info-brand-title"><?php bloginfo('name'); ?></p>
-            <!-- /FOOTER INFO BRAND TITLE -->
-
-            <!-- FOOTER INFO BRAND SUBTITLE -->
-            <p class="footer-info-brand-subtitle"><?php bloginfo('description'); ?></p>
-            <!-- /FOOTER INFO BRAND SUBTITLE -->
-          </div>
-          <!-- FOOTER INFO BRAND INFO -->
+                </div>
+            </div>
         </div>
-        <!-- /FOOTER INFO BRAND -->
-
-      <?php if ($footer_promo_text) : ?>
-        <!-- FOOTER INFO TEXT -->
-        <p class="footer-info-text"><?php echo esc_html($footer_promo_text); ?></p>
-        <!-- /FOOTER INFO TEXT -->
-      <?php endif; ?>
-
-      <?php
-
-        if ($footer_social_items) {
-          /**
-           * Social Items
-           */
-          get_template_part('template-part/social/social-items', null, [
-            'social_items' => $footer_social_items
-          ]);
-        }
-
-      ?>
-      </div>
-      <!-- /FOOTER INFO -->
-
-    <?php if ($footer_menu_items > 0) : ?>
-      <!-- FOOTER NAVIGATION -->
-      <div class="footer-navigation">
-      <?php
-
-        foreach ($footer_menu_items as $key => $footer_menu_item) {
-          /**
-           * Navigation Section
-           */
-          get_template_part('template-part/navigation/navigation', 'section', [
-            'section_name'  => $key,
-            'section_links' => $footer_menu_item
-          ]);
-        }
-
-      ?>
-      </div>
-      <!-- /FOOTER NAVIGATION -->
-    <?php endif; ?>
     </div>
-    <!-- /FOOTER TOP -->
+    <!-- FOOTER WRAP -->
+    <footer class="footer-wrap">
+        <!-- FOOTER -->
+        <div class="footer content-grid">
+            <!-- FOOTER TOP -->
+            <div class="footer-top">
+                <!-- FOOTER INFO -->
+                <div class="footer-info">
+                    <!-- FOOTER INFO BRAND -->
+                    <div class="footer-info-brand">
+                        <?php
 
-  <?php
+                        if ($footer_logo_id) :
+                            $footer_logo_url = wp_get_attachment_image_src($footer_logo_id, 'full');
 
-    if ($footer_bottom_left_text || $footer_bottom_right_text) :
-      $footer_bottom_left_text = $footer_bottom_left_text ? $footer_bottom_left_text : '';
-      $footer_bottom_right_text = $footer_bottom_right_text ? $footer_bottom_right_text : '';
-  ?>
-    <!-- FOOTER BOTTOM -->
-    <div class="footer-bottom">
-      <!-- FOOTER BOTTOM TEXT -->
-      <p class="footer-bottom-text"><?php echo wp_kses($footer_bottom_left_text, ['a' => ['href' => [], 'target' => []]]); ?></p>
-      <!-- /FOOTER BOTTOM TEXT -->
+                            ?>
+                            <!-- FOOTER INFO BRAND IMAGE -->
+                            <img class="footer-info-brand-image" src="<?php echo esc_url($footer_logo_url[0]); ?>"
+                                 alt="brand-image">
+                            <!-- /FOOTER INFO BRAND IMAGE -->
+                        <?php
 
-      <!-- FOOTER BOTTOM TEXT -->
-      <p class="footer-bottom-text"><?php echo wp_kses($footer_bottom_right_text, ['a' => ['href' => [], 'target' => []]]); ?></p>
-      <!-- /FOOTER BOTTOM TEXT -->
-    </div>
-    <!-- /FOOTER BOTTOM -->
-  <?php endif; ?>
-  </div>
-  <!-- /FOOTER -->
-</footer>
-<!-- /FOOTER WRAP -->
+                        endif;
+
+                        ?>
+
+                        <!-- FOOTER INFO BRAND INFO -->
+                        <div class="footer-info-brand-info">
+                            <!-- FOOTER INFO BRAND TITLE -->
+                            <p class="footer-info-brand-title"><?php bloginfo('name'); ?></p>
+                            <!-- /FOOTER INFO BRAND TITLE -->
+
+                            <!-- FOOTER INFO BRAND SUBTITLE -->
+                            <p class="footer-info-brand-subtitle"><?php bloginfo('description'); ?></p>
+                            <!-- /FOOTER INFO BRAND SUBTITLE -->
+                        </div>
+                        <!-- FOOTER INFO BRAND INFO -->
+                    </div>
+                    <!-- /FOOTER INFO BRAND -->
+
+                    <?php if ($footer_promo_text) : ?>
+                        <!-- FOOTER INFO TEXT -->
+                        <p class="footer-info-text"><?php echo esc_html($footer_promo_text); ?></p>
+                        <!-- /FOOTER INFO TEXT -->
+                    <?php endif; ?>
+
+                    <?php
+
+                    if ($footer_social_items) {
+                        /**
+                         * Social Items
+                         */
+                        get_template_part('template-part/social/social-items', null, [
+                            'social_items' => $footer_social_items
+                        ]);
+                    }
+
+                    ?>
+                </div>
+                <!-- /FOOTER INFO -->
+
+                <?php if ($footer_menu_items > 0) : ?>
+                    <!-- FOOTER NAVIGATION -->
+                    <div class="footer-navigation">
+                        <?php
+
+                        foreach ($footer_menu_items as $key => $footer_menu_item) {
+                            /**
+                             * Navigation Section
+                             */
+                            get_template_part('template-part/navigation/navigation', 'section', [
+                                'section_name' => $key,
+                                'section_links' => $footer_menu_item
+                            ]);
+                        }
+
+                        ?>
+                    </div>
+                    <!-- /FOOTER NAVIGATION -->
+                <?php endif; ?>
+            </div>
+            <!-- /FOOTER TOP -->
+
+            <?php
+
+            if ($footer_bottom_left_text || $footer_bottom_right_text) :
+                $footer_bottom_left_text = $footer_bottom_left_text ? $footer_bottom_left_text : '';
+                $footer_bottom_right_text = $footer_bottom_right_text ? $footer_bottom_right_text : '';
+                ?>
+                <!-- FOOTER BOTTOM -->
+                <div class="footer-bottom">
+                    <!-- FOOTER BOTTOM TEXT -->
+                    <p class="footer-bottom-text">
+                        <?php echo wp_kses('Server v' . $footer_bottom_left_text, ['a' => ['href' => [], 'target' => []]]); ?>
+                        <br>
+                        UI version may differ.
+                    </p>
+                    <!-- /FOOTER BOTTOM TEXT -->
+
+                    <!-- FOOTER BOTTOM TEXT -->
+                    <p class="footer-bottom-text"><?php echo wp_kses($footer_bottom_right_text, ['a' => ['href' => [], 'target' => []]]); ?></p>
+                    <!-- /FOOTER BOTTOM TEXT -->
+                </div>
+                <!-- /FOOTER BOTTOM -->
+            <?php endif; ?>
+        </div>
+        <!-- /FOOTER -->
+    </footer>
+    <!-- /FOOTER WRAP -->
 
 <?php
 
-  endif;
-  
+endif;
+
 ?>
 
 <?php wp_footer(); ?>
-  
+
 </body>
 </html>

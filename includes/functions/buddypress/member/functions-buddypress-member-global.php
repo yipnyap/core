@@ -1617,9 +1617,9 @@ if (!function_exists('yipnyap_members_get_xprofile_social_links')) {
         $social_links = [];
 
         $valid_social_networks = [
-            'facebook',
+//            'facebook',
             'twitter',
-            'instagram',
+//            'instagram',
             'twitch',
             'discord',
             'youtube',

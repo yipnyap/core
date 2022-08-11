@@ -117,34 +117,6 @@ function yipnyap_customizer_footer($wp_customize) {
       'settings'  => 'yipnyap_footer_setting_social_links[' . $social_network . ']'
     ]);
   }
-
-  /**
-   * Bottom Left Text
-   */
-  $wp_customize->add_setting('yipnyap_footer_setting_bottom_left_text', [
-    'sanitize_callback' => 'yipnyap_customizer_sanitize_text'
-  ]);
-
-  $wp_customize->add_control('yipnyap_footer_control_bottom_left_text', [
-    'label'     => esc_html_x('Bottom Left - Text', '(Customizer) Footer Option - Bottom Left Text - Title', 'yipnyap'),
-    'type'      => 'text',
-    'section'   => 'yipnyap_footer',
-    'settings'  => 'yipnyap_footer_setting_bottom_left_text'
-  ]);
-
-  /**
-   * Bottom Right Text
-   */
-  $wp_customize->add_setting('yipnyap_footer_setting_bottom_right_text', [
-    'sanitize_callback' => 'yipnyap_customizer_sanitize_text'
-  ]);
-
-  $wp_customize->add_control('yipnyap_footer_control_bottom_right_text', [
-    'label'     => esc_html_x('Bottom Right - Text','(Customizer) Footer Option - Bottom Right Text - Title', 'yipnyap'),
-    'type'      => 'text',
-    'section'   => 'yipnyap_footer',
-    'settings'  => 'yipnyap_footer_setting_bottom_right_text'
-  ]);
 }
 
 add_action('customize_register', 'yipnyap_customizer_footer');

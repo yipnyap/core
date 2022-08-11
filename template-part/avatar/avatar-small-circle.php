@@ -21,6 +21,7 @@ $no_border = $args['no_border'] ?? false;
 $linked = $args['linked'] ?? false;
 $a_class = $args['a_class'] ?? false;
 $img_class = $args['img_class'] ?? false;
+$is_cmui_nav = $args['cmui_nav'] ?? false;
 $no_stats = !array_key_exists('rank', $args['user']);
 
 $modifiers_classes = $modifiers ? $modifiers : '';
@@ -42,7 +43,7 @@ if (!$no_stats) {
 <!-- USER AVATAR CIRCLE -->
 <?php if ($linked) : ?>
 <a class="<?php if ($a_class) { echo esc_attr($a_class); } else { ?> user-avatar-circle small <?php echo esc_attr($no_stats_classes); ?> <?php echo esc_attr($modifiers_classes); ?> <?php echo esc_attr($no_border_classes); } ?>"
-   href="<?php echo esc_url($args['user']['link']) ?>">
+   href="<?php echo esc_url($args['user']['link']) ?>" style="<?php if ($is_cmui_nav) echo 'margin-top: auto !important; margin-bottom: 1em;' ?>">
     <?php else : ?>
     <div class="user-avatar-circle small <?php echo esc_attr($no_stats_classes); ?> <?php echo esc_attr($modifiers_classes); ?> <?php echo esc_attr($no_border_classes); ?>">
         <?php endif; ?>

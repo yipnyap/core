@@ -1,4 +1,4 @@
-<?php
+<?php /** @noinspection PhpUnused */
 /**
  * Yipnyap - Functions
  *
@@ -10,7 +10,7 @@
 
 /**
  * Rename "Keymaster" role
- * Unfortunately, this is hard set by Wordpress, and I cannot change it from the YapSDK.
+ * Unfortunately, this is hard set by Wordpress, and I cannot change it from a plugin right now.
  * TODO: Replace this with a separate, configurable plugin later.
  */
 add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
@@ -58,8 +58,32 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.06pa2';
+const YIPNYAP_VERSION        = '2022.08';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
+
+/**
+ * Change Wordpress Settings
+ */
+const YIPNYAP_WPOPTIONS = array(
+    'blogname' => 'Yipnyap',
+    'blogdescription' => 'A furry safespace',
+    'users_can_register' => 'DEVTEST'
+);
+
+const YIPNYAP_OPTIONS = array(
+    'discord_webhook' => ''
+);
+
+foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
+    $change_required = get_option($key) !== $option;
+//    echo $key . ': ' . $option . ' | current: ' . get_option($key) . ' | change required: ' . $change_required . '<br>';
+    if ($key === 'users_can_register' && $option === 1 || $option === 'DEVTEST') {
+        define('YIPNYAP_REGISTRATION_DISABLED', true);
+    }
+    if ($change_required && $option !== 'DEVTEST') {
+        update_option($key, $option);
+    }
+}
 
 /**
  * Theme paths and urls

@@ -68,7 +68,7 @@ const YIPNYAP_WPOPTIONS = array(
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
     'users_can_register' => false,
-    'snowsuit_registration_allowed' => 'DEVTEST'
+    'snowsuit_registration_allowed' => 'yes' // WORDPRESS WHAT???? LMAO????? "true" and "false" don't work.
 );
 
 const YIPNYAP_OPTIONS = array(
@@ -78,9 +78,6 @@ const YIPNYAP_OPTIONS = array(
 foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     $change_required = get_option($key) !== $option;
 //    echo $key . ': ' . $option . ' | current: ' . get_option($key) . ' | change required: ' . $change_required . '<br>';
-    if ($key === 'snowsuit_registration_allowed' && $option === 1 || $option === 'DEVTEST') {
-        define('YIPNYAP_REGISTRATION_DISABLED', true);
-    }
     if ($change_required && $option !== 'DEVTEST') {
         update_option($key, $option);
     }

@@ -64,13 +64,19 @@ const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 /**
  * Change Wordpress Settings
  */
-const YIPNYAP_WPOPTIONS = array(
+define("YIPNYAP_WPOPTIONS", array(
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
     'users_can_register' => false,
-    'snowsuit_registration_allowed' => 'yes' // WORDPRESS WHAT???? LMAO????? "true" and "false" don't work.
-);
-
+    /*
+     * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
+     *
+     * Snowsuit is the backend of Yipnyap.
+     * TODO: Change this to update based on an API response (i.e. "Health check"?)
+     */
+    'snowsuit_registration_allowed' => 'yes',
+    'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no'
+));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook' => ''
 );

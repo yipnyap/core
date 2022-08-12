@@ -48,10 +48,17 @@ if ( $sidemenu_status === 'display' ) :
     <nav id="navigation-widget-small"
          style="margin-top: 0; z-index: 10001; padding-bottom: 0; left: 0;"
          class="cmui navigator navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left hidden md:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
-        <a class="flex items-center justify-center" href="#">
+        <?php if (isset( $args['user'] ) && get_option('cmui_use_profile_as_colour_palette') === 'yes') { ?>
+        <a class="flex items-center justify-center" href="/" style="mask: url(<?php echo esc_url( $logo_url[0] ) ?>); mask-size: 2.5rem; animation: 1s logoHue ease-out;">
+            <img class="w-10 rounded"
+                 src="<?php echo esc_url($args['user']['avatar_url']); ?>" alt="logo" style="filter: blur(5px) brightness(1.3); transform: scale(1.5);">
+        </a>
+        <?php } else { ?>
+        <a class="flex items-center justify-center" href="/">
             <img class="logo-image w-10 rounded"
                  src="<?php echo esc_url( $logo_url[0] ) ?>" alt="logo">
         </a>
+        <?php } ?>
         <div class="border-divider">
 			<?php
 			// show side menu items if it has at least one item
@@ -67,7 +74,7 @@ if ( $sidemenu_status === 'display' ) :
 			}
 			?>
         </div>
-		<?php if ( isset( $args['user'] ) ) { ?>
+		<?php if(isset($args['user'])) { ?>
             <div class="border-divider">
                 <!-- SETTINGS -->
                 <a class="cmui navigator-item <?php if ( str_contains( $_SERVER['REQUEST_URI'], "/settings" ) ) {

@@ -43,7 +43,7 @@ if (!function_exists('yipnyap_get_default_member_cover_url')) {
         if ($members_default_cover_id) {
             $members_default_cover_url = wp_get_attachment_image_src($members_default_cover_id, 'full')[0];
         } else {
-            $members_default_cover_url = YIPNYAP_URL . '/img/cover/default-cover.jpeg';
+            $members_default_cover_url = YIPNYAP_URL . '/img/cover/default-cover.png';
         }
 
         return $members_default_cover_url;

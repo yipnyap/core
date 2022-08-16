@@ -49,6 +49,10 @@ function toggleLoggedUserColorTheme(e) {
         });
 }
 
+function classNames(...classes) {
+    return classes.filter(Boolean).join(' ');
+}
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [loggedUser, setLoggedUser] = useState(false);
@@ -98,7 +102,7 @@ export default function Header() {
                 navigation = [
                     {
                         name: 'Profile',
-                        href: '#',
+                        href: `${res.link}settings/`,
                         children: [
                             {name: 'Social', href: `${res.link}settings/social`},
                             {name: 'Stream', href: `${res.link}settings/stream`},
@@ -215,84 +219,10 @@ export default function Header() {
                         </span>
 
                             {/* User menu */}
-                            <Popover className="z-0 relative">
-                                {({open}) => (
-                                    <>
-                                        <Popover.Button
-                                            className="rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
-                                        >
-                                            <span className="sr-only">Open user menu</span>
-                                            <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url} alt=""/>
-                                        </Popover.Button>
-
-                                        <Transition
-                                            show={open}
-                                            as={Fragment}
-                                            enter="transition ease-out duration-200"
-                                            enterFrom="opacity-0 -translate-y-1"
-                                            enterTo="opacity-100 translate-y-0"
-                                            leave="transition ease-in duration-150"
-                                            leaveFrom="opacity-100 translate-y-0"
-                                            leaveTo="opacity-0 -translate-y-1"
-                                        >
-                                            <Popover.Panel static
-                                                           className="w-screen fixed pt-4 z-10 inset-x-0 transform shadow-lg md:pl-20">
-                                                <div className="bg-box">
-                                                    <div
-                                                        className="max-w-7xl mx-auto grid gap-y-6 px-4 py-6 sm:grid-cols-2 sm:gap-8 sm:px-6 sm:py-8 lg:grid-cols-4 lg:px-8 lg:py-12 xl:py-16">
-                                                        {userNavigation.map((item) => (
-                                                            <a
-                                                                key={item.name}
-                                                                href={item.href}
-                                                                className="-m-3 p-3 flex flex-col justify-between rounded-lg hover:bg-box-alt transition ease-in-out duration-150"
-                                                            >
-                                                                <div className="flex md:h-full lg:flex-col">
-                                                                    <div className="flex-shrink-0">
-                                                                        <div
-                                                                            className="inline-flex items-center justify-center h-10 w-10 rounded-md bg-indigo-500 text-white sm:h-12 sm:w-12">
-                                                                            <item.icon className="h-6 w-6"
-                                                                                       aria-hidden="true"/>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div
-                                                                        className="ml-4 md:flex-1 md:flex md:flex-col md:justify-between lg:ml-0 lg:mt-4">
-                                                                        <div>
-                                                                            <p className="text-base font-medium text-primary">{item.name}</p>
-                                                                            <p className="mt-1 text-sm text-alt">{item.description}</p>
-                                                                        </div>
-                                                                        <p className="mt-2 text-sm font-medium text-indigo-600 lg:mt-4">
-                                                                            Enter <span aria-hidden="true">&rarr;</span>
-                                                                        </p>
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                                <div className="bg-box-alt">
-                                                    <div
-                                                        className="max-w-7xl mx-auto space-y-6 px-4 py-5 sm:flex sm:space-y-0 sm:space-x-10 sm:px-6 lg:px-8">
-                                                        {callsToAction.map((item) => (
-                                                            <div key={item.name} className="flow-root">
-                                                                <a
-                                                                    href={item.href}
-                                                                    className="-m-3 p-3 flex items-center rounded-md text-base font-medium text-primary hover:bg-box transition ease-in-out duration-150"
-                                                                >
-                                                                    <item.icon
-                                                                        className="flex-shrink-0 h-6 w-6 text-gray-400"
-                                                                        aria-hidden="true"/>
-                                                                    <span className="ml-3">{item.name}</span>
-                                                                </a>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            </Popover.Panel>
-                                        </Transition>
-                                    </>
-                                )}
-                            </Popover>
-                        </div>
+                            <button type="button" onClick={() => setMobileMenuOpen(true)} className="relative rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                                <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url} alt=""/>
+                            </button>
+                       </div>
                     }
 
                     {/* Loading Spinner */}
@@ -313,7 +243,7 @@ export default function Header() {
                 <Dialog
                     as="div"
                     static
-                    className="fixed inset-0 z-40 md:hidden"
+                    className="fixed inset-0 z-40"
                     open={mobileMenuOpen}
                     onClose={setMobileMenuOpen}
                 >
@@ -353,7 +283,7 @@ export default function Header() {
                                 </a>
                                 <button
                                     type="button"
-                                    className="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                                    className="-mr-2 inline-flex items-end justify-end p-2 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <span className="sr-only">Close main menu</span>
@@ -361,7 +291,8 @@ export default function Header() {
                                 </button>
                             </div>
                             <div className="mt-2 max-w-8xl mx-auto px-4 sm:px-6">
-                                <div className="relative text-gray-400 focus-within:text-gray-500">
+                                {/* Mobile Search Bar */}
+                                <div className="relative md:hidden text-gray-400 focus-within:text-gray-500">
                                     <label htmlFor="search" className="sr-only">
                                         Search Yipnyap
                                     </label>
@@ -382,7 +313,7 @@ export default function Header() {
                                     <Fragment key={item.name}>
                                         <a
                                             href={item.href}
-                                            className="block rounded-md py-2 px-3 text-base font-medium text-primary hover:bg-gray-100"
+                                            className="header-menu-entity py-2 px-3 text-primary"
                                         >
                                             {item.name}
                                         </a>
@@ -390,7 +321,7 @@ export default function Header() {
                                             <a
                                                 key={child.name}
                                                 href={child.href}
-                                                className="block rounded-md py-2 pl-5 pr-3 text-base font-medium text-gray-500 hover:bg-gray-100"
+                                                className="header-menu-entity py-2 pl-5 pr-3 text-base text-gray-500"
                                             >
                                                 {child.name}
                                             </a>
@@ -410,7 +341,7 @@ export default function Header() {
                                             className="text-sm font-medium text-gray-500 truncate">yap:{loggedUser.name}@federation.yipnyap.xyz
                                         </div>
                                     </div>
-                                    <a href="#"
+                                    <a href={`${loggedUser.link}settings/notifications`}
                                        className="ml-auto flex-shrink-0 bg-box p-2 text-gray-400 hover:text-gray-500">
                                         <span className="sr-only">View notifications</span>
                                         <BellIcon className="h-6 w-6" aria-hidden="true"/>
@@ -421,7 +352,7 @@ export default function Header() {
                                         <a
                                             key={item.name}
                                             href={item.href}
-                                            className="block rounded-md py-2 px-3 text-base font-medium text-primary hover:bg-gray-50"
+                                            className="header-menu-entity py-2 px-3 text-primary"
                                         >
                                             {item.name}
                                         </a>

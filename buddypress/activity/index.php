@@ -217,7 +217,7 @@ $user = yipnyap_get_logged_user_member_data();
                 <!-- /ALERT LINE ICON WRAP -->
 
                 <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><?php echo var_dump($user) ?></p>
+                <pre class="alert-line-text"><?php echo print_r($user) ?></pre>
                 <!-- /ALERT LINE TEXT -->
             </div>
             <?php } ?>

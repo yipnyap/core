@@ -80,7 +80,7 @@ if (!function_exists('yipnyap_get_logged_user_member_data')) {
      * @param string $data_scope Scope of the user data.
      * @return array|bool $user           User if logged in, false otherwise.
      */
-    function yipnyap_get_logged_user_member_data($data_scope = 'user-status', $include_member_links = false)
+    function yipnyap_get_logged_user_member_data(string $data_scope = 'user-status', $include_member_links = false): bool|array
     {
         $user = false;
 
@@ -93,6 +93,7 @@ if (!function_exists('yipnyap_get_logged_user_member_data')) {
             $user['following'] = bp_follow_get_following(array(
                 'user_id' => $user_id
             ));
+            $user['profile_data'] = yipnyap_member_get_xprofile_data($user_id);
         }
 
         return $user;

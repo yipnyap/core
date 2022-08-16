@@ -1,6 +1,6 @@
 module.exports = function (grunt) {
 
-    const sass = require('node-sass'),
+    const sass = require('sass'),
         cssnano = require('cssnano');
 
     grunt.initConfig({

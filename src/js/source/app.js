@@ -22,7 +22,6 @@ import './form/form-input';
 /*--------------
     GLOBAL
 --------------*/
-import './global/color-theme-toggle';
 import './global/smooth-scroll';
 import './global/sliders';
 import './global/progressBars';

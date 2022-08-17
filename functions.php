@@ -75,7 +75,11 @@ define("YIPNYAP_WPOPTIONS", array(
      * TODO: Change this to update based on an API response (i.e. "Health check"?)
      */
     'snowsuit_registration_allowed' => 'yes',
-    'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no'
+    'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
+    'buddypress' => [
+        'basedir' => WP_CONTENT_DIR . '/uploads',
+        'baseurl' => WP_CONTENT_URL . '/uploads'
+    ]
 ));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook' => ''
@@ -676,6 +680,12 @@ add_filter('rest_url_prefix', function () {
     return 'api';
 });
 
+/*
+ * Now time for the fun stuff. Manipulating buddypress to do
+ * what we want. Mwa ha ha ha.
+ */
+
+// Dont save activities of types
 function yipnyap_dont_save_activity($activity_object): void {
  
     $exclude = array('new_avatar', 'updated_profile', 'friendship_created');
@@ -685,3 +695,57 @@ function yipnyap_dont_save_activity($activity_object): void {
  
 }
 add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1, 1);
+
+// Change the cover upload directory to our custom one
+function yipnyap_cover_image_upload_dir ($upload) {
+    $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'] . '/';
+    $path = $base_dir . $upload['subdir'];
+    $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $upload['subdir'];
+
+    return array(
+        'path' => $path,
+        'url' => $url,
+        'subdir' => $upload['subdir'],
+        'basedir' => $base_dir,
+        'baseurl' => YIPNYAP_WPOPTIONS['buddypress']['baseurl'],
+        'error' => false
+    );
+}
+add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1, 1);
+
+// Change the avatar upload directory to our custom one
+function yipnyap_avatar_upload_dir ($upload): array
+{
+    $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'];
+    $subdir = '/members/' . str_replace('/avatars/', '', $upload['subdir']) . '/avatars';
+    $path = $base_dir . $subdir;
+    $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $subdir;
+
+    return array(
+        'path' => $path,
+        'url' => $url,
+        'subdir' => $subdir,
+        'basedir' => $path,
+        'baseurl' => $url,
+        'error' => false
+    );
+}
+//add_filter('bp_members_avatar_upload_dir', 'yipnyap_avatar_upload_dir');
+
+function yipnyap_avatar_folder_dir ($path): string
+{
+    $tokens = explode('/', $path);
+    $user_id = $tokens[sizeof($tokens)-1];
+
+    return WP_CONTENT_DIR . '/uploads' . '/members/' . $user_id . '/avatars';
+}
+//add_filter('bp_core_avatar_folder_dir', 'yipnyap_avatar_folder_dir', 1, 1);
+
+function yipnyap_avatar_folder_url ($path): string
+{
+    $tokens = explode('/', $path);
+    $user_id = $tokens[sizeof($tokens)-1];
+
+    return WP_CONTENT_URL . '/uploads' . '/members/' . $user_id . '/avatars';
+}
+//add_filter('bp_core_avatar_folder_url', 'yipnyap_avatar_folder_url', 1, 1);

@@ -58,7 +58,7 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.08-A-CMUI_Profile_Colour_Palette_Feature_Flag';
+const YIPNYAP_VERSION        = '2022.09';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**

@@ -343,13 +343,13 @@ export default function Header() {
                                     <div className="flex-shrink-0">
                                         <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url} alt=""/>
                                     </div>
-                                    <div className="ml-3 min-w-0 flex-1">
+                                    <a href={loggedUser.link} className="ml-3 min-w-0 flex-1">
                                         <div
                                             className="text-base font-medium text-primary truncate">{loggedUser.name}</div>
                                         <div
-                                            className="text-sm font-medium text-gray-500 truncate">yap:{loggedUser.name}@federation.yipnyap.xyz
+                                            className="text-sm font-medium text-gray-500 truncate">@{loggedUser.mention_name}
                                         </div>
-                                    </div>
+                                    </a>
                                     <a href={`${loggedUser.link}settings/notifications`}
                                        className="ml-auto flex-shrink-0 bg-box p-2 text-gray-400 hover:text-gray-500">
                                         <span className="sr-only">View notifications</span>

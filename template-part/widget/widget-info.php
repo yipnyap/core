@@ -30,7 +30,7 @@ $no_results_text = isset($args['no_results_text']) ? $args['no_results_text'] : 
     <div class="widget-box-content">
         <?php if (isset($args['widget_text']) && $args['widget_text'] !== '') : ?>
             <!-- PARAGRAPH -->
-            <p class="paragraph"><?php echo esc_html($args['widget_text']); ?></p>
+            <p class="paragraph whitespace-pre-wrap"><?php echo esc_html($args['widget_text']); ?></p>
             <!-- /PARAGRAPH -->
         <?php endif; ?>
 

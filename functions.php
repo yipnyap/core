@@ -665,11 +665,16 @@ remove_action('wp_head', 'wp_generator');
 add_filter('bp_core_enable_root_profiles', '__return_true');
 
 // This changes /no-admin-ajax/ -> /sdk/
-define('WP_NO_ADMIN_AJAX_URL','sdk');
-add_filter( 'no-admin-ajax/keyword', 'my_custom_no_admin_ajax_url' );
-function my_custom_no_admin_ajax_url( $ajax_url ): string {
-    return "sdk";
-}
+const WP_NO_ADMIN_AJAX_URL = 'sdk';
+add_filter('no-admin-ajax/keyword', function () {
+    return 'sdk';
+});
+
+// This will replace the 'wp-json' REST API prefix with 'api'.
+// Be sure to flush your rewrite rules for this change to work.
+add_filter('rest_url_prefix', function () {
+    return 'api';
+});
 
 function yipnyap_dont_save_activity($activity_object): void {
  

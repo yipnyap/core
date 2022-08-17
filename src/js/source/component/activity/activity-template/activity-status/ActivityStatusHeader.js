@@ -40,7 +40,7 @@ function ActivityStatusHeader(props) {
                 </div>
 
                 <p className="user-status-text small">
-                    {props.data.author.flair} &bull; {props.data.timestamp}
+                    {props.data.author.flair ? props.data.author.flair + '&bull;' : ''} {props.data.timestamp}
                     {
                         props.data.last_edited &&
                         <EditedByStatus user={props.data.last_edited.user}/>

@@ -82,7 +82,7 @@ if (!function_exists('yipnyap_logged_user_color_theme_get')) {
    * @return string $color_theme       Color theme (light / dark).
    */
   function yipnyap_logged_user_color_theme_get() {
-    $color_theme = get_theme_mod('yipnyap_color_presets_setting_theme_switch_default', 'light');
+    $color_theme = 'dark';
 
     if (is_user_logged_in()) {
       // user_color_theme is false if invalid user_id or '' (empty string) if no value stored

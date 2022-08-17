@@ -195,7 +195,7 @@ endif;
         </div>
         <!-- /NAVIGATION WIDGET INFO WRAP -->
 	<?php } ?>
-	<?php if ( yipnyap_customizer_color_theme_switch_is_active() && isset( $args['user'] ) ) : ?>
+	<?php if ( isset( $args['user'] ) ) : ?>
         <!-- ACTION ITEM WRAP -->
         <div class="action-item-wrap">
             <!-- ACTION ITEM -->

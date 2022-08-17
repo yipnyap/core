@@ -310,254 +310,179 @@ function yipnyap_customizer_color_hex_to_rgba($hex_color, $opacity)
  */
 function yipnyap_customizer_color_preset_default_colors_get($preset_name)
 {
+    $default = [
+        /**
+         * Login Register Colors
+         */
+        '--color-wplogin-body' => '#fff',
+        '--color-wplogin-header-text' => '#fff',
+
+        /**
+         * Header Colors
+         */
+        '--color-header-background' => '#f8f8fb',
+        '--color-header-logo-background' => '#00c7d9',
+        '--color-header-text' => '#fff',
+        '--color-header-icon' => '#8b88ff',
+        '--color-header-icon-hover' => '#615dfa',
+        '--color-header-profile-settings-icon' => '#9b7dff',
+        '--color-header-mobilemenu-trigger-icon' => '#fff',
+        '--color-header-divider' => '#7a77fd',
+        '--color-header-input-background' => '#dedeea',
+        '--color-header-input-placeholder' => '#adafca',
+        '--color-header-progressbar-line-gradient-start' => '#41efff',
+        '--color-header-progressbar-line-gradient-end' => '#41efff',
+        '--color-header-progressbar-underline' => '#4a46c8',
+
+        /**
+         * Body Colors
+         */
+        '--color-body' => '#f8f8fb',
+
+        /**
+         * Box Colors
+         */
+        '--color-box-background' => '#fff',
+        '--color-box-background-alt' => '#fcfcfd',
+        '--color-box-over-box-background' => '#fff',
+        '--color-box-over-box-light-background' => '#fff',
+
+        /**
+         * Box Highlight Colors
+         */
+        '--color-box-highlight-background' => '#f7f7fb',
+        '--color-box-hover-background' => '#f2f2f9',
+
+        /**
+         * Box Shadow Colors
+         */
+        '--color-box-shadow' => '#5e5c9a',
+        '--color-overbox-shadow' => '#5e5c9a',
+        '--color-overbox-dark-shadow' => '#5e5c9a',
+        '--color-overbox-big-shadow' => '#5e5c9a',
+
+        /**
+         * Text Colors
+         */
+        '--color-text' => '#3e3f5e',
+        '--color-text-alt' => '#8f91ac',
+        '--color-text-alt-2' => '#adafca',
+
+        /**
+         * Icon Colors
+         */
+        '--color-icon' => '#adafca',
+        '--color-icon-highlighted' => '#3e3f5e',
+
+        /**
+         * Border Colors
+         */
+        '--color-border' => '#dedeea',
+        '--color-divider' => '#eaeaf5',
+
+        /**
+         * Progress Bar Colors
+         */
+        '--color-progressbar-line-gradient-start' => '#615dfa',
+        '--color-progressbar-line-gradient-end' => '#41efff',
+        '--color-progressbar-underline' => '#e7e8ee',
+
+        /**
+         * Avatar Rank Hexagon Colors
+         */
+        '--color-avatar-rank-hexagon' => '#45437f',
+
+        /**
+         * Primary Colors
+         */
+        '--color-primary' => '#23d2e2',
+        '--color-primary-hover' => '#1bc5d4',
+        '--color-primary-light' => '#41efff',
+        '--color-primary-dark' => '#00c7d9',
+        '--color-primary-shadow' => '#23d2e2',
+
+        /**
+         * Secondary Colors
+         */
+        '--color-secondary' => '#615dfa',
+        '--color-secondary-hover' => '#5753e4',
+        '--color-secondary-dark' => '#45437f',
+        '--color-secondary-shadow' => '#615dfa',
+
+        /**
+         * Tertiary Colors
+         */
+        '--color-tertiary' => '#fd4350',
+        '--color-tertiary-hover' => '#dd343f',
+        '--color-tertiary-shadow' => '#fd4350',
+
+
+        /**
+         * Loading Screen Colors
+         */
+        '--color-loading-screen-background' => '#3e3f5e',
+
+        /**
+         * Loading Bar Colors
+         */
+        '--color-loading-bar-1' => '#615dfa',
+        '--color-loading-bar-2' => '#5d71fb',
+        '--color-loading-bar-3' => '#5983fb',
+        '--color-loading-bar-4' => '#549afc',
+        '--color-loading-bar-5' => '#4eb2fd',
+        '--color-loading-bar-6' => '#49c9fe',
+        '--color-loading-bar-7' => '#45ddfe',
+        '--color-loading-bar-8' => '#41efff',
+
+        /**
+         * Overlay Colors
+         */
+        '--color-overlay' => '#15151f'
+    ];
+    $preset_default_colors = [];
     switch ($preset_name) {
-        case 'custom':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#fff',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#f8f8fb',
-                '--color-header-logo-background' => '#fff',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#8b88ff',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#7a77fd',
-                '--color-header-input-background' => '#4e4ac8',
-                '--color-header-input-placeholder' => '#8b88ff',
-                '--color-header-progressbar-line-gradient-start' => '#41efff',
-                '--color-header-progressbar-line-gradient-end' => '#41efff',
-                '--color-header-progressbar-underline' => '#4a46c8',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#f8f8fb',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#fff',
-                '--color-box-background-alt' => '#fcfcfd',
-                '--color-box-over-box-background' => '#fff',
-                '--color-box-over-box-light-background' => '#fff',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#f7f7fb',
-                '--color-box-hover-background' => '#f2f2f9',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#5e5c9a',
-                '--color-overbox-shadow' => '#5e5c9a',
-                '--color-overbox-dark-shadow' => '#5e5c9a',
-                '--color-overbox-big-shadow' => '#5e5c9a',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#3e3f5e',
-                '--color-text-alt' => '#8f91ac',
-                '--color-text-alt-2' => '#adafca',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#adafca',
-                '--color-icon-highlighted' => '#3e3f5e',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#dedeea',
-                '--color-divider' => '#eaeaf5',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#615dfa',
-                '--color-progressbar-line-gradient-end' => '#41efff',
-                '--color-progressbar-underline' => '#e7e8ee',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#45437f',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#23d2e2',
-                '--color-primary-hover' => '#1bc5d4',
-                '--color-primary-light' => '#41efff',
-                '--color-primary-dark' => '#00c7d9',
-                '--color-primary-shadow' => '#23d2e2',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#615dfa',
-                '--color-secondary-hover' => '#5753e4',
-                '--color-secondary-dark' => '#45437f',
-                '--color-secondary-shadow' => '#615dfa',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#3e3f5e',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#615dfa',
-                '--color-loading-bar-2' => '#5d71fb',
-                '--color-loading-bar-3' => '#5983fb',
-                '--color-loading-bar-4' => '#549afc',
-                '--color-loading-bar-5' => '#4eb2fd',
-                '--color-loading-bar-6' => '#49c9fe',
-                '--color-loading-bar-7' => '#45ddfe',
-                '--color-loading-bar-8' => '#41efff',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
-            break;
         case 'dark':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
+            $preset_default_colors = array_merge($default, [
                 '--color-wplogin-body' => '#1d2333',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
                 '--color-header-background' => '#161b28',
                 '--color-header-logo-background' => '#1d2333',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#9b7dff',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#9b7dff',
                 '--color-header-input-background' => '#293249',
                 '--color-header-input-placeholder' => '#9aa4bf',
                 '--color-header-progressbar-line-gradient-start' => '#40d04f',
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
-
-                /**
-                 * Body Colors
-                 */
                 '--color-body' => '#161b28',
-
-                /**
-                 * Box Colors
-                 */
                 '--color-box-background' => '#1d2333',
                 '--color-box-background-alt' => '#21283b',
                 '--color-box-over-box-background' => '#21283b',
                 '--color-box-over-box-light-background' => '#293249',
-
-                /**
-                 * Box Highlight Colors
-                 */
                 '--color-box-highlight-background' => '#21283b',
                 '--color-box-hover-background' => '#293249',
-
-                /**
-                 * Box Shadow Colors
-                 */
                 '--color-box-shadow' => '#000000',
                 '--color-overbox-shadow' => '#000000',
                 '--color-overbox-dark-shadow' => '#000000',
                 '--color-overbox-big-shadow' => '#000000',
-
-                /**
-                 * Text Colors
-                 */
                 '--color-text' => '#ffffff',
                 '--color-text-alt' => '#9aa4bf',
                 '--color-text-alt-2' => '#9aa4bf',
-
-                /**
-                 * Icon Colors
-                 */
                 '--color-icon' => '#616a82',
                 '--color-icon-highlighted' => '#ffffff',
-
-                /**
-                 * Border Colors
-                 */
                 '--color-border' => '#3f485f',
                 '--color-divider' => '#2f3749',
-
-                /**
-                 * Progress Bar Colors
-                 */
                 '--color-progressbar-line-gradient-start' => '#40d04f',
                 '--color-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-progressbar-underline' => '#293249',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
                 '--color-avatar-rank-hexagon' => '#7750f8',
-
-                /**
-                 * Primary Colors
-                 */
                 '--color-primary' => '#40d04f',
                 '--color-primary-hover' => '#4ae95b',
                 '--color-primary-light' => '#40d04f',
                 '--color-primary-dark' => '#4ff461',
                 '--color-primary-shadow' => '#40d04f',
-
-                /**
-                 * Secondary Colors
-                 */
                 '--color-secondary' => '#7750f8',
                 '--color-secondary-hover' => '#9668ff',
                 '--color-secondary-dark' => '#7750f8',
                 '--color-secondary-shadow' => '#7750f8',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
                 '--color-loading-screen-background' => '#1d2333',
-
-                /**
-                 * Loading Bar Colors
-                 */
                 '--color-loading-bar-1' => '#41d04f',
                 '--color-loading-bar-2' => '#50d551',
                 '--color-loading-bar-3' => '#67dc55',
@@ -565,669 +490,12 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-loading-bar-5' => '#99eb5c',
                 '--color-loading-bar-6' => '#b1f35f',
                 '--color-loading-bar-7' => '#c7f962',
-                '--color-loading-bar-8' => '#d6fe65',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
-            break;
-        case 'darkblue':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#131c3c',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#192655',
-                '--color-header-logo-background' => '#0053ff',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#4f6098',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#314282',
-                '--color-header-input-background' => '#131c3c',
-                '--color-header-input-placeholder' => '#4f6098',
-                '--color-header-progressbar-line-gradient-start' => '#0053ff',
-                '--color-header-progressbar-line-gradient-end' => '#00ff97',
-                '--color-header-progressbar-underline' => '#243776',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#131c3c',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#192655',
-                '--color-box-background-alt' => '#17234f',
-                '--color-box-over-box-background' => '#192655',
-                '--color-box-over-box-light-background' => '#1c2a5d',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#1c2a5d',
-                '--color-box-hover-background' => '#203067',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#000000',
-                '--color-overbox-shadow' => '#000000',
-                '--color-overbox-dark-shadow' => '#000000',
-                '--color-overbox-big-shadow' => '#000000',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#fff',
-                '--color-text-alt' => '#8797c9',
-                '--color-text-alt-2' => '#8797c9',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#4f6098',
-                '--color-icon-highlighted' => '#00ff97',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#314282',
-                '--color-divider' => '#314282',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#0053ff',
-                '--color-progressbar-line-gradient-end' => '#00ff97',
-                '--color-progressbar-underline' => '#243776',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#0053ff',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#0053ff',
-                '--color-primary-hover' => '#1069fd',
-                '--color-primary-light' => '#00ff97',
-                '--color-primary-dark' => '#00ff97',
-                '--color-primary-shadow' => '#0053ff',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#02d27c',
-                '--color-secondary-hover' => '#14e48e',
-                '--color-secondary-dark' => '#0053ff',
-                '--color-secondary-shadow' => '#02d27c',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#192655',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#0056fd',
-                '--color-loading-bar-2' => '#0065f4',
-                '--color-loading-bar-3' => '#007ce6',
-                '--color-loading-bar-4' => '#0097d6',
-                '--color-loading-bar-5' => '#00b4c5',
-                '--color-loading-bar-6' => '#00cfb4',
-                '--color-loading-bar-7' => '#00eaa4',
-                '--color-loading-bar-8' => '#00fa9a',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
-            break;
-        case 'darkpurple':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#2c1d58',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#2c1d58',
-                '--color-header-logo-background' => '#f33059',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#4f3e80',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#463283',
-                '--color-header-input-background' => '#221746',
-                '--color-header-input-placeholder' => '#8a7fc4',
-                '--color-header-progressbar-line-gradient-start' => '#f33059',
-                '--color-header-progressbar-line-gradient-end' => '#943dff',
-                '--color-header-progressbar-underline' => '#403076',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#221746',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#2c1d58',
-                '--color-box-background-alt' => '#281a51',
-                '--color-box-over-box-background' => '#332363',
-                '--color-box-over-box-light-background' => '#332363',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#332363',
-                '--color-box-hover-background' => '#3b296e',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#000000',
-                '--color-overbox-shadow' => '#000000',
-                '--color-overbox-dark-shadow' => '#000000',
-                '--color-overbox-big-shadow' => '#000000',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#fff',
-                '--color-text-alt' => '#9388cc',
-                '--color-text-alt-2' => '#9388cc',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#8370bb',
-                '--color-icon-highlighted' => '#f33059',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#4d378e',
-                '--color-divider' => '#4d378e',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#f33059',
-                '--color-progressbar-line-gradient-end' => '#943dff',
-                '--color-progressbar-underline' => '#403076',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#f33059 ',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#f33059',
-                '--color-primary-hover' => '#ff426a',
-                '--color-primary-light' => '#ff335e',
-                '--color-primary-dark' => '#ff335e',
-                '--color-primary-shadow' => '#f33059',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#943dff',
-                '--color-secondary-hover' => '#a156fe',
-                '--color-secondary-dark' => '#943dff',
-                '--color-secondary-shadow' => '#943dff',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#ff911b',
-                '--color-tertiary-hover' => '#ff9e35',
-                '--color-tertiary-shadow' => '#ff911b',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#2c1d58',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#fd426d',
-                '--color-loading-bar-2' => '#f4447c',
-                '--color-loading-bar-3' => '#e74790',
-                '--color-loading-bar-4' => '#d84aa8',
-                '--color-loading-bar-5' => '#ca4dbd',
-                '--color-loading-bar-6' => '#b951d8',
-                '--color-loading-bar-7' => '#ac54ec',
-                '--color-loading-bar-8' => '#a356fb',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
-            break;
-        case 'darkcyan':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#20293a',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#20293a',
-                '--color-header-logo-background' => '#00d5aa',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#424d62',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#313f55',
-                '--color-header-input-background' => '#171e2b',
-                '--color-header-input-placeholder' => '#8c99b1',
-                '--color-header-progressbar-line-gradient-start' => '#00d5aa',
-                '--color-header-progressbar-line-gradient-end' => '#41d9ff',
-                '--color-header-progressbar-underline' => '#314054',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#171e2b',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#20293a',
-                '--color-box-background-alt' => '#1c2433',
-                '--color-box-over-box-background' => '#242f42',
-                '--color-box-over-box-light-background' => '#242f42',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#242f42',
-                '--color-box-hover-background' => '#242f42',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#000000',
-                '--color-overbox-shadow' => '#000000',
-                '--color-overbox-dark-shadow' => '#000000',
-                '--color-overbox-big-shadow' => '#000000',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#fff',
-                '--color-text-alt' => '#8c99b1',
-                '--color-text-alt-2' => '#8c99b1',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#58657d',
-                '--color-icon-highlighted' => '#00fecb',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#35445c',
-                '--color-divider' => '#35445c',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#00d5aa',
-                '--color-progressbar-line-gradient-end' => '#41d9ff',
-                '--color-progressbar-underline' => '#314054',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#1d8676 ',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#00d5aa',
-                '--color-primary-hover' => '#0aecbe',
-                '--color-primary-light' => '#00ffcb',
-                '--color-primary-dark' => '#00ffcb',
-                '--color-primary-shadow' => '#00d5aa',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#19c7f2',
-                '--color-secondary-hover' => '#41d9ff',
-                '--color-secondary-dark' => '#19c7f2',
-                '--color-secondary-shadow' => '#19c7f2',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#20293a',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#01d4ab',
-                '--color-loading-bar-2' => '#09d6b6',
-                '--color-loading-bar-3' => '#10d6be',
-                '--color-loading-bar-4' => '#1bd7cd',
-                '--color-loading-bar-5' => '#25d7da',
-                '--color-loading-bar-6' => '#30d8e9',
-                '--color-loading-bar-7' => '#39d9f5',
-                '--color-loading-bar-8' => '#40d9fd',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
-            break;
-        case 'carbonyellow':
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#202431',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#202431',
-                '--color-header-logo-background' => '#ffba00',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#515669',
-                '--color-header-icon-hover' => '#fff',
-                '--color-header-profile-settings-icon' => '#fff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#383c4f',
-                '--color-header-input-background' => '#171925',
-                '--color-header-input-placeholder' => '#4b4f61',
-                '--color-header-progressbar-line-gradient-start' => '#ffba00',
-                '--color-header-progressbar-line-gradient-end' => '#fcff00',
-                '--color-header-progressbar-underline' => '#2f344a',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#171925',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#202431',
-                '--color-box-background-alt' => '#1c1f2c',
-                '--color-box-over-box-background' => '#242737',
-                '--color-box-over-box-light-background' => '#242737',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#242737',
-                '--color-box-hover-background' => '#282c3d',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#000000',
-                '--color-overbox-shadow' => '#000000',
-                '--color-overbox-dark-shadow' => '#000000',
-                '--color-overbox-big-shadow' => '#000000',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#fff',
-                '--color-text-alt' => '#8c91a9',
-                '--color-text-alt-2' => '#8c91a9',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#72778f',
-                '--color-icon-highlighted' => '#ffe400',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#383c4f',
-                '--color-divider' => '#383c4f',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#ffba00',
-                '--color-progressbar-line-gradient-end' => '#fcff00',
-                '--color-progressbar-underline' => '#2f344a',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#5c6280',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#ffba00',
-                '--color-primary-hover' => '#ffcf3e',
-                '--color-primary-light' => '#ffe400',
-                '--color-primary-dark' => '#ffe400',
-                '--color-primary-shadow' => '#ffba00 ',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#5c6280',
-                '--color-secondary-hover' => '#6d738f',
-                '--color-secondary-dark' => '#5c6280',
-                '--color-secondary-shadow' => '#5c6280',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#202331 ',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#ffba00',
-                '--color-loading-bar-2' => '#ffc200',
-                '--color-loading-bar-3' => '#fecd00',
-                '--color-loading-bar-4' => '#fed700',
-                '--color-loading-bar-5' => '#fde200',
-                '--color-loading-bar-6' => '#fded00',
-                '--color-loading-bar-7' => '#fcf600',
-                '--color-loading-bar-8' => '#fcfe00',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
+                '--color-loading-bar-8' => '#d6fe65'
+            ]);
             break;
         case 'light':
+            $preset_default_colors = $default;
         default:
-            $preset_default_colors = [
-                /**
-                 * Login Register Colors
-                 */
-                '--color-wplogin-body' => '#fff',
-                '--color-wplogin-header-text' => '#fff',
-
-                /**
-                 * Header Colors
-                 */
-                '--color-header-background' => '#f8f8fb',
-                '--color-header-logo-background' => '#00c7d9',
-                '--color-header-text' => '#fff',
-                '--color-header-icon' => '#8b88ff',
-                '--color-header-icon-hover' => '#615dfa',
-                '--color-header-profile-settings-icon' => '#9b7dff',
-                '--color-header-mobilemenu-trigger-icon' => '#fff',
-                '--color-header-divider' => '#7a77fd',
-                '--color-header-input-background' => '#dedeea',
-                '--color-header-input-placeholder' => '#adafca',
-                '--color-header-progressbar-line-gradient-start' => '#41efff',
-                '--color-header-progressbar-line-gradient-end' => '#41efff',
-                '--color-header-progressbar-underline' => '#4a46c8',
-
-                /**
-                 * Body Colors
-                 */
-                '--color-body' => '#f8f8fb',
-
-                /**
-                 * Box Colors
-                 */
-                '--color-box-background' => '#fff',
-                '--color-box-background-alt' => '#fcfcfd',
-                '--color-box-over-box-background' => '#fff',
-                '--color-box-over-box-light-background' => '#fff',
-
-                /**
-                 * Box Highlight Colors
-                 */
-                '--color-box-highlight-background' => '#f7f7fb',
-                '--color-box-hover-background' => '#f2f2f9',
-
-                /**
-                 * Box Shadow Colors
-                 */
-                '--color-box-shadow' => '#5e5c9a',
-                '--color-overbox-shadow' => '#5e5c9a',
-                '--color-overbox-dark-shadow' => '#5e5c9a',
-                '--color-overbox-big-shadow' => '#5e5c9a',
-
-                /**
-                 * Text Colors
-                 */
-                '--color-text' => '#3e3f5e',
-                '--color-text-alt' => '#8f91ac',
-                '--color-text-alt-2' => '#adafca',
-
-                /**
-                 * Icon Colors
-                 */
-                '--color-icon' => '#adafca',
-                '--color-icon-highlighted' => '#3e3f5e',
-
-                /**
-                 * Border Colors
-                 */
-                '--color-border' => '#dedeea',
-                '--color-divider' => '#eaeaf5',
-
-                /**
-                 * Progress Bar Colors
-                 */
-                '--color-progressbar-line-gradient-start' => '#615dfa',
-                '--color-progressbar-line-gradient-end' => '#41efff',
-                '--color-progressbar-underline' => '#e7e8ee',
-
-                /**
-                 * Avatar Rank Hexagon Colors
-                 */
-                '--color-avatar-rank-hexagon' => '#45437f',
-
-                /**
-                 * Primary Colors
-                 */
-                '--color-primary' => '#23d2e2',
-                '--color-primary-hover' => '#1bc5d4',
-                '--color-primary-light' => '#41efff',
-                '--color-primary-dark' => '#00c7d9',
-                '--color-primary-shadow' => '#23d2e2',
-
-                /**
-                 * Secondary Colors
-                 */
-                '--color-secondary' => '#615dfa',
-                '--color-secondary-hover' => '#5753e4',
-                '--color-secondary-dark' => '#45437f',
-                '--color-secondary-shadow' => '#615dfa',
-
-                /**
-                 * Tertiary Colors
-                 */
-                '--color-tertiary' => '#fd4350',
-                '--color-tertiary-hover' => '#dd343f',
-                '--color-tertiary-shadow' => '#fd4350',
-
-
-                /**
-                 * Loading Screen Colors
-                 */
-                '--color-loading-screen-background' => '#3e3f5e',
-
-                /**
-                 * Loading Bar Colors
-                 */
-                '--color-loading-bar-1' => '#615dfa',
-                '--color-loading-bar-2' => '#5d71fb',
-                '--color-loading-bar-3' => '#5983fb',
-                '--color-loading-bar-4' => '#549afc',
-                '--color-loading-bar-5' => '#4eb2fd',
-                '--color-loading-bar-6' => '#49c9fe',
-                '--color-loading-bar-7' => '#45ddfe',
-                '--color-loading-bar-8' => '#41efff',
-
-                /**
-                 * Overlay Colors
-                 */
-                '--color-overlay' => '#15151f'
-            ];
     }
 
     return $preset_default_colors;
@@ -1241,63 +509,10 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
  */
 function yipnyap_customizer_color_preset_setting_name_get($preset_name)
 {
-    switch ($preset_name) {
-        case 'custom':
-            $preset_setting_name = 'yipnyap_colors';
-            break;
-        case 'dark':
-            $preset_setting_name = 'yipnyap_colors_dark';
-            break;
-        case 'darkblue':
-            $preset_setting_name = 'yipnyap_colors_darkblue';
-            break;
-        case 'darkpurple':
-            $preset_setting_name = 'yipnyap_colors_darkpurple';
-            break;
-        case 'darkcyan':
-            $preset_setting_name = 'yipnyap_colors_darkcyan';
-            break;
-        case 'carbonyellow':
-            $preset_setting_name = 'yipnyap_colors_carbonyellow';
-            break;
-        case 'light':
-        default:
-            $preset_setting_name = 'yipnyap_colors_light';
-    }
-
-    return $preset_setting_name;
-}
-
-/**
- * Get current user selected color preset
- *
- * @return $preset_name   User selected color preset
- */
-function yipnyap_customizer_color_preset_get()
-{
-    // if color theme switch is active, get user color theme
-    if (yipnyap_customizer_color_theme_switch_is_active()) {
-        $user_color_theme = yipnyap_logged_user_color_theme_get();
-        $preset_name = get_theme_mod('yipnyap_color_presets_setting_theme_switch_' . $user_color_theme, $user_color_theme);
-    } else {
-        $preset_name = get_theme_mod('yipnyap_color_presets_setting_name', 'light');
-    }
-
-    return $preset_name;
-}
-
-/**
- * Check if the color theme switch is active
- *
- * @return bool $active   True if active, false otherwise
- */
-function yipnyap_customizer_color_theme_switch_is_active()
-{
-    $color_theme_switch_status = get_theme_mod('yipnyap_color_presets_setting_theme_switch_status', 'enabled');
-
-    $active = $color_theme_switch_status === 'enabled';
-
-    return $active;
+    return match ($preset_name) {
+        'dark' => 'yipnyap_colors_dark',
+        default => 'yipnyap_colors_light',
+    };
 }
 
 /**
@@ -1346,7 +561,7 @@ function yipnyap_customizer_theme_colors_get_default($preset_name = false)
     if ($preset_name) {
         $current_preset = $preset_name;
     } else {
-        $current_preset = yipnyap_customizer_color_preset_get();
+        $current_preset = yipnyap_logged_user_color_theme_get();
     }
 
     $current_preset_setting_name = yipnyap_customizer_color_preset_setting_name_get($current_preset);
@@ -1744,7 +959,7 @@ function yipnyap_customizer_theme_colors_get()
 {
     $default_colors = yipnyap_customizer_theme_colors_get_default();
 
-    $current_preset = yipnyap_customizer_color_preset_get();
+    $current_preset = yipnyap_logged_user_color_theme_get();
     $current_preset_setting_name = yipnyap_customizer_color_preset_setting_name_get($current_preset);
 
     $user_custom_colors = get_option($current_preset_setting_name, []);
@@ -1799,7 +1014,7 @@ function yipnyap_customizer_theme_colors_get_array()
 {
     $default_colors = yipnyap_customizer_theme_colors_get_default();
 
-    $current_preset = yipnyap_customizer_color_preset_get();
+    $current_preset = yipnyap_logged_user_color_theme_get();
     $current_preset_setting_name = yipnyap_customizer_color_preset_setting_name_get($current_preset);
 
     $user_custom_colors = get_option($current_preset_setting_name, []);

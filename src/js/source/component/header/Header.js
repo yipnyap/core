@@ -63,7 +63,10 @@ export default function Header() {
             .done((res) => {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
 
-                if (res === false) return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}));
+                if (res === false) {
+                    setLoadingUser(false);
+                    return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
+                }
 
                 setLoggedUser(res);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));
@@ -146,7 +149,8 @@ export default function Header() {
 
     return (
         <header className="flex-shrink-0 relative h-16 flex items-center md:pl-24"
-                style={{background: 'var(--color-header-background)'}}>
+                // style={{background: 'var(--color-header-background)'}}
+            >
             {/* Menu button area */}
             <div className="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
                 {/* Mobile menu button */}
@@ -173,7 +177,8 @@ export default function Header() {
                             type="search"
                             placeholder="Search"
                             className="block w-full border-transparent pl-12 placeholder-gray-500 focus:border-transparent sm:text-sm focus:ring-0"
-                            style={{background: 'var(--color-header-background)'}}
+                            // style={{background: 'var(--color-header-background)'}}
+                            style={{background: 'transparent'}}
                         />
                         <div
                             className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
@@ -227,13 +232,17 @@ export default function Header() {
 
                     {/* Loading Spinner */}
                     {loadingUser &&
-                        <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg"
+                        <>
+                        <svg className="animate-spin -ml-1 mr-1 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg"
                              fill="none" viewBox="0 0 24 24">
                             <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
                                     stroke-width="4"></circle>
                             <path className="opacity-75" fill="currentColor"
                                   d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                         </svg>
+
+                        <span className="text-alt">Connecting to Userland...</span>
+                        </>
                     }
                 </div>
             </div>

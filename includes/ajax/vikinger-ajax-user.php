@@ -12,7 +12,7 @@ function yipnyap_get_logged_user_member_data_ajax() {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
   
-  $data_scope = isset($_POST['data_scope']) ? $_POST['data_scope'] : 'user-status';
+  $data_scope = $_POST['data_scope'] ?? 'user-status';
 
   if (yipnyap_plugin_buddypress_is_active()) {
     $user = yipnyap_get_logged_user_member_data($data_scope);

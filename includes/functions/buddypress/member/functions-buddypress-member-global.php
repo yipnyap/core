@@ -108,12 +108,21 @@ if (!function_exists('yipnyap_members_get_fallback')) {
      * @param string $data_scope Member scope.
      * @return array  $member_data      Member data.
      */
-    function yipnyap_members_get_fallback($member_id, $data_scope = 'user-status')
+    function yipnyap_members_get_fallback(int $member_id, string $data_scope = 'user-status'): array
     {
         $member = yipnyap_members_get(['include' => $member_id, 'data_scope' => $data_scope]);
 
         if (count($member)) {
             $member_data = $member[0];
+            $profile_data = [
+                'profile_data' => yipnyap_member_get_xprofile_data($member_data['id'])
+            ];
+
+            $flair = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Flair');
+
+            if ($flair) {
+                $member_data['flair'] = $flair;
+            }
         } else {
             $member_data = [
                 'id' => $member_id,
@@ -138,7 +147,7 @@ if (!function_exists('yipnyap_members_get')) {
      * @param array $args Filter for the members query.
      * @return array  $members    Filtered members.
      */
-    function yipnyap_members_get($args = [])
+    function yipnyap_members_get(array $args = []): array
     {
         $request = new WP_REST_Request('GET', '/buddypress/v1/members');
 
@@ -185,7 +194,7 @@ if (!function_exists('yipnyap_members_get')) {
             foreach ($bp_members->data as $bp_member) {
                 $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
 
-                if(!array_key_exists('include_profile_data', $args)) {
+                if (!array_key_exists('include_profile_data', $args)) {
                     unset($fetched_user->profile_data);
                 }
 
@@ -823,7 +832,7 @@ if (!function_exists('yipnyap_member_get_data')) {
             $member_data = yipnyap_member_get_user_settings_notification_data($bp_member);
         }
 
-        if(!$include_member_links) {
+        if (!$include_member_links) {
             unset($member_data['badges_link']);
             unset($member_data['media_link']);
             unset($member_data['stream_link']);
@@ -1678,7 +1687,7 @@ if (!function_exists('yipnyap_members_xprofile_get_field_value')) {
      * @param string $field_name Name of the field to retrieve value from
      * @return string
      */
-    function yipnyap_members_xprofile_get_field_value($member, $field_name)
+    function yipnyap_members_xprofile_get_field_value(array $member, string $field_name): string
     {
         if (!array_key_exists($field_name, $member['profile_data']['field'])) {
             return '';

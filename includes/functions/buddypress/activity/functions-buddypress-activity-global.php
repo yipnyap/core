@@ -17,7 +17,7 @@ if (!function_exists('yipnyap_get_activities')) {
      * @param array $args Filter activities using args data.
      * @return array
      */
-    function yipnyap_get_activities($args = [])
+    function yipnyap_get_activities(array $args = [])
     {
         $activities_args = [
             'display_comments' => 'threaded',
@@ -90,10 +90,10 @@ if (!function_exists('yipnyap_activity_data_get')) {
      * Returns activity data from a bp_activity Object.
      *
      * @param Object $bp_activity BP activity object.
-     * @param array $logged_in_user_favorites Logged in user favorites.
+     * @param array|string $logged_in_user_favorites Logged in user favorites.
      * @return array  $activity_data                Activity data.
      */
-    function yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites)
+    function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites): array
     {
         $comments = property_exists($bp_activity, 'children') ? $bp_activity->children : false;
         $my_comments = [];

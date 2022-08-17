@@ -16,7 +16,7 @@ $user = yipnyap_get_logged_user_member_data();
 
 <!-- CONTENT GRID -->
 
-<div class="content-grid" style="padding: 0 !important;">
+<div class="content-grid <?php if($user) echo 'signed-in' ?>" style="padding: 0 !important;">
     <?php
 
     $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');

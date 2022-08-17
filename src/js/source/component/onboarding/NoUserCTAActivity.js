@@ -29,22 +29,22 @@ const features = [
 export default function NoUserCTAActivity(props) {
     return (
         <>
-            <div className="bg-indigo-600">
-                <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
-                    <div className="flex items-center justify-between flex-wrap">
-                        <div className="w-0 flex-1 flex items-center">
-            <span className="flex p-2 rounded-lg bg-indigo-800">
-              <HandIcon className="h-6 w-6 text-white" aria-hidden="true"/>
-            </span>
-                            <p className="ml-3 font-medium text-white tracking-tight">
-                                <span className="md:hidden">This is a guest pandered version of Yipnyap.</span>
-                                <span className="hidden md:block"><b>Transparency Notice:</b> You're on a pandered version of Yipnyap, compared to signed in users.</span> {' '}
-                                <span className="mt-1 hidden md:block">Viewing: 2022.06pa-LABS_STRANGER_ONBOARDING_FA_ROAST (Most recent: {`${yipnyap_constants.yipnyap_server_version}`})</span>
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            {/*<div className="bg-indigo-600">*/}
+            {/*    <div className="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">*/}
+            {/*        <div className="flex items-center justify-between flex-wrap">*/}
+            {/*            <div className="w-0 flex-1 flex items-center">*/}
+            {/*<span className="flex p-2 rounded-lg bg-indigo-800">*/}
+            {/*  <HandIcon className="h-6 w-6 text-white" aria-hidden="true"/>*/}
+            {/*</span>*/}
+            {/*                <p className="ml-3 font-medium text-white tracking-tight">*/}
+            {/*                    <span className="md:hidden">This is a guest pandered version of Yipnyap.</span>*/}
+            {/*                    <span className="hidden md:block"><b>Transparency Notice:</b> You're on a pandered version of Yipnyap, compared to signed in users.</span> {' '}*/}
+            {/*                    <span className="mt-1 hidden md:block">Viewing: 2022.06pa-LABS_STRANGER_ONBOARDING_FA_ROAST (Most recent: {`${yipnyap_constants.yipnyap_server_version}`})</span>*/}
+            {/*                </p>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*</div>*/}
             <div className="relative overflow-hidden">
                 <div className="hidden sm:block sm:absolute sm:inset-y-0" aria-hidden="true">
                     <div className="relative max-w-7xl mx-auto">
@@ -64,7 +64,7 @@ export default function NoUserCTAActivity(props) {
                                     height={20}
                                     patternUnits="userSpaceOnUse"
                                 >
-                                    <rect x={0} y={0} width={4} height={4} className="text-gray-200"
+                                    <rect x={0} y={0} width={4} height={4} className="text-alt"
                                           fill="currentColor"/>
                                 </pattern>
                             </defs>
@@ -100,24 +100,24 @@ export default function NoUserCTAActivity(props) {
                             </p>
                         </div>
                     </div>
-                    <div className="mt-10 pb-12 bg-white sm:pb-16">
+                    <div className="mt-10 pb-12 bg-box sm:pb-16">
                         <div className="relative">
                             <div className="absolute inset-0 h-1/2 bg-body"/>
                             <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                                 <div className="max-w-4xl mx-auto">
-                                    <dl className="rounded-lg bg-white shadow-lg sm:grid sm:grid-cols-3">
+                                    <dl className="rounded-lg bg-box shadow-lg sm:grid sm:grid-cols-3">
                                         <div
-                                            className="flex flex-col border-b border-gray-100 p-6 text-center sm:border-0 sm:border-r">
+                                            className="flex flex-col border-b border-divider p-6 text-center sm:border-0 sm:border-r">
                                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Posts</dt>
                                             <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.posts}</dd>
                                         </div>
                                         <div
-                                            className="flex flex-col border-t border-b border-gray-100 p-6 text-center sm:border-0 sm:border-l sm:border-r">
+                                            className="flex flex-col border-t border-b border-divider p-6 text-center sm:border-0 sm:border-l sm:border-r">
                                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Users</dt>
                                             <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.users}</dd>
                                         </div>
                                         <div
-                                            className="flex flex-col border-t border-gray-100 p-6 text-center sm:border-0 sm:border-l">
+                                            className="flex flex-col border-t border-divider p-6 text-center sm:border-0 sm:border-l">
                                             <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Groups</dt>
                                             <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.groups}</dd>
                                         </div>
@@ -140,9 +140,9 @@ export default function NoUserCTAActivity(props) {
                                             className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
                                             <feature.icon className="h-6 w-6" aria-hidden="true"/>
                                         </div>
-                                        <p className="mt-5 text-lg leading-6 font-medium text-gray-900">{feature.name}</p>
+                                        <p className="mt-5 text-lg leading-6 font-medium text-primary">{feature.name}</p>
                                     </dt>
-                                    <dd className="mt-2 text-base text-gray-500">{feature.description}</dd>
+                                    <dd className="mt-2 text-base text-alt-2">{feature.description}</dd>
                                 </div>
                             ))}
                         </dl>
@@ -152,7 +152,7 @@ export default function NoUserCTAActivity(props) {
                 {/* CTA */}
                 <div className="bg-body">
                     <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-                        <h2 className="text-3xl font-extrabold tracking-tight text-gray-900 sm:text-4xl">
+                        <h2 className="text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
                             <span className="block">Registration is open.</span>
                             <span
                                 className="mt-3 block text-xl text-alt sm:mt-4">Visual learner? Just scroll down.</span>

@@ -1875,6 +1875,9 @@ textarea::placeholder {
   margin: 64px auto 0;
   padding: 0 1vw 6vw 6vw;
 }
+.content-grid.signed-in {
+  margin: 0;
+}
 .content-grid.full {
   width: 100%;
   max-width: 100%;
@@ -16978,7 +16981,7 @@ img[alt=logo].logo-image {
 }
 .profile-header + .section-navigation {
   margin-bottom: 16px;
-  top: 6em !important;
+  top: 4em !important;
   position: sticky;
   z-index: 1;
 }
@@ -21925,8 +21928,9 @@ img[alt=logo].logo-image {
     1. MIX NAVIGATION
 --------------------------*/
 .mixnav {
+  padding-top: 64px;
   position: sticky;
-  top: 64px;
+  top: 0;
   z-index: 1;
   overflow: hidden;
   backdrop-filter: blur(12px);
@@ -21939,6 +21943,7 @@ img[alt=logo].logo-image {
 --------------------------*/
 .bgimg {
   position: absolute;
+  top: 0;
   width: -webkit-fill-available;
   height: 105%;
   z-index: -1;

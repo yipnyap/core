@@ -13,7 +13,7 @@ function yipnyap_get_activities_ajax()
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $filters = isset($_POST['filters']) ? $_POST['filters'] : [];
+  $filters = $_POST['filters'] ?? [];
 
   if (array_key_exists('show_hidden', $filters)) {
     $filters['show_hidden'] = $filters['show_hidden'] === 'true';

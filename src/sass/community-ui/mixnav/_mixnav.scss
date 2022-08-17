@@ -8,8 +8,9 @@
     1. MIX NAVIGATION
 --------------------------*/
 .mixnav {
+    padding-top: 64px;
     position: sticky;
-    top: 64px;
+    top: 0;
     z-index: 1;
     overflow: hidden;
     backdrop-filter: blur(12px);
@@ -22,6 +23,7 @@
 --------------------------*/
 .bgimg {
     position: absolute;
+    top: 0;
     width: -webkit-fill-available;
     height: 105%;
     z-index: -1;

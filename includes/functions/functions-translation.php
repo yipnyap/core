@@ -205,7 +205,7 @@ function yipnyap_translation_get() {
     /**
      * Activity
      */
-    'edited_by'                       => esc_html__('* edited by', 'yipnyap'),
+    'edited_by'                       => esc_html__('&bull; edited by', 'yipnyap'),
     'and'                             => esc_html__('and', 'yipnyap'),
     'in_the_group'                    => esc_html__('in the group', 'yipnyap'),
     'shared_content_deleted_title'    => esc_html__('Oops! -', 'yipnyap'),

@@ -64,6 +64,7 @@ function ntwb_bbpress_custom_role_names(): array {
  * THEME CONSTANTS
  */
 if(str_contains($_SERVER['SERVER_NAME'], 'local')) define('YIPNYAP_IS_LOCAL_DEV', true);
+else define('YIPNYAP_IS_LOCAL_DEV', false);
 $current_user = wp_get_current_user();
 
 /**

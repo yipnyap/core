@@ -865,6 +865,13 @@
   background-color: var(--color-box-background);
   position: relative;
 
+  &.offset-for-sidebar {
+    .user-avatar-circle-progress {
+      top: -3px !important;
+      left: -3px !important;
+    }
+  }
+
   &.user-avatar-circle-flat {
     border-radius: 0;
 

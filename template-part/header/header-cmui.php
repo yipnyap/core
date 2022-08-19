@@ -97,7 +97,7 @@ if ( $sidemenu_status === 'display' ) :
 				'user'        => $args['user'],
 				'linked'      => yipnyap_plugin_buddypress_is_active(),
 				'no_border'   => true,
-				'a_class'     => 'small no-border flex items-center justify-center w-16 h-16 user-avatar-circle big user-short-description-avatar mt-auto',
+				'a_class'     => 'small no-border offset-for-sidebar flex items-center justify-center w-16 h-16 user-avatar-circle big user-short-description-avatar mt-auto',
 				'img_class'   => 'h-8 w-8 rounded-full',
                 'cmui_nav'    => true
 			] );

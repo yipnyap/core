@@ -7,6 +7,15 @@
  * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
+/**
+ * Theme paths and urls
+ */
+define('YIPNYAP_PATH', get_template_directory());
+define('YIPNYAP_URL', get_template_directory_uri());
+define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
+define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
+
+require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
 
 /**
  * Rename "Keymaster" role
@@ -54,17 +63,21 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * THEME CONSTANTS
  */
+if(str_contains($_SERVER['SERVER_NAME'], 'local')) define('YIPNYAP_IS_LOCAL_DEV', true);
+$current_user = wp_get_current_user();
 
 /**
  * Versioning
  */
-const YIPNYAP_VERSION        = '2022.9-A';
+define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
+define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
+: '2022.9-A');
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
  * Change Wordpress Settings
  */
-define("YIPNYAP_WPOPTIONS", array(
+define('YIPNYAP_WPOPTIONS', array(
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
     'users_can_register' => false,
@@ -82,7 +95,7 @@ define("YIPNYAP_WPOPTIONS", array(
     ]
 ));
 const YIPNYAP_OPTIONS = array(
-    'discord_webhook' => ''
+    'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
 );
 
 foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
@@ -92,14 +105,6 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
         update_option($key, $option);
     }
 }
-
-/**
- * Theme paths and urls
- */
-define('YIPNYAP_PATH', get_template_directory());
-define('YIPNYAP_URL', get_template_directory_uri());
-define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
-define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
 /**
  * TRANSLATION functions
@@ -144,7 +149,7 @@ function yipnyap_load_scripts(): void {
     wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
     wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
     wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], YIPNYAP_VERSION);
-    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/styles.min.css', [], YIPNYAP_VERSION);
+    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/src/css/raw/styles.css', [], YIPNYAP_VERSION);
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], '1.0.2');
 
     // get user custom theme fonts
@@ -181,12 +186,11 @@ function yipnyap_load_scripts(): void {
         'yipnyap-xmtooltip-scripts'
     ];
 
+    $app_bundle_file = '/src/js/app.bundle.min.js';
     // add main script
-	if(str_contains($_SERVER['SERVER_NAME'], 'local')) {
-		wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/bundle/app.bundle.js', $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
-	} else {
-		wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . '/src/js/app.bundle.min.js', $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
-	}
+	if(YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
+    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+
     // add EX script
     wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.5', true);
 
@@ -608,12 +612,24 @@ add_filter(
     function ($message, $error) {
         global $wp_filter;
 
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
-        $date = date('m/d/Y h:i:s a', time());
-		$new_error = substr($error["message"], 0, 100) . '...';
+        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+        $date = date('c', strtotime('now'));
+        $YIPNYAP_VERSION = YIPNYAP_VERSION;
+		$new_error = substr($error['message'], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
-        return 'Houndkit crashed.<br><br>ERRT-' . $error["type"] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+        postDiscordWebhookAsError(array(
+            'content' => 'Houndkit crashed.',
+            'embeds' => [
+                [
+                    'title' => 'ERRT-' . $error['type'] . '-' . $error['line'],
+                    'description' => "Yipnyap Version {$YIPNYAP_VERSION}\n{$actual_link}\n```bash\n" . $error["message"] . "```",
+                    'timestamp' => $date,
+                ],
+            ],
+        ));
+
+        return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
     },
     10,
     2
@@ -643,7 +659,7 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login): s
 //  $message .= network_site_url() . "\r\n\r\n";
 //  $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
     $message .= __('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\r\n\r\n";
-    $message .= network_site_url("wp-login.php?action=rp&key=$key&login=" . rawurlencode($user_login), 'login') . "\r\n";
+    $message .= network_site_url('wp-login.php?action=rp&key=$key&login=' . rawurlencode($user_login), 'login') . "\r\n";
 
     // This is how WordPress creates the message.
     // You can change this to meet your own needs.

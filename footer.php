@@ -195,7 +195,7 @@ if ($display_footer) :
                 <div class="footer-bottom">
                     <!-- FOOTER BOTTOM TEXT -->
                     <p class="footer-bottom-text">
-                        <?php echo wp_kses('Server v' . $footer_bottom_left_text, ['a' => ['href' => [], 'target' => []]]); ?>
+                        <?php echo wp_kses($footer_bottom_left_text, ['a' => ['href' => [], 'target' => []]]); ?>
                         <br>
                         UI version may differ.
                     </p>

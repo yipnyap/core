@@ -1872,8 +1872,8 @@ textarea::placeholder {
     1. CONTENT GRID
 ----------------------*/
 .content-grid {
+  @apply md:pl-24 pr-4;
   margin: 64px auto 0;
-  padding: 0 1vw 6vw 6vw;
 }
 .content-grid.signed-in {
   margin: 0;
@@ -14936,6 +14936,10 @@ img[alt=logo].logo-image {
   border-radius: 50%;
   background-color: var(--color-box-background);
   position: relative;
+}
+.user-avatar-circle.offset-for-sidebar .user-avatar-circle-progress {
+  top: -3px !important;
+  left: -3px !important;
 }
 .user-avatar-circle.user-avatar-circle-flat {
   border-radius: 0;

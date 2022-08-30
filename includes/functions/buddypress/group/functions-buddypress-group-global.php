@@ -763,21 +763,21 @@ if (!function_exists('yipnyap_groups_meta_get_social_links')) {
         $social_links = [];
 
         $social_links_keys = [
-            'facebook',
+//            'facebook',
             'twitter',
-            'instagram',
+//            'instagram',
             'youtube',
-            'twitch',
+//            'twitch',
             'discord',
-            'patreon',
-            'linkedin',
-            'pinterest',
-            'tiktok',
+//            'patreon',
+//            'linkedin',
+//            'pinterest',
+//            'tiktok',
             'github',
-            'reddit',
-            'dribbble',
-            'unsplash',
-            'flickr'
+//            'reddit',
+//            'dribbble',
+//            'unsplash',
+//            'flickr'
         ];
 
         /**

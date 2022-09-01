@@ -31,16 +31,6 @@ const assignees = [
     },
     // More items...
 ];
-const labels = [
-    {name: 'Unlabelled', value: null},
-    {name: 'Original Artwork', value: 'artwork'},
-    {name: 'GIF', value: 'gif'},
-    {name: 'Discussion', value: 'discussion'},
-    {name: 'Meme', value: 'meme'},
-    {name: 'Pinned', value: 'pinned'},
-    {name: '16+', value: '16only'},
-    // More items...
-];
 const dueDates = [
     {name: 'No due date', value: null},
     {name: 'Today', value: 'today'},
@@ -55,8 +45,8 @@ function ActivityForm(props) {
     const [formData, setFormData] = useState({
         text: '',
         postIn: props.postIn ? props.postIn : '0',
-        label: {name: 'Unlabelled', value: null},
         attached_media: false,
+        hashtags: false,
         uploadable_media_type: false,
         uploadable_media: false,
         submitting: false,
@@ -202,23 +192,8 @@ function ActivityForm(props) {
             return {
                 ...previousFormData,
                 text: e.target.value,
-                attached_media: attached_media
-            };
-        });
-    };
-
-    const handleLabelChange = (e) => {
-        // e can be default event or user generated with only target and value properties
-        if (e.persist) {
-            e.persist();
-        }
-
-        console.debug('ACTIVITY FORM - LABEL CHANGE: ', e);
-
-        setFormData(previousFormData => {
-            return {
-                ...previousFormData,
-                label: e
+                attached_media: attached_media,
+                hashtags: e.target.value.match(/#\S+/g) ?? false
             };
         });
     };
@@ -437,64 +412,17 @@ function ActivityForm(props) {
                             />
                             <div className="absolute bottom-0 inset-x-px">
                                 {/* Actions: These are just examples to demonstrate the concept, replace/wire these up however makes sense for your project. */}
-                                <div className="flex flex-nowrap justify-end py-2 px-2 space-x-2 sm:px-3">
-                                    <Listbox as="div" value={formData.label} onChange={handleLabelChange} className="flex-shrink-0">
-                                        {({open}) => (
-                                            <>
-                                                <Listbox.Label className="sr-only">Add a label</Listbox.Label>
-                                                <div className="relative">
-                                                    <Listbox.Button
-                                                        className="relative inline-flex items-center rounded-full py-2 px-2 bg-box text-sm font-medium text-primary whitespace-nowrap hover:opacity-75 sm:px-3">
-                                                        <TagIcon
-                                                            className={classNames(
-                                                                formData.label.value === null ? 'text-gray-300' : 'text-gray-500',
-                                                                'flex-shrink-0 h-5 w-5 sm:-ml-1'
-                                                            )}
-                                                            aria-hidden="true"
-                                                        />
-                                                        <span
-                                                            className={classNames(
-                                                                formData.label.value === null ? '' : 'text-gray-900',
-                                                                'hidden truncate sm:ml-2 sm:block'
-                                                            )}
-                                                        >
-                      {formData.label.value === null ? 'Label' : formData.label.name}
-                    </span>
-                                                    </Listbox.Button>
-
-                                                    <Transition
-                                                        show={open}
-                                                        as={Fragment}
-                                                        leave="transition ease-in duration-100"
-                                                        leaveFrom="opacity-100"
-                                                        leaveTo="opacity-0"
-                                                    >
-                                                        <Listbox.Options
-                                                            className="absolute right-0 z-10 mt-1 w-52 bg-box shadow max-h-56 rounded-lg py-3 text-base text-primary ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                            {labels.map((label) => (
-                                                                <Listbox.Option
-                                                                    key={label.value}
-                                                                    className={({active}) =>
-                                                                        classNames(
-                                                                            active ? 'bg-box-alt' : 'bg-box',
-                                                                            'cursor-default select-none relative py-2 px-3'
-                                                                        )
-                                                                    }
-                                                                    value={label}
-                                                                >
-                                                                    <div className="flex items-center">
-                                                                        <span
-                                                                            className="block font-medium truncate">{label.name}</span>
-                                                                    </div>
-                                                                </Listbox.Option>
-                                                            ))}
-                                                        </Listbox.Options>
-                                                    </Transition>
-                                                </div>
-                                            </>
-                                        )}
-                                    </Listbox>
+                                <div className="flex flex-wrap justify-end py-2 px-2 space-x-2 sm:px-3">
+                                    {
+                                        formData.hashtags && formData.hashtags.map((hashtag, i) => (
+                                            <span key={i}
+                                                  className="mb-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                                                    {hashtag}
+                                                </span>
+                                        ))
+                                    }
                                 </div>
+
                                 <div
                                     className="border-t border-divider px-2 py-2 flex justify-between items-center space-x-3 sm:px-3">
                                     {

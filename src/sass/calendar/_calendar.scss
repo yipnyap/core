@@ -334,7 +334,7 @@
       &.span-3 {
         width: 100%;
         height: 180px;
-        border-radius: 12px;
+        @apply rounded-md;
         position: relative;
         z-index: 1;
       }
@@ -404,7 +404,7 @@
   .calendar-daily-event {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    @apply rounded-md;
     padding: 12px 14px;
     color: $white;
     font-size: $fs-14;
@@ -435,7 +435,7 @@
 ---------------------------------*/
 .calendar-events-preview {
   padding: 32px 28px;
-  border-radius: 12px;
+  @apply rounded-md;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -589,7 +589,7 @@
     7. CALENDAR WIDGET
 ------------------------*/
 .calendar-widget {
-  border-radius: 12px;
+  @apply rounded-md;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 

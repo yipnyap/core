@@ -16,8 +16,7 @@
     2.8 SHADOW COLORS
     2.9 INPUT COLORS
     2.10 BUTTON COLORS
-    2.11 PAGE LOADER
-    2.12 LOADER BAR
+    2.13 HIGHLIGHT
 3. COMPONENT COLORS
     3.0 TAB SWITCH
     3.1 FORM SWITCH
@@ -199,6 +198,17 @@ $color-button-background-hover: $black;
 $color-button-shadow: 3px 5px 10px 0 rgba(62, 63, 94, .2);
 $color-button-white-background-hover: $black-dark;
 $color-button-void-background-hover: $black-dark;
+
+/*------------------------------
+    2.13 HIGHLIGHT
+------------------------------*/
+.highlight-main {
+  /* .bg-color-main */
+  @apply border-slate-200 dark:border-slate-700;
+
+  @apply focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm dark:bg-slate-800 dark:highlight-white/5;
+}
+
 
 /*-------------------------------------------------------------------
                         3. COMPONENT COLORS

@@ -421,7 +421,7 @@
   -----------------*/
 }
 .vk-content .message-line {
-  border-radius: 12px;
+  @apply rounded-md;
   padding: 32px 26px;
   background-color: #3e3f5e;
 }
@@ -449,7 +449,7 @@
 }
 .vk-content .message-box {
   min-height: 100px;
-  border-radius: 12px;
+  @apply rounded-md;
   padding: 32px 32px 26px 108px;
   background-color: #3e3f5e;
   position: relative;
@@ -476,7 +476,7 @@
           align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 12px;
+  @apply rounded-md;
   position: absolute;
   top: 20px;
   left: 20px;
@@ -770,7 +770,7 @@
 .vk-content select,
 .vk-content button {
   width: 100%;
-  border-radius: 12px;
+  @apply rounded-md;
   font-size: 18px;
   font-weight: var(--vk-weight-bold);
 }
@@ -1458,7 +1458,7 @@
 .vk-content .vk-docs-section-item {
   -webkit-box-shadow: 3px 5px 40px 0 rgba(94, 92, 154, 0.1);
           box-shadow: 3px 5px 40px 0 rgba(94, 92, 154, 0.1);
-  border-radius: 12px;
+  @apply rounded-md;
   padding: 40px 28px;
 }
 .vk-content .vk-docs-section-item .vk-docs-subsection-description {

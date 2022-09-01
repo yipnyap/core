@@ -25,7 +25,8 @@ require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
 add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-function ntwb_bbpress_custom_role_names(): array {
+function ntwb_bbpress_custom_role_names(): array
+{
     return array(
 
         // Keymaster
@@ -63,7 +64,7 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * THEME CONSTANTS
  */
-if(str_contains($_SERVER['SERVER_NAME'], 'local')) define('YIPNYAP_IS_LOCAL_DEV', true);
+if (str_contains($_SERVER['SERVER_NAME'], 'local')) define('YIPNYAP_IS_LOCAL_DEV', true);
 else define('YIPNYAP_IS_LOCAL_DEV', false);
 $current_user = wp_get_current_user();
 
@@ -72,7 +73,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-: '2022.9-A');
+    : '2022.10');
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -115,7 +116,8 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 /**
  * Load admin styles and scripts
  */
-function yipnyap_admin_load_scripts(): void {
+function yipnyap_admin_load_scripts(): void
+{
     // load fonts
     wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,500,600,700|Poppins:400,900&display=swap');
 
@@ -139,7 +141,8 @@ add_action('admin_enqueue_scripts', 'yipnyap_admin_load_scripts');
 /**
  * Load theme styles and scripts
  */
-function yipnyap_load_scripts(): void {
+function yipnyap_load_scripts(): void
+{
     // get fonts
     $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
@@ -189,7 +192,7 @@ function yipnyap_load_scripts(): void {
 
     $app_bundle_file = '/src/js/app.bundle.min.js';
     // add main script
-	if(YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
+    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
 
     // add EX script
@@ -199,12 +202,12 @@ function yipnyap_load_scripts(): void {
 
     $yipnyap_settings = yipnyap_settings_get();
 
-	if (has_custom_logo()) {
-		$logo_id  = get_theme_mod('custom_logo');
-		$logo_url = wp_get_attachment_image_src($logo_id, 'full');
-	} else {
-		$logo_url = array(YIPNYAP_URL . '/img/yipnyap-logo.png');
-	}
+    if (has_custom_logo()) {
+        $logo_id = get_theme_mod('custom_logo');
+        $logo_url = wp_get_attachment_image_src($logo_id, 'full');
+    } else {
+        $logo_url = array(YIPNYAP_URL . '/img/yipnyap-logo.png');
+    }
 
     // pass php variables to javascript file
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
@@ -220,7 +223,7 @@ function yipnyap_load_scripts(): void {
         'gamipress_badge_type_exists' => yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge'),
         'colors' => yipnyap_customizer_theme_colors_get_array(),
         'settings' => $yipnyap_settings,
-	    'yipnyap_server_version' => YIPNYAP_VERSION
+        'yipnyap_server_version' => YIPNYAP_VERSION
     ]);
 
     // pass translation strings to javascript file
@@ -232,7 +235,8 @@ add_action('wp_enqueue_scripts', 'yipnyap_load_scripts');
 /**
  * Remove plugin styles that are not needed to reduce file queries
  */
-function yipnyap_dequeue_styles(): void {
+function yipnyap_dequeue_styles(): void
+{
     // remove BuddyPress styles
     wp_dequeue_style('bp-legacy-css');
 
@@ -263,47 +267,56 @@ add_filter('body_class', 'yipnyap_body_classes');
 /**
  * Theme Options
  */
-function yipnyap_admin_page_index_html(): void {
+function yipnyap_admin_page_index_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/index.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_plugins_html(): void {
+function yipnyap_admin_page_plugins_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/plugins.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_documentation_html(): void {
+function yipnyap_admin_page_documentation_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/documentation.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_faqs_html(): void {
+function yipnyap_admin_page_faqs_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/faqs.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_troubleshooting_html(): void {
+function yipnyap_admin_page_troubleshooting_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/troubleshooting.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_changelog_html(): void {
+function yipnyap_admin_page_changelog_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/changelog.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_support_html(): void {
+function yipnyap_admin_page_support_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/support.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_demo_import_html(): void {
+function yipnyap_admin_page_demo_import_html(): void
+{
     $filepath = YIPNYAP_PATH . '/views/demo-import.php';
     require_once($filepath);
 }
 
-function yipnyap_admin_page_index(): void {
+function yipnyap_admin_page_index(): void
+{
     add_menu_page(
         'YapEX - Index',
         'YapSDK',
@@ -391,7 +404,8 @@ function yipnyap_admin_page_index(): void {
 /**
  * Navigation Menus
  */
-function yipnyap_register_menus(): void {
+function yipnyap_register_menus(): void
+{
     register_nav_menus(
         array(
             'header_menu' => esc_html_x('Header Menu', '(Backend) Menu Location Name', 'yipnyap'),
@@ -406,7 +420,8 @@ add_action('init', 'yipnyap_register_menus');
 
 
 add_filter('admin_title', 'my_admin_title', 10, 2);
-function my_admin_title($admin_title, $title): string {
+function my_admin_title($admin_title, $title): string
+{
     // get_bloginfo('name')
     return 'Houndboard &bull; ' . $title;
 }
@@ -414,7 +429,8 @@ function my_admin_title($admin_title, $title): string {
 /**
  * Add support for features
  */
-function yipnyap_support_features(): void {
+function yipnyap_support_features(): void
+{
     add_theme_support('post-formats', array('video', 'audio', 'gallery'));
 
     add_theme_support('title-tag');
@@ -462,7 +478,8 @@ add_action('after_setup_theme', 'yipnyap_support_features');
  * @param $extra_classes
  * @return array New classes.
  */
-function yipnyap_body_class($wp_classes, $extra_classes): array {
+function yipnyap_body_class($wp_classes, $extra_classes): array
+{
     // List of the only WP generated classes allowed
     $whitelist = array('portfolio', 'home', 'error404');
 
@@ -512,7 +529,8 @@ require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
 /**
  * PHP Autoloader
  */
-function yipnyap_class_autoloader($class_name): void {
+function yipnyap_class_autoloader($class_name): void
+{
     $base_path = YIPNYAP_PATH . '/includes/classes';
 
     // utils classes
@@ -531,7 +549,8 @@ spl_autoload_register('yipnyap_class_autoloader');
 /**
  * Allow the use of wp_redirect / wp_safe_redirect after headers are sent (after the get_header() function is called)
  */
-function yipnyap_allow_redirect_after_header(): void {
+function yipnyap_allow_redirect_after_header(): void
+{
     ob_start();
 }
 
@@ -573,7 +592,8 @@ add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
 /**
  * Set default member avatar
  */
-function yipnyap_set_default_member_avatar(): string {
+function yipnyap_set_default_member_avatar(): string
+{
     $members_default_avatar_url = yipnyap_get_default_member_avatar_url();
 
     return $members_default_avatar_url;
@@ -584,7 +604,8 @@ add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 /**
  * Set default group avatar
  */
-function yipnyap_set_default_group_avatar(): string {
+function yipnyap_set_default_group_avatar(): string
+{
     $groups_default_avatar_url = yipnyap_get_default_group_avatar_url();
 
     return $groups_default_avatar_url;
@@ -595,7 +616,8 @@ add_filter('bp_core_default_avatar_group', 'yipnyap_set_default_group_avatar');
 /**
  * Load translations
  */
-function yipnyap_translations_load(): void {
+function yipnyap_translations_load(): void
+{
     load_theme_textdomain('yipnyap', YIPNYAP_PATH . '/languages');
 }
 
@@ -616,7 +638,7 @@ add_filter(
         $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
         $date = date('c', strtotime('now'));
         $YIPNYAP_VERSION = YIPNYAP_VERSION;
-		$new_error = substr($error['message'], 0, 100) . '...';
+        $new_error = substr($error['message'], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
         postDiscordWebhookAsError(array(
@@ -636,7 +658,8 @@ add_filter(
     2
 );
 
-function my_retrieve_password_subject_filter($old_subject): string {
+function my_retrieve_password_subject_filter($old_subject): string
+{
     // $old_subject is the default subject line created by WordPress.
     // (You don't have to use it.)
 
@@ -650,7 +673,8 @@ function my_retrieve_password_subject_filter($old_subject): string {
     return $subject;
 }
 
-function my_retrieve_password_message_filter($old_message, $key, $user_login): string {
+function my_retrieve_password_message_filter($old_message, $key, $user_login): string
+{
     // $old_message is the default message already created by WordPress.
     // (You don't have to use it.)
     // $key is the password-like token that allows the user to get
@@ -674,7 +698,8 @@ add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter', 10,
 add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 10, 3);
 
 /* Add message above login form */
-function wpsd_add_login_message(): string {
+function wpsd_add_login_message(): string
+{
     return '<p class="message">👋 This is Yipnyap Accounts, an older Login UI. Register pages are using Kukiko ID, so sorry for the mess!</p>';
 }
 
@@ -703,18 +728,20 @@ add_filter('rest_url_prefix', function () {
  */
 
 // Dont save activities of types
-function yipnyap_dont_save_activity($activity_object): void {
- 
+function yipnyap_dont_save_activity($activity_object): void
+{
     $exclude = array('new_avatar', 'updated_profile', 'friendship_created');
- 
-    if(in_array($activity_object->type, $exclude))
+
+    if (in_array($activity_object->type, $exclude))
         $activity_object->type = false;
- 
+
 }
+
 add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1, 1);
 
 // Change the cover upload directory to our custom one
-function yipnyap_cover_image_upload_dir ($upload) {
+function yipnyap_cover_image_upload_dir($upload)
+{
     $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'] . '/';
     $path = $base_dir . $upload['subdir'];
     $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $upload['subdir'];
@@ -728,41 +755,42 @@ function yipnyap_cover_image_upload_dir ($upload) {
         'error' => false
     );
 }
+
 add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1, 1);
 
-// Change the avatar upload directory to our custom one
-function yipnyap_avatar_upload_dir ($upload): array
-{
-    $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'];
-    $subdir = '/members/' . str_replace('/avatars/', '', $upload['subdir']) . '/avatars';
-    $path = $base_dir . $subdir;
-    $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $subdir;
+/* Again, wordpress, respectfully, i hope you die in the
+ * fiery pits of hell from where you came. Wordpress,
+ * for some reason, will not allow you to remove its
+ * stupid "Gutenberg" editor, as well as it's own emoji
+ * handler, and for some reason it's picker. So, we have
+ * to do this. This will remove it's bullsh*ttery from
+ * pages (EVEN THOUGH WE USE IT LITERALLY NOWHERE!!!???)
+ *
+ * Let me add to the pain: it loads SVGs and scripts,
+ * that are loaded *from s.w.org*, their CDN, with a unique
+ * UUID, that's only supposed to be used when you have blog
+ * federation on (we do not). This entire time i was
+ * disobeying our own Privacy Policy because wordpress
+ * decided to be quirky different 🤪✌️
+ *
+ * At this point with all these modifications, we've
+ * basically made our own Wordpres fork. Can't wait for
+ * snow2 so we can just ditch this shit.
+ * Kill me now :)
+ *
+ * ^Rek(t)
+ */
+add_action('after_setup_theme', function() {
+    // remove SVG and global styles
+    remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
+    remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
+    remove_action( 'wp_body_open', 'gutenberg_global_styles_render_svg_filters' );
 
-    return array(
-        'path' => $path,
-        'url' => $url,
-        'subdir' => $subdir,
-        'basedir' => $path,
-        'baseurl' => $url,
-        'error' => false
-    );
-}
-//add_filter('bp_members_avatar_upload_dir', 'yipnyap_avatar_upload_dir');
+    // remove wp_footer actions which add's global inline styles
+    remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
 
-function yipnyap_avatar_folder_dir ($path): string
-{
-    $tokens = explode('/', $path);
-    $user_id = $tokens[sizeof($tokens)-1];
-
-    return WP_CONTENT_DIR . '/uploads' . '/members/' . $user_id . '/avatars';
-}
-//add_filter('bp_core_avatar_folder_dir', 'yipnyap_avatar_folder_dir', 1, 1);
-
-function yipnyap_avatar_folder_url ($path): string
-{
-    $tokens = explode('/', $path);
-    $user_id = $tokens[sizeof($tokens)-1];
-
-    return WP_CONTENT_URL . '/uploads' . '/members/' . $user_id . '/avatars';
-}
-//add_filter('bp_core_avatar_folder_url', 'yipnyap_avatar_folder_url', 1, 1);
+    // remove render_block filters which adding unnecessary stuff
+    remove_filter('render_block', 'wp_render_duotone_support');
+    remove_filter('render_block', 'wp_restore_group_inner_container');
+    remove_filter('render_block', 'wp_render_layout_support_flag');
+});

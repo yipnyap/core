@@ -13,7 +13,7 @@
   height: 52px;
 
   &.round {
-    border-radius: 12px;
+    @apply rounded-md;
 
     &.small,
     &.tiny {
@@ -72,7 +72,7 @@
     background-color: $color-picture-item-overlay;
 
     &.round {
-      border-radius: 12px;
+      @apply rounded-md;
     }
   
     &.circle {

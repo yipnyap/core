@@ -7,11 +7,10 @@
     1. WIDGET BOX
 --------------------*/
 .widget-box {
+  @apply relative rounded-md;
   padding: 32px 28px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  position: relative;
 
   &.widget-box-deleted {
     filter: grayscale(.8);
@@ -487,10 +486,9 @@
       }
 
       blockquote {
-        border-radius: 12px;
+        @apply relative rounded-md;
         box-shadow: var(--color-overbox-shadow);
         padding: 24px 28px 24px 46px;
-        position: relative;
 
         &::before {
           content: '"';

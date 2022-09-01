@@ -241,7 +241,7 @@
     }
 
     .table-row {
-      border-radius: 12px;
+      @apply rounded-md;
       box-shadow: var(--color-box-shadow);
 
       .table-column {
@@ -337,7 +337,7 @@
   .table-body {
     display: table-row-group;
     box-shadow: var(--color-box-shadow);
-    border-radius: 12px;
+    @apply rounded-md;
 
     &.same-color-rows {
       .table-row {

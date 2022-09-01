@@ -12,7 +12,7 @@
 ----------------------*/
 .post-preview {
   min-height: 516px;
-  border-radius: 12px;
+  @apply rounded-md;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -378,7 +378,7 @@
     width: (352/384)*100%;
     padding: 28px;
     margin: -48px auto 0;
-    border-radius: 12px;
+    @apply rounded-md;
     background-color: var(--color-box-over-box-background);
     box-shadow: var(--color-overbox-big-shadow);
     position: relative;

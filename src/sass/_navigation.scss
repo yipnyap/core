@@ -194,15 +194,12 @@
     }
 
     .menu-item-link {
-      display: flex;
-      align-items: center;
+      @apply relative rounded-md flex items-center;
       height: 48px;
       padding-left: 62px;
-      border-radius: 12px;
       font-size: $fs-14;
       font-weight: $weight-bold;
       line-height: (18 / 14) * 1em;
-      position: relative;
       transition: all .2s ease-in-out;
 
       &:focus,
@@ -233,9 +230,9 @@
     4. SECTION NAVIGATION
 -----------------------------*/
 .section-navigation {
+  @apply rounded-md;
   height: 80px;
   padding: 0 43px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -383,9 +380,8 @@
     6. MENU WIDE
 ---------------------*/
 .menu-wide {
-  display: flex;
+  @apply flex rounded-md;
   padding: 50px 16px 50px 60px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 

@@ -392,7 +392,7 @@
 
     li.product {
       padding-bottom: 28px;
-      border-radius: 12px;
+      @apply rounded-md;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
       position: relative;
@@ -431,7 +431,7 @@
         align-items: center;
         height: 32px;
         padding: 0 14px;
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-over-box-light-background);
         box-shadow: var(--color-overbox-shadow);
         color: var(--color-text) !important;
@@ -571,7 +571,7 @@
 
     ul {
       border: none;
-      border-radius: 12px;
+      @apply rounded-md;
       box-shadow: var(--color-overbox-shadow);
 
       li {
@@ -669,13 +669,13 @@
       .woocommerce-product-gallery__wrapper,
       .flex-viewport,
       .flex-control-thumbs {
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-background);
         box-shadow: var(--color-box-shadow);
       }
 
       .woocommerce-product-gallery__image {
-        border-radius: 12px;
+        @apply rounded-md;
       }
 
       .flex-viewport {
@@ -697,7 +697,7 @@
 
           img {
             border: 4px solid transparent;
-            border-radius: 12px;
+            @apply rounded-md;
 
             &.flex-active {
               border-color: var(--color-primary);
@@ -711,7 +711,7 @@
       display: flex;
       flex-direction: column;
       padding: 32px 48px;
-      border-radius: 12px;
+      @apply rounded-md;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
 
@@ -873,7 +873,7 @@
     }
 
     .woocommerce-tabs {
-      border-radius: 12px;
+      @apply rounded-md;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
 
@@ -1250,7 +1250,7 @@
   form {
     &.login {
       padding: 32px 28px;
-      border-radius: 12px;
+      @apply rounded-md;
       border: none;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
@@ -1308,7 +1308,7 @@
         margin: 0;
         background-color: transparent;
         border: 1px solid var(--color-border);
-        border-radius: 12px;
+        @apply rounded-md;
 
         .select2-selection__placeholder,
         .select2-selection__rendered {
@@ -1379,7 +1379,7 @@
       form,
       p {
         padding: 18px 28px;
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-background);
         box-shadow: var(--color-box-shadow);
 
@@ -1420,7 +1420,7 @@
         width: 100%;
         margin: 0 16px 0 0;
         padding: 32px 28px;
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-background);
         box-shadow: var(--color-box-shadow);
 
@@ -1460,7 +1460,7 @@
     min-height: 60px;
     margin: 32px 0;
     padding: 20px 28px;
-    border-radius: 12px;
+    @apply rounded-md;
     border: none;
     border: 2px solid #00c7d9;
     background-color: var(--color-box-background);
@@ -1530,7 +1530,7 @@
   .woocommerce-customer-details {
     margin: 16px 0 0;
     padding: 32px 28px 0;
-    border-radius: 12px;
+    @apply rounded-md;
     background-color: var(--color-box-background);
     box-shadow: var(--color-box-shadow);
 
@@ -1605,7 +1605,7 @@
     &.woocommerce-table,
     &.shop_table {
       padding: 18px 28px 0;
-      border-radius: 12px;
+      @apply rounded-md;
       border: none;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
@@ -1739,7 +1739,7 @@
   &.shop_table {
     margin: 0;
     border: none;
-    border-radius: 12px;
+    @apply rounded-md;
 
     td {
       border-top: 1px solid var(--color-divider);
@@ -1751,7 +1751,7 @@
 
     .cart_totals {
       padding: 32px 28px;
-      border-radius: 12px;
+      @apply rounded-md;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
 
@@ -1818,7 +1818,7 @@
         width: 60px;
         height: 60px;
         margin: 0;
-        border-radius: 12px;
+        @apply rounded-md;
         position: absolute;
         top: 12px;
         left: 28px;
@@ -1863,7 +1863,7 @@
   form {
     &.checkout_coupon {
       padding: 32px 28px;
-      border-radius: 12px;
+      @apply rounded-md;
       border: none;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
@@ -1896,7 +1896,7 @@
     #customer_details {
       & > * {
         padding: 32px 28px;
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-background);
         box-shadow: var(--color-box-shadow);
       }
@@ -1948,7 +1948,7 @@
 
       div.payment_box {
         padding: 32px 28px;
-        border-radius: 12px;
+        @apply rounded-md;
         background-color: var(--color-box-background);
         box-shadow: var(--color-box-shadow);
 
@@ -2003,7 +2003,7 @@
 
   ul.order_details {
     padding: 32px 28px;
-    border-radius: 12px;
+    @apply rounded-md;
     background-color: var(--color-box-background);
     box-shadow: var(--color-box-shadow);
     margin: 32px 0;
@@ -2039,7 +2039,7 @@
       width: 60px;
       height: 60px;
       margin: 0;
-      border-radius: 12px;
+      @apply rounded-md;
       position: absolute;
       top: 12px;
       left: 28px;
@@ -2091,7 +2091,7 @@
 
         img {
           width: 60px;
-          border-radius: 12px;
+          @apply rounded-md;
         }
       }
     }

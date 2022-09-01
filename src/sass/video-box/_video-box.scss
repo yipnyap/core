@@ -8,7 +8,7 @@
     1. VIDEO BOX
 -------------------*/
 .video-box {
-  border-radius: 12px;
+  @apply rounded-md;
   box-shadow: var(--color-box-shadow);
 
   .checkbox-box {
@@ -56,12 +56,12 @@
       }
 
       &::after {
-        border-radius: 12px;
+        @apply rounded-md;
       }
 
       .video-box-cover-image {
         height: 128px;
-        border-radius: 12px;
+        @apply rounded-md;
       }
 
       .play-button {
@@ -131,10 +131,10 @@
     }
 
     .video-wrap {
-      border-radius: 12px;
+      @apply rounded-md;
       
       video {
-        border-radius: 12px;
+        @apply rounded-md;
       }
     }
 

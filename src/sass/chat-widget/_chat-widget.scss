@@ -14,7 +14,7 @@
 --------------------------*/
 .chat-widget-wrap {
   display: flex;
-  border-radius: 12px;
+  @apply rounded-md;
   box-shadow: var(--color-box-shadow);
 
   .chat-widget {
@@ -429,7 +429,7 @@
     box-shadow: none;
 
     .chat-widget {
-      border-radius: 12px;
+      @apply rounded-md;
 
       &:first-child,
       &:last-child {

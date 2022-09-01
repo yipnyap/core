@@ -54,7 +54,7 @@ $user = yipnyap_get_logged_user_member_data();
         <div data-time="day" class="bgimg" data-geo="city"></div>
 
         <!-- Time greet content -->
-        <div class="px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+        <div class="hidden px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
             <div class="py-6 md:flex md:items-center md:justify-between">
                 <div class="flex-1 min-w-0">
                     <!-- Profile -->

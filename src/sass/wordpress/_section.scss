@@ -434,7 +434,7 @@
    */
   .vk-docs-section-item {
     box-shadow: 3px 5px 40px 0 rgba(94, 92, 154, .1);
-    border-radius: 12px;
+    @apply rounded-md;
     padding: 40px 28px;
 
     .vk-docs-subsection-description {

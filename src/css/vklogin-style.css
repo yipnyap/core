@@ -204,7 +204,7 @@ body.login #login form .wp-generate-pw {
   width: 100%;
   height: 54px;
   padding: 0 18px;
-  border-radius: 12px;
+  @apply rounded-md;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -336,7 +336,7 @@ body.login #login .message,
 body.login #login #login_error {
   margin: 32px auto 0;
   padding: 22px 28px 22px 64px;
-  border-radius: 12px;
+  @apply rounded-md;
   border-left: none;
   color: #fff;
   font-size: 0.875rem;

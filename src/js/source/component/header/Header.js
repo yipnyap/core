@@ -149,8 +149,8 @@ export default function Header() {
 
     return (
         <header className="flex-shrink-0 relative h-16 flex items-center md:pl-24"
-                // style={{background: 'var(--color-header-background)'}}
-            >
+            // style={{background: 'var(--color-header-background)'}}
+        >
             {/* Menu button area */}
             <div className="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
                 {/* Mobile menu button */}
@@ -167,25 +167,23 @@ export default function Header() {
             {/* Desktop nav area */}
             <div className="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                <div className="min-w-0 flex-1">
-                    <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
-                        <label htmlFor="cmui-search" className="sr-only">
-                            Search
-                        </label>
-                        <input
-                            id="cmui-search"
-                            type="search"
-                            placeholder="Search"
-                            className="block w-full border-transparent pl-12 placeholder-gray-500 focus:border-transparent sm:text-sm focus:ring-0"
-                            // style={{background: 'var(--color-header-background)'}}
-                            style={{background: 'transparent'}}
-                        />
-                        <div
-                            className="pointer-events-none absolute inset-y-0 left-0 flex items-center justify-center pl-4">
-                            <SearchIcon className="h-5 w-5" aria-hidden="true"/>
+                <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500"><label htmlFor="search"
+                                                                                                    className="sr-only">Search</label>
+                    <div className="mt-1 relative rounded-md shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                             aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
+                                <path fill-rule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clip-rule="evenodd"></path>
+                            </svg>
                         </div>
+                        <input type="text" name="search" id="search" className="highlight-main block w-full pl-9 max-h-9"
+                               placeholder="Search"/>
                     </div>
                 </div>
+
 
                 {/* Left nav area */}
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
@@ -202,7 +200,8 @@ export default function Header() {
                                 Sign Up
                             </a>
 
-                            <a href="/login" className="ypsdk button-upgrade inline-flex items-center" color="primary">
+                            <a href="/login" className="ypsdk button-upgrade inline-flex items-center"
+                               color="primary">
                                 Login
                             </a>
                         </div>
@@ -224,24 +223,26 @@ export default function Header() {
                         </span>
 
                             {/* User menu */}
-                            <button type="button" onClick={() => setMobileMenuOpen(true)} className="relative rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
+                            <button type="button" onClick={() => setMobileMenuOpen(true)}
+                                    className="relative rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
                                 <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url} alt=""/>
                             </button>
-                       </div>
+                        </div>
                     }
 
                     {/* Loading Spinner */}
                     {loadingUser &&
                         <>
-                        <svg className="animate-spin -ml-1 mr-1 h-5 w-5 text-primary" xmlns="http://www.w3.org/2000/svg"
-                             fill="none" viewBox="0 0 24 24">
-                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                    stroke-width="4"></circle>
-                            <path className="opacity-75" fill="currentColor"
-                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
+                            <svg className="animate-spin -ml-1 mr-1 h-5 w-5 text-primary"
+                                 xmlns="http://www.w3.org/2000/svg"
+                                 fill="none" viewBox="0 0 24 24">
+                                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
+                                        stroke-width="4"></circle>
+                                <path className="opacity-75" fill="currentColor"
+                                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                            </svg>
 
-                        <span className="text-alt">Connecting to Userland...</span>
+                            <span className="text-alt">Connecting to Userland...</span>
                         </>
                     }
                 </div>
@@ -312,7 +313,8 @@ export default function Header() {
                                         className="block w-full border-gray-300 rounded-md pl-10 placeholder-gray-500 focus:border-indigo-600 focus:ring-indigo-600"
                                         style={{background: 'var(--color-header-background)'}}
                                     />
-                                    <div className="absolute inset-y-0 left-0 flex items-center justify-center pl-3">
+                                    <div
+                                        className="absolute inset-y-0 left-0 flex items-center justify-center pl-3">
                                         <SearchIcon className="h-5 w-5" aria-hidden="true"/>
                                     </div>
                                 </div>
@@ -341,7 +343,8 @@ export default function Header() {
                             <div className="border-t border-gray-200 pt-4 pb-3">
                                 <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
                                     <div className="flex-shrink-0">
-                                        <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url} alt=""/>
+                                        <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url}
+                                             alt=""/>
                                     </div>
                                     <a href={loggedUser.link} className="ml-3 min-w-0 flex-1">
                                         <div

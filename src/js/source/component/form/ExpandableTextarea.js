@@ -304,7 +304,7 @@ function ExpandableTextarea(props) {
 
             {/* TEXTAREA */}
             <div
-                className="rounded-xl overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                className="rounded-md overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
                 <label htmlFor="description" className="sr-only">
                     Description
                 </label>

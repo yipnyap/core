@@ -865,6 +865,10 @@ h2 {
   top: 0px;
 }
 
+.top-20 {
+  top: 5rem;
+}
+
 .isolate {
   isolation: isolate;
 }
@@ -1031,6 +1035,14 @@ h2 {
   margin-top: 0px;
 }
 
+.mr-3 {
+  margin-right: 0.75rem;
+}
+
+.mb-2 {
+  margin-bottom: 0.5rem;
+}
+
 .box-border {
   box-sizing: border-box;
 }
@@ -1181,6 +1193,10 @@ h2 {
   height: 6rem;
 }
 
+.h-4 {
+  height: 1rem;
+}
+
 .h-\[calc\(100\%-theme\(\'spacing\.1\'\)\)\] {
   height: calc(100% - 0.25rem);
 }
@@ -1195,6 +1211,10 @@ h2 {
 
 .max-h-56 {
   max-height: 14rem;
+}
+
+.max-h-9 {
+  max-height: 2.25rem;
 }
 
 .min-h-screen {
@@ -1239,6 +1259,10 @@ h2 {
 
 .w-16 {
   width: 4rem;
+}
+
+.w-4 {
+  width: 1rem;
 }
 
 .min-w-0 {
@@ -2672,6 +2696,11 @@ h2 {
   padding-right: 0.25rem;
 }
 
+.py-0\.5 {
+  padding-top: 0.125rem;
+  padding-bottom: 0.125rem;
+}
+
 .pb-2 {
   padding-bottom: 0.5rem;
 }
@@ -2734,6 +2763,10 @@ h2 {
 
 .pb-12 {
   padding-bottom: 3rem;
+}
+
+.pl-9 {
+  padding-left: 2.25rem;
 }
 
 .text-left {
@@ -2830,6 +2863,11 @@ h2 {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-xs {
+  font-size: 0.75rem;
+  line-height: 1rem;
 }
 
 .font-medium {
@@ -2996,6 +3034,16 @@ h2 {
 .text-black {
   --tw-text-opacity: 1;
   color: rgb(0 0 0 / var(--tw-text-opacity));
+}
+
+.text-indigo-800 {
+  --tw-text-opacity: 1;
+  color: rgb(55 48 163 / var(--tw-text-opacity));
+}
+
+.text-gray-800 {
+  --tw-text-opacity: 1;
+  color: rgb(31 41 55 / var(--tw-text-opacity));
 }
 
 .underline {
@@ -3580,8 +3628,7 @@ select {
     2.8 SHADOW COLORS
     2.9 INPUT COLORS
     2.10 BUTTON COLORS
-    2.11 PAGE LOADER
-    2.12 LOADER BAR
+    2.13 HIGHLIGHT
 3. COMPONENT COLORS
     3.0 TAB SWITCH
     3.1 FORM SWITCH
@@ -3719,6 +3766,58 @@ select {
 /*------------------------------
     2.10 BUTTON
 ------------------------------*/
+
+/*------------------------------
+    2.13 HIGHLIGHT
+------------------------------*/
+
+.highlight-main {
+  /* .bg-color-main */
+  --tw-border-opacity: 1;
+  border-color: rgb(226 232 240 / var(--tw-border-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  .highlight-main {
+    --tw-border-opacity: 1;
+    border-color: rgb(51 65 85 / var(--tw-border-opacity));
+  }
+}
+
+.highlight-main {
+  border-radius: 0.375rem;
+  --tw-text-opacity: 1;
+  color: rgb(148 163 184 / var(--tw-text-opacity));
+  --tw-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --tw-shadow-colored: 0 1px 2px 0 var(--tw-shadow-color);
+  box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow);
+  --tw-ring-offset-shadow: var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+  --tw-ring-shadow: var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  box-shadow: var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000);
+  --tw-ring-color: rgb(15 23 42 / 0.1);
+}
+
+.highlight-main:focus {
+  --tw-border-opacity: 1;
+  border-color: rgb(99 102 241 / var(--tw-border-opacity));
+  --tw-ring-opacity: 1;
+  --tw-ring-color: rgb(99 102 241 / var(--tw-ring-opacity));
+}
+
+@media (prefers-color-scheme: dark) {
+  .highlight-main {
+    --tw-bg-opacity: 1;
+    background-color: rgb(30 41 59 / var(--tw-bg-opacity));
+    box-shadow: inset 0 1px 0 0 rgb(255 255 255 / 0.05);
+  }
+}
+
+@media (min-width: 640px) {
+  .highlight-main {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
 
 /*-------------------------------------------------------------------
                         3. COMPONENT COLORS
@@ -3877,7 +3976,7 @@ textarea,
 select,
 button {
   width: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -3931,7 +4030,6 @@ input[type=email],
 input[type=tel],
 input[type=number] {
   height: 54px;
-  padding: 0 18px;
 }
 
 input[type=text]::-webkit-input-placeholder, input[type=password]::-webkit-input-placeholder, input[type=email]::-webkit-input-placeholder, input[type=tel]::-webkit-input-placeholder, input[type=number]::-webkit-input-placeholder {
@@ -4949,7 +5047,7 @@ textarea::placeholder {
   height: 48px;
   padding: 0 40px 0 18px;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: relative;
 }
 
@@ -7436,7 +7534,7 @@ a:hover {
 -----------------------------*/
 
 .user-preview-widget {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   padding-bottom: 28px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -7621,7 +7719,7 @@ a:hover {
   align-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-light-background);
   box-shadow: var(--color-overbox-shadow);
   color: #fff;
@@ -7684,7 +7782,7 @@ a:hover {
 }
 
 .text-sticker.round {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .text-sticker .highlighted {
@@ -7793,7 +7891,7 @@ a:hover {
 .simple-dropdown {
   width: 140px;
   padding: 10px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-light-background);
   box-shadow: var(--color-overbox-dark-shadow);
 }
@@ -8303,7 +8401,7 @@ a:hover {
   align-items: center;
   width: 44px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-primary);
   box-shadow: 3px 5px 20px 0px rgba(94, 92, 154, 0.3);
 }
@@ -8464,7 +8562,7 @@ a:hover {
 .popup-event {
   width: 90%;
   max-width: 584px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -8782,7 +8880,7 @@ a:hover {
   align-items: center;
   width: 160px;
   height: 44px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   cursor: pointer;
   transition: box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
 }
@@ -8870,7 +8968,7 @@ a:hover {
 .slider-line {
   height: 120px;
   padding: 0 48px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -9247,7 +9345,7 @@ a:hover {
   align-items: center;
   height: 168px;
   background-color: var(--color-primary);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   cursor: pointer;
 }
 
@@ -9258,7 +9356,7 @@ a:hover {
 .upload-item .upload-item-image {
   width: 100%;
   height: 168px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .upload-item .form-input,
@@ -9340,7 +9438,7 @@ a:hover {
   display: -ms-flexbox;
   display: flex;
   background-color: var(--color-box-background);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-overbox-shadow);
 }
 
@@ -9570,7 +9668,7 @@ a:hover {
 ---------------------------------*/
 
 .quick-post {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -9788,7 +9886,7 @@ a:hover {
 .mention-list {
   width: 180px;
   padding: 8px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: absolute;
@@ -9905,7 +10003,7 @@ a:hover {
 .stats-box {
   height: 220px;
   padding: 90px 28px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .stats-box.small {
@@ -10199,14 +10297,14 @@ a:hover {
   width: 100%;
   max-width: 284px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   margin: 0 auto;
 }
 
 .banner-promo img {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 /*---------------------------------
@@ -10215,7 +10313,7 @@ a:hover {
 
 .poll-box {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
 }
@@ -10325,7 +10423,7 @@ a:hover {
   align-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: rgba(35, 210, 226, 0.9);
   position: absolute;
   top: 0;
@@ -10345,7 +10443,7 @@ a:hover {
 
 .quote-box {
   padding: 26px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
   position: relative;
@@ -10372,7 +10470,7 @@ a:hover {
 .stats-decoration {
   height: 96px;
   padding: 28px 0 0 88px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -10526,7 +10624,7 @@ a:hover {
 
 .sidebar-box {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -10685,7 +10783,7 @@ a:hover {
 
 .sidebar-menu-item.sidebar-menu-item-disable-header .sidebar-menu-body {
   border-top: none;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
 }
 
@@ -10809,7 +10907,7 @@ a:hover {
   align-items: center;
   min-height: 98px;
   padding: 0 20px 0 32px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -10844,7 +10942,7 @@ a:hover {
 ---------------------------------*/
 
 .tab-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -10995,7 +11093,7 @@ a:hover {
 
 .profile-stats {
   padding-bottom: 32px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -11118,7 +11216,7 @@ a:hover {
 ---------------------------------*/
 
 .featured-stat-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -11205,7 +11303,7 @@ a:hover {
   align-items: center;
   min-height: 142px;
   padding: 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -11266,7 +11364,7 @@ a:hover {
   align-items: center;
   min-height: 120px;
   padding: 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -11374,7 +11472,7 @@ a:hover {
 
 .account-stat-box {
   padding: 32px 28px 100px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -11651,7 +11749,7 @@ a:hover {
   align-items: center;
   min-height: 140px;
   padding: 32px 28px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
@@ -11733,7 +11831,7 @@ a:hover {
   align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
   cursor: pointer;
@@ -11827,7 +11925,7 @@ a:hover {
   align-items: center;
   min-height: 88px;
   padding: 22px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -11908,7 +12006,7 @@ a:hover {
 
 .create-entity-box {
   height: 284px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -12033,7 +12131,7 @@ a:hover {
   align-items: center;
   min-height: 100px;
   padding: 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -12199,7 +12297,7 @@ a:hover {
   align-items: center;
   height: 80px;
   padding: 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -12248,7 +12346,7 @@ a:hover {
 ----------------------------*/
 
 .reaction-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -12321,7 +12419,7 @@ a:hover {
   -ms-flex-align: center;
   align-items: center;
   height: 96px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: relative;
 }
 
@@ -12360,7 +12458,7 @@ a:hover {
   -ms-flex-align: center;
   align-items: center;
   height: 96px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: 2px dashed var(--color-border);
 }
 
@@ -12373,7 +12471,7 @@ a:hover {
   align-items: center;
   width: 40px;
   height: 40px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-primary);
   cursor: pointer;
 }
@@ -12394,7 +12492,7 @@ a:hover {
 ---------------------------------*/
 
 .message-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   padding: 80px 0 50px;
@@ -12414,7 +12512,7 @@ a:hover {
   align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: -16px;
   left: 50%;
@@ -12477,7 +12575,7 @@ a:hover {
 
 .alert-box {
   min-height: 100px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   padding: 32px 32px 26px 108px;
   background-color: #4f8dff;
   position: relative;
@@ -12504,7 +12602,7 @@ a:hover {
   align-items: center;
   width: 60px;
   height: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 20px;
   left: 20px;
@@ -12533,7 +12631,7 @@ a:hover {
 
 .alert-line {
   min-height: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   padding: 20px 28px 20px 64px;
   background-color: #4f8dff;
   position: relative;
@@ -12660,7 +12758,7 @@ a:hover {
   display: -ms-flexbox;
   display: flex;
   padding: 32px 0 32px 90px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -12717,7 +12815,7 @@ a:hover {
 
 .point-item-box {
   padding: 32px 26px 50px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -12808,7 +12906,7 @@ a:hover {
 ---------------------------------*/
 
 .achievement-item-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -13762,7 +13860,7 @@ a:hover {
 }
 
 .table.split-rows .table-row {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -13847,7 +13945,7 @@ a:hover {
 .table .table-body {
   display: table-row-group;
   box-shadow: var(--color-box-shadow);
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .table .table-body.same-color-rows .table-row:nth-child(2n+2) {
@@ -14202,11 +14300,11 @@ a:hover {
 --------------------*/
 
 .widget-box {
+  position: relative;
+  border-radius: 0.375rem;
   padding: 32px 28px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  position: relative;
 }
 
 .widget-box.widget-box-deleted {
@@ -14649,10 +14747,10 @@ a:hover {
 }
 
 .widget-box .widget-box-status .widget-box-status-html-content blockquote {
-  border-radius: 12px;
+  position: relative;
+  border-radius: 0.375rem;
   box-shadow: var(--color-overbox-shadow);
   padding: 24px 28px 24px 46px;
-  position: relative;
 }
 
 .widget-box .widget-box-status .widget-box-status-html-content blockquote::before {
@@ -15101,7 +15199,7 @@ img[alt=logo].logo-image {
 
 #wp-link-wrap {
   height: 380px !important;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   padding: 32px 28px;
   overflow: visible !important;
   background-color: var(--color-box-background) !important;
@@ -15834,9 +15932,8 @@ img[alt=logo].logo-image {
   list-style: lower-alpha;
 }
 
-#bbpress-forums div.bbp-topic-content blockquote,
-#bbpress-forums div.bbp-reply-content blockquote {
-  border-radius: 12px;
+#bbpress-forums div.bbp-topic-content blockquote, #bbpress-forums div.bbp-reply-content blockquote {
+  border-radius: 0.375rem;
   box-shadow: var(--color-overbox-shadow);
   padding: 24px 28px 24px 46px;
   position: relative;
@@ -15986,7 +16083,7 @@ img[alt=logo].logo-image {
 }
 
 #bbpress-forums li.bbp-body {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 #bbpress-forums li.bbp-body ul.hentry,
@@ -16321,7 +16418,7 @@ img[alt=logo].logo-image {
 #bbpress-forums .yipnyap-forum-topic-form-wrap {
   margin-top: 28px;
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -16364,7 +16461,7 @@ img[alt=logo].logo-image {
   border: 1px solid var(--color-secondary);
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: relative;
 }
 
@@ -16398,7 +16495,7 @@ img[alt=logo].logo-image {
   content: "";
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-notice-overlay-background-secondary);
   position: absolute;
   top: 0;
@@ -17146,7 +17243,7 @@ img[alt=logo].logo-image {
 
 .woocommerce ul.products li.product {
   padding-bottom: 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -17187,7 +17284,7 @@ img[alt=logo].logo-image {
   align-items: center;
   height: 32px;
   padding: 0 14px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-light-background);
   box-shadow: var(--color-overbox-shadow);
   color: var(--color-text) !important;
@@ -17332,7 +17429,7 @@ img[alt=logo].logo-image {
 
 .woocommerce nav.woocommerce-pagination ul {
   border: none;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-overbox-shadow);
 }
 
@@ -17417,16 +17514,14 @@ img[alt=logo].logo-image {
   width: 49.3243243243%;
 }
 
-.woocommerce div.product div.images .woocommerce-product-gallery__wrapper,
-.woocommerce div.product div.images .flex-viewport,
-.woocommerce div.product div.images .flex-control-thumbs {
-  border-radius: 12px;
+.woocommerce div.product div.images .woocommerce-product-gallery__wrapper, .woocommerce div.product div.images .flex-viewport, .woocommerce div.product div.images .flex-control-thumbs {
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
 
 .woocommerce div.product div.images .woocommerce-product-gallery__image {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .woocommerce div.product div.images .flex-viewport .woocommerce-product-gallery__image {
@@ -17449,7 +17544,7 @@ img[alt=logo].logo-image {
 
 .woocommerce div.product div.images .flex-control-thumbs li img {
   border: 4px solid transparent;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .woocommerce div.product div.images .flex-control-thumbs li img.flex-active {
@@ -17462,7 +17557,7 @@ img[alt=logo].logo-image {
   -ms-flex-direction: column;
   flex-direction: column;
   padding: 32px 48px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -17619,7 +17714,7 @@ img[alt=logo].logo-image {
 }
 
 .woocommerce div.product .woocommerce-tabs {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -17979,7 +18074,7 @@ img[alt=logo].logo-image {
 
 .woocommerce form.login {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: none;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -18034,7 +18129,7 @@ img[alt=logo].logo-image {
   margin: 0;
   background-color: transparent;
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .woocommerce form .select2-container .select2-selection--single .select2-selection__placeholder,
@@ -18101,7 +18196,7 @@ img[alt=logo].logo-image {
 .woocommerce .woocommerce-MyAccount-content > form,
 .woocommerce .woocommerce-MyAccount-content > p {
   padding: 18px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18139,7 +18234,7 @@ img[alt=logo].logo-image {
   width: 100%;
   margin: 0 16px 0 0;
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18178,7 +18273,7 @@ img[alt=logo].logo-image {
   min-height: 60px;
   margin: 32px 0;
   padding: 20px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: none;
   border: 2px solid #00c7d9;
   background-color: var(--color-box-background);
@@ -18299,7 +18394,7 @@ img[alt=logo].logo-image {
 .woocommerce .woocommerce-customer-details {
   margin: 16px 0 0;
   padding: 32px 28px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18371,7 +18466,7 @@ img[alt=logo].logo-image {
 
 .woocommerce table.woocommerce-table, .woocommerce table.shop_table {
   padding: 18px 28px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: none;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -18490,7 +18585,7 @@ img[alt=logo].logo-image {
 .woocommerce.shop_table {
   margin: 0;
   border: none;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .woocommerce.shop_table td {
@@ -18503,7 +18598,7 @@ img[alt=logo].logo-image {
 
 .woocommerce .cart-collaterals .cart_totals {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18566,7 +18661,7 @@ img[alt=logo].logo-image {
   width: 60px;
   height: 60px;
   margin: 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 12px;
   left: 28px;
@@ -18611,7 +18706,7 @@ img[alt=logo].logo-image {
 
 .woocommerce form.checkout_coupon {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: none;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -18639,7 +18734,7 @@ img[alt=logo].logo-image {
 
 .woocommerce .woocommerce-checkout #customer_details > * {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18691,7 +18786,7 @@ img[alt=logo].logo-image {
 
 .woocommerce .woocommerce-checkout #payment div.payment_box {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -18730,7 +18825,7 @@ img[alt=logo].logo-image {
 
 .woocommerce ul.order_details {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   margin: 32px 0;
@@ -18765,7 +18860,7 @@ img[alt=logo].logo-image {
   width: 60px;
   height: 60px;
   margin: 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 12px;
   left: 28px;
@@ -18814,7 +18909,7 @@ img[alt=logo].logo-image {
 
 .woocommerce-cart table.cart .product-thumbnail img {
   width: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .woocommerce-cart .wc-proceed-to-checkout {
@@ -18966,7 +19061,7 @@ img[alt=logo].logo-image {
 }
 
 .picture.round {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .picture.round.small, .picture.round.tiny {
@@ -19030,7 +19125,7 @@ img[alt=logo].logo-image {
 }
 
 .picture-item .picture-item-overlay.round {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .picture-item .picture-item-overlay.circle {
@@ -21048,7 +21143,7 @@ img[alt=logo].logo-image {
 .form-box {
   width: 484px;
   padding: 64px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-overbox-dark-shadow);
   position: relative;
@@ -21357,7 +21452,7 @@ img[alt=logo].logo-image {
 .vk-el-navigation-item .vk-el-navigation {
   width: 200px;
   padding: 16px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   display: block;
   position: absolute;
@@ -22064,7 +22159,7 @@ img[alt=logo].logo-image {
 .chat-widget-wrap {
   display: -ms-flexbox;
   display: flex;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -22462,7 +22557,7 @@ img[alt=logo].logo-image {
   }
 
   .chat-widget-wrap .chat-widget {
-    border-radius: 12px;
+    border-radius: 0.375rem;
   }
 
   .chat-widget-wrap .chat-widget:first-child, .chat-widget-wrap .chat-widget:last-child {
@@ -22499,7 +22594,7 @@ img[alt=logo].logo-image {
 --------------------------*/
 
 .profile-header {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -22825,7 +22920,7 @@ img[alt=logo].logo-image {
 
 .post-preview {
   min-height: 516px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -23200,7 +23295,7 @@ img[alt=logo].logo-image {
   width: 91.6666666667%;
   padding: 28px;
   margin: -48px auto 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-big-shadow);
   position: relative;
@@ -23939,7 +24034,7 @@ img[alt=logo].logo-image {
 }
 
 .post-open.v3 {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -24080,7 +24175,7 @@ img[alt=logo].logo-image {
 .post-open.v2 .post-open-cover {
   min-height: 662px;
   height: auto;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .post-open.v2 .post-open-cover-overlay {
@@ -24092,7 +24187,7 @@ img[alt=logo].logo-image {
   height: 100%;
   min-height: inherit;
   padding: 80px 100px 160px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: rgba(32, 33, 49, 0.6);
 }
 
@@ -24170,7 +24265,7 @@ img[alt=logo].logo-image {
   max-width: 784px;
   margin: -220px auto 0;
   padding-top: 90px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -24454,7 +24549,7 @@ img[alt=logo].logo-image {
 --------------------------*/
 
 .product-preview {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -24470,7 +24565,7 @@ img[alt=logo].logo-image {
 
 .product-preview.small .product-preview-image {
   height: 144px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .product-preview.small .product-preview-info {
@@ -24496,7 +24591,7 @@ img[alt=logo].logo-image {
   width: 94px;
   height: 60px;
   margin-right: 20px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .product-preview.tiny .product-preview-image.short {
@@ -24538,7 +24633,7 @@ img[alt=logo].logo-image {
   width: 68px;
   height: 44px;
   margin-right: 12px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .product-preview.micro .product-preview-info {
@@ -24670,7 +24765,7 @@ img[alt=logo].logo-image {
   display: block;
   height: 142px;
   padding: 26px 0 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -24743,7 +24838,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 
 .stream-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -24915,7 +25010,7 @@ img[alt=logo].logo-image {
 -------------------*/
 
 .video-box {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -24956,12 +25051,12 @@ img[alt=logo].logo-image {
 }
 
 .video-box.small .video-box-cover::after {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .video-box.small .video-box-cover .video-box-cover-image {
   height: 128px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .video-box.small .video-box-cover .play-button {
@@ -25036,11 +25131,11 @@ img[alt=logo].logo-image {
 }
 
 .video-box .video-box-cover .video-wrap {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .video-box .video-box-cover .video-wrap video {
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .video-box .video-box-cover .video-box-cover-image {
@@ -25099,7 +25194,7 @@ img[alt=logo].logo-image {
 
 .video-status {
   display: block;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-overbox-big-shadow);
 }
 
@@ -25403,7 +25498,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 
 .user-preview {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -25943,7 +26038,7 @@ img[alt=logo].logo-image {
 .album-preview {
   display: block;
   height: 340px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
   position: relative;
@@ -25952,7 +26047,7 @@ img[alt=logo].logo-image {
 .album-preview .album-preview-image {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -25970,7 +26065,7 @@ img[alt=logo].logo-image {
 .album-preview .album-preview-info {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: inset 0 -120px 50px -40px rgba(0, 0, 0, 0.8);
   display: -ms-flexbox;
   display: flex;
@@ -26010,7 +26105,7 @@ img[alt=logo].logo-image {
 
 .photo-preview {
   display: block;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
   position: relative;
@@ -26033,7 +26128,7 @@ img[alt=logo].logo-image {
 .photo-preview .photo-preview-image {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -26061,7 +26156,7 @@ img[alt=logo].logo-image {
   align-items: center;
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: rgba(21, 21, 31, 0.96);
   position: relative;
   z-index: 2;
@@ -26099,7 +26194,7 @@ img[alt=logo].logo-image {
 .popup-box {
   width: 90%;
   max-width: 984px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -26195,7 +26290,7 @@ img[alt=logo].logo-image {
 .popup-box-body {
   display: -ms-flexbox;
   display: flex;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
 }
 
@@ -26300,7 +26395,7 @@ img[alt=logo].logo-image {
   display: flex;
   height: 154px;
   padding: 32px 28px 0;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -26359,7 +26454,7 @@ img[alt=logo].logo-image {
 
 .badge-item-stat {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -26421,7 +26516,7 @@ img[alt=logo].logo-image {
 
 .streamer-box {
   background-color: var(--color-box-background);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
 }
 
@@ -26845,7 +26940,7 @@ img[alt=logo].logo-image {
 .calendar-weekly .calendar-weekly-day-part .calendar-weekly-day-event.span-3 {
   width: 100%;
   height: 180px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: relative;
   z-index: 1;
 }
@@ -26916,7 +27011,7 @@ img[alt=logo].logo-image {
 .calendar-daily .calendar-daily-event {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   padding: 12px 14px;
   color: #fff;
   font-size: 0.875rem;
@@ -26947,7 +27042,7 @@ img[alt=logo].logo-image {
 
 .calendar-events-preview {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -27086,7 +27181,7 @@ img[alt=logo].logo-image {
 ------------------------*/
 
 .calendar-widget {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -27275,7 +27370,7 @@ img[alt=logo].logo-image {
 ------------------------*/
 
 .event-preview {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -27286,7 +27381,7 @@ img[alt=logo].logo-image {
 
 .event-preview.small .event-preview-cover {
   height: 80px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .event-preview.small .event-preview-info {
@@ -27454,7 +27549,7 @@ img[alt=logo].logo-image {
 ---------------------*/
 
 .quest-item {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -27819,7 +27914,7 @@ img[alt=logo].logo-image {
 .slider-panel .slider-panel-slide-image {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: absolute;
   top: 0;
   left: 0;
@@ -27833,7 +27928,7 @@ img[alt=logo].logo-image {
   height: 100px;
   margin-top: 16px;
   padding: 0 46px 0 74px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -27936,7 +28031,7 @@ img[alt=logo].logo-image {
   content: "";
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: 4px solid var(--color-secondary);
   position: absolute;
   top: 0;
@@ -27946,7 +28041,7 @@ img[alt=logo].logo-image {
 .roster-picture .roster-picture-image {
   width: 100%;
   height: 100%;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 /*--------------------
@@ -28000,7 +28095,7 @@ img[alt=logo].logo-image {
 
 .demo-box {
   padding: 48px 28px 32px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -28118,6 +28213,7 @@ img[alt=logo].logo-image {
   backdrop-filter: blur(12px);
   -webkit-backdrop-filter: blur(12px);
   padding-left: 4vw;
+  width: 100vmax;
 }
 
 /*--------------------------
@@ -28486,7 +28582,7 @@ img[alt=logo].logo-image {
 
 .bp-messages-wrap {
   border: none;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -28567,7 +28663,7 @@ img[alt=logo].logo-image {
 
 .bp-messages-wrap .chat-header .bpbm-search form input {
   border: 1px solid var(--color-border);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   font-size: 0.875rem;
 }
@@ -28810,9 +28906,8 @@ img[alt=logo].logo-image {
   margin-bottom: 12px;
 }
 
-.bp-messages-wrap div.new-message form > div > input[type=text],
-.bp-messages-wrap div.bulk-message form > div > input[type=text] {
-  border-radius: 12px;
+.bp-messages-wrap div.new-message form > div > input[type=text], .bp-messages-wrap div.bulk-message form > div > input[type=text] {
+  border-radius: 0.375rem;
   border: 1px solid var(--color-border) !important;
   background-color: var(--color-box-background);
   box-shadow: none;
@@ -28910,7 +29005,7 @@ img[alt=logo].logo-image {
 .bp-messages-wrap div.bulk-message .box ul.send-to li .groups select,
 .bp-messages-wrap div.bulk-message .box ul.options li .groups select {
   padding: 0 40px 0 20px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   font-size: 0.875rem;
   cursor: pointer;
 }
@@ -28929,7 +29024,7 @@ img[alt=logo].logo-image {
 }
 
 .bp-messages-wrap .taggle_list {
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: 1px solid var(--color-border);
   background-color: var(--color-box-background);
   font-weight: 500;
@@ -28953,7 +29048,7 @@ img[alt=logo].logo-image {
 
 .bp-messages-wrap .bp-emojionearea {
   padding: 14px 18px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   border: 1px solid var(--color-border);
   color: var(--color-text) !important;
@@ -28975,7 +29070,7 @@ img[alt=logo].logo-image {
 
 .amaran.user.message {
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -29016,7 +29111,7 @@ img[alt=logo].logo-image {
 
 .pmpro_content_message {
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-secondary);
   color: #fff;
   font-family: var(--font-primary);
@@ -29092,7 +29187,7 @@ img[alt=logo].logo-image {
   -ms-flex-pack: justify;
   justify-content: space-between;
   padding: 32px 40px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -29222,7 +29317,7 @@ img[alt=logo].logo-image {
 .pmpro_confirmation_wrap {
   margin: 0;
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border-top: none;
   background-color: var(--color-box-background);
   font-family: var(--font-primary);
@@ -29432,7 +29527,7 @@ img[alt=logo].logo-image {
   border: 2px solid var(--color-secondary);
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  border-radius: 12px;
+  border-radius: 0.375rem;
   font-family: var(--font-primary);
   color: var(--color-text) !important;
   font-size: 0.875rem;
@@ -29750,7 +29845,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .pmpro_bbp_membership_msg {
   margin: 32px 0;
   padding: 32px 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-secondary);
   color: #fff;
   font-family: var(--font-primary);
@@ -30133,17 +30228,17 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 }
 
 .menu .menu-item .menu-item-link {
+  position: relative;
   display: -ms-flexbox;
   display: flex;
   -ms-flex-align: center;
-  align-items: center;
+      align-items: center;
+  border-radius: 0.375rem;
   height: 48px;
   padding-left: 62px;
-  border-radius: 12px;
   font-size: 0.875rem;
   font-weight: 700;
   line-height: 1.2857142857em;
-  position: relative;
   transition: all 0.2s ease-in-out;
 }
 
@@ -30172,9 +30267,9 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 -----------------------------*/
 
 .section-navigation {
+  border-radius: 0.375rem;
   height: 80px;
   padding: 0 43px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -30316,8 +30411,8 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .menu-wide {
   display: -ms-flexbox;
   display: flex;
+  border-radius: 0.375rem;
   padding: 50px 16px 50px 60px;
-  border-radius: 12px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -30580,7 +30675,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
   align-items: center;
   height: 96px;
   padding: 0 28px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
   background-color: var(--color-box-background);
 }
@@ -30724,7 +30819,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 
 .section-pager-bar {
   height: 60px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 }
@@ -30809,7 +30904,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .section-pager .section-pager-item .section-pager-item-text {
   background-color: var(--color-box-background);
   padding: 16px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   font-size: 0.875rem;
   font-weight: 700;
   transition: color 0.2s ease-in-out, box-shadow 0.2s ease-in-out, background-color 0.2s ease-in-out;
@@ -30833,7 +30928,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .section-banner {
   min-height: 160px;
   padding: 52px 60px 0 200px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   position: relative;
 }
 
@@ -32795,7 +32890,7 @@ svg {
 
 .widget-box.widget_media_image img {
   display: block;
-  border-radius: 12px;
+  border-radius: 0.375rem;
 }
 
 .widget-box.widget_calendar .widget-box-title, .widget-box.widget_archive .widget-box-title, .widget-box.widget_recent_comments .widget-box-title, .widget-box.widget_search .widget-box-title, .widget-box.widget_text .widget-box-title, .widget-box.widget_categories .widget-box-title, .widget-box.widget_meta .widget-box-title, .widget-box.widget_nav_menu .widget-box-title, .widget-box.widget_pages .widget-box-title, .widget-box.widget_recent_entries .widget-box-title, .widget-box.widget_media_video .widget-box-title, .widget-box.widget_tag_cloud .widget-box-title, .widget-box.widget_rss .widget-box-title {
@@ -33219,7 +33314,7 @@ body.buddypress.activation #buddypress #template-notices + p, body.buddypress.re
 
 body.buddypress.activation #buddypress .bp-template-notice, body.buddypress.registration #buddypress .bp-template-notice {
   padding: 22px 28px 22px 64px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   box-shadow: var(--color-box-shadow);
   position: relative;
 }
@@ -33360,7 +33455,7 @@ body.buddypress.activation #buddypress .page form input[type=submit], body.buddy
   width: 100%;
   height: 54px;
   padding: 0 18px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border-color: transparent;
   background: var(--color-secondary);
   font-family: var(--font-primary);
@@ -33406,7 +33501,7 @@ body.buddypress.activation #buddypress .page form .wp-switch-editor, body.buddyp
   height: 30px;
   margin: 0 6px 0 0;
   padding: 0 32px;
-  border-radius: 12px;
+  border-radius: 0.375rem;
   border: 1px solid var(--color-border);
   background-color: transparent;
   color: var(--color-text-alt-2);

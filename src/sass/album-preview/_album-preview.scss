@@ -11,7 +11,7 @@
 .album-preview {
   display: block;
   height: 340px;
-  border-radius: 12px;
+  @apply rounded-md;
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
   position: relative;
@@ -19,7 +19,7 @@
   .album-preview-image {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    @apply rounded-md;
     position: absolute;
     top: 0;
     left: 0;
@@ -37,7 +37,7 @@
   .album-preview-info {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    @apply rounded-md;
     box-shadow: inset 0 -120px 50px -40px rgba(0, 0, 0, .8);
     display: flex;
     flex-direction: column;
@@ -74,7 +74,7 @@
 ----------------------*/
 .photo-preview {
   display: block;
-  border-radius: 12px;
+  @apply rounded-md;
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
   position: relative;
@@ -99,7 +99,7 @@
   .photo-preview-image {
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    @apply rounded-md;
     position: absolute;
     top: 0;
     left: 0;
@@ -124,7 +124,7 @@
     align-items: center;
     width: 100%;
     height: 100%;
-    border-radius: 12px;
+    @apply rounded-md;
     background-color: rgba(21, 21, 31, .96);
     position: relative;
     z-index: 2;

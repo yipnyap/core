@@ -1020,7 +1020,7 @@ svg {
 
     img {
       display: block;
-      border-radius: 12px;
+      @apply rounded-md;
     }
   }
 

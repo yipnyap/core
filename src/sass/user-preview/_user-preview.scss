@@ -7,7 +7,7 @@
     1. USER PREVIEW
 ----------------------*/
 .user-preview {
-  border-radius: 12px;
+  @apply rounded-md;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 

@@ -203,6 +203,21 @@ $user = yipnyap_get_logged_user_member_data();
         <!-- /LEFT COLUMN -->
 
         <div class="grid-column">
+            <div class="alert-line alert-line-error">
+                <!-- ALERT LINE ICON WRAP -->
+                <div class="alert-line-icon-wrap">
+                    <!-- ALERT LINE ICON -->
+                    <svg class="alert-line-icon icon-info">
+                        <use href="#svg-info"></use>
+                    </svg>
+                    <!-- /ALERT LINE ICON -->
+                </div>
+                <!-- /ALERT LINE ICON WRAP -->
+
+                <!-- ALERT LINE TEXT -->
+                <p class="alert-line-text"><b>Searching is unfunctional.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, 2022.10 is rolling out and this changes how Searching works and, well, it's not working correctly. When this notice disappears, thats when you can search again!</p>
+                <!-- /ALERT LINE TEXT -->
+            </div>
             <!-- debug_user_account -->
             <?php if (isset($_GET['debug_user_account'])) { ?>
             <div class="alert-line alert-line-info">

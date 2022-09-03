@@ -180,7 +180,7 @@ export default function Header() {
                             </svg>
                         </div>
                         <input type="text" name="search" id="search" className="highlight-main block w-full pl-9 max-h-9"
-                               placeholder="Search"/>
+                               placeholder="Thanks for 10 Users 🎉"/>
                     </div>
                 </div>
 

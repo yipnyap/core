@@ -23,7 +23,7 @@ if (!function_exists('yipnyap_get_default_group_avatar_url')) {
         if ($groups_default_avatar_id) {
             $groups_default_avatar_url = wp_get_attachment_image_src($groups_default_avatar_id, 'full')[0];
         } else {
-            $groups_default_avatar_url = YIPNYAP_URL . '/img/avatar/default-avatar.jpg';
+            $groups_default_avatar_url = YIPNYAP_URL . '/img/avatar/default-avatar.png';
         }
 
         return $groups_default_avatar_url;

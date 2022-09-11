@@ -70,8 +70,7 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         $result = array();
 		exec('cd /var/www/html/vault/@server/themes/hb-theme && git pull', $result);
         header('HTTP/1.0 202 Accepted');
-        echo "Event:$_SERVER[HTTP_X_GITHUB_EVENT] Payload:\n";
-        echo implode("\n", $result);
+        echo "Event:$_SERVER[HTTP_X_GITHUB_EVENT] Payload:\n" . implode("\n", $result);
         break;
 
 //	case 'create':

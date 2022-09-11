@@ -5,7 +5,8 @@
   "main": "Gruntfile.js",
   "scripts": {
     "build": "browserify ./src/js/source/app.js --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/app.bundle.min.js",
-    "build_admin": "browserify ./src/js/source/admin.js --extension=jsx --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/admin.bundle.min.js"
+    "build_admin": "browserify ./src/js/source/admin.js --extension=jsx --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/admin.bundle.min.js",
+    "dev": "concurrently npx tailwindcss -i ./style.css -o ./src/css/raw/styles.css --watch -- grunt"
   },
   "author": "Yipnyap",
   "devDependencies": {
@@ -33,6 +34,7 @@
     "@headlessui/react": "^1.4.3",
     "@heroicons/react": "^1.0.5",
     "@tailwindcss/forms": "^0.4.0",
+    "concurrently": "^7.4.0",
     "progressbar.js": "^1.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

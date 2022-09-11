@@ -68,7 +68,7 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
 
 	case 'push':
         $result = array();
-		exec('git pull', $result);
+		exec('cd /var/www/html/vault/@server/themes/hb-theme && git pull', $result);
         echo implode("\n", $result);
         break;
 

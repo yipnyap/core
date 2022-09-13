@@ -212,7 +212,7 @@ $user = yipnyap_get_logged_user_member_data();
                 </div>
 
                 <p class="alert-line-text"><b>Datacenter Scheduled Maintenance</b><br>The datacenter in which Yipnyap is hosted at will be performing maintenance at the times stated below. Given our redundancy, Yipnyap should still be online, however you may still experience downtime or high ping during the time period.
-                <pre>Start Time: 2022-09-14 15:00:00 UTC
+                <pre style="color: #fff; font-size: 0.875rem;">Start Time: 2022-09-14 15:00:00 UTC
 End Time: 2022-09-14 19:00:00 UTC</pre></p>
             </div>
             <!-- Update Notification -->
@@ -225,7 +225,8 @@ End Time: 2022-09-14 19:00:00 UTC</pre></p>
 
                 <p class="alert-line-text"><b>Yipnyap Critical Component Maintenance</b><br>Yipnyap will be temporarily offline some time during the times stated below. Yipnyap will be periodically unavailable, and there will be roughly a total of an hour where Yipnyap will be totally inaccessible.
                     <br><br>
-                    These works are so 2022.10 can be fully implemented as it changes how Yipnyap's Backend works, specifically how updates are handled.<pre>Start Time: 2022-09-14 15:00:00 UTC
+                    These works are so 2022.10 can be fully implemented as it changes how Yipnyap's Backend works, specifically how updates are handled.
+                <pre style="color: #fff; font-size: 0.875rem;">Start Time: 2022-09-14 15:00:00 UTC
 End Time: 2022-09-14 19:00:00 UTC</pre></p>
             </div>
             <div class="alert-line alert-line-error">

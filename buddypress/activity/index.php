@@ -203,32 +203,6 @@ $user = yipnyap_get_logged_user_member_data();
         <!-- /LEFT COLUMN -->
 
         <div class="grid-column">
-            <!-- Datacenter Notification -->
-            <div class="alert-line alert-line">
-                <div class="alert-line-icon-wrap">
-                    <svg class="alert-line-icon icon-info">
-                        <use href="#svg-settings"></use>
-                    </svg>
-                </div>
-
-                <p class="alert-line-text"><b>Datacenter Scheduled Maintenance</b><br>The datacenter in which Yipnyap is hosted at will be performing maintenance at the times stated below. Given our redundancy, Yipnyap should still be online, however you may still experience downtime or high ping during the time period.
-                <pre style="color: #fff; font-size: 0.875rem;">Start Time: 2022-09-14 15:00:00 UTC
-End Time: 2022-09-14 19:00:00 UTC</pre></p>
-            </div>
-            <!-- Update Notification -->
-            <div class="alert-line alert-line">
-                <div class="alert-line-icon-wrap">
-                    <svg class="alert-line-icon icon-info">
-                        <use href="#svg-settings"></use>
-                    </svg>
-                </div>
-
-                <p class="alert-line-text"><b>Yipnyap Critical Component Maintenance</b><br>Yipnyap will be temporarily offline some time during the times stated below. Yipnyap will be periodically unavailable, and there will be roughly a total of an hour where Yipnyap will be totally inaccessible.
-                    <br><br>
-                    These works are so 2022.10 can be implemented as it changes how Yipnyap's Backend works.
-                <pre style="color: #fff; font-size: 0.875rem;">Start Time: 2022-09-14 15:00:00 UTC
-End Time: 2022-09-14 19:00:00 UTC</pre></p>
-            </div>
             <div class="alert-line alert-line-error">
                 <!-- ALERT LINE ICON WRAP -->
                 <div class="alert-line-icon-wrap">

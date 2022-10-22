@@ -277,7 +277,7 @@ $user = yipnyap_get_logged_user_member_data();
         </div>
 
         <!-- GROUPS COLUMN -->
-        <div class="grid-column !hidden md:!grid">
+        <div class="grid-column !hidden lg:!grid">
             <?php
 
             // if the groups component is active, show groups widget

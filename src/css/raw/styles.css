@@ -34149,10 +34149,6 @@ body.buddypress.registration #buddypress .page #template-notices {
     display: flex;
   }
 
-  .md\:\!grid {
-    display: grid !important;
-  }
-
   .md\:hidden {
     display: none;
   }
@@ -34213,6 +34209,10 @@ body.buddypress.registration #buddypress .page #template-notices {
   .lg\:mx-auto {
     margin-left: auto;
     margin-right: auto;
+  }
+
+  .lg\:\!grid {
+    display: grid !important;
   }
 
   .lg\:grid {

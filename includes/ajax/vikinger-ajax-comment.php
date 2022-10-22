@@ -113,7 +113,7 @@ function yipnyap_post_comment_delete_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('manage_activities');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('moderator');
 
   // get logged user id
   $logged_user_id = get_current_user_id();

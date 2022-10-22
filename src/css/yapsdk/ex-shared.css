@@ -56,3 +56,12 @@
 .post-comment-form, .post-comment {
     background-color: transparent;
 }
+
+@keyframes spin {
+    from {
+        transform:rotate(0deg);
+    }
+    to {
+        transform:rotate(360deg);
+    }
+}

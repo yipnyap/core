@@ -150,6 +150,9 @@ add_action('admin_enqueue_scripts', 'yipnyap_admin_load_scripts');
  */
 function yipnyap_load_scripts(): void
 {
+    // add EX script
+    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], YIPNYAP_VERSION, true);
+
     // get fonts
     $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
@@ -201,9 +204,6 @@ function yipnyap_load_scripts(): void
     // add main script
     if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
-
-    // add EX script
-    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], YIPNYAP_VERSION, true);
 
     global $yipnyap_settings;
 

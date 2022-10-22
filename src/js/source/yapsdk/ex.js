@@ -66,6 +66,13 @@ $(document).ready(function () {
     header.html(header.html().replace('Yipnyap is loading', timedGreeting()));
     mixbg.attr('data-time', timeBG());
 
+    // check if #wpadminbar exists, then add styles to cmui-header
+    // yeah, yeah, dirty way to do this, but whatever, man!!
+    if (isModerator) {
+        $('#cmui-header').css('padding-top', '2em');
+        $('#navigation-widget-small').css('padding-top', '3em');
+        $('#cmui-entire-content').css('padding-top', '2em');
+    }
 });
 
 function timeBG() {

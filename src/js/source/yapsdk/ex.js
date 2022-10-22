@@ -71,7 +71,8 @@ $(document).ready(function () {
     if (isModerator) {
         // $('#cmui-header').css('padding-top', '2em');
         // $('#navigation-widget-small').css('padding-top', '3em');
-        $('#navigation-widget-small > .border-divider')[0].append(`
+
+        const linkHTML = $(`
         <a class="cmui navigator-item  text-tooltip-tfr" href="https://yipnyap.xyz/wp-admin/admin.php?page=hnkit-overview" title="Admin" style="position: relative;">
             <!-- ICON SVG -->
             <svg class="icon-user menu-item-link-icon w-6 h-6">
@@ -81,7 +82,8 @@ $(document).ready(function () {
             <div class="xm-tooltip" style="white-space: nowrap; position: absolute; z-index: 99999; right: -28px; top: 50%; margin-top: 0px; opacity: 0; visibility: hidden; transform: translate(10px, 0px); transition: all 0.3s ease-in-out 0s;">
                 <p class="xm-tooltip-text">Admin Dashboard</p>
             </div>
-        </a>`)
+        </a>`);
+        $('#navigation-widget-small > .border-divider')[0].append(linkHTML)
     }
 });
 

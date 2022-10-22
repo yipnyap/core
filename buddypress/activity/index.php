@@ -203,19 +203,19 @@ $user = yipnyap_get_logged_user_member_data();
         <!-- /LEFT COLUMN -->
 
         <div class="grid-column">
-            <div class="alert-line alert-line-error">
+            <div class="alert-line alert-line-info">
                 <!-- ALERT LINE ICON WRAP -->
                 <div class="alert-line-icon-wrap">
                     <!-- ALERT LINE ICON -->
                     <svg class="alert-line-icon icon-info">
-                        <use href="#svg-info"></use>
+                        <use href="#svg-thumbs-up"></use>
                     </svg>
                     <!-- /ALERT LINE ICON -->
                 </div>
                 <!-- /ALERT LINE ICON WRAP -->
 
                 <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><b>Searching is disabled.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, searching won't be usable until the new UI!</p>
+                <p class="alert-line-text"><b>THANK YOU!</b><br/>Seriously, y'all are insane.<br /><a href="https://yipnyap.xyz/380/">I'd like to show you the state of things &#8594;</a></p>
                 <!-- /ALERT LINE TEXT -->
             </div>
             <!-- debug_user_account -->

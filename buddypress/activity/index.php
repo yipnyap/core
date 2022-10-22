@@ -215,7 +215,7 @@ $user = yipnyap_get_logged_user_member_data();
                 <!-- /ALERT LINE ICON WRAP -->
 
                 <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><b>Searching is disabled.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, searching won't be usable until 2022.11, with the new UI.</p>
+                <p class="alert-line-text"><b>Searching is disabled.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, searching won't be usable until the new UI!</p>
                 <!-- /ALERT LINE TEXT -->
             </div>
             <!-- debug_user_account -->

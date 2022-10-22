@@ -10,9 +10,9 @@ const getUserActivityPermissions = (user, activityData, currentProfileUserID) =>
         return permissions;
     }
 
-    const loggedUserIsSiteAdmin = yipnyap_constants.settings.current_user_is_admin;
+    const loggedUserIsModerator = yipnyap_constants.settings.current_user_is_admin || yipnyap_constants.settings.current_user_is_moderator;
 
-    if (loggedUserIsSiteAdmin) {
+    if (loggedUserIsModerator) {
         permissions.settings = true;
         permissions.edit = activityComponentIsAllowedForEdit(activityData.component) && activityTypeIsAllowedForEdit(activityData.type);
         permissions.delete = true;

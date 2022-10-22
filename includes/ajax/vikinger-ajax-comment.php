@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap COMMENT AJAX
- * 
+ *
  * @since 1.0.0
  */
 
@@ -113,7 +113,7 @@ function yipnyap_post_comment_delete_ajax() {
     wp_die('Missing Parameters');
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('manage_activities');
 
   // get logged user id
   $logged_user_id = get_current_user_id();
@@ -173,12 +173,12 @@ add_action('wp_ajax_nopriv_yipnyap_get_comments_ajax', 'yipnyap_get_comments_aja
 function yipnyap_get_post_top_level_comment_count_ajax() {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
-  
+
   // get comment count for postID
   $comment_count = yipnyap_get_post_top_level_comment_count($_POST['postID']);
 
   header('Content-Type: application/json');
-  
+
   // return comment count
   echo json_encode($comment_count);
 

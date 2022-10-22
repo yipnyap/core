@@ -26,6 +26,7 @@ function yipnyap_settings_get()
         'users_can_register' => is_multisite() ? in_array(get_site_option('registration', false), ['all', 'user']) : get_option('users_can_register') === '1',
         'posts_per_page' => get_option('posts_per_page'),
         'current_user_is_admin' => current_user_can('administrator'),
+        'current_user_is_moderator' => current_user_can('moderator'),
 
         /**
          * Paid Memberships Pro

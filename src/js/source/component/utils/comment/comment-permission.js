@@ -9,9 +9,9 @@ const getUserCommentPermissions = (user, commentData, group) => {
         return permissions;
     }
 
-    const loggedUserIsSiteAdmin = yipnyap_constants.settings.current_user_is_admin;
+    const loggedUserIsModerator = yipnyap_constants.settings.current_user_is_admin || yipnyap_constants.settings.current_user_is_moderator;
 
-    if (loggedUserIsSiteAdmin) {
+    if (loggedUserIsModerator) {
         permissions.settings = true;
         permissions.edit = true;
         permissions.delete = true;

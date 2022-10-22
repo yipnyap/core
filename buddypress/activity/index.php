@@ -215,7 +215,7 @@ $user = yipnyap_get_logged_user_member_data();
                 <!-- /ALERT LINE ICON WRAP -->
 
                 <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><b>Searching is unfunctional.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, 2022.10 is rolling out and this changes how Searching works and, well, it's not working correctly. When this notice disappears, thats when you can search again!</p>
+                <p class="alert-line-text"><b>Searching is disabled.</b><br/>Being a furry site, our search doesn't work.<br/>Jokes aside, searching won't be usable until 2022.11, with the new UI.</p>
                 <!-- /ALERT LINE TEXT -->
             </div>
             <!-- debug_user_account -->

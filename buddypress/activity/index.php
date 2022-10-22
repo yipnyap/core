@@ -153,7 +153,7 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid grid-3-6-3 mobile-prefer-content" style="padding:0 1vw 6vw 6vw">
+    <div class="grid grid-3-6-3 mobile-prefer-content lg:!pl-32" style="padding-left: 80px;">
         <!-- LEFT COLUMN -->
         <div class="grid-column">
             <?php
@@ -277,7 +277,7 @@ $user = yipnyap_get_logged_user_member_data();
         </div>
 
         <!-- GROUPS COLUMN -->
-        <div class="grid-column !hidden lg:!grid">
+        <div class="grid-column !hidden xl:!grid">
             <?php
 
             // if the groups component is active, show groups widget

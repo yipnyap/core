@@ -63,7 +63,7 @@ $(document).ready(function () {
         postCommentButton.remove();
     }, 1000);
 
-    if (header) header.html(header.html().replace('Yipnyap is loading', timedGreeting()));
+    if (header && header.html()) header.html(header.html().replace('Yipnyap is loading', timedGreeting()));
     if (mixbg) mixbg.attr('data-time', timeBG());
 
     // check if #wpadminbar exists, then add styles to cmui-header

@@ -39,7 +39,7 @@ function ActivityStatusHeader(props) {
                     }
                 </div>
 
-                <a className="user-status-text small" href={`${props.data.author.link}/activity/${props.data.id}`}>
+                <a className="user-status-text small" href={`/activity/p/${props.data.id}`}>
                     {props.data.author.flair ? props.data.author.flair + ' •' : ''} {props.data.timestamp}
                     {
                         props.data.last_edited &&

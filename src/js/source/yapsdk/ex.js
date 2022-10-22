@@ -71,7 +71,7 @@ $(document).ready(function () {
     if (isModerator) {
         $('#cmui-header').css('padding-top', '2em');
         $('#navigation-widget-small').css('padding-top', '3em');
-        $('#nagivation-widget-small > .border-divider')[0].append(`
+        $('#navigation-widget-small > .border-divider')[0].append(`
         <a class="cmui navigator-item  text-tooltip-tfr" href="https://yipnyap.xyz/wp-admin/admin.php?page=hnkit-overview" title="Admin" style="position: relative;">
             <!-- ICON SVG -->
             <svg class="icon-user menu-item-link-icon w-6 h-6">

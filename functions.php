@@ -203,7 +203,7 @@ function yipnyap_load_scripts(): void
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
 
     // add EX script
-    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], '1.0.5', true);
+    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], YIPNYAP_VERSION, true);
 
     global $yipnyap_settings;
 

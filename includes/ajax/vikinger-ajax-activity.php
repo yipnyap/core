@@ -235,7 +235,7 @@ function yipnyap_activity_update_ajax()
     wp_die('Missing Parameters');
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('moderator');
 
   // get logged user id
   $logged_user_id = get_current_user_id();
@@ -321,7 +321,7 @@ function yipnyap_delete_activity_ajax()
     wp_die();
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('moderator');
 
   // get logged user id
   $logged_user_id = get_current_user_id();
@@ -396,7 +396,7 @@ function yipnyap_activity_comment_delete_ajax()
     wp_die('Missing parameters');
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('moderator');
 
   // get logged user id
   $logged_user_id = get_current_user_id();
@@ -472,7 +472,7 @@ function yipnyap_delete_activity_media_ajax()
     wp_die();
   }
 
-  $logged_user_is_site_admin = current_user_can('administrator');
+  $logged_user_is_site_admin = current_user_can('administrator') || current_user_can('moderator');
 
   // get logged user id
   $logged_user_id = get_current_user_id();

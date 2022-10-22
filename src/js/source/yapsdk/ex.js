@@ -71,7 +71,6 @@ $(document).ready(function () {
     if (isModerator) {
         $('#cmui-header').css('padding-top', '2em');
         $('#navigation-widget-small').css('padding-top', '3em');
-        $('#cmui-entire-content').css('padding-top', '2em');
     }
 });
 

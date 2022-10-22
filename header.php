@@ -21,7 +21,13 @@
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(); ?> style="-webkit-font-smoothing: antialiased;">
-<?php wp_body_open(); ?>
+<?php
+wp_body_open();
+
+if (current_user_can('administrator') || current_user_can('moderator')) { ?>
+    <div id="yapex-moderator-toggle"></div>
+<?php } ?>
+
 <!-- CMUI Entire Content begin -->
 <!--<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden;">-->
     <?php

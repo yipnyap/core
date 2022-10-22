@@ -27,7 +27,7 @@ const yapexModeratorWelcome = `
 const yapexModeratorWelcomeOverlay = `<div id="yapex-moderator-welcome-popover-overlay" class="yapex overlay"></div>`;
 
 $(document).ready(function () {
-    const isModerator = $('#wpadminbar')[0];
+    const isModerator = $('#wpadminbar')[0] || $('#yapex-moderator-toggle')[0];
     const isNewModerator = !localStorage.getItem('yapex-mod-pop-viewed');
     const isDarkTheme = $('svg.icon-light-theme')[0];
     const headerBackdrop = 'blur(5px) saturate(0.5)';
@@ -69,8 +69,8 @@ $(document).ready(function () {
     // check if #wpadminbar exists, then add styles to cmui-header
     // yeah, yeah, dirty way to do this, but whatever, man!!
     if (isModerator) {
-        $('#cmui-header').css('padding-top', '2em');
-        $('#navigation-widget-small').css('padding-top', '3em');
+        // $('#cmui-header').css('padding-top', '2em');
+        // $('#navigation-widget-small').css('padding-top', '3em');
         $('#navigation-widget-small > .border-divider')[0].append(`
         <a class="cmui navigator-item  text-tooltip-tfr" href="https://yipnyap.xyz/wp-admin/admin.php?page=hnkit-overview" title="Admin" style="position: relative;">
             <!-- ICON SVG -->

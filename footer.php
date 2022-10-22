@@ -219,6 +219,7 @@ endif;
 ?>
 
 <?php wp_footer(); ?>
-</div>
+<!-- CMUI Entire Content End -->
+<!--</div>-->
 </body>
 </html>

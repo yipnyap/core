@@ -22,8 +22,8 @@
 </head>
 <body <?php body_class(); ?> style="-webkit-font-smoothing: antialiased;">
 <?php wp_body_open(); ?>
-
-<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden;">
+<!-- CMUI Entire Content begin -->
+<!--<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden;">-->
     <?php
 
     $loading_screen_status = get_theme_mod('yipnyap_loadingscreen_setting_display', 'hide');

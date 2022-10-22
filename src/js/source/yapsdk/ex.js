@@ -9,13 +9,13 @@ const yapexModeratorWelcome = `
 <div id="yapex-moderator-welcome-popover" class="yapex card with-lip">
     <h4>hi moderator</h4>
     <p>
-        need to ban that <img draggable="false" role="img" class="emoji" alt="✨" src="https://cdn.yipnyap.xyz/bentostack/@rek/emoji-twemoji/svg/2728.svg">
-        troglodyte
-        <img draggable="false" role="img" class="emoji" alt="✨" src="https://cdn.yipnyap.xyz/bentostack/@rek/emoji-twemoji/svg/2728.svg">? you can do so
+        need to ban that ✨
+        piece of shit
+        ✨? you can do so
         up here, and more, in the Houndboard.
         <br>
         <br>
-        please be careful <img draggable="false" role="img" class="emoji" alt="😩" src="https://cdn.yipnyap.xyz/bentostack/@rek/emoji-twemoji/svg/1f629.svg">
+        please be careful 😩
         you can do a lot of bad things. (and if you do we'll obliterate your kneecaps)
         <br>
         <br>

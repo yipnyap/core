@@ -215,7 +215,7 @@ $user = yipnyap_get_logged_user_member_data();
                 <!-- /ALERT LINE ICON WRAP -->
 
                 <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><b>THANK YOU!</b><br/>Seriously, y'all are insane.<br /><a href="https://yipnyap.xyz/380/">I'd like to show you the state of things &#8594;</a></p>
+                <p class="alert-line-text"><b>THANK YOU!</b><br/>Seriously, y'all are insane.<br /><a href="https://yipnyap.xyz/380/">I'd like to show you the state of things (UPDATED) &#8594;</a></p>
                 <!-- /ALERT LINE TEXT -->
             </div>
             <!-- debug_user_account -->

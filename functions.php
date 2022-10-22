@@ -108,6 +108,13 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     }
 }
 
+dd_action('after_setup_theme', 'remove_admin_bar');
+function remove_admin_bar() {
+    if (!current_user_can('see_admin_bar') && !is_admin()) {
+        show_admin_bar(false);
+    }
+}
+
 /**
  * TRANSLATION functions
  */

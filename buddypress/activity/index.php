@@ -153,7 +153,7 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid grid-3-6-3 mobile-prefer-content lg:!pl-32" style="padding-left: 80px;">
+    <div class="grid grid-3-6-3 mobile-prefer-content lg:!pl-24" style="padding-left: 80px;">
         <!-- LEFT COLUMN -->
         <div class="grid-column">
             <?php

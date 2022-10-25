@@ -5616,10 +5616,6 @@ textarea::placeholder {
   margin-top: 52px;
 }
 
-.content-grid .grid {
-  margin-top: 32px;
-}
-
 .content-grid .grid:first-child {
   margin-top: 0;
 }

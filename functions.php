@@ -73,7 +73,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : '2022.10-mobile_view_fix_mk4');
+    : '2022.10-cmui_layout_fix');
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**

@@ -156,7 +156,7 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid grid-3-6-3 p-4 lg:!pl-24">
+    <div class="grid grid-3-6-3 px-4 lg:!pl-24">
         <!-- LEFT COLUMN -->
         <div class="grid-column">
             <?php

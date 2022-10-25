@@ -1880,7 +1880,7 @@ textarea::placeholder {
 ----------------------*/
 .content-grid {
   @apply md:pl-24 pr-4;
-  margin: 64px auto 0;
+  margin: 0 auto 0;
 }
 .content-grid.full {
   width: 100%;

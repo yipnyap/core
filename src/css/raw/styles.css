@@ -849,12 +849,12 @@ h2 {
   top: 5rem;
 }
 
-.right-0 {
-  right: 0px;
-}
-
 .left-0 {
   left: 0px;
+}
+
+.right-0 {
+  right: 0px;
 }
 
 .left-full {
@@ -981,10 +981,6 @@ h2 {
 
 .mr-1 {
   margin-right: 0.25rem;
-}
-
-.mb-6 {
-  margin-bottom: 1.5rem;
 }
 
 .mb-2 {
@@ -1245,16 +1241,16 @@ h2 {
   width: 3rem;
 }
 
+.w-auto {
+  width: auto;
+}
+
 .w-4 {
   width: 1rem;
 }
 
 .w-8 {
   width: 2rem;
-}
-
-.w-auto {
-  width: auto;
 }
 
 .w-10 {
@@ -2599,10 +2595,6 @@ h2 {
   padding: 0.5rem;
 }
 
-.p-4 {
-  padding: 1rem;
-}
-
 .p-1 {
   padding: 0.25rem;
 }
@@ -2725,6 +2717,10 @@ h2 {
   padding-bottom: 1rem;
 }
 
+.pl-4 {
+  padding-left: 1rem;
+}
+
 .pr-4 {
   padding-right: 1rem;
 }
@@ -2759,10 +2755,6 @@ h2 {
 
 .pb-12 {
   padding-bottom: 3rem;
-}
-
-.pl-4 {
-  padding-left: 1rem;
 }
 
 .text-left {
@@ -5579,7 +5571,7 @@ textarea::placeholder {
 }
 
 .content-grid {
-  margin: 64px auto 0;
+  margin: 0 auto 0;
 }
 
 .content-grid.full {
@@ -34060,6 +34052,10 @@ body.buddypress.registration #buddypress .page #template-notices {
     padding-bottom: 1rem;
   }
 
+  .sm\:pl-6 {
+    padding-left: 1.5rem;
+  }
+
   .sm\:pr-6 {
     padding-right: 1.5rem;
   }
@@ -34070,10 +34066,6 @@ body.buddypress.registration #buddypress .page #template-notices {
 
   .sm\:pb-16 {
     padding-bottom: 4rem;
-  }
-
-  .sm\:pl-6 {
-    padding-left: 1.5rem;
   }
 
   .sm\:text-left {

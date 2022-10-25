@@ -64,7 +64,7 @@ function CommentForm(props) {
     };
 
     return (
-        <div className="post-comment-form animate-slide-down">
+        <div className="post-comment-form">
             <Avatar size="small"
                     data={props.user}
                     noBorder

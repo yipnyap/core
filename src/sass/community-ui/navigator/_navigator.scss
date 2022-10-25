@@ -1,5 +1,6 @@
 .cmui {
   &.navigator {
+    position: fixed;
     background-color: var(--color-box-background);
     color: var(--color-text);
     flex-direction: column;

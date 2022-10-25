@@ -320,7 +320,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Header Colors
          */
-        '--color-header-background' => '#f8f8fb',
+        '--color-header-background' => '#fff',
         '--color-header-logo-background' => '#00c7d9',
         '--color-header-text' => '#fff',
         '--color-header-icon' => '#8b88ff',
@@ -444,7 +444,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         case 'dark':
             $preset_default_colors = array_merge($default, [
                 '--color-wplogin-body' => '#1d2333',
-                '--color-header-background' => '#161b28',
+                '--color-header-background' => '#1d2333',
                 '--color-header-logo-background' => '#1d2333',
                 '--color-header-input-background' => '#293249',
                 '--color-header-input-placeholder' => '#9aa4bf',
@@ -478,8 +478,6 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-primary-light' => '#40d04f',
                 '--color-primary-dark' => '#4ff461',
                 '--color-primary-shadow' => '#40d04f',
-                '--color-secondary' => '#7750f8',
-                '--color-secondary-hover' => '#9668ff',
                 '--color-secondary-dark' => '#7750f8',
                 '--color-secondary-shadow' => '#7750f8',
                 '--color-loading-screen-background' => '#1d2333',

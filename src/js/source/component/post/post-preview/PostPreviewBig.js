@@ -22,7 +22,7 @@ function PostPreviewBig(props) {
 
     return (
         <div
-            className={`post-preview medium post-preview-normal animate-slide-down ${!props.data.cover_url ? 'post-preview-no-cover' : ''}`}>
+            className={`post-preview medium post-preview-normal ${!props.data.cover_url ? 'post-preview-no-cover' : ''}`}>
             {
                 props.data.cover_url &&
                 <a href={props.data.permalink}>

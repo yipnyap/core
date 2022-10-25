@@ -73,7 +73,7 @@ function ActivityFilterBar(props) {
     };
 
     return (
-        <div className={`quick-filters ${window.location.pathname.indexOf('activity') >-1 ? 'sticky top-20 z-10' : ''}`}>
+        <div className={`quick-filters ${window.location.pathname.indexOf('activity') >-1 ? 'top-20 z-10' : ''}`}>
             {/* QUICK FILTERS TABS */}
             <div className="quick-filters-tabs">
                 {

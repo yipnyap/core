@@ -106,7 +106,7 @@ function MemberPreviewBig(props) {
     const displayVerifiedMemberBadge = yipnyap_constants.plugin_active['bp-verified-member'] && yipnyap_constants.settings.bp_verified_member_display_badge_in_members_lists && props.data.verified;
 
     return (
-        <div className="user-preview animate-slide-down">
+        <div className="user-preview">
             {/* USER PREVIEW COVER */}
             <div className="user-preview-cover"
                  style={{background: `url(${props.data.cover_url}) center center / cover no-repeat`}}></div>

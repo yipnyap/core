@@ -42,12 +42,12 @@ if ( isset( $args['user'] ) ) {
 	$verified_user = $display_verified && $args['user']['verified'];
 }
 
-if ( $sidemenu_status === 'display' ) :
+if ( $sidemenu_status === 'display' ) {
 	?>
     <!-- NAVIGATION WIDGET -->
     <nav id="navigation-widget-small"
-         style="margin-top: 0; z-index: 900; padding-bottom: 0; left: 0;"
-         class="cmui navigator navigation-widget navigation-widget-desktop navigation-widget-closed sidebar left hidden md:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'navigation-widget-hidden' : 'navigation-widget-delayed'; ?>">
+         style="z-index: 900; padding-bottom: 0; padding-top: 1em;"
+         class="cmui navigator navigation-widget navigation-widget-desktop hidden lg:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
         <?php if (isset( $args['user'] ) && get_option('cmui_use_profile_as_colour_palette') === 'yes') { ?>
         <a class="flex items-center justify-center" href="/" style="mask: url(<?php echo esc_url( $logo_url[0] ) ?>); mask-size: 2.5rem; animation: 1s logoHue ease-out;">
             <img class="w-10 rounded"
@@ -106,195 +106,10 @@ if ( $sidemenu_status === 'display' ) :
 		?>
     </nav>
     <!-- /NAVIGATION WIDGET -->
-<?php
-
-endif;
-
-?>
-
-<!-- NAVIGATION WIDGET -->
-<nav id="navigation-widget-mobile"
-     class="navigation-widget navigation-widget-mobile sidebar left navigation-widget-hidden" data-simplebar>
-    <!-- NAVIGATION WIDGET CLOSE BUTTON -->
-    <div class="navigation-widget-close-button">
-		<?php
-
-		/**
-		 * Icon SVG
-		 */
-		get_template_part( 'template-part/icon/icon', 'svg', [
-			'icon'      => 'back-arrow',
-			'modifiers' => 'navigation-widget-close-button-icon'
-		] );
-
-		?>
-    </div>
-    <!-- /NAVIGATION WIDGET CLOSE BUTTON -->
-
-	<?php if ( isset( $args['user'] ) ) { ?>
-        <!-- NAVIGATION WIDGET INFO WRAP -->
-        <div class="navigation-widget-info-wrap">
-            <!-- NAVIGATION WIDGET INFO -->
-            <div class="navigation-widget-info">
-                <!-- USER AVATAR -->
-				<?php
-
-				/**
-				 * Avatar Small
-				 */
-				get_template_part( 'template-part/avatar/avatar', 'small', [
-					'user'      => $args['user'],
-					'linked'    => yipnyap_plugin_buddypress_is_active(),
-					'no_border' => true
-				] );
-
-				?>
-                <!-- /USER AVATAR -->
-
-                <!-- NAVIGATION WIDGET INFO TITLE -->
-                <p class="navigation-widget-info-title">
-					<?php
-
-					echo esc_html( $args['user']['name'] );
-
-					if ( $verified_user ) {
-						echo $yipnyap_settings['bp_verified_member_badge'];
-					}
-
-					?>
-                </p>
-                <!-- /NAVIGATION WIDGET INFO TITLE -->
-
-                <!-- NAVIGATION WIDGET INFO TEXT -->
-                <p class="navigation-widget-info-text"><?php esc_html_e( 'Welcome Back!', 'yipnyap' ); ?></p>
-                <!-- /NAVIGATION WIDGET INFO TEXT -->
-            </div>
-            <!-- /NAVIGATION WIDGET INFO -->
-
-			<?php
-
-			// add GamiPress points data if plugin is active
-			if ( yipnyap_plugin_gamipress_is_active() ) {
-				if ( count( $args['points'] ) ) {
-					/**
-					 * Point Item List
-					 */
-					get_template_part( 'template-part/point/point-item', 'list', [
-						'points'    => $args['points'],
-						'modifiers' => 'negative'
-					] );
-				}
-			}
-
-			?>
-
-            <!-- NAVIGATION WIDGET BUTTON -->
-            <a class="navigation-widget-info-button button small secondary"
-               href="<?php echo esc_url( wp_logout_url( '/activity' ) ); ?>"><?php esc_html_e( 'Logout', 'yipnyap' ); ?></a>
-            <!-- /NAVIGATION WIDGET BUTTON -->
-        </div>
-        <!-- /NAVIGATION WIDGET INFO WRAP -->
-	<?php } ?>
-	<?php if ( isset( $args['user'] ) ) : ?>
-        <!-- ACTION ITEM WRAP -->
-        <div class="action-item-wrap">
-            <!-- ACTION ITEM -->
-            <div class="action-item hoverable vk-theme-toggle">
-				<?php
-
-				$color_theme = yipnyap_logged_user_color_theme_get();
-
-				$toggle_color_theme = 'light';
-
-				if ( $color_theme === 'light' ) {
-					$toggle_color_theme = 'dark';
-				}
-
-				$color_theme_name = $color_theme === 'light' ? esc_html__( 'Switch to Dark', 'yipnyap' ) : esc_html__( 'Switch to Light', 'yipnyap' );
-
-				/**
-				 * Icon SVG
-				 */
-				get_template_part( 'template-part/icon/icon', 'svg', [
-					'icon'      => $toggle_color_theme . '-theme',
-					'modifiers' => 'action-item-icon'
-				] );
-
-				?>
-
-                <!-- ACTION ITEM TEXT -->
-                <p class="action-item-text"><?php echo esc_html( $color_theme_name ); ?></p>
-                <!-- /ACTION ITEM TEXT -->
-            </div>
-            <!-- /ACTION ITEM -->
-        </div>
-        <!-- /ACTION ITEM WRAP -->
-	<?php endif; ?>
-
-	<?php if ( count( $args['side_menu_items'] ) > 0 ) : ?>
-        <!-- NAVIGATION WIDGET SECTION -->
-        <div class="navigation-widget-section">
-            <!-- NAVIGATION WIDGET SECTION TITLE -->
-            <p class="navigation-widget-section-title"><?php esc_html_e( 'Sections', 'yipnyap' ); ?></p>
-            <!-- /NAVIGATION WIDGET SECTION TITLE -->
-
-			<?php
-
-			/**
-			 * Menu
-			 */
-			get_template_part( 'template-part/navigation/menu', null, [
-				'menu_items'      => $args['side_menu_items'],
-				'show_menu_names' => true
-			] );
-
-			?>
-        </div>
-        <!-- /NAVIGATION WIDGET SECTION -->
-	<?php endif; ?>
-
-	<?php
-
-	// show settings menu
-	foreach ( $args['settings_navigation_sections'] as $settings_navigation_section ) {
-		/**
-		 * Navigation Widget Section
-		 */
-		get_template_part( 'template-part/navigation/navigation-widget-section', null, [
-			'section_name'  => $settings_navigation_section['title'],
-			'section_links' => $settings_navigation_section['menu_items']
-		] );
-	}
-
-	// show header menu
-	if ( count( $args['header_menu_items'] ) > 0 ) {
-		$section_name = $args['header_menu_items'][0]['menu_name'];
-
-		/**
-		 * Navigation Widget Section
-		 */
-		get_template_part( 'template-part/navigation/navigation-widget-section', null, [
-			'section_name'  => $section_name,
-			'section_links' => $args['header_menu_items']
-		] );
-	}
-
-	// show header features menu
-	if ( count( $args['header_features_menu_items'] ) > 0 ) {
-		foreach ( $args['header_features_menu_items'] as $header_features_menu_section => $header_features_menu_items ) {
-			/**
-			 * Navigation Widget Section
-			 */
-			get_template_part( 'template-part/navigation/navigation-widget-section', null, [
-				'section_name'  => $header_features_menu_section,
-				'section_links' => $header_features_menu_items
-			] );
-		}
-	}
-	?>
-</nav>
-<!-- /NAVIGATION WIDGET -->
-
+<?php } ?>
 <!-- HEADER -->
 <header id="cmui-header" class="fixed top-0 w-full z-40"></header>
 <!-- /HEADER -->
+
+<!-- CMUI Entire Content begin -->
+<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden; padding-top: 80px;">

@@ -73,7 +73,7 @@ $(document).ready(function () {
         // $('#navigation-widget-small').css('padding-top', '3em');
 
         const linkHTML = $(`
-        <a class="cmui navigator-item  text-tooltip-tfr" href="https://yipnyap.xyz/wp-admin/admin.php?page=uip-overview" title="Admin" style="position: relative;">
+        <a class="cmui navigator-item  text-tooltip-tfr" href="/wp-admin/admin.php?page=uip-overview" title="Admin" style="position: relative;">
             <!-- ICON SVG -->
             <svg class="icon-user menu-item-link-icon w-6 h-6">
                 <use href="#svg-link" stroke="currentColor"></use>

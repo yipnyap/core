@@ -1882,9 +1882,6 @@ textarea::placeholder {
   @apply md:pl-24 pr-4;
   margin: 64px auto 0;
 }
-.content-grid.signed-in {
-  margin: 0;
-}
 .content-grid.full {
   width: 100%;
   max-width: 100%;
@@ -2164,7 +2161,7 @@ textarea::placeholder {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .content-grid {
@@ -9718,7 +9715,7 @@ a:hover {
   position: absolute;
   top: 22px;
   right: 19px;
-  z-index: 9999;
+  z-index: 2;
 }
 .widget-box .tag-stickers {
   display: -webkit-box;
@@ -10144,7 +10141,7 @@ a:hover {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .widget-box .widget-box-footer .chart-info {
@@ -22042,6 +22039,7 @@ img[alt=logo].logo-image {
 }
 
 .cmui.navigator {
+  position: fixed;
   background-color: var(--color-box-background);
   color: var(--color-text);
   -webkit-box-orient: vertical;

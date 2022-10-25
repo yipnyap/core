@@ -55,13 +55,13 @@ function PostPreviewGallerySmall(props) {
   }
 
   return (
-    <div className="post-preview small animate-slide-down">
+    <div className="post-preview small">
       {/* GALLERY POPUP BUTTON */}
       <div ref={galleryPopupRef} className="gallery-popup-button" data-gallery={JSON.stringify(galleryData)}>
         <IconSVG icon="gallery" />
       </div>
       {/* GALLERY POPUP BUTTON */}
-        
+
       {/* POST PREVIEW GALLERY */}
       <div ref={gallerySliderRef} className="post-preview-gallery swiper-container">
         <div className="post-preview-gallery-slider swiper-wrapper">
@@ -85,7 +85,7 @@ function PostPreviewGallerySmall(props) {
           />
         </div>
         {/* SLIDER CONTROL */}
-  
+
         {/* SLIDER CONTROL */}
         <div ref={galleryControlNextRef} className="slider-control medium solid right">
           <IconSVG  icon="small-arrow"

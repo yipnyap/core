@@ -13,7 +13,7 @@ function GroupSentMembershipRequestPreview(props) {
         postsText = props.data.group.post_count === 1 ? yipnyap_translation.post : yipnyap_translation.posts;
 
     return (
-        <div className="user-preview small animate-slide-down">
+        <div className="user-preview small">
             {/* USER PREVIEW COVER */}
             <div className="user-preview-cover"
                  style={{background: `url(${props.data.group.cover_image_url}) center center / cover no-repeat`}}></div>

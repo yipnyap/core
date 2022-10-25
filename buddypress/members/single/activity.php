@@ -1,23 +1,23 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Members Activity
- * 
+ *
  * Displays a member activity feed
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
   $member = get_query_var('member');
 
   $friends = yipnyap_members_get(['user_id' => $member['id'], 'per_page' => 5]);
-  
+
 ?>
 
 <!-- GRID -->
-<div class="grid grid-3-6-3 mobile-prefer-content">
+<div class="grid grid-3-6-3">
   <!-- GRID COLUMN -->
   <div class="grid-column">
   <?php
@@ -93,7 +93,7 @@
 
     // add vkmedia photos widget if plugin is active
     if (yipnyap_plugin_vkmedia_is_active() && yipnyap_settings_media_file_upload_is_enabled('image')) :
-      
+
   ?>
 
     <!-- PHOTOS WIDGET -->
@@ -101,7 +101,7 @@
     <!-- /PHOTOS WIDGET -->
 
   <?php
-  
+
     endif;
 
     // if the groups component is active, show groups widget

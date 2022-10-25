@@ -2599,6 +2599,10 @@ h2 {
   padding: 0.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -2755,6 +2759,10 @@ h2 {
 
 .pb-12 {
   padding-bottom: 3rem;
+}
+
+.pl-4 {
+  padding-left: 1rem;
 }
 
 .text-left {
@@ -5574,10 +5582,6 @@ textarea::placeholder {
   margin: 64px auto 0;
 }
 
-.content-grid.signed-in {
-  margin: 0;
-}
-
 .content-grid.full {
   width: 100%;
   max-width: 100%;
@@ -5931,7 +5935,7 @@ textarea::placeholder {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 
 @media screen and (max-width: 1365px) {
@@ -14303,7 +14307,7 @@ a:hover {
   position: absolute;
   top: 22px;
   right: 19px;
-  z-index: 9999;
+  z-index: 2;
 }
 
 .widget-box .tag-stickers {
@@ -14821,7 +14825,7 @@ a:hover {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 
 @media screen and (max-width: 1365px) {
@@ -28272,6 +28276,7 @@ img[alt=logo].logo-image {
 }
 
 .cmui.navigator {
+  position: fixed;
   background-color: var(--color-box-background);
   color: var(--color-text);
   -ms-flex-direction: column;
@@ -34067,6 +34072,10 @@ body.buddypress.registration #buddypress .page #template-notices {
     padding-bottom: 4rem;
   }
 
+  .sm\:pl-6 {
+    padding-left: 1.5rem;
+  }
+
   .sm\:text-left {
     text-align: left;
   }
@@ -34211,6 +34220,15 @@ body.buddypress.registration #buddypress .page #template-notices {
     margin-right: auto;
   }
 
+  .lg\:flex {
+    display: -ms-flexbox;
+    display: flex;
+  }
+
+  .lg\:\!grid {
+    display: grid !important;
+  }
+
   .lg\:grid {
     display: grid;
   }
@@ -34263,12 +34281,6 @@ body.buddypress.registration #buddypress .page #template-notices {
     .dark\:lg\:hover\:\[paint-order\:markers\]:hover {
       paint-order: markers;
     }
-  }
-}
-
-@media (min-width: 1280px) {
-  .xl\:\!grid {
-    display: grid !important;
   }
 }
 /*# sourceMappingURL=styles.css.map */

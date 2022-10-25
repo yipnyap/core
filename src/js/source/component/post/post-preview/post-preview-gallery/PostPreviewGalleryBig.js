@@ -56,7 +56,7 @@ function PostPreviewGalleryBig(props) {
     }
 
     return (
-        <div className="post-preview medium post-preview-normal post-preview-type-gallery animate-slide-down">
+        <div className="post-preview medium post-preview-normal post-preview-type-gallery">
             {/* GALLERY POPUP BUTTON */}
             <div ref={galleryPopupRef} className="gallery-popup-button" data-gallery={JSON.stringify(galleryData)}>
                 <IconSVG icon="gallery"/>

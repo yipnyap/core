@@ -13,7 +13,7 @@ function GroupReceivedMembershipRequestPreview(props) {
         commentCountText = props.data.user.stats.comment_count === 1 ? yipnyap_translation.comment : yipnyap_translation.comments;
 
     return (
-        <div className="user-preview small animate-slide-down">
+        <div className="user-preview small">
             {/* USER PREVIEW COVER */}
             <div className="user-preview-cover"
                  style={{background: `url(${props.data.user.cover_url}) center center / cover no-repeat`}}></div>

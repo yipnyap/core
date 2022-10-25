@@ -28,8 +28,6 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
     <div id="yapex-moderator-toggle"></div>
 <?php } ?>
 
-<!-- CMUI Entire Content begin -->
-<!--<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden;">-->
     <?php
 
     $loading_screen_status = get_theme_mod('yipnyap_loadingscreen_setting_display', 'hide');

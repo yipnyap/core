@@ -47,7 +47,7 @@ if ( $sidemenu_status === 'display' ) {
     <!-- NAVIGATION WIDGET -->
     <nav id="navigation-widget-small"
          style="z-index: 900; padding-bottom: 0; padding-top: 1em;"
-         class="cmui navigator navigation-widget navigation-widget-desktop hidden md:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
+         class="cmui navigator navigation-widget navigation-widget-desktop hidden lg:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
         <?php if (isset( $args['user'] ) && get_option('cmui_use_profile_as_colour_palette') === 'yes') { ?>
         <a class="flex items-center justify-center" href="/" style="mask: url(<?php echo esc_url( $logo_url[0] ) ?>); mask-size: 2.5rem; animation: 1s logoHue ease-out;">
             <img class="w-10 rounded"
@@ -108,7 +108,7 @@ if ( $sidemenu_status === 'display' ) {
     <!-- /NAVIGATION WIDGET -->
 <?php } ?>
 <!-- HEADER -->
-<header id="cmui-header" class="fixed top-0 w-full z-40 bg-box"></header>
+<header id="cmui-header" class="fixed top-0 w-full z-40"></header>
 <!-- /HEADER -->
 
 <!-- CMUI Entire Content begin -->

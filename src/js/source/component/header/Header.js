@@ -149,10 +149,13 @@ export default function Header() {
 
     return (
         <header className="flex-shrink-0 relative h-16 flex items-center md:pl-24"
-            // style={{background: 'var(--color-header-background)'}}
+            style={{background: 'var(--color-header-background)'}}
         >
+            <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 md:hidden">
+                <img src={yipnyap_constants.logo_url} alt="Yipnyap" className="h-8 w-auto inline-flex items-center justify-center rounded-md"/>
+            </a>
             {/* Menu button area */}
-            <div className="absolute inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
+            <div className="inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
                 {/* Mobile menu button */}
                 <button
                     type="button"

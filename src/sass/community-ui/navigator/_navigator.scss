@@ -1,12 +1,13 @@
 .cmui {
   &.navigator {
-    //background-color: var(--color-box-background);
-    //color: var(--color-text);
-    //flex-direction: column;
-    //align-items: center;
-    //width: 5rem;
-    //height: 100%;
-    //border-radius: 0.25rem;
+    position: fixed;
+    background-color: var(--color-box-background);
+    color: var(--color-text);
+    flex-direction: column;
+    align-items: center;
+    width: 5rem;
+    height: 100%;
+    border-radius: 0.25rem;
 
     .border-divider {
       display: flex;

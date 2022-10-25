@@ -59,7 +59,7 @@
     position: absolute;
     top: 22px;
     right: 19px;
-    z-index: 9999;
+    z-index: 2;
   }
 
   .tag-stickers {
@@ -618,7 +618,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .widget-box {

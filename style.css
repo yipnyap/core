@@ -9715,7 +9715,7 @@ a:hover {
   position: absolute;
   top: 22px;
   right: 19px;
-  z-index: 9999;
+  z-index: 2;
 }
 .widget-box .tag-stickers {
   display: -webkit-box;
@@ -10141,7 +10141,7 @@ a:hover {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .widget-box .widget-box-footer .chart-info {
@@ -22038,6 +22038,21 @@ img[alt=logo].logo-image {
   outline: 0;
 }
 
+.cmui.navigator {
+  position: fixed;
+  background-color: var(--color-box-background);
+  color: var(--color-text);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 5rem;
+  height: 100%;
+  border-radius: 0.25rem;
+}
 .cmui.navigator .border-divider {
   display: -webkit-box;
   display: -ms-flexbox;

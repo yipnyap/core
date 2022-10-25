@@ -192,6 +192,9 @@ export default function Header() {
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
                     {/* Navigation links */}
                     <nav aria-label="Global" className="flex space-x-10">
+                        <a href="https://ko-fi.com/rekkisomo" className="text-sm font-medium text-primary">
+                            Ko-fi
+                        </a>
                         <a href="/community-guidelines" className="text-sm font-medium text-primary">
                             Guidelines
                         </a>

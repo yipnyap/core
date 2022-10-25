@@ -57,7 +57,7 @@ function PostPreviewGallery(props) {
     }
 
     return (
-        <div className="post-preview post-preview-type-gallery animate-slide-down">
+        <div className="post-preview post-preview-type-gallery">
             {
                 !props.sharePopupActivity &&
                 <React.Fragment>

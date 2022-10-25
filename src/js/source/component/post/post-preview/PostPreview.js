@@ -19,7 +19,7 @@ function PostPreview(props) {
     const postFormatIcon = postUtils.getPostFormatIcon(props.data.format);
 
     return (
-        <div className={`post-preview animate-slide-down ${!props.data.cover_url ? 'post-preview-no-cover' : ''}`}>
+        <div className={`post-preview ${!props.data.cover_url ? 'post-preview-no-cover' : ''}`}>
             {
                 props.data.cover_url &&
                 <a href={props.data.permalink}>

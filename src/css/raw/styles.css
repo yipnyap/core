@@ -2599,6 +2599,10 @@ h2 {
   padding: 0.5rem;
 }
 
+.p-4 {
+  padding: 1rem;
+}
+
 .p-1 {
   padding: 0.25rem;
 }
@@ -5574,10 +5578,6 @@ textarea::placeholder {
   margin: 64px auto 0;
 }
 
-.content-grid.signed-in {
-  margin: 0;
-}
-
 .content-grid.full {
   width: 100%;
   max-width: 100%;
@@ -5931,7 +5931,7 @@ textarea::placeholder {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 
 @media screen and (max-width: 1365px) {
@@ -28269,18 +28269,6 @@ img[alt=logo].logo-image {
   --ring-color: #6366F1;
   --ring-offset-width: 2px;
   outline: 0;
-}
-
-.cmui.navigator {
-  background-color: var(--color-box-background);
-  color: var(--color-text);
-  -ms-flex-direction: column;
-  flex-direction: column;
-  -ms-flex-align: center;
-  align-items: center;
-  width: 5rem;
-  height: 100%;
-  border-radius: 0.25rem;
 }
 
 .cmui.navigator .border-divider {

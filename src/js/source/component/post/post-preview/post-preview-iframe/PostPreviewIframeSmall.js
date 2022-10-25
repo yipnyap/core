@@ -24,7 +24,7 @@ function PostPreviewIframeSmall(props) {
   }, []);
 
   return (
-    <div className="post-preview small post-preview-type-iframe animate-slide-down">
+    <div className="post-preview small post-preview-type-iframe">
       {/* POST PREVIEW IMAGE */}
       <a ref={iframePopupRef} data-iframe-url={props.data.format === 'video' ? props.data.video_url : props.data.audio_url}>
         <div className="post-preview-image" style={coverStyle}>

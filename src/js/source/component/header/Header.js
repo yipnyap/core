@@ -284,7 +284,7 @@ export default function Header() {
                             aria-label="Global"
                         >
                             <div className="h-16 flex items-center justify-between px-4 sm:px-6">
-                                <a href="#">
+                                <a href="/">
                                     <img
                                         className="block h-8 w-auto"
                                         src={yipnyap_constants.logo_url}

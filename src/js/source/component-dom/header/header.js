@@ -10,7 +10,7 @@ if (headerElement) {
         <>
             <Header />
             {window.location.hostname === 'yipnyap.local' && (
-            <div className='mb-6' style={{
+            <div style={{
                 height: '30px',
                 width: '100vw',
                 color: 'white',

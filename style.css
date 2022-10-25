@@ -1882,9 +1882,6 @@ textarea::placeholder {
   @apply md:pl-24 pr-4;
   margin: 64px auto 0;
 }
-.content-grid.signed-in {
-  margin: 0;
-}
 .content-grid.full {
   width: 100%;
   max-width: 100%;
@@ -2164,7 +2161,7 @@ textarea::placeholder {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .content-grid {
@@ -22041,20 +22038,6 @@ img[alt=logo].logo-image {
   outline: 0;
 }
 
-.cmui.navigator {
-  background-color: var(--color-box-background);
-  color: var(--color-text);
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 5rem;
-  height: 100%;
-  border-radius: 0.25rem;
-}
 .cmui.navigator .border-divider {
   display: -webkit-box;
   display: -ms-flexbox;

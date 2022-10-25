@@ -49,12 +49,12 @@ $user = yipnyap_get_logged_user_member_data();
 
     <?php if ($user) { ?>
     <!-- Digital Wellbeing Header -->
-    <nav class="shadow mixnav">
+    <nav class="hidden shadow mixnav">
         <!-- Timed background -->
         <div data-time="day" class="bgimg" data-geo="city"></div>
 
         <!-- Time greet content -->
-        <div class="hidden px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
+        <div class="hidden md:block px-4 sm:px-6 lg:max-w-6xl lg:mx-auto lg:px-8">
             <div class="py-6 md:flex md:items-center md:justify-between">
                 <div class="flex-1 min-w-0">
                     <!-- Profile -->
@@ -153,7 +153,7 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid grid-3-6-3 mobile-prefer-content lg:!pl-24" style="padding-left: 80px;">
+    <div class="grid grid-3-6-3 mobile-prefer-content p-4 lg:!pl-24">
         <!-- LEFT COLUMN -->
         <div class="grid-column">
             <?php

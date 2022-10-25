@@ -10,7 +10,7 @@ function ActivityVideoList(props) {
         <ActivityMediaList activityListOptions={ActivityVideoListOptions}
                            gridModifiers="grid-3-3-3-3"
                            itemPreviewList={VideoItemList}
-                           itemPreviewModifiers="video-box-cover-only animate-slide-down"
+                           itemPreviewModifiers="video-box-cover-only"
                            activityGetType='activity_video'
                            activityCreateType='activity_video_upload'
                            sectionTitle={yipnyap_translation.videos}

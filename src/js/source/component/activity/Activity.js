@@ -211,20 +211,20 @@ function Activity(props) {
     const userActivityPermissions = getUserActivityPermissions(props.user, props.data, props.profileUserID);
 
     return (
-        <div className={`widget-box no-padding animate-slide-down ${processingDelete ? 'widget-box-deleted' : ''}`}>
+        <div className={`widget-box no-padding ${processingDelete ? 'widget-box-deleted' : ''}`}>
             {/* TAG STICKERS */}
             <div className="tag-stickers">
                 {
                     favorite &&
-                    <TagSticker icon="favorite" iconModifiers="tertiary" modifiers="small animate-slide-down"/>
+                    <TagSticker icon="favorite" iconModifiers="tertiary" modifiers="small"/>
                 }
                 {
                     (props.data.hide_sitewide === 1) &&
-                    <TagSticker icon="private" iconModifiers="secondary" modifiers="small animate-slide-down"/>
+                    <TagSticker icon="private" iconModifiers="secondary" modifiers="small"/>
                 }
                 {
                     activityIsPinned &&
-                    <TagSticker icon="pinned" iconModifiers="primary" modifiers="small animate-slide-down"/>
+                    <TagSticker icon="pinned" iconModifiers="primary" modifiers="small"/>
                 }
             </div>
             {/* TAG STICKERS */}

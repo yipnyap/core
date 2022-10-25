@@ -115,7 +115,7 @@ function CommentFormGuest(props) {
     };
 
     return (
-        <div className="post-comment-form guest-form animate-slide-down">
+        <div className="post-comment-form guest-form">
             <p className="post-comment-form-title">{yipnyap_translation.leave_a_comment}</p>
             <p className="post-comment-form-text">Please sign in or register to comment with your account!</p>
             <form className="form comment-form" onSubmit={handleSubmit}>

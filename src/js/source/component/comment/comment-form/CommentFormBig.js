@@ -64,7 +64,7 @@ function CommentFormBig(props) {
     };
 
     return (
-        <div className="post-comment-form with-title animate-slide-down">
+        <div className="post-comment-form with-title">
             <p className="post-comment-form-title">{yipnyap_translation.leave_a_comment}</p>
             <Avatar size="small"
                     data={props.user}

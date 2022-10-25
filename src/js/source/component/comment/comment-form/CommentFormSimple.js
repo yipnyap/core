@@ -44,7 +44,7 @@ function CommentFormSimple(props) {
     };
 
     return (
-        <div className="post-comment-form animate-slide-down">
+        <div className="post-comment-form">
             <form className="form comment-form">
                 <div className="form-row">
                     <div className="form-item">

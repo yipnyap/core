@@ -478,8 +478,6 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-primary-light' => '#40d04f',
                 '--color-primary-dark' => '#4ff461',
                 '--color-primary-shadow' => '#40d04f',
-                '--color-secondary' => '#7750f8',
-                '--color-secondary-hover' => '#9668ff',
                 '--color-secondary-dark' => '#7750f8',
                 '--color-secondary-shadow' => '#7750f8',
                 '--color-loading-screen-background' => '#1d2333',

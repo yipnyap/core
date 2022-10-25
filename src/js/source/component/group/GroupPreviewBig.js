@@ -21,7 +21,7 @@ function GroupPreviewBig(props) {
         postCountText = props.data.post_count === 1 ? yipnyap_translation.post : yipnyap_translation.posts;
 
     return (
-        <div className="user-preview animate-slide-down">
+        <div className="user-preview">
             {/* USER PREVIEW COVER */}
             <div className="user-preview-cover"
                  style={{background: `url(${props.data.cover_image_url}) center center / cover no-repeat`}}></div>

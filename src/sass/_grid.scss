@@ -13,9 +13,6 @@
   //padding: 0 1vw 6vw 6vw;
   margin: 64px auto 0;
 
-  &.signed-in {
-    margin: 0;
-  }
   &.full {
     width: 100%;
     max-width: 100%;
@@ -430,7 +427,7 @@ $col-6_9: ($col-6-width / $grid-width_9) * 100%;
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .content-grid {

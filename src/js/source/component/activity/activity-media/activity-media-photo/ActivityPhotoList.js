@@ -10,7 +10,7 @@ function ActivityPhotoList(props) {
         <ActivityMediaList activityListOptions={ActivityPhotoListOptions}
                            gridModifiers="grid-2-2-2-2-2-2"
                            itemPreviewList={PhotoPreviewList}
-                           itemPreviewModifiers="small animate-slide-down"
+                           itemPreviewModifiers="small"
                            activityGetType="activity_media"
                            activityCreateType="activity_media_upload"
                            sectionTitle={yipnyap_translation.photos}

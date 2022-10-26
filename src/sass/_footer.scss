@@ -1,5 +1,6 @@
 .footer-wrap {
   background-color: var(--color-box-background);
+  margin-top: 2em;
 }
 
 .footer {
@@ -136,7 +137,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .footer-top {
@@ -149,7 +150,7 @@
     .footer-info-text {
       text-align: center;
     }
-  
+
     .social-items {
       justify-content: center;
     }

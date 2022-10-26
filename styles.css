@@ -31191,6 +31191,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 
 .footer-wrap {
   background-color: var(--color-box-background);
+  margin-top: 2em;
 }
 
 .footer {
@@ -31332,7 +31333,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 
 @media screen and (max-width: 1365px) {

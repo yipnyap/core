@@ -852,7 +852,7 @@
 .vk-content textarea {
   padding: 14px 18px;
   resize: none;
-  word-break: break-all;
+  word-break: break-word;
 }
 .vk-content textarea::-webkit-input-placeholder {
   font-weight: var(--vk-weight-semibold);

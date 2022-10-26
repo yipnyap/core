@@ -84,7 +84,7 @@
   textarea {
     padding: 14px 18px;
     resize: none;
-    word-break: break-all;
+    word-break: break-word;
 
     &::placeholder {
       font-weight: var(--vk-weight-semibold);
@@ -167,7 +167,7 @@
       & > * {
         width: 100%;
         margin-right: 12px;
-    
+
         &:last-child {
           margin-right: 0;
         }
@@ -227,7 +227,7 @@
     &.v2 {
       width: auto;
       height: auto;
-      
+
       select {
         width: auto;
         height: auto;
@@ -320,31 +320,31 @@
     background-color: var(--vk-color-body);
     cursor: pointer;
     transition: border-color .2s ease-in-out, background-color .2s ease-in-out;
-  
+
     &.round {
       border-radius: 50%;
     }
-  
+
     &.small {
       width: 14px;
       height: 14px;
       border-radius: 4px;
-  
+
       .icon-cross {
         width: 8px;
         height: 8px;
       }
     }
-  
+
     &.active {
       background-color: var(--vk-color-primary);
       border-color: var(--vk-color-primary);
-  
+
       .icon-cross {
         fill: var(--vk-color-body);
       }
     }
-  
+
     .icon-cross {
       fill: transparent;
       transition: fill .2s ease-in-out;

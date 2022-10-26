@@ -41,6 +41,8 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
+const rekkiAudio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/rekki.ogg`);
+
 function ActivityForm(props) {
     const [formData, setFormData] = useState({
         text: '',
@@ -122,6 +124,26 @@ function ActivityForm(props) {
                 };
             });
 
+            return;
+        }
+
+        if (formData.text === '!rek') {
+            setFormData(previousFormData => {
+                return {
+                    ...previousFormData,
+                    errors: [
+                        {
+                            text: 'your mother'
+                        }
+                    ]
+                };
+            });
+
+            if (!rekkiAudio.paused) {
+                rekkiAudio.currentTime = 0;
+            } else {
+                rekkiAudio.play();
+            }
             return;
         }
 

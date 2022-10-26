@@ -14,7 +14,7 @@ module.exports = function (grunt) {
                     outputStyle: 'expanded'
                 },
                 files: {
-                    'style.css': 'src/sass/main.scss',
+                    'src/css/raw/styles.css': 'src/sass/main.scss',
                     'src/css/admin-style.css': 'src/sass/wordpress/main.scss',
                     'src/css/vklogin-style.css': 'src/sass/wordpress-login/main.scss'
                 }
@@ -31,7 +31,7 @@ module.exports = function (grunt) {
                     }
                 },
                 files: {
-                    'style.css': 'style.css',
+                    'src/css/raw/styles.css': 'src/css/raw/styles.css',
                     'src/css/admin-style.css': 'src/css/admin-style.css',
                     'src/css/vklogin-style.css': 'src/css/vklogin-style.css'
                 }

@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Members Home
- * 
+ *
  * Determines member template to display
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
   /**
@@ -72,7 +72,11 @@
 ?>
 
   <!-- GRID -->
-  <div class="grid grid-3-9 medium-space">
+  <!--
+  Yeah, yeah. It's dirty way of making that footer stay below but whatever, man! I'll fix next version
+  TODO: Remove this stupid thing.
+  -->
+  <div class="grid grid-3-9 medium-space" style="margin-bottom: 50vh;">
   <?php
 
     /**
@@ -84,10 +88,10 @@
 
   else :
     $current_component = bp_current_component();
-  
+
     $nav_items    = yipnyap_members_get_navigation_items($displayed_member);
     $subnav_items = yipnyap_member_bp_subnavigation_items_get($displayed_member, $current_component);
-  
+
     set_query_var('member', $displayed_member);
     set_query_var('member_navigation_items', $nav_items);
     set_query_var('member_subnavigation_items', $subnav_items);
@@ -97,12 +101,12 @@
      * Get members page header
      */
     bp_get_template_part('members/single/member-header');
-    
+
   endif;
 
   /**
    * Get members page current template
-   */ 
+   */
   if (bp_is_user_front()) {
     bp_displayed_user_front_template_part();
   } else if (bp_is_user_activity()) {
@@ -141,7 +145,7 @@
     <!-- /GRID COLUMN -->
   </div>
   <!-- /GRID -->
-  
+
   <?php
   }
 

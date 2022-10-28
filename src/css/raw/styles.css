@@ -8722,8 +8722,7 @@ a:hover {
 ---------------------------------*/
 .logo .logo-image {
   display: block;
-  width: 2.5em;
-  border-radius: 0.2em;
+  width: 4em;
 }
 
 /*---------------------------------
@@ -8937,7 +8936,7 @@ a:hover {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .popup-picture .widget-box {
@@ -10167,10 +10166,6 @@ a:hover {
 /*---------------------
     1. Loading Overrides & Logo
 ---------------------*/
-.logo-image, .page-loader-logo {
-  width: 2em;
-}
-
 .page-loader-info {
   display: none;
 }

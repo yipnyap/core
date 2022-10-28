@@ -91,10 +91,11 @@ define('YIPNYAP_WPOPTIONS', array(
      */
     'snowsuit_registration_allowed' => 'yes',
     'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
+    'yipnyap_logo_url' => array(YIPNYAP_URL . '/img/yipnyap-logo-new.svg'),
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads'
-    ]
+    ],
 ));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
@@ -213,7 +214,7 @@ function yipnyap_load_scripts(): void
         $logo_id = get_theme_mod('custom_logo');
         $logo_url = wp_get_attachment_image_src($logo_id, 'full');
     } else {
-        $logo_url = array(YIPNYAP_URL . '/img/yipnyap-logo.png');
+        $logo_url = get_option('yipnyap_logo_url');
     }
 
     // pass php variables to javascript file

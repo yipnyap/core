@@ -29,7 +29,7 @@ if ( $has_custom_logo ) {
 	$logo_id  = get_theme_mod( 'custom_logo' );
 	$logo_url = wp_get_attachment_image_src( $logo_id, 'full' );
 } else {
-	$logo_url = array( YIPNYAP_URL . '/img/yipnyap-logo.png' );
+	$logo_url = get_option('yipnyap_logo_url');
 }
 
 global $yipnyap_settings;
@@ -54,8 +54,8 @@ if ( $sidemenu_status === 'display' ) {
                  src="<?php echo esc_url($args['user']['avatar_url']); ?>" alt="logo" style="filter: blur(5px) brightness(1.3); transform: scale(1.5);">
         </a>
         <?php } else { ?>
-        <a class="flex items-center justify-center" href="/">
-            <img class="logo-image w-10 rounded"
+        <a class="logo flex items-center justify-center" href="/">
+            <img class="logo-image"
                  src="<?php echo esc_url( $logo_url[0] ) ?>" alt="logo">
         </a>
         <?php } ?>

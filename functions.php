@@ -163,7 +163,6 @@ function yipnyap_load_scripts(): void
     // add custom stylesheets
     wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
     wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
-//    wp_enqueue_style('oldkiner-styles', get_template_directory_uri() . '/style.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], YIPNYAP_VERSION);
     wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/styles.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], YIPNYAP_VERSION);
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], '1.0.2');
 

@@ -69,7 +69,8 @@ if (!function_exists('yipnyap_get_activities')) {
         $logged_in_user_favorites = bp_activity_get_user_favorites($logged_in_user_id);
 
         foreach ($bp_activities['activities'] as $bp_activity) {
-            $activities['activities'][] = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites);
+            $activity_data = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites, (!isset($args['scope']) || $args['scope'] === 'false') && !isset($args['filter']['user_id']) && !isset($args['filter']['secondary_id']));
+            $activities['activities'][] = $activity_data;
         }
 
         /**
@@ -93,7 +94,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
      * @param array|string $logged_in_user_favorites Logged in user favorites.
      * @return array  $activity_data                Activity data.
      */
-    function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites): array
+    function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites, bool $hide_mature): array
     {
         $comments = property_exists($bp_activity, 'children') ? $bp_activity->children : false;
         $my_comments = [];
@@ -101,6 +102,8 @@ if (!function_exists('yipnyap_activity_data_get')) {
         if ($comments) {
             yipnyap_get_activity_comments_with_children_recursive($comments, $my_comments);
         }
+
+        $author = yipnyap_members_get_fallback($bp_activity->user_id);
 
         $activity_data = [
             'id' => $bp_activity->id,
@@ -123,12 +126,69 @@ if (!function_exists('yipnyap_activity_data_get')) {
             'comments' => $my_comments,
             'comment_count' => bp_activity_recurse_comment_count($bp_activity),
             'meta' => bp_activity_get_meta($bp_activity->id),
-            'author' => yipnyap_members_get_fallback($bp_activity->user_id),
-            'favorite' => $logged_in_user_favorites ? in_array($bp_activity->id, $logged_in_user_favorites) : false,
+            'author' => $author,
+            'favorite' => $logged_in_user_favorites && in_array($bp_activity->id, $logged_in_user_favorites),
             'reactions' => [],
             'permalink' => bp_activity_get_permalink($bp_activity->id),
             'hide_sitewide' => $bp_activity->hide_sitewide
         ];
+
+        // Halt if user is marked as mature and hide mature is true.
+        if ($hide_mature && isset($author['mature'])) {
+            $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('Post metadata is hidden.', 'yipnyap') . '</i>';
+        } else {
+            // add media information
+            if (($activity_data['type'] === 'activity_media') || ($activity_data['type'] === 'activity_video')) {
+                // add vkmedia data if plugin is active
+                if (yipnyap_plugin_vkmedia_is_active()) {
+                    $activity_data['media'] = vkmedia_get_media($bp_activity->secondary_item_id);
+                } else {
+                    $activity_data['media'] = [];
+                }
+            }
+
+            // add media information
+            if (array_key_exists('uploaded_media_id', $activity_data['meta'])) {
+                $uploaded_media_ids = $activity_data['meta']['uploaded_media_id'];
+
+                $uploaded_media = [];
+
+                // fetch all media
+                foreach ($uploaded_media_ids as $uploaded_media_id) {
+                    if (($activity_data['type'] === 'activity_media_update') || ($activity_data['type'] === 'activity_media_upload')) {
+                        $activity_media_type = 'activity_media';
+                    } else if (($activity_data['type'] === 'activity_video_update') || ($activity_data['type'] === 'activity_video_upload')) {
+                        $activity_media_type = 'activity_video';
+                    }
+
+                    $media_activity = yipnyap_get_activities(['filter' => ['secondary_id' => $uploaded_media_id, 'action' => $activity_media_type]])['activities'];
+
+                    if ((count($media_activity) > 0) && !is_null($media_activity[0]['media'])) {
+                        $uploaded_media[] = $media_activity[0];
+                    }
+                }
+
+                // fetch maximum
+                $display_max = 5;
+                $uploaded_media_count = count($uploaded_media);
+                $uploaded_media_fetch_count = min($display_max, $uploaded_media_count);
+
+                // set more link according to the component where the media was posted on
+                if ($bp_activity->component === 'groups') {
+                    $more_link = $activity_data['group']['media_link'];
+                } else {
+                    $more_link = bp_core_get_user_domain($bp_activity->user_id) . 'photos';
+                }
+
+                $activity_data['uploaded_media'] = [
+                    'data' => array_slice($uploaded_media, 0, $uploaded_media_fetch_count),
+                    'metadata' => [
+                        'more' => abs($display_max - $uploaded_media_count),
+                        'more_link' => $more_link
+                    ]
+                ];
+            }
+        }
 
         // override bbPress group component activity action
         if (($activity_data['component'] === 'groups') && (($activity_data['type'] === 'bbp_topic_create') || ($activity_data['type'] === 'bbp_reply_create'))) {
@@ -162,58 +222,6 @@ if (!function_exists('yipnyap_activity_data_get')) {
             $shared_item = yipnyap_get_posts(['include' => [$bp_activity->secondary_item_id]]);
 
             $activity_data['shared_item'] = count($shared_item) === 1 ? $shared_item[0] : false;
-        }
-
-        // add media information
-        if (($activity_data['type'] === 'activity_media') || ($activity_data['type'] === 'activity_video')) {
-            // add vkmedia data if plugin is active
-            if (yipnyap_plugin_vkmedia_is_active()) {
-                $activity_data['media'] = vkmedia_get_media($bp_activity->secondary_item_id);
-            } else {
-                $activity_data['media'] = [];
-            }
-        }
-
-        // add media information
-        if (array_key_exists('uploaded_media_id', $activity_data['meta'])) {
-            $uploaded_media_ids = $activity_data['meta']['uploaded_media_id'];
-
-            $uploaded_media = [];
-
-            // fetch all media
-            foreach ($uploaded_media_ids as $uploaded_media_id) {
-                if (($activity_data['type'] === 'activity_media_update') || ($activity_data['type'] === 'activity_media_upload')) {
-                    $activity_media_type = 'activity_media';
-                } else if (($activity_data['type'] === 'activity_video_update') || ($activity_data['type'] === 'activity_video_upload')) {
-                    $activity_media_type = 'activity_video';
-                }
-
-                $media_activity = yipnyap_get_activities(['filter' => ['secondary_id' => $uploaded_media_id, 'action' => $activity_media_type]])['activities'];
-
-                if ((count($media_activity) > 0) && !is_null($media_activity[0]['media'])) {
-                    $uploaded_media[] = $media_activity[0];
-                }
-            }
-
-            // fetch maximum
-            $display_max = 5;
-            $uploaded_media_count = count($uploaded_media);
-            $uploaded_media_fetch_count = min($display_max, $uploaded_media_count);
-
-            // set more link according to the component where the media was posted on
-            if ($bp_activity->component === 'groups') {
-                $more_link = $activity_data['group']['media_link'];
-            } else {
-                $more_link = bp_core_get_user_domain($bp_activity->user_id) . 'photos';
-            }
-
-            $activity_data['uploaded_media'] = [
-                'data' => array_slice($uploaded_media, 0, $uploaded_media_fetch_count),
-                'metadata' => [
-                    'more' => abs($display_max - $uploaded_media_count),
-                    'more_link' => $more_link
-                ]
-            ];
         }
 
         /**

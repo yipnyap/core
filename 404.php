@@ -1,19 +1,19 @@
 <?php
 /**
  * Yipnyap Template - 404
- * 
+ *
  * The template for displaying 404 pages (Not Found)
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
   get_header();
 
   $error_image_id     = get_theme_mod('yipnyap_404_setting_image', false);
-  $error_title        = get_theme_mod('yipnyap_404_setting_title', esc_html__('OOPS!!...Wrong Turn!!', 'yipnyap'));
+  $error_title        = get_theme_mod('yipnyap_404_setting_title', esc_html__('Whoops! Can\'t find that!', 'yipnyap'));
   $error_description  = get_theme_mod('yipnyap_404_setting_description', sprintf(esc_html__('Seems that you encountered a web black hole that absorbed the page you were looking for! But don\'t panic because you can go back!%sIf the problem persists, please send us an email to our support team at %ssupport@yipnyap.com%s', 'yipnyap'), '<br><br>', '<a href="mailto:support@yipnyap.com">', '</a>'));
   $error_button_text  = get_theme_mod('yipnyap_404_setting_button_text', esc_html__('Go Back', 'yipnyap'));
 

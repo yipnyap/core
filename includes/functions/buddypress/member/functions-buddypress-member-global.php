@@ -119,9 +119,14 @@ if (!function_exists('yipnyap_members_get_fallback')) {
             ];
 
             $flair = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Flair');
+            $mature = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Meta_Rating');
 
             if ($flair) {
                 $member_data['flair'] = $flair;
+            }
+
+            if ($mature === 'NSFW / Suggestive' || $mature === 'SFW (16+)') {
+                $member_data['mature'] = true;
             }
         } else {
             $member_data = [

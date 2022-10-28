@@ -27,6 +27,8 @@ $display_verified_in_username = $display_verified && $yipnyap_settings['bp_verif
 
 $verified_user = $display_verified && $args['member']['verified'];
 
+$mature = yipnyap_members_xprofile_get_field_value($args['member'], 'Profile_Meta_Rating');
+
 ?>
 
 <!-- PROFILE HEADER -->
@@ -308,3 +310,15 @@ $verified_user = $display_verified && $args['member']['verified'];
     <!-- /PROFILE HEADER INFO -->
 </div>
 <!-- /PROFILE HEADER -->
+
+<!-- PROFILE HEADER MATURE WARNING -->
+<?php
+if ($mature === 'NSFW / Suggestive' || $mature === 'SFW (16+)') {
+    get_template_part('template-part/alert/alert', 'box', [
+        'type'  => 'error',
+        'title' => esc_html__('Mature User', 'yipnyap'),
+        'text'  => esc_html__('This user may have mature content on their profile.', 'yipnyap')
+    ]);
+}
+?>
+<!-- /PROFILE HEADER MATURE WARNING -->

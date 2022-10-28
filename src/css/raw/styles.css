@@ -15487,7 +15487,7 @@ img[alt=logo].logo-image {
 }
 .user-status .user-status-title a,
 .user-status .user-status-title .bold {
-  color: var(--color-text) !important;
+  color: var(--color-text);
   font-weight: 700;
 }
 .user-status .user-status-title .highlighted {
@@ -16975,7 +16975,7 @@ img[alt=logo].logo-image {
           box-shadow: var(--color-box-shadow);
 }
 .profile-header + .alert-box {
-  margin-top: 32px;
+  margin-top: 1em;
 }
 .profile-header + .section-navigation {
   margin-bottom: 16px;
@@ -17116,7 +17116,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .profile-header .profile-header-cover {

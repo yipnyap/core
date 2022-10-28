@@ -2,6 +2,7 @@ const {default: flattenColorPalette} = require('tailwindcss/lib/util/flattenColo
 module.exports = {
     content: [
         './**/*.{html,js,php}',
+        './**/raw/styles.css', // grunt
     ],
     theme: {
         extend: {

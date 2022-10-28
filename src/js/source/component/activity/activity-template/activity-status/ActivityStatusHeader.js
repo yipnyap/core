@@ -20,7 +20,7 @@ function ActivityStatusHeader(props) {
                 </div>
 
                 <div className="user-status-title medium">
-                    <a href={props.data.author.link}>{props.data.author.name}</a>
+                    <a href={props.data.author.link} className={props.data.author.mature && '!text-red-500'}>{props.data.author.name}</a>
                     {
                         displayVerifiedMemberBadge &&
                         <BadgeVerified/>
@@ -39,7 +39,7 @@ function ActivityStatusHeader(props) {
                     }
                 </div>
 
-                <a className="user-status-text small" href={`/activity/p/${props.data.id}`}>
+                <a className="user-status-text small" href={props.data.permalink}>
                     {props.data.author.flair ? props.data.author.flair + ' •' : ''} {props.data.timestamp}
                     {
                         props.data.last_edited &&

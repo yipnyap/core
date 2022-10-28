@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap Customizer - 404
- * 
+ *
  * @since 1.0.0
  */
 
@@ -35,7 +35,7 @@ function yipnyap_customizer_404($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_404_setting_title', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => esc_html__('OOPS!!...Wrong Turn!!', 'yipnyap')
+    'default'           => esc_html__('Whoops! Can\'t find that!', 'yipnyap')
   ]);
 
   $wp_customize->add_control('yipnyap_404_control_title', [

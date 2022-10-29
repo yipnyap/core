@@ -156,9 +156,9 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid grid-3-6-3 px-4 lg:!pl-24">
+    <div class="grid-cols-4 xl:grid-cols-8 gap-2 px-4 lg:!pl-24" style="display: grid;">
         <!-- LEFT COLUMN -->
-        <div class="grid-column">
+        <div class="col-span-full xl:col-span-2">
             <?php
 
             $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 5]);
@@ -203,7 +203,7 @@ $user = yipnyap_get_logged_user_member_data();
         </div>
         <!-- /LEFT COLUMN -->
 
-        <div class="grid-column">
+        <div class="col-span-4 space-y-4">
             <div class="alert-line alert-line-info">
                 <!-- ALERT LINE ICON WRAP -->
                 <div class="alert-line-icon-wrap">
@@ -280,7 +280,7 @@ $user = yipnyap_get_logged_user_member_data();
         </div>
 
         <!-- GROUPS COLUMN -->
-        <div class="grid-column !hidden lg:!grid">
+        <div class="col-span-2">
             <?php
 
             // if the groups component is active, show groups widget

@@ -2161,11 +2161,6 @@ textarea::placeholder {
     MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
-  .content-grid {
-    width: 95%;
-    max-width: 1184px;
-    padding-left: 0;
-  }
   .content-grid.medium {
     max-width: 100%;
   }

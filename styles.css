@@ -900,6 +900,18 @@ h2 {
       order: 1;
 }
 
+.col-span-full {
+  grid-column: 1 / -1;
+}
+
+.col-span-4 {
+  grid-column: span 4 / span 4;
+}
+
+.col-span-2 {
+  grid-column: span 2 / span 2;
+}
+
 .float-right {
   float: right;
 }
@@ -1143,10 +1155,6 @@ h2 {
 
 .hidden {
   display: none;
-}
-
-.\!hidden {
-  display: none !important;
 }
 
 .h-6 {
@@ -1722,6 +1730,10 @@ h2 {
   grid-auto-flow: column dense;
 }
 
+.grid-cols-4 {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
 .grid-cols-1 {
   grid-template-columns: repeat(1, minmax(0, 1fr));
 }
@@ -1908,6 +1920,10 @@ h2 {
 
 .justify-items-stretch {
   justify-items: stretch;
+}
+
+.gap-2 {
+  gap: 0.5rem;
 }
 
 .gap-6 {
@@ -5958,12 +5974,6 @@ textarea::placeholder {
 --------------------*/
 
 @media screen and (max-width: 1365px) {
-  .content-grid {
-    width: 95%;
-    max-width: 1184px;
-    padding-left: 0;
-  }
-
   .content-grid.medium {
     max-width: 100%;
   }
@@ -34257,10 +34267,6 @@ body.buddypress.registration #buddypress .page #template-notices {
     display: flex;
   }
 
-  .lg\:\!grid {
-    display: grid !important;
-  }
-
   .lg\:grid {
     display: grid;
   }
@@ -34313,6 +34319,16 @@ body.buddypress.registration #buddypress .page #template-notices {
     .dark\:lg\:hover\:\[paint-order\:markers\]:hover {
       paint-order: markers;
     }
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:col-span-2 {
+    grid-column: span 2 / span 2;
+  }
+
+  .xl\:grid-cols-8 {
+    grid-template-columns: repeat(8, minmax(0, 1fr));
   }
 }
 /*# sourceMappingURL=styles.css.map */

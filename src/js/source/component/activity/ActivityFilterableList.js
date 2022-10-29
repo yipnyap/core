@@ -45,7 +45,7 @@ function ActivityFilterableList(props) {
     const filters = useRef({
         per_page: props.perPage,
         sort: props.order,
-        show_hidden: props.groupID ? true : false,
+        show_hidden: !!props.groupID,
         scope: 'myfollowing',
         filter: {}
     });
@@ -53,6 +53,9 @@ function ActivityFilterableList(props) {
     useEffect(() => {
         if (props.activityID) {
             filters.current.in = props.activityID;
+
+            // undo the default scope
+            filters.current.scope = filters.current.scope === 'myfollowing' ? false : filters.current.scope;
         }
 
         if (!props.noFilter) {

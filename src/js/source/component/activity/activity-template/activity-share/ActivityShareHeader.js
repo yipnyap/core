@@ -39,7 +39,7 @@ function ActivityShareHeader(props) {
                     }
                 </div>
 
-                <a className="user-status-text small" href={`/activity/p/${props.data.id}`}>
+                <a className="user-status-text small" href={props.data.permalink}>
                     {props.data.author.flair ? props.data.author.flair + ' •' : ''} {props.data.timestamp}
                     {
                         props.data.last_edited &&

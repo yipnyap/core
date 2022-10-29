@@ -16,6 +16,7 @@
 
     &.unread {
       background: var(--tw-ring-color);
+      color: var(--color-text);
     }
   }
   &.button-upgrade {

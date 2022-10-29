@@ -21991,6 +21991,7 @@ img[alt=logo].logo-image {
 }
 .ypsdk.button-icon.unread {
   background: var(--tw-ring-color);
+  color: var(--color-text);
 }
 .ypsdk.button-upgrade {
   display: -webkit-inline-box;

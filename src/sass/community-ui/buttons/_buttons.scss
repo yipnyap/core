@@ -13,6 +13,10 @@
 .ypsdk {
   &.button-icon {
     background: var(--color-box-background);
+
+    &.unread {
+      background: var(--tw-ring-color);
+    }
   }
   &.button-upgrade {
     display: inline-flex;

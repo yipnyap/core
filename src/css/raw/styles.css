@@ -21989,6 +21989,9 @@ img[alt=logo].logo-image {
 .ypsdk.button-icon {
   background: var(--color-box-background);
 }
+.ypsdk.button-icon.unread {
+  background: var(--tw-ring-color);
+}
 .ypsdk.button-upgrade {
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;

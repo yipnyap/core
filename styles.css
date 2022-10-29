@@ -3010,6 +3010,11 @@ h2 {
   color: rgb(156 163 175 / var(--tw-text-opacity));
 }
 
+.\!text-red-500 {
+  --tw-text-opacity: 1 !important;
+  color: rgb(239 68 68 / var(--tw-text-opacity)) !important;
+}
+
 .text-red-600 {
   --tw-text-opacity: 1;
   color: rgb(220 38 38 / var(--tw-text-opacity));
@@ -3033,11 +3038,6 @@ h2 {
 .text-slate-400 {
   --tw-text-opacity: 1;
   color: rgb(148 163 184 / var(--tw-text-opacity));
-}
-
-.\!text-red-500 {
-  --tw-text-opacity: 1 !important;
-  color: rgb(239 68 68 / var(--tw-text-opacity)) !important;
 }
 
 .underline {
@@ -28245,6 +28245,10 @@ img[alt=logo].logo-image {
 
 .ypsdk.button-icon {
   background: var(--color-box-background);
+}
+
+.ypsdk.button-icon.unread {
+  background: var(--tw-ring-color);
 }
 
 .ypsdk.button-upgrade {

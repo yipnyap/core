@@ -313,7 +313,7 @@ $mature = yipnyap_members_xprofile_get_field_value($args['member'], 'Profile_Met
 
 <!-- PROFILE HEADER MATURE WARNING -->
 <?php
-if ($mature === 'NSFW' || $mature === 'NSFW Suggestive') {
+if ($mature === 'NSFW' || $mature === 'Suggestive') {
     get_template_part('template-part/alert/alert', 'box', [
         'type'  => 'error',
         'title' => esc_html__('Mature User', 'yipnyap'),

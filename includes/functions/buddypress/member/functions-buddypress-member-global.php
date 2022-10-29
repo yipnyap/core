@@ -125,7 +125,7 @@ if (!function_exists('yipnyap_members_get_fallback')) {
                 $member_data['flair'] = $flair;
             }
 
-            if ($mature === 'NSFW' || $mature === 'NSFW Suggestive') {
+            if ($mature === 'NSFW' || $mature === 'Suggestive') {
                 $member_data['mature'] = true;
             }
         } else {

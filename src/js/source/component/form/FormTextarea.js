@@ -5,7 +5,7 @@ function FormTextarea(props) {
     [props.name]: props.value || ''
   });
 
-  const [active, setActive] = useState(props.value ? true : false);
+  const [active, setActive] = useState(!!props.value);
 
   const inputRef = useRef(null);
 
@@ -40,7 +40,7 @@ function FormTextarea(props) {
       }
     }
   };
-  
+
   useEffect(() => {
     // handling input value and value changed
     if (props.handleValue) {
@@ -53,16 +53,17 @@ function FormTextarea(props) {
   }, [props.value]);
 
   return (
-    <div className={`form-input ${props.modifiers || ''} ${active ? 'active' : ''} ${props.markAsRequired ? 'required' : ''}`}>
+    <div className={`form-input ${props.modifiers || ''}${active ? 'active' : ''}${props.markAsRequired ? 'required' : ''}`}>
       <label htmlFor={props.name}>{props.label} {props.required && <span className="label-required">*</span>}</label>
       <textarea ref={inputRef}
-                name={props.name} 
-                value={inputData[props.name]} 
-                onChange={onChange} 
-                onFocus={onFocus} 
+                name={props.name}
+                value={inputData[props.name]}
+                onChange={onChange}
+                onFocus={onFocus}
                 onBlur={onBlur}
       >
       </textarea>
+      <p className="text-alt text-sm">{props.description}</p>
     </div>
   );
 }

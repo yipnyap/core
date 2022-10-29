@@ -83,11 +83,14 @@ define('YIPNYAP_WPOPTIONS', array(
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
     'users_can_register' => false,
+
     /*
      * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
      *
      * Snowsuit is the backend of Yipnyap.
      * TODO: Change this to update based on an API response (i.e. "Health check"?)
+     * ^ Possibly not, that will be called each time the page loads, which is a lot.
+     * ^ Maybe have a cron job that updates it every 5 minutes or so?
      */
     'snowsuit_registration_allowed' => 'yes',
     'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
@@ -801,3 +804,22 @@ add_action('after_setup_theme', function() {
     remove_filter('render_block', 'wp_restore_group_inner_container');
     remove_filter('render_block', 'wp_render_layout_support_flag');
 });
+
+// Set limits for the number of characters in bio and textboxes
+function yipnyap_set_xprofile_character_limit($validated, $values, $field) {
+    $allowed_len = 0;
+
+    if ($field instanceof BP_XProfile_Field_Type_Textarea) {
+        $allowed_len = 512;
+    } elseif ($field instanceof BP_XProfile_Field_Type_Textbox) {
+        $allowed_len = 32;
+    }
+
+    if ($allowed_len) {
+        $validated = strlen($values) < $allowed_len;
+    }
+
+    return $validated;
+}
+
+add_filter('bp_xprofile_field_type_is_valid', 'yipnyap_set_xprofile_character_limit', 10, 3);

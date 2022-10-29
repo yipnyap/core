@@ -895,6 +895,7 @@ if (!function_exists('yipnyap_member_get_xprofile_data')) {
                         'group_id' => $bp_xprofile_group['id'],
                         'id' => $field['id'],
                         'name' => $field['name'],
+                        'description' => $field['description']['rendered'],
                         'type' => $field['type'],
                         'value' => stripslashes($field['data']['value']['raw']),
                         'field_order' => $field['field_order'],

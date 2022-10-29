@@ -34,10 +34,13 @@ function FormRow(props) {
             Input = FormInputSelect;
           }
 
+          console.log(field);
+
           return (
             <div key={field.name} className="form-item">
               <Input  label={field.name}
                       name={field.name.toLowerCase()}
+                      description={field.description}
                       value={field.value}
                       meta={field.meta}
                       options={field.options}

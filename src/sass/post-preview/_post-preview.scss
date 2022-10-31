@@ -12,7 +12,7 @@
 ----------------------*/
 .post-preview {
   min-height: 516px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -378,7 +378,7 @@
     width: (352/384)*100%;
     padding: 28px;
     margin: -48px auto 0;
-    @apply rounded-md;
+    @apply rounded-default;
     background-color: var(--color-box-over-box-background);
     box-shadow: var(--color-overbox-big-shadow);
     position: relative;
@@ -554,7 +554,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 960px) {
   .post-preview {

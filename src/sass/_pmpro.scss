@@ -18,7 +18,7 @@
 
 .pmpro_content_message {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-secondary);
   color: $white;
   font-family: var(--font-primary);
@@ -90,7 +90,7 @@
   flex-direction: column;
   justify-content: space-between;
   padding: 32px 40px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -217,7 +217,7 @@
 .pmpro_confirmation_wrap {
   margin: 0;
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   border-top: none;
   background-color: var(--color-box-background);
   font-family: var(--font-primary);
@@ -391,7 +391,7 @@
   border: 2px solid var(--color-secondary);
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
-  @apply rounded-md;
+  @apply rounded-default;
   font-family: var(--font-primary);
   color: var(--color-text) !important;
   font-size: $fs-14;
@@ -688,7 +688,7 @@ textarea {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .section-banner {

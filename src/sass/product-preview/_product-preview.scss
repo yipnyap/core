@@ -8,7 +8,7 @@
     1. PRODUCT PREVIEW
 --------------------------*/
 .product-preview {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -22,7 +22,7 @@
 
     .product-preview-image {
       height: 144px;
-      @apply rounded-md;
+      @apply rounded-default;
     }
 
     .product-preview-info {
@@ -47,7 +47,7 @@
       width: 94px;
       height: 60px;
       margin-right: 20px;
-      @apply rounded-md;
+      @apply rounded-default;
 
       &.short {
         width: 60px;
@@ -88,7 +88,7 @@
       width: 68px;
       height: 44px;
       margin-right: 12px;
-      @apply rounded-md;
+      @apply rounded-default;
     }
 
     .product-preview-info {
@@ -224,7 +224,7 @@
   display: block;
   height: 142px;
   padding: 26px 0 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
 
   &.category-all {

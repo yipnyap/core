@@ -9,7 +9,7 @@
 .form-box {
   width: 484px;
   padding: 64px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-overbox-dark-shadow);
   position: relative;
@@ -67,7 +67,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 500px) {
   .form-box {

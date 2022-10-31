@@ -8,7 +8,7 @@
 ----------------------*/
 .video-status {
   display: block;
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-overbox-big-shadow);
 
   &.small {
@@ -35,11 +35,11 @@
         margin-top: 0;
         font-size: $fs-16;
       }
-  
+
       .video-status-text {
         margin-top: 10px;
       }
-  
+
       .video-status-meta {
         margin-top: 22px;
       }
@@ -69,7 +69,7 @@
       font-weight: $weight-bold;
       text-transform: uppercase;
     }
-  
+
     .video-status-title {
       margin-top: 12px;
       font-size: $fs-18;
@@ -84,7 +84,7 @@
         font-weight: $weight-bold;
       }
     }
-  
+
     .video-status-text {
       margin-top: 2px;
       color: var(--color-text-alt);
@@ -94,7 +94,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 680px) {
   .video-status {
@@ -108,7 +108,7 @@
         border-top-right-radius: 12px;
         border-bottom-left-radius: 0;
         position: static;
-  
+
         &.mobile {
           display: block;
         }
@@ -120,7 +120,7 @@
         border-bottom-left-radius: 12px;
         border-bottom-right-radius: 12px;
         border-top-right-radius: 0;
-  
+
         .video-status-title {
           margin-top: 12px;
           font-size: $fs-18;

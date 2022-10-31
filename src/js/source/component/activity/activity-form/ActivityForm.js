@@ -446,7 +446,7 @@ function ActivityForm(props) {
                                 </div>
 
                                 <div
-                                    className="border-t border-divider px-2 py-2 flex justify-between items-center space-x-3 sm:px-3">
+                                    className="px-2 py-2 flex justify-between items-center space-x-3 sm:px-3">
                                     {
                                         yipnyap_constants.settings.media_photo_upload_enabled &&
                                         <div className="flex flex-grow">

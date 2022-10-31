@@ -252,7 +252,7 @@ select {
 .highlight-main {
   /* .bg-color-main */
   @apply border-slate-200 dark:border-slate-700;
-  @apply focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-slate-400 rounded-md ring-1 ring-slate-900/10 shadow-sm dark:bg-slate-800 dark:highlight-white/5;
+  @apply focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-slate-400 rounded-default ring-1 ring-slate-900/10 shadow-sm dark:bg-slate-800 dark:highlight-white/5;
 }
 
 /*-------------------------------------------------------------------
@@ -385,7 +385,7 @@ textarea,
 select,
 button {
   width: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   font-size: 1rem;
   font-weight: 700;
 }
@@ -1356,7 +1356,7 @@ textarea::placeholder {
   height: 48px;
   padding: 0 40px 0 18px;
   border: 1px solid var(--color-border);
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 }
 .form-counter.with-currency {
@@ -3543,7 +3543,7 @@ a:hover {
     19. USER PREVIEW WIDGET
 -----------------------------*/
 .user-preview-widget {
-  @apply rounded-md;
+  @apply rounded-default;
   padding-bottom: 28px;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -3711,7 +3711,7 @@ a:hover {
           align-items: center;
   width: 44px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-light-background);
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
@@ -3768,7 +3768,7 @@ a:hover {
   line-height: 32px;
 }
 .text-sticker.round {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .text-sticker .highlighted {
   color: var(--color-primary-dark);
@@ -3863,7 +3863,7 @@ a:hover {
 .simple-dropdown {
   width: 140px;
   padding: 10px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-light-background);
   -webkit-box-shadow: var(--color-overbox-dark-shadow);
           box-shadow: var(--color-overbox-dark-shadow);
@@ -4333,7 +4333,7 @@ a:hover {
           align-items: center;
   width: 44px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-primary);
   -webkit-box-shadow: 3px 5px 20px 0px rgba(94, 92, 154, 0.3);
           box-shadow: 3px 5px 20px 0px rgba(94, 92, 154, 0.3);
@@ -4485,7 +4485,7 @@ a:hover {
 .popup-event {
   width: 90%;
   max-width: 584px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -4779,7 +4779,7 @@ a:hover {
           align-items: center;
   width: 160px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   cursor: pointer;
   -webkit-transition: background-color 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
   transition: background-color 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
@@ -4867,7 +4867,7 @@ a:hover {
 .slider-line {
   height: 120px;
   padding: 0 48px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -5225,7 +5225,7 @@ a:hover {
           align-items: center;
   height: 168px;
   background-color: var(--color-primary);
-  @apply rounded-md;
+  @apply rounded-default;
   cursor: pointer;
 }
 .upload-item:first-child .icon-plus {
@@ -5234,7 +5234,7 @@ a:hover {
 .upload-item .upload-item-image {
   width: 100%;
   height: 168px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .upload-item .form-input,
 .upload-item .checkbox-wrap {
@@ -5303,7 +5303,7 @@ a:hover {
   display: -ms-flexbox;
   display: flex;
   background-color: var(--color-box-background);
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
 }
@@ -5512,7 +5512,7 @@ a:hover {
     74. QUICK POST
 ---------------------------------*/
 .quick-post {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -5544,9 +5544,6 @@ a:hover {
 }
 .quick-post.medium .quick-post-footer .quick-post-footer-actions .button:last-child {
   width: 140px;
-}
-.quick-post .quick-post-header {
-  border-bottom: 1px solid var(--color-divider);
 }
 .quick-post .quick-post-header .quick-post-header-filters-wrap {
   min-height: 80px;
@@ -5634,11 +5631,9 @@ a:hover {
 }
 .quick-post .quick-post-body .uploadable-item-list {
   padding: 18px 28px;
-  border-top: 1px solid var(--color-divider);
 }
 .quick-post .quick-post-footer-wrap {
   padding: 0 28px;
-  border-top: 1px solid var(--color-divider);
   border-bottom-left-radius: 12px;
   border-bottom-right-radius: 12px;
 }
@@ -5702,7 +5697,7 @@ a:hover {
 .mention-list {
   width: 180px;
   padding: 8px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -5809,7 +5804,7 @@ a:hover {
 .stats-box {
   height: 220px;
   padding: 90px 28px 0;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .stats-box.small {
   height: 142px;
@@ -6076,13 +6071,13 @@ a:hover {
   width: 100%;
   max-width: 284px;
   height: auto;
-  @apply rounded-md;
+  @apply rounded-default;
   margin: 0 auto;
 }
 .banner-promo img {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 
 /*---------------------------------
@@ -6090,7 +6085,7 @@ a:hover {
 ---------------------------------*/
 .poll-box {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
@@ -6187,7 +6182,7 @@ a:hover {
           align-items: center;
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: rgba(35, 210, 226, 0.9);
   position: absolute;
   top: 0;
@@ -6205,7 +6200,7 @@ a:hover {
 ---------------------------------*/
 .quote-box {
   padding: 26px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
@@ -6230,7 +6225,7 @@ a:hover {
 .stats-decoration {
   height: 96px;
   padding: 28px 0 0 88px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6368,7 +6363,7 @@ a:hover {
 ---------------------------------*/
 .sidebar-box {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6493,7 +6488,7 @@ a:hover {
 }
 .sidebar-menu-item.sidebar-menu-item-disable-header .sidebar-menu-body {
   border-top: none;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
 }
 .sidebar-menu-item.selected .sidebar-menu-header .sidebar-menu-header-control-icon .sidebar-menu-header-control-icon-open {
@@ -6606,7 +6601,7 @@ a:hover {
           align-items: center;
   min-height: 98px;
   padding: 0 20px 0 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6637,7 +6632,7 @@ a:hover {
     99. TAB BOX
 ---------------------------------*/
 .tab-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6773,7 +6768,7 @@ a:hover {
 ---------------------------------*/
 .profile-stats {
   padding-bottom: 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6883,7 +6878,7 @@ a:hover {
     107. FEATURED STAT BOX
 ---------------------------------*/
 .featured-stat-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6961,7 +6956,7 @@ a:hover {
           align-items: center;
   min-height: 142px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -7017,7 +7012,7 @@ a:hover {
           align-items: center;
   min-height: 120px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7118,7 +7113,7 @@ a:hover {
 ---------------------------------*/
 .account-stat-box {
   padding: 32px 28px 100px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7369,7 +7364,7 @@ a:hover {
           align-items: center;
   min-height: 140px;
   padding: 32px 28px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7454,7 +7449,7 @@ a:hover {
           align-items: center;
   width: 60px;
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
@@ -7539,7 +7534,7 @@ a:hover {
           align-items: center;
   min-height: 88px;
   padding: 22px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7613,7 +7608,7 @@ a:hover {
 ---------------------------------*/
 .create-entity-box {
   height: 284px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7727,7 +7722,7 @@ a:hover {
           align-items: center;
   min-height: 100px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7889,7 +7884,7 @@ a:hover {
           align-items: center;
   height: 80px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -7935,7 +7930,7 @@ a:hover {
     REACTION BOX
 ----------------------------*/
 .reaction-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -8006,7 +8001,7 @@ a:hover {
       -ms-flex-align: center;
           align-items: center;
   height: 96px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 }
 .uploadable-item .uploadable-item-remove-button {
@@ -8049,7 +8044,7 @@ a:hover {
       -ms-flex-align: center;
           align-items: center;
   height: 96px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: 2px dashed var(--color-border);
 }
 .uploadable-item-selector .uploadable-item-selector-button {
@@ -8064,7 +8059,7 @@ a:hover {
           align-items: center;
   width: 40px;
   height: 40px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-primary);
   cursor: pointer;
 }
@@ -8083,7 +8078,7 @@ a:hover {
     52. MESSAGE BOX
 ---------------------------------*/
 .message-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -8105,7 +8100,7 @@ a:hover {
           align-items: center;
   width: 60px;
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: -16px;
   left: 50%;
@@ -8160,7 +8155,7 @@ a:hover {
 ---------------------------------*/
 .alert-box {
   min-height: 100px;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 32px 32px 26px 108px;
   background-color: #4f8dff;
   position: relative;
@@ -8186,7 +8181,7 @@ a:hover {
           align-items: center;
   width: 60px;
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 20px;
   left: 20px;
@@ -8212,7 +8207,7 @@ a:hover {
 
 .alert-line {
   min-height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 20px 28px 20px 64px;
   background-color: #4f8dff;
   position: relative;
@@ -8326,7 +8321,7 @@ a:hover {
   display: -ms-flexbox;
   display: flex;
   padding: 32px 0 32px 90px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -8381,7 +8376,7 @@ a:hover {
 ---------------------------------*/
 .point-item-box {
   padding: 32px 26px 50px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -8467,7 +8462,7 @@ a:hover {
     129. ACHIEVEMENT ITEM BOX
 ---------------------------------*/
 .achievement-item-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -9312,7 +9307,7 @@ a:hover {
           box-shadow: none;
 }
 .table.split-rows .table-row {
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -9381,7 +9376,7 @@ a:hover {
   display: table-row-group;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .table .table-body.same-color-rows .table-row:nth-child(2n+2) {
   background-color: var(--color-box-background);
@@ -9524,7 +9519,7 @@ a:hover {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1260px) {
   .table.table-forum-category .table-header-column:last-child,
@@ -9665,7 +9660,7 @@ a:hover {
     1. WIDGET BOX
 --------------------*/
 .widget-box {
-  @apply relative rounded-md;
+  @apply relative rounded-default;
   padding: 32px 28px;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -10033,7 +10028,7 @@ a:hover {
   list-style: lower-alpha;
 }
 .widget-box .widget-box-status .widget-box-status-html-content blockquote {
-  @apply relative rounded-md;
+  @apply relative rounded-default;
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
   padding: 24px 28px 24px 46px;
@@ -10423,7 +10418,7 @@ img[alt=logo].logo-image {
 
 #wp-link-wrap {
   height: 380px !important;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 32px 28px;
   overflow: visible !important;
   background-color: var(--color-box-background) !important;
@@ -11095,7 +11090,7 @@ img[alt=logo].logo-image {
 }
 #bbpress-forums div.bbp-topic-content blockquote,
 #bbpress-forums div.bbp-reply-content blockquote {
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
   padding: 24px 28px 24px 46px;
@@ -11232,7 +11227,7 @@ img[alt=logo].logo-image {
   margin-left: 0;
 }
 #bbpress-forums li.bbp-body {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 #bbpress-forums li.bbp-body ul.hentry,
 #bbpress-forums li.bbp-body div.hentry {
@@ -11517,7 +11512,7 @@ img[alt=logo].logo-image {
 #bbpress-forums .yipnyap-forum-topic-form-wrap {
   margin-top: 28px;
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -11554,7 +11549,7 @@ img[alt=logo].logo-image {
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 }
 #bbpress-forums #message + .bbp-pagination,
@@ -11582,7 +11577,7 @@ img[alt=logo].logo-image {
   content: "";
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-notice-overlay-background-secondary);
   position: absolute;
   top: 0;
@@ -11776,7 +11771,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1260px) {
   #bbpress-forums ul.bbp-forums li.bbp-forum-info {
@@ -12249,7 +12244,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce ul.products li.product {
   padding-bottom: 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -12288,7 +12283,7 @@ img[alt=logo].logo-image {
           align-items: center;
   height: 32px;
   padding: 0 14px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-light-background);
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
@@ -12433,7 +12428,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce nav.woocommerce-pagination ul {
   border: none;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-overbox-shadow);
           box-shadow: var(--color-overbox-shadow);
 }
@@ -12509,13 +12504,13 @@ img[alt=logo].logo-image {
 .woocommerce div.product div.images .woocommerce-product-gallery__wrapper,
 .woocommerce div.product div.images .flex-viewport,
 .woocommerce div.product div.images .flex-control-thumbs {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
 .woocommerce div.product div.images .woocommerce-product-gallery__image {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .woocommerce div.product div.images .flex-viewport .woocommerce-product-gallery__image {
   border-radius: 0;
@@ -12535,7 +12530,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce div.product div.images .flex-control-thumbs li img {
   border: 4px solid transparent;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .woocommerce div.product div.images .flex-control-thumbs li img.flex-active {
   border-color: var(--color-primary);
@@ -12549,7 +12544,7 @@ img[alt=logo].logo-image {
       -ms-flex-direction: column;
           flex-direction: column;
   padding: 32px 48px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -12682,7 +12677,7 @@ img[alt=logo].logo-image {
   padding: 0 64px;
 }
 .woocommerce div.product .woocommerce-tabs {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -12997,7 +12992,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce form.login {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: none;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -13047,7 +13042,7 @@ img[alt=logo].logo-image {
   margin: 0;
   background-color: transparent;
   border: 1px solid var(--color-border);
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .woocommerce form .select2-container .select2-selection--single .select2-selection__placeholder,
 .woocommerce form .select2-container .select2-selection--single .select2-selection__rendered {
@@ -13101,7 +13096,7 @@ img[alt=logo].logo-image {
 .woocommerce .woocommerce-MyAccount-content > form,
 .woocommerce .woocommerce-MyAccount-content > p {
   padding: 18px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13135,7 +13130,7 @@ img[alt=logo].logo-image {
   width: 100%;
   margin: 0 16px 0 0;
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13173,7 +13168,7 @@ img[alt=logo].logo-image {
   min-height: 60px;
   margin: 32px 0;
   padding: 20px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: none;
   border: 2px solid #00c7d9;
   background-color: var(--color-box-background);
@@ -13295,7 +13290,7 @@ img[alt=logo].logo-image {
 .woocommerce .woocommerce-customer-details {
   margin: 16px 0 0;
   padding: 32px 28px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13359,7 +13354,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce table.woocommerce-table, .woocommerce table.shop_table {
   padding: 18px 28px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   border: none;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -13461,7 +13456,7 @@ img[alt=logo].logo-image {
 .woocommerce.shop_table {
   margin: 0;
   border: none;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .woocommerce.shop_table td {
   border-top: 1px solid var(--color-divider);
@@ -13471,7 +13466,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce .cart-collaterals .cart_totals {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13532,7 +13527,7 @@ img[alt=logo].logo-image {
   width: 60px;
   height: 60px;
   margin: 0;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 12px;
   left: 28px;
@@ -13578,7 +13573,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce form.checkout_coupon {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: none;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -13602,7 +13597,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce .woocommerce-checkout #customer_details > * {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13645,7 +13640,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce .woocommerce-checkout #payment div.payment_box {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13677,7 +13672,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce ul.order_details {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -13711,7 +13706,7 @@ img[alt=logo].logo-image {
   width: 60px;
   height: 60px;
   margin: 0;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 12px;
   left: 28px;
@@ -13761,7 +13756,7 @@ img[alt=logo].logo-image {
 }
 .woocommerce-cart table.cart .product-thumbnail img {
   width: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .woocommerce-cart .wc-proceed-to-checkout {
   padding: 0;
@@ -13776,7 +13771,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .woocommerce ul.products.columns-4 {
@@ -13888,7 +13883,7 @@ img[alt=logo].logo-image {
   height: 52px;
 }
 .picture.round {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .picture.round.small, .picture.round.tiny {
   border-radius: 10px;
@@ -13945,7 +13940,7 @@ img[alt=logo].logo-image {
   background-color: rgba(36, 210, 226, 0.9);
 }
 .picture-item .picture-item-overlay.round {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .picture-item .picture-item-overlay.circle {
   border-radius: 50%;
@@ -15666,7 +15661,7 @@ img[alt=logo].logo-image {
 .form-box {
   width: 484px;
   padding: 64px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-overbox-dark-shadow);
           box-shadow: var(--color-overbox-dark-shadow);
@@ -15712,7 +15707,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 500px) {
   .form-box {
@@ -15929,7 +15924,7 @@ img[alt=logo].logo-image {
 .vk-el-navigation-item .vk-el-navigation {
   width: 200px;
   padding: 16px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   display: block;
   position: absolute;
@@ -16572,7 +16567,7 @@ img[alt=logo].logo-image {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -16925,7 +16920,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 960px) {
   .chat-widget-wrap {
@@ -16934,7 +16929,7 @@ img[alt=logo].logo-image {
             box-shadow: none;
   }
   .chat-widget-wrap .chat-widget {
-    @apply rounded-md;
+    @apply rounded-default;
   }
   .chat-widget-wrap .chat-widget:first-child, .chat-widget-wrap .chat-widget:last-child {
     width: 100%;
@@ -16964,7 +16959,7 @@ img[alt=logo].logo-image {
     1. PROFILE HEADER
 --------------------------*/
 .profile-header {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -17237,7 +17232,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 .post-preview {
   min-height: 516px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -17569,7 +17564,7 @@ img[alt=logo].logo-image {
   width: 91.6666666667%;
   padding: 28px;
   margin: -48px auto 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   -webkit-box-shadow: var(--color-overbox-big-shadow);
           box-shadow: var(--color-overbox-big-shadow);
@@ -17733,7 +17728,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 960px) {
   .post-preview.sticky {
@@ -18199,7 +18194,7 @@ img[alt=logo].logo-image {
   margin-bottom: 80px;
 }
 .post-open.v3 {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -18318,7 +18313,7 @@ img[alt=logo].logo-image {
 .post-open.v2 .post-open-cover {
   min-height: 662px;
   height: auto;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .post-open.v2 .post-open-cover-overlay {
   display: -webkit-box;
@@ -18331,7 +18326,7 @@ img[alt=logo].logo-image {
   height: 100%;
   min-height: inherit;
   padding: 80px 100px 160px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: rgba(32, 33, 49, 0.6);
 }
 .post-open.v2 .post-open-cover-overlay .post-open-heading {
@@ -18394,7 +18389,7 @@ img[alt=logo].logo-image {
   max-width: 784px;
   margin: -220px auto 0;
   padding-top: 90px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -18484,7 +18479,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .post-open .post-open-body {
@@ -18632,7 +18627,7 @@ img[alt=logo].logo-image {
     1. PRODUCT PREVIEW
 --------------------------*/
 .product-preview {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -18647,7 +18642,7 @@ img[alt=logo].logo-image {
 }
 .product-preview.small .product-preview-image {
   height: 144px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .product-preview.small .product-preview-info {
   padding: 20px 0 0;
@@ -18670,7 +18665,7 @@ img[alt=logo].logo-image {
   width: 94px;
   height: 60px;
   margin-right: 20px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .product-preview.tiny .product-preview-image.short {
   width: 60px;
@@ -18706,7 +18701,7 @@ img[alt=logo].logo-image {
   width: 68px;
   height: 44px;
   margin-right: 12px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .product-preview.micro .product-preview-info {
   padding: 6px 0 0;
@@ -18820,7 +18815,7 @@ img[alt=logo].logo-image {
   display: block;
   height: 142px;
   padding: 26px 0 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -18889,7 +18884,7 @@ img[alt=logo].logo-image {
     1. STREAM BOX
 ----------------------*/
 .stream-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -19049,7 +19044,7 @@ img[alt=logo].logo-image {
     1. VIDEO BOX
 -------------------*/
 .video-box {
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -19090,11 +19085,11 @@ img[alt=logo].logo-image {
   visibility: visible;
 }
 .video-box.small .video-box-cover::after {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .video-box.small .video-box-cover .video-box-cover-image {
   height: 128px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .video-box.small .video-box-cover .play-button {
   top: 40px;
@@ -19173,10 +19168,10 @@ img[alt=logo].logo-image {
   transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
 }
 .video-box .video-box-cover .video-wrap {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .video-box .video-box-cover .video-wrap video {
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .video-box .video-box-cover .video-box-cover-image {
   height: 160px;
@@ -19226,7 +19221,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 .video-status {
   display: block;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-overbox-big-shadow);
           box-shadow: var(--color-overbox-big-shadow);
 }
@@ -19301,7 +19296,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 680px) {
   .video-status.small {
@@ -19502,7 +19497,7 @@ img[alt=logo].logo-image {
     1. USER PREVIEW
 ----------------------*/
 .user-preview {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -19889,7 +19884,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .user-preview.landscape .user-preview-info .badge-list {
@@ -19972,7 +19967,7 @@ img[alt=logo].logo-image {
 .album-preview {
   display: block;
   height: 340px;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
   cursor: pointer;
@@ -19981,7 +19976,7 @@ img[alt=logo].logo-image {
 .album-preview .album-preview-image {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 0;
   left: 0;
@@ -19997,7 +19992,7 @@ img[alt=logo].logo-image {
 .album-preview .album-preview-info {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: inset 0 -120px 50px -40px rgba(0, 0, 0, 0.8);
           box-shadow: inset 0 -120px 50px -40px rgba(0, 0, 0, 0.8);
   display: -webkit-box;
@@ -20042,7 +20037,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 .photo-preview {
   display: block;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
   cursor: pointer;
@@ -20063,7 +20058,7 @@ img[alt=logo].logo-image {
 .photo-preview .photo-preview-image {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 0;
   left: 0;
@@ -20095,7 +20090,7 @@ img[alt=logo].logo-image {
           align-items: center;
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: rgba(21, 21, 31, 0.96);
   position: relative;
   z-index: 2;
@@ -20137,7 +20132,7 @@ img[alt=logo].logo-image {
 .popup-box {
   width: 90%;
   max-width: 984px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -20221,7 +20216,7 @@ img[alt=logo].logo-image {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
 }
 .popup-box-body > .page-loader-indicator {
@@ -20284,7 +20279,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 680px) {
   .popup-box-body {
@@ -20312,7 +20307,7 @@ img[alt=logo].logo-image {
   display: flex;
   height: 154px;
   padding: 32px 28px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -20345,7 +20340,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 460px) {
   .badge-item-preview {
@@ -20363,7 +20358,7 @@ img[alt=logo].logo-image {
 --------------------------*/
 .badge-item-stat {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -20418,7 +20413,7 @@ img[alt=logo].logo-image {
 ----------------------*/
 .streamer-box {
   background-color: var(--color-box-background);
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
 }
@@ -20797,7 +20792,7 @@ img[alt=logo].logo-image {
 .calendar-weekly .calendar-weekly-day-part .calendar-weekly-day-event.span-3 {
   width: 100%;
   height: 180px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
   z-index: 1;
 }
@@ -20858,7 +20853,7 @@ img[alt=logo].logo-image {
 .calendar-daily .calendar-daily-event {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 12px 14px;
   color: #fff;
   font-size: 0.875rem;
@@ -20886,7 +20881,7 @@ img[alt=logo].logo-image {
 ---------------------------------*/
 .calendar-events-preview {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21002,7 +20997,7 @@ img[alt=logo].logo-image {
     7. CALENDAR WIDGET
 ------------------------*/
 .calendar-widget {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21056,7 +21051,7 @@ img[alt=logo].logo-image {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 680px) {
   .calendar.full .calendar-week {
@@ -21174,7 +21169,7 @@ img[alt=logo].logo-image {
     2. EVENT PREVIEW
 ------------------------*/
 .event-preview {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21185,7 +21180,7 @@ img[alt=logo].logo-image {
 }
 .event-preview.small .event-preview-cover {
   height: 80px;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .event-preview.small .event-preview-info {
   display: block;
@@ -21331,7 +21326,7 @@ img[alt=logo].logo-image {
     1. QUEST ITEM
 ---------------------*/
 .quest-item {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21653,7 +21648,7 @@ img[alt=logo].logo-image {
 .slider-panel .slider-panel-slide-image {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   position: absolute;
   top: 0;
   left: 0;
@@ -21668,7 +21663,7 @@ img[alt=logo].logo-image {
   height: 100px;
   margin-top: 16px;
   padding: 0 46px 0 74px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21762,7 +21757,7 @@ img[alt=logo].logo-image {
   content: "";
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
   border: 4px solid var(--color-secondary);
   position: absolute;
   top: 0;
@@ -21771,11 +21766,11 @@ img[alt=logo].logo-image {
 .roster-picture .roster-picture-image {
   width: 100%;
   height: 100%;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .slider-panel .slider-panel-roster {
@@ -21818,7 +21813,7 @@ img[alt=logo].logo-image {
 
 .demo-box {
   padding: 48px 28px 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -21989,6 +21984,7 @@ img[alt=logo].logo-image {
   color: var(--color-text);
 }
 .ypsdk.button-upgrade {
+  @apply rounded-default;
   display: -webkit-inline-box;
   display: -ms-inline-flexbox;
   display: inline-flex;
@@ -22000,7 +21996,6 @@ img[alt=logo].logo-image {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  border-radius: 0.375rem;
   border-width: 1px;
   border-color: transparent;
   -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
@@ -22300,7 +22295,7 @@ img[alt=logo].logo-image {
 
 .bp-messages-wrap {
   border: none;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -22373,7 +22368,7 @@ img[alt=logo].logo-image {
 }
 .bp-messages-wrap .chat-header .bpbm-search form input {
   border: 1px solid var(--color-border);
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   font-size: 0.875rem;
 }
@@ -22574,7 +22569,7 @@ img[alt=logo].logo-image {
 }
 .bp-messages-wrap div.new-message form > div > input[type=text],
 .bp-messages-wrap div.bulk-message form > div > input[type=text] {
-  @apply rounded-md;
+  @apply rounded-default;
   border: 1px solid var(--color-border) !important;
   background-color: var(--color-box-background);
   -webkit-box-shadow: none;
@@ -22669,7 +22664,7 @@ img[alt=logo].logo-image {
 .bp-messages-wrap div.bulk-message .box ul.send-to li .groups select,
 .bp-messages-wrap div.bulk-message .box ul.options li .groups select {
   padding: 0 40px 0 20px;
-  @apply rounded-md;
+  @apply rounded-default;
   font-size: 0.875rem;
   cursor: pointer;
 }
@@ -22685,7 +22680,7 @@ img[alt=logo].logo-image {
   line-height: 25px;
 }
 .bp-messages-wrap .taggle_list {
-  @apply rounded-md;
+  @apply rounded-default;
   border: 1px solid var(--color-border);
   background-color: var(--color-box-background);
   font-weight: 500;
@@ -22707,7 +22702,7 @@ img[alt=logo].logo-image {
 }
 .bp-messages-wrap .bp-emojionearea {
   padding: 14px 18px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   border: 1px solid var(--color-border);
   color: var(--color-text) !important;
@@ -22731,7 +22726,7 @@ img[alt=logo].logo-image {
 
 .amaran.user.message {
   padding: 16px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -22768,7 +22763,7 @@ img[alt=logo].logo-image {
 
 .pmpro_content_message {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-secondary);
   color: #fff;
   font-family: var(--font-primary);
@@ -22847,7 +22842,7 @@ img[alt=logo].logo-image {
       -ms-flex-pack: justify;
           justify-content: space-between;
   padding: 32px 40px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -22964,7 +22959,7 @@ img[alt=logo].logo-image {
 .pmpro_confirmation_wrap {
   margin: 0;
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   border-top: none;
   background-color: var(--color-box-background);
   font-family: var(--font-primary);
@@ -23155,7 +23150,7 @@ img[alt=logo].logo-image {
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
-  @apply rounded-md;
+  @apply rounded-default;
   font-family: var(--font-primary);
   color: var(--color-text) !important;
   font-size: 0.875rem;
@@ -23402,7 +23397,7 @@ textarea.pmpro_error {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .section-banner + .yipnyap-pmpro-page-wrap {
@@ -23435,7 +23430,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .pmpro_bbp_membership_msg {
   margin: 32px 0;
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-secondary);
   color: #fff;
   font-family: var(--font-primary);
@@ -23788,7 +23783,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
   margin: 12px 0;
 }
 .menu .menu-item .menu-item-link {
-  @apply relative rounded-md flex items-center;
+  @apply relative rounded-default flex items-center;
   height: 48px;
   padding-left: 62px;
   font-size: 0.875rem;
@@ -23823,7 +23818,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
     4. SECTION NAVIGATION
 -----------------------------*/
 .section-navigation {
-  @apply rounded-md;
+  @apply rounded-default;
   height: 80px;
   padding: 0 43px;
   background-color: var(--color-box-background);
@@ -23954,7 +23949,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
     6. MENU WIDE
 ---------------------*/
 .menu-wide {
-  @apply flex rounded-md;
+  @apply flex rounded-default;
   padding: 50px 16px 50px 60px;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -24199,7 +24194,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
           align-items: center;
   height: 96px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
   background-color: var(--color-box-background);
@@ -24322,7 +24317,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 ----------------------------*/
 .section-pager-bar {
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -24399,7 +24394,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .section-pager .section-pager-item .section-pager-item-text {
   background-color: var(--color-box-background);
   padding: 16px;
-  @apply rounded-md;
+  @apply rounded-default;
   font-size: 0.875rem;
   font-weight: 700;
   -webkit-transition: color 0.2s ease-in-out, background-color 0.2s ease-in-out, -webkit-box-shadow 0.2s ease-in-out;
@@ -24425,7 +24420,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 .section-banner {
   min-height: 160px;
   padding: 52px 60px 0 200px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 }
 .section-banner .section-banner-icon {
@@ -24454,7 +24449,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1500px) {
   .section-filters-bar.v4 .form-item.split .form-select.small {
@@ -26213,7 +26208,7 @@ svg {
 }
 .widget-box.widget_media_image img {
   display: block;
-  @apply rounded-md;
+  @apply rounded-default;
 }
 .widget-box.widget_calendar .widget-box-title, .widget-box.widget_archive .widget-box-title, .widget-box.widget_recent_comments .widget-box-title, .widget-box.widget_search .widget-box-title, .widget-box.widget_text .widget-box-title, .widget-box.widget_categories .widget-box-title, .widget-box.widget_meta .widget-box-title, .widget-box.widget_nav_menu .widget-box-title, .widget-box.widget_pages .widget-box-title, .widget-box.widget_recent_entries .widget-box-title, .widget-box.widget_media_video .widget-box-title, .widget-box.widget_tag_cloud .widget-box-title, .widget-box.widget_rss .widget-box-title {
   margin-bottom: 32px;
@@ -26597,7 +26592,7 @@ body.buddypress.activation #buddypress #template-notices + p, body.buddypress.re
 }
 body.buddypress.activation #buddypress .bp-template-notice, body.buddypress.registration #buddypress .bp-template-notice {
   padding: 22px 28px 22px 64px;
-  @apply rounded-md;
+  @apply rounded-default;
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
   position: relative;
@@ -26717,7 +26712,7 @@ body.buddypress.activation #buddypress .page form input[type=submit], body.buddy
   width: 100%;
   height: 54px;
   padding: 0 18px;
-  @apply rounded-md;
+  @apply rounded-default;
   border-color: transparent;
   background: var(--color-secondary);
   font-family: var(--font-primary);
@@ -26759,7 +26754,7 @@ body.buddypress.activation #buddypress .page form .wp-switch-editor, body.buddyp
   height: 30px;
   margin: 0 6px 0 0;
   padding: 0 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: 1px solid var(--color-border);
   background-color: transparent;
   color: var(--color-text-alt-2);

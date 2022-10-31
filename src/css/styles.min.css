@@ -536,14 +536,14 @@ samp {
  *    CSS Remedy, with `svg` added as well.
  *
  *    https://github.com/mozdevs/cssremedy/issues/14
- * 
+ *
  * 2. Add `vertical-align: middle` to align replaced elements more
  *    sensibly by default when overriding `display` by adding a
  *    utility like `inline`.
  *
  *    This can trigger a poorly considered linting error in some
  *    tools but is included by design.
- * 
+ *
  *    https://github.com/jensimmons/cssremedy/issues/14#issuecomment-634934210
  */
 
@@ -12612,7 +12612,7 @@ h2 {
   border-radius: 0.25rem;
 }
 
-.rounded-md {
+.rounded-default {
   border-radius: 0.375rem;
 }
 
@@ -45879,7 +45879,7 @@ h2 {
     border-radius: 0.25rem;
   }
 
-  .sm\:rounded-md {
+  .sm\:rounded-default {
     border-radius: 0.375rem;
   }
 
@@ -79126,7 +79126,7 @@ h2 {
     border-radius: 0.25rem;
   }
 
-  .md\:rounded-md {
+  .md\:rounded-default {
     border-radius: 0.375rem;
   }
 
@@ -112373,7 +112373,7 @@ h2 {
     border-radius: 0.25rem;
   }
 
-  .lg\:rounded-md {
+  .lg\:rounded-default {
     border-radius: 0.375rem;
   }
 
@@ -145620,7 +145620,7 @@ h2 {
     border-radius: 0.25rem;
   }
 
-  .xl\:rounded-md {
+  .xl\:rounded-default {
     border-radius: 0.375rem;
   }
 
@@ -178867,7 +178867,7 @@ h2 {
     border-radius: 0.25rem;
   }
 
-  .\32xl\:rounded-md {
+  .\32xl\:rounded-default {
     border-radius: 0.375rem;
   }
 

@@ -11,6 +11,9 @@ module.exports = {
                     highlight: 'rgb(125 211 252 / 0.1)',
                 },
             },
+            borderRadius: {
+                'default': '0.75rem',
+            }
         },
     },
     plugins: [

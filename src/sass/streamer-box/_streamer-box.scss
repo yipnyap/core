@@ -8,7 +8,7 @@
 ----------------------*/
 .streamer-box {
   background-color: var(--color-box-background);
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
 
   &.small {

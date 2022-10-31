@@ -1,6 +1,6 @@
 .bp-messages-wrap {
   border: none;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -88,7 +88,7 @@
       form {
         input {
           border: 1px solid var(--color-border);
-          @apply rounded-md;
+          @apply rounded-default;
           background-color: var(--color-box-background);
           font-size: $fs-14;
 
@@ -378,7 +378,7 @@
 
           & > {
             input[type="text"] {
-              @apply rounded-md;
+              @apply rounded-default;
               border: 1px solid var(--color-border) !important;
               background-color: var(--color-box-background);
               box-shadow: none;
@@ -477,7 +477,7 @@
 
             select {
               padding: 0 40px 0 20px;
-              @apply rounded-md;
+              @apply rounded-default;
               font-size: $fs-14;
               cursor: pointer;
             }
@@ -501,7 +501,7 @@
   }
 
   .taggle_list {
-    @apply rounded-md;
+    @apply rounded-default;
     border: 1px solid var(--color-border);
     background-color: var(--color-box-background);
     font-weight: $weight-medium;
@@ -527,7 +527,7 @@
 
   .bp-emojionearea {
     padding: 14px 18px;
-    @apply rounded-md;
+    @apply rounded-default;
     background-color: var(--color-box-background);
     border: 1px solid var(--color-border);
     color: var(--color-text) !important;
@@ -556,7 +556,7 @@
   &.user {
     &.message {
       padding: 16px;
-      @apply rounded-md;
+      @apply rounded-default;
       background-color: var(--color-box-background);
       box-shadow: var(--color-box-shadow);
 

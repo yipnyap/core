@@ -241,7 +241,7 @@
     }
 
     .table-row {
-      @apply rounded-md;
+      @apply rounded-default;
       box-shadow: var(--color-box-shadow);
 
       .table-column {
@@ -337,7 +337,7 @@
   .table-body {
     display: table-row-group;
     box-shadow: var(--color-box-shadow);
-    @apply rounded-md;
+    @apply rounded-default;
 
     &.same-color-rows {
       .table-row {
@@ -528,7 +528,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1260px) {
   .table {

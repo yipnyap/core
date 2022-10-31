@@ -157,7 +157,7 @@
 
       .bold {
         font-weight: 700;
-        
+
         &.tertiary {
           color: var(--vk-color-tertiary);
         }
@@ -201,7 +201,7 @@
     #vk-required-plugin-list,
     #vk-demo-import-list {
       margin-top: 46px;
-      
+
       & > {
         .loader-spinner-wrap {
           display: flex;
@@ -259,7 +259,7 @@
       display: table;
       clear: both;
     }
-    
+
     .vk-docs-section-sidebar {
       float: left;
       width: (484 / 1420) * 100%;
@@ -434,7 +434,7 @@
    */
   .vk-docs-section-item {
     box-shadow: 3px 5px 40px 0 rgba(94, 92, 154, .1);
-    @apply rounded-md;
+    @apply rounded-default;
     padding: 40px 28px;
 
     .vk-docs-subsection-description {

@@ -146,7 +146,7 @@
   align-items: center;
   height: 96px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
   background-color: var(--color-box-background);
 
@@ -309,7 +309,7 @@
 ----------------------------*/
 .section-pager-bar {
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -403,7 +403,7 @@
     .section-pager-item-text {
       background-color: var(--color-box-background);
       padding: 16px;
-      @apply rounded-md;
+      @apply rounded-default;
       font-size: $fs-14;
       font-weight: $weight-bold;
       transition: color .2s ease-in-out, box-shadow .2s ease-in-out, background-color .2s ease-in-out;
@@ -427,7 +427,7 @@
 .section-banner {
   min-height: 160px;
   padding: 52px 60px 0 200px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 
   .section-banner-icon {
@@ -466,7 +466,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1500px) {
   .section-filters-bar {

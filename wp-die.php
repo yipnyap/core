@@ -826,7 +826,7 @@ endif;
             border-radius: 0.75rem;
         }
 
-        .rounded-md {
+        .rounded-default {
             border-radius: 0.375rem;
         }
 
@@ -1282,7 +1282,7 @@ endif;
                           class="
                       mt-2
                       whitespace-pre-line
-                      rounded-md
+                      rounded-default
                       p-2
                       bg-gray-100
                       text-gray-500
@@ -1305,7 +1305,7 @@ endif;
                   w-full
                   inline-flex
                   justify-center
-                  rounded-md
+                  rounded-default
                   border border-gray-300
                   shadow-sm
                   px-4

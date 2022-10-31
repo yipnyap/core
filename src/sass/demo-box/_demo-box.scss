@@ -1,6 +1,6 @@
 .demo-box {
   padding: 48px 28px 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;

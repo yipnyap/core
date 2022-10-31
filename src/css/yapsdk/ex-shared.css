@@ -34,12 +34,12 @@
     grid-gap: 0;
     overflow: hidden;
     /* TODO: Tailwind-ify this. */
-    border-radius: 0.375rem;
+    border-radius: 0.75rem;
 }
 
 #activity-filterable-list > .grid > .grid > .widget-box {
     border-bottom: 4px dotted var(--color-body);
-    border-radius: 0%;
+    border-radius: 0;
     box-shadow: none;
 }
 

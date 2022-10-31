@@ -10,7 +10,7 @@
   margin-bottom: 80px;
 
   &.v3 {
-    @apply rounded-md;
+    @apply rounded-default;
     background-color: var(--color-box-background);
     box-shadow: var(--color-box-shadow);
 
@@ -163,7 +163,7 @@
     .post-open-cover {
       min-height: 662px;
       height: auto;
-      @apply rounded-md;
+      @apply rounded-default;
     }
 
     .post-open-cover-overlay {
@@ -173,7 +173,7 @@
       height: 100%;
       min-height: inherit;
       padding: 80px 100px 160px;
-      @apply rounded-md;
+      @apply rounded-default;
       background-color: rgba(32, 33, 49, .6);
 
       .post-open-heading {
@@ -254,7 +254,7 @@
     max-width: 784px;
     margin: -220px auto 0;
     padding-top: 90px;
-    @apply rounded-md;
+    @apply rounded-default;
     background-color: var(--color-box-background);
     box-shadow: var(--color-box-shadow);
 
@@ -360,7 +360,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 1365px) {
   .post-open {

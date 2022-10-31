@@ -9,7 +9,7 @@
 .popup-box {
   width: 90%;
   max-width: 984px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -106,7 +106,7 @@
 
 .popup-box-body {
   display: flex;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
 
   & > {
@@ -180,7 +180,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 680px) {
   .popup-box-body {

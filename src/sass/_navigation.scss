@@ -194,7 +194,7 @@
     }
 
     .menu-item-link {
-      @apply relative rounded-md flex items-center;
+      @apply relative rounded-default flex items-center;
       height: 48px;
       padding-left: 62px;
       font-size: $fs-14;
@@ -230,7 +230,7 @@
     4. SECTION NAVIGATION
 -----------------------------*/
 .section-navigation {
-  @apply rounded-md;
+  @apply rounded-default;
   height: 80px;
   padding: 0 43px;
   background-color: var(--color-box-background);
@@ -380,7 +380,7 @@
     6. MENU WIDE
 ---------------------*/
 .menu-wide {
-  @apply flex rounded-md;
+  @apply flex rounded-default;
   padding: 50px 16px 50px 60px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);

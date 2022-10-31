@@ -1048,7 +1048,7 @@
     19. USER PREVIEW WIDGET
 -----------------------------*/
 .user-preview-widget {
-  @apply rounded-md;
+  @apply rounded-default;
   padding-bottom: 28px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -1243,7 +1243,7 @@
   align-items: center;
   width: 44px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-light-background);
   box-shadow: var(--color-overbox-shadow);
   color: $white;
@@ -1302,7 +1302,7 @@
   line-height: 32px;
 
   &.round {
-    @apply rounded-md;
+    @apply rounded-default;
   }
 
   .highlighted {
@@ -1407,7 +1407,7 @@
 .simple-dropdown {
   width: 140px;
   padding: 10px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-light-background);
   box-shadow: var(--color-overbox-dark-shadow);
 
@@ -1907,7 +1907,7 @@
   align-items: center;
   width: 44px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-primary);
   box-shadow: 3px 5px 20px 0px rgba(94, 92, 154, .3);
 }
@@ -2064,7 +2064,7 @@
 .popup-event {
   width: 90%;
   max-width: 584px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -2358,7 +2358,7 @@
   align-items: center;
   width: 160px;
   height: 44px;
-  @apply rounded-md;
+  @apply rounded-default;
   cursor: pointer;
   transition: box-shadow .2s ease-in-out, background-color .2s ease-in-out;
 
@@ -2446,7 +2446,7 @@
 .slider-line {
   height: 120px;
   padding: 0 48px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -2810,7 +2810,7 @@
     align-items: center;
     height: 168px;
     background-color: var(--color-primary);
-    @apply rounded-md;
+    @apply rounded-default;
     cursor: pointer;
 
     .icon-plus {
@@ -2821,7 +2821,7 @@
   .upload-item-image {
     width: 100%;
     height: 168px;
-    @apply rounded-md;
+    @apply rounded-default;
   }
 
   .form-input,
@@ -2906,7 +2906,7 @@
 .week-box {
   display: flex;
   background-color: var(--color-box-background);
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-overbox-shadow);
 
   .week-box-item {
@@ -3126,7 +3126,7 @@
     74. QUICK POST
 ---------------------------------*/
 .quick-post {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -3170,8 +3170,6 @@
   }
 
   .quick-post-header {
-    border-bottom: 1px solid var(--color-divider);
-
     .quick-post-header-filters-wrap {
       min-height: 80px;
       padding: 0 28px;
@@ -3262,13 +3260,11 @@
 
     .uploadable-item-list {
       padding: 18px 28px;
-      border-top: 1px solid var(--color-divider);
     }
   }
 
   .quick-post-footer-wrap {
     padding: 0 28px;
-    border-top: 1px solid var(--color-divider);
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
   }
@@ -3337,7 +3333,7 @@
   width: 180px;
   // max-height: 140px;
   padding: 8px 0;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: absolute;
@@ -3447,7 +3443,7 @@
 .stats-box {
   height: 220px;
   padding: 90px 28px 0;
-  @apply rounded-md;
+  @apply rounded-default;
 
   &.small {
     height: 142px;
@@ -3722,13 +3718,13 @@
   width: 100%;
   max-width: 284px;
   height: auto;
-  @apply rounded-md;
+  @apply rounded-default;
   margin: 0 auto;
 
   img {
     width: 100%;
     height: 100%;
-    @apply rounded-md;
+    @apply rounded-default;
   }
 }
 
@@ -3737,7 +3733,7 @@
 ---------------------------------*/
 .poll-box {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
 
@@ -3843,7 +3839,7 @@
         align-items: center;
         width: 100%;
         height: 100%;
-        @apply rounded-md;
+        @apply rounded-default;
         background-color: $color-picture-collage-overlay-background;
         position: absolute;
         top: 0;
@@ -3865,7 +3861,7 @@
 ---------------------------------*/
 .quote-box {
   padding: 26px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
   position: relative;
@@ -3889,7 +3885,7 @@
 .stats-decoration {
   height: 96px;
   padding: 28px 0 0 88px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -4036,7 +4032,7 @@
 ---------------------------------*/
 .sidebar-box {
   padding: 32px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4245,7 +4241,7 @@
   &.sidebar-menu-item-disable-header {
     .sidebar-menu-body {
       border-top: none;
-      @apply rounded-md;
+      @apply rounded-default;
       background-color: var(--color-box-background);
     }
   }
@@ -4375,7 +4371,7 @@
   align-items: center;
   min-height: 98px;
   padding: 0 20px 0 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4408,7 +4404,7 @@
     99. TAB BOX
 ---------------------------------*/
 .tab-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4550,7 +4546,7 @@
 ---------------------------------*/
 .profile-stats {
   padding-bottom: 32px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4676,7 +4672,7 @@
     107. FEATURED STAT BOX
 ---------------------------------*/
 .featured-stat-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4763,7 +4759,7 @@
   align-items: center;
   min-height: 142px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
 
   &.secondary {
@@ -4819,7 +4815,7 @@
   align-items: center;
   min-height: 120px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -4917,7 +4913,7 @@
 ---------------------------------*/
 .account-stat-box {
   padding: 32px 28px 100px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -5173,7 +5169,7 @@
   align-items: center;
   min-height: 140px;
   padding: 32px 28px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   cursor: pointer;
@@ -5246,7 +5242,7 @@
   align-items: center;
   width: 60px;
   height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-over-box-background);
   box-shadow: var(--color-overbox-shadow);
   cursor: pointer;
@@ -5338,7 +5334,7 @@
   align-items: center;
   min-height: 88px;
   padding: 22px 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -5418,7 +5414,7 @@
 ---------------------------------*/
 .create-entity-box {
   height: 284px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -5538,7 +5534,7 @@
   align-items: center;
   min-height: 100px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -5688,7 +5684,7 @@
   align-items: center;
   height: 80px;
   padding: 0 28px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -5733,7 +5729,7 @@
     REACTION BOX
 ----------------------------*/
 .reaction-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -5801,7 +5797,7 @@
   justify-content: center;
   align-items: center;
   height: 96px;
-  @apply rounded-md;
+  @apply rounded-default;
   position: relative;
 
   .uploadable-item-remove-button {
@@ -5834,7 +5830,7 @@
   justify-content: center;
   align-items: center;
   height: 96px;
-  @apply rounded-md;
+  @apply rounded-default;
   border: 2px dashed var(--color-border);
 
   .uploadable-item-selector-button {
@@ -5843,7 +5839,7 @@
     align-items: center;
     width: 40px;
     height: 40px;
-    @apply rounded-md;
+    @apply rounded-default;
     background-color: var(--color-primary);
     cursor: pointer;
 
@@ -5864,7 +5860,7 @@
     52. MESSAGE BOX
 ---------------------------------*/
 .message-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   padding: 80px 0 50px;
@@ -5880,7 +5876,7 @@
     align-items: center;
     width: 60px;
     height: 60px;
-    @apply rounded-md;
+    @apply rounded-default;
     position: absolute;
     top: -16px;
     left: 50%;
@@ -5941,7 +5937,7 @@
 ---------------------------------*/
 .alert-box {
   min-height: 100px;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 32px 32px 26px 108px;
   background-color: #4f8dff;
   position: relative;
@@ -5964,7 +5960,7 @@
     align-items: center;
     width: 60px;
     height: 60px;
-    @apply rounded-md;
+    @apply rounded-default;
     position: absolute;
     top: 20px;
     left: 20px;
@@ -5994,7 +5990,7 @@
 
 .alert-line {
   min-height: 60px;
-  @apply rounded-md;
+  @apply rounded-default;
   padding: 20px 28px 20px 64px;
   background-color: #4f8dff;
   position: relative;
@@ -6118,7 +6114,7 @@
 .point-reward-box {
   display: flex;
   padding: 32px 0 32px 90px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;
@@ -6173,7 +6169,7 @@
 ---------------------------------*/
 .point-item-box {
   padding: 32px 26px 50px;
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -6259,7 +6255,7 @@
     129. ACHIEVEMENT ITEM BOX
 ---------------------------------*/
 .achievement-item-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;

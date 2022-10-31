@@ -21,7 +21,7 @@
     2. EVENT PREVIEW
 ------------------------*/
 .event-preview {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -30,7 +30,7 @@
 
     .event-preview-cover {
       height: 80px;
-      @apply rounded-md;
+      @apply rounded-default;
     }
 
     .event-preview-info {

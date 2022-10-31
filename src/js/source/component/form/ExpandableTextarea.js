@@ -279,7 +279,7 @@ function ExpandableTextarea(props) {
     }, [props.focus]);
 
     return (
-        <div ref={formTextareaRef} className={`form-textarea ${props.focus ? 'active' : ''} ${props.modifiers || ''}`}>
+        <div ref={formTextareaRef} className={`form-textarea ${props.kind === 'activity' ? 'pb-12 rounded-bl-default rounded-br-default' : ''} ${props.focus ? 'active' : ''} ${props.modifiers || ''}`}>
             {/* FORM TEXTAREA SHADOW */}
             <p ref={shadowTextareaRef} className={`form-textarea-shadow ${props.modifiers || ''}`}></p>
             {/* FORM TEXTAREA SHADOW */}
@@ -304,7 +304,7 @@ function ExpandableTextarea(props) {
 
             {/* TEXTAREA */}
             <div
-                className="rounded-md overflow-hidden focus-within:border-indigo-500 focus-within:ring-1 focus-within:ring-indigo-500">
+                className="rounded-default overflow-hidden">
                 <label htmlFor="description" className="sr-only">
                     Description
                 </label>
@@ -324,22 +324,6 @@ function ExpandableTextarea(props) {
                     onChange={handleChange}
                     wrap={'hard'}
                 />
-
-                {/* Spacer element to match the height of the toolbar */}
-                {
-                    props.kind === 'activity' &&
-                    <div aria-hidden="true">
-                        <div className="py-2">
-                            <div className="h-9"/>
-                        </div>
-                        <div className="h-px"/>
-                        <div className="py-2">
-                            <div className="py-px">
-                                <div className="h-9"/>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
             {/* TEXTAREA */}
 

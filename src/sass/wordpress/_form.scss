@@ -33,7 +33,7 @@
   select,
   button {
     width: 100%;
-    @apply rounded-md;
+    @apply rounded-default;
     font-size: 18px;
     font-weight: var(--vk-weight-bold);
   }

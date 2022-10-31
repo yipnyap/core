@@ -152,14 +152,14 @@ export default function Header() {
             style={{background: 'var(--color-header-background)'}}
         >
             <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 md:hidden">
-                <img src={yipnyap_constants.logo_url} alt="Yipnyap" className="h-8 w-auto inline-flex items-center justify-center rounded-md"/>
+                <img src={yipnyap_constants.logo_url} alt="Yipnyap" className="h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>
             {/* Menu button area */}
             <div className="inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
                 {/* Mobile menu button */}
                 <button
                     type="button"
-                    className="-mr-2 inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                    className="-mr-2 inline-flex items-center justify-center p-2 rounded-default text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <span className="sr-only">Open main menu</span>
@@ -172,7 +172,7 @@ export default function Header() {
                 {/* Search */}
                 <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500"><label htmlFor="search"
                                                                                                     className="sr-only">Search</label>
-                    <div className="mt-1 relative rounded-md shadow-sm">
+                    <div className="mt-1 relative rounded-default shadow-sm">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
                              aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
@@ -299,7 +299,7 @@ export default function Header() {
                                 </a>
                                 <button
                                     type="button"
-                                    className="-mr-2 inline-flex items-end justify-end p-2 rounded-md text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
+                                    className="-mr-2 inline-flex items-end justify-end p-2 rounded-default text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-600"
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <span className="sr-only">Close main menu</span>
@@ -316,7 +316,7 @@ export default function Header() {
                                         id="search"
                                         type="search"
                                         placeholder="Search Yipnyap"
-                                        className="block w-full border-gray-300 rounded-md pl-10 placeholder-gray-500 focus:border-indigo-600 focus:ring-indigo-600"
+                                        className="block w-full border-gray-300 rounded-default pl-10 placeholder-gray-500 focus:border-indigo-600 focus:ring-indigo-600"
                                         style={{background: 'var(--color-header-background)'}}
                                     />
                                     <div

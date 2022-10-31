@@ -186,7 +186,7 @@ body {
           width: 100%;
           height: 54px;
           padding: 0 18px;
-          @apply rounded-md;
+          @apply rounded-default;
           font-size: $fs-16;
           font-weight: $weight-bold;
         }
@@ -334,7 +334,7 @@ body {
       #login_error {
         margin: 32px auto 0;
         padding: 22px 28px 22px 64px;
-        @apply rounded-md;
+        @apply rounded-default;
         border-left: none;
         color: #fff;
         font-size: $fs-14;

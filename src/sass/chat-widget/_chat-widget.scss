@@ -14,7 +14,7 @@
 --------------------------*/
 .chat-widget-wrap {
   display: flex;
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
 
   .chat-widget {
@@ -421,7 +421,7 @@
 }
 
 /*--------------------
-    MEDIA QUERIES 
+    MEDIA QUERIES
 --------------------*/
 @media screen and (max-width: 960px) {
   .chat-widget-wrap {
@@ -429,7 +429,7 @@
     box-shadow: none;
 
     .chat-widget {
-      @apply rounded-md;
+      @apply rounded-default;
 
       &:first-child,
       &:last-child {

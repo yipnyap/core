@@ -60,13 +60,13 @@ $user = yipnyap_get_logged_user_member_data();
                         <!-- Profile -->
                         <div class="flex items-center">
                             <img src="<?php echo $user["avatar_url"] ?>" alt=""
-                                 class="hidden h-12 w-12 rounded-md sm:block"/>
+                                 class="hidden h-12 w-12 rounded-default sm:block"/>
                             <div>
                                 <!-- Profile greet and username -->
                                 <div class="flex items-center">
                                     <!-- Different picture placement on smaller screens -->
                                     <img src="<?php echo $user["avatar_url"] ?>" alt=""
-                                         class="h-12 w-12 rounded-md sm:hidden"/>
+                                         class="h-12 w-12 rounded-default sm:hidden"/>
                                     <h1
                                             id="mixheader-timed-greeting"
                                             class="ml-3 text-2xl font-bold leading-7 text-cool-gray-900 sm:leading-9 sm:truncate">
@@ -122,12 +122,12 @@ $user = yipnyap_get_logged_user_member_data();
 
                     <!-- Profile quick actions -->
                     <div class="mt-6 flex space-x-3 md:mt-0 md:ml-4">
-                    <span class="shadow-sm rounded-md">
+                    <span class="shadow-sm rounded-default">
                         <a href="<?php echo $user["link"] . 'settings' ?>" class="ypsdk button-upgrade">
                             Edit
                         </a>
                     </span>
-                        <span class="shadow-sm rounded-md">
+                        <span class="shadow-sm rounded-default">
                         <a href="https://discord.gg/wrCGpAB" target="_blank" class="ypsdk button-upgrade"
                            color="primary">
                             Discord

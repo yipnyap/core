@@ -137,7 +137,7 @@ export default function NoUserCTAActivity(props) {
                                 <div key={feature.name}>
                                     <dt>
                                         <div
-                                            className="flex items-center justify-center h-12 w-12 rounded-md bg-indigo-500 text-white">
+                                            className="flex items-center justify-center h-12 w-12 rounded-default bg-indigo-500 text-white">
                                             <feature.icon className="h-6 w-6" aria-hidden="true"/>
                                         </div>
                                         <p className="mt-5 text-lg leading-6 font-medium text-primary">{feature.name}</p>
@@ -158,10 +158,10 @@ export default function NoUserCTAActivity(props) {
                                 className="mt-3 block text-xl text-alt sm:mt-4">Visual learner? Just scroll down.</span>
                         </h2>
                         <div className="mt-8 flex justify-center">
-                            <div className="inline-flex rounded-md shadow">
+                            <div className="inline-flex rounded-default shadow">
                                 <a
                                     href="/id/create"
-                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700"
+                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-default text-white bg-indigo-600 hover:bg-indigo-700"
                                 >
                                     Get started
                                 </a>
@@ -169,7 +169,7 @@ export default function NoUserCTAActivity(props) {
                             <div className="ml-3 inline-flex">
                                 <a
                                     href="/login"
-                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
+                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-default text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
                                 >
                                     Sign in
                                 </a>

@@ -7,7 +7,7 @@
     1. STREAM BOX
 ----------------------*/
 .stream-box {
-  @apply rounded-md;
+  @apply rounded-default;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: relative;

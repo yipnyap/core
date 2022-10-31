@@ -8,7 +8,7 @@
     1. VIDEO BOX
 -------------------*/
 .video-box {
-  @apply rounded-md;
+  @apply rounded-default;
   box-shadow: var(--color-box-shadow);
 
   .checkbox-box {
@@ -56,12 +56,12 @@
       }
 
       &::after {
-        @apply rounded-md;
+        @apply rounded-default;
       }
 
       .video-box-cover-image {
         height: 128px;
-        @apply rounded-md;
+        @apply rounded-default;
       }
 
       .play-button {
@@ -131,10 +131,10 @@
     }
 
     .video-wrap {
-      @apply rounded-md;
-      
+      @apply rounded-default;
+
       video {
-        @apply rounded-md;
+        @apply rounded-default;
       }
     }
 
@@ -163,12 +163,12 @@
       font-size: $fs-14;
       font-weight: $weight-bold;
     }
-  
+
     .video-box-text {
       margin-top: 6px;
       font-size: $fs-12;
       font-weight: $weight-medium;
-    } 
+    }
   }
 }
 

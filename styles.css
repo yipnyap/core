@@ -1055,6 +1055,10 @@ h2 {
   margin-top: 0px;
 }
 
+.mr-auto {
+  margin-right: auto;
+}
+
 .box-border {
   box-sizing: border-box;
 }

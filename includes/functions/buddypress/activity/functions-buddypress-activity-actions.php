@@ -291,7 +291,7 @@ if (!function_exists('yipnyap_register_activity_video_update_action')) {
         bp_activity_set_action(
             'activity',
             'activity_video_update',
-            esc_html_x('Posted a video update', '(Backend) Activity Video Update Action - Description', 'yipnyap'),
+            '',
             'yipnyap_format_action_activity_video_update',
             esc_html_x('Video update', '(Backend) Activity Video Update Action - Label', 'yipnyap')
         );
@@ -309,7 +309,7 @@ if (!function_exists('yipnyap_register_activity_video_update_group_action')) {
         bp_activity_set_action(
             'groups',
             'activity_video_update',
-            esc_html_x('Posted a video update', '(Backend) Activity Video Update Group Action - Description', 'yipnyap'),
+            '',
             'yipnyap_format_action_activity_video_update_group',
             esc_html_x('Video update', '(Backend) Activity Video Update Group Action - Label', 'yipnyap')
         );
@@ -360,7 +360,7 @@ if (!function_exists('yipnyap_register_activity_video_action')) {
             'activity',
             'activity_video',
             esc_html_x('Uploaded a video', '(Backend) Activity Video Action - Description', 'yipnyap'),
-            'yipnyap_format_action_activity_video',
+            '',
             esc_html_x('Video upload', '(Backend) Activity Video Action - Label', 'yipnyap')
         );
     }
@@ -385,22 +385,6 @@ if (!function_exists('yipnyap_register_activity_video_group_action')) {
 }
 
 add_action('bp_register_activity_actions', 'yipnyap_register_activity_video_group_action');
-
-if (!function_exists('yipnyap_format_action_activity_video')) {
-    /**
-     * Action string format for the activity_video action
-     *
-     * @param string $action Action string
-     * @param Object $activity Activity item object
-     * @return string
-     */
-    function yipnyap_format_action_activity_video($action, $activity)
-    {
-        $action = esc_html_x('uploaded a video', 'Activity Video Action - Text', 'yipnyap');
-
-        return $action;
-    }
-}
 
 if (!function_exists('yipnyap_format_action_activity_video_group')) {
     /**

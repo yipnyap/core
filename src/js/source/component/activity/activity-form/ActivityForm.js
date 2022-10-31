@@ -5,8 +5,6 @@ import Avatar from '../../avatar/Avatar';
 import MediaLinkPreview from '../../media/MediaLinkPreview';
 import UploadableMediaList from '../../media/UploadableMediaList';
 
-import IconSVG from '../../icon/IconSVG';
-
 import BadgeVerified from '../../badge/BadgeVerified';
 
 import ExpandableTextarea from '../../form/ExpandableTextarea';
@@ -15,11 +13,9 @@ import UploadVideoButton from '../../video/UploadVideoButton';
 import VideoPreview from '../../video/VideoPreview';
 
 import {extractAttachedMedia} from '../../../utils/core';
-import {createTooltip} from '../../../utils/plugins';
-
 import {getActivityTemplate} from '../../utils/activity/activity-template';
-import {Listbox, Transition} from "@headlessui/react";
-import {CalendarIcon, PaperClipIcon, TagIcon, UserCircleIcon} from "@heroicons/react/solid";
+import {PaperClipIcon, VideoCameraIcon} from "@heroicons/react/solid";
+import {PhotographIcon} from "@heroicons/react/outline";
 
 const assignees = [
     {name: 'Unassigned', value: null},
@@ -55,11 +51,6 @@ function ActivityForm(props) {
         errors: []
     });
 
-    const photoTooltipRef = useRef(null);
-
-    const [assigned, setAssigned] = useState(assignees[0]);
-    const [dated, setDated] = useState(dueDates[0]);
-
     // useEffect(() => {
     //     if (!props.shareData && yipnyap_constants.plugin_active.vkmedia && yipnyap_constants.settings.media_photo_upload_enabled) {
     //         createTooltip({
@@ -72,6 +63,10 @@ function ActivityForm(props) {
     //         });
     //     }
     // }, []);
+
+    const fileID = useRef(1);
+    const allowedExtensions = useRef(`.${yipnyap_constants.settings.media_video_allowed_extensions.join(',.')}`);
+    const fileInputRef = useRef(null);
 
     const discardContent = () => {
         setFormData(previousFormData => {
@@ -218,6 +213,31 @@ function ActivityForm(props) {
                 hashtags: e.target.value.match(/#\S+/g) ?? false
             };
         });
+    };
+
+    const uploadVideo = () => {
+        const files = fileInputRef.current.files;
+
+        console.log('UPLOAD VIDEO BUTTON - UPLOAD FILES: ', files);
+
+        const fileData = [];
+
+        for (const file of files) {
+            const fileExtension = file.name.substring(file.name.lastIndexOf('.') + 1);
+
+            fileData.push({
+                id: fileID.current,
+                file: new File([file], file.name),
+                url: URL.createObjectURL(file),
+                extension: fileExtension
+            });
+
+            fileID.current += 1;
+        }
+
+        console.log('UPLOAD VIDEO BUTTON - FILE DATA: ', fileData);
+
+        addUploadableVideo(fileData);
     };
 
     const addUploadableVideo = (data) => {
@@ -449,16 +469,35 @@ function ActivityForm(props) {
                                     className="px-2 py-2 flex justify-between items-center space-x-3 sm:px-3">
                                     {
                                         yipnyap_constants.settings.media_photo_upload_enabled &&
-                                        <div className="flex flex-grow">
+                                        <div className="flex mr-auto">
                                             <button
                                                 type="button"
-                                                className="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
                                                 onClick={toggleUploadablePhotosBar}
                                             >
-                                                <PaperClipIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                <PhotographIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
                                                                aria-hidden="true"/>
                                                 <span
-                                                    className="text-sm text-gray-500 group-hover:text-gray-600 italic">Attach a file</span>
+                                                    className="text-sm text-gray-500 group-hover:text-gray-600 italic">Photo</span>
+                                            </button>
+
+                                            <input ref={fileInputRef}
+                                                   className="uploadable-item-selector-input"
+                                                   type="file"
+                                                   accept={allowedExtensions.current}
+                                                   onChange={uploadVideo}
+                                            />
+                                            <button
+                                                type="button"
+                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+                                                onClick={() => {
+                                                    fileInputRef.current.click();
+                                                }}
+                                                >
+                                                <VideoCameraIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                                    aria-hidden="true"/>
+                                                <span
+                                                    className="text-sm text-gray-500 group-hover:text-gray-600 italic">Video</span>
                                             </button>
                                         </div>
                                     }
@@ -532,23 +571,6 @@ function ActivityForm(props) {
                         }
                     </div>
                 }
-
-                {/* QUICK POST FOOTER */}
-                {/*<div className="quick-post-footer">*/}
-                {/*    /!* QUICK POST FOOTER ACTIONS *!/*/}
-                {/*    <div className="quick-post-footer-actions">*/}
-                {/*        {*/}
-                {/*            !props.shareData && yipnyap_constants.plugin_active.vkmedia &&*/}
-                {/*            <React.Fragment>*/}
-                {/*                {*/}
-                {/*                    yipnyap_constants.settings.media_video_upload_enabled &&*/}
-                {/*                    <UploadVideoButton onSelect={addUploadableVideo}/>*/}
-                {/*                }*/}
-                {/*            </React.Fragment>*/}
-                {/*        }*/}
-                {/*    </div>*/}
-                {/*</div>*/}
-                {/* QUICK POST FOOTER */}
             </div>
             {/* QUICK POST FOOTER WRAP */}
         </div>

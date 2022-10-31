@@ -15,7 +15,7 @@
       flex-direction: column;
       align-items: center;
       border-top-width: 1px;
-      border-color: var(--color-header-input-background);
+      border-color: var(--color-box-background-alt);
     }
   }
 
@@ -29,7 +29,7 @@
     border-radius: 0.25rem;
 
     &.active {
-      background: var(--color-header-input-background);
+      background: var(--color-box-background-alt);
     }
 
     &:hover {

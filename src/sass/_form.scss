@@ -325,11 +325,11 @@ textarea {
     input[type="password"],
     textarea {
       border: none;
-      background-color: var(--color-header-input-background);
+      background-color: var(--color-box-background-alt);
       color: var(--color-header-text);
 
       &::placeholder {
-        color: var(--color-header-input-placeholder);
+        color: var(--color-text-alt);
         opacity: 1;
       }
     }
@@ -827,11 +827,11 @@ textarea {
   &.dark {
     input {
       border: none;
-      background-color: var(--color-header-input-background);
+      background-color: var(--color-box-background-alt);
       color: var(--color-header-text);
 
       &::placeholder {
-        color: var(--color-header-input-placeholder);
+        color: var(--color-text-alt);
         opacity: 1;
       }
     }

@@ -258,22 +258,6 @@ $user = yipnyap_get_logged_user_member_data();
                 </div>
             <?php } ?>
 
-            <div class="alert-line alert-line-info" style="display: none;">
-                <!-- ALERT LINE ICON WRAP -->
-                <div class="alert-line-icon-wrap">
-                    <!-- ALERT LINE ICON -->
-                    <svg class="alert-line-icon icon-info">
-                        <use href="#svg-info"></use>
-                    </svg>
-                    <!-- /ALERT LINE ICON -->
-                </div>
-                <!-- /ALERT LINE ICON WRAP -->
-
-                <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text">can u not explore spaghetti code pls thnx</p>
-                <!-- /ALERT LINE TEXT -->
-            </div>
-
             <!-- ACTIVITY FILTERABLE LIST -->
             <div id="activity-filterable-list" class="grid-column"></div>
             <!-- /ACTIVITY FILTERABLE LIST -->

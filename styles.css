@@ -4312,34 +4312,34 @@ textarea::placeholder {
 .form-input.dark input[type=password],
 .form-input.dark textarea {
   border: none;
-  background-color: var(--color-header-input-background);
+  background-color: var(--color-box-background-alt);
   color: var(--color-header-text);
 }
 
 .form-input.dark input[type=text]::-webkit-input-placeholder, .form-input.dark input[type=password]::-webkit-input-placeholder, .form-input.dark textarea::-webkit-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .form-input.dark input[type=text]::-moz-placeholder, .form-input.dark input[type=password]::-moz-placeholder, .form-input.dark textarea::-moz-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .form-input.dark input[type=text]:-ms-input-placeholder, .form-input.dark input[type=password]:-ms-input-placeholder, .form-input.dark textarea:-ms-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .form-input.dark input[type=text]::-ms-input-placeholder, .form-input.dark input[type=password]::-ms-input-placeholder, .form-input.dark textarea::-ms-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .form-input.dark input[type=text]::placeholder,
 .form-input.dark input[type=password]::placeholder,
 .form-input.dark textarea::placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
@@ -4823,32 +4823,32 @@ textarea::placeholder {
 
 .interactive-input.dark input {
   border: none;
-  background-color: var(--color-header-input-background);
+  background-color: var(--color-box-background-alt);
   color: var(--color-header-text);
 }
 
 .interactive-input.dark input::-webkit-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .interactive-input.dark input::-moz-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .interactive-input.dark input:-ms-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .interactive-input.dark input::-ms-input-placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
 .interactive-input.dark input::placeholder {
-  color: var(--color-header-input-placeholder);
+  color: var(--color-text-alt);
   opacity: 1;
 }
 
@@ -28326,7 +28326,7 @@ img[alt=logo].logo-image {
   -ms-flex-align: center;
   align-items: center;
   border-top-width: 1px;
-  border-color: var(--color-header-input-background);
+  border-color: var(--color-box-background-alt);
 }
 
 .cmui.navigator-item {
@@ -28343,7 +28343,7 @@ img[alt=logo].logo-image {
 }
 
 .cmui.navigator-item.active {
-  background: var(--color-header-input-background);
+  background: var(--color-box-background-alt);
 }
 
 .cmui.navigator-item:hover {
@@ -33197,7 +33197,7 @@ body {
 body.buddypress.activation, body.buddypress.registration {
   display: -ms-flexbox;
   display: flex;
-  background: var(--color-wplogin-body);
+  background: var(--color-box-background);
   font-family: var(--font-primary);
   overflow: hidden;
 }
@@ -33391,7 +33391,7 @@ body.buddypress.registration #buddypress .page form input[type=tel],
 body.buddypress.registration #buddypress .page form input[type=search],
 body.buddypress.registration #buddypress .page form input[type=number],
 body.buddypress.registration #buddypress .page form textarea {
-  background: var(--color-wplogin-body);
+  background: var(--color-box-background);
 }
 
 body.buddypress.activation #buddypress .page form select, body.buddypress.registration #buddypress .page form select {

@@ -314,21 +314,19 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Login Register Colors
          */
-        '--color-wplogin-body' => '#fff',
         '--color-wplogin-header-text' => '#fff',
 
         /**
          * Header Colors
          */
         '--color-header-background' => '#fff',
-        '--color-header-logo-background' => '#00c7d9',
         '--color-header-text' => '#fff',
         '--color-header-icon' => '#8b88ff',
         '--color-header-icon-hover' => '#615dfa',
         '--color-header-profile-settings-icon' => '#9b7dff',
         '--color-header-mobilemenu-trigger-icon' => '#fff',
         '--color-header-divider' => '#7a77fd',
-        '--color-header-input-background' => '#dedeea',
+//        '--color-header-input-background' => '#dedeea',
         '--color-header-input-placeholder' => '#adafca',
         '--color-header-progressbar-line-gradient-start' => '#41efff',
         '--color-header-progressbar-line-gradient-end' => '#41efff',
@@ -395,11 +393,11 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Primary Colors
          */
-        '--color-primary' => '#23d2e2',
-        '--color-primary-hover' => '#1bc5d4',
-        '--color-primary-light' => '#41efff',
-        '--color-primary-dark' => '#00c7d9',
-        '--color-primary-shadow' => '#23d2e2',
+        '--color-primary' => '#6366f1',
+        '--color-primary-hover' => '#4f46e5',
+        '--color-primary-light' => '#a5b4fc',
+        '--color-primary-dark' => '#4338ca',
+        '--color-primary-shadow' => '#4338ca',
 
         /**
          * Secondary Colors
@@ -444,18 +442,15 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         case 'dark':
             $preset_default_colors = array_merge($default, [
                 '--color-wplogin-body' => '#1d2333',
-                '--color-header-background' => '#1d2333',
-                '--color-header-logo-background' => '#1d2333',
-                '--color-header-input-background' => '#293249',
-                '--color-header-input-placeholder' => '#9aa4bf',
+                '--color-header-background' => '#262626',
                 '--color-header-progressbar-line-gradient-start' => '#40d04f',
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
-                '--color-body' => '#161b28',
-                '--color-box-background' => '#1d2333',
-                '--color-box-background-alt' => '#21283b',
-                '--color-box-over-box-background' => '#21283b',
-                '--color-box-over-box-light-background' => '#293249',
+                '--color-body' => '#171717',
+                '--color-box-background' => '#262626',
+                '--color-box-background-alt' => '#2d2d2d',
+                '--color-box-over-box-background' => '#404040',
+                '--color-box-over-box-light-background' => 'var(--color-box-over-box-background)',
                 '--color-box-highlight-background' => '#21283b',
                 '--color-box-hover-background' => '#293249',
                 '--color-box-shadow' => '#000000',
@@ -467,19 +462,16 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-text-alt-2' => '#9aa4bf',
                 '--color-icon' => '#616a82',
                 '--color-icon-highlighted' => '#ffffff',
-                '--color-border' => '#3f485f',
-                '--color-divider' => '#2f3749',
+                '--color-border' => '#404040',
+                '--color-divider' => 'var(--color-border)',
+
+                '--color-primary-dark' => '#a5b4fc',
+                '--color-primary-light' => '#4338ca',
+
                 '--color-progressbar-line-gradient-start' => '#40d04f',
                 '--color-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-progressbar-underline' => '#293249',
                 '--color-avatar-rank-hexagon' => '#7750f8',
-                '--color-primary' => '#40d04f',
-                '--color-primary-hover' => '#4ae95b',
-                '--color-primary-light' => '#40d04f',
-                '--color-primary-dark' => '#4ff461',
-                '--color-primary-shadow' => '#40d04f',
-                '--color-secondary-dark' => '#7750f8',
-                '--color-secondary-shadow' => '#7750f8',
                 '--color-loading-screen-background' => '#1d2333',
                 '--color-loading-bar-1' => '#41d04f',
                 '--color-loading-bar-2' => '#50d551',
@@ -569,11 +561,6 @@ function yipnyap_customizer_theme_colors_get_default($preset_name = false)
         /**
          * Login Register Colors
          */
-        '--color-wplogin-body' => [
-            'type' => 'color',
-            'label' => esc_html_x('Login Register Body - Background', '(Customizer) Color Options - Login Register Body Background - Title', 'yipnyap'),
-            'description' => esc_html_x('Affects the login, register and activation pages body background color.', '(Customizer) Color Options - Login Register Body Background - Description', 'yipnyap')
-        ],
         '--color-wplogin-header-text' => [
             'type' => 'color',
             'label' => esc_html_x('Login Register Header Text - Color', '(Customizer) Color Options - Login Register Header Text Color - Title', 'yipnyap'),
@@ -587,11 +574,6 @@ function yipnyap_customizer_theme_colors_get_default($preset_name = false)
             'type' => 'color',
             'label' => esc_html_x('Header - Background', '(Customizer) Color Options - Header Background - Title', 'yipnyap'),
             'description' => esc_html_x('Affects the header background color.', '(Customizer) Color Options - Header Background - Description', 'yipnyap')
-        ],
-        '--color-header-logo-background' => [
-            'type' => 'color',
-            'label' => esc_html_x('Header Logo - Background', '(Customizer) Color Options - Header Logo Background - Title', 'yipnyap'),
-            'description' => esc_html_x('Affects the header logo background color. Used when setting to display only the logo on the header in the Site Identity options.', '(Customizer) Color Options - Header Logo Background - Description', 'yipnyap')
         ],
         '--color-header-text' => [
             'type' => 'color',
@@ -622,11 +604,6 @@ function yipnyap_customizer_theme_colors_get_default($preset_name = false)
             'type' => 'color',
             'label' => esc_html_x('Header Divider - Color', '(Customizer) Color Options - Header Divider Color - Title', 'yipnyap'),
             'description' => esc_html_x('Affects the header dividers color.', '(Customizer) Color Options - Header Divider Color - Description', 'yipnyap')
-        ],
-        '--color-header-input-background' => [
-            'type' => 'color',
-            'label' => esc_html_x('Header Input - Background', '(Customizer) Color Options - Header Input Background Color - Title', 'yipnyap'),
-            'description' => esc_html_x('Affects the header search input background color.', '(Customizer) Color Options - Header Input Background Color - Description', 'yipnyap')
         ],
         '--color-header-input-placeholder' => [
             'type' => 'color',

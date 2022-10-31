@@ -8,7 +8,7 @@ body {
     &.activation,
     &.registration {
       display: flex;
-      background: var(--color-wplogin-body);
+      background: var(--color-box-background);
       font-family: var(--font-primary);
       overflow: hidden;
 
@@ -191,7 +191,7 @@ body {
             input[type="search"],
             input[type="number"],
             textarea {
-              background: var(--color-wplogin-body);
+              background: var(--color-box-background);
             }
 
             select {

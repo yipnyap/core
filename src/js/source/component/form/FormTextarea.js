@@ -53,7 +53,7 @@ function FormTextarea(props) {
   }, [props.value]);
 
   return (
-    <div className={`form-input ${props.modifiers || ''}${active ? 'active' : ''}${props.markAsRequired ? 'required' : ''}`}>
+    <div className={`form-input ${props.modifiers || ''} ${active ? 'active' : ''} ${props.markAsRequired ? 'required' : ''}`}>
       <label htmlFor={props.name}>{props.label} {props.required && <span className="label-required">*</span>}</label>
       <textarea ref={inputRef}
                 name={props.name}

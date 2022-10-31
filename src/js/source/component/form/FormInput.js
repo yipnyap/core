@@ -53,7 +53,7 @@ function FormInput(props) {
   }, [props.value]);
 
   return (
-    <div className={`form-input ${props.modifiers || ''}${active ? 'active' : ''}${props.markAsRequired ? 'required' : ''}`}>
+    <div className={`form-input ${props.modifiers || ''} ${active ? 'active' : ''} ${props.markAsRequired ? 'required' : ''}`}>
       <label htmlFor={props.name}>{props.label} {props.required && <span className="label-required">*</span>}</label>
       <input  ref={inputRef}
               type="text"

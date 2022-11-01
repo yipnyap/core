@@ -2042,7 +2042,7 @@
     height: 100%;
     border-top-right-radius: 12px;
     border-bottom-right-radius: 12px;
-    background-color: $black-darker;
+    background-color: var(--color-box-background-alt);
 
     .popup-picture-image {
       max-width: 100%;

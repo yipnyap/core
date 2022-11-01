@@ -43,7 +43,7 @@ function ActivityMediaPopup(props) {
       triggerElement: props.activityMediaPopupTriggerRef.current,
       premadeContentElement: activityMediaPopupRef.current,
       type: 'premade',
-      popupSelectors: ['activity-media-popup', 'animate-slide-down']
+      popupSelectors: ['activity-media-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in']
     });
   }, []);
 

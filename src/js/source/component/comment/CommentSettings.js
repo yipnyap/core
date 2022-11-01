@@ -43,7 +43,7 @@ function CommentSettings(props) {
                 triggerElement: messageBoxTriggerRef.current,
                 premadeContentElement: messageBoxRef.current,
                 type: 'premade',
-                popupSelectors: ['message-box-popup', 'animate-slide-down'],
+                popupSelectors: ['message-box-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in'],
                 onOverlayCreate: function (overlay) {
                     overlay.setAttribute('data-simplebar', '');
                 }

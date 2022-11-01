@@ -1,0 +1,20 @@
+$anim-cubic-bezier: 0.25s cubic-bezier(0,1.25,0,1);
+
+.snapanim-elastic {
+  // Transform to zoom in
+  &.snapanim-in {
+    transform: scale(0); // Should start at 0
+    transition: transform $anim-cubic-bezier;
+    animation: zoomIn $anim-cubic-bezier forwards;
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    transform: scale(0);
+  }
+  to {
+    transform: scale(1);
+  }
+}
+

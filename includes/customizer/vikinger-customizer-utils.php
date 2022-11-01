@@ -435,7 +435,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Overlay Colors
          */
-        '--color-overlay' => '#15151f'
+        '--color-overlay' => '#171717'
     ];
     $preset_default_colors = [];
     switch ($preset_name) {

@@ -207,7 +207,7 @@ function GroupManagePopup(props) {
             triggerElement: props.groupManagePopupTriggerRef.current,
             premadeContentElement: groupManagePopupRef.current,
             type: 'premade',
-            popupSelectors: ['group-manage-popup', 'animate-slide-down']
+            popupSelectors: ['group-manage-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in']
         });
 
         // only fetch group data if not creating

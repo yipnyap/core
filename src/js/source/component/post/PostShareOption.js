@@ -17,7 +17,7 @@ function PostShareOption(props) {
             triggerElement: shareBoxTriggerRef.current,
             premadeContentElement: shareBoxRef.current,
             type: 'premade',
-            popupSelectors: ['share-box-popup', 'animate-slide-down'],
+            popupSelectors: ['share-box-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in'],
             onOverlayCreate: function (overlay) {
                 overlay.setAttribute('data-simplebar', '');
             }

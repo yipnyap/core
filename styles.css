@@ -945,11 +945,6 @@ h2 {
   margin-right: auto;
 }
 
-.-my-2 {
-  margin-top: -0.5rem;
-  margin-bottom: -0.5rem;
-}
-
 .-mx-1 {
   margin-left: -0.25rem;
   margin-right: -0.25rem;
@@ -999,8 +994,8 @@ h2 {
   margin-bottom: 0.5rem;
 }
 
-.-ml-2 {
-  margin-left: -0.5rem;
+.mr-auto {
+  margin-right: auto;
 }
 
 .-ml-1 {
@@ -1053,10 +1048,6 @@ h2 {
 
 .mt-0 {
   margin-top: 0px;
-}
-
-.mr-auto {
-  margin-right: auto;
 }
 
 .box-border {
@@ -8532,7 +8523,7 @@ a:hover {
   height: 100%;
   border-top-right-radius: 12px;
   border-bottom-right-radius: 12px;
-  background-color: #15151f;
+  background-color: var(--color-box-background-alt);
 }
 
 .popup-picture .popup-picture-image-wrap .popup-picture-image {
@@ -28345,6 +28336,40 @@ img[alt=logo].logo-image {
 
 .cmui.navigator-item:hover {
   background: var(--color-body);
+}
+
+.snapanim-elastic.snapanim-in {
+  -webkit-transform: scale(0);
+  transform: scale(0);
+  transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1), -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  -webkit-animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
+  animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
+}
+
+@-webkit-keyframes zoomIn {
+  from {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
+}
+
+@keyframes zoomIn {
+  from {
+    -webkit-transform: scale(0);
+    transform: scale(0);
+  }
+
+  to {
+    -webkit-transform: scale(1);
+    transform: scale(1);
+  }
 }
 
 /*-------------

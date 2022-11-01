@@ -28,7 +28,6 @@ function NotificationsSettingsScreen(props) {
     const currentPage = useRef(1);
 
     const messageBoxRef = useRef(null);
-    ;
     const popup = useRef(null);
 
     useLayoutEffect(() => {

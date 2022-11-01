@@ -16,7 +16,7 @@ function ReactionMetaLine(props) {
       triggerElement: reactionBoxTriggerRef.current,
       premadeContentElement: reactionBoxRef.current,
       type: 'premade',
-      popupSelectors: ['reaction-box-popup', 'animate-slide-down']
+      popupSelectors: ['reaction-box-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in']
     });
   }, []);
 

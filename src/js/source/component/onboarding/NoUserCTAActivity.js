@@ -4,6 +4,7 @@
 import React from 'react';
 
 import {MapIcon, ScaleIcon, BadgeCheckIcon, HandIcon} from '@heroicons/react/outline';
+import {CrawlText} from "../../community-ui/snapper-engine/CrawlText";
 
 const features = [
     {
@@ -45,139 +46,95 @@ export default function NoUserCTAActivity(props) {
             {/*        </div>*/}
             {/*    </div>*/}
             {/*</div>*/}
-            <div className="relative overflow-hidden">
-                <div className="hidden sm:block sm:absolute sm:inset-y-0" aria-hidden="true">
-                    <div className="relative max-w-7xl mx-auto">
+            <div className="relative bg-body overflow-hidden mb-12">
+                <div className="max-w-screen-xl mx-auto">
+                    <div
+                        className="relative z-10 pb-8 bg-body sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
+                    >
                         <svg
-                            className="absolute left-full transform -translate-y-3/4 -translate-x-1/4 md:-translate-y-1/2 lg:-translate-x-1/2"
-                            width={404}
-                            height={784}
-                            fill="none"
-                            viewBox="0 0 404 784"
+                            className="hidden lg:block absolute right-0 inset-y-0 h-full w-48 text-base transform translate-x-1/2"
+                            fill="currentColor"
+                            preserveAspectRatio="none"
+                            viewBox="0 0 100 100"
+                            style={{
+                                color: 'var(--color-body)',
+                            }}
                         >
-                            <defs>
-                                <pattern
-                                    id="5d0dd344-b041-4d26-bec4-8d33ea57ec9b"
-                                    x={0}
-                                    y={0}
-                                    width={20}
-                                    height={20}
-                                    patternUnits="userSpaceOnUse"
-                                >
-                                    <rect x={0} y={0} width={4} height={4} className="text-alt"
-                                          fill="currentColor"/>
-                                </pattern>
-                            </defs>
-                            <rect width={404} height={784} fill="url(#5d0dd344-b041-4d26-bec4-8d33ea57ec9b)"/>
+                            <polygon points="50,0 100,0 50,100 0,100" />
                         </svg>
-                    </div>
-                </div>
 
-                {/* Heading */}
-                <div className="mt-16 mx-auto max-w-7xl px-4 sm:mt-24">
-                    <div className="text-center">
-                        <h1 className="text-2xl tracking-tight font-extrabold text-primary sm:text-5xl md:text-6xl z-10">
-                            <span className="block">Furries deserve a site that</span>{' '}
-                            <span className="block">isn't stuck in 2005</span>
-                        </h1>
-                        <p className="mt-3 max-w-md mx-auto text-base text-alt sm:text-lg md:mt-5 md:text-xl md:max-w-3xl">
-                            There hasn't been a modern site that has ground work to make everyone safe, features that
-                            included every hobby, and isn't a dating app. <b>17 years later, and that's finally a
-                            thing.</b>
-                        </p>
-                    </div>
-                </div>
+                        <div className="relative pt-6 px-4 sm:px-6 lg:px-8"></div>
 
-                {/* Statistics */}
-                <div className="pt-12 sm:pt-16">
-                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                        <div className="max-w-4xl mx-auto text-center">
-                            <h2 className="text-3xl font-extrabold text-primary sm:text-4xl">
-                                Yipnyap is a better way to socialise.
-                            </h2>
-                            <p className="mt-3 text-xl text-alt sm:mt-4">
-                                It's everything the others aren't. Groups, bulk uploading, split friends and followers, and more down the line such as HTML-based Profiles.
-                            </p>
-                        </div>
-                    </div>
-                    <div className="mt-10 pb-12 bg-box sm:pb-16">
-                        <div className="relative">
-                            <div className="absolute inset-0 h-1/2 bg-body"/>
-                            <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                                <div className="max-w-4xl mx-auto">
-                                    <dl className="rounded-lg bg-box shadow-lg sm:grid sm:grid-cols-3">
-                                        <div
-                                            className="flex flex-col border-b border-divider p-6 text-center sm:border-0 sm:border-r">
-                                            <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Posts</dt>
-                                            <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.posts}</dd>
+                        <main className="mt-10 mx-auto max-w-screen-xl px-4 sm:px-6 lg:px-8 pt-0">
+                            <div className="sm:text-center lg:text-left">
+                                <div className="hidden absolute lg:block" style={{
+                                    top: '3rem',
+                                    right: '12rem',
+                                }}>
+                                    <img
+                                        alt=""
+                                        className="w-12"
+                                        src={yipnyap_constants.yipnyap_url + "/img/illustrations/onboarding/tagline-shock.png"}
+                                    />
+                                </div>
+                                <p
+                                    className="tracking-tight leading-10 font-bold sm:leading-none"
+                                    style={{
+                                        fontSize: '62px',
+                                        whiteSpace: 'break-spaces',
+                                    }}
+                                >
+                                    <CrawlText>
+                                        This is a place ::break: ::c:indigo-500 where people meet
+                                    </CrawlText>
+                                </p>
+                                <p
+                                    className="mt-3 text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+                                    style={{
+                                        whiteSpace: 'break-spaces',
+                                    }}
+                                >
+                                    <CrawlText delay={300 + 50 * 7} fast={true}>
+                                        There hasn't been a modern site that has ground work to make everyone safe,
+                                        features that included every hobby, and isn't a dating app. ::bold: 17 years later, and
+                                        that's finally a thing.
+                                    </CrawlText>
+                                </p>
+                                <div
+                                    className="mt-5 sm:mt-8 sm:flex sm:justify-center lg:justify-start"
+                                >
+                                    <div className="rounded-lg shadow">
+                                        <a
+                                            href="/id/register"
+                                            className="ypsdk button-upgrade flex items-center justify-center !px-8 !py-3 !leading-6"
+                                            color="primary"
+                                        >
+                                            Get started
+                                        </a>
+                                    </div>
+                                    <div className="mt-3 sm:mt-0 sm:ml-3">
+                                        <div className="rounded-lg shadow">
+                                            <a
+                                                href="https://discord.gg/wrCGpAB"
+                                                target="_blank"
+                                                className="ypsdk button-upgrade flex items-center justify-center !px-8 !py-3 !leading-6"
+                                            >
+                                                Join our Discord
+                                            </a>
                                         </div>
-                                        <div
-                                            className="flex flex-col border-t border-b border-divider p-6 text-center sm:border-0 sm:border-l sm:border-r">
-                                            <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Users</dt>
-                                            <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.users}</dd>
-                                        </div>
-                                        <div
-                                            className="flex flex-col border-t border-divider p-6 text-center sm:border-0 sm:border-l">
-                                            <dt className="order-2 mt-2 text-lg leading-6 font-medium text-gray-500">Groups</dt>
-                                            <dd className="order-1 text-5xl font-extrabold text-indigo-600">{props.groups}</dd>
-                                        </div>
-                                    </dl>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </main>
                     </div>
                 </div>
-
-                {/* Features */}
-                <div className="py-12 bg-box">
-                    <div className="max-w-xl mx-auto px-4 sm:px-6 lg:max-w-7xl lg:px-8">
-                        <h2 className="sr-only">A better way to socialise.</h2>
-                        <dl className="space-y-10 lg:space-y-0 lg:grid lg:grid-cols-3 lg:gap-8">
-                            {features.map((feature) => (
-                                <div key={feature.name}>
-                                    <dt>
-                                        <div
-                                            className="flex items-center justify-center h-12 w-12 rounded-default bg-indigo-500 text-white">
-                                            <feature.icon className="h-6 w-6" aria-hidden="true"/>
-                                        </div>
-                                        <p className="mt-5 text-lg leading-6 font-medium text-primary">{feature.name}</p>
-                                    </dt>
-                                    <dd className="mt-2 text-base text-alt-2">{feature.description}</dd>
-                                </div>
-                            ))}
-                        </dl>
-                    </div>
+                <div className="hidden absolute lg:block lg:inset-y-0 lg:right-0 lg:w-1/2">
+                    <img
+                        alt=""
+                        className="h-56 w-full object-cover sm:h-72 md:h-96 lg:w-full lg:h-full"
+                        src={yipnyap_constants.yipnyap_url + "/img/banner/meetup.svg"}
+                    />
                 </div>
-
-                {/* CTA */}
-                <div className="bg-body">
-                    <div className="max-w-7xl mx-auto text-center py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
-                        <h2 className="text-3xl font-extrabold tracking-tight text-primary sm:text-4xl">
-                            <span className="block">Registration is open.</span>
-                            <span
-                                className="mt-3 block text-xl text-alt sm:mt-4">Visual learner? Just scroll down.</span>
-                        </h2>
-                        <div className="mt-8 flex justify-center">
-                            <div className="inline-flex rounded-default shadow">
-                                <a
-                                    href="/id/create"
-                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-default text-white bg-indigo-600 hover:bg-indigo-700"
-                                >
-                                    Get started
-                                </a>
-                            </div>
-                            <div className="ml-3 inline-flex">
-                                <a
-                                    href="/login"
-                                    className="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-default text-indigo-700 bg-indigo-100 hover:bg-indigo-200"
-                                >
-                                    Sign in
-                                </a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </>
     );

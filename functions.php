@@ -73,7 +73,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'hk12-rc4');
+    : 'hk12-rc5');
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -505,7 +505,7 @@ add_filter('body_class', 'yipnyap_body_class', 10, 2);
 /**
  * Hide admin bar for non administrators
  */
-$admin_bar_status = get_theme_mod('yipnyap_adminbar_setting_display', 'display');
+$admin_bar_status = get_theme_mod('yipnyap_adminbar_setting_display', 'hide');
 
 if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
     show_admin_bar(false);

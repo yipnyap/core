@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap Customizer - Admin Bar
- * 
+ *
  * @since 1.0.0
  */
 
@@ -21,7 +21,7 @@ function yipnyap_customizer_adminbar($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_adminbar_setting_display', [
     'sanitize_callback' => 'sanitize_text_field',
-    'default'           => 'display'
+    'default'           => 'hide'
   ]);
 
   $wp_customize->add_control('yipnyap_adminbar_control_display', [

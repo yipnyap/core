@@ -73,7 +73,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'hk12-rc3');
+    : 'hk12-rc4');
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -690,11 +690,12 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login): s
     // $key is the password-like token that allows the user to get
     // a new password
 
-    $message = __('Someone has asked to reset the password your Yipnyap ID.') . "\r\n\r\n";
+    $message = __('Someone has asked to reset the password your Kukiko ID.') . "\r\n\r\n";
 //  $message .= network_site_url() . "\r\n\r\n";
 //  $message .= sprintf(__('Username: %s'), $user_login) . "\r\n\r\n";
     $message .= __('To reset your password visit the following address, otherwise just ignore this email and nothing will happen.') . "\r\n\r\n";
-    $message .= network_site_url('wp-login.php?action=rp&key=$key&login=' . rawurlencode($user_login), 'login') . "\r\n";
+    $message .= __('If you\'re getting these emails often, please contact our support: https://yipnyap.atlassian.net/servicedesk') . "\r\n\r\n";
+    $message .= network_site_url('wp-login.php?action=rp&key=' . $key . '&login=' . rawurlencode($user_login), 'login') . "\r\n";
 
     // This is how WordPress creates the message.
     // You can change this to meet your own needs.

@@ -159,7 +159,7 @@ $user = yipnyap_get_logged_user_member_data();
         <div class="col-span-full xl:col-span-2">
             <?php
 
-            $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 5]);
+            $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 10]);
             $active_members = yipnyap_members_get(['type' => 'active', 'per_page' => 10]);
 
             /**

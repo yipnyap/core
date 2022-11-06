@@ -47,7 +47,7 @@ function ManageGroupsSettingsScreen(props) {
                 <React.Fragment>
                     <AlertLine type={'info'}
                                title={'Important information regarding NSFW content'}
-                               text={'Currently, only private groups are allowed to post NSFW content, however there are plans to bring Profile & Group NSFW Flagging! \"SFW Suggestive\" is still considered R18/NSFW.'}
+                               text={'If you are wanting a group to allow NSFW content, for now you must make the group private, as we are still working on a way to allow NSFW content in public groups.'}
                                margin={'b'}
                     />
 

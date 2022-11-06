@@ -47,7 +47,7 @@ $user = yipnyap_get_logged_user_member_data();
 
     ?>
 
-    <?php if ($user) { ?>
+    <?php if ( /* $user */ false) { ?>
         <!-- Digital Wellbeing Header -->
         <nav class="hidden shadow mixnav">
             <!-- Timed background -->
@@ -150,9 +150,7 @@ $user = yipnyap_get_logged_user_member_data();
             $postCount = 0;
         }
         ?>
-        <div id="cmui-landing-activity-header" data-postcount="<?php echo $postCount ?>"
-             data-usercount="<?php echo bp_total_site_member_count() ?>"
-             data-groupcount="<?php echo groups_get_total_group_count() ?>" style="padding: 0 0 0 4vw"></div>
+        <div id="cmui-landing-activity-header"></div>
     <?php } ?>
 
     <!-- GRID -->

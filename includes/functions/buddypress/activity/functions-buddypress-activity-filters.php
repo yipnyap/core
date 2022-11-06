@@ -10,19 +10,37 @@
  *
  */
 
+if (!function_exists('yipnyap_filter_add_tags_to_activity')) {
+    /**
+     * Add tags into meta data for activity items.
+     *
+     * @param string $content
+     * @param $user_id
+     * @param $activity_id
+     * @since hk12
+     */
+    function yipnyap_filter_add_tags_to_activity(string $content, $user_id, $activity_id): void
+    {
+        $tags = $_POST['creation_config']['tags'];
+        if (isset($tags) && $tags !== 'false') {
+            bp_activity_update_meta($activity_id, 'tags', $tags);
+        }
+    }
+}
+
+add_action('bp_activity_posted_update', 'yipnyap_filter_add_tags_to_activity', 10, 3);
+
 if (!function_exists('yipnyap_filter_activity_activity_update_action')) {
     /**
      * Custom filter for activity activity_update action
      *
-     * @param string $action Action string
-     * @param Object $activity Activity item object
      * @return string
      */
-    function yipnyap_filter_activity_activity_update_action($action, $activity)
+    function yipnyap_filter_activity_activity_update_action(): string
     {
-        $action = ''; //esc_html_x('posted an update', 'Activity Update Action - Text', 'yipnyap');
+        //esc_html_x('posted an update', 'Activity Update Action - Text', 'yipnyap');
 
-        return $action;
+        return '';
     }
 }
 

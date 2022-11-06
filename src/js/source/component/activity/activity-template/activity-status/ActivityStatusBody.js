@@ -39,6 +39,19 @@ function ActivityStatusBody(props) {
                         <p className="widget-box-status-text"
                            dangerouslySetInnerHTML={{__html: filteredActivityContent}}></p>
                     }
+
+                    {
+                        props.data.meta.tags &&
+                        <div className="widget-box-status-text flex flex-wrap text-primary">
+                            {
+                                props.data.meta.tags[0].split(',').map((tag, index) => {
+                                    return (
+                                        <span key={index} className="p-2 bg-box-over rounded-xl mr-1">{tag}</span>
+                                    );
+                                })
+                            }
+                        </div>
+                    }
                 </React.Fragment>
             }
 

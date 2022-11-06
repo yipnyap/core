@@ -17,22 +17,6 @@ import {getActivityTemplate} from '../../utils/activity/activity-template';
 import {PaperClipIcon, VideoCameraIcon} from "@heroicons/react/solid";
 import {PhotographIcon} from "@heroicons/react/outline";
 
-const assignees = [
-    {name: 'Unassigned', value: null},
-    {
-        name: 'Wade Cooper',
-        value: 'wade-cooper',
-        avatar:
-            'https://images.unsplash.com/photo-1491528323818-fdd1faba62cc?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=2&w=256&h=256&q=80',
-    },
-    // More items...
-];
-const dueDates = [
-    {name: 'No due date', value: null},
-    {name: 'Today', value: 'today'},
-    // More items...
-];
-
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
@@ -145,6 +129,7 @@ function ActivityForm(props) {
         setFormData(previousFormData => {
             return {
                 ...previousFormData,
+                hashtags: false,
                 submitting: true,
                 errors: []
             };
@@ -168,6 +153,7 @@ function ActivityForm(props) {
             setFormData(previousFormData => {
                 return {
                     ...previousFormData,
+                    hashtags: false,
                     submitting: false
                 };
             });
@@ -459,8 +445,8 @@ function ActivityForm(props) {
                                         formData.hashtags && formData.hashtags.map((hashtag, i) => (
                                             <span key={i}
                                                   className="mb-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
-                                                    {hashtag}
-                                                </span>
+                                                {hashtag}
+                                            </span>
                                         ))
                                     }
                                 </div>

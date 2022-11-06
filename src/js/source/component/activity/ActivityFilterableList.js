@@ -365,7 +365,16 @@ function ActivityFilterableList(props) {
             }
         }
 
-        const activityContent = filterActivityContentForSave(data.text);
+        const tags = data.hashtags;
+        let activityContent = filterActivityContentForSave(data.text);
+
+        // Search and remove tags inside activityContent
+        if (tags?.length > 0) {
+            tags.map((tag, i) => {
+                activityContent = activityContent.replace(tag, '');
+                tags[i] = tag.replace('#', '');
+            })
+        }
 
         const activityData = {
             creation_config: {
@@ -374,6 +383,7 @@ function ActivityFilterableList(props) {
                 component: itemID === 0 ? 'activity' : 'groups',
                 type: activityType,
                 content: activityContent,
+                tags: tags || false,
                 hide_sitewide: hideSitewide,
                 label: (data.label ? data.label.value : null)
             },

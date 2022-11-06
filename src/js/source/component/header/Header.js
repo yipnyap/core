@@ -1,7 +1,7 @@
 // noinspection JSVoidFunctionReturnValueUsed
 
 import React, {Fragment, useEffect, useState} from 'react';
-import {Dialog, Popover, Transition} from '@headlessui/react';
+import {Dialog, Transition} from '@headlessui/react';
 import {SearchIcon} from '@heroicons/react/solid';
 import {
     BellIcon,
@@ -21,11 +21,6 @@ let changingColorTheme = false;
 let navigation = [];
 let userNavigation = [];
 let userNavigationMobile = [];
-const callsToAction = [
-    {name: 'Logout', href: yipnyap_constants.logout_url, icon: LogoutIcon},
-    // TODO: Make this customisable
-    {name: 'Support', href: 'https://yipnyap.atlassian.net/servicedesk/customer/portals', icon: SupportIcon},
-];
 
 function toggleLoggedUserColorTheme(e) {
     // if already changing color theme, return
@@ -195,8 +190,11 @@ export default function Header() {
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
                     {/* Navigation links */}
                     <nav aria-label="Global" className="flex space-x-10">
-                        <a href="https://ko-fi.com/rekkisomo" className="text-sm font-medium text-primary">
+                        <a href="https://ko-fi.com/rekkisomo" target="_blank" className="text-sm font-medium text-primary">
                             Ko-fi
+                        </a>
+                        <a href="https://yipnyap.atlassian.net/servicedesk" target="_blank" className="text-sm font-medium text-primary">
+                            Support & Feedback
                         </a>
                         <a href="/community-guidelines" className="text-sm font-medium text-primary">
                             Guidelines
@@ -246,7 +244,7 @@ export default function Header() {
                                  xmlns="http://www.w3.org/2000/svg"
                                  fill="none" viewBox="0 0 24 24">
                                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor"
-                                        stroke-width="4"></circle>
+                                        strokeWidth="4"></circle>
                                 <path className="opacity-75" fill="currentColor"
                                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>

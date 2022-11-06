@@ -2,6 +2,8 @@
  * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
  */
 
+$snapper-crawl-text-cubic-bezier: cubic-bezier(0.87, 0, 0.04, 1);
+
 .snapanim-crawl {
   &.u-rise {
     display: inline-block;
@@ -10,7 +12,7 @@
   }
 
   &.u-rise.risen {
-    animation: rise 0.3s cubic-bezier(0.87, 0, 0.04, 1) 1 forwards;
+    animation: rise 0.3s $snapper-crawl-text-cubic-bezier 1 forwards;
   }
 
   // While it's possible to do this with @angular/animations, i just simply hate

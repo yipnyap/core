@@ -75,34 +75,35 @@ function ActivityFilterBar(props) {
     return (
         <div className={`quick-filters ${window.location.pathname.indexOf('activity') >-1 ? 'top-20 z-10' : ''}`}>
             {/* QUICK FILTERS TABS */}
-            <div className="quick-filters-tabs">
+            <div className="quick-filters-tabs overflow-hidden">
                 {
                     !props.hideFollowing &&
-                    <p className={`quick-filters-tab ${filters.scope === 'myfollowing' ? 'active' : ''}`}
+                    <p className={`quick-filters-tab snapanim-crawl u-rise child-rise risen ${filters.scope === 'myfollowing' ? 'active' : ''}`}
                        onClick={setScopeFollowing}>{yipnyap_translation.following}</p>
                 }
 
-                <p className={`quick-filters-tab ${!filters.scope ? 'active' : ''}`} onClick={setScopeAll}>
+                <p className={`quick-filters-tab quick-filters-tab snapanim-crawl u-rise child-rise risen ${!filters.scope ? 'active' : ''}`}
+                   onClick={setScopeAll}>
                     {yipnyap_translation.everything}
                 </p>
 
                 {
                     !props.hideSecondaryFilters &&
                     <React.Fragment>
-                        <p className={`quick-filters-tab ${filters.scope === 'favorites' ? 'active' : ''}`}
+                        <p className={`quick-filters-tab snapanim-crawl u-rise child-rise risen ${filters.scope === 'favorites' ? 'active' : ''}`}
                            onClick={setScopeFavorites}>
                             {yipnyap_translation.favorites}
                         </p>
                         {
                             yipnyap_constants.plugin_active.buddypress_friends &&
-                            <p className={`quick-filters-tab ${filters.scope === 'friends' ? 'active' : ''}`}
+                            <p className={`quick-filters-tab snapanim-crawl u-rise child-rise risen ${filters.scope === 'friends' ? 'active' : ''}`}
                                onClick={setScopeFriends}>
                                 {yipnyap_translation.friends}
                             </p>
                         }
                         {
                             yipnyap_constants.plugin_active.buddypress_groups && !props.hideGroupsFilter &&
-                            <p className={`quick-filters-tab ${filters.scope === 'groups' ? 'active' : ''}`}
+                            <p className={`quick-filters-tab snapanim-crawl u-rise child-rise risen ${filters.scope === 'groups' ? 'active' : ''}`}
                                onClick={setScopeGroups}>
                                 {yipnyap_translation.groups}
                             </p>

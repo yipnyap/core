@@ -156,7 +156,7 @@ $user = yipnyap_get_logged_user_member_data();
     <?php } ?>
 
     <!-- GRID -->
-    <div class="grid-cols-4 xl:grid-cols-8 gap-2 px-4 lg:!pl-24" style="display: grid;">
+    <div class="grid-cols-4 xl:grid-cols-8 gap-4 px-4 lg:!pl-24" style="display: grid;">
         <!-- LEFT COLUMN -->
         <div class="col-span-full xl:col-span-2">
             <?php
@@ -173,13 +173,14 @@ $user = yipnyap_get_logged_user_member_data();
                     [
                         'title' => 'Online Now',
                         'users' => $online_members,
+                        'no_results_text' => esc_html__('Nobody is online!', 'yipnyap')
                     ],
                     [
                         'title' => 'Recent',
                         'users' => $active_members,
+                        'no_results_text' => esc_html__('Something went wrong.', 'yipnyap')
                     ]
                 ],
-                'no_results_text' => esc_html__('No members found', 'yipnyap')
             ]);
 
             // if GamiPress plugin is active, show quests widget
@@ -204,23 +205,6 @@ $user = yipnyap_get_logged_user_member_data();
         <!-- /LEFT COLUMN -->
 
         <div class="col-span-4 space-y-4">
-            <div class="alert-line alert-line-info">
-                <!-- ALERT LINE ICON WRAP -->
-                <div class="alert-line-icon-wrap">
-                    <!-- ALERT LINE ICON -->
-                    <svg class="alert-line-icon icon-info">
-                        <use href="#svg-thumbs-up"></use>
-                    </svg>
-                    <!-- /ALERT LINE ICON -->
-                </div>
-                <!-- /ALERT LINE ICON WRAP -->
-
-                <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text"><b>THANK YOU!</b><br/>Seriously, y'all are insane.<br/><a
-                            href="https://yipnyap.xyz/380/">I'd like to show you the state of things (UPDATED)
-                        &#8594;</a></p>
-                <!-- /ALERT LINE TEXT -->
-            </div>
             <!-- debug_user_account -->
             <?php if (isset($_GET['debug_user_account'])) { ?>
                 <div class="alert-line alert-line-info">

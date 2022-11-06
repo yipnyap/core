@@ -188,9 +188,9 @@ if (!function_exists('yipnyap_send_message')) {
      * @param string $args ['message']        Content of the message
      * @param array $args ['recipients']     User IDs of the recipients of the message, required if starting a new thread
      * @param int $args ['sender_id']      User ID of the message sender
-     * @return WP_REST_Response
+     * @return array
      */
-    function yipnyap_send_message(array $args): WP_REST_Response
+    function yipnyap_send_message(array $args): array
     {
         $request = new WP_REST_Request('POST', '/buddypress/v1/messages');
 

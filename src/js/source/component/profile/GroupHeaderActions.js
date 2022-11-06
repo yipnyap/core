@@ -112,7 +112,7 @@ function GroupHeaderActions(props) {
 
                             {
                                 (groupable.isGroupAdmin() || groupable.isGroupMod()) &&
-                                <ButtonLink link={loggedUser.manage_groups_link}
+                                <ButtonLink link={`${loggedUser.link}settings/manage-groups`}
                                             modifiers="profile-header-info-action"
                                             icon="more-dots"
                                             title={yipnyap_translation.manage_groups}

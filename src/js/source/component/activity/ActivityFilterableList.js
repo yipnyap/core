@@ -643,7 +643,7 @@ function ActivityFilterableList(props) {
                         <ActivityFilterBar onFiltersChange={onFiltersChange}
                             hideGroupsFilter={Boolean(props.groupID)}
                             hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
-                            hideFollowing={props.userID}
+                            hideFollowing={props.userID || props.groupID || !loggedUser}
                         />
                     }
 

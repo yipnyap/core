@@ -204,7 +204,7 @@ if (!function_exists('yipnyap_send_message')) {
         $result = rest_do_request($request);
 
         // remove _links from response
-        unset($result->data['_links']);
+        unset($result->data[0]['_links']);
 
         return $result;
     }

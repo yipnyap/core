@@ -5,10 +5,12 @@
  * @since 1.0.0
  */
 
+use JetBrains\PhpStorm\NoReturn;
+
 /**
  * Get filtered activities
  */
-function yipnyap_get_activities_ajax()
+#[NoReturn] function yipnyap_get_activities_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
@@ -33,12 +35,12 @@ add_action('wp_ajax_nopriv_yipnyap_get_activities_ajax', 'yipnyap_get_activities
 /**
  * Create activity comment
  */
-function yipnyap_create_activity_comment()
+#[NoReturn] function yipnyap_create_activity_comment(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $args = isset($_POST['args']) ? $_POST['args'] : [];
+  $args = $_POST['args'] ?? [];
 
   // die early if comment user id doesn't match loggedin user id
   if (array_key_exists('user_id', $args)) {
@@ -60,12 +62,12 @@ add_action('wp_ajax_yipnyap_create_activity_comment', 'yipnyap_create_activity_c
 /**
  * Create activity
  */
-function yipnyap_create_activity_ajax()
+#[NoReturn] function yipnyap_create_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $creation_config = isset($_POST['creation_config']) ? $_POST['creation_config'] : false;
+  $creation_config = $_POST['creation_config'] ?? false;
 
   if (!$creation_config) {
     wp_die();
@@ -89,10 +91,10 @@ function yipnyap_create_activity_ajax()
   // assemble ajax args
   $args = [
       'creation_config' => $creation_config,
-      'attached_media' => isset($_POST['attached_media']) ? $_POST['attached_media'] : false,
+      'attached_media' => $_POST['attached_media'] ?? false,
       'uploadable_media' => $uploadable_media,
-      'uploadable_media_type' => isset($_POST['uploadable_media_type']) ? $_POST['uploadable_media_type'] : false,
-      'share_config' => isset($_POST['share_config']) ? $_POST['share_config'] : false
+      'uploadable_media_type' => $_POST['uploadable_media_type'] ?? false,
+      'share_config' => $_POST['share_config'] ?? false
   ];
 
   // convert hide_sitewide to boolean
@@ -117,7 +119,6 @@ function yipnyap_create_activity_ajax()
       $create_attachedmedia_type_meta_task = yipnyap_activity_create_meta_attachedmedia_type_task($attached_media_args);
       // add task to scheduler
       $create_activity_scheduler->addTask($create_attachedmedia_type_meta_task);
-
       // create attached media id meta task
       $create_attachedmedia_id_meta_task = yipnyap_activity_create_meta_attachedmedia_id_task($attached_media_args);
       // add task to scheduler
@@ -218,12 +219,12 @@ add_action('wp_ajax_yipnyap_create_activity_ajax', 'yipnyap_create_activity_ajax
 /**
  * Update activity
  */
-function yipnyap_activity_update_ajax()
+#[NoReturn] function yipnyap_activity_update_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $args = isset($_POST['args']) ? $_POST['args'] : false;
+  $args = $_POST['args'] ?? false;
 
   if (!$args) {
     wp_die('Missing Parameters');
@@ -310,7 +311,7 @@ add_action('wp_ajax_yipnyap_activity_update_ajax', 'yipnyap_activity_update_ajax
 /**
  * Delete activity
  */
-function yipnyap_delete_activity_ajax()
+#[NoReturn] function yipnyap_delete_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
@@ -378,12 +379,12 @@ add_action('wp_ajax_yipnyap_delete_activity_ajax', 'yipnyap_delete_activity_ajax
 /**
  * Delete activity comment
  */
-function yipnyap_activity_comment_delete_ajax()
+#[NoReturn] function yipnyap_activity_comment_delete_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $args = isset($_POST['args']) ? $_POST['args'] : false;
+  $args = $_POST['args'] ?? false;
 
   if (!$args) {
     wp_die();
@@ -461,12 +462,12 @@ add_action('wp_ajax_yipnyap_activity_comment_delete_ajax', 'yipnyap_activity_com
 /**
  * Delete activity media
  */
-function yipnyap_delete_activity_media_ajax()
+#[NoReturn] function yipnyap_delete_activity_media_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $items = isset($_POST['args']) ? $_POST['args'] : false;
+  $items = $_POST['args'] ?? false;
 
   if (!$items) {
     wp_die();
@@ -569,7 +570,7 @@ add_action('wp_ajax_yipnyap_delete_activity_media_ajax', 'yipnyap_delete_activit
 /**
  * Add favorite activity
  */
-function yipnyap_add_favorite_activity_ajax()
+#[NoReturn] function yipnyap_add_favorite_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
@@ -603,7 +604,7 @@ add_action('wp_ajax_yipnyap_add_favorite_activity_ajax', 'yipnyap_add_favorite_a
 /**
  * Remove favorite activity
  */
-function yipnyap_remove_favorite_activity_ajax()
+#[NoReturn] function yipnyap_remove_favorite_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
@@ -637,7 +638,7 @@ add_action('wp_ajax_yipnyap_remove_favorite_activity_ajax', 'yipnyap_remove_favo
 /**
  * Pin activity by user
  */
-function yipnyap_pin_activity_ajax()
+#[NoReturn] function yipnyap_pin_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
@@ -671,7 +672,7 @@ add_action('wp_ajax_yipnyap_pin_activity_ajax', 'yipnyap_pin_activity_ajax');
 /**
  * Unpin activity by user
  */
-function yipnyap_unpin_activity_ajax()
+#[NoReturn] function yipnyap_unpin_activity_ajax(): void
 {
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');

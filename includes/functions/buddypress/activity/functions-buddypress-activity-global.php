@@ -334,7 +334,7 @@ if (!function_exists('yipnyap_create_activity')) {
      * @param array $args Filter activities using args data
      * @return int|boolean
      */
-    function yipnyap_create_activity($args)
+    function yipnyap_create_activity(array $args): bool|int
     {
         // return false;
         $result = bp_activity_add($args);

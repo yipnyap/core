@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap Customizer - Newsfeed
- * 
+ *
  * @since 1.0.0
  */
 
@@ -81,7 +81,7 @@ function yipnyap_customizer_newsfeed($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_activity_setting_character_limit', [
     'sanitize_callback' => 'absint',
-    'default'           => 1000
+    'default'           => 2000
   ]);
 
   $wp_customize->add_control('yipnyap_activity_control_character_limit', [

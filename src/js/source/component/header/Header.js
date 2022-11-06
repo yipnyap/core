@@ -215,7 +215,7 @@ export default function Header() {
                     }
 
                     {/* User actions */}
-                    {loggedUser &&
+                    {(loggedUser && !loadingUser) &&
                         <div className="flex items-center space-x-8">
                             {/* Notifications */}
                             <HeaderDropdownNotifications loggedUser={loggedUser}/>

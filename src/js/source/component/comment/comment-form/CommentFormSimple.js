@@ -34,8 +34,6 @@ function CommentFormSimple(props) {
         setDisabled(true);
         setError(false);
 
-        console.log('COMMENT FORM - COMMENT DATA: ', commentData);
-
         props.onSubmit(replyText);
     };
 

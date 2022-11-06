@@ -63,7 +63,7 @@ function ActivityFriendBody(props) {
                             <ButtonLink modifiers="primary"
                                         title={yipnyap_translation.send_message}
                                         icon="messages"
-                                        link={`${props.user.messages_link}?user_id=${props.data.friend.id}`}
+                                        link={`${props.user.link}/settings/messages?user_id=${props.data.friend.id}`}
                             />
                         }
                     </div>

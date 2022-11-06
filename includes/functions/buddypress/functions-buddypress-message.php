@@ -190,7 +190,7 @@ if (!function_exists('yipnyap_send_message')) {
      * @param int $args ['sender_id']      User ID of the message sender
      * @return array
      */
-    function yipnyap_send_message(array $args): array
+    function yipnyap_send_message($args)
     {
         $request = new WP_REST_Request('POST', '/buddypress/v1/messages');
 
@@ -203,10 +203,8 @@ if (!function_exists('yipnyap_send_message')) {
 
         $result = rest_do_request($request);
 
-        // remove _links if exits
-        if (isset($result['_links'])) {
-            unset($result['_links']);
-        }
+        // remove _links from response
+        unset($result->data['_links']);
 
         return $result;
     }

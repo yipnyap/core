@@ -21906,176 +21906,6 @@ img[alt=logo].logo-image {
           transform: translate(0, 0);
 }
 
-/*------------------------------------------------------------------
-[Table of contents]
-
-1. .mixnav
-2. .bgimg
--------------------------------------------------------------------*/
-/*--------------------------
-    1. MIX NAVIGATION
---------------------------*/
-.mixnav {
-  padding-top: 64px;
-  position: sticky;
-  top: 0;
-  z-index: 1;
-  overflow: hidden;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  padding-left: 4vw;
-  width: 100vmax;
-}
-
-/*--------------------------
-    1. MIX BACKGROUND
---------------------------*/
-.bgimg {
-  position: absolute;
-  top: 0;
-  width: -webkit-fill-available;
-  height: 105%;
-  z-index: -1;
-  -webkit-filter: opacity(0.3) blur(2px);
-          filter: opacity(0.3) blur(2px);
-}
-
-.bgimg[data-time=day].bgimg[data-geo=city], .bgimg[data-time=day].bgimg[data-geo=regional] {
-  background: url(https://thumbs.gfycat.com/AgileFoolhardyJoey-small.gif) no-repeat;
-  background-size: cover;
-  background-position-y: -12em;
-}
-
-.bgimg[data-time=sunset].bgimg[data-geo=city] {
-  background: url(https://i.pinimg.com/originals/57/da/cd/57dacd36642d64b23464c988fc8b8088.gif) center no-repeat;
-  background-size: cover;
-}
-.bgimg[data-time=sunset].bgimg[data-geo=regional] {
-  background: url(https://64.media.tumblr.com/8a9f9f1c663730b0cd2c848d16e3053c/tumblr_ommbmm3pKp1rnbw6mo1_1280.gif) center no-repeat;
-  background-size: cover;
-  background-position-y: -30em;
-}
-
-.bgimg[data-time=night].bgimg[data-geo=city] {
-  background: url(https://thumbs.gfycat.com/ConsciousUnfitFruitfly-small.gif) bottom no-repeat;
-  background-size: cover;
-}
-.bgimg[data-time=night].bgimg[data-geo=regional] {
-  background: url(https://data.whicdn.com/images/298586557/original.gif) bottom no-repeat;
-  background-size: cover;
-}
-
-/*!
- * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
- */
-/*------------------------------------------------------------------
-[Table of contents]
-
-1. .ypsdk.button-upgrade
--------------------------------------------------------------------*/
-/*--------------------------
-    1. BUTTONS
---------------------------*/
-.ypsdk.button-icon {
-  background: var(--color-box-background);
-}
-.ypsdk.button-icon.unread {
-  background: var(--tw-ring-color);
-  color: var(--color-text);
-}
-.ypsdk.button-upgrade {
-  @apply rounded-default;
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  padding: 0.5rem 1rem;
-  color: #ffffff;
-  font-size: 0.875rem;
-  line-height: 1.25rem;
-  font-weight: 500;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-width: 1px;
-  border-color: transparent;
-  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  cursor: pointer;
-}
-.ypsdk.button-upgrade:not([color=primary]) {
-  background-color: #2e2e47;
-}
-.ypsdk.button-upgrade:not([color=primary]):hover {
-  background-color: #3e3f5e;
-}
-.ypsdk.button-upgrade[color=primary] {
-  background-color: var(--color-secondary);
-  color: #ffffff;
-}
-.ypsdk.button-upgrade[color=primary]:hover {
-  background-color: var(--color-secondary-hover);
-  color: #ffffff;
-}
-.ypsdk.button-upgrade:focus {
-  -webkit-box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-          box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
-  --ring-color: #6366F1;
-  --ring-offset-width: 2px;
-  outline: 0;
-}
-
-.cmui.navigator {
-  position: fixed;
-  background-color: var(--color-box-background);
-  color: var(--color-text);
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 5rem;
-  height: 100%;
-  border-radius: 0.25rem;
-}
-.cmui.navigator .border-divider {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 0.75rem;
-  -webkit-box-orient: vertical;
-  -webkit-box-direction: normal;
-      -ms-flex-direction: column;
-          flex-direction: column;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  border-top-width: 1px;
-  border-color: var(--color-box-background-alt);
-}
-.cmui.navigator-item {
-  display: -webkit-box;
-  display: -ms-flexbox;
-  display: flex;
-  margin-top: 0.5rem;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
-  width: 3rem;
-  height: 3rem;
-  border-radius: 0.25rem;
-}
-.cmui.navigator-item.active {
-  background: var(--color-box-background-alt);
-}
-.cmui.navigator-item:hover {
-  background: var(--color-body);
-}
-
 /*!
  * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
  */
@@ -22589,6 +22419,176 @@ img[alt=logo].logo-image {
             transform: scale(1);
   }
 }
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. .mixnav
+2. .bgimg
+-------------------------------------------------------------------*/
+/*--------------------------
+    1. MIX NAVIGATION
+--------------------------*/
+.mixnav {
+  padding-top: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+  overflow: hidden;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding-left: 4vw;
+  width: 100vmax;
+}
+
+/*--------------------------
+    1. MIX BACKGROUND
+--------------------------*/
+.bgimg {
+  position: absolute;
+  top: 0;
+  width: -webkit-fill-available;
+  height: 105%;
+  z-index: -1;
+  -webkit-filter: opacity(0.3) blur(2px);
+          filter: opacity(0.3) blur(2px);
+}
+
+.bgimg[data-time=day].bgimg[data-geo=city], .bgimg[data-time=day].bgimg[data-geo=regional] {
+  background: url(https://thumbs.gfycat.com/AgileFoolhardyJoey-small.gif) no-repeat;
+  background-size: cover;
+  background-position-y: -12em;
+}
+
+.bgimg[data-time=sunset].bgimg[data-geo=city] {
+  background: url(https://i.pinimg.com/originals/57/da/cd/57dacd36642d64b23464c988fc8b8088.gif) center no-repeat;
+  background-size: cover;
+}
+.bgimg[data-time=sunset].bgimg[data-geo=regional] {
+  background: url(https://64.media.tumblr.com/8a9f9f1c663730b0cd2c848d16e3053c/tumblr_ommbmm3pKp1rnbw6mo1_1280.gif) center no-repeat;
+  background-size: cover;
+  background-position-y: -30em;
+}
+
+.bgimg[data-time=night].bgimg[data-geo=city] {
+  background: url(https://thumbs.gfycat.com/ConsciousUnfitFruitfly-small.gif) bottom no-repeat;
+  background-size: cover;
+}
+.bgimg[data-time=night].bgimg[data-geo=regional] {
+  background: url(https://data.whicdn.com/images/298586557/original.gif) bottom no-repeat;
+  background-size: cover;
+}
+
+/*!
+ * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
+ */
+/*------------------------------------------------------------------
+[Table of contents]
+
+1. .ypsdk.button-upgrade
+-------------------------------------------------------------------*/
+/*--------------------------
+    1. BUTTONS
+--------------------------*/
+.ypsdk.button-icon {
+  background: var(--color-box-background);
+}
+.ypsdk.button-icon.unread {
+  background: var(--tw-ring-color);
+  color: var(--color-text);
+}
+.ypsdk.button-upgrade {
+  @apply rounded-default;
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  padding: 0.5rem 1rem;
+  color: #ffffff;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  font-weight: 500;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-width: 1px;
+  border-color: transparent;
+  -webkit-box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+          box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  cursor: pointer;
+}
+.ypsdk.button-upgrade:not([color=primary]) {
+  background-color: #2e2e47;
+}
+.ypsdk.button-upgrade:not([color=primary]):hover {
+  background-color: #3e3f5e;
+}
+.ypsdk.button-upgrade[color=primary] {
+  background-color: var(--color-secondary);
+  color: #ffffff;
+}
+.ypsdk.button-upgrade[color=primary]:hover {
+  background-color: var(--color-secondary-hover);
+  color: #ffffff;
+}
+.ypsdk.button-upgrade:focus {
+  -webkit-box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+          box-shadow: var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+  --ring-color: #6366F1;
+  --ring-offset-width: 2px;
+  outline: 0;
+}
+
+.cmui.navigator {
+  position: fixed;
+  background-color: var(--color-box-background);
+  color: var(--color-text);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 5rem;
+  height: 100%;
+  border-radius: 0.25rem;
+}
+.cmui.navigator .border-divider {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0.75rem;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  border-top-width: 1px;
+  border-color: var(--color-box-background-alt);
+}
+.cmui.navigator-item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 0.5rem;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 0.25rem;
+}
+.cmui.navigator-item.active {
+  background: var(--color-box-background-alt);
+}
+.cmui.navigator-item:hover {
+  background: var(--color-body);
+}
+
 /*-------------
     PLUGIN
 -------------*/
@@ -24432,11 +24432,11 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
   top: 30px;
   left: 50%;
   margin-left: -10px;
-  -webkit-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
-  -o-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  -o-transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
 }
 .section-menu .section-menu-item .section-menu-item-text {
   width: 100%;
@@ -24451,11 +24451,11 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
           transform: translate(0, 20px);
   opacity: 0;
   visibility: hidden;
-  -webkit-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
-  -o-transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out;
-  transition: opacity 0.25s ease-in-out, visibility 0.25s ease-in-out, transform 0.25s ease-in-out, -webkit-transform 0.25s ease-in-out;
+  -webkit-transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  -o-transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
+  transition: opacity 0.25s cubic-bezier(0.87, 0, 0.04, 1), visibility 0.25s cubic-bezier(0.87, 0, 0.04, 1), transform 0.25s cubic-bezier(0.87, 0, 0.04, 1), -webkit-transform 0.25s cubic-bezier(0.87, 0, 0.04, 1);
 }
 
 /*---------------------

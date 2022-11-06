@@ -322,7 +322,7 @@ function MemberPreviewBig(props) {
                                     yipnyap_constants.plugin_active.buddypress_messages && friendable.isFriend() &&
                                     <ButtonLink modifiers="primary"
                                                 text={yipnyap_translation.send_message}
-                                                link={`${props.loggedUser.messages_link}?user_id=${props.data.id}`}
+                                                link={`${props.loggedUser.link}settings/messages?user_id=${props.data.id}`}
                                     />
                                 }
                             </React.Fragment>

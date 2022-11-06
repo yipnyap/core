@@ -252,7 +252,7 @@ function MemberPreviewSmall(props) {
                                     <ButtonLink modifiers="primary"
                                                 title={yipnyap_translation.send_message}
                                                 icon="messages"
-                                                link={`${props.loggedUser.messages_link}?user_id=${props.data.id}`}
+                                                link={`${props.loggedUser.link}settings/messages?user_id=${props.data.id}`}
                                     />
                                 }
                             </React.Fragment>

@@ -135,7 +135,7 @@ function ProfileHeaderActions(props) {
                                 yipnyap_constants.plugin_active.buddypress_messages &&
                                 <ButtonLink modifiers="profile-header-info-action primary"
                                             text={yipnyap_translation.send_message}
-                                            link={`${loggedUser.messages_link}?user_id=${props.userID}`}
+                                            link={`${loggedUser.link}settings/messages?user_id=${props.userID}`}
                                 />
                             }
                         </React.Fragment>

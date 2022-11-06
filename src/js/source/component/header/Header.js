@@ -170,20 +170,23 @@ export default function Header() {
             {/* Desktop nav area */}
             <div className="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500"><label htmlFor="search"
-                                                                                                    className="sr-only">Search</label>
+                <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
+                    <label htmlFor="search"
+                           className="sr-only">
+                        Search
+                    </label>
                     <div className="mt-1 relative rounded-default shadow-sm">
                         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
                              aria-hidden="true">
                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
                                  aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
-                                <path fill-rule="evenodd"
+                                <path fillRule="evenodd"
                                       d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                      clip-rule="evenodd"></path>
+                                      clipRule="evenodd"></path>
                             </svg>
                         </div>
-                        <input type="text" name="search" id="search" className="highlight-main block w-full pl-9 max-h-9"
-                               placeholder="🎃Happy Spoopy Month🎃"/>
+                        <input type="text" name="search" id="search" disabled className="highlight-main block w-full pl-9 max-h-9"
+                               placeholder="Searching is disabled"/>
                     </div>
                 </div>
 
@@ -247,8 +250,6 @@ export default function Header() {
                                 <path className="opacity-75" fill="currentColor"
                                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
                             </svg>
-
-                            <span className="text-alt">Connecting to Userland...</span>
                         </>
                     }
                 </div>

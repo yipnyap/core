@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap MESSAGE AJAX
- * 
+ *
  * @since 1.0.0
  */
 
@@ -45,11 +45,12 @@ add_action('wp_ajax_nopriv_yipnyap_get_message_ajax', 'yipnyap_get_message_ajax'
 /**
  * Send a message or start a new thread
  */
-function yipnyap_send_message_ajax() {
+function yipnyap_send_message_ajax(): void
+{
   // nonce check, dies early if the nonce cannot be verified
   check_ajax_referer('yipnyap_ajax');
 
-  $args = isset($_POST['args']) ? $_POST['args'] : false;
+  $args = $_POST['args'] ?? false;
 
   if (!$args) {
     wp_die('Missing Parameters');
@@ -254,7 +255,7 @@ function yipnyap_delete_message_thread_ajax() {
   if (!$logged_user_is_thread_delete_user) {
     wp_die('Unauthorized');
   }
-  
+
   $result = yipnyap_delete_message_thread($args);
 
   header('Content-Type: application/json');

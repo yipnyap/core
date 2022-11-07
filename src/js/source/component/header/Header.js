@@ -58,17 +58,25 @@ export default function Header() {
             .done((res) => {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
 
+                userNavigationMobile = [
+                    {name: 'Home', href: '/'},
+                    {name: 'Members', href: '/members'},
+                    {name: 'Groups', href: '/groups'}
+                ];
+
                 if (res === false) {
                     setLoadingUser(false);
+
+                    userNavigationMobile = [
+                        {name: 'Sign In', href: '/login'},
+                        {name: 'Sign Up', href: '/id/create'}
+                    ]
+
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
                 }
 
                 setLoggedUser(res);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));
-
-                userNavigationMobile = [
-                    {name: 'Sign Out', href: yipnyap_constants.logout_url}
-                ];
 
                 userNavigation = [
                     {
@@ -107,8 +115,8 @@ export default function Header() {
                             {name: 'Notifications', href: `${res.link}settings/notifications`},
                         ],
                     },
-                    {name: 'Messages', href: `${res.link}settings/messages`, children: []},
-                    {name: 'Friends', href: `${res.link}settings/friend-requests`, children: []},
+                    {name: 'Messages', beta: true, href: `${res.link}settings/messages`, children: []},
+                    {name: 'Friend Requests', href: `${res.link}settings/friend-requests`, children: []},
                     {
                         name: 'Account', href: `${res.link}settings/account-settings`, children: [
                             {name: 'Password', href: `${res.link}settings/password`},
@@ -116,22 +124,23 @@ export default function Header() {
                         ]
                     },
                     {
-                        name: 'Groups', href: `${res.link}groups`, children: [
+                        name: 'Your Groups', href: `${res.link}groups`, children: [
                             {name: 'Manage', href: `${res.link}settings/manage-groups`},
                             {name: 'Send Invites', href: `${res.link}settings/send-group-invitations`},
                             {name: 'Invite Inbox', href: `${res.link}settings/received-group-invitations`},
                             {name: 'Join Requests', href: `${res.link}settings/membership-requests`},
                         ]
                     },
+                    {name: 'Sign Out', href: yipnyap_constants.logout_url, children: []},
                 ];
 
                 // yes, this is spoofed, more to mimic a real socket connection
                 // this is only temporary until we have a real socket connection!
-                const min = Math.ceil(500);
-                const max = Math.floor(3000);
-                setTimeout(() => {
+                // const min = Math.ceil(500);
+                // const max = Math.floor(3000);
+                // setTimeout(() => {
                     setLoadingUser(false);
-                }, Math.floor(Math.random() * (max - min + 1)) + min);
+                // }, Math.floor(Math.random() * (max - min + 1)) + min);
             })
             .fail((res) => {
                 console.debug('[COMMUNITY UI 1] User fetch - fail', res);
@@ -143,10 +152,10 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="flex-shrink-0 relative h-16 flex items-center md:pl-24"
+        <header className="flex-shrink-0 relative h-16 flex items-center lg:pl-24"
             style={{background: 'var(--color-header-background)'}}
         >
-            <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 md:hidden">
+            <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 lg:hidden">
                 <img src={yipnyap_constants.logo_url} alt="Yipnyap" className="h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>
             {/* Menu button area */}
@@ -163,28 +172,29 @@ export default function Header() {
             </div>
 
             {/* Desktop nav area */}
-            <div className="hidden md:min-w-0 md:flex-1 md:flex md:items-center md:justify-between">
+            <div className="hidden md:min-w-0 lg:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                <div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">
-                    <label htmlFor="search"
-                           className="sr-only">
-                        Search
-                    </label>
-                    <div className="mt-1 relative rounded-default shadow-sm">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                             aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
-                                <path fillRule="evenodd"
-                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                      clipRule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <input type="text" name="search" id="search" disabled className="highlight-main block w-full pl-9 max-h-9"
-                               placeholder="Searching is disabled"/>
-                    </div>
-                </div>
+                {/*<div className="max-w-2xl relative text-gray-400 focus-within:text-gray-500">*/}
+                {/*    <label htmlFor="search"*/}
+                {/*           className="sr-only">*/}
+                {/*        Search*/}
+                {/*    </label>*/}
+                {/*    <div className="mt-1 relative rounded-default shadow-sm">*/}
+                {/*        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"*/}
+                {/*             aria-hidden="true">*/}
+                {/*            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"*/}
+                {/*                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">*/}
+                {/*                <path fillRule="evenodd"*/}
+                {/*                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"*/}
+                {/*                      clipRule="evenodd"></path>*/}
+                {/*            </svg>*/}
+                {/*        </div>*/}
+                {/*        <input type="text" name="search" id="search" disabled className="highlight-main block w-full pl-9 max-h-9"*/}
+                {/*               placeholder="Searching is disabled"/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
 
+                <div className="relative" />
 
                 {/* Left nav area */}
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
@@ -285,7 +295,7 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-110  sm:translate-x-full sm:scale-100 sm:opacity-100"
                     >
                         <nav
-                            className="fixed z-40 inset-0 h-full w-full bg-box sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
+                            className="fixed overflow-y-auto z-40 inset-0 h-full w-full bg-box sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
                             aria-label="Global"
                         >
                             <div className="h-16 flex items-center justify-between px-4 sm:px-6">
@@ -305,26 +315,41 @@ export default function Header() {
                                     <XIcon className="block h-6 w-6" aria-hidden="true"/>
                                 </button>
                             </div>
-                            <div className="mt-2 max-w-8xl mx-auto px-4 sm:px-6">
-                                {/* Mobile Search Bar */}
-                                <div className="relative md:hidden text-gray-400 focus-within:text-gray-500">
-                                    <label htmlFor="search" className="sr-only">
-                                        Search Yipnyap
-                                    </label>
-                                    <input
-                                        id="search"
-                                        type="search"
-                                        placeholder="Search Yipnyap"
-                                        className="block w-full border-gray-300 rounded-default pl-10 placeholder-gray-500 focus:border-indigo-600 focus:ring-indigo-600"
-                                        style={{background: 'var(--color-header-background)'}}
-                                    />
-                                    <div
-                                        className="absolute inset-y-0 left-0 flex items-center justify-center pl-3">
-                                        <SearchIcon className="h-5 w-5" aria-hidden="true"/>
+                            <div className="pb-2 border-solid border-t-0 border-x-0 border-b border-divider">
+                                {(loggedUser && !loadingUser) &&
+                                    <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
+                                        <div className="flex-shrink-0">
+                                            <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url}
+                                                 alt=""/>
+                                        </div>
+                                        <a href={loggedUser.link} className="ml-3 min-w-0 flex-1">
+                                            <div
+                                                className="text-base font-medium text-primary truncate">{loggedUser.name}</div>
+                                            <div
+                                                className="text-sm font-medium text-gray-500 truncate">@{loggedUser.mention_name}
+                                            </div>
+                                        </a>
+                                        <a href={`${loggedUser.link}settings/notifications`}
+                                           className="ml-auto flex-shrink-0 bg-box p-2 text-gray-400 hover:text-gray-500">
+                                            <span className="sr-only">View notifications</span>
+                                            <BellIcon className="h-6 w-6" aria-hidden="true"/>
+                                        </a>
                                     </div>
+                                }
+                                <div className="mt-4 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
+                                    {userNavigationMobile.map((item) => (
+                                        <a
+                                            key={item.name}
+                                            href={item.href}
+                                            className="header-menu-entity py-2 px-3 text-primary"
+                                        >
+                                            {item.name}
+                                        </a>
+                                    ))}
                                 </div>
                             </div>
-                            <div className="max-w-8xl mx-auto py-3 px-2 sm:px-4">
+
+                            <div className="max-w-8xl mx-auto py-2 px-2 sm:px-4">
                                 {navigation.map((item) => (
                                     <Fragment key={item.name}>
                                         <a
@@ -332,6 +357,12 @@ export default function Header() {
                                             className="header-menu-entity py-2 px-3 text-primary"
                                         >
                                             {item.name}
+
+                                            {item.beta && (
+                                                <span className="ml-2 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary text-white">
+                                                    Beta
+                                                </span>
+                                            )}
                                         </a>
                                         {item.children.map((child) => (
                                             <a
@@ -344,37 +375,6 @@ export default function Header() {
                                         ))}
                                     </Fragment>
                                 ))}
-                            </div>
-                            <div className="border-t border-gray-200 pt-4 pb-3">
-                                <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
-                                    <div className="flex-shrink-0">
-                                        <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url}
-                                             alt=""/>
-                                    </div>
-                                    <a href={loggedUser.link} className="ml-3 min-w-0 flex-1">
-                                        <div
-                                            className="text-base font-medium text-primary truncate">{loggedUser.name}</div>
-                                        <div
-                                            className="text-sm font-medium text-gray-500 truncate">@{loggedUser.mention_name}
-                                        </div>
-                                    </a>
-                                    <a href={`${loggedUser.link}settings/notifications`}
-                                       className="ml-auto flex-shrink-0 bg-box p-2 text-gray-400 hover:text-gray-500">
-                                        <span className="sr-only">View notifications</span>
-                                        <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                                    </a>
-                                </div>
-                                <div className="mt-3 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                                    {userNavigationMobile.map((item) => (
-                                        <a
-                                            key={item.name}
-                                            href={item.href}
-                                            className="header-menu-entity py-2 px-3 text-primary"
-                                        >
-                                            {item.name}
-                                        </a>
-                                    ))}
-                                </div>
                             </div>
                         </nav>
                     </Transition.Child>

@@ -156,7 +156,7 @@ $user = yipnyap_get_logged_user_member_data();
     <!-- GRID -->
     <div class="grid-cols-4 xl:grid-cols-8 gap-4 px-4 lg:!pl-24" style="display: grid;">
         <!-- LEFT COLUMN -->
-        <div class="col-span-full xl:col-span-2">
+        <div class="hidden col-span-2 xl:block">
             <?php
 
             $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 15]);
@@ -246,7 +246,7 @@ $user = yipnyap_get_logged_user_member_data();
         </div>
 
         <!-- GROUPS COLUMN -->
-        <div class="col-span-2">
+        <div class="hidden col-span-2 xl:block">
             <?php
 
             // if the groups component is active, show groups widget

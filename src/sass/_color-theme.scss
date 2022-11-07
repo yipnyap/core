@@ -54,6 +54,9 @@ $color-primary-dark: $cyan-dark;
 $color-primary-light: $cyan-light;
 $color-primary-shadow: 4px 7px 12px 0 rgba(35, 210, 226, .2);
 $color-primary-hover: $cyan-hover;
+.bg-primary {
+  background-color: var(--color-primary);
+}
 
 /*---------------------------
     1.2 SECONDARY COLORS

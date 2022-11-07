@@ -47,7 +47,7 @@ export default function NoUserCTAActivity(props) {
             {/*    </div>*/}
             {/*</div>*/}
             <div className="relative bg-body overflow-hidden mb-12">
-                <div className="max-w-screen-xl mx-auto">
+                <div className="max-w-screen-xl lg:!pl-24">
                     <div
                         className="relative z-10 pb-8 bg-body sm:pb-16 md:pb-20 lg:max-w-2xl lg:w-full lg:pb-28 xl:pb-32"
                     >

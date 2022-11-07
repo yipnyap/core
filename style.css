@@ -1001,14 +1001,6 @@ h2 {
   margin-right: -0.5rem;
 }
 
-.mt-1 {
-  margin-top: 0.25rem;
-}
-
-.mr-3 {
-  margin-right: 0.75rem;
-}
-
 .ml-10 {
   margin-left: 2.5rem;
 }
@@ -1037,8 +1029,16 @@ h2 {
   margin-top: 2rem;
 }
 
+.mt-1 {
+  margin-top: 0.25rem;
+}
+
 .mt-0 {
   margin-top: 0px;
+}
+
+.mr-3 {
+  margin-right: 0.75rem;
 }
 
 .box-border {
@@ -1167,10 +1167,6 @@ h2 {
   height: 4rem;
 }
 
-.h-4 {
-  height: 1rem;
-}
-
 .h-full {
   height: 100%;
 }
@@ -1197,6 +1193,10 @@ h2 {
 
 .h-1 {
   height: 0.25rem;
+}
+
+.h-4 {
+  height: 1rem;
 }
 
 .max-h-9 {
@@ -1231,10 +1231,6 @@ h2 {
   width: auto;
 }
 
-.w-4 {
-  width: 1rem;
-}
-
 .w-8 {
   width: 2rem;
 }
@@ -1251,6 +1247,10 @@ h2 {
   width: 4rem;
 }
 
+.w-4 {
+  width: 1rem;
+}
+
 .min-w-0 {
   min-width: 0px;
 }
@@ -1263,10 +1263,6 @@ h2 {
   max-width: 28rem;
 }
 
-.max-w-2xl {
-  max-width: 42rem;
-}
-
 .max-w-screen-xl {
   max-width: 1280px;
 }
@@ -1277,6 +1273,10 @@ h2 {
 
 .max-w-4xl {
   max-width: 56rem;
+}
+
+.max-w-2xl {
+  max-width: 42rem;
 }
 
 .flex-1 {
@@ -2319,6 +2319,11 @@ h2 {
   border-width: 2px;
 }
 
+.border-x-0 {
+  border-left-width: 0px;
+  border-right-width: 0px;
+}
+
 .border-x {
   border-left-width: 1px;
   border-right-width: 1px;
@@ -2329,33 +2334,28 @@ h2 {
   border-bottom-width: 1px;
 }
 
-.border-x-0 {
-  border-left-width: 0px;
-  border-right-width: 0px;
-}
-
-.border-t {
-  border-top-width: 1px;
-}
-
-.border-b-2 {
-  border-bottom-width: 2px;
-}
-
-.border-r {
-  border-right-width: 1px;
+.border-t-0 {
+  border-top-width: 0px;
 }
 
 .border-b {
   border-bottom-width: 1px;
 }
 
-.border-l {
-  border-left-width: 1px;
+.border-b-2 {
+  border-bottom-width: 2px;
 }
 
-.border-t-0 {
-  border-top-width: 0px;
+.border-t {
+  border-top-width: 1px;
+}
+
+.border-r {
+  border-right-width: 1px;
+}
+
+.border-l {
+  border-left-width: 1px;
 }
 
 .border-solid {
@@ -2661,6 +2661,11 @@ h2 {
   padding-bottom: 0px;
 }
 
+.px-2\.5 {
+  padding-left: 0.625rem;
+  padding-right: 0.625rem;
+}
+
 .\!px-8 {
   padding-left: 2rem !important;
   padding-right: 2rem !important;
@@ -2689,11 +2694,6 @@ h2 {
 .px-0 {
   padding-left: 0px;
   padding-right: 0px;
-}
-
-.px-2\.5 {
-  padding-left: 0.625rem;
-  padding-right: 0.625rem;
 }
 
 .px-1\.5 {
@@ -2742,18 +2742,6 @@ h2 {
   padding-right: 1rem;
 }
 
-.pl-3 {
-  padding-left: 0.75rem;
-}
-
-.pl-9 {
-  padding-left: 2.25rem;
-}
-
-.pl-10 {
-  padding-left: 2.5rem;
-}
-
 .pl-5 {
   padding-left: 1.25rem;
 }
@@ -2762,16 +2750,20 @@ h2 {
   padding-right: 0.75rem;
 }
 
-.pb-3 {
-  padding-bottom: 0.75rem;
-}
-
 .pb-8 {
   padding-bottom: 2rem;
 }
 
 .pt-0 {
   padding-top: 0px;
+}
+
+.pl-3 {
+  padding-left: 0.75rem;
+}
+
+.pl-9 {
+  padding-left: 2.25rem;
 }
 
 .text-left {
@@ -2850,14 +2842,14 @@ h2 {
   line-height: 2rem;
 }
 
-.text-4xl {
-  font-size: 2.25rem;
-  line-height: 2.5rem;
-}
-
 .text-xs {
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.text-4xl {
+  font-size: 2.25rem;
+  line-height: 2.5rem;
 }
 
 .font-medium {
@@ -34254,11 +34246,6 @@ body.buddypress.registration #buddypress .page #template-notices {
   text-align: center;
 }
 
-.focus\:border-indigo-600:focus {
-  --tw-border-opacity: 1;
-  border-color: rgb(79 70 229 / var(--tw-border-opacity));
-}
-
 .focus\:border-indigo-300:focus {
   --tw-border-opacity: 1;
   border-color: rgb(165 180 252 / var(--tw-border-opacity));
@@ -34779,11 +34766,6 @@ body.buddypress.registration #buddypress .page #template-notices {
     max-width: 56rem;
   }
 
-  .md\:flex-1 {
-    -ms-flex: 1 1 0%;
-        flex: 1 1 0%;
-  }
-
   .md\:grid-cols-2 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
@@ -34798,12 +34780,12 @@ body.buddypress.registration #buddypress .page #template-notices {
         justify-content: space-between;
   }
 
-  .md\:pl-24 {
-    padding-left: 6rem;
-  }
-
   .md\:pb-20 {
     padding-bottom: 5rem;
+  }
+
+  .md\:pl-24 {
+    padding-left: 6rem;
   }
 
   .md\:text-xl {
@@ -34884,12 +34866,12 @@ body.buddypress.registration #buddypress .page #template-notices {
     padding-left: 6rem !important;
   }
 
-  .lg\:pb-28 {
-    padding-bottom: 7rem;
-  }
-
   .lg\:pl-24 {
     padding-left: 6rem;
+  }
+
+  .lg\:pb-28 {
+    padding-bottom: 7rem;
   }
 
   .lg\:text-left {

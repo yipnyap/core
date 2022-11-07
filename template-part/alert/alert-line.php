@@ -1,11 +1,11 @@
 <?php
 /**
  * Yipnyap Template Part - Alert Line
- * 
+ *
  * @package Yipnyap
  * @since 1.3.3
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  * @param array $args {
  *   @type string $type     Alert line type.
  *   @type string $text     Alert line text.
@@ -15,7 +15,7 @@
 ?>
 
 <!-- ALERT LINE -->
-<div class="alert-line alert-line-<?php echo esc_attr($args['type']); ?>">
+<div class="alert-line alert-line-<?php echo esc_attr($args['type']) . ' ' . esc_attr($args['class']); ?>">
   <!-- ALERT LINE ICON WRAP -->
   <div class="alert-line-icon-wrap">
     <!-- ALERT LINE ICON -->

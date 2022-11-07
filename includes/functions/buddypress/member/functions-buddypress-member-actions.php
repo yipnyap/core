@@ -412,12 +412,11 @@ if (bp_is_active('settings')) {
              */
             function yipnyap_members_settings_messages_page_screen_content()
             {
+                ?>
+                <div class="account-hub-content">
+                <?php
                 // if BP Better Messages plugin is active, show its messages screen
                 if (yipnyap_plugin_bpbettermessages_is_active()) {
-                    ?>
-                    <!-- ACCOUNT HUB CONTENT -->
-                    <div class="account-hub-content">
-                    <?php
                     /**
                      * Section Header
                      */
@@ -431,6 +430,12 @@ if (bp_is_active('settings')) {
                 } else {
                     $user_id = isset($_GET['user_id']) && is_numeric($_GET['user_id']) ? (int)$_GET['user_id'] : false;
                     $message_id = isset($_GET['message_id']) && is_numeric($_GET['message_id']) ? (int)$_GET['message_id'] : false;
+
+                    get_template_part('template-part/alert/alert', 'line', [
+                        'type' => 'info',
+                        'class' => 'mb-4',
+                        'text' => '<span class="bold block">🔬 Friend DMs are experimental</span>This feature might not work well, if at all, and may be removed later.'
+                    ]);
 
                     if ($user_id) :
 
@@ -454,7 +459,6 @@ if (bp_is_active('settings')) {
                 }
                 ?>
                 </div>
-                <!-- /ACCOUNT HUB CONTENT -->
                 </div>
                 <!-- /GRID -->
                 <?php

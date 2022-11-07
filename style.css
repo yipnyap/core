@@ -2852,6 +2852,11 @@ h2 {
   line-height: 2.5rem;
 }
 
+.text-xl {
+  font-size: 1.25rem;
+  line-height: 1.75rem;
+}
+
 .font-medium {
   font-weight: 500;
 }
@@ -34778,6 +34783,11 @@ body.buddypress.registration #buddypress .page #template-notices {
   .md\:justify-between {
     -ms-flex-pack: justify;
         justify-content: space-between;
+  }
+
+  .md\:px-8 {
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 
   .md\:pb-20 {

@@ -16,7 +16,7 @@ module.exports = function (grunt) {
                 files: {
                     'src/css/raw/styles.css': 'src/sass/main.scss',
                     'src/css/admin-style.css': 'src/sass/wordpress/main.scss',
-                    'src/css/vklogin-style.css': 'src/sass/wordpress-login/main.scss'
+                    // 'src/css/vklogin-style.css': 'src/sass/wordpress-login/main.scss'
                 }
             }
         },
@@ -33,7 +33,7 @@ module.exports = function (grunt) {
                 files: {
                     'src/css/raw/styles.css': 'src/css/raw/styles.css',
                     'src/css/admin-style.css': 'src/css/admin-style.css',
-                    'src/css/vklogin-style.css': 'src/css/vklogin-style.css'
+                    // 'src/css/vklogin-style.css': 'src/css/vklogin-style.css'
                 }
             },
             compressed: {
@@ -48,7 +48,7 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'src/css/admin-style.min.css': 'src/css/admin-style.css',
-                    'src/css/vklogin-style.min.css': 'src/css/vklogin-style.css'
+                    // 'src/css/vklogin-style.min.css': 'src/css/vklogin-style.css'
                 }
             }
         },
@@ -70,18 +70,18 @@ module.exports = function (grunt) {
             build: {
                 files: {
                     'src/js/bundle/app.bundle.js': 'src/js/source/app.js',
-                    'src/js/bundle/admin.bundle.js': 'src/js/source/admin.js',
-                    'src/js/bundle/vklogin.bundle.js': 'src/js/source/vklogin.js'
+                    // 'src/js/bundle/admin.bundle.js': 'src/js/source/admin.js',
+                    // 'src/js/bundle/vklogin.bundle.js': 'src/js/source/vklogin.js'
                 }
             }
         },
-        uglify: {
-            build: {
-                files: {
-                    'src/js/vklogin.bundle.min.js': 'src/js/bundle/vklogin.bundle.js'
-                }
-            }
-        },
+        // uglify: {
+        //     build: {
+        //         files: {
+        //             'src/js/vklogin.bundle.min.js': 'src/js/bundle/vklogin.bundle.js'
+        //         }
+        //     }
+        // },
         watch: {
             options: {
                 livereload: true
@@ -116,6 +116,6 @@ module.exports = function (grunt) {
 
     // Register custom tasks
     grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix']);
-    grunt.registerTask('scripts', ['browserify:build', 'uglify:build']);
+    grunt.registerTask('scripts', ['browserify:build', /*'uglify:*/]);
     grunt.registerTask('launch', ['watch']);
 };

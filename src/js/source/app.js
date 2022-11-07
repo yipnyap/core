@@ -1,16 +1,16 @@
 /*-------------
-    SIDEBAR 
+    SIDEBAR
 -------------*/
 import './sidebar/sidebar';
 
 /*------------
-    SVG 
+    SVG
 ------------*/
 import './utils/svg-loader';
 import './utils/svg-loader.cmui';
 
 /*----------------
-    SCROLLBARS 
+    SCROLLBARS
 ----------------*/
 import 'simplebar';
 
@@ -91,6 +91,7 @@ import './component-dom/groups/group-header-actions';
     ACTIVITY LIST
 ---------------------------*/
 import './component-dom/activity/list-activities';
+import './component-dom/activity/activity-notice';
 
 /*---------------------------
     MEDIA LIST
@@ -123,6 +124,6 @@ import './component-dom/settings/settings-received-group-invitations';
 import './component-dom/settings/settings-group-membership-requests';
 
 /*-----------------
-    PAGE LOADER 
+    PAGE LOADER
 -----------------*/
 import './global/page-loader';

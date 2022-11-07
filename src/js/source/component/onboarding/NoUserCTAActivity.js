@@ -2,32 +2,9 @@
  * 2022.06pa-LABS_STRANGER_ONBOARDING_FA_ROAST
  */
 import React from 'react';
-
-import {MapIcon, ScaleIcon, BadgeCheckIcon, HandIcon} from '@heroicons/react/outline';
 import {CrawlText} from "../../community-ui/snapper-engine/CrawlText";
 
-const features = [
-    {
-        name: 'Forever evolving',
-        description:
-            'We won\'t be stuck in 2022, either. We got tons of ideas, as well as constantly elvolving with current and future web standards. (Except you, ETH. Screw you.)',
-        icon: MapIcon,
-    },
-    {
-        name: 'Moderation that takes no s**t.',
-        description:
-            'Everyone deserves to feel safe online. Our Guidelines bans the weird, and our Moderation team takes no s**t from even s**ttier people.',
-        icon: ScaleIcon,
-    },
-    {
-        name: 'Verified Program for those who do great',
-        description:
-            'Are you making a safe space for everyone, or creating amazing stuff? We got a program for you that gives access to a bunch of goodies and licenses 👀',
-        icon: BadgeCheckIcon,
-    },
-];
-
-export default function NoUserCTAActivity(props) {
+export default function NoUserCTAActivity() {
     return (
         <>
             {/*<div className="bg-indigo-600">*/}

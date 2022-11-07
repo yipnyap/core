@@ -62,11 +62,17 @@ function CrawlText(props) {
     return (
         <>
             {textDOM.map((current, index) =>
-                <span
-                    className={`snapanim-crawl u-rise child-rise${fast ? '-fast' : ''} text-${current.currentColour} ${current.isBold ? 'font-bold' : ''} ${display ? 'risen' : ''} ${current.i.indexOf('<br') > -1 ? 'span-break' : ''}`}
-                >
-                    {current.i === '::break:' ? <br /> : (current.i + ' ')}
-                </span>
+                <>
+                    {
+                        current.i === '::break:' ? <br/> : (
+                            <span
+                                className={`snapanim-crawl u-rise child-rise${fast ? '-fast' : ''} text-${current.currentColour} ${current.isBold ? 'font-bold' : ''} ${display ? 'risen' : ''} ${current.i.indexOf('<br') > -1 ? 'span-break' : ''}`}
+                            >
+                                {current.i + ' '}
+                            </span>
+                        )
+                    }
+                </>
             )}
         </>
     )

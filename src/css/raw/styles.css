@@ -10165,8 +10165,8 @@ a:hover {
 }
 
 img[alt=logo].logo-image {
-  -webkit-animation: 1s logoHue ease-out;
-          animation: 1s logoHue ease-out;
+  -webkit-animation: logoHue 1s ease-out, logoHue 120s ease-out 1s;
+          animation: logoHue 1s ease-out, logoHue 120s ease-out 1s;
   border-radius: 0.3em;
 }
 

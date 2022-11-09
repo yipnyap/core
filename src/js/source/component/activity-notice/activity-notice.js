@@ -3,7 +3,7 @@ import {CrawlText} from "../../community-ui/snapper-engine/CrawlText";
 
 export default function ActivityNotice(props) {
     return (
-        <div className="flex flex-col sm:flex-row items-center lg:!pl-24 pb-12">
+        <div className="flex flex-col sm:flex-row items-center lg:!pl-24 pb-4">
             <div
                 className="flex-grow items-center"
             >

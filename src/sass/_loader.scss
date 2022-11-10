@@ -21,7 +21,7 @@
 }
 
 img[alt='logo'].logo-image {
-  animation: logoHue 1s ease-out, logoHue 120s ease-out 1s;
+  animation: logoHue 1s ease-out 1s, logoHue 120s ease-out 2s;
   border-radius: .3em;
 }
 

@@ -73,7 +73,8 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'hk12-survery_nag_closed_mk1');
+    : 'hk13');
+//const YIPNYAP_VERSION = 'hk13';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -94,7 +95,7 @@ define('YIPNYAP_WPOPTIONS', array(
      */
     'snowsuit_registration_allowed' => 'yes',
     'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
-    'yipnyap_logo_url' => array(YIPNYAP_URL . '/img/yipnyap-logo-new.svg'),
+    'yipnyap_logo_url' => array(YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png'),
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads'
@@ -112,13 +113,13 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     }
 }
 
-add_action('after_setup_theme', 'remove_admin_bar');
-function remove_admin_bar() {
+function yipnyap_remove_admin_bar() {
+    $current_user = wp_get_current_user();
     if (!current_user_can('see_admin_bar') && !is_admin()) {
         show_admin_bar(false);
     }
 }
-
+add_action('after_setup_theme', 'yipnyap_remove_admin_bar');
 /**
  * TRANSLATION functions
  */

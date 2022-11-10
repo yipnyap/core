@@ -460,7 +460,7 @@
     color: $white;
 
     .action-request-icon {
-      fill: $white;
+      color: $white;
       opacity: 1;
     }
   }
@@ -1140,14 +1140,14 @@
       background-color: var(--color-primary);
 
       .slider-control-icon {
-        fill: $white;
+        color: $white;
       }
     }
   }
 
   &.negative {
     .slider-control-icon {
-      fill: $white;
+      color: $white;
     }
 
     &.disabled,
@@ -1156,7 +1156,7 @@
 
       &:hover {
         .slider-control-icon {
-          fill: $white;
+          color: $white;
           opacity: .4;
         }
       }
@@ -1164,7 +1164,7 @@
 
     &:hover {
       .slider-control-icon {
-        fill: $white;
+        color: $white;
         opacity: 1;
       }
     }
@@ -1269,7 +1269,7 @@
     }
 
     &.white {
-      fill: $white;
+      color: $white;
     }
 
     &.primary {
@@ -1914,7 +1914,7 @@
 
 .post-format-tag {
   .post-format-tag-icon {
-    fill: $white;
+    color: $white;
   }
 }
 
@@ -2586,7 +2586,7 @@
     margin-right: 16px;
 
     .stat-block-decoration-icon {
-      fill: $white;
+      color: $white;
     }
   }
 
@@ -3956,7 +3956,7 @@
     z-index: 1;
 
     .stats-decoration-icon {
-      fill: $white;
+      color: $white;
     }
   }
 
@@ -4968,7 +4968,7 @@
     margin: 0 auto;
 
     .account-stat-box-icon {
-      fill: $white;
+      color: $white;
     }
   }
 
@@ -5553,7 +5553,7 @@
     left: 0;
 
     .earning-stat-box-icon {
-      fill: $white;
+      color: $white;
     }
 
     &.stat-item {
@@ -5614,7 +5614,7 @@
     border-radius: 50%;
 
     .status-icon {
-      fill: $white;
+      color: $white;
       width: 20px;
       height: 16px;
     }
@@ -5842,7 +5842,7 @@
     cursor: pointer;
 
     .uploadable-item-selector-button-icon {
-      fill: $white;
+      color: $white;
       width: 12px;
       height: 12px;
       pointer-events: none;
@@ -5893,7 +5893,7 @@
     }
 
     .message-box-icon {
-      fill: $white;
+      color: $white;
     }
   }
 
@@ -5965,7 +5965,7 @@
     box-shadow: 3px 5px 20px 0 rgba(0, 0, 0, .16);
 
     .alert-box-icon {
-      fill: $white;
+      color: $white;
     }
   }
 
@@ -6006,7 +6006,7 @@
   }
 
   .alert-line-icon {
-    fill: $white;
+    color: $white;
     position: absolute;
     margin-top: 4px;
     top: 20px;
@@ -6453,7 +6453,7 @@
     background-color: var(--color-divider);
 
     .checklist-item-box-icon {
-      fill: $white;
+      color: $white;
       display: none;
     }
 

@@ -180,12 +180,12 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
             box-shadow: var(--color-primary-shadow);
 
             .menu-item-link-icon {
-              fill: $white;
+              color: $white;
             }
           }
 
           .menu-item-link-icon {
-            fill: $white;
+            color: $white;
           }
         }
       }

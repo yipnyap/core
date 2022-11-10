@@ -348,7 +348,7 @@
         }
 
         .button-icon {
-          fill: $white;
+          color: $white;
         }
 
         &.white {
@@ -358,7 +358,7 @@
 
           &:hover {
             .button-icon {
-              fill: $white;
+              color: $white;
             }
           }
         }

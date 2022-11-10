@@ -112,7 +112,7 @@
       background-color: $color-button-void-background-hover;
 
       .button-icon {
-        fill: $white;
+        color: $white;
       }
     }
 
@@ -282,7 +282,7 @@
   }
 
   .button-icon {
-    fill: $white;
+    color: $white;
     transition: fill .2s ease-in-out;
 
     &.spaced {

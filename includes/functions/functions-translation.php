@@ -168,12 +168,11 @@ function yipnyap_translation_get() {
     /**
      * Activity Filters
      */
-    'all_updates'                 => esc_html_x('All Updates', 'to show all post updates', 'yipnyap'),
+    'all_posts'                   => esc_html_x('All Posts', 'to show all post updates', 'yipnyap'),
     'following'                   => esc_html__('Following', 'yipnyap'),
     'favorites'                   => esc_html__('Favorites', 'yipnyap'),
     'scope'                       => esc_html__('Scope', 'yipnyap'),
     'show'                        => esc_html__('Show', 'yipnyap'),
-    'all_posts'                   => esc_html__('All Posts', 'yipnyap'),
     'status'                      => esc_html__('Status', 'yipnyap'),
     'media'                       => esc_html__('Media', 'yipnyap'),
     'videos'                      => esc_html__('Videos', 'yipnyap'),

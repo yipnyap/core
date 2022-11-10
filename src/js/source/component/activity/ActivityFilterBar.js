@@ -120,7 +120,8 @@ function ActivityFilterBar(props) {
                         <div className="form-select">
                             <label htmlFor="activity-scope">{yipnyap_translation.scope}</label>
                             <select id="activity-scope" name="scope" value={filters.scope} onChange={handleScopeChange}>
-                                <option value="false">{yipnyap_translation.all_updates}</option>
+                                <option value="myfollowing">Following</option>
+                                <option value="false">{yipnyap_translation.all_posts}</option>
                                 {
                                     !props.hideSecondaryFilters &&
                                     <React.Fragment>

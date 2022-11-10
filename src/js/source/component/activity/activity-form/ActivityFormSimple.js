@@ -66,7 +66,7 @@ function ActivityFormSimple(props) {
                     {/* QUICK POST FOOTER ACTIONS */}
                     <div className="quick-post-footer-actions">
                         <p className="button small void" onClick={props.onDiscard}>{yipnyap_translation.discard}</p>
-                        <p className="button small secondary" onClick={submitContent}>{yipnyap_translation.save}</p>
+                        <p className="button small primary" onClick={submitContent}>{yipnyap_translation.save}</p>
                     </div>
                     {/* QUICK POST FOOTER ACTIONS */}
                 </div>

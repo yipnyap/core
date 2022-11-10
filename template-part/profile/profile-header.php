@@ -32,8 +32,23 @@ $display_verified_in_username = $display_verified && $yipnyap_settings['bp_verif
 $verified_user = $display_verified && $args['member']['verified'];
 
 $mature = yipnyap_members_xprofile_get_field_value($args['member'], 'Profile_Meta_Rating');
+$primaryColour = yipnyap_members_xprofile_get_field_value($args['member'], 'Account_Info_Profile Primary Accent');
+$background = yipnyap_members_xprofile_get_field_value($args['member'], 'Account_Info_Profile Background');
 
 ?>
+<style data-use-unicorn-engine>
+    :root {
+        <?php if (!empty($primaryColour)) { ?>
+            --color-primary: <?php echo $primaryColour; ?>;
+        <?php } ?>
+    }
+
+    <?php if (!empty($background)) { ?>
+    #cmui-entire-content {
+        background: <?php echo $background; ?> !important;
+    }
+    <?php } ?>
+</style>
 
 <!-- PROFILE HEADER -->
 <div class="profile-header">
@@ -326,3 +341,17 @@ if ($mature === 'NSFW' || $mature === 'Suggestive') {
 }
 ?>
 <!-- /PROFILE HEADER MATURE WARNING -->
+
+<!-- PROFILE HEADER THEME WARNING -->
+<?php
+if (!empty($primaryColour) || !empty($background)) {
+    get_template_part('template-part/alert/alert', 'line', [
+        'type' => 'info',
+        'icon' => 'hand-raised',
+        'class' => 'mt-4',
+        'text' => '<span class="bold block">🎨 User has custom theme</span>Your UI might not look right or consistent. We cannot guarantee user accessibility.'
+    ]);
+}
+?>
+<!-- /PROFILE HEADER THEME WARNING -->
+

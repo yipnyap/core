@@ -42,7 +42,7 @@
             if (array_key_exists('button', $args)) :
 
                 ?>
-                <a class="widget-box-button button small secondary"
+                <a class="widget-box-button button small primary"
                    href="<?php echo esc_url($args['button']['link']); ?>"><?php echo esc_html($args['button']['text']); ?></a>
             <?php
 

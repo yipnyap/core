@@ -232,7 +232,7 @@ function ActivityPhotoUploadForm(props) {
                     {/* QUICK POST FOOTER ACTIONS */}
                     <div className="quick-post-footer-actions">
                         <p className="button small void" onClick={discardContent}>{yipnyap_translation.discard}</p>
-                        <p className="button small secondary"
+                        <p className="button small primary"
                            onClick={submitContent}>{yipnyap_translation.post_action}</p>
                     </div>
                     {/* QUICK POST FOOTER ACTIONS */}

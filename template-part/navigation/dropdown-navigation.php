@@ -106,7 +106,7 @@ if (count($navigation_section) > 0) {
         <!-- /USER STATUS -->
 
         <!-- DROPDOWN NAVIGATION BUTTON -->
-        <a class="dropdown-navigation-button button small secondary"
+        <a class="dropdown-navigation-button button small primary"
            href="<?php echo esc_url(wp_logout_url('/activity')); ?>"><?php esc_html_e('Logout', 'yipnyap'); ?></a>
         <!-- /DROPDOWN NAVIGATION BUTTON -->
     </div>

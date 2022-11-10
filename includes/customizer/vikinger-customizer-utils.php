@@ -341,8 +341,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
          * Box Colors
          */
         '--color-box-background' => '#fff',
-        '--color-box-background-alt' => '#fcfcfd',
-        '--color-box-over-box-background' => '#fff',
+        '--color-box-background-alt' => '#fafafa',
+        '--color-box-over-box-background' => '#e5e5e5',
         '--color-box-over-box-light-background' => '#fff',
 
         /**

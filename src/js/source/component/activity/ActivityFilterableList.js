@@ -657,7 +657,7 @@ function ActivityFilterableList(props) {
                         />
                     }
 
-                    <ScrollPager modifiers="grid" loadMoreItems={getActivitiesPage} moreItems={activities.moreItems}
+                    <ScrollPager modifiers="grid gap-4" loadMoreItems={getActivitiesPage} moreItems={activities.moreItems}
                         initialFetch={activities.initialFetch}>
                         {
                             (activities.items.length === 0) && !activities.moreItems &&

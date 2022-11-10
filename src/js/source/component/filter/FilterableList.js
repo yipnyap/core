@@ -168,7 +168,7 @@ function FilterableList(props) {
     const itemTypeText = itemCount === 1 ? yipnyap_translation.result : yipnyap_translation.results;
 
     return (
-        <div ref={filterableListRef}>
+        <div className="grid gap-2" ref={filterableListRef}>
             <FilterBar extraFilters={props.extraFilters}
                        applyFilters={applyFilters}
                        gridType={gridType}

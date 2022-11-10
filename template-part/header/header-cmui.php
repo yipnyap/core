@@ -61,19 +61,21 @@ if ($sidemenu_status === 'display') {
         <?php } ?>
         <div class="border-divider">
 			<?php
-            /**
-             * Avatar Small
-             */
-            get_template_part('template-part/avatar/avatar', 'small', [
-                'user'        => $args['user'],
-                'linked'      => yipnyap_plugin_buddypress_is_active(),
-                'no_border'   => true,
-                'a_class'     => 'cmui navigator-item mb-2',
-                'img_class'   => 'h-8 w-8 rounded-full',
-            ]);
+            if(isset($args['user'])) {
+                /**
+                 * Avatar Small
+                 */
+                get_template_part('template-part/avatar/avatar', 'small', [
+                    'user'        => $args['user'],
+                    'linked'      => yipnyap_plugin_buddypress_is_active(),
+                    'no_border'   => true,
+                    'a_class'     => 'cmui navigator-item mb-2',
+                    'img_class'   => 'h-8 w-8 rounded-full',
+                ]);
+            }
 
 			// show side menu items if it has at least one item
-			if ( count( $args['side_menu_items'] ) > 0 ) {
+			if (count($args['side_menu_items']) > 0) {
 				/**
 				 * Menu
 				 */
@@ -85,7 +87,7 @@ if ($sidemenu_status === 'display') {
 			}
 			?>
         </div>
-		<?php if(isset($args['user'])) {?>
+		<?php if(isset($args['user'])) { ?>
             <div class="mt-auto mb-4">
                 <!-- SETTINGS -->
                 <a class="cmui navigator-item <?php if (str_contains($_SERVER['REQUEST_URI'], "/settings")) {

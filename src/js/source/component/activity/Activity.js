@@ -211,7 +211,7 @@ function Activity(props) {
     const userActivityPermissions = getUserActivityPermissions(props.user, props.data, props.profileUserID);
 
     return (
-        <div className={`widget-box no-padding ${processingDelete ? 'widget-box-deleted' : ''}`}>
+        <div className={`widget-box no-padding rounded-xl ${processingDelete ? 'widget-box-deleted' : ''}`}>
             {/* TAG STICKERS */}
             <div className="tag-stickers">
                 {

@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap TRANSLATION functions
- * 
+ *
  * @since 1.0.0
  */
 
@@ -81,7 +81,6 @@ function yipnyap_translation_get() {
     'category'                    => esc_html__('Category', 'yipnyap'),
     'all_categories'              => esc_html__('All Categories', 'yipnyap'),
     'type'                        => esc_html__('Type', 'yipnyap'),
-    'all'                         => esc_html__('All', 'yipnyap'),
     'filter_by'                   => esc_html_x('Filter By', 'narrow a search by some criteria', 'yipnyap'),
     'date'                        => esc_html_x('Date', 'e.g. (10/08/2020)', 'yipnyap'),
     'popularity'                  => esc_html__('Popularity', 'yipnyap'),
@@ -148,7 +147,6 @@ function yipnyap_translation_get() {
      */
     'status_update'                 => esc_html__('Status Update', 'yipnyap'),
     'post_in'                       => esc_html__('Post In', 'yipnyap'),
-    'my_profile'                    => esc_html__('My Profile', 'yipnyap'),
     'privacy'                       => esc_html__('Privacy', 'yipnyap'),
     'public'                        => esc_html__('Public', 'yipnyap'),
     'private'                       => esc_html__('Private', 'yipnyap'),
@@ -172,15 +170,12 @@ function yipnyap_translation_get() {
      */
     'all_updates'                 => esc_html_x('All Updates', 'to show all post updates', 'yipnyap'),
     'following'                   => esc_html__('Following', 'yipnyap'),
-    'mentions'                    => esc_html__('Mentions', 'yipnyap'),
     'favorites'                   => esc_html__('Favorites', 'yipnyap'),
     'scope'                       => esc_html__('Scope', 'yipnyap'),
     'show'                        => esc_html__('Show', 'yipnyap'),
-    'everything'                  => esc_html__('Everything', 'yipnyap'),
+    'all_posts'                   => esc_html__('All Posts', 'yipnyap'),
     'status'                      => esc_html__('Status', 'yipnyap'),
-    'shares'                      => esc_html__('Shares', 'yipnyap'),
     'media'                       => esc_html__('Media', 'yipnyap'),
-    'photos'                      => esc_html__('Photos', 'yipnyap'),
     'videos'                      => esc_html__('Videos', 'yipnyap'),
     'friendships'                 => esc_html__('Friendships', 'yipnyap'),
     'new_groups'                  => esc_html__('New Groups', 'yipnyap'),
@@ -212,20 +207,10 @@ function yipnyap_translation_get() {
     'shared_content_deleted_text'     => esc_html__('the shared content was deleted.', 'yipnyap'),
     'show_more'                       => esc_html__('Show More', 'yipnyap'),
 
-
-    /**
-     * Content Actions
-     */
-    'comment'                     => esc_html_x('Comment', 'a comment', 'yipnyap'),
-    'comments'                    => esc_html__('Comments', 'yipnyap'),
-    'share'                       => esc_html_x('Share', 'a share', 'yipnyap'),
-    'shares'                      => esc_html_x('Shares', '0 / 2 or more shares', 'yipnyap'),
-
-
     /**
      * Post Footer
      */
-    'react'                       => esc_html_x('React!', 'to react to something', 'yipnyap'),
+    'react'                       => esc_html_x('React', 'to react to something', 'yipnyap'),
     'comment_action'              => esc_html_x('Comment', 'to comment on something', 'yipnyap'),
     'share_action'                => esc_html_x('Share', 'to share something', 'yipnyap'),
 
@@ -234,7 +219,6 @@ function yipnyap_translation_get() {
      */
     'leave_a_comment'               => esc_html__('Leave a Comment', 'yipnyap'),
     'your_reply'                    => esc_html__('Your Reply', 'yipnyap'),
-    'discard'                       => esc_html__('Discard', 'yipnyap'),
     'post_reply'                    => esc_html__('Post Reply', 'yipnyap'),
     'reply_action'                  => esc_html_x('Reply', 'to reply to something', 'yipnyap'),
     'cancel_action'                 => esc_html_x('Cancel', 'to cancel something', 'yipnyap'),
@@ -249,24 +233,18 @@ function yipnyap_translation_get() {
      * Group Filters
      */
     'search_groups'               => esc_html__('Search Groups', 'yipnyap'),
-    'order_by'                    => esc_html__('Order By', 'yipnyap'),
-    'alphabetical'                => esc_html__('Alphabetical', 'yipnyap'),
     'newest_groups'               => esc_html__('Newest Groups', 'yipnyap'),
-    'recently_active'             => esc_html__('Recently Active', 'yipnyap'),
 
     /**
      * Group Preview
      */
     'group'                       => esc_html__('Group', 'yipnyap'),
     'member'                      => esc_html__('Member', 'yipnyap'),
-    'post'                        => esc_html_x('Post', 'a post', 'yipnyap'),
     'banned'                      => esc_html_x('Banned', 'banned from something', 'yipnyap'),
 
     /**
      * Message Box
      */
-    'accept'                      => esc_html__('Accept', 'yipnyap'),
-    'cancel'                      => esc_html__('Cancel', 'yipnyap'),
     'continue'                    => esc_html__('Continue', 'yipnyap'),
 
     /**
@@ -288,13 +266,11 @@ function yipnyap_translation_get() {
     'promote_to_mod'              => esc_html__('Promote to Mod', 'yipnyap'),
     'demote_to_mod'               => esc_html__('Demote to Mod', 'yipnyap'),
     'demote_to_member'            => esc_html__('Demote to Member', 'yipnyap'),
-    'manage_groups'               => esc_html__('Manage Groups', 'yipnyap'),
 
     /**
      * Member Filters
      */
     'search_members'              => esc_html__('Search Members', 'yipnyap'),
-    'order_by'                    => esc_html__('Order By', 'yipnyap'),
     'alphabetical'                => esc_html__('Alphabetical', 'yipnyap'),
     'newest_members'              => esc_html__('Newest Members', 'yipnyap'),
     'recently_active'             => esc_html__('Recently Active', 'yipnyap'),
@@ -432,37 +408,23 @@ function yipnyap_translation_get() {
     /**
      * Email Settings
      */
-    'activity'                              => esc_html__('Activity', 'yipnyap'),
-
-    'mentions'                              => esc_html__('Mentions', 'yipnyap'),
-    'email_settings_mentions_description'   => esc_html__('A member mentions you in an update', 'yipnyap'),
-
-    'replies'                               => esc_html__('Replies', 'yipnyap'),
-    'email_settings_replies_description'    => esc_html__('A member replies to an update or comment you\'ve posted', 'yipnyap'),
-
-    'new_message'                           => esc_html__('New Message', 'yipnyap'),
-    'email_settings_newmessage_description' => esc_html__('A member sends you a new message', 'yipnyap'),
-
-    'friends'                                           => esc_html__('Friends', 'yipnyap'),
-
-    'new_friend_request'                                => esc_html__('New Friend Request', 'yipnyap'),
-    'email_settings_newfriendrequest_description'       => esc_html__('A member sends you a friendship request', 'yipnyap'),
-
-    'friend_request_accepted'                           => esc_html__('Friend Request Accepted', 'yipnyap'),
-    'email_settings_friendrequestaccepted_description'  => esc_html__('A member accepts your friendship request', 'yipnyap'),
-
+    'activity'                                                  => esc_html__('Activity', 'yipnyap'),
+    'mentions'                                                  => esc_html__('Mentions', 'yipnyap'),
+    'email_settings_mentions_description'                       => esc_html__('A member mentions you in an update', 'yipnyap'),
+    'email_settings_replies_description'                        => esc_html__('A member replies to an update or comment you\'ve posted', 'yipnyap'),
+    'email_settings_newmessage_description'                     => esc_html__('A member sends you a new message', 'yipnyap'),
+    'new_friend_request'                                        => esc_html__('New Friend Request', 'yipnyap'),
+    'email_settings_newfriendrequest_description'               => esc_html__('A member sends you a friendship request', 'yipnyap'),
+    'friend_request_accepted'                                   => esc_html__('Friend Request Accepted', 'yipnyap'),
+    'email_settings_friendrequestaccepted_description'          => esc_html__('A member accepts your friendship request', 'yipnyap'),
     'group_invite'                                              => esc_html__('Group Invite', 'yipnyap'),
     'email_settings_groupinvite_description'                    => esc_html__('A member invites you to join a group', 'yipnyap'),
-
     'group_update'                                              => esc_html__('Group Update', 'yipnyap'),
     'email_settings_groupupdate_description'                    => esc_html__('Group information is updated', 'yipnyap'),
-
     'group_promotion'                                           => esc_html__('Group Promotion', 'yipnyap'),
     'email_settings_grouppromotion_description'                 => esc_html__('You are promoted to a group administrator or moderator', 'yipnyap'),
-
     'private_group_membership_request'                          => esc_html__('Private Group Membership Request', 'yipnyap'),
     'email_settings_privategroupmembershiprequest_description'  => esc_html__('A member requests to join a private group for which you are an admin', 'yipnyap'),
-
     'group_join_request_status'                                 => esc_html__('Group Join Request Status', 'yipnyap'),
     'email_settings_groupjoinrequeststatus_description'         => esc_html__('Your request to join a group has been approved or denied', 'yipnyap'),
 
@@ -480,7 +442,6 @@ function yipnyap_translation_get() {
     'group_creator'                         => esc_html__('Group Creator', 'yipnyap'),
     'group_admin'                           => esc_html__('Group Admin', 'yipnyap'),
     'group_mod'                             => esc_html__('Group Mod', 'yipnyap'),
-
     'group_info'                            => esc_html__('Group Info', 'yipnyap'),
     'group_name'                            => esc_html__('Group Name', 'yipnyap'),
     'group_status'                          => esc_html__('Group Status', 'yipnyap'),
@@ -496,19 +457,15 @@ function yipnyap_translation_get() {
     'forum_name'                            => esc_html__('Forum Name', 'yipnyap'),
     'forum_description'                     => esc_html__('Forum Description', 'yipnyap'),
     'forum_privacy'                         => esc_html__('Forum Privacy', 'yipnyap'),
-
     'avatar_and_cover'                      => esc_html__('Avatar and Cover', 'yipnyap'),
-
     'administrators'                        => esc_html__('Administrators', 'yipnyap'),
     'mods'                                  => esc_html__('Mods', 'yipnyap'),
     'banned_members'                        => esc_html__('Banned Members', 'yipnyap'),
     'no_mods_found'                         => esc_html__('No mods found', 'yipnyap'),
     'no_banned_members_found'               => esc_html__('No banned members found', 'yipnyap'),
-
     'delete_group'                          => esc_html__('Delete Group', 'yipnyap'),
     'delete_group_text'                     => esc_html__('Deleting a group will remove all its content, this action cannot be undone.', 'yipnyap'),
     'delete_group_confirmation'             => esc_html__('Are you sure you want to delete this group?', 'yipnyap'),
-
     'required_fields_message'               => esc_html__('Please fill all required fields', 'yipnyap'),
     'save_error_message'                    => esc_html__('Error when saving, please try again later', 'yipnyap'),
     'discard_all'                           => esc_html__('Discard All', 'yipnyap'),

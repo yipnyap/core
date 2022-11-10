@@ -58,13 +58,20 @@ function ProfileSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-settings-profile')
             .done((response) => {
-                console.log('PROFILE SETTINGS SCREEN - LOGGED IN USER: ', response);
-
                 // get profile data
-                const loggedUserProfileDataGroups = getGroups(response.profile_data, 'profile');
+                const profileDataGroups = getGroups(response.profile_data, 'profile');
+                const accountDataGroups = getGroups(response.profile_data, 'account');
+                accountDataGroups[0].name = 'Display';
+
+                const loggedUserProfileDataGroups = [
+                    ...accountDataGroups,
+                    ...profileDataGroups
+                ];
 
                 setLoggedUser(response);
                 setProfileDataGroups(loggedUserProfileDataGroups);
+
+                console.log(loggedUserProfileDataGroups)
             });
     };
 

@@ -518,57 +518,6 @@ if (bp_is_active('settings')) {
     }
 
     /**
-     * Member Account Hub - Account Info Page
-     */
-    if (bp_is_active('xprofile')) {
-        if (!function_exists('yipnyap_members_settings_account_info_page_setup_nav')) {
-            /**
-             * Creates member account info settings page navigation
-             */
-            function yipnyap_members_settings_account_info_page_setup_nav()
-            {
-                global $bp;
-
-                bp_core_new_subnav_item([
-                    'name' => esc_html__('Account Info Settings', 'yipnyap'),
-                    'slug' => 'account',
-                    'parent_slug' => bp_get_settings_slug(),
-                    'parent_url' => trailingslashit(bp_loggedin_user_domain() . bp_get_settings_slug()),
-                    'screen_function' => 'yipnyap_members_settings_account_info_page',
-                    'user_has_access' => bp_core_can_edit_settings()
-                ], 'members');
-            }
-        }
-
-        add_action('bp_setup_nav', 'yipnyap_members_settings_account_info_page_setup_nav');
-
-        if (!function_exists('yipnyap_members_settings_account_info_page')) {
-            /**
-             * Members account info page setup
-             */
-            function yipnyap_members_settings_account_info_page()
-            {
-                add_action('bp_template_content', 'yipnyap_members_settings_account_info_page_screen_content');
-                bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
-            }
-        }
-
-        if (!function_exists('yipnyap_members_settings_account_info_page_screen_content')) {
-            /**
-             * Members account info page HTML content
-             */
-            function yipnyap_members_settings_account_info_page_screen_content()
-            {
-                ?>
-                <div id="account-info-settings-screen"></div>
-                </div>
-                <!-- /GRID -->
-                <?php
-            }
-        }
-    }
-
-    /**
      * Member Account Hub - Account Settings Page
      */
     if (!function_exists('yipnyap_members_settings_account_settings_page_setup_nav')) {

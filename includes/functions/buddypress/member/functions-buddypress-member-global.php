@@ -715,7 +715,14 @@ if (!function_exists('yipnyap_member_get_user_settings_profile_data')) {
             }
         }
 
-        return $user_settings_profile_data;
+        $user_settings_data = [
+            'profile_data' => yipnyap_member_get_xprofile_data($bp_member['id'])
+        ];
+
+        // add user base data
+//        $user_settings_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_settings_data);
+
+        return array_merge($user_settings_profile_data, $user_settings_data);
     }
 }
 
@@ -1472,14 +1479,14 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
                 'menu_items' => []
             ];
 
-            if (bp_is_active('xprofile')) {
-                $account_sections['menu_items'][] = [
-                    'name' => esc_html_x('Account Info', 'Account Settings Menu - Account Info Link', 'yipnyap'),
-                    'slug' => 'account',
-                    'link' => $member['link'] . 'settings/account',
-                    'active' => bp_is_current_action('account')
-                ];
-            }
+//            if (bp_is_active('xprofile')) {
+//                $account_sections['menu_items'][] = [
+//                    'name' => esc_html_x('Account Info', 'Account Settings Menu - Account Info Link', 'yipnyap'),
+//                    'slug' => 'account',
+//                    'link' => $member['link'] . 'settings/account',
+//                    'active' => bp_is_current_action('account')
+//                ];
+//            }
 
             $account_sections['menu_items'] = array_merge($account_sections['menu_items'], [
                 [

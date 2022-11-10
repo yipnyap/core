@@ -42,7 +42,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
       }
 
       .menu-sub-item-icon {
-        fill: var(--color-header-text);
+        color: var(--color-header-text);
         position: absolute;
         top: 11px;
         right: 10px;
@@ -51,7 +51,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
       }
 
       .menu-main-item-link-icon {
-        fill: var(--color-header-text);
+        color: var(--color-header-text);
         width: 6px;
         height: 6px;
         margin-left: 8px;
@@ -68,7 +68,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
           .menu-sub-item-icon,
           .menu-main-item-link-icon,
           .icon-dots {
-            fill: var(--color-primary-light);
+            color: var(--color-primary-light);
           }
         }
 
@@ -212,12 +212,12 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
         box-shadow: var(--color-overbox-shadow);
 
         .menu-item-link-icon {
-          fill: var(--color-primary);
+          color: var(--color-primary);
         }
       }
 
       .menu-item-link-icon {
-        fill: var(--color-icon);
+        color: var(--color-icon);
         position: absolute;
         top: 14px;
         left: 14px;
@@ -272,7 +272,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
 
       &.active {
         .section-menu-item-icon {
-          fill: var(--color-icon-highlighted);
+          color: var(--color-icon-highlighted);
         }
       }
     }
@@ -294,7 +294,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
       border-bottom: 4px solid var(--color-primary);
 
       .section-menu-item-icon {
-        fill: var(--color-icon-highlighted);
+        color: var(--color-icon-highlighted);
         opacity: 1;
       }
     }
@@ -353,7 +353,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
     }
 
     .section-menu-item-icon {
-      fill: var(--color-icon);
+      color: var(--color-icon);
       opacity: .6;
       position: absolute;
       top: 30px;

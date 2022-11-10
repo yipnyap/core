@@ -259,7 +259,7 @@
     .form-select-icon {
       width: 6px;
       height: 8px;
-      fill: var(--vk-color-icon);
+      color: var(--vk-color-icon);
       transform: rotate(90deg);
       position: absolute;
       top: 20px;
@@ -341,7 +341,7 @@
       border-color: var(--vk-color-primary);
 
       .icon-cross {
-        fill: var(--vk-color-body);
+        color: var(--vk-color-body);
       }
     }
 

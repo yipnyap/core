@@ -519,7 +519,7 @@
         transition: opacity .2s ease-in-out, fill .2s ease-in-out;
 
         &:hover {
-          fill: var(--color-icon-highlighted);
+          color: var(--color-icon-highlighted);
           opacity: 1;
         }
       }

@@ -492,7 +492,7 @@
   }
 
   .action-request-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     opacity: .6;
     transition: fill .2s ease-in-out, opacity .2s ease-in-out;
   }
@@ -607,12 +607,12 @@
       &.active,
       &.unread {
         .action-list-item-icon {
-          fill: var(--color-header-icon-hover);
+          color: var(--color-header-icon-hover);
         }
       }
 
       .action-list-item-icon {
-        fill: var(--color-header-icon);
+        color: var(--color-header-icon);
       }
     }
   }
@@ -667,7 +667,7 @@
     cursor: pointer;
 
     .action-list-item-icon {
-      fill: var(--color-icon);
+      color: var(--color-icon);
       transition: fill .3s ease-in-out;
     }
 
@@ -698,20 +698,20 @@
 
   &.hoverable {
     .action-item-icon {
-      fill: var(--color-header-icon);
+      color: var(--color-header-icon);
       transition: fill .3s ease-in-out;
     }
 
     &:hover {
       .action-item-icon {
-        fill: var(--color-header-icon-hover);
+        color: var(--color-header-icon-hover);
       }
     }
   }
 
   &.dark {
     .action-item-icon {
-      fill: var(--color-header-profile-settings-icon);
+      color: var(--color-header-profile-settings-icon);
     }
   }
 }
@@ -781,7 +781,7 @@
 
     .user-stat-title-icon {
       &.positive {
-        fill: var(--color-primary);
+        color: var(--color-primary);
       }
 
       &.negative {
@@ -1132,7 +1132,7 @@
     transition: background-color .2s ease-in-out;
 
     .slider-control-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
       opacity: 1;
     }
 
@@ -1176,14 +1176,14 @@
 
     &:hover {
       .slider-control-icon {
-        fill: var(--color-icon);
+        color: var(--color-icon);
         opacity: .5;
       }
     }
   }
 
   .slider-control-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     pointer-events: none;
     opacity: .6;
     transition: fill .2s ease-in-out, opacity .2s ease-in-out;
@@ -1197,7 +1197,7 @@
 
   &:hover {
     .slider-control-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
       opacity: 1;
     }
   }
@@ -1261,7 +1261,7 @@
   }
 
   .tag-sticker-icon {
-    fill: var(--color-icon-highlighted);
+    color: var(--color-icon-highlighted);
 
     &.spaced {
       position: relative;
@@ -1273,15 +1273,15 @@
     }
 
     &.primary {
-      fill: var(--color-primary);
+      color: var(--color-primary);
     }
 
     &.secondary {
-      fill: var(--color-secondary);
+      color: var(--color-secondary);
     }
 
     &.tertiary {
-      fill: var(--color-tertiary);
+      color: var(--color-tertiary);
     }
   }
 }
@@ -1311,10 +1311,10 @@
 
   .text-sticker-icon {
     margin-right: 6px;
-    fill: var(--color-primary-dark);
+    color: var(--color-primary-dark);
 
     &.tertiary {
-      fill: var(--color-tertiary);
+      color: var(--color-tertiary);
     }
   }
 
@@ -1392,7 +1392,7 @@
 
   .decorated-text-icon {
     margin-right: 8px;
-    fill: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .decorated-text-content {
@@ -1798,13 +1798,13 @@
   &.active,
   &:hover {
     .view-action-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
       opacity: 1;
     }
   }
 
   .view-action-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     opacity: .4;
     transition: opacity .2s ease-in-out, fill .2s ease-in-out;
   }
@@ -2175,7 +2175,7 @@
   .decorated-feature-icon {
     margin-top: 6px;
     flex-shrink: 0;
-    fill: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .decorated-feature-info {
@@ -2377,7 +2377,7 @@
     box-shadow: var(--color-overbox-shadow);
 
     .post-option-icon {
-      fill: var(--color-primary);
+      color: var(--color-primary);
       opacity: 1;
     }
 
@@ -2392,7 +2392,7 @@
   }
 
   .post-option-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     opacity: .6;
     transition: fill .2s ease-in-out, opacity .2s ease-in-out;
 
@@ -2427,7 +2427,7 @@
   cursor: pointer;
 
   .post-settings-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     opacity: 1;
     transition: fill .2s ease-in-out;
   }
@@ -2435,7 +2435,7 @@
   &.active,
   &:hover {
     .post-settings-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
     }
   }
 }
@@ -2769,7 +2769,7 @@
 
   &.negative {
     .reaction-count-icon {
-      fill: var(--color-primary-light);
+      color: var(--color-primary-light);
     }
 
     .reaction-count-text {
@@ -2778,7 +2778,7 @@
   }
 
   .reaction-count-icon {
-    fill: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .reaction-count-text {
@@ -2878,7 +2878,7 @@
 
       .icon-plus-small,
       .icon-minus-small {
-        fill: var(--color-primary);
+        color: var(--color-primary);
       }
 
       .icon-plus-small {
@@ -3314,7 +3314,7 @@
 
       &:hover {
         .quick-post-footer-action-icon {
-          fill: var(--color-icon-highlighted);
+          color: var(--color-icon-highlighted);
         }
       }
 
@@ -3417,7 +3417,7 @@
     border-bottom: 4px solid var(--color-primary);
 
     .option-item-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
     }
 
     .option-item-title {
@@ -3427,7 +3427,7 @@
 
   .option-item-icon {
     margin-right: 16px;
-    fill: var(--color-icon);
+    color: var(--color-icon);
   }
 
   .option-item-title {
@@ -3546,7 +3546,7 @@
         border-color: var(--color-primary-light);
 
         .icon-plus-small {
-          fill: var(--color-primary-light);
+          color: var(--color-primary-light);
         }
       }
 
@@ -3867,7 +3867,7 @@
   position: relative;
 
   .quote-box-icon {
-    fill: var(--color-primary);
+    color: var(--color-primary);
     opacity: .1;
     position: absolute;
     top: 14px;
@@ -4009,7 +4009,7 @@
     border-color: var(--color-primary);
 
     .percentage-diff-icon {
-      fill: var(--color-primary);
+      color: var(--color-primary);
     }
   }
 
@@ -4272,7 +4272,7 @@
   position: relative;
 
   .sidebar-menu-header-icon {
-    fill: var(--color-primary);
+    color: var(--color-primary);
     position: absolute;
     top: 28px;
     left: 28px;
@@ -4281,7 +4281,7 @@
   .sidebar-menu-header-control-icon {
     .sidebar-menu-header-control-icon-open,
     .sidebar-menu-header-control-icon-closed {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
       position: absolute;
       top: 32px;
       right: 28px;
@@ -4500,7 +4500,7 @@
 
   .bullet-item-icon {
     margin-right: 12px;
-    fill: var(--color-primary);
+    color: var(--color-primary);
   }
 
   .bullet-item-text {
@@ -4636,7 +4636,7 @@
   align-items: center;
 
   .featured-stat-icon {
-    fill: var(--color-icon-highlighted);
+    color: var(--color-icon-highlighted);
   }
 
   .featured-stat-title {
@@ -4882,7 +4882,7 @@
   position: relative;
 
   .exp-line-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     flex-shrink: 0;
     margin-right: 18px;
   }
@@ -5180,7 +5180,7 @@
     transform: translate(0, -4px);
 
     .upload-box-icon {
-      fill: var(--color-primary);
+      color: var(--color-primary);
     }
   }
 
@@ -5192,7 +5192,7 @@
     box-shadow: var(--color-overbox-dark-shadow);
 
     .upload-box-icon {
-      fill: var(--color-primary);
+      color: var(--color-primary);
     }
   }
 
@@ -5201,7 +5201,7 @@
   }
 
   .upload-box-icon {
-    fill: var(--color-icon);
+    color: var(--color-icon);
     transition: fill .25s ease-in-out;
   }
 
@@ -5344,7 +5344,7 @@
 
     .user-status {
       .user-status-icon {
-        fill: var(--color-icon);
+        color: var(--color-icon);
         opacity: 1;
       }
     }
@@ -5377,7 +5377,7 @@
     cursor: pointer;
 
     .notification-box-close-button-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
       width: 8px;
       height: 8px;
     }
@@ -5472,12 +5472,12 @@
 
     &.primary {
       .create-entity-box-avatar-icon {
-        fill: var(--color-primary);
+        color: var(--color-primary);
       }
     }
 
     .create-entity-box-avatar-icon {
-      fill: var(--color-secondary);
+      color: var(--color-secondary);
       position: relative;
       z-index: 2;
     }
@@ -6133,7 +6133,7 @@
     left: 28px;
 
     .point-reward-box-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
     }
   }
 
@@ -6639,7 +6639,7 @@
   }
 
   .social-item-icon {
-    fill: var(--color-icon-highlighted);
+    color: var(--color-icon-highlighted);
     width: 12px;
     height: 12px;
     transition: fill .2s ease-in-out;

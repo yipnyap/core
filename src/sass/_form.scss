@@ -138,7 +138,7 @@ textarea {
     cursor: pointer;
 
     .vk-form-counter-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
     }
 
     &.vk-form-counter-control-increase {
@@ -615,7 +615,7 @@ textarea {
   }
 
   .form-select-icon {
-    fill: var(--color-icon-highlighted);
+    color: var(--color-icon-highlighted);
     transform: rotate(90deg);
     position: absolute;
     top: 20px;
@@ -696,7 +696,7 @@ textarea {
           }
 
           .icon-cross {
-            fill: var(--color-box-background);
+            color: var(--color-box-background);
           }
         }
       }
@@ -788,7 +788,7 @@ textarea {
     border-color: var(--color-primary);
 
     .icon-cross {
-      fill: var(--color-box-background);
+      color: var(--color-box-background);
     }
   }
 
@@ -838,19 +838,19 @@ textarea {
 
     .interactive-input-icon-wrap {
       .interactive-input-icon {
-        fill: var(--color-header-icon);
+        color: var(--color-header-icon);
       }
     }
 
     .interactive-input-action {
       &:hover {
         .interactive-input-action-icon {
-          fill: var(--color-header-icon-hover);
+          color: var(--color-header-icon-hover);
         }
       }
 
       .interactive-input-action-icon {
-        fill: var(--color-header-icon);
+        color: var(--color-header-icon);
       }
     }
   }
@@ -908,14 +908,14 @@ textarea {
         cursor: pointer;
 
         &:hover {
-          fill: var(--color-text);
+          color: var(--color-text);
           opacity: 1;
         }
       }
     }
 
     .interactive-input-icon {
-      fill: var(--color-icon);
+      color: var(--color-icon);
       opacity: .6;
       transition: fill .2s ease-in-out, opacity .2s ease-in-out;
     }
@@ -934,13 +934,13 @@ textarea {
 
     &:hover {
       .interactive-input-action-icon {
-        fill: var(--color-text);
+        color: var(--color-text);
         opacity: 1;
       }
     }
 
     .interactive-input-action-icon {
-      fill: var(--color-icon);
+      color: var(--color-icon);
       opacity: .6;
       pointer-events: none;
       transition: fill .2s ease-in, opacity .2s ease-in;
@@ -1065,7 +1065,7 @@ textarea {
     cursor: pointer;
 
     .form-counter-icon {
-      fill: var(--color-icon-highlighted);
+      color: var(--color-icon-highlighted);
     }
 
     &.form-counter-control-increase {

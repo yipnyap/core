@@ -91,7 +91,7 @@ import './component-dom/groups/group-header-actions';
     ACTIVITY LIST
 ---------------------------*/
 import './component-dom/activity/list-activities';
-import './component-dom/activity/activity-notice';
+// import './component-dom/activity/activity-notice';
 
 /*---------------------------
     MEDIA LIST

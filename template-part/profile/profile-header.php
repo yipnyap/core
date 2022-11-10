@@ -14,9 +14,13 @@
  * @package Yipnyap
  */
 
-$post_count = $args['member']['stats']['post_count'];
-$friend_count = $args['member']['stats']['friend_count'];
-$comment_count = $args['member']['stats']['comment_count'];
+if (!empty($args)) {
+    $post_count = $args['member']['stats']['post_count'];
+    $friend_count = $args['member']['stats']['friend_count'];
+    $follow_count = bp_follow_total_follow_counts(array(
+        'user_id' => $args['member']['id']
+    ))['followers'];
+}
 
 global $yipnyap_settings;
 
@@ -289,11 +293,11 @@ $mature = yipnyap_members_xprofile_get_field_value($args['member'], 'Profile_Met
             <!-- USER STAT -->
             <div class="user-stat big">
                 <!-- USER STAT TITLE -->
-                <p class="user-stat-title"><?php echo esc_html($comment_count); ?></p>
+                <p class="user-stat-title"><?php echo esc_html($follow_count); ?></p>
                 <!-- /USER STAT TITLE -->
 
                 <!-- USER STAT TEXT -->
-                <p class="user-stat-text"><?php echo esc_html(_n('comment', 'comments', $comment_count, 'yipnyap')); ?></p>
+                <p class="user-stat-text"><?php echo esc_html(_n('follower', 'followers', $follow_count, 'yipnyap')); ?></p>
                 <!-- /USER STAT TEXT -->
             </div>
             <!-- /USER STAT -->

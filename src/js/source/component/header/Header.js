@@ -6,12 +6,9 @@ import {SearchIcon} from '@heroicons/react/solid';
 import {
     BellIcon,
     MoonIcon,
-    MenuIcon,
-    XIcon,
-    CogIcon,
-    ShieldCheckIcon,
-    UserGroupIcon, UserAddIcon, SupportIcon, LogoutIcon,
-} from '@heroicons/react/outline';
+    Bars3Icon,
+    XMarkIcon,
+} from '@heroicons/react/24/outline';
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
@@ -78,60 +75,36 @@ export default function Header() {
                 setLoggedUser(res);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));
 
-                userNavigation = [
-                    {
-                        name: 'Profile Customisation',
-                        description: 'Customise your public profile, such as avatar and banners.',
-                        href: `${res.link}settings`,
-                        icon: CogIcon,
-                    },
-                    {
-                        name: 'Groups',
-                        description: 'Create groups, and manage one\'s you\'re moderating.',
-                        href: `${res.link}settings/manage-groups`,
-                        icon: UserGroupIcon,
-                    },
-                    {
-                        name: 'Security',
-                        description: "Manage your account's security settings, such as password.",
-                        href: `${res.link}settings/password`,
-                        icon: ShieldCheckIcon
-                    },
-                    {
-                        name: 'Friends',
-                        description: "Accept or deny friend requests from others.",
-                        href: `${res.link}settings/friend-requests`,
-                        icon: UserAddIcon,
-                    },
-                ];
-
                 navigation = [
-                    {
-                        name: 'Profile',
-                        href: `${res.link}settings/`,
-                        children: [
-                            {name: 'Social', href: `${res.link}settings/social`},
-                            {name: 'Stream', href: `${res.link}settings/stream`},
-                            {name: 'Notifications', href: `${res.link}settings/notifications`},
-                        ],
-                    },
+                    {name: 'Notifications', href: `${res.link}settings/notifications`, children: []},
                     {name: 'Messages', beta: true, href: `${res.link}settings/messages`, children: []},
                     {name: 'Friend Requests', href: `${res.link}settings/friend-requests`, children: []},
-                    {
-                        name: 'Account', href: `${res.link}settings/account-settings`, children: [
-                            {name: 'Password', href: `${res.link}settings/password`},
-                            {name: 'Email', href: `${res.link}settings/email`},
-                        ]
-                    },
+                    {border: true},
                     {
                         name: 'Your Groups', href: `${res.link}groups`, children: [
-                            {name: 'Manage', href: `${res.link}settings/manage-groups`},
                             {name: 'Send Invites', href: `${res.link}settings/send-group-invitations`},
-                            {name: 'Invite Inbox', href: `${res.link}settings/received-group-invitations`},
+                            {name: 'Received Invites', href: `${res.link}settings/received-group-invitations`},
                             {name: 'Join Requests', href: `${res.link}settings/membership-requests`},
+                            {name: 'Manage', href: `${res.link}settings/manage-groups`},
                         ]
                     },
-                    {name: 'Sign Out', href: yipnyap_constants.logout_url, children: []},
+                    {border: true},
+                    {
+                        name: 'Account & Security', href: `${res.link}settings/account`, children: [
+                            {name: 'Password', href: `${res.link}settings/password`},
+                            {name: 'Email', href: `${res.link}settings/email-settings`},
+                            // {name: 'Deactivate', href: `${res.link}settings/password`, danger: true},
+                        ]
+                    },
+                    {border: true},
+                    {
+                        name: 'User Settings',
+                        href: `${res.link}settings/`,
+                        children: [
+                            {name: 'Edit Profile', href: `${res.link}settings/`},
+                            {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
+                        ],
+                    },
                 ];
 
                 // yes, this is spoofed, more to mimic a real socket connection
@@ -139,7 +112,7 @@ export default function Header() {
                 // const min = Math.ceil(500);
                 // const max = Math.floor(3000);
                 // setTimeout(() => {
-                    setLoadingUser(false);
+                setLoadingUser(false);
                 // }, Math.floor(Math.random() * (max - min + 1)) + min);
             })
             .fail((res) => {
@@ -153,7 +126,7 @@ export default function Header() {
 
     return (
         <header className="flex-shrink-0 relative h-16 flex items-center lg:pl-24"
-            style={{background: 'var(--color-header-background)'}}
+                style={{background: 'var(--color-header-background)'}}
         >
             <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 lg:hidden">
                 <img src={yipnyap_constants.logo_url} alt="Yipnyap" className="h-8 w-auto inline-flex items-center justify-center rounded-default"/>
@@ -167,7 +140,7 @@ export default function Header() {
                     onClick={() => setMobileMenuOpen(true)}
                 >
                     <span className="sr-only">Open main menu</span>
-                    <MenuIcon className="block h-6 w-6" aria-hidden="true"/>
+                    <Bars3Icon className="block h-6 w-6" aria-hidden="true"/>
                 </button>
             </div>
 
@@ -231,19 +204,30 @@ export default function Header() {
                             <HeaderDropdownNotifications loggedUser={loggedUser}/>
 
                             {/* Theme switcher */}
-                            <span className="inline-flex">
-                            <a href="#" onClick={toggleLoggedUserColorTheme}
-                               className="ypsdk button-icon -mx-1 p-1 rounded-full text-gray-400 hover:text-gray-500">
-                                <span className="sr-only">Toggle dark mode</span>
-                                <MoonIcon className="h-6 w-6" aria-hidden="true"/>
-                            </a>
-                        </span>
+                            {/*<span className="inline-flex">*/}
+                            {/*    <a href="#" onClick={toggleLoggedUserColorTheme} */}
+                            {/*       className="ypsdk button-icon -mx-1 p-1 rounded-full text-gray-400 hover:text-gray-500">*/}
+                            {/*        <span className="sr-only">Toggle dark mode</span>*/}
+                            {/*        <MoonIcon className="h-6 w-6" aria-hidden="true"/>*/}
+                            {/*    </a>*/}
+                            {/*</span>*/}
 
                             {/* User menu */}
-                            <button type="button" onClick={() => setMobileMenuOpen(true)}
-                                    className="relative rounded-full flex text-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600">
-                                <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url} alt=""/>
-                            </button>
+                            {(loggedUser && !loadingUser) &&
+                                <button className="flex items-center rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600" onClick={() => setMobileMenuOpen(true)}>
+                                    <div className="flex-shrink-0">
+                                        <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url}
+                                             alt=""/>
+                                    </div>
+                                    <div className="ml-3 min-w-0 flex-1">
+                                        <div
+                                            className="text-sm text-primary truncate">{loggedUser.name}</div>
+                                        <div
+                                            className="text-xs font-medium text-gray-500 truncate">@{loggedUser.mention_name}
+                                        </div>
+                                    </div>
+                                </button>
+                            }
                         </div>
                     }
 
@@ -295,7 +279,7 @@ export default function Header() {
                         leaveTo="transform opacity-0 scale-110  sm:translate-x-full sm:scale-100 sm:opacity-100"
                     >
                         <nav
-                            className="fixed overflow-y-auto z-40 inset-0 h-full w-full bg-box sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
+                            className="fixed flex flex-col z-40 inset-0 h-full w-full bg-box sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
                             aria-label="Global"
                         >
                             <div className="h-16 flex items-center justify-between px-4 sm:px-6">
@@ -312,10 +296,12 @@ export default function Header() {
                                     onClick={() => setMobileMenuOpen(false)}
                                 >
                                     <span className="sr-only">Close main menu</span>
-                                    <XIcon className="block h-6 w-6" aria-hidden="true"/>
+                                    <XMarkIcon className="block h-6 w-6" aria-hidden="true"/>
                                 </button>
                             </div>
-                            <div className="pb-2 border-solid border-t-0 border-x-0 border-b border-divider">
+
+                            {/* Top Account Section */}
+                            <div className="pb-2 border-solid border-t-0 border-x-0 border-b-2 border-divider">
                                 {(loggedUser && !loadingUser) &&
                                     <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
                                         <div className="flex-shrink-0">
@@ -349,32 +335,52 @@ export default function Header() {
                                 </div>
                             </div>
 
-                            <div className="max-w-8xl mx-auto py-2 px-2 sm:px-4">
-                                {navigation.map((item) => (
-                                    <Fragment key={item.name}>
-                                        <a
-                                            href={item.href}
-                                            className="header-menu-entity py-2 px-3 text-primary"
-                                        >
-                                            {item.name}
+                            <div className="overflow-y-auto flex-grow">
+                                {/* Additional Links */}
+                                <div className="max-w-8xl mx-auto py-2">
+                                    {navigation.map((item) =>
+                                        (item.border) ? (
+                                            <div key={item.name} className="my-2 border-solid border-t-0 border-x-0 border-b-2 border-divider"/>
+                                        ) : (
+                                            <div key={item.name} className="px-2 sm:px-4">
+                                                <a
+                                                    href={item.href}
+                                                    className="header-menu-entity py-2 px-3 text-primary"
+                                                >
+                                                    {item.name}
 
-                                            {item.beta && (
-                                                <span className="ml-2 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary text-white">
+                                                    {item.beta && (
+                                                        <span className="ml-2 items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary text-white">
                                                     Beta
                                                 </span>
-                                            )}
-                                        </a>
-                                        {item.children.map((child) => (
-                                            <a
-                                                key={child.name}
-                                                href={child.href}
-                                                className="header-menu-entity py-2 pl-5 pr-3 text-base text-gray-500"
-                                            >
-                                                {child.name}
-                                            </a>
-                                        ))}
-                                    </Fragment>
-                                ))}
+                                                    )}
+                                                </a>
+                                                {item.children?.map((child) => (
+                                                    <a
+                                                        key={child.name}
+                                                        href={child.href}
+                                                        className="header-menu-entity py-2 pl-5 pr-3 text-base text-gray-500"
+                                                    >
+                                                        {child.name}
+                                                    </a>
+                                                ))}
+                                            </div>
+                                        )
+                                    )}
+                                </div>
+                            </div>
+                            {/* Bottom Account Section */}
+                            <div className="border-solid border-t-2 border-x-0 border-b-0 border-divider"
+                                 style={{
+                                     width: '-webkit-fill-available'
+                                 }}>
+                                <div className="max-w-8xl mx-auto py-2 px-2 space-y-1 sm:px-4">
+                                    <a className="header-menu-entity py-2 px-3 text-primary"
+                                       href={yipnyap_constants.logout_url}
+                                    >
+                                        <span className="text-base font-medium text-primary">Sign Out</span>
+                                    </a>
+                                </div>
                             </div>
                         </nav>
                     </Transition.Child>

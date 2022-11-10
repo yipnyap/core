@@ -15,7 +15,7 @@
 ?>
 
 <!-- ALERT LINE -->
-<div class="alert-line alert-line-<?php echo esc_attr($args['type']) . ' ' . esc_attr($args['class']); ?>">
+<div class="alert-line alert-line-<?php echo esc_attr($args['type'] ?? '') . ' ' . esc_attr($args['class'] ?? ''); ?>">
   <!-- ALERT LINE ICON WRAP -->
   <div class="alert-line-icon-wrap">
     <!-- ALERT LINE ICON -->

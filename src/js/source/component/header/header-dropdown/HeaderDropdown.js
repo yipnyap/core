@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 
 import IconSVG from '../../icon/IconSVG';
-import {BellIcon} from "@heroicons/react/outline";
+import {BellIcon} from "@heroicons/react/24/outline";
 
 function HeaderDropdown(props) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);

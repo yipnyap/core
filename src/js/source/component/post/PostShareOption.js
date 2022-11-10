@@ -1,10 +1,8 @@
 import React, {useRef, useEffect, useLayoutEffect} from 'react';
-
-import IconSVG from '../icon/IconSVG';
-
 import ActivityForm from '../activity/activity-form/ActivityForm';
-
 import {createPopup} from '../../utils/plugins';
+
+import {ArrowUpOnSquareIcon} from "@heroicons/react/24/solid";
 
 function PostShareOption(props) {
     const shareBoxRef = useRef(null);
@@ -39,8 +37,8 @@ function PostShareOption(props) {
     return (
         <div className="post-option-wrap">
             <div ref={shareBoxTriggerRef} className="post-option">
-                <IconSVG icon="share"
-                         modifiers="post-option-icon"
+                <ArrowUpOnSquareIcon
+                    className="post-option-icon w-6"
                 />
 
                 <p className="post-option-text">{yipnyap_translation.share_action}</p>

@@ -1,5 +1,4 @@
 import React from 'react';
-
 import ReactionMetaLine from '../reaction/ReactionMetaLine';
 
 function ContentActions(props) {

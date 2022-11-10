@@ -14,8 +14,7 @@ import VideoPreview from '../../video/VideoPreview';
 
 import {extractAttachedMedia} from '../../../utils/core';
 import {getActivityTemplate} from '../../utils/activity/activity-template';
-import {PaperClipIcon, VideoCameraIcon} from "@heroicons/react/solid";
-import {PhotographIcon} from "@heroicons/react/outline";
+import {VideoCameraIcon, PhotoIcon} from "@heroicons/react/24/solid";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -461,7 +460,7 @@ function ActivityForm(props) {
                                                 className="rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
                                                 onClick={toggleUploadablePhotosBar}
                                             >
-                                                <PhotographIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                <PhotoIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
                                                                aria-hidden="true"/>
                                                 <span
                                                     className="text-sm text-gray-500 group-hover:text-gray-600 italic">Photo</span>

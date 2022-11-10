@@ -1,10 +1,9 @@
 import React, {useRef, useLayoutEffect} from 'react';
-
 import ReactionOptionList from '../ReactionOptionList';
+import {createDropdown} from '../../../../utils/plugins';
 
 import IconSVG from '../../../icon/IconSVG';
-
-import {createDropdown} from '../../../../utils/plugins';
+import { HandThumbUpIcon } from '@heroicons/react/24/solid';
 
 function ReactionOptionPost(props) {
     const reactionOptionsDropdownTriggerRef = useRef(null);
@@ -39,8 +38,8 @@ function ReactionOptionPost(props) {
                 {
                     !props.userReaction &&
                     <React.Fragment>
-                        <IconSVG icon="thumbs-up"
-                                 modifiers="post-option-icon"
+                        <HandThumbUpIcon
+                            className="post-option-icon w-6"
                         />
 
                         <p className="post-option-text">{yipnyap_translation.react}</p>

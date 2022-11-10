@@ -1,17 +1,12 @@
 import React, {Fragment, useState, useRef, useEffect} from 'react';
+import {isEqual} from 'lodash';
 
 import Avatar from '../../avatar/Avatar';
-
 import MediaLinkPreview from '../../media/MediaLinkPreview';
 import UploadableMediaList from '../../media/UploadableMediaList';
-
 import BadgeVerified from '../../badge/BadgeVerified';
-
 import ExpandableTextarea from '../../form/ExpandableTextarea';
-
-import UploadVideoButton from '../../video/UploadVideoButton';
 import VideoPreview from '../../video/VideoPreview';
-
 import {extractAttachedMedia} from '../../../utils/core';
 import {getActivityTemplate} from '../../utils/activity/activity-template';
 import {VideoCameraIcon, PhotoIcon} from "@heroicons/react/24/solid";
@@ -23,7 +18,7 @@ function classNames(...classes) {
 const rekkiAudio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/rekki.ogg`);
 
 function ActivityForm(props) {
-    const [formData, setFormData] = useState({
+    const initialFormData = {
         text: '',
         postIn: props.postIn ? props.postIn : '0',
         attached_media: false,
@@ -32,7 +27,10 @@ function ActivityForm(props) {
         uploadable_media: false,
         submitting: false,
         errors: []
-    });
+    };
+
+    const [formData, setFormData] = useState(initialFormData);
+    const [showDiscard, setShowDiscard] = useState(false);
 
     // useEffect(() => {
     //     if (!props.shareData && yipnyap_constants.plugin_active.vkmedia && yipnyap_constants.settings.media_photo_upload_enabled) {
@@ -47,22 +45,19 @@ function ActivityForm(props) {
     //     }
     // }, []);
 
+    useEffect(() => {
+        const formDataEqual = isEqual(formData, initialFormData);
+        setShowDiscard(!formDataEqual);
+        console.log('[ActivityForm] formData match? ', formDataEqual);
+    }, [formData])
+
     const fileID = useRef(1);
     const allowedExtensions = useRef(`.${yipnyap_constants.settings.media_video_allowed_extensions.join(',.')}`);
     const fileInputRef = useRef(null);
 
     const discardContent = () => {
-        setFormData(previousFormData => {
-            return {
-                ...previousFormData,
-                text: '',
-                attached_media: false,
-                uploadable_media_type: false,
-                uploadable_media: false,
-                errors: []
-            };
-        });
-
+        setFormData(initialFormData);
+        setShowDiscard(false);
         if (props.popup) {
             props.popup.hide();
         }
@@ -486,10 +481,13 @@ function ActivityForm(props) {
                                             </button>
                                         </div>
                                     }
-                                    <div className="flex-shrink-0">
-                                        <p className="button small void"
-                                           onClick={discardContent}>{yipnyap_translation.discard}</p>
-                                    </div>
+                                    {
+                                        showDiscard &&
+                                        <div className="flex-shrink-0">
+                                            <p className="button small void"
+                                               onClick={discardContent}>{yipnyap_translation.discard}</p>
+                                        </div>
+                                    }
                                     <div className="flex-shrink-0">
                                         <p
                                             className="ypsdk button-upgrade"

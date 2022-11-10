@@ -84,7 +84,7 @@ function ActivityFilterBar(props) {
 
                 <p className={`quick-filters-tab quick-filters-tab snapanim-crawl u-rise child-rise risen ${!filters.scope ? 'active' : ''}`}
                    onClick={setScopeAll}>
-                    {yipnyap_translation.everything}
+                    {yipnyap_translation.all_posts}
                 </p>
 
                 {
@@ -150,7 +150,7 @@ function ActivityFilterBar(props) {
                         <div className="form-select">
                             <label htmlFor="activity-show">{yipnyap_translation.show}</label>
                             <select id="activity-show" name="action" value={action} onChange={handleActionChange}>
-                                <option value="all">{yipnyap_translation.everything}</option>
+                                <option value="all">{yipnyap_translation.all_posts}</option>
                                 <option value="activity_update">{yipnyap_translation.status}</option>
                                 <option value="activity_share,post_share">{yipnyap_translation.shares}</option>
                                 {

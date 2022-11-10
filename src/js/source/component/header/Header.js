@@ -219,7 +219,7 @@ export default function Header() {
                                         <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url}
                                              alt=""/>
                                     </div>
-                                    <div className="ml-3 min-w-0 flex-1">
+                                    <div className="text-left ml-3 min-w-0 flex-1">
                                         <div
                                             className="text-sm text-primary truncate">{loggedUser.name}</div>
                                         <div

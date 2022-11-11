@@ -103,7 +103,7 @@ define('YIPNYAP_WPOPTIONS', array(
     'unicorn_engine' => [
         'settings_str' => [
             'disallow_bg_render_str' => 'prevent others backgrounds from rendering',
-            'disallow_palette_render_str' => 'prevent others palettes from rendering',
+            'disallow_palette_render_str' => 'prevent others ui palettes from rendering',
             'hide_customised_ui_str' => 'hide customised ui notice on others profiles'
         ]
     ]

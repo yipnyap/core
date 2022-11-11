@@ -1010,7 +1010,7 @@
 .vk-content .form-select .form-select-icon {
   width: 6px;
   height: 8px;
-  fill: var(--vk-color-icon);
+  color: var(--vk-color-icon);
   -webkit-transform: rotate(90deg);
       -ms-transform: rotate(90deg);
           transform: rotate(90deg);
@@ -1080,7 +1080,7 @@
   border-color: var(--vk-color-primary);
 }
 .vk-content .checkbox-box.active .icon-cross {
-  fill: var(--vk-color-body);
+  color: var(--vk-color-body);
 }
 .vk-content .checkbox-box .icon-cross {
   fill: transparent;

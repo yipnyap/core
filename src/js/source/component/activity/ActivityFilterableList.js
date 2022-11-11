@@ -108,20 +108,8 @@ function ActivityFilterableList(props) {
             filters.current.filter.action = [
                 'activity_update',
                 'activity_share',
-                'post_share',
-                // 'new_avatar',
-                'new_member'
+                'post_share'
             ];
-
-            // add group activity actions if the BuddyPress groups component is active
-            // if (yipnyap_constants.plugin_active.buddypress_groups) {
-            //     filters.current.filter.action.push('created_group', 'joined_group');
-            // }
-
-            // add friend activity actions if the BuddyPress friends component is active
-            // if (yipnyap_constants.plugin_active.buddypress_friends) {
-            //     filters.current.filter.action.push('friendship_created');
-            // }
 
             // add vkmedia activity actions if the plugin is active
             if (yipnyap_constants.plugin_active.vkmedia) {

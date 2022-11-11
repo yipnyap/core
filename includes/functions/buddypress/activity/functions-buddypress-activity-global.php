@@ -108,10 +108,11 @@ if (!function_exists('yipnyap_activity_data_get')) {
      */
     function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites, bool $hide_mature): array
     {
+        $filterOutMature = $hide_mature && isset($author['mature']);
         $comments = property_exists($bp_activity, 'children') ? $bp_activity->children : false;
         $my_comments = [];
 
-        if ($comments) {
+        if ($comments && !$filterOutMature) {
             yipnyap_get_activity_comments_with_children_recursive($comments, $my_comments);
         }
 
@@ -146,8 +147,8 @@ if (!function_exists('yipnyap_activity_data_get')) {
         ];
 
         // Halt if user is marked as mature and hide mature is true.
-        if ($hide_mature && isset($author['mature'])) {
-            $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('Post metadata is hidden.', 'yipnyap') . '</i>';
+        if ($filterOutMature) {
+            $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('Metadata & Comments are hidden.', 'yipnyap') . '</i>';
         } else {
             // add media information
             if (($activity_data['type'] === 'activity_media') || ($activity_data['type'] === 'activity_video')) {

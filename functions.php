@@ -561,14 +561,6 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login): s
 add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1);
 add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 10, 3);
 
-/* Add message above login form */
-function wpsd_add_login_message(): string
-{
-    return '<p class="message">👋 This is Yipnyap Accounts, an older Login UI. Register pages are using Kukiko ID, so sorry for the mess!</p>';
-}
-
-add_filter('login_message', 'wpsd_add_login_message');
-
 /* Remove wp_generator */
 remove_action('wp_head', 'wp_generator');
 

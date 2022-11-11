@@ -35,6 +35,18 @@ $mature = yipnyap_members_xprofile_get_field_value($args['member'], 'Profile_Met
 $primaryColour = yipnyap_members_xprofile_get_field_value($args['member'], 'Account_Info_Profile Primary Accent');
 $background = yipnyap_members_xprofile_get_field_value($args['member'], 'Account_Info_Profile Background');
 
+$loggedUser = yipnyap_get_logged_user_member_data();
+$uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
+
+$unicornEngine = get_option('unicorn_engine');
+$showCustomisedUINotice = !str_contains($uiPrivacy, $unicornEngine['settings_str']['hide_customised_ui_str']);
+if (str_contains($uiPrivacy, $unicornEngine['settings_str']['disallow_bg_render_str'])) {
+    $background = '';
+}
+
+if (str_contains($uiPrivacy, $unicornEngine['settings_str']['disallow_palette_render_str'])) {
+    $primaryColour = '';
+}
 ?>
 <style data-use-unicorn-engine>
     :root {
@@ -49,6 +61,8 @@ $background = yipnyap_members_xprofile_get_field_value($args['member'], 'Account
     }
     <?php } ?>
 </style>
+
+<?php echo $uiPrivacy; ?>
 
 <!-- PROFILE HEADER -->
 <div class="profile-header">
@@ -344,7 +358,7 @@ if ($mature === 'NSFW' || $mature === 'Suggestive') {
 
 <!-- PROFILE HEADER THEME WARNING -->
 <?php
-if (!empty($primaryColour) || !empty($background)) {
+if ((!empty($primaryColour) || !empty($background)) && $showCustomisedUINotice) {
     get_template_part('template-part/alert/alert', 'line', [
         'type' => 'info',
         'icon' => 'hand-raised',

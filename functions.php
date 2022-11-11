@@ -100,6 +100,13 @@ define('YIPNYAP_WPOPTIONS', array(
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads'
     ],
+    'unicorn_engine' => [
+        'settings_str' => [
+            'disallow_bg_render_str' => 'prevent others backgrounds from rendering',
+            'disallow_palette_render_str' => 'prevent others palettes from rendering',
+            'hide_customised_ui_str' => 'hide customised ui notice on others profiles'
+        ]
+    ]
 ));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',

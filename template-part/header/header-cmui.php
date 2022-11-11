@@ -69,6 +69,7 @@ if ($sidemenu_status === 'display') {
                     'user'        => $args['user'],
                     'linked'      => yipnyap_plugin_buddypress_is_active(),
                     'no_border'   => true,
+                    'hide_rank'   => true,
                     'a_class'     => 'cmui navigator-item mb-2',
                     'img_class'   => 'h-8 w-8 rounded-full',
                 ]);

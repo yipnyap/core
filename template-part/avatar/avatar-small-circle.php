@@ -22,6 +22,7 @@ $linked = $args['linked'] ?? false;
 $a_class = $args['a_class'] ?? false;
 $img_class = $args['img_class'] ?? false;
 $no_stats = !array_key_exists('rank', $args['user']);
+$hide_rank = $args['hide_rank'] ?? false;
 
 $modifiers_classes = $modifiers ? $modifiers : '';
 $no_border_classes = $no_border ? 'no-border' : '';
@@ -51,7 +52,7 @@ if (!$no_stats) {
              alt="avatar-image">
         <!-- /USER AVATAR CIRCLE IMAGE -->
 
-        <?php if (!$no_stats) : ?>
+        <?php if (!$no_stats && !$hide_rank) : ?>
             <!-- USER AVATAR CIRCLE PROGRESS -->
             <div class="user-avatar-circle-progress user-avatar-circle-progress-small"
                  data-scalestop="<?php echo esc_attr($current_rank_ratio); ?>"></div>

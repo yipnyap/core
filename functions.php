@@ -136,6 +136,10 @@ function yipnyap_redirect_bp_signup_page(): string
 }
 add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
 
+/**
+ * Remove the wordpress admin bar
+ * @return void
+ */
 function yipnyap_remove_admin_bar(): void
 {
     $current_user = wp_get_current_user();
@@ -144,6 +148,21 @@ function yipnyap_remove_admin_bar(): void
     }
 }
 add_action('after_setup_theme', 'yipnyap_remove_admin_bar');
+
+/**
+ * Legacy wp_die title
+ */
+add_filter('wp_die_handler', function () {
+
+    if (str_contains($_SERVER['SCRIPT_NAME'], 'wp-comments-post.php')) {
+        return function ($message, $title, $args) {
+            _default_wp_die_handler($message, 'Legacy Houndkit - error', $args);
+        };
+    }
+
+    return '_default_wp_die_handler';
+});
+
 /**
  * TRANSLATION functions
  */

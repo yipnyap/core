@@ -59,7 +59,7 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
-                        {name: 'Sign In', href: '/login'},
+                        {name: 'Sign In', href: '/id/unlock'},
                         {name: 'Sign Up', href: '/id/create'}
                     ]
 
@@ -182,7 +182,7 @@ export default function Header() {
                                 Sign Up
                             </a>
 
-                            <a href="/login" className="ypsdk button-upgrade inline-flex items-center"
+                            <a href="/id/unlock" className="ypsdk button-upgrade inline-flex items-center"
                                color="primary">
                                 Login
                             </a>

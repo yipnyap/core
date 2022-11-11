@@ -123,13 +123,21 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
 /**
  * Disables BuddyPress' registration process and fallsback to WordPress' one.
  */
-function yipnyap_disable_bp_registration() {
+function yipnyap_disable_bp_registration(): void
+{
     remove_action('bp_init', 'bp_core_wpsignup_redirect');
     remove_action('bp_screens', 'bp_core_screen_signup');
 }
 add_action('bp_loaded', 'yipnyap_disable_bp_registration');
 
-function yipnyap_remove_admin_bar() {
+function yipnyap_redirect_bp_signup_page(): string
+{
+    return bp_get_root_domain() . '/login/?action=register';
+}
+add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
+
+function yipnyap_remove_admin_bar(): void
+{
     $current_user = wp_get_current_user();
     if (!current_user_can('see_admin_bar') && !is_admin()) {
         show_admin_bar(false);
@@ -605,7 +613,7 @@ function yipnyap_dont_save_activity($activity_object): void
 add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1, 1);
 
 // Change the cover upload directory to our custom one
-function yipnyap_cover_image_upload_dir($upload)
+function yipnyap_cover_image_upload_dir($upload): array
 {
     $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'] . '/';
     $path = $base_dir . $upload['subdir'];

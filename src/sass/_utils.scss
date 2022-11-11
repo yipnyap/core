@@ -6005,6 +6005,10 @@
     background-color: #fd4350;
   }
 
+  &.alert-line-box {
+    background-color: var(--color-box-background);
+  }
+
   .alert-line-icon {
     color: $white;
     position: absolute;

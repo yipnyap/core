@@ -164,6 +164,19 @@ add_filter('wp_die_handler', function () {
 });
 
 /**
+ * Redirect to login after reset password
+ */
+add_action('login_headerurl', function () {
+    // Check if have submitted
+    $confirm = (isset($_GET['action']) && $_GET['action'] == 'resetpass');
+
+    if($confirm) {
+        wp_redirect('/login');
+        exit;
+    }
+});
+
+/**
  * TRANSLATION functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';

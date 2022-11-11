@@ -108,15 +108,15 @@ if (!function_exists('yipnyap_activity_data_get')) {
      */
     function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites, bool $hide_mature): array
     {
-        $filterOutMature = $hide_mature && isset($author['mature']);
         $comments = property_exists($bp_activity, 'children') ? $bp_activity->children : false;
         $my_comments = [];
+
+        $author = yipnyap_members_get_fallback($bp_activity->user_id);
+        $filterOutMature = $hide_mature && isset($author['mature']);
 
         if ($comments && !$filterOutMature) {
             yipnyap_get_activity_comments_with_children_recursive($comments, $my_comments);
         }
-
-        $author = yipnyap_members_get_fallback($bp_activity->user_id);
 
         $activity_data = [
             'id' => $bp_activity->id,

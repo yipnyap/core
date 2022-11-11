@@ -73,7 +73,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'hk13-hf1-1');
+    : 'hk13-hf1-2');
 //const YIPNYAP_VERSION = 'hk13';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
@@ -83,7 +83,7 @@ const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 define('YIPNYAP_WPOPTIONS', array(
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
-    'users_can_register' => false,
+    'users_can_register' => true,
 
     /*
      * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work

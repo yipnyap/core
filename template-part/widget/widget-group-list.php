@@ -60,8 +60,14 @@
     </div>
     <!-- /WIDGET BOX CONTENT -->
 
-    <a href="/groups">
-        <button class="ypsdk button-upgrade mt-8 justify-center" color="primary">Show All Groups</button>
-    </a>
+    <?php
+    /**
+     * Extremely confident that it will be in a user profile if title is "Groups"
+     */
+    if ($args['widget_title'] !== 'Groups') { ?>
+        <a href="/groups">
+            <button class="ypsdk button-upgrade mt-8 justify-center" color="primary">Show All Groups</button>
+        </a>
+    <?php } ?>
 </div>
 <!-- /WIDGET BOX -->

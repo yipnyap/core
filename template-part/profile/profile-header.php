@@ -62,8 +62,6 @@ if (str_contains($uiPrivacy, $unicornEngine['settings_str']['disallow_palette_re
     <?php } ?>
 </style>
 
-<?php echo $uiPrivacy; ?>
-
 <!-- PROFILE HEADER -->
 <div class="profile-header">
     <!-- PROFILE HEADER COVER -->

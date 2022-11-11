@@ -129,7 +129,7 @@ function HeaderDropdownNotifications(props) {
                     </div>
 
                     <a className="dropdown-box-button secondary"
-                       href={props.loggedUser.notifications_link}>{yipnyap_translation.view_all_notifications}</a>
+                       href={`${props.loggedUser.link}settings/notifications`}>{yipnyap_translation.view_all_notifications}</a>
                 </React.Fragment>
             }
         </HeaderDropdown>

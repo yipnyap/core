@@ -5,49 +5,49 @@ import * as reactionRouter from '../../router/reaction/reaction-router';
 const Reactionable = (props) => {
   const sortUserReactions = (reactionData, order = 'DESC') => {
     const reactions = [];
-  
+
     deepExtend(reactions, reactionData);
-  
+
     const sortedReactionData = reactions.sort((firstEl, secondEl) => {
       if (firstEl.reaction_count < secondEl.reaction_count) {
         console.log(firstEl.reaction_count + '<' + secondEl.reaction_count);
         return -1;
       }
-  
+
       if (firstEl.reaction_count > secondEl.reaction_count) {
         console.log(firstEl.reaction_count + '>' + secondEl.reaction_count);
         return 1;
       }
-  
+
       return 0;
     });
-  
+
     console.log('REACTIONABLE - SORTED REACTION DATA: ', sortedReactionData);
-  
+
     return sortedReactionData;
   };
-  
+
   const createUserReactionStatic = (reactionData, reactionID) => {
     const reactions = [];
-  
+
     deepExtend(reactions, reactionData);
-  
+
     for (let i = 0; i < reactionData.length; i++) {
       const reaction = reactionData[i];
-  
+
       // found reaction
       if (reaction.id === reactionID) {
         // increase reaction count
         reactions[i].reaction_count = (Number.parseInt(reactions[i].reaction_count, 10) + 1) + '';
         // add user
         reactions[i].users.push(props.user);
-  
+
         console.log('CREATE MODIFIED REACTION DATA: ', reactions);
-  
+
         return reactions;
       }
     }
-  
+
     // reaction not found, create it
     for (const reaction of props.reactions) {
       // reaction found
@@ -57,35 +57,35 @@ const Reactionable = (props) => {
         newReaction.reaction_count = '1';
         newReaction.users = [];
         newReaction.users.push(props.user);
-  
+
         reactions.unshift(newReaction);
-  
+
         console.log('CREATE MODIFIED REACTION DATA: ', reactions);
-  
+
         return reactions;
       }
     }
-  
+
     return reactions;
   };
-  
+
   const deleteUserReactionStatic = (reactionData) => {
     const reactions = [];
-  
+
     deepExtend(reactions, reactionData);
-  
+
     for (let i = 0; i < reactionData.length; i++) {
       const reaction = reactionData[i];
-  
+
       for (let j = 0; j < reaction.users.length; j++) {
         const user = reaction.users[j];
         // found user
         if (user.id === props.user.id) {
           console.log('FOUND USER: ', user);
-  
+
           // decrease reaction count
           const newReactionCount = Number.parseInt(reaction.reaction_count, 10) - 1;
-  
+
           // if last reaction of this type
           if (newReactionCount === 0) {
             // remove reaction
@@ -96,14 +96,14 @@ const Reactionable = (props) => {
             // decrease reaction count
             reactions[i].reaction_count = newReactionCount + '';
           }
-  
+
           console.log('DELETE MODIFIED REACTION DATA: ', reactions);
-  
+
           break;
         }
       }
     }
-  
+
     return reactions;
   };
 
@@ -161,7 +161,7 @@ const Reactionable = (props) => {
     // add reaction from this user to this activity
     // and increse reaction count
     newReactionData = createUserReactionStatic(newReactionData, reactionID);
-    
+
     newReactionData = sortUserReactions(newReactionData);
 
     props.onUserReactionUpdate(newReactionData);
@@ -169,7 +169,6 @@ const Reactionable = (props) => {
 
   const deleteUserReaction = () => {
     // const userReaction = getUserReaction();
-    console.log('REACTIONABLE - DELETE USER REACTION: ', userReaction);
 
     const config = {
       user_id: props.user.id

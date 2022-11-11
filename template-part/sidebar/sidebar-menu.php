@@ -44,7 +44,7 @@ $disable_header_classes = $disable_header ? 'sidebar-menu-item-disable-header' :
                              */
                             get_template_part('template-part/icon/icon', 'svg', [
                                 'icon' => $sidebar_menu_section['icon'],
-                                'modifiers' => 'sidebar-menu-header-icon'
+                                'modifiers' => 'sidebar-menu-header-icon w-5 h-5'
                             ]);
 
                             ?>

@@ -26,17 +26,7 @@ const getCustomGroupMeta = (data) => {
     const customGroupMeta = {
         social: [
             {
-                name: 'Facebook',
-                value: '',
-                type: 'url'
-            },
-            {
                 name: 'Twitter',
-                value: '',
-                type: 'url'
-            },
-            {
-                name: 'Instagram',
                 value: '',
                 type: 'url'
             },
@@ -61,32 +51,7 @@ const getCustomGroupMeta = (data) => {
                 type: 'url'
             },
             {
-                name: 'Linkedin',
-                value: '',
-                type: 'url'
-            },
-            {
-                name: 'Pinterest',
-                value: '',
-                type: 'url'
-            },
-            {
-                name: 'Tiktok',
-                value: '',
-                type: 'url'
-            },
-            {
                 name: 'Github',
-                value: '',
-                type: 'url'
-            },
-            {
-                name: 'Reddit',
-                value: '',
-                type: 'url'
-            },
-            {
-                name: 'Dribbble',
                 value: '',
                 type: 'url'
             }

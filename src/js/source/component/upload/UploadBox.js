@@ -54,8 +54,8 @@ function UploadBox(props) {
         <div className={`upload-box ${props.modifiers || ''} ${active ? 'active' : ''}`} onClick={() => {
             fileInputRef.current.click();
         }}>
-            <IconSVG icon="members"
-                     modifiers="upload-box-icon"
+            <IconSVG icon="user"
+                     modifiers="upload-box-icon w-5 h-5"
             />
 
             <p className="upload-box-title">{title}</p>

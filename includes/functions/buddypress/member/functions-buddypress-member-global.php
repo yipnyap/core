@@ -1414,7 +1414,7 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
             $profile_sections = [
                 'title' => esc_html_x('My Profile', 'Profile Settings Menu - Title', 'yipnyap'),
                 'description' => esc_html_x('Change your avatar &amp; cover, accept friends, read messages and more!', 'Profile Settings Menu - Description', 'yipnyap'),
-                'icon' => 'profile',
+                'icon' => 'user',
                 'menu_items' => [
                     [
                         'name' => esc_html_x('Profile Info', 'Profile Settings Menu - Profile Info Link', 'yipnyap'),
@@ -1473,9 +1473,9 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
             }
 
             $account_sections = [
-                'title' => esc_html_x('Account', 'Account Settings Menu - Title', 'yipnyap'),
+                'title' => esc_html_x('Kukiko ID', 'Account Settings Menu - Title', 'yipnyap'),
                 'description' => esc_html_x('Change your account information, password and settings!', 'Account Settings Menu - Description', 'yipnyap'),
-                'icon' => 'settings',
+                'icon' => 'cog-6-teeth',
                 'menu_items' => []
             ];
 
@@ -1517,7 +1517,7 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
                 $manage_groups_sections = [
                     'title' => esc_html_x('Groups', 'Group Settings Menu - Title', 'yipnyap'),
                     'description' => esc_html_x('Create new groups, manage the ones you created or accept invites!', 'Group Settings Menu - Description', 'yipnyap'),
-                    'icon' => 'group',
+                    'icon' => 'user-group',
                     'menu_items' => [
                         [
                             'name' => esc_html_x('Manage Groups', 'Group Settings Menu - Manage Groups Link', 'yipnyap'),
@@ -1640,9 +1640,7 @@ if (!function_exists('yipnyap_members_get_xprofile_social_links')) {
         $social_links = [];
 
         $valid_social_networks = [
-//            'facebook',
             'twitter',
-//            'instagram',
             'twitch',
             'discord',
             'youtube',
@@ -1650,18 +1648,8 @@ if (!function_exists('yipnyap_members_get_xprofile_social_links')) {
             'artstation',
             'behance',
             'deviantart',
-            'dribbble',
             'spotify',
-            'snapchat',
-            'reddit',
-            'pinterest',
-            'linkedin',
-            'github',
-            'vk',
-            'tumblr',
-            'tiktok',
-            'unsplash',
-            'flickr'
+            'github'
         ];
 
         /**

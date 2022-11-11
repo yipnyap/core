@@ -1,7 +1,7 @@
 <?php
 /**
  * Yipnyap Customizer - Footer
- * 
+ *
  * @since 1.0.0
  */
 
@@ -89,17 +89,12 @@ function yipnyap_customizer_footer($wp_customize) {
    * Social Network Links
    */
   $footer_social_networks = [
-    'facebook',
-    'twitter',
-    'instagram',
-    'youtube',
-    'twitch',
-    'linkedin',
-    'pinterest',
-    'tiktok',
-    'github',
-    'reddit',
-    'dribbble'
+      'twitter',
+      'youtube',
+      'discord',
+      'twitch',
+      'tiktok',
+      'github'
   ];
 
   foreach ($footer_social_networks as $social_network) {

@@ -28,9 +28,7 @@ const getGroups = (profileData, prefix) => {
 
 const getURLIcon = (fieldName, defaultIcon = 'link') => {
   const validIcons = [
-    'facebook',
     'twitter',
-    'instagram',
     'twitch',
     'discord',
     'youtube',
@@ -38,16 +36,8 @@ const getURLIcon = (fieldName, defaultIcon = 'link') => {
     'artstation',
     'behance',
     'deviantart',
-    'dribbble',
     'spotify',
-    'snapchat',
-    'reddit',
-    'pinterest',
-    'linkedin',
-    'github',
-    'vk',
-    'tumblr',
-    'tiktok'
+    'github'
   ],
   iconName = fieldName.toLowerCase();
 

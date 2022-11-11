@@ -68,5 +68,9 @@
         <!-- /FILTERS ITEMS -->
     </div>
     <!-- /WIDGET BOX CONTENT -->
+
+    <a href="/members">
+        <button class="ypsdk button-upgrade mt-8 justify-center" color="primary">Show All Users</button>
+    </a>
 </div>
 <!-- /WIDGET BOX -->

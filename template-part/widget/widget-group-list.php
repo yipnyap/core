@@ -59,5 +59,9 @@
         ?>
     </div>
     <!-- /WIDGET BOX CONTENT -->
+
+    <a href="/groups">
+        <button class="ypsdk button-upgrade mt-8 justify-center" color="primary">Show All Groups</button>
+    </a>
 </div>
 <!-- /WIDGET BOX -->

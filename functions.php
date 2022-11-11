@@ -120,6 +120,15 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     }
 }
 
+/**
+ * Disables BuddyPress' registration process and fallsback to WordPress' one.
+ */
+function yipnyap_disable_bp_registration() {
+    remove_action('bp_init', 'bp_core_wpsignup_redirect');
+    remove_action('bp_screens', 'bp_core_screen_signup');
+}
+add_action('bp_loaded', 'yipnyap_disable_bp_registration');
+
 function yipnyap_remove_admin_bar() {
     $current_user = wp_get_current_user();
     if (!current_user_can('see_admin_bar') && !is_admin()) {

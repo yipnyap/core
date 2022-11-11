@@ -122,7 +122,7 @@ if (!function_exists('yipnyap_members_get_fallback')) {
             $mature = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Meta_Rating');
 
             $loggedUser = yipnyap_get_logged_user_member_data();
-            $loggedUserAllowsExplicit = !empty($loggedUser) ?? str_contains(strtolower(yipnyap_members_xprofile_get_field_value(yipnyap_get_logged_user_member_data(), 'Account_Info_UI Privacy and Security')), 'show explicit content everywhere');
+            $loggedUserAllowsExplicit = !empty($loggedUser) ?? str_contains(strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security')), 'show explicit content everywhere');
 
             if ($flair) {
                 $member_data['flair'] = $flair;

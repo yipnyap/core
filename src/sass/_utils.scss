@@ -5994,23 +5994,38 @@
   position: relative;
 
   &.alert-line-success {
+    color: $white !important;
     background-color: #00c7d9;
+
+    & > .alert-line-text {
+        color: $white !important;
+    }
   }
 
   &.alert-line-info {
+    color: $white !important;
     background-color: #615dfa;
+
+    & > .alert-line-text {
+      color: $white !important;
+    }
   }
 
   &.alert-line-error {
+    color: $white !important;
     background-color: #fd4350;
+
+    & > .alert-line-text {
+      color: $white !important;
+    }
   }
 
   &.alert-line-box {
     background-color: var(--color-box-background);
+    color: var(--color-text);
   }
 
   .alert-line-icon {
-    color: $white;
     position: absolute;
     margin-top: 4px;
     top: 20px;
@@ -6018,7 +6033,6 @@
   }
 
   .alert-line-text {
-    color: $white !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
     line-height: (24 / 16) * 1em;

@@ -581,7 +581,7 @@ if (bp_is_active('settings')) {
                     'type' => 'box',
                     'icon' => 'server',
                     'class' => 'mb-4',
-                    'text' => '<span class="bold block">Kukiko ID Allocated Storage Health</span> Health: <span class="text-green-500">In Limit</span>'
+                    'text' => '<span class="bold block">Kukiko ID Allocated Storage</span> Health: <span class="text-green-500">In Limit</span>'
                 ]);
 
                 ?>

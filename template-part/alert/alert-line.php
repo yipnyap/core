@@ -19,7 +19,7 @@
   <!-- ALERT LINE ICON WRAP -->
   <div class="alert-line-icon-wrap">
     <!-- ALERT LINE ICON -->
-    <svg class="alert-line-icon icon-<?php echo isset($args['icon']) ? esc_attr($args['icon']) . ' w-8 h-8' : esc_attr($args['type']); ?>">
+    <svg class="alert-line-icon icon-<?php echo isset($args['icon']) ? esc_attr($args['icon']) . ' w-6 h-6' : esc_attr($args['type']); ?>">
       <use href="#svg-<?php echo isset($args['icon']) ? esc_attr($args['icon']) : esc_attr($args['type']); ?>"></use>
     </svg>
     <!-- /ALERT LINE ICON -->

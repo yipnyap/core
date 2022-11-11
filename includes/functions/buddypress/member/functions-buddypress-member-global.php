@@ -915,7 +915,11 @@ if (!function_exists('yipnyap_member_get_xprofile_data')) {
 
                     // pass checkbox unserialized value as a comma separated string
                     if ($field['type'] === 'checkbox') {
-                        $member_xprofile_field_data['value'] = implode(', ', $field['data']['value']['unserialized']);
+                        if (is_string($field['data']['value']['unserialized'])) {
+                            $member_xprofile_field_data['value'] = $field['data']['value']['unserialized'];
+                        } else {
+                            $member_xprofile_field_data['value'] = implode(', ', $field['data']['value']['unserialized']);
+                        }
                     }
 
                     $default_value_option_field_types = ['selectbox', 'radio'];

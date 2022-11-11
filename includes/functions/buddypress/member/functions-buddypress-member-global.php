@@ -121,15 +121,11 @@ if (!function_exists('yipnyap_members_get_fallback')) {
             $flair = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Flair');
             $mature = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Meta_Rating');
 
-            $loggedUser = yipnyap_get_logged_user_member_data();
-            $uiPrivacy = !empty($loggedUser) ?? strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
-            $loggedUserAllowsExplicit = !empty($loggedUser) ?? str_contains($uiPrivacy, 'show explicit content everywhere');
-
             if ($flair) {
                 $member_data['flair'] = $flair;
             }
 
-            if (($mature === 'NSFW' || $mature === 'Suggestive') && !$loggedUserAllowsExplicit) {
+            if (($mature === 'NSFW' || $mature === 'Suggestive')) {
                 $member_data['mature'] = true;
             }
         } else {

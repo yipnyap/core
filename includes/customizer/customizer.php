@@ -28,7 +28,7 @@ require_once YIPNYAP_PATH . '/includes/customizer/vikinger-customizer-panel.php'
 /**
  * Login Register functions
  */
-require_once YIPNYAP_PATH . '/includes/customizer/vikinger-customizer-loginregister.php';
+//require_once YIPNYAP_PATH . '/includes/customizer/vikinger-customizer-loginregister.php';
 
 /**
  * Loading Screen functions

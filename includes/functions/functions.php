@@ -33,7 +33,7 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-plugin.php';
 /**
  * REGISTER functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/functions-register.php';
+//require_once YIPNYAP_PATH . '/includes/functions/functions-register.php';
 
 /**
  * BLOG functions

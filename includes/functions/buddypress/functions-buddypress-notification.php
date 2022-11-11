@@ -231,6 +231,11 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                             $notification['description'] = sprintf(esc_html__('replied to your %scomment%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
                             break;
                     }
+                } else if ($notification['component'] === 'follow') {
+                    if ($notification['action'] == 'new_follow') {
+                        $notification['user'] = yipnyap_members_get(['include' => [$notification['item_id']]])[0];
+                        $notification['description'] = esc_html__('started following you', 'yipnyap');
+                    }
                 } else if ($notification['component'] === 'forums') {
                     // if bbPress plugin is not active, ignore notification
                     if (!yipnyap_plugin_bbpress_is_active()) {
@@ -242,7 +247,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
 
                     // add data according to action
                     switch ($notification['action']) {
-                        case 'bbp_new_reply':
+                        case 'bbp_new_reply': {
                             $reply_url = bbp_get_reply_url($reply_id);
                             $reply_content = yipnyap_truncate_text(wp_strip_all_tags(bbp_get_reply_content($reply_id)), 15);
 
@@ -258,6 +263,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                                 $topic_title, '</a>'
                             );
                             break;
+                        }
                     }
                 } else {
                     // get default notification content
@@ -269,7 +275,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                         0,
                         'string',
                         $notification['action'],
-                        $notification['name'],
+                        $notification['name'] ?? '',
                         $notification['id']
                     );
 

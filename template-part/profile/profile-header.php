@@ -36,15 +36,17 @@ $primaryColour = yipnyap_members_xprofile_get_field_value($args['member'], 'Acco
 $background = yipnyap_members_xprofile_get_field_value($args['member'], 'Account_Info_Profile Background');
 
 $loggedUser = yipnyap_get_logged_user_member_data();
-$uiPrivacy = !empty($loggedUser) ?? strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
+if (!empty($loggedUser)) {
+    $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
+}
 
 $unicornEngine = get_option('unicorn_engine');
-$showCustomisedUINotice = !str_contains($uiPrivacy, $unicornEngine['settings_str']['hide_customised_ui_str']);
-if (str_contains($uiPrivacy, $unicornEngine['settings_str']['disallow_bg_render_str'])) {
+$showCustomisedUINotice = !str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['hide_customised_ui_str']);
+if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str'])) {
     $background = '';
 }
 
-if (str_contains($uiPrivacy, $unicornEngine['settings_str']['disallow_palette_render_str'])) {
+if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str'])) {
     $primaryColour = '';
 }
 ?>

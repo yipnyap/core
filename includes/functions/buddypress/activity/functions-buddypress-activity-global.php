@@ -135,7 +135,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
 
         $loggedUser = yipnyap_get_logged_user_member_data();
         $uiPrivacy = !empty($loggedUser) ?? strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
-        $loggedUserAllowsExplicit = !empty($loggedUser) ?? str_contains($uiPrivacy, 'show explicit content everywhere');
+        $loggedUserAllowsExplicit = str_contains($uiPrivacy, 'show explicit content everywhere');
 
         if ($loggedUserAllowsExplicit) $hide_mature = false;
 

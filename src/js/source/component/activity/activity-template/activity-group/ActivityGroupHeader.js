@@ -24,7 +24,7 @@ function ActivityGroupHeader(props) {
                         displayVerifiedMemberBadge &&
                         <BadgeVerified/>
                     }
-                    <span dangerouslySetInnerHTML={{__html: ` ${props.data.action}`}}></span>
+                    <span className="ml-2" dangerouslySetInnerHTML={{__html: ` ${props.data.action}`}}></span>
                 </p>
 
                 <p className="user-status-text small">{props.data.timestamp}</p>

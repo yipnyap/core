@@ -25,20 +25,23 @@ function ActivityStatusHeader(props) {
                         displayVerifiedMemberBadge &&
                         <BadgeVerified/>
                     }
+
                     {
                         props.data.component === 'groups' &&
-                        <span> in </span>
-                    }
-                    {
-                        (props.data.component === 'groups') && (props.data.type !== 'bbp_topic_create') && (props.data.type !== 'bbp_reply_create') &&
-                        <React.Fragment>
-                            <Avatar size="micro"
-                                    data={props.data.group}
-                                    noBorder
-                                    group
-                            />
-                            <a href={props.data.group.link}>{props.data.group.name}</a>
-                        </React.Fragment>
+                        <>
+                            <span className="ml-1"> in</span>
+                            {
+                                (props.data.type !== 'bbp_topic_create') && (props.data.type !== 'bbp_reply_create') &&
+                                <React.Fragment>
+                                    <Avatar size="micro"
+                                            data={props.data.group}
+                                            noBorder
+                                            group
+                                    />
+                                    <a href={props.data.group.link}>{props.data.group.name}</a>
+                                </React.Fragment>
+                            }
+                        </>
                     }
                 </div>
 

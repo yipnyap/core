@@ -67,9 +67,21 @@ if (!function_exists('yipnyap_get_activities')) {
 
         $logged_in_user_id = bp_loggedin_user_id();
         $logged_in_user_favorites = bp_activity_get_user_favorites($logged_in_user_id);
+        $loggedUserProfileData = yipnyap_member_get_xprofile_data($logged_in_user_id);
+        $loggedUserProfileDataFormatted = [
+            'profile_data' => $loggedUserProfileData ?? [],
+        ];
+        if (!empty($loggedUserProfileData)) {
+            $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($loggedUserProfileDataFormatted, 'Account_Info_UI Privacy and Security'));
+        }
 
         foreach ($bp_activities['activities'] as $bp_activity) {
-            $activity_data = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites, (!isset($args['scope']) || $args['scope'] === 'false') && !isset($args['filter']['user_id']) && !isset($args['filter']['secondary_id']));
+            $hide_mature = (!isset($args['scope']) || $args['scope'] === 'false') && !isset($args['filter']['user_id']) && !isset($args['filter']['secondary_id']);
+            $loggedUserAllowsExplicit = str_contains($uiPrivacy ?? '', 'show explicit content everywhere');
+
+            if ($loggedUserAllowsExplicit) $hide_mature = false;
+
+            $activity_data = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites, $hide_mature);
             $activities['activities'][] = $activity_data;
         }
 
@@ -132,12 +144,6 @@ if (!function_exists('yipnyap_activity_data_get')) {
             'permalink' => bp_activity_get_permalink($bp_activity->id),
             'hide_sitewide' => $bp_activity->hide_sitewide
         ];
-
-        $loggedUser = yipnyap_get_logged_user_member_data();
-        $uiPrivacy = !empty($loggedUser) ?? strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
-        $loggedUserAllowsExplicit = str_contains($uiPrivacy, 'show explicit content everywhere');
-
-        if ($loggedUserAllowsExplicit) $hide_mature = false;
 
         // Halt if user is marked as mature and hide mature is true.
         if ($hide_mature && isset($author['mature'])) {

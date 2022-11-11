@@ -1159,7 +1159,7 @@ if (!function_exists('yipnyap_members_get_navigation_items')) {
         $member_profile_page_navigation_items = [
             [
                 'name' => esc_html__('Timeline', 'yipnyap'),
-                'icon' => 'timeline',
+                'icon' => 'chat-bubble-bottom-center-text',
                 'slug' => 'activity',
                 'active' => bp_is_user_activity() && !$activity_single,
                 'enabled' => bp_is_active('activity'),
@@ -1167,7 +1167,7 @@ if (!function_exists('yipnyap_members_get_navigation_items')) {
             ],
             [
                 'name' => esc_html__('Friends', 'yipnyap'),
-                'icon' => 'friend',
+                'icon' => 'face-smile',
                 'slug' => 'friends',
                 'active' => bp_is_user_friends(),
                 'enabled' => bp_is_active('friends'),
@@ -1175,7 +1175,7 @@ if (!function_exists('yipnyap_members_get_navigation_items')) {
             ],
             [
                 'name' => esc_html__('Groups', 'yipnyap'),
-                'icon' => 'group',
+                'icon' => 'user-group',
                 'slug' => 'groups',
                 'active' => bp_is_user_groups(),
                 'enabled' => bp_is_active('groups'),
@@ -1301,9 +1301,9 @@ if (!function_exists('yipnyap_member_bp_navigation_items_get')) {
             'about' => 'profile',
             'posts' => 'blog-posts',
             'forums' => 'forums',
-            'photos' => 'photos',
-            'videos' => 'videos',
-            'stream' => 'streams',
+            'photos' => 'photo',
+            'videos' => 'video',
+            'stream' => 'tv',
             'credits' => 'credits',
             'badges' => 'badges',
             'quests' => 'quests',

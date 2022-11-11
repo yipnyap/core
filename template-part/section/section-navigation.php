@@ -44,7 +44,7 @@ $nav_items_color_classes = $nav_items_color ? $nav_items_color : '';
                          */
                         get_template_part('template-part/icon/icon', 'svg', [
                             'icon' => $nav_item['icon'],
-                            'modifiers' => 'section-menu-item-icon'
+                            'modifiers' => 'section-menu-item-icon w-6 h-6'
                         ]);
                     }
 

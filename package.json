@@ -33,9 +33,10 @@
   },
   "dependencies": {
     "@headlessui/react": "^1.4.3",
-    "@heroicons/react": "^1.0.5",
+    "@heroicons/react": "^2.0.13",
     "@tailwindcss/forms": "^0.4.0",
     "concurrently": "^7.4.0",
+    "lodash": "^4.17.21",
     "progressbar.js": "^1.1.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",

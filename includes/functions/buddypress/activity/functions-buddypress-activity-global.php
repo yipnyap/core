@@ -137,8 +137,10 @@ if (!function_exists('yipnyap_activity_data_get')) {
         $uiPrivacy = !empty($loggedUser) ?? strtolower(yipnyap_members_xprofile_get_field_value($loggedUser, 'Account_Info_UI Privacy and Security'));
         $loggedUserAllowsExplicit = !empty($loggedUser) ?? str_contains($uiPrivacy, 'show explicit content everywhere');
 
+        if ($loggedUserAllowsExplicit) $hide_mature = false;
+
         // Halt if user is marked as mature and hide mature is true.
-        if (($hide_mature && !$loggedUserAllowsExplicit) && isset($author['mature'])) {
+        if ($hide_mature && isset($author['mature'])) {
             $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('Post metadata is hidden.', 'yipnyap') . '</i>';
         } else {
             // add media information

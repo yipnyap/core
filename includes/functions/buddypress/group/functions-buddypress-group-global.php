@@ -814,7 +814,7 @@ if (!function_exists('yipnyap_groups_get_navigation_items')) {
             ],
             [
                 'name' => __('Members', 'yipnyap'),
-                'icon' => 'members',
+                'icon' => 'user-group',
                 'slug' => 'members',
                 'active' => bp_is_group_members()
             ]

@@ -808,7 +808,7 @@ if (!function_exists('yipnyap_groups_get_navigation_items')) {
         $menu_items = [
             [
                 'name' => __('Timeline', 'yipnyap'),
-                'icon' => 'timeline',
+                'icon' => 'chat-bubble-bottom-center-text',
                 'slug' => 'activity',
                 'active' => bp_is_group_activity()
             ],
@@ -868,8 +868,8 @@ if (!function_exists('yipnyap_group_bp_navigation_items_get')) {
 
         $group_nav_item_icons = [
             'forum' => 'forums',
-            'photos' => 'photos',
-            'videos' => 'videos',
+            'photos' => 'photo',
+            'videos' => 'video',
             'bp-messages' => 'messages'
         ];
 

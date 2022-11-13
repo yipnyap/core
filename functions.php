@@ -150,20 +150,6 @@ function yipnyap_remove_admin_bar(): void
 add_action('after_setup_theme', 'yipnyap_remove_admin_bar');
 
 /**
- * Legacy wp_die title
- */
-add_filter('wp_die_handler', function () {
-
-    if (str_contains($_SERVER['SCRIPT_NAME'], 'wp-comments-post.php')) {
-        return function ($message, $title, $args) {
-            _default_wp_die_handler($message, 'Legacy Houndkit - error', $args);
-        };
-    }
-
-    return '_default_wp_die_handler';
-});
-
-/**
  * Redirect to login after reset password
  */
 add_action('login_headerurl', function () {

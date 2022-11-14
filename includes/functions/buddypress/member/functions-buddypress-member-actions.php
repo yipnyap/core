@@ -581,7 +581,7 @@ if (bp_is_active('settings')) {
                     'type' => 'box',
                     'icon' => 'server',
                     'class' => 'mb-4',
-                    'text' => '<span class="bold block">Kukiko ID Allocated Storage</span> Health: <code class="bg-box-over">' . YipnyapFSHumanReadable(YipnyapGetStorageUsage(get_current_user_id())) . '</code>'
+                    'text' => '<span class="bold block">Kukiko ID Allocated Storage</span> Usage: <code class="bg-box-over px-1 rounded-md">' . YipnyapFSHumanReadable(YipnyapGetStorageUsage(get_current_user_id())) . '</code>'
                 ]);
 
                 ?>

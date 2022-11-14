@@ -28,12 +28,8 @@
 
   <!-- ALERT LINE TEXT -->
   <p class="alert-line-text"><?php echo wp_kses($args['text'], [
-          'span' => [
-                  'class' => [],
-          ],
-          'code' => [
-                    'class' => [],
-          ],
+          'span' => ['class' => []],
+          'code' => ['class' => [], 'style' => []],
       ]); ?></p>
   <!-- /ALERT LINE TEXT -->
 </div>

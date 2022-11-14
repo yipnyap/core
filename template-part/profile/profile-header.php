@@ -347,10 +347,11 @@ if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_pale
 <!-- PROFILE HEADER MATURE WARNING -->
 <?php
 if ($mature === 'NSFW' || $mature === 'Suggestive') {
-    get_template_part('template-part/alert/alert', 'box', [
+    get_template_part('template-part/alert/alert', 'line', [
         'type'  => 'error',
-        'title' => esc_html__('Mature User', 'yipnyap'),
-        'text'  => esc_html__('This user may have mature content on their profile.', 'yipnyap')
+        'icon' => 'error',
+        'class' => 'mt-4',
+        'text'  => '<span class="bold block">Mature User</span>This user may have mature content on their profile.'
     ]);
 }
 ?>

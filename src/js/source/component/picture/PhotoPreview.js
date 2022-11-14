@@ -28,7 +28,7 @@ function PhotoPreview(props) {
                         {
                             yipnyap_constants.plugin_active.vkreact && yipnyap_constants.plugin_active['vkreact-buddypress'] &&
                             <div className="reaction-count negative">
-                                <HandThumbUpIcon className="reaction-count-icon" />
+                                <HandThumbUpIcon className="reaction-count-icon w-5 h-5" />
 
                                 <p className="reaction-count-text">{props.data.reactions.length}</p>
                             </div>
@@ -36,7 +36,7 @@ function PhotoPreview(props) {
 
                         <div className="reaction-count negative">
                             <IconSVG icon="chat-bubble-bottom-center-text"
-                                     modifiers="reaction-count-icon"
+                                     modifiers="reaction-count-icon w-5 h-5"
                             />
 
                             <p className="reaction-count-text">{props.data.comment_count}</p>

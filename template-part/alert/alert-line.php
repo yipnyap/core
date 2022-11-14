@@ -27,7 +27,14 @@
   <!-- /ALERT LINE ICON WRAP -->
 
   <!-- ALERT LINE TEXT -->
-  <p class="alert-line-text"><?php echo wp_kses($args['text'], ['span' => ['class' => []]]); ?></p>
+  <p class="alert-line-text"><?php echo wp_kses($args['text'], [
+          'span' => [
+                  'class' => [],
+          ],
+          'code' => [
+                    'class' => [],
+          ],
+      ]); ?></p>
   <!-- /ALERT LINE TEXT -->
 </div>
 <!-- /ALERT LINE -->

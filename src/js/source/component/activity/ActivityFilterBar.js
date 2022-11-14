@@ -151,7 +151,7 @@ function ActivityFilterBar(props) {
                             <select id="activity-show" name="action" value={action} onChange={handleActionChange}>
                                 <option value="all">{yipnyap_translation.all_posts}</option>
                                 <option value="activity_update">{yipnyap_translation.status}</option>
-                                <option value="activity_share,post_share">{yipnyap_translation.shares}</option>
+                                <option value="activity_share,post_share">{yipnyap_translation.rehowls}</option>
                                 {
                                     yipnyap_constants.plugin_active.vkmedia &&
                                     <React.Fragment>

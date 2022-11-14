@@ -41,7 +41,7 @@ function PostShareOption(props) {
                     className="post-option-icon w-6"
                 />
 
-                <p className="post-option-text">{yipnyap_translation.share_action}</p>
+                <p className="post-option-text">{yipnyap_translation.rehowl_action}</p>
             </div>
 
             <ActivityForm forwardedRef={shareBoxRef}

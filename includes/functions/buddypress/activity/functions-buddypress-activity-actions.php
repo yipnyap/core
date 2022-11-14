@@ -411,9 +411,9 @@ if (!function_exists('yipnyap_register_activity_share_action')) {
         bp_activity_set_action(
             'activity',
             'activity_share',
-            esc_html_x('Shared an activity', '(Backend) Activity Share Action - Description', 'yipnyap'),
+            esc_html_x('Rehowled', '(Backend) Post Rehowl Action - Description', 'yipnyap'),
             'yipnyap_format_action_activity_share',
-            esc_html_x('Activity Share', '(Backend) Activity Share Action - Label', 'yipnyap')
+            esc_html_x('Post Rehowl', '(Backend) Post Rehowl Action - Label', 'yipnyap')
         );
     }
 }
@@ -429,9 +429,9 @@ if (!function_exists('yipnyap_register_activity_share_group_action')) {
         bp_activity_set_action(
             'groups',
             'activity_share',
-            esc_html_x('Shared an activity', '(Backend) Activity Share Group Action - Description', 'yipnyap'),
+            esc_html_x('Rehowled', '(Backend) Post Rehowl Group Action - Description', 'yipnyap'),
             'yipnyap_format_action_activity_share_group',
-            esc_html_x('Activity Share', '(Backend) Activity Share Group Action - Label', 'yipnyap')
+            esc_html_x('Post Rehowl', '(Backend) Post Rehowl Group Action - Label', 'yipnyap')
         );
     }
 }
@@ -448,7 +448,7 @@ if (!function_exists('yipnyap_format_action_activity_share')) {
      */
     function yipnyap_format_action_activity_share($action, $activity)
     {
-        $action = esc_html_x('shared', 'Activity Share - Text', 'yipnyap');
+        $action = esc_html_x('rehowled', 'Post Rehowl - Text', 'yipnyap');
 
         return $action;
     }
@@ -464,7 +464,7 @@ if (!function_exists('yipnyap_format_action_activity_share_group')) {
      */
     function yipnyap_format_action_activity_share_group($action, $activity)
     {
-        $action = esc_html_x('reposted in', 'Activity Share Group - Text', 'yipnyap');
+        $action = esc_html_x('rehowled in', 'Post Rehowl Group - Text', 'yipnyap');
 
         return $action;
     }

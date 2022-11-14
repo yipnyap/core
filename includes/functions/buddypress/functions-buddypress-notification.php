@@ -222,10 +222,10 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                     // add data according to action
                     switch ($notification['action']) {
                         case 'update_reply':
-                            $notification['description'] = sprintf(esc_html__('posted a comment on your %sstatus update%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
+                            $notification['description'] = sprintf(esc_html__('commented on your %spost%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
                             break;
                         case 'new_at_mention':
-                            $notification['description'] = sprintf(esc_html__('mentioned you on a %sstatus update%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
+                            $notification['description'] = sprintf(esc_html__('mentioned you on a %spost%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');
                             break;
                         case 'comment_reply':
                             $notification['description'] = sprintf(esc_html__('replied to your %scomment%s', 'yipnyap'), '<a class="highlighted" href="' . $notification['link'] . '">', '</a>');

@@ -106,8 +106,8 @@ function yipnyap_translation_get() {
     'read_more'                   => esc_html__('Read More...', 'yipnyap'),
     'comment'                     => esc_html_x('Comment', 'a comment', 'yipnyap'),
     'comments'                    => esc_html__('Comments', 'yipnyap'),
-    'share'                       => esc_html_x('Share', 'a share', 'yipnyap'),
-    'shares'                      => esc_html_x('Shares', '0 / 2 or more replies', 'yipnyap'),
+    'rehowl'                      => esc_html_x('Rehowl', 'a rehowl', 'yipnyap'),
+    'rehowls'                     => esc_html_x('Rehowls', '0 / 2 or more replies', 'yipnyap'),
 
     /**
      * Reaction Filters
@@ -145,7 +145,7 @@ function yipnyap_translation_get() {
     /**
      * Activity Form
      */
-    'status_update'                 => esc_html__('Status Update', 'yipnyap'),
+    'post'                          => esc_html_x('Post', 'a post', 'yipnyap'),
     'post_in'                       => esc_html__('Post In', 'yipnyap'),
     'privacy'                       => esc_html__('Privacy', 'yipnyap'),
     'public'                        => esc_html__('Public', 'yipnyap'),
@@ -211,7 +211,7 @@ function yipnyap_translation_get() {
      */
     'react'                       => esc_html_x('React', 'to react to something', 'yipnyap'),
     'comment_action'              => esc_html_x('Comment', 'to comment on something', 'yipnyap'),
-    'share_action'                => esc_html_x('Share', 'to share something', 'yipnyap'),
+    'rehowl_action'               => esc_html_x('Rehowl', 'to rehowl something', 'yipnyap'),
 
     /**
      * Comment Form
@@ -277,7 +277,6 @@ function yipnyap_translation_get() {
     /**
      * Member Preview
      */
-    'post'                        => esc_html_x('Post', 'a post', 'yipnyap'),
     'friend'                      => esc_html__('Friend', 'yipnyap'),
     'no_social_networks_linked'   => esc_html__('No social networks linked', 'yipnyap'),
     'no_badges_unlocked'          => esc_html__('No badges unlocked', 'yipnyap'),

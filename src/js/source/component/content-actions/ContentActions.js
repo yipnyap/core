@@ -3,7 +3,7 @@ import ReactionMetaLine from '../reaction/ReactionMetaLine';
 
 function ContentActions(props) {
     const commentsText = props.commentCount === 1 ? yipnyap_translation.comment : yipnyap_translation.comments,
-        sharesText = props.shareCount === 1 ? yipnyap_translation.share : yipnyap_translation.shares;
+        sharesText = props.shareCount === 1 ? yipnyap_translation.rehowl : yipnyap_translation.rehowls;
 
     return (
         <div className="content-actions">

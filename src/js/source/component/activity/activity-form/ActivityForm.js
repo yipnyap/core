@@ -386,7 +386,7 @@ function ActivityForm(props) {
                                 <BadgeVerified/>
                             }
                         </p>
-                        <p className="user-status-text small">{yipnyap_translation.status_update}</p>
+                        <p className="user-status-text small">{yipnyap_translation.post}</p>
                     </div>
                     {/* USER STATUS */}
 

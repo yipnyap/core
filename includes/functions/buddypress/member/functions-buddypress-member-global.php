@@ -199,6 +199,11 @@ if (!function_exists('yipnyap_members_get')) {
             foreach ($bp_members->data as $bp_member) {
                 $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
 
+                // don't show user if username matches
+                if ($fetched_user->username === 'yipnyap') {
+                    continue;
+                }
+
                 if (!array_key_exists('include_profile_data', $args)) {
                     unset($fetched_user->profile_data);
                 }

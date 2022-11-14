@@ -71,16 +71,25 @@ if (!function_exists('yipnyap_get_activities')) {
         $loggedUserProfileDataFormatted = [
             'profile_data' => $loggedUserProfileData ?? [],
         ];
+
         if (!empty($loggedUserProfileData)) {
             $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($loggedUserProfileDataFormatted, 'Account_Info_UI Privacy and Security'));
         }
 
+        $isViewingPostDirectly = isset($args['filter']['user_id']) ||
+            isset($args['filter']['secondary_id']) ||
+            isset($args['filter']['primary_id']) ||
+            isset($args['in']);
+
+        $hide_mature =
+            (!isset($args['scope']) || $args['scope'] === 'false') &&
+            !$isViewingPostDirectly;
+        $loggedUserAllowsExplicit = str_contains($uiPrivacy ?? '', 'show explicit content everywhere');
+
+        if ($loggedUserAllowsExplicit) $hide_mature = false;
+        if (empty($logged_in_user_id) && !$isViewingPostDirectly) $hide_mature = true;
+
         foreach ($bp_activities['activities'] as $bp_activity) {
-            $hide_mature = (!isset($args['scope']) || $args['scope'] === 'false') && !isset($args['filter']['user_id']) && !isset($args['filter']['secondary_id']);
-            $loggedUserAllowsExplicit = str_contains($uiPrivacy ?? '', 'show explicit content everywhere');
-
-            if ($loggedUserAllowsExplicit) $hide_mature = false;
-
             $activity_data = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites, $hide_mature);
             $activities['activities'][] = $activity_data;
         }
@@ -148,7 +157,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
 
         // Halt if user is marked as mature and hide mature is true.
         if ($filterOutMature) {
-            $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('Metadata & Comments are hidden.', 'yipnyap') . '</i>';
+            $activity_data['content'] = '<i class="text-alt">' . esc_html__('This content is marked as mature and cannot be viewed here.', 'yipnyap') . '<br />' . esc_html__('You may view on the users\' page or the post directly.', 'yipnyap') . '</i>';
         } else {
             // add media information
             if (($activity_data['type'] === 'activity_media') || ($activity_data['type'] === 'activity_video')) {

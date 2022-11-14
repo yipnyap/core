@@ -8,8 +8,6 @@ function Avatar(props) {
     const avatarSize = props.size ? props.size : 'regular';
     const AvatarElement = getAvatarTemplate(avatarType, avatarSize);
 
-    console.log(props);
-
     return (
         <AvatarElement {...props} />
     );

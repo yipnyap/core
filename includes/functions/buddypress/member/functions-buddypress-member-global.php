@@ -904,13 +904,13 @@ if (!function_exists('yipnyap_member_get_xprofile_data')) {
                         'name' => $field['name'],
                         'description' => $field['description']['rendered'],
                         'type' => $field['type'],
-                        'value' => stripslashes($field['data']['value']['raw']),
+                        'value' => isset($field['data']) ? stripslashes($field['data']['value']['raw']) : '',
                         'field_order' => $field['field_order'],
                         'option_order' => $field['option_order'],
                         'options' => $field['options'],
                         'is_required' => $field['is_required'],
                         'meta' => bp_xprofile_get_meta($field['id'], 'field'),
-                        'values' => $field['data']
+                        'values' => $field['data'] ?? []
                     ];
 
                     // pass checkbox unserialized value as a comma separated string
@@ -922,7 +922,7 @@ if (!function_exists('yipnyap_member_get_xprofile_data')) {
 
                     // field type with defaultable option values
                     // set default option as value if value is not yet set by user
-                    if ($field['data']['value']['raw'] === '') {
+                    if (isset($field['data']) && $field['data']['value']['raw'] === '') {
                         if (in_array($field['type'], $default_value_option_field_types)) {
                             foreach ($field['options'] as $option) {
                                 if ($option['is_default_option']) {

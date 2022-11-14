@@ -19,8 +19,6 @@ function ActivityFilterBar(props) {
         }
     }, [filters]);
 
-    console.log(filters.scope);
-
     const setScopeAll = () => {
         changeScope(false);
     };

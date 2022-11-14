@@ -29,19 +29,15 @@ function ActivityFilterableList(props) {
     });
 
     const [pinnedActivityID, setPinnedActivityID] = useState(false);
-
     const [reactions, setReactions] = useState([]);
-
     const [fetchingUser, setFetchingUser] = useState(false);
     const [loggedUser, setLoggedUser] = useState(false);
+    const [hasCheckedLoggedUser, setHasCheckedLoggedUser] = useState(false);
 
     const currentPage = useRef(1);
-
     const createCount = useRef(0);
     const deleteCount = useRef(0);
-
     const preloadedActivities = useRef(null);
-
     const filters = useRef({
         per_page: props.perPage,
         sort: props.order,
@@ -53,9 +49,6 @@ function ActivityFilterableList(props) {
     useEffect(() => {
         if (props.activityID) {
             filters.current.in = props.activityID;
-
-            // undo the default scope
-            filters.current.scope = filters.current.scope === 'myfollowing' ? false : filters.current.scope;
         }
 
         if (!props.noFilter) {
@@ -173,9 +166,6 @@ function ActivityFilterableList(props) {
         if (props.userID) {
             config.filter.user_id = props.userID;
 
-            // undo the default scope, if set, as we would want everything from the user
-            config.scope = config.scope === 'myfollowing' ? false : config.scope;
-
             if (currentPage.current === 1) {
                 config.include_pinned_from = props.userID;
             }
@@ -185,9 +175,15 @@ function ActivityFilterableList(props) {
         if (props.groupID) {
             config.filter.primary_id = props.groupID;
             config.filter.object = 'groups';
+        }
 
-            // undo the default scope, if set, as we would want everything from the group
-            config.scope = config.scope === 'myfollowing' ? false : config.scope;
+        if (props.activityID) {
+            filters.current.in = props.activityID;
+        }
+
+        if (props.userID || props.groupID || props.activityID) {
+            // undo the "myfollowing" scope
+            config.scope = config.scope === 'myfollowing' ? 'false' : config.scope;
         }
 
         console.log('ACTIVITY FILTERABLE LIST - ACTIVITY FILTERS: ', config);
@@ -532,7 +528,7 @@ function ActivityFilterableList(props) {
         });
     };
 
-    const getLoggedUser = () => {
+    const getLoggedUser = (callback = () => {}) => {
         setFetchingUser(true);
 
         userRouter.getLoggedInMember('user-activity')
@@ -541,6 +537,9 @@ function ActivityFilterableList(props) {
 
                 setLoggedUser(loggedUser);
                 setFetchingUser(false);
+                setHasCheckedLoggedUser(true);
+
+                callback(loggedUser);
             });
     };
 
@@ -594,11 +593,11 @@ function ActivityFilterableList(props) {
     };
 
     useEffect(() => {
-        getLoggedUser();
+        if(!hasCheckedLoggedUser) getLoggedUser(() => {
+            if(!reactions) getReactions();
 
-        getReactions();
-
-        getActivitiesPage();
+            getActivitiesPage();
+        });
     }, []);
 
     let postInDefault = '0';

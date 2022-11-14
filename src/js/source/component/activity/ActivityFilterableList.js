@@ -593,8 +593,8 @@ function ActivityFilterableList(props) {
     };
 
     useEffect(() => {
-        if(!reactions) getReactions();
         if(!hasCheckedLoggedUser) getLoggedUser(() => {
+            getReactions();
             getActivitiesPage();
         });
     }, []);

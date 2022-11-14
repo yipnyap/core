@@ -200,7 +200,7 @@ if (!function_exists('yipnyap_members_get')) {
                 $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
 
                 // don't show user if username matches
-                if ($fetched_user->username === 'yipnyap') {
+                if ($fetched_user['username'] === 'yipnyap') {
                     continue;
                 }
 

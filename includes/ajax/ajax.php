@@ -71,21 +71,3 @@ if (yipnyap_plugin_bbpress_is_active()) {
    */
   require_once YIPNYAP_PATH . '/includes/ajax/vikinger-ajax-bbpress.php';
 }
-
-/**
- * Load backend related AJAX endpoints only
- * when on the WordPress backend
- */
-if (is_admin()) {
-  /**
-   * PLUGIN AJAX
-   */
-  require_once YIPNYAP_PATH . '/includes/ajax/vikinger-ajax-plugin.php';
-
-  /**
-   * DEMO AJAX
-   */
-  require_once YIPNYAP_PATH . '/includes/ajax/vikinger-ajax-demo.php';
-}
-
-?>

@@ -87,13 +87,7 @@ define('YIPNYAP_WPOPTIONS', array(
 
     /*
      * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
-     *
-     * Snowsuit is the backend of Yipnyap.
-     * TODO: Change this to update based on an API response (i.e. "Health check"?)
-     * ^ Possibly not, that will be called each time the page loads, which is a lot.
-     * ^ Maybe have a cron job that updates it every 5 minutes or so?
      */
-    'snowsuit_registration_allowed' => 'yes',
     'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
     'yipnyap_logo_url' => array(YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png'),
     'buddypress' => [
@@ -177,9 +171,6 @@ function yipnyap_admin_load_scripts(): void
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.11.0');
-
-    // add custom scripts
-    wp_enqueue_script('yipnyap-admin-scripts', YIPNYAP_URL . '/src/js/admin.bundle.min.js', [], '3.8.1', true);
 
     // pass php variables to javascript file
     wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', array(

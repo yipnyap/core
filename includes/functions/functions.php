@@ -11,11 +11,6 @@
 require_once YIPNYAP_PATH . '/includes/functions/functions-utils.php';
 
 /**
- * DEMO functions
- */
-require_once YIPNYAP_PATH . '/includes/functions/functions-demo.php';
-
-/**
  * SETTINGS functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-settings.php';
@@ -24,16 +19,6 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-settings.php';
  * PLUGIN functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-plugin.php';
-
-/**
- * WPLOGIN functions
- */
-//require_once YIPNYAP_PATH . '/includes/functions/functions-wplogin.php';
-
-/**
- * REGISTER functions
- */
-//require_once YIPNYAP_PATH . '/includes/functions/functions-register.php';
 
 /**
  * BLOG functions
@@ -91,12 +76,12 @@ require_once YIPNYAP_PATH . '/includes/functions/bpverifiedmember/functions-bpve
 /**
  * WOOCOMMERCE functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/woocommerce/functions-woocommerce.php';
+//require_once YIPNYAP_PATH . '/includes/functions/woocommerce/functions-woocommerce.php';
 
 /**
  * Paid Memberships Pro
  */
-require_once YIPNYAP_PATH . '/includes/functions/pmpro/functions-pmpro.php';
+//require_once YIPNYAP_PATH . '/includes/functions/pmpro/functions-pmpro.php';
 
 /**
  * Stream

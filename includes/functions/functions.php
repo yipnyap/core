@@ -6,6 +6,11 @@
  */
 
 /**
+ * Allocated Storage functions
+ */
+require_once YIPNYAP_PATH . '/includes/functions/allocatedstorage/index.php';
+
+/**
  * UTILS functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-utils.php';

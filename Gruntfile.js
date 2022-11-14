@@ -69,19 +69,10 @@ module.exports = function (grunt) {
             },
             build: {
                 files: {
-                    'src/js/bundle/app.bundle.js': 'src/js/source/app.js',
-                    // 'src/js/bundle/admin.bundle.js': 'src/js/source/admin.js',
-                    // 'src/js/bundle/vklogin.bundle.js': 'src/js/source/vklogin.js'
+                    'src/js/bundle/app.bundle.js': 'src/js/source/app.js'
                 }
             }
         },
-        // uglify: {
-        //     build: {
-        //         files: {
-        //             'src/js/vklogin.bundle.min.js': 'src/js/bundle/vklogin.bundle.js'
-        //         }
-        //     }
-        // },
         watch: {
             options: {
                 livereload: true

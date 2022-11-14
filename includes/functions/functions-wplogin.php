@@ -67,9 +67,6 @@ function yipnyap_wplogin_logo_styles()
 
     // add user custom theme colors
     wp_add_inline_style('yipnyap-wplogin-styles', $custom_colors);
-
-    // add custom scripts
-    wp_enqueue_script('yipnyap-vklogin-scripts', YIPNYAP_URL . '/src/vklogin.bundle.min.js', [], '1.0.1', true);
 }
 
 add_action('login_enqueue_scripts', 'yipnyap_wplogin_logo_styles');

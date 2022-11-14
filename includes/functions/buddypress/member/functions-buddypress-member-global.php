@@ -197,12 +197,12 @@ if (!function_exists('yipnyap_members_get')) {
         // if request was succesfull
         if ($bp_members->status === 200) {
             foreach ($bp_members->data as $bp_member) {
-                $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
-
-                // don't show user if username matches
-                if ($fetched_user['username'] === 'yipnyap') {
+                // don't show user if username matches system account
+                if ($bp_member['mention_name'] === 'yipnyap') {
                     continue;
                 }
+
+                $fetched_user = yipnyap_member_get_data($bp_member, $data_scope, $include_member_links);
 
                 if (!array_key_exists('include_profile_data', $args)) {
                     unset($fetched_user->profile_data);

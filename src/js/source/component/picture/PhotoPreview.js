@@ -1,10 +1,9 @@
 import React, {useRef} from 'react';
-
 import Checkbox from '../form/Checkbox';
-
 import IconSVG from '../icon/IconSVG';
-
 import ActivityMediaPopup from '../activity/activity-popup/ActivityMediaPopup';
+
+import {HandThumbUpIcon} from "@heroicons/react/24/solid";
 
 function PhotoPreview(props) {
     const activityMediaPopupTriggerRef = useRef(null);
@@ -29,16 +28,14 @@ function PhotoPreview(props) {
                         {
                             yipnyap_constants.plugin_active.vkreact && yipnyap_constants.plugin_active['vkreact-buddypress'] &&
                             <div className="reaction-count negative">
-                                <IconSVG icon="thumbs-up"
-                                         modifiers="reaction-count-icon"
-                                />
+                                <HandThumbUpIcon className="reaction-count-icon" />
 
                                 <p className="reaction-count-text">{props.data.reactions.length}</p>
                             </div>
                         }
 
                         <div className="reaction-count negative">
-                            <IconSVG icon="comment"
+                            <IconSVG icon="chat-bubble-bottom-center-text"
                                      modifiers="reaction-count-icon"
                             />
 

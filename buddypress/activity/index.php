@@ -156,7 +156,7 @@ $user = yipnyap_get_logged_user_member_data();
     <div id="activity-notice"></div>
 
     <!-- GRID -->
-    <div class="grid-cols-4 xl:grid-cols-8 gap-4 px-4 lg:!pl-24" style="display: grid;">
+    <div class="grid-cols-4 xl:grid-cols-8 gap-4" style="display: grid;">
         <!-- LEFT COLUMN -->
         <div class="hidden col-span-2 xl:block">
             <?php

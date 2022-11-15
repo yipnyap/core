@@ -71,7 +71,7 @@ $current_user = wp_get_current_user();
 /**
  * Versioning
  */
-define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(22)));
+define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
     : 'hk13-hf3-4');
 //const YIPNYAP_VERSION = 'hk13';

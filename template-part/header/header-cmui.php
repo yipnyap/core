@@ -111,4 +111,4 @@ if ($sidemenu_status === 'display') {
 <!-- /HEADER -->
 
 <!-- CMUI Entire Content begin -->
-<div id="cmui-entire-content" style="overflow-y: auto; overflow-x: hidden; padding-top: 80px;">
+<div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-6" style="overflow-y: auto; overflow-x: hidden; padding-top: 80px;">

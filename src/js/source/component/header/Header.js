@@ -100,6 +100,7 @@ export default function Header() {
                             {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
                         ],
                     },
+                    {border: true},
                 ];
 
                 setLoadingUser(false);
@@ -387,6 +388,9 @@ export default function Header() {
                                      width: '-webkit-fill-available'
                                  }}>
                                 <div className="max-w-8xl mx-auto py-2 px-2 space-y-1 sm:px-4">
+                                    <span className="py-2 px-3 text-primary">
+                                        Version: {yipnyap_constants.yipnyap_server_version}
+                                    </span>
                                     <a className="header-menu-entity py-2 px-3 text-tertiary"
                                        href={yipnyap_constants.logout_url}
                                     >

@@ -9,8 +9,6 @@
     1. CONTENT GRID
 ----------------------*/
 .content-grid {
-  @apply md:pl-24 pr-4;
-  //padding: 0 1vw 6vw 6vw;
   margin: 0 auto 0;
 
   &.full {
@@ -147,7 +145,7 @@
 /*--------------
     2. GRID
 --------------*/
-$grid-width: 1184;
+$grid-width: 1190;
 $grid-width_9: 884;
 
 $col-spacing: 16;

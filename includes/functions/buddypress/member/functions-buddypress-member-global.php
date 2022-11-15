@@ -120,6 +120,17 @@ if (!function_exists('yipnyap_members_get_fallback')) {
 
             $flair = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Flair');
             $mature = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Meta_Rating');
+            $accentColor = yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Primary Accent');
+
+            if (!empty($accentColor)) {
+                $member_data['profile_data'] = [
+                    'field' => [
+                        'Account_Info_Profile Primary Accent' => [
+                            'value' => $accentColor
+                        ]
+                    ]
+                ];
+            }
 
             if ($flair) {
                 $member_data['flair'] = $flair;

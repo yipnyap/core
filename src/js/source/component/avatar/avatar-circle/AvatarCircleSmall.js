@@ -6,8 +6,6 @@ function AvatarCircleSmall(props) {
     const noBorderClasses = props.noBorder ? 'no-border' : '';
     const Element = props.noLink || !yipnyap_constants.plugin_active.buddypress ? 'div' : 'a';
 
-    console.log('[AvatarCircleSmall] props', props);
-
     return (
         <Element
             className={`user-avatar-circle small ${!props.data.rank ? 'no-stats' : ''} ${noBorderClasses} ${props.modifiers || ''}`}

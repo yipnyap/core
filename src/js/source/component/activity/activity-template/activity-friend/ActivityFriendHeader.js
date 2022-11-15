@@ -9,8 +9,6 @@ function ActivityFriendHeader(props) {
         displayVerifiedMemberBadge = displayVerified && props.data.author.verified,
         displayVerifiedMemberFriendBadge = displayVerified && props.data.friend.verified;
 
-    console.log(props.data);
-
     return (
         <div className="widget-box-status-header">
             <div className="user-status">

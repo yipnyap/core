@@ -25,7 +25,7 @@ function StreamSettingsScreen(props) {
   const getLoggedInMember = () => {
     userRouter.getLoggedInMember('user-settings')
     .done((response) => {
-      // console.log('STREAM SETTINGS SCREEN - LOGGED IN USER: ', response);
+      console.log('STREAM SETTINGS SCREEN - LOGGED IN USER: ', response);
 
       setLoggedUser(response);
     });
@@ -34,13 +34,13 @@ function StreamSettingsScreen(props) {
   const getLoggedUserStreamUsername = () => {
     userRouter.getLoggedUserStreamUsername()
     .done((response) => {
-      // console.log('STREAM SETTINGS SCREEN - GET LOGGED USER STREAM USERNAME RESPONSE: ', response);
+      console.log('STREAM SETTINGS SCREEN - GET LOGGED USER STREAM USERNAME RESPONSE: ', response);
 
       setStreamerUsername(response);
       setFetchingStreamerUsername(false);
     })
     .fail((error) => {
-      // console.log('STREAM SETTINGS SCREEN - GET LOGGED USER STREAM USERNAME ERROR: ', error);
+      console.log('STREAM SETTINGS SCREEN - GET LOGGED USER STREAM USERNAME ERROR: ', error);
     });
   };
 
@@ -60,12 +60,12 @@ function StreamSettingsScreen(props) {
 
     updateLoggedUserStreamUsernamePromise
     .done((response) => {
-      // console.log('STREAM SETTINGS SCREEN - UPDATE LOGGED USER STREAM USERNAME RESPONSE: ', response);
+      console.log('STREAM SETTINGS SCREEN - UPDATE LOGGED USER STREAM USERNAME RESPONSE: ', response);
 
       window.location.reload();
     })
     .fail((error) => {
-      // console.log('STREAM SETTINGS SCREEN - UPDATE LOGGED USER STREAM USERNAME ERROR: ', error);
+      console.log('STREAM SETTINGS SCREEN - UPDATE LOGGED USER STREAM USERNAME ERROR: ', error);
 
       setSaving(false);
     })
@@ -127,7 +127,7 @@ function StreamSettingsScreen(props) {
               !streamerUsername &&
                 <p className="no-results-text">{yipnyap_translation.stream_settings_preview_no_results}</p>
             }
-              
+
             </div>
             {/* WIDGET BOX CONTENT */}
           </div>

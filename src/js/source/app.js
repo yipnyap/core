@@ -1,3 +1,8 @@
+const ConsoleLogBackup = console.log;
+if (localStorage.getItem('debug') !== 'true') {
+    console.log = () => {};
+}
+
 /*-------------
     SIDEBAR
 -------------*/

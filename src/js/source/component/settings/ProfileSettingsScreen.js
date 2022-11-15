@@ -70,8 +70,6 @@ function ProfileSettingsScreen(props) {
 
                 setLoggedUser(response);
                 setProfileDataGroups(loggedUserProfileDataGroups);
-
-                console.log(loggedUserProfileDataGroups)
             });
     };
 

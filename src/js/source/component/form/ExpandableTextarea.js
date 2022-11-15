@@ -312,7 +312,6 @@ function ExpandableTextarea(props) {
                     rows={2}
                     id="activity-post-form-area"
                     placeholder={''}
-                    defaultValue={''}
                     ref={textareaRef}
                     name={props.name}
                     value={props.value}

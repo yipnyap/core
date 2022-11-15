@@ -334,9 +334,9 @@ export default function Header() {
                                     </div>
                                 }
                                 <div className="mt-4 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                                    {userNavigationMobile.map((item) => (
+                                    {userNavigationMobile.map((item, i) => (
                                         <a
-                                            key={item.name}
+                                            key={i}
                                             href={item.href}
                                             className="header-menu-entity py-2 px-3 text-primary"
                                         >
@@ -349,12 +349,12 @@ export default function Header() {
                             <div className="overflow-y-auto flex-grow">
                                 {/* Additional Links */}
                                 <div className="max-w-8xl mx-auto py-2">
-                                    {navigation.map((item) =>
+                                    {navigation.map((item, i) =>
                                         (item.border) ? (
-                                            <div key={item.name}
+                                            <div key={i}
                                                  className="my-2 border-solid border-t-0 border-x-0 border-b-2 border-divider"/>
                                         ) : (
-                                            <div key={item.name} className="px-2 sm:px-4">
+                                            <div key={i} className="px-2 sm:px-4">
                                                 <a
                                                     href={item.href}
                                                     className="header-menu-entity py-2 px-3 text-primary"

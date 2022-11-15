@@ -107,8 +107,8 @@ if ($sidemenu_status === 'display') {
     <!-- /NAVIGATION WIDGET -->
 <?php } ?>
 <!-- HEADER -->
-<header id="cmui-header" class="fixed top-0 w-full z-40"></header>
+<header id="cmui-header" class="bg-box sticky top-0 w-full z-40" style="height: 64px;"></header>
 <!-- /HEADER -->
 
 <!-- CMUI Entire Content begin -->
-<div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-6" style="overflow-y: auto; overflow-x: hidden; padding-top: 80px;">
+<div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">

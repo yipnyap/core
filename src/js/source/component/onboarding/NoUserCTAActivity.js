@@ -66,7 +66,7 @@ export default function NoUserCTAActivity() {
                                     </CrawlText>
                                 </p>
                                 <p
-                                    className="mt-3 text-gray-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
+                                    className="mt-3 text-neutral-500 sm:mt-5 sm:text-lg sm:max-w-xl sm:mx-auto md:mt-5 md:text-xl lg:mx-0"
                                     style={{
                                         whiteSpace: 'break-spaces',
                                     }}

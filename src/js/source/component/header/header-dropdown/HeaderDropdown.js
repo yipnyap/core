@@ -28,7 +28,7 @@ function HeaderDropdown(props) {
 
   return (
     <span className="inline-flex" onBlur={closeDropdown}>
-      <div className={`ypsdk button-icon -mx-1 p-1 rounded-full text-gray-400 hover:text-gray-500 ${props.unread ? 'unread' : ''}`} tabIndex="0" onClick={toggleDropdown}>
+      <div className={`ypsdk button-icon -mx-1 p-1 rounded-full text-neutral-400 hover:text-neutral-500 ${props.unread ? 'unread' : ''}`} tabIndex="0" onClick={toggleDropdown}>
         <span className="sr-only">View notifications</span>
         <BellIcon className="h-6 w-6" aria-hidden="true"/>
       </div>

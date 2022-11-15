@@ -314,7 +314,7 @@ if (!function_exists('yipnyap_gamipress_get_logged_user_achievements')) {
      * @param string $achievement_type_slug Slug of the achievement type to return data from
      * @return array
      */
-    function yipnyap_gamipress_get_logged_user_achievements($achievement_type_slug)
+    function yipnyap_gamipress_get_logged_user_achievements($achievement_type_slug): array
     {
         $user_id = false;
 

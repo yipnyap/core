@@ -438,7 +438,7 @@ function ActivityForm(props) {
                                     {
                                         formData.hashtags && formData.hashtags.map((hashtag, i) => (
                                             <span key={i}
-                                                  className="mb-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-gray-100 text-gray-800">
+                                                  className="mb-2 inline-flex items-center px-3 py-0.5 rounded-full text-sm font-medium bg-neutral-100 text-neutral-800">
                                                 {hashtag}
                                             </span>
                                         ))
@@ -452,13 +452,13 @@ function ActivityForm(props) {
                                         <div className="flex mr-auto">
                                             <button
                                                 type="button"
-                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-neutral-400 group"
                                                 onClick={toggleUploadablePhotosBar}
                                             >
-                                                <PhotoIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                <PhotoIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-neutral-500"
                                                                aria-hidden="true"/>
                                                 <span
-                                                    className="text-sm text-gray-500 group-hover:text-gray-600 italic">Photo</span>
+                                                    className="text-sm text-neutral-500 group-hover:text-neutral-600 italic">Photo</span>
                                             </button>
 
                                             <input ref={fileInputRef}
@@ -469,15 +469,15 @@ function ActivityForm(props) {
                                             />
                                             <button
                                                 type="button"
-                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+                                                className="rounded-full px-3 py-2 inline-flex items-center text-left text-neutral-400 group"
                                                 onClick={() => {
                                                     fileInputRef.current.click();
                                                 }}
                                                 >
-                                                <VideoCameraIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                <VideoCameraIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-neutral-500"
                                                                     aria-hidden="true"/>
                                                 <span
-                                                    className="text-sm text-gray-500 group-hover:text-gray-600 italic">Video</span>
+                                                    className="text-sm text-neutral-500 group-hover:text-neutral-600 italic">Video</span>
                                             </button>
                                         </div>
                                     }

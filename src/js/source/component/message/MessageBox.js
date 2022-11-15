@@ -56,7 +56,7 @@ function MessageBox(props) {
                                 {props.data.title}
                             </h3>
                             <div className="mt-2">
-                                <p className="text-sm text-gray-500">
+                                <p className="text-sm text-neutral-500">
                                     {props.data.text}
                                 </p>
                             </div>

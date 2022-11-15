@@ -47,29 +47,38 @@ $type = 'market-item';
 
 <header class="bg-box shadow sticky top-0">
     <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="font-bold text-primary"><img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/money-with-wings.gif' ?>" alt="Money with wings animated emoji"> market</h1>
+        <h1 class="font-bold text-primary items-center flex gap-2">
+            <img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/money-with-wings.gif' ?>" alt="Money with wings animated emoji">
+            yipnyap market
+            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium bg-primary text-white">
+                beta
+            </span>
+        </h1>
     </div>
 </header>
 <main>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div>
-                <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
-                    <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
-                    <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold']['points'] ?></dd>
-                </div>
+                <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
+                    <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
+                        <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
+                        <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold']['points'] ?></dd>
+                    </div>
 
-                <dl class="mt-5 grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
                         <dt class="text-sm font-medium text-alt truncate">Items Available</dt>
                         <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo count($marketItems) ?></dd>
                     </div>
-
-                    <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6" style="min-height: 106px;">
-                        <dt class="text-sm font-medium text-alt truncate mb-2"><img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/heavy-exclamation-mark-symbol.gif' ?>" alt="Heavy exclamation mark emoji"> Note about Yipnyap Market</dt>
-                        <dd class="mt-1 text-primary">this is experimental! if you find hiccups, let us know!</dd>
-                    </div>
                 </dl>
+
+                <div class="mt-5 px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6" style="min-height: 106px;">
+                    <dt class="text-sm font-medium text-alt truncate mb-2"><img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/heavy-exclamation-mark-symbol.gif' ?>" alt="Heavy exclamation mark emoji"> Note about Yipnyap Market</dt>
+                    <dd class="mt-1 text-primary">
+                        Yipnyap Market is a place where you can spend you credits <img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/sparkles.gif' ?>" alt="Sparkles animated emoji"><br>
+                        it's using experimental UI & features, so please be patient if something doesn't work or look as expected!
+                    </dd>
+                </div>
             </div>
 
             <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">

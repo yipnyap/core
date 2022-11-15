@@ -17,15 +17,15 @@
  * @package Yipnyap
  */
 
-$achievement_complete_info = isset($args['achievement_complete_info']) ? $args['achievement_complete_info'] : false;
-$achievement_image_wrap = isset($args['achievement_image_wrap']) ? $args['achievement_image_wrap'] : false;
-$achievement_type = isset($args['achievement_type']) ? $args['achievement_type'] : 'achievement';
+$achievement_complete_info = $args['achievement_complete_info'] ?? false;
+$achievement_image_wrap = $args['achievement_image_wrap'] ?? false;
+$achievement_type = $args['achievement_type'] ?? 'achievement';
 
 ?>
 
 <!-- ACHIEVEMENT ITEM BOX -->
-<div class="achievement-item-box">
-    <?php if ($achievement_complete_info && array_key_exists('points', $args['achievement'])) : ?>
+<div class="achievement-item-box px-4 py-5">
+    <?php if ($achievement_complete_info && !empty($args['achievement']['points'])) : ?>
         <!-- TEXT STICKER -->
         <p class="text-sticker">
             <?php
@@ -43,17 +43,16 @@ $achievement_type = isset($args['achievement_type']) ? $args['achievement_type']
             <?php echo esc_html($args['achievement']['points']); ?>
 
             <!-- TEXT STICKER IMAGE -->
-            <!--            <img class="text-sticker-image"-->
-            <!--                 src="-->
-            <?php //echo esc_url($args['achievement']['points_type']['image_url']); ?><!--"-->
-            <!--                 alt="--><?php //echo esc_attr($args['achievement']['points_type']['slug']); ?><!--">-->
+            <img class="text-sticker-image"
+                 src="<?php echo esc_url($args['achievement']['points_type']['image_url']); ?>"
+                 alt="<?php echo esc_attr($args['achievement']['points_type']['slug']); ?>">
             <!-- /TEXT STICKER IMAGE -->
         </p>
         <!-- /TEXT STICKER -->
     <?php endif; ?>
 
     <!-- ACHIEVEMENT ITEM BOX INFO -->
-    <div class="achievement-item-box-info">
+    <div class="flex flex-col">
         <!-- ACHIEVEMENT ITEM BOX INFO TOP -->
         <div class="achievement-item-box-info-top">
             <?php if ($achievement_image_wrap) : ?>
@@ -225,40 +224,6 @@ $achievement_type = isset($args['achievement_type']) ? $args['achievement_type']
                     <!-- /BAR PROGRESS WRAP -->
                 </div>
                 <!-- /PROGRESS STAT -->
-            <?php elseif (!$args['achievement']['completed'] && ($steps_count === 0)) : ?>
-                <!-- PROGRESS STAT -->
-                <div class="progress-stat">
-                    <!-- PROGRESS STAT BAR -->
-                    <div class="progress-stat-bar achievement-progress" data-scalestop="0" data-scaleend="1"></div>
-                    <!-- /PROGRESS STAT BAR -->
-
-                    <!-- BAR PROGRESS WRAP -->
-                    <div class="bar-progress-wrap">
-                        <!-- BAR PROGRESS INFO -->
-                        <p class="bar-progress-info negative center"><span class="bar-progress-text no-space"></span>
-                        </p>
-                        <!-- /BAR PROGRESS INFO -->
-                    </div>
-                    <!-- /BAR PROGRESS WRAP -->
-                </div>
-                <!-- /PROGRESS STAT -->
-            <?php else : ?>
-                <!-- PROGRESS STAT -->
-                <div class="progress-stat">
-                    <!-- PROGRESS STAT BAR -->
-                    <div class="progress-stat-bar achievement-progress" data-scalestop="1" data-scaleend="1"></div>
-                    <!-- /PROGRESS STAT BAR -->
-
-                    <!-- BAR PROGRESS WRAP -->
-                    <div class="bar-progress-wrap">
-                        <!-- BAR PROGRESS INFO -->
-                        <p class="bar-progress-info negative center"><span class="bar-progress-text no-space"></span>
-                        </p>
-                        <!-- /BAR PROGRESS INFO -->
-                    </div>
-                    <!-- /BAR PROGRESS WRAP -->
-                </div>
-                <!-- /PROGRESS STAT -->
             <?php
 
             endif;
@@ -276,45 +241,39 @@ $achievement_type = isset($args['achievement_type']) ? $args['achievement_type']
 
             ?>
             <!-- ACHIEVEMENT ITEM BOX FOOTER -->
+            <?php if ($achievement_type === 'rank') { ?>
             <div class="achievement-item-box-footer <?php echo !$achievement_complete_info ? 'big-margin-top' : '' ?>">
-                <?php if ($achievement_type === 'rank') : ?>
                     <!-- ACHIEVEMENT ITEM BOX FOOTER TITLE -->
                     <p class="achievement-item-box-footer-title"><?php esc_html_e('People who have this rank:', 'yipnyap'); ?></p>
                     <!-- /ACHIEVEMENT ITEM BOX FOOTER TITLE -->
-                <?php else : ?>
-                    <!-- ACHIEVEMENT ITEM BOX FOOTER TITLE -->
-                    <p class="achievement-item-box-footer-title"><?php esc_html_e('People who have earned this:', 'yipnyap'); ?></p>
-                    <!-- /ACHIEVEMENT ITEM BOX FOOTER TITLE -->
-                <?php endif; ?>
 
-                <?php
-                if (count($args['achievement']['completed_users']) > 0) :
-                    ?>
-                    <!-- USER AVATAR LIST -->
-                    <div class="user-avatar-list">
-                        <?php
-                        foreach ($args['achievement']['completed_users'] as $user) {
-                            /**
-                             * Avatar Micro
-                             */
-                            get_template_part('template-part/avatar/avatar', 'micro', [
-                                'user' => $user,
-                                'linked' => true
-                            ]);
-                        }
+                    <?php
+                    if (count($args['achievement']['completed_users']) > 0) {
                         ?>
-                    </div>
-                    <!-- /USER AVATAR LIST -->
-                <?php
-                else:
-                    ?>
-                    <!-- ACHIEVEMENT ITEM BOX FOOTER TITLE -->
-                    <p class="achievement-item-box-footer-title">-</p>
-                    <!-- /ACHIEVEMENT ITEM BOX FOOTER TITLE -->
-                <?php
-                endif;
-                ?>
+                        <!-- USER AVATAR LIST -->
+                        <div class="user-avatar-list">
+                            <?php
+                            foreach ($args['achievement']['completed_users'] as $user) {
+                                /**
+                                 * Avatar Micro
+                                 */
+                                get_template_part('template-part/avatar/avatar', 'micro', [
+                                    'user' => $user,
+                                    'linked' => true
+                                ]);
+                            }
+                            ?>
+                        </div>
+                        <!-- /USER AVATAR LIST -->
+                        <?php
+                    } else {
+                        ?>
+                        <!-- ACHIEVEMENT ITEM BOX FOOTER TITLE -->
+                        <p class="achievement-item-box-footer-title">-</p>
+                        <!-- /ACHIEVEMENT ITEM BOX FOOTER TITLE -->
+                    <?php } ?>
             </div>
+            <?php } ?>
             <!-- /ACHIEVEMENT ITEM BOX FOOTER -->
         </div>
         <!-- /ACHIEVEMENT ITEM BOX INFO BOTTOM -->

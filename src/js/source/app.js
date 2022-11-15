@@ -1,6 +1,11 @@
 const ConsoleLogBackup = console.log;
+
+ConsoleLogBackup(`%cYipnyap ${yipnyap_constants.yipnyap_server_version}`, 'color: #00ff00;');
+
 if (localStorage.getItem('debug') !== 'true') {
     console.log = () => {};
+} else {
+    console.log('Howdy!');
 }
 
 /*-------------

@@ -36,6 +36,13 @@ if (!$no_stats) {
     $max_rank = (int)$args['user']['rank']['total'];
 
     $current_rank_ratio = $current_rank / $max_rank;
+
+    // Set the rank color based on the users' xprofile data
+    $userXProfile = yipnyap_member_get_xprofile_data($args['user']['id']);
+    $userXProfileFormatted = [
+            'profile_data' => $userXProfile,
+    ];
+    $userPrimaryAccent = yipnyap_members_xprofile_get_field_value($userXProfileFormatted, 'Account_Info_Profile Primary Accent');
 }
 
 ?>
@@ -55,7 +62,7 @@ if (!$no_stats) {
         <?php if (!$no_stats && !$hide_rank) : ?>
             <!-- USER AVATAR CIRCLE PROGRESS -->
             <div class="user-avatar-circle-progress user-avatar-circle-progress-small"
-                 data-scalestop="<?php echo esc_attr($current_rank_ratio); ?>"></div>
+                 data-scalestop="<?php echo esc_attr($current_rank_ratio); ?>" data-fillcolor="<?php echo $userPrimaryAccent ?>"></div>
             <!-- /USER AVATAR CIRCLE PROGRESS -->
 
             <!-- USER AVATAR CIRCLE BADGE -->

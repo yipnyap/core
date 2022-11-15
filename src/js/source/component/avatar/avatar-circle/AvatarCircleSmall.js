@@ -6,6 +6,8 @@ function AvatarCircleSmall(props) {
     const noBorderClasses = props.noBorder ? 'no-border' : '';
     const Element = props.noLink || !yipnyap_constants.plugin_active.buddypress ? 'div' : 'a';
 
+    console.log('[AvatarCircleSmall] props', props);
+
     return (
         <Element
             className={`user-avatar-circle small ${!props.data.rank ? 'no-stats' : ''} ${noBorderClasses} ${props.modifiers || ''}`}
@@ -19,7 +21,7 @@ function AvatarCircleSmall(props) {
                 props.data.rank &&
                 <React.Fragment>
                     {/* USER AVATAR CIRCLE PROGRESS */}
-                    <CircleProgressBar size="small" fillAmount={props.data.rank.current / props.data.rank.total}/>
+                    <CircleProgressBar size="small" fillColor={props.data.profile_data?.field['Account_Info_Profile Primary Accent']?.value} fillAmount={props.data.rank.current / props.data.rank.total}/>
                     {/* USER AVATAR CIRCLE PROGRESS */}
 
                     {/* USER AVATAR CIRCLE BADGE */}

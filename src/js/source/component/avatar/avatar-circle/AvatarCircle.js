@@ -19,7 +19,7 @@ function AvatarCircle(props) {
                 props.data.rank &&
                 <React.Fragment>
                     {/* USER AVATAR CIRCLE PROGRESS */}
-                    <CircleProgressBar size="regular" fillAmount={props.data.rank.current / props.data.rank.total}/>
+                    <CircleProgressBar size="regular" fillColor={props.data.profile_data?.field['Account_Info_Profile Primary Accent']?.value} fillAmount={props.data.rank.current / props.data.rank.total}/>
                     {/* USER AVATAR CIRCLE PROGRESS */}
 
                     {/* USER AVATAR CIRCLE BADGE */}

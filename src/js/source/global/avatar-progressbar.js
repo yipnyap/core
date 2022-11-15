@@ -152,18 +152,21 @@ const avatarProgressItems = [
 for (const avatarProgressItem of avatarProgressItems) {
     querySelector(avatarProgressItem.selector, (els) => {
         for (const avatarProgressElement of els) {
-            let avatarProgress;
-
-            if (avatarProgressItem.type === 'circle') {
-                avatarProgress = new ProgressBar.Circle(avatarProgressElement, avatarProgressItem.config);
-            } else if (avatarProgressItem.type === 'path') {
-                const svgElement = createSquareProgressSVG(avatarProgressItem.size);
-
-                avatarProgressElement.append(svgElement.svg);
-                avatarProgress = new ProgressBar.Path(svgElement.linePath, avatarProgressItem.config);
-            }
-
             const stopValue = Number.parseFloat(avatarProgressElement.getAttribute('data-scalestop'));
+            const fillColor = avatarProgressElement.getAttribute('data-fillcolor');
+            let avatarProgress;
+            let currentProgressBarConfig = avatarProgressItem.config;
+
+            currentProgressBarConfig.color = fillColor || currentProgressBarConfig.color;
+            if (avatarProgressItem.type === 'circle') {
+                avatarProgress = new ProgressBar.Circle(avatarProgressElement, currentProgressBarConfig);
+            } else if (avatarProgressItem.type === 'path') {
+
+                const svgElement = createSquareProgressSVG(avatarProgressItem.size);
+                avatarProgressElement.append(svgElement.svg);
+                avatarProgress = new ProgressBar.Path(svgElement.linePath, currentProgressBarConfig);
+
+            }
 
             avatarProgress.set(stopValue);
         }

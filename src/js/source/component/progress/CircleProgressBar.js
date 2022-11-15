@@ -50,10 +50,13 @@ function CircleProgressBar(props) {
 
     const size = props.size || 'regular';
     const fillAmount = props.fillAmount ? Math.min(Math.max(props.fillAmount, 0), 1) : 1;
+    const fillColor = props.fillColor;
 
     const progressBarElement = useRef(null);
 
     useLayoutEffect(() => {
+        let currentProgressBarConfig = progressBarConfig[size];
+        currentProgressBarConfig.color = fillColor || currentProgressBarConfig.color;
         progressBarElement.current = new ProgressBar.Circle(progressBarRef.current, progressBarConfig[size]);
 
         progressBarElement.current.set(fillAmount);

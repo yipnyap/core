@@ -31,30 +31,6 @@ $achievement_type = 'badge';
 <!-- CONTENT GRID -->
 <div class="content-grid">
     <?php
-
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');
-
-    if ($page_header_status === 'display') {
-        $badge_header_icon_id = get_theme_mod('yipnyap_pageheader_badge_setting_image', false);
-        $badge_header_title = get_theme_mod('yipnyap_pageheader_badge_setting_title', esc_html_x('Badges', 'Badges Page - Title', 'yipnyap'));
-        $badge_header_description = get_theme_mod('yipnyap_pageheader_badge_setting_description', esc_html_x('Browse all the badges of the community!', 'Badges Page - Description', 'yipnyap'));
-
-        if ($badge_header_icon_id) {
-            $badge_header_icon_url = wp_get_attachment_image_src($badge_header_icon_id, 'full')[0];
-        } else {
-            $badge_header_icon_url = yipnyap_customizer_badge_page_image_get_default();
-        }
-
-        /**
-         * Section Banner
-         */
-        get_template_part('template-part/section/section', 'banner', [
-            'section_icon_url' => $badge_header_icon_url,
-            'section_title' => $badge_header_title,
-            'section_description' => $badge_header_description
-        ]);
-    }
-
     $achievements = yipnyap_gamipress_get_logged_user_achievements($achievement_type);
     $user_points = yipnyap_gamipress_get_logged_user_points();
 

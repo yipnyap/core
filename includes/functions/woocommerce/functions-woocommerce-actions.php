@@ -1,13 +1,13 @@
 <?php
 /**
  * Functions - WooCommerce - Actions
- * 
+ *
  * @package Yipnyap
- * 
+ *
  * @since 2022.05.2
- * 
+ *
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
 /**
@@ -46,29 +46,6 @@ if (!function_exists('yipnyap_woocommerce_wrapper_start')) {
   <div class="content-grid">
   <?php
 
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'display');
-
-    if ($page_header_status === 'display') {
-      $woocommerce_header_icon_id      = get_theme_mod('yipnyap_pageheader_woocommerce_setting_image', false);
-      $woocommerce_header_title        = get_theme_mod('yipnyap_pageheader_woocommerce_setting_title', esc_html_x('Yipnyap Shop', 'WooCommerce Page - Title', 'yipnyap'));
-      $woocommerce_header_description  = get_theme_mod('yipnyap_pageheader_woocommerce_setting_description', esc_html_x('Merchandise, clothing, coffee mugs and more!', 'WooCommerce Page - Description', 'yipnyap'));
-
-      if ($woocommerce_header_icon_id) {
-        $woocommerce_header_icon_url = wp_get_attachment_image_src($woocommerce_header_icon_id , 'full')[0];
-      } else {
-        $woocommerce_header_icon_url = yipnyap_customizer_woocommerce_page_image_get_default();
-      }
-
-      /**
-       * Section Banner
-       */
-      get_template_part('template-part/section/section', 'banner', [
-        'section_icon_url'    => $woocommerce_header_icon_url,
-        'section_title'       => $woocommerce_header_title,
-        'section_description' => $woocommerce_header_description
-      ]);
-    }
-    
     $shop_sidebar_is_active = is_active_sidebar('shop');
     $shop_sidebar_active_class = $shop_sidebar_is_active ? 'yipnyap-wc-content-with-sidebar' : '';
 
@@ -255,7 +232,7 @@ if (!function_exists('yipnyap_woocommerce_redirect_myaccount_root_to_orders')) {
       global $woocommerce;
 
       $current_woocommerce_endpoint = $woocommerce->query->get_current_endpoint();
-      
+
       // on my-account root page
       if (is_account_page() && empty($current_woocommerce_endpoint)){
         wp_safe_redirect(wc_get_account_endpoint_url('orders'));

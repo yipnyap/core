@@ -19,29 +19,6 @@ $user = yipnyap_get_logged_user_member_data();
 <div class="content-grid <?php if ($user) echo 'signed-in' ?>" style="padding: 0 !important;">
     <?php
 
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');
-
-    if ($page_header_status === 'display') {
-        $activity_header_icon_id = get_theme_mod('yipnyap_pageheader_activity_setting_image', false);
-        $activity_header_title = get_theme_mod('yipnyap_pageheader_activity_setting_title', esc_html_x('Newsfeed', 'Activity Page - Title', 'yipnyap'));
-        $activity_header_description = get_theme_mod('yipnyap_pageheader_activity_setting_description', esc_html_x('Check what your friends have been up to!', 'Activity Page - Description', 'yipnyap'));
-
-        if ($activity_header_icon_id) {
-            $activity_header_icon_url = wp_get_attachment_image_src($activity_header_icon_id, 'full')[0];
-        } else {
-            $activity_header_icon_url = yipnyap_customizer_activity_page_image_get_default();
-        }
-
-        /**
-         * Section Banner
-         */
-        get_template_part('template-part/section/section', 'banner', [
-            'section_icon_url' => $activity_header_icon_url,
-            'section_title' => $activity_header_title,
-            'section_description' => '<a style="text-decoration:underline;" href="https://yipnyap.xyz/guidelines">You can read them here</a>'
-        ]);
-    }
-
     $show_quests = false;
     $show_badges = false;
 

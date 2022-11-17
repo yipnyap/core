@@ -30,28 +30,6 @@ $verified_user = $args['post']['author']['verified'];
 
 <!-- CONTENT GRID -->
 <div class="content-grid">
-    <?php
-
-    $blog_header_icon_id = get_theme_mod('yipnyap_pageheader_blog_setting_image', false);
-    $blog_header_title = get_theme_mod('yipnyap_pageheader_blog_setting_title', esc_html_x('Blog Posts', 'Blog Page - Title', 'yipnyap'));
-    $blog_header_description = get_theme_mod('yipnyap_pageheader_blog_setting_description', esc_html_x('Read about news, announcements and more!', 'Blog Page - Description', 'yipnyap'));
-
-    if ($blog_header_icon_id) {
-        $blog_header_icon_url = wp_get_attachment_image_src($blog_header_icon_id, 'full')[0];
-    } else {
-        $blog_header_icon_url = yipnyap_customizer_blog_page_image_get_default();
-    }
-
-    /**
-     * Section Banner
-     */
-    get_template_part('template-part/section/section', 'banner', [
-        'section_icon_url' => $blog_header_icon_url,
-        'section_title' => $blog_header_title,
-        'section_description' => $blog_header_description
-    ]);
-
-    ?>
     <!-- GRID -->
     <div class="grid <?php echo esc_attr($blog_sidebar_classes); ?> centered">
         <?php if ($blog_sidebar_is_active) : ?>

@@ -17,29 +17,6 @@ $search_query = get_search_query();
 <!-- CONTENT GRID -->
 <div class="content-grid">
     <?php
-
-    $page_header_status = get_theme_mod('yipnyap_pageheader_setting_display', 'hide');
-
-    if ($page_header_status === 'display') {
-        $search_header_icon_id = get_theme_mod('yipnyap_pageheader_search_setting_image', false);
-        $search_header_description = get_theme_mod('yipnyap_pageheader_search_setting_description', esc_html_x('Browse your search results', 'Search Page - Description', 'yipnyap'));
-
-        if ($search_header_icon_id) {
-            $search_header_icon_url = wp_get_attachment_image_src($search_header_icon_id, 'full')[0];
-        } else {
-            $search_header_icon_url = yipnyap_customizer_search_page_image_get_default();
-        }
-
-        /**
-         * Section Banner
-         */
-        get_template_part('template-part/section/section', 'banner', [
-            'section_icon_url' => $search_header_icon_url,
-            'section_title' => esc_html_x('Search Results', 'Search Page - Title', 'yipnyap') . ': "' . $search_query . '"',
-            'section_description' => $search_header_description
-        ]);
-    }
-
     global $yipnyap_settings;
 
     // add BuddyPress member search data if BuddyPress is active

@@ -11,7 +11,7 @@
  */
 
 get_template_part('template-part/common/header/header', '', [
-    'title' => 'groups',
+    'title' => 'Groups',
     'icon' => 'seedling',
     'breadcrumbs' => [
         [

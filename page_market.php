@@ -32,7 +32,7 @@ get_header();
 $type = 'market-item';
 
 get_template_part('template-part/common/header/header', '', [
-    'title' => 'market',
+    'title' => 'Market',
     'icon' => 'money-with-wings',
     'beta' => true,
     'breadcrumbs' => [

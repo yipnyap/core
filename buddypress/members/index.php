@@ -10,7 +10,7 @@
  *
  */
 get_template_part('template-part/common/header/header', '', [
-    'title' => 'users',
+    'title' => 'Users',
     'icon' => 'hatching-chick',
     'breadcrumbs' => [
         [

@@ -56,7 +56,7 @@ function CircleProgressBar(props) {
 
     useLayoutEffect(() => {
         let currentProgressBarConfig = progressBarConfig[size];
-        currentProgressBarConfig.color = fillColor || currentProgressBarConfig.color;
+        currentProgressBarConfig.color = fillColor || 'url(#vk-avatar-gradient)';
         progressBarElement.current = new ProgressBar.Circle(progressBarRef.current, progressBarConfig[size]);
 
         progressBarElement.current.set(fillAmount);

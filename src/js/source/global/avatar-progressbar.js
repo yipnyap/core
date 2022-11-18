@@ -153,11 +153,12 @@ for (const avatarProgressItem of avatarProgressItems) {
     querySelector(avatarProgressItem.selector, (els) => {
         for (const avatarProgressElement of els) {
             const stopValue = Number.parseFloat(avatarProgressElement.getAttribute('data-scalestop'));
-            const fillColor = avatarProgressElement.getAttribute('data-fillcolor');
+            const fillColorAttr = avatarProgressElement.getAttribute('data-fillcolor');
+            const fillColor = fillColorAttr?.length > 0 ? fillColorAttr : false;
             let avatarProgress;
             let currentProgressBarConfig = avatarProgressItem.config;
 
-            currentProgressBarConfig.color = fillColor || currentProgressBarConfig.color;
+            currentProgressBarConfig.color = fillColor || 'url(#vk-avatar-gradient)';
             if (avatarProgressItem.type === 'circle') {
                 avatarProgress = new ProgressBar.Circle(avatarProgressElement, currentProgressBarConfig);
             } else if (avatarProgressItem.type === 'path') {

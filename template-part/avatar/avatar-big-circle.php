@@ -28,6 +28,8 @@ $no_stats_classes = $no_stats ? 'no-stats' : '';
 $current_rank = 1;
 $max_rank = 1;
 
+$userPrimaryAccent = '';
+
 // TODO: Make this a function instead
 if (!$no_stats) {
     $current_rank = (int)$args['user']['rank']['current'];

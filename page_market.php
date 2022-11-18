@@ -51,11 +51,11 @@ get_template_part('template-part/common/header/header', '', [
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div>
-                <?php if (isset($userEarnings['gold'])) { ?>
+                <?php if (isset($userEarnings['gold-credit'])) { ?>
                 <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
                         <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
-                        <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold']['points'] ?></dd>
+                        <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold-credit']['points'] ?></dd>
                     </div>
 
                     <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">

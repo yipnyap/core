@@ -10,14 +10,30 @@
  *
  */
 
+get_template_part('template-part/common/header/header', '', [
+    'title' => 'groups',
+    'icon' => 'seedling',
+    'breadcrumbs' => [
+        [
+            'title' => 'Groups',
+            'url' => bp_get_groups_directory_permalink(),
+        ],
+    ],
+]);
 ?>
 
-<!-- CONTENT GRID -->
-<div class="content-grid">
-<?php
-
-  bp_get_template_part('groups/groups-loop');
-
-?>
-</div>
-<!-- /CONTENT GRID -->
+<main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <?php
+            if (bp_has_groups()) {
+                bp_get_template_part('groups/groups-loop');
+            } else {
+                get_template_part('template-part/common/no-data-found', '', [
+                    'type' => 'groups',
+                ]);
+            }
+            ?>
+        </div>
+    </div>
+</main>

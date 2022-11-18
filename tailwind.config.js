@@ -1,5 +1,6 @@
 const {default: flattenColorPalette} = require('tailwindcss/lib/util/flattenColorPalette')
 module.exports = {
+    preflight: true,
     content: [
         './**/*.{html,js,php}',
         './**/raw/styles.css', // grunt

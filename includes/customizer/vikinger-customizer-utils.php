@@ -362,9 +362,9 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Text Colors
          */
-        '--color-text' => '#3e3f5e',
-        '--color-text-alt' => '#8f91ac',
-        '--color-text-alt-2' => '#adafca',
+        '--color-text' => '#404040',
+        '--color-text-alt' => '#a3a3a3',
+        '--color-text-alt-2' => '#737373',
 
         /**
          * Icon Colors
@@ -375,8 +375,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Border Colors
          */
-        '--color-border' => '#dedeea',
-        '--color-divider' => '#eaeaf5',
+        '--color-border' => '#e5e5e5',
+        '--color-divider' => '#e5e5e5',
 
         /**
          * Progress Bar Colors
@@ -458,8 +458,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-overbox-dark-shadow' => '#000000',
                 '--color-overbox-big-shadow' => '#000000',
                 '--color-text' => '#ffffff',
-                '--color-text-alt' => '#9aa4bf',
-                '--color-text-alt-2' => '#9aa4bf',
+                '--color-text-alt' => '#525252',
+                '--color-text-alt-2' => '#737373',
                 '--color-icon' => '#616a82',
                 '--color-icon-highlighted' => '#ffffff',
                 '--color-border' => '#404040',

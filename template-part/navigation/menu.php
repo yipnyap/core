@@ -44,7 +44,7 @@ foreach ( $args['menu_items'] as $menu_item ) :
 		/**
 		 * Icon SVG
 		 */
-		get_template_part( 'template-part/community-ui/icon/icon', 'svg', [
+		get_template_part( 'template-part/common/icon/icon', 'svg', [
 			'icon'      => $menu_item['icon'],
 			'modifiers' => 'menu-item-link-icon w-6 h-6'
 		]);

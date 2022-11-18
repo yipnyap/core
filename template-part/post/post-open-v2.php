@@ -21,6 +21,7 @@ if (!$blog_sidebar_is_active) {
     $post_classes[] = 'full';
 }
 
+/** @noinspection PhpUndefinedVariableInspection */
 if (!$args['post']['cover_url']) {
     $post_classes[] = 'no-cover';
 }

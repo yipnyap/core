@@ -95,7 +95,7 @@ if ($sidemenu_status === 'display') {
 					echo esc_attr('active');
 				} ?>" href="<?php echo esc_url($args['user']['link'] . 'settings') ?>">
                     <?php
-                    get_template_part( 'template-part/community-ui/icon/icon', 'svg', [
+                    get_template_part( 'template-part/common/icon/icon', 'svg', [
                         'icon'      => 'cog-6-teeth',
                         'modifiers' => 'menu-item-link-icon w-6 h-6'
                     ]);

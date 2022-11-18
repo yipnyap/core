@@ -8,35 +8,42 @@
  *
  */
 
-  get_header();
+get_header();
 
-  $category = get_queried_object();
+$category = get_queried_object();
 
+get_template_part('template-part/common/header/header', '', [
+    'title' => $category->name,
+    'icon' => 'newspaper',
+    'breadcrumbs' => [
+        [
+            'title' => 'Blog',
+            'url' => '/blog',
+        ],
+        [
+            'title' => $category->name,
+            'url' => get_category_link($category->term_id),
+        ]
+    ],
+]);
 ?>
 
-<!-- CONTENT GRID -->
-<div class="content-grid">
-<?php
-  /**
-   * Section Header
-   */
-  get_template_part('template-part/section/section', 'header', [
-    'section_pretitle'  => esc_html__('Search Results', 'yipnyap'),
-    'section_title'     => esc_html__('Category', 'yipnyap') . ':',
-    'section_text'      => $category->cat_name
-  ]);
+<main>
+    <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <div class="px-4 py-6 sm:px-0">
+            <?php
+            /**
+             * Post Filterable List
+             */
+            get_template_part('template-part/post/post-filterable-list', null, [
+                'attributes' => [
+                    'category' => $category->cat_ID
+                ]
+            ]);
 
-  /**
-   * Post Filterable List
-   */
-  get_template_part('template-part/post/post-filterable-list', null, [
-    'attributes'  => [
-      'category'  => $category->cat_ID
-    ]
-  ]);
-
-?>
-</div>
-<!-- /CONTENT GRID -->
+            ?>
+        </div>
+    </div>
+</main>
 
 <?php get_footer(); ?>

@@ -17,6 +17,7 @@ if ($achievement_unlock_submitted) {
     $achievement_unlocked = yipnyap_gamipress_unlock_logged_user_achievement_with_points($achievement_unlock_id);
 
     // Redirect to same page to avoid form resubmission
+    /** @noinspection PhpUndefinedVariableInspection */
     $redirect_url = esc_url(home_url($wp->request));
     wp_safe_redirect($redirect_url);
     exit;
@@ -29,37 +30,28 @@ $marketItems = yipnyap_gamipress_get_achievements(['post_type' => 'market-item']
 get_header();
 
 $type = 'market-item';
+
+get_template_part('template-part/common/header/header', '', [
+    'title' => 'market',
+    'icon' => 'money-with-wings',
+    'beta' => true,
+    'breadcrumbs' => [
+        [
+            'title' => 'Credits',
+            'url' => '/credits',
+        ],
+        [
+            'title' => 'Market',
+            'url' => '/market',
+        ],
+    ],
+]);
 ?>
-
-<style>
-    #cmui-entire-content {
-        padding: 0 0 80px 80px !important;
-        height: calc(100% - 64px);
-        overflow-y: scroll;
-    }
-
-    @media (max-width: 1024px) {
-        #cmui-entire-content {
-            padding: 0 0 80px 0 !important;
-        }
-    }
-</style>
-
-<header class="bg-box shadow sticky top-0">
-    <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <h1 class="font-bold text-primary items-center flex gap-2">
-            <img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/money-with-wings.gif' ?>" alt="Money with wings animated emoji">
-            yipnyap market
-            <span class="inline-flex items-center px-3 py-0.5 rounded-full text-xs font-medium bg-primary text-white">
-                beta
-            </span>
-        </h1>
-    </div>
-</header>
 <main>
     <div class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
         <div class="px-4 py-6 sm:px-0">
             <div>
+                <?php if (isset($userEarnings['gold'])) { ?>
                 <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
                     <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
                         <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
@@ -71,6 +63,7 @@ $type = 'market-item';
                         <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo count($marketItems) ?></dd>
                     </div>
                 </dl>
+                <?php } ?>
 
                 <div class="mt-5 px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6" style="min-height: 106px;">
                     <dt class="text-sm font-medium text-alt truncate mb-2"><img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/heavy-exclamation-mark-symbol.gif' ?>" alt="Heavy exclamation mark emoji"> Note about Yipnyap Market</dt>

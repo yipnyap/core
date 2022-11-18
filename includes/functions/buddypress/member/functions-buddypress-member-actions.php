@@ -240,7 +240,7 @@ if (yipnyap_settings_stream_profile_is_enabled()) {
                 if (get_current_user_id() === $member['id']) {
                     $no_results_found_text = sprintf(
                         __('You haven\'t linked a stream to your profile. Go to your %sstream%s settings to link one.'),
-                        '<a href="/' . $member['mention_name'] . '/settings/stream'">',
+                        '<a href="/' . $member['mention_name'] . '/settings/stream">',
                         '</a>'
                     );
                 }

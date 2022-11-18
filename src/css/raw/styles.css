@@ -1890,7 +1890,6 @@ textarea::placeholder {
     1. CONTENT GRID
 ----------------------*/
 .content-grid {
-  @apply md:pl-24 pr-4;
   margin: 0 auto 0;
 }
 .content-grid.full {
@@ -2007,7 +2006,7 @@ textarea::placeholder {
 }
 .grid.grid-3-6-3 {
   grid-template-areas: "sidebar1 content sidebar2";
-  grid-template-columns: 23.9864864865% 49.3243243243% 23.9864864865%;
+  grid-template-columns: 24.170212766% 49.7021276596% 24.170212766%;
 }
 .grid.grid-3-6-3 > .grid-column:nth-child(1) {
   grid-area: sidebar1;
@@ -2040,7 +2039,7 @@ textarea::placeholder {
 }
 .grid.grid-3-9 {
   grid-template-areas: "sidebar content";
-  grid-template-columns: 23.9864864865% 74.6621621622%;
+  grid-template-columns: 24.170212766% 75.2340425532%;
 }
 .grid.grid-3-9 > .grid-column:nth-child(1) {
   grid-area: sidebar;
@@ -2050,7 +2049,7 @@ textarea::placeholder {
 }
 .grid.grid-9-3 {
   grid-template-areas: "content sidebar";
-  grid-template-columns: 74.6621621622% 23.9864864865%;
+  grid-template-columns: 75.2340425532% 24.170212766%;
 }
 .grid.grid-9-3 > .grid-column:nth-child(1) {
   grid-area: content;
@@ -2060,7 +2059,7 @@ textarea::placeholder {
 }
 .grid.grid-8-4 {
   grid-template-areas: "content sidebar";
-  grid-template-columns: 66.2162162162% 32.4324324324%;
+  grid-template-columns: 66.7234042553% 32.6808510638%;
 }
 .grid.grid-8-4 > .grid-column:nth-child(1) {
   grid-area: content;
@@ -2070,7 +2069,7 @@ textarea::placeholder {
 }
 .grid.grid-6-3 {
   grid-template-areas: "content sidebar";
-  grid-template-columns: 49.3243243243% 23.9864864865%;
+  grid-template-columns: 49.7021276596% 24.170212766%;
 }
 .grid.grid-6-3 > .grid-column:nth-child(1) {
   grid-area: content;
@@ -2100,7 +2099,7 @@ textarea::placeholder {
   grid-template-columns: repeat(auto-fit, 184px);
 }
 .grid.grid-layout-1 {
-  grid-template-columns: repeat(4, 23.9864864865%);
+  grid-template-columns: repeat(4, 24.170212766%);
   grid-template-areas: "sidebar header header header" "sidebar content content contentsidebar";
 }
 .grid.grid-layout-1 .grid-sidebar {
@@ -2182,7 +2181,7 @@ textarea::placeholder {
     margin-top: 0;
   }
   .grid.grid-3-6-3 {
-    grid-template-columns: 32.4324324324% 66.2162162162%;
+    grid-template-columns: 32.6808510638% 66.7234042553%;
     grid-template-areas: "sidebar1 content" "sidebar2 content";
   }
   .grid.grid-3-6-3.mobile-prefer-content {
@@ -11941,7 +11940,7 @@ img[alt=logo].logo-image {
   display: grid;
   grid-template-areas: "sidebar body";
   gap: 16px;
-  grid-template-columns: 23.9864864865% 74.6621621622%;
+  grid-template-columns: 24.170212766% 75.2340425532%;
 }
 .yipnyap-wc-content.yipnyap-wc-content-with-sidebar .yipnyap-wc-sidebar {
   grid-area: sidebar;
@@ -13891,6 +13890,18 @@ img[alt=logo].logo-image {
 /*---------------
     COMPONENT
 ---------------*/
+.pixelmoji {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -ms-interpolation-mode: nearest-neighbor;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: -o-pixelated;
+      image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
 /*------------------------------------------------------------------
 [Table of contents]
 
@@ -16414,8 +16425,6 @@ img[alt=logo].logo-image {
   width: 300px;
   padding-bottom: 40px;
   background-color: var(--color-box-background);
-  -webkit-box-shadow: var(--color-box-shadow);
-          box-shadow: var(--color-box-shadow);
   position: relative;
 }
 .navigation-widget .navigation-widget-close-button {

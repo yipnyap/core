@@ -92,12 +92,6 @@ get_template_part('template-part/common/header/header', '', [
                         <h1 class="text-2xl font-semibold text-primary-900">
                             <?php echo esc_html($args['post']['title']); ?>
                         </h1>
-
-                        <?php if (isset($args['post']['excerpt'])) : ?>
-                            <div class="mt-2 text-sm text-secondary-500">
-                                <?php echo esc_html($args['post']['excerpt']); ?>
-                            </div>
-                        <?php endif; ?>
                     </div>
                     <div class="mt-6">
                         <?php if ($args['post']['cover_url']) : ?>

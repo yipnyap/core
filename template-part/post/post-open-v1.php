@@ -107,11 +107,6 @@ get_template_part('template-part/common/header/header', '', [
                         <?php endif; ?>
                         <div class="mt-6 prose max-w-none text-secondary-900">
                             <div class="post-open-content-body">
-                                <?php if (isset($args['post']['excerpt'])): ?>
-                                    <!-- POST OPEN EXCERPT -->
-                                    <p class="post-open-excerpt"><?php echo wp_kses($args['post']['excerpt'], yipnyap_wp_kses_post_excerpt_get_allowed_tags()); ?></p>
-                                    <!-- /POST OPEN EXCERPT -->
-                                <?php endif; ?>
 
                                 <?php
 

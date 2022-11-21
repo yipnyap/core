@@ -101,6 +101,10 @@ $color-box-over-box-light-background: $white;
   background-color: var(--color-box-background);
 }
 
+.bg-box-solid {
+  background-color: var(--color-box-background-solid);
+}
+
 .hover\:bg-box:hover {
   background-color: var(--color-box-background)
 }

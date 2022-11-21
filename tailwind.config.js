@@ -14,6 +14,9 @@ module.exports = {
             },
             borderRadius: {
                 'default': '0.75rem',
+            },
+            transitionTimingFunction: {
+                'snapper': 'cubic-bezier(0,1.25,0,1)'
             }
         },
     },

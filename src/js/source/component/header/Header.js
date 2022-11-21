@@ -3,6 +3,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
+import {ArrowLeftCircleIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
@@ -268,28 +269,36 @@ export default function Header() {
                 >
                     <Transition.Child
                         as={Fragment}
-                        enter="transition-opacity ease-linear duration-300"
+                        enter="transition-opacity ease-linear duration-100"
                         enterFrom="opacity-0"
                         enterTo="opacity-100"
-                        leave="transition-opacity ease-linear duration-300"
+                        leave="transition-opacity ease-linear duration-100"
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <Dialog.Overlay
-                            className="hidden sm:block sm:fixed sm:inset-0 sm:bg-neutral-600 sm:bg-opacity-75"/>
+                        <div>
+                            <Dialog.Overlay
+                                className="hidden sm:block sm:fixed sm:inset-0 bg-box sm:bg-opacity-75"/>
+                            <div className="hidden bg-box-solid lg:flex flex-col m-12 p-8 rounded-xl border border-solid border-divider top-0 left-20 lg:absolute">
+                                <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><ArrowLeftCircleIcon className="w-5 h-5 mr-2" /> The Navigator is still available</h3>
+                                <p className="mt-2 text-alt-2 text-sm">
+                                    You can still access the Navigator while the sidebar is open.
+                                </p>
+                            </div>
+                        </div>
                     </Transition.Child>
 
                     <Transition.Child
                         as={Fragment}
-                        enter="transition ease-out duration-150 sm:ease-in-out sm:duration-300"
+                        enter="transition ease-out duration-150 sm:ease-snapper sm:duration-300"
                         enterFrom="transform opacity-0 scale-110 sm:translate-x-full sm:scale-100 sm:opacity-100"
                         enterTo="transform opacity-100 scale-100  sm:translate-x-0 sm:scale-100 sm:opacity-100"
-                        leave="transition ease-in duration-150 sm:ease-in-out sm:duration-300"
+                        leave="transition ease-in duration-150 sm:ease-snapper sm:duration-300"
                         leaveFrom="transform opacity-100 scale-100 sm:translate-x-0 sm:scale-100 sm:opacity-100"
                         leaveTo="transform opacity-0 scale-110  sm:translate-x-full sm:scale-100 sm:opacity-100"
                     >
                         <nav
-                            className="fixed flex flex-col z-40 inset-0 h-full w-full bg-box sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
+                            className="fixed flex flex-col z-40 inset-0 h-full w-full bg-box-solid sm:inset-y-0 sm:left-auto sm:right-0 sm:max-w-sm sm:w-full sm:shadow-lg"
                             aria-label="Global"
                         >
                             <div className="h-16 flex items-center justify-between px-4 sm:px-6">
@@ -332,16 +341,18 @@ export default function Header() {
                                         </a>
                                     </div>
                                 }
-                                <div className="mt-4 max-w-8xl mx-auto px-2 space-y-1 sm:px-4">
-                                    {userNavigationMobile.map((item, i) => (
-                                        <a
-                                            key={i}
-                                            href={item.href}
-                                            className="header-menu-entity py-2 px-3 text-primary"
-                                        >
-                                            {item.name}
-                                        </a>
-                                    ))}
+                                <div className="mt-4">
+                                    <div className="block max-w-8xl mx-auto px-2 space-y-1 lg:hidden sm:px-4">
+                                        {userNavigationMobile.map((item, i) => (
+                                            <a
+                                                key={i}
+                                                href={item.href}
+                                                className="header-menu-entity py-2 px-3 text-primary"
+                                            >
+                                                {item.name}
+                                            </a>
+                                        ))}
+                                    </div>
                                 </div>
                             </div>
 

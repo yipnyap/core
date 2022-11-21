@@ -19,6 +19,10 @@ get_template_part('template-part/common/header/header', null, [
 ]);
 ?>
 
+<?php if (!$user) { ?>
+    <div id="cmui-landing-activity-header"></div>
+<?php } ?>
+
 <!-- CONTENT GRID -->
 <div class="content-grid max-w-screen-2xl mx-auto px-4 pr-4 pt-4 <?php if ($user) echo 'signed-in' ?>">
     <?php
@@ -118,20 +122,6 @@ get_template_part('template-part/common/header/header', null, [
                 </div>
             </div>
         </nav>
-    <?php } ?>
-
-    <?php if (!$user) {
-        if (bp_has_activities(array(
-            'show_hidden' => true,
-            'count_total' => true
-        ))) {
-            global $activities_template;
-            $postCount = $activities_template->total_activity_count;
-        } else {
-            $postCount = 0;
-        }
-        ?>
-        <div id="cmui-landing-activity-header"></div>
     <?php } ?>
 
     <div id="activity-notice"></div>

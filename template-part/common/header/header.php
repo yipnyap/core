@@ -61,7 +61,7 @@ $icon = $args['icon'] ?? 'black-question-mark-ornament';
             </ol>
         </nav>
     <?php } ?>
-    <header class="bg-box sticky top-16 z-10">
+    <header class="bg-box sticky top-16 z-20">
         <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
             <h1 class="font-bold text-primary items-center flex gap-2">
                 <img class="pixelmoji !w-6 !h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/' . $icon . '.gif' ?>" alt="<?php str_replace('-', '', $icon) ?> animated emoji">

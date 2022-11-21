@@ -20,10 +20,10 @@ function HeaderDropdown(props) {
     position: 'absolute',
     top: '64px',
     right: '6px',
-    transition: 'transform .4s ease-in-out, opacity .4s ease-in-out, visibility .4s ease-in-out',
+    transition: 'transform 0.25s cubic-bezier(0,1.25,0,1)',
     opacity: dropdownIsOpen ? 1 : 0,
     visibility: dropdownIsOpen ? 'visible' : 'hidden',
-    transform: dropdownIsOpen ? 'translate(0, 0)' : 'translate(0, -40px)'
+    transform: dropdownIsOpen ? 'translate(0, 0)' : 'translate(0, 2rem)'
   };
 
   return (

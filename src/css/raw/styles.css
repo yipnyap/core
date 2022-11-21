@@ -183,7 +183,12 @@ select {
     2.2 BOX COLORS
 -----------------------*/
 .bg-box {
+  @apply backdrop-blur-lg;
   background-color: var(--color-box-background);
+}
+
+.bg-box-solid {
+  background-color: var(--color-box-background-solid);
 }
 
 .hover\:bg-box:hover {
@@ -2250,9 +2255,6 @@ textarea::placeholder {
   }
   .grid.grid-6-6 {
     grid-template-columns: 100%;
-  }
-  .content-grid {
-    padding: 92px 0 100px;
   }
   .content-grid.full {
     width: 100%;
@@ -8734,7 +8736,7 @@ a:hover {
 ---------------------------------*/
 .logo .logo-image {
   display: block;
-  width: 3em;
+  width: 2.5em;
 }
 
 /*---------------------------------
@@ -13891,14 +13893,9 @@ img[alt=logo].logo-image {
     COMPONENT
 ---------------*/
 .pixelmoji {
-  display: -webkit-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
-  -ms-interpolation-mode: nearest-neighbor;
-      image-rendering: -webkit-optimize-contrast;
-      image-rendering: -o-pixelated;
-      image-rendering: pixelated;
-  image-rendering: -moz-crisp-edges;
+  height: 18px;
+  width: 18px;
+  display: inline-block;
   image-rendering: crisp-edges;
 }
 
@@ -16136,7 +16133,7 @@ img[alt=logo].logo-image {
   width: 384px;
   padding-bottom: 60px;
   border-radius: 10px;
-  background-color: var(--color-box-background);
+  background-color: var(--color-box-background-solid);
   -webkit-box-shadow: var(--color-overbox-big-shadow);
           box-shadow: var(--color-overbox-big-shadow);
   position: relative;
@@ -22573,6 +22570,7 @@ img[alt=logo].logo-image {
 }
 
 .cmui.navigator {
+  @apply border-solid border-0 border-r;
   position: fixed;
   background-color: var(--color-box-background);
   color: var(--color-text);
@@ -22587,7 +22585,7 @@ img[alt=logo].logo-image {
   height: 100%;
   border-radius: 0.25rem;
 }
-.cmui.navigator .border-divider {
+.cmui.navigator .section-divider {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22603,6 +22601,7 @@ img[alt=logo].logo-image {
   border-color: var(--color-box-background-alt);
 }
 .cmui.navigator-item {
+  @apply rounded-xl;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -22615,7 +22614,6 @@ img[alt=logo].logo-image {
           align-items: center;
   width: 3rem;
   height: 3rem;
-  border-radius: 0.25rem;
 }
 .cmui.navigator-item.active {
   background: var(--color-box-background-alt);

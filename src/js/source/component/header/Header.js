@@ -3,7 +3,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
-import {ArrowLeftCircleIcon, HomeIcon} from '@heroicons/react/24/solid';
+import {ArrowLeftCircleIcon, CheckBadgeIcon, HomeIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
@@ -14,13 +14,7 @@ let navigation = [];
 let userNavigation = [];
 let userNavigationMobile = [];
 
-let yourViewNotifications = [
-    {
-        "icon": ArrowLeftCircleIcon,
-        "title": "The Navigator is still available",
-        "body": "You can still access the Navigator while the sidebar is open."
-    }
-];
+let yourViewSeen = JSON.parse(localStorage.getItem('yourViewSeen')) || [];
 
 function toggleLoggedUserColorTheme(e) {
     // if already changing color theme, return
@@ -48,10 +42,120 @@ function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
 }
 
+// TODO: Move ContextMenu into it's own component
+class ContextMenu extends React.Component {
+
+    state = {
+        visible: false,
+        targetElementID: null,
+    };
+
+    constructor(props) {
+        super(props);
+
+        this.options = props.options || [];
+    }
+
+    componentDidMount() {
+        document.addEventListener('contextmenu', this._handleContextMenu);
+        document.addEventListener('click', this._handleClick);
+        document.addEventListener('scroll', this._handleScroll);
+    };
+
+    componentWillUnmount() {
+        document.removeEventListener('contextmenu', this._handleContextMenu);
+        document.removeEventListener('click', this._handleClick);
+        document.removeEventListener('scroll', this._handleScroll);
+    }
+
+    _handleContextMenu = (event) => {
+        const targetElement = document.getElementById('ng-your-view');
+        const targetElementID = event.target.getAttribute('data-id') || event.target.parentElement.getAttribute('data-id');
+        if (targetElement && targetElement.contains(event.target) && targetElementID) {
+            event.preventDefault();
+
+            this.setState({
+                visible: true,
+                targetElementID,
+            });
+
+            const clickX = event.clientX;
+            const clickY = event.clientY;
+            const screenW = window.innerWidth;
+            const screenH = window.innerHeight;
+            const rootW = this.root.offsetWidth;
+            const rootH = this.root.offsetHeight;
+
+            const right = (screenW - clickX) > rootW;
+            const left = !right;
+            const top = (screenH - clickY) > rootH;
+            const bottom = !top;
+
+            if (right) {
+                this.root.style.left = `${clickX + 5}px`;
+            }
+
+            if (left) {
+                this.root.style.left = `${clickX - rootW - 5}px`;
+            }
+
+            if (top) {
+                this.root.style.top = `${clickY + 5}px`;
+            }
+
+            if (bottom) {
+                this.root.style.top = `${clickY - rootH - 5}px`;
+            }
+        }
+    };
+
+    _handleClick = (event) => {
+        const { visible } = this.state;
+        const wasOutside = !(event.target.contains === this.root);
+
+        if (wasOutside && visible) this.setState({ visible: false, });
+    };
+
+    _handleScroll = () => {
+        const { visible } = this.state;
+
+        if (visible) this.setState({ visible: false, });
+    };
+
+    render() {
+        const { visible, targetElementID } = this.state;
+
+        return(visible || null) &&
+        <div
+            ref={ref => {this.root = ref}}
+            className="absolute right-0 mt-2 w-56 rounded-xl bg-box-solid shadow-lg border border-solid border-divider ring-1 ring-black ring-opacity-5 focus:outline-none"
+            style={{
+                zIndex: '100'
+            }}
+            role="menu"
+            aria-orientation="vertical"
+            aria-labelledby="menu-button"
+            tabIndex="-1">
+            <div className="py-1" role="none">
+                {
+                    this.options.map((option, index) => (
+                        <div onClick={() => option.onClick(targetElementID)}
+                             className="text-primary block px-4 py-2 text-sm cursor-pointer hover:bg-box-alt"
+                             role="menuitem"
+                             tabIndex="-1"
+                             id="menu-item-0">{option.name}</div>
+                    ))
+                }
+            </div>
+        </div>
+    };
+}
+
 export default function Header() {
     const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
     const [loggedUser, setLoggedUser] = useState(false);
     const [loadingUser, setLoadingUser] = useState(true);
+    const [yourViewNotifications, setYourViewNotifications] = useState([]);
 
     function populateUserLocalStorageCache() {
         userRouter.getLoggedInMember()
@@ -113,11 +217,27 @@ export default function Header() {
                 ];
 
                 // Add welcome to your view notification
-                yourViewNotifications.push({
-                    "icon": HomeIcon,
-                    "title": "Welcome to Your View",
-                    "body": "Important notifications and updates will appear here."
-                })
+                if (yourViewSeen.indexOf('welcome-notif') === -1) {
+                    yourViewNotifications.unshift({
+                        "id": "welcome-notif",
+                        "icon": HomeIcon,
+                        "title": "Welcome to Your View",
+                        "body": "Important notifications and updates will appear here. Right click to dismiss."
+                    })
+                    setYourViewNotifications(yourViewNotifications);
+                }
+
+                // Add verification program availabe notification
+                if (yourViewSeen.indexOf('verified-available') === -1) {
+                    yourViewNotifications.push({
+                        "id": "verified-available",
+                        "icon": CheckBadgeIcon,
+                        "title": "Verification Program Available!",
+                        "body": "Doing great things? Get swanky badge to show it off (for free)!",
+                        "href": '/verified-program'
+                    })
+                    setYourViewNotifications(yourViewNotifications);
+                }
 
                 setLoadingUser(false);
             })
@@ -126,8 +246,26 @@ export default function Header() {
             });
     }
 
+    function removeYourViewNotification(id) {
+        if (!id) return;
+        yourViewSeen.push(id);
+        localStorage.setItem('yourViewSeen', JSON.stringify(yourViewSeen));
+        setYourViewNotifications(yourViewNotifications.filter((notif) => yourViewSeen.indexOf(notif.id) === -1));
+    }
+
     useEffect(() => {
         populateUserLocalStorageCache();
+
+        if (yourViewSeen.indexOf('nav-still-avaliable') === -1) {
+            yourViewNotifications.push({
+                "id": "nav-still-avaliable",
+                "icon": ArrowLeftCircleIcon,
+                "title": "The Navigator is still available",
+                "body": "You can still access the Navigator while the sidebar is open."
+            });
+
+            setYourViewNotifications(yourViewNotifications);
+        }
     }, []);
 
     return (
@@ -291,7 +429,16 @@ export default function Header() {
                         leaveFrom="opacity-100"
                         leaveTo="opacity-0"
                     >
-                        <div>
+                        <div id="ng-your-view">
+                            <ContextMenu
+                                options={[
+                                    {
+                                        name: "Dismiss",
+                                        onClick: removeYourViewNotification
+                                    }
+                                ]}
+                            />
+
                             {/* Overlay */}
                             <Dialog.Overlay
                                 className="hidden sm:block sm:fixed sm:inset-0 bg-box sm:bg-opacity-75"/>
@@ -300,7 +447,7 @@ export default function Header() {
                             <div className="hidden m-12 gap-8 top-0 left-20 absolute lg:grid">
                                 {
                                     yourViewNotifications.map((notification, i) => (
-                                        <div className="max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid border-divider">
+                                        <div key={i} data-id={notification.id} className={`max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid border-divider ${notification.href ? 'cursor-pointer hover:bg-box-alt transition ease-in-out duration-100' : ''}`} onClick={() => {if (notification.href) window.location.href = notification.href}}>
                                             <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><notification.icon className="w-5 h-5 mr-2" />
                                                 {notification.title}</h3>
                                             <p className="mt-2 text-alt-2 text-sm">

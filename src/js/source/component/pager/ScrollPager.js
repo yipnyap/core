@@ -7,40 +7,30 @@ function ScrollPager(props) {
 
     useEffect(() => {
         if (!props.initialFetch && props.moreItems) {
-            document.body.addEventListener('scroll', loadMoreOnScroll);
+            window.addEventListener('scroll', loadMoreOnScroll);
         }
 
         return () => {
-            document.body.removeEventListener('scroll', loadMoreOnScroll);
+            window.removeEventListener('scroll', loadMoreOnScroll);
         };
     }, [props.initialFetch]);
 
     const scrolledThrough = (el) => {
         const elementScrollPosition = {
-<<<<<<< HEAD
                 y: el.offsetTop + el.offsetHeight - (window.innerHeight - 80)
-=======
-                y: el.offsetTop + el.offsetHeight - document.body.offsetHeight
->>>>>>> 9f2a6e6f03b211d844a74eeab6d79301f410d80e
             },
             windowScrollPosition = {
-                y: document.body.scrollTop
+                y: window.scrollY
             };
-
-        console.log(`[ScrollPager] elementScrollPosition.y: ${elementScrollPosition.y}, windowScrollPosition.y: ${windowScrollPosition.y}`);
 
         return windowScrollPosition.y > elementScrollPosition.y;
     };
 
     const loadMoreOnScroll = () => {
-<<<<<<< HEAD
         console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
 
-=======
->>>>>>> 9f2a6e6f03b211d844a74eeab6d79301f410d80e
         if (scrolledThrough(loaderRef.current)) {
-            console.log('[ScrollPager] load more');
-            document.body.removeEventListener('scroll', loadMoreOnScroll);
+            window.removeEventListener('scroll', loadMoreOnScroll);
             loadMoreItems();
         }
     };
@@ -48,7 +38,7 @@ function ScrollPager(props) {
     const loadMoreItems = () => {
         props.loadMoreItems((moreItems) => {
             if (moreItems) {
-                document.body.addEventListener('scroll', loadMoreOnScroll);
+                window.addEventListener('scroll', loadMoreOnScroll);
             }
         });
     };

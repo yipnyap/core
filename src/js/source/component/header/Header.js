@@ -59,13 +59,13 @@ class ContextMenu extends React.Component {
     componentDidMount() {
         document.addEventListener('contextmenu', this._handleContextMenu);
         document.addEventListener('click', this._handleClick);
-        // document.addEventListener('scroll', this._handleScroll);
+        document.addEventListener('scroll', this._handleScroll);
     };
 
     componentWillUnmount() {
         document.removeEventListener('contextmenu', this._handleContextMenu);
         document.removeEventListener('click', this._handleClick);
-        // document.removeEventListener('scroll', this._handleScroll);
+        document.removeEventListener('scroll', this._handleScroll);
     }
 
     _handleContextMenu = (event) => {

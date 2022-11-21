@@ -83,7 +83,7 @@ $(document).ready(function () {
                 <p class="xm-tooltip-text">Admin Dashboard</p>
             </div>
         </a>`);
-        $('#navigation-widget-small > .border-divider')[0].append(linkHTML[0]);
+        $('#navigation-widget-small > .section-divider')[0].append(linkHTML[0]);
     }
 });
 

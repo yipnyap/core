@@ -12,11 +12,15 @@
  */
 
 $user = yipnyap_get_logged_user_member_data();
+
+get_template_part('template-part/common/header/header', null, [
+    'title' => 'Home',
+    'icon' => 'house-with-garden',
+]);
 ?>
 
 <!-- CONTENT GRID -->
-
-<div class="content-grid <?php if ($user) echo 'signed-in' ?>" style="padding: 0 !important;">
+<div class="content-grid max-w-screen-2xl mx-auto px-4 pr-4 pt-4 <?php if ($user) echo 'signed-in' ?>">
     <?php
 
     $show_quests = false;

@@ -17,7 +17,7 @@ function ScrollPager(props) {
 
     const scrolledThrough = (el) => {
         const elementScrollPosition = {
-                y: el.offsetTop + el.offsetHeight - window.innerHeight
+                y: el.offsetTop + el.offsetHeight - (window.innerHeight - 80)
             },
             windowScrollPosition = {
                 y: window.scrollY
@@ -27,7 +27,7 @@ function ScrollPager(props) {
     };
 
     const loadMoreOnScroll = () => {
-        // console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
+        console.log('SCROLL PAGER - LOAD MORE ON SCROLL: ', this.loaderRef.current);
 
         if (scrolledThrough(loaderRef.current)) {
             window.removeEventListener('scroll', loadMoreOnScroll);

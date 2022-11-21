@@ -340,7 +340,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Box Colors
          */
-        '--color-box-background' => '#fff',
+        '--color-box-background' => '#fffffc2',
+        '--color-box-background-solid' => '#fffff',
         '--color-box-background-alt' => '#fafafa',
         '--color-box-over-box-background' => '#e5e5e5',
         '--color-box-over-box-light-background' => '#fff',
@@ -447,7 +448,8 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
                 '--color-body' => '#171717',
-                '--color-box-background' => '#262626',
+                '--color-box-background' => '#262626c2',
+                '--color-box-background-solid' => '#262626',
                 '--color-box-background-alt' => '#2d2d2d',
                 '--color-box-over-box-background' => '#404040',
                 '--color-box-over-box-light-background' => 'var(--color-box-over-box-background)',
@@ -639,8 +641,13 @@ function yipnyap_customizer_theme_colors_get_default($preset_name = false)
          * Box Colors
          */
         '--color-box-background' => [
-            'type' => 'color',
+            'type' => 'text',
             'label' => esc_html_x('Box Layer 1 - Background', '(Customizer) Color Options - Box Background - Title', 'yipnyap'),
+            'description' => esc_html_x('Affects layer 1 boxes background color that utilises Unicorn.', '(Customizer) Color Options - Box Background - Description', 'yipnyap')
+        ],
+        '--color-box-background-solid' => [
+            'type' => 'color',
+            'label' => esc_html_x('Box Layer 1 - Background Solid', '(Customizer) Color Options - Box Background - Title', 'yipnyap'),
             'description' => esc_html_x('Affects layer 1 boxes background color.', '(Customizer) Color Options - Box Background - Description', 'yipnyap')
         ],
         '--color-box-background-alt' => [

@@ -1,5 +1,6 @@
 .cmui {
   &.navigator {
+    @apply border-solid border-0 border-r;
     position: fixed;
     background-color: var(--color-box-background);
     color: var(--color-text);
@@ -9,7 +10,7 @@
     height: 100%;
     border-radius: 0.25rem;
 
-    .border-divider {
+    .section-divider {
       display: flex;
       margin-top: 0.75rem;
       flex-direction: column;

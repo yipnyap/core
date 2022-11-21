@@ -97,7 +97,8 @@ $color-box-background-alt: $white-dark;
 $color-box-over-box-background: $white;
 $color-box-over-box-light-background: $white;
 .bg-box {
-  background-color: var(--color-box-background)
+  @apply backdrop-blur-lg;
+  background-color: var(--color-box-background);
 }
 
 .hover\:bg-box:hover {

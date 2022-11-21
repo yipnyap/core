@@ -73,7 +73,11 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
+<<<<<<< HEAD
     : 'hk15rc1hf2-nextgen-ui-merge');
+=======
+    : 'hk15rc1hf3-nextgen-ui-merge');
+>>>>>>> 9f2a6e6f03b211d844a74eeab6d79301f410d80e
 //const YIPNYAP_VERSION = 'hk13';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 

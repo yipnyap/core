@@ -3,7 +3,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
-import {ArrowLeftCircleIcon} from '@heroicons/react/24/solid';
+import {ArrowLeftCircleIcon, HomeIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
@@ -13,6 +13,14 @@ let changingColorTheme = false;
 let navigation = [];
 let userNavigation = [];
 let userNavigationMobile = [];
+
+let yourViewNotifications = [
+    {
+        "icon": ArrowLeftCircleIcon,
+        "title": "The Navigator is still available",
+        "body": "You can still access the Navigator while the sidebar is open."
+    }
+];
 
 function toggleLoggedUserColorTheme(e) {
     // if already changing color theme, return
@@ -103,6 +111,13 @@ export default function Header() {
                     },
                     {border: true},
                 ];
+
+                // Add welcome to your view notification
+                yourViewNotifications.push({
+                    "icon": HomeIcon,
+                    "title": "Welcome to Your View",
+                    "body": "Important notifications and updates will appear here."
+                })
 
                 setLoadingUser(false);
             })
@@ -277,13 +292,23 @@ export default function Header() {
                         leaveTo="opacity-0"
                     >
                         <div>
+                            {/* Overlay */}
                             <Dialog.Overlay
                                 className="hidden sm:block sm:fixed sm:inset-0 bg-box sm:bg-opacity-75"/>
-                            <div className="hidden bg-box-solid lg:flex flex-col m-12 p-8 rounded-xl border border-solid border-divider top-0 left-20 lg:absolute">
-                                <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><ArrowLeftCircleIcon className="w-5 h-5 mr-2" /> The Navigator is still available</h3>
-                                <p className="mt-2 text-alt-2 text-sm">
-                                    You can still access the Navigator while the sidebar is open.
-                                </p>
+
+                            {/* Cards */}
+                            <div className="hidden m-12 gap-8 top-0 left-20 absolute lg:grid">
+                                {
+                                    yourViewNotifications.map((notification, i) => (
+                                        <div className="max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid border-divider">
+                                            <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><notification.icon className="w-5 h-5 mr-2" />
+                                                {notification.title}</h3>
+                                            <p className="mt-2 text-alt-2 text-sm">
+                                                {notification.body}
+                                            </p>
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
                     </Transition.Child>

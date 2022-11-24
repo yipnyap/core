@@ -55,7 +55,7 @@ module.exports = function (grunt) {
         browserify: {
             options: {
                 browserifyOptions: {
-                    extensions: ['.jsx', '.js']
+                    extensions: ['.jsx', '.js', '.ts', '.tsx'],
                 },
                 transform: [
                     [

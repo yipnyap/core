@@ -7,6 +7,7 @@ import {ArrowLeftCircleIcon, CheckBadgeIcon, HomeIcon} from '@heroicons/react/24
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
+import {earlyAccess} from "../../datasources/earlyaccess";
 
 let changingColorTheme = false;
 
@@ -179,6 +180,8 @@ export default function Header() {
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
                 }
 
+                res.verified = true;
+
                 setLoggedUser(res);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));
 
@@ -224,11 +227,10 @@ export default function Header() {
                         "title": "Welcome to Your View",
                         "body": "Important notifications and updates will appear here. Right click to dismiss."
                     })
-                    setYourViewNotifications(yourViewNotifications);
                 }
 
                 // Add verification program availabe notification
-                if (yourViewSeen.indexOf('verified-available') === -1) {
+                if (yourViewSeen.indexOf('verified-available') === -1 && !res.verified) {
                     yourViewNotifications.push({
                         "id": "verified-available",
                         "icon": CheckBadgeIcon,
@@ -236,9 +238,43 @@ export default function Header() {
                         "body": "Doing great things? Get swanky badge to show it off (for free)!",
                         "href": '/verified-program'
                     })
-                    setYourViewNotifications(yourViewNotifications);
+                } else if (res.verified) {
+                    import('../../datasources/earlyaccess.js').then((earlyAccess) => {
+                        earlyAccess = earlyAccess.earlyAccess();
+
+                        yourViewNotifications.push({
+                            "id": "verified-acquired",
+                            "icon": CheckBadgeIcon,
+                            "title": <p>Welcome to the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Verified Program</span>!</p>,
+                            "body": <>
+                                You'll see early access to new features and more here. Your badge is always visible,
+                                everywhere on Yipnyap, so show it off!
+                                <br /><br />
+                                <b>You are signed up as a partner.</b>
+                                <br /><br />
+                                Your badge's colour is based on your accent
+                                colour. You can change it in your settings. (We're still working on the badge's design, so
+                                it's a bit plain in most places right now.)
+                            </>,
+                        })
+
+                        // loop through objects in early access
+                        for (const [key, value] of Object.entries(earlyAccess.feature)) {
+                            if (yourViewSeen.indexOf(key) === -1 && value.available) {
+                                yourViewNotifications.push({
+                                    id: key,
+                                    icon: value.icon,
+                                    title: value.title,
+                                    body: value.description,
+                                    href: value.href || false,
+                                    condition: value.condition || false,
+                                })
+                            }
+                        }
+                    })
                 }
 
+                setYourViewNotifications(yourViewNotifications);
                 setLoadingUser(false);
             })
             .fail((res) => {
@@ -392,6 +428,11 @@ export default function Header() {
                                                     className="text-sm text-primary"
                                                 >
                                                     {loggedUser.name}
+                                                    {
+                                                        loggedUser.verified && <CheckBadgeIcon className="h-4 w-4 inline ml-1 text-primary" style={(loggedUser.profile_data?.field['Account_Info_Profile Primary Accent']?.value) ? {
+                                                            color: loggedUser.profile_data.field['Account_Info_Profile Primary Accent'].value,
+                                                        } : {}} />
+                                                    }
                                                 </div>
                                                 <div
                                                     className="text-xs font-medium text-neutral-500"
@@ -447,7 +488,9 @@ export default function Header() {
                             <div className="hidden m-12 gap-8 top-0 left-20 absolute lg:grid">
                                 {
                                     yourViewNotifications.map((notification, i) => (
-                                        <div key={i} data-id={notification.id} className={`max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid border-divider ${notification.href ? 'cursor-pointer hover:bg-box-alt transition ease-in-out duration-100' : ''}`} onClick={() => {if (notification.href) window.location.href = notification.href}}>
+                                        <div key={i} data-id={notification.id} className={`max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid
+                                        border-divider ${notification.condition === 'verified' ? 'bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5' : ''}
+                                        ${notification.href ? 'cursor-pointer hover:bg-box-alt transition ease-in-out duration-100' : ''}`} onClick={() => {if (notification.href) window.location.href = notification.href}}>
                                             <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><notification.icon className="w-5 h-5 mr-2" />
                                                 {notification.title}</h3>
                                             <p className="mt-2 text-alt-2 text-sm">

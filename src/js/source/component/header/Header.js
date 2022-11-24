@@ -180,7 +180,6 @@ export default function Header() {
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
                 }
 
-                res.verified = true;
 
                 setLoggedUser(res);
                 localStorage.setItem('user-profile-cache', JSON.stringify(res));

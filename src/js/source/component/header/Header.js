@@ -7,12 +7,10 @@ import {ArrowLeftCircleIcon, CheckBadgeIcon, HomeIcon} from '@heroicons/react/24
 
 import * as userRouter from "../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
-import {earlyAccess} from "../../datasources/earlyaccess";
 
 let changingColorTheme = false;
 
 let navigation = [];
-let userNavigation = [];
 let userNavigationMobile = [];
 
 let yourViewSeen = JSON.parse(localStorage.getItem('yourViewSeen')) || [];
@@ -173,8 +171,8 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
-                        {name: 'Sign In', href: '/register'},
-                        {name: 'Sign Up', href: '/login'}
+                        {name: 'Sign In', href: '/login'},
+                        {name: 'Sign Up', href: '/register'}
                     ]
 
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))

@@ -54,6 +54,7 @@ module.exports = function (grunt) {
         },
         browserify: {
             options: {
+                plugin: [['tsify', {target: 'es6'}]],
                 browserifyOptions: {
                     extensions: ['.jsx', '.js', '.ts', '.tsx'],
                 },

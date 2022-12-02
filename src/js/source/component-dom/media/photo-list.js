@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ActivityPhotoList from '../../component/activity/activity-media/activity-media-photo/ActivityPhotoList';
+import ActivityPhotoList from '../../component/legacy/activity/activity-media/activity-media-photo/ActivityPhotoList';
 
 const activityPhotoListElement = document.querySelector('#activity-photo-list');
 

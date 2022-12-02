@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ActivityVideoList from '../../component/activity/activity-media/activity-media-video/ActivityVideoList';
+import ActivityVideoList from '../../component/legacy/activity/activity-media/activity-media-video/ActivityVideoList';
 
 const activityVideoListElement = document.querySelector('#activity-video-list');
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import SearchForm from '../../component/search/SearchForm';
+import SearchForm from '../../component/legacy/search/SearchForm';
 
 const searchFormElement = document.querySelector('#vk-search-form');
 

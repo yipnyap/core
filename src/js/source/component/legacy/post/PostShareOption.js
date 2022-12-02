@@ -1,0 +1,57 @@
+import React, {useRef, useEffect, useLayoutEffect} from 'react';
+import ActivityForm from '../activity/activity-form/ActivityForm';
+import {createPopup} from '../../../utils/plugins';
+
+import {ArrowUpOnSquareIcon} from "@heroicons/react/24/solid";
+
+function PostShareOption(props) {
+    const shareBoxRef = useRef(null);
+    const shareBoxTriggerRef = useRef(null);
+
+    const popup = useRef(null);
+
+    useLayoutEffect(() => {
+        popup.current = createPopup({
+            triggerElement: shareBoxTriggerRef.current,
+            premadeContentElement: shareBoxRef.current,
+            type: 'premade',
+            popupSelectors: ['share-box-popup', 'snapanim-dangerous-use-snapper-engine', 'snapanim-elastic', 'snapanim-in'],
+            onOverlayCreate: function (overlay) {
+                overlay.setAttribute('data-simplebar', '');
+            }
+        });
+    }, []);
+
+    useEffect(() => {
+        if ((props.postType === 'activity') && yipnyap_constants.settings.newsfeed_yt_playback_limit === 'yes') {
+            shareBoxTriggerRef.current.addEventListener('mousedown', props.onPlay);
+        }
+
+        return () => {
+            if ((props.postType === 'activity') && yipnyap_constants.settings.newsfeed_yt_playback_limit === 'yes') {
+                shareBoxTriggerRef.current.removeEventListener('mousedown', props.onPlay);
+            }
+        };
+    });
+
+    return (
+        <div className="post-option-wrap">
+            <div ref={shareBoxTriggerRef} className="post-option">
+                <ArrowUpOnSquareIcon
+                    className="post-option-icon w-6"
+                />
+
+                <p className="post-option-text">{yipnyap_translation.rehowl_action}</p>
+            </div>
+
+            <ActivityForm forwardedRef={shareBoxRef}
+                          user={props.user}
+                          onSubmit={props.onShare}
+                          shareData={props.shareData}
+                          popup={popup.current}
+            />
+        </div>
+    );
+}
+
+export {PostShareOption as default};

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import NotificationsSettingsScreen from '../../component/settings/NotificationsSettingsScreen';
+import NotificationsSettingsScreen from '../../component/legacy/settings/NotificationsSettingsScreen';
 
 const notificationsSettingsElement = document.querySelector('#notifications-settings-screen');
 

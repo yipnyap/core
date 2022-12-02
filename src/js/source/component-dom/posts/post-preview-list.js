@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import PostFilterableList from '../../component/filter/PostFilterableList';
+import PostFilterableList from '../../component/legacy/filter/PostFilterableList';
 
 import {querySelector} from '../../utils/core';
 

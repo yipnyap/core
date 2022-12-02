@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ReceivedGroupInvitationsSettingsScreen from '../../component/settings/ReceivedGroupInvitationsSettingsScreen';
+import ReceivedGroupInvitationsSettingsScreen from '../../component/legacy/settings/ReceivedGroupInvitationsSettingsScreen';
 
 const receivedGroupInvitationsSettingsElement = document.querySelector('#received-group-invitations-settings-screen');
 

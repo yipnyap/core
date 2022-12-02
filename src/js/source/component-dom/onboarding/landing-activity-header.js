@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import NoUserCTAActivity from "../../component/onboarding/NoUserCTAActivity";
+import NoUserCTAActivity from "../../component/legacy/onboarding/NoUserCTAActivity";
 
 const loggedOutLandingElement = document.querySelector('#cmui-landing-activity-header');
 

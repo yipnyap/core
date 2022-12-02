@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MessagesSettingsScreen from '../../component/settings/MessagesSettingsScreen';
+import MessagesSettingsScreen from '../../component/legacy/settings/MessagesSettingsScreen';
 
 const messagesSettingsElement = document.querySelector('#messages-settings-screen');
 

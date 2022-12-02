@@ -11,6 +11,11 @@
 require_once YIPNYAP_PATH . '/includes/functions/allocatedstorage/index.php';
 
 /**
+ * Yipnyap Member Data functions
+ */
+require_once YIPNYAP_PATH . '/includes/functions/memberdata/index.php';
+
+/**
  * UTILS functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-utils.php';

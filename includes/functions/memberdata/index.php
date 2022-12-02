@@ -35,9 +35,26 @@ function YipnyapGetBitwiseValues(): array
  *
  * @see yipnyap_members_get
  */
-function YipnyapGetMember(int $member_id, int $bitwise = 0x0): array
+function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
 {
     global $GetMemberBit;
+
+    /**
+     * Check if member_id is an ID, or a username. If it's a username, get the ID.
+     */
+    if (!preg_replace('/[^0-9]/', '', $member_id)) {
+        $member_id = str_replace('@', '', $member_id);
+        $member_by_login = get_user_by('login', $member_id);
+        if ($member_by_login) {
+            $member_id = $member_by_login->ID;
+        } else {
+            return [
+                'code' => 404,
+                'error' => 'Member not found.',
+            ];
+        }
+    }
+
     $memberOld = yipnyap_members_get(['include' => [$member_id]])[0];
 
     // TODO: Deperecate "mention_name" in the future.
@@ -47,7 +64,9 @@ function YipnyapGetMember(int $member_id, int $bitwise = 0x0): array
         "avatar" => $memberOld['avatar_url'],
     ];
 
-    // Check if the member is verified.
+    /**
+     * Check if member is verified, then add "verified" to the member array.
+     */
     if ($memberOld['verified']) {
         $member['verified'] = true;
     }

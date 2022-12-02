@@ -1,0 +1,117 @@
+@import 'legacy/wordpress-theme-header';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@tailwind apply;
+
+@layer base {
+  h1 {
+    @apply text-2xl;
+  }
+
+  h2 {
+    @apply text-xl;
+  }
+}
+
+.menu-main-item-link-icon {
+  @apply inline;
+}
+
+.menu-main-item-link {
+  color: var(--color-text) !important;
+}
+
+/*------------
+    RESET
+------------*/
+@import 'legacy/reset';
+
+/*-------------
+    GENERAL
+-------------*/
+@import 'legacy/font';
+@import 'legacy/color';
+@import 'legacy/color-theme';
+@import 'legacy/form';
+@import 'icon';
+@import 'legacy/grid';
+@import 'general';
+@import 'legacy/button';
+@import 'utils';
+@import 'legacy/table';
+@import 'legacy/widget';
+@import 'loader';
+@import 'legacy/error';
+@import 'legacy/forum';
+@import 'woocommerce';
+
+/*---------------
+    COMPONENT
+---------------*/
+@import 'legacy/emojiass/legacy/emoji/main';
+@import 'legacy/pictures/legacy/picture/main';
+@import 'progress-stat/main';
+@import 'progress-arc/main';
+@import 'user-avatar/main';
+@import 'legacy/user-statusgacy/user-status/main';
+@import 'legacy/cart-item-previewart-item-preview/main';
+@import 'form-box/main';
+@import 'legacy/landings/legacy/landing/main';
+@import 'legacy/dropdown-boxacy/dropdown-box/main';
+@import 'legacy/dropdown-navigationpdown-navigation/main';
+@import 'legacy/navigation-widgetavigation-widget/main';
+@import 'legacy/chat-widgetgacy/chat-widget/main';
+@import 'legacy/profile-headery/profile-header/main';
+@import 'legacy/post-previewacy/post-preview/main';
+@import 'legacy/post-commentacy/post-comment/main';
+@import 'legacy/post-openlegacy/post-open/main';
+@import 'page-open/main';
+@import 'legacy/product-preview/product-preview/main';
+@import 'stream-box/main';
+@import 'legacy/video-boxlegacy/video-box/main';
+@import 'video-status/main';
+@import 'content-actions/main';
+@import 'legacy/user-previewacy/user-preview/main';
+@import 'legacy/album-previewcy/album-preview/main';
+@import 'popup-box/main';
+@import 'badge-item/main';
+@import 'legacy/streamer-boxacy/streamer-box/main';
+@import 'legacy/calendar/legacy/calendar/main';
+@import 'event-preview/main';
+@import 'quest/main';
+@import 'legacy/forum-postegacy/forum-post/main';
+@import 'legacy/slider-panelacy/slider-panel/main';
+@import 'legacy/chartass/legacy/chart/main';
+@import 'legacy/demo-box/legacy/demo-box/main';
+@import 'legacy/community-uiacy/community-ui/main';
+
+/*-------------
+    PLUGIN
+-------------*/
+@import 'legacy/xm-tab';
+@import 'legacy/xm-popup';
+@import 'legacy/xm-popup-custom';
+@import 'legacy/bp-verified-badge';
+@import 'legacy/bp-better-messages';
+@import 'legacy/pmpro';
+@import 'pmpro-bbpress';
+@import 'legacy/pmpro-buddypress';
+
+/*-------------
+    LAYOUT
+-------------*/
+@import 'header';
+@import 'legacy/navigation';
+@import 'legacy/sidebar';
+@import 'section';
+@import 'legacy/footer';
+
+/*-------------------------
+    WORDPRESS OVERRIDES
+-------------------------*/
+@import 'legacy/wordpress-overrides';
+@import 'legacy/elementor-overrides';
+@import 'swiper-overrides';
+@import 'legacy/bp-register';

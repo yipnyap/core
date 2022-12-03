@@ -7,6 +7,10 @@ export declare interface NGProfileHeaderType {
     user: any;
     self?: boolean;
     loggedIn?: boolean;
+    defaults?: {
+        header?: string;
+        profile?: string;
+    }
 
     theme?: any;
     children?: React.ReactNode;
@@ -51,7 +55,7 @@ function classNames(...classes: any[]) {
 
 function NGFollowButton({...props}: any) {
     return (
-        <span className="relative z-0 inline-flex shadow-sm rounded-lg">
+        <span className="relative inline-flex shadow-sm rounded-lg">
       <button
           type="button"
           className={`${props.theme.button} relative items-center rounded-none rounded-l-md`}
@@ -106,14 +110,14 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     const profile = props.user;
 
     return (
-        <div>
+        <div className="relative z-10 pb-8 rounded-lg bg-default">
             <div>
-                <img className="h-32 w-full object-cover lg:h-60" src={profile.pictures?.header?.url || '/img/default-cover.png'} alt="Profile cover" />
+                <img className="h-32 w-full object-cover lg:h-60" src={profile.pictures?.header?.url || props.defaults?.header || '/img/default-cover.png'} alt="Profile cover" />
             </div>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                     <div className="flex">
-                        <img className="bg-default h-24 w-24 rounded-full ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32" src={profile.pictures?.profile?.url || '/img/default-avatar.png'} alt="" />
+                        <img className="bg-default h-24 w-24 rounded-full ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32" src={profile.avatar || props.defaults?.profile || '/img/default-avatar.png'} alt="" />
                     </div>
                     <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">

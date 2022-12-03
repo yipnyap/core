@@ -20,7 +20,7 @@
     <?php endif; ?>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?> style="-webkit-font-smoothing: antialiased;">
+<body <?php body_class(yipnyap_logged_user_color_theme_get()); ?> style="-webkit-font-smoothing: antialiased;">
 <?php
 wp_body_open();
 

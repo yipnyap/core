@@ -44,18 +44,29 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
      */
     if (!preg_replace('/[^0-9]/', '', $member_id)) {
         $member_id = str_replace('@', '', $member_id);
-        $member_by_login = get_user_by('login', $member_id);
-        if ($member_by_login) {
-            $member_id = $member_by_login->ID;
+
+        /**
+         * Check if ID is "me", and if so, get the logged in user's ID.
+         */
+        if ($member_id === 'me') {
+            $member_id = get_current_user_id();
         } else {
-            return [
-                'code' => 404,
-                'error' => 'Member not found.',
-            ];
+            $member_by_login = get_user_by('login', $member_id);
+            if ($member_by_login) {
+                $member_id = $member_by_login->ID;
+            }
         }
     }
 
-    $memberOld = yipnyap_members_get(['include' => [$member_id]])[0];
+    $memberOld = yipnyap_members_get(['include' => [$member_id]]);
+    if (empty($memberOld)) {
+        return [
+            'code' => 404,
+            'error' => 'Member not found.',
+        ];
+    } else {
+        $memberOld = $memberOld[0];
+    }
 
     // TODO: Deperecate "mention_name" in the future.
     $member = [

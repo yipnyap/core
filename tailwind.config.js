@@ -1,9 +1,19 @@
 const {default: flattenColorPalette} = require('tailwindcss/lib/util/flattenColorPalette')
 module.exports = {
     preflight: true,
+    darkMode: ['class', 'dark'],
     content: [
-        './**/*.{html,js,php}',
+        './**/*.{html,js,ts,tsx,php}',
         './**/raw/styles.css', // grunt
+    ],
+    safelist: [
+        'bg-neutral-50',
+        'dark:bg-neutral-700',
+        'dark:bg-neutral-800',
+        'text-neutral-900',
+        'dark:text-neutral-300',
+        'divide-neutral-200',
+        'dark:divide-neutral-700',
     ],
     theme: {
         extend: {

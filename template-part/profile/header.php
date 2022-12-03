@@ -49,6 +49,7 @@ if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_r
 if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str'])) {
     $primaryColour = '';
 }
+
 ?>
 <style data-use-unicorn-engine>
     :root {
@@ -57,12 +58,13 @@ if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_pale
         <?php } ?>
     }
 
-    <?php if (!empty($background)) { ?>
     #cmui-entire-content {
+        padding: 0 !important;
+    <?php if (!empty($background)) { ?>
         background: <?php echo $background; ?> !important;
-    }
     <?php } ?>
+    }
 </style>
 
 <!-- PROFILE HEADER -->
-<div id="nextgen-profile-header"></div>
+<div id="nextgen-profile-header" data-userid="<?php echo $args['member']['id'] ?>"></div>

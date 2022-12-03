@@ -5,7 +5,20 @@
  * @param {string} id The ID or username of the member
  */
 export default async function getMember(id: string) {
-    const res = await fetch(`/api/v2/members/${id}`);
+    const res = await fetch(`/api/v2/member/${id}`);
+    const json = await res.json();
+    return json;
+}
+
+/**
+ * Get the current member
+ */
+export async function getCurrentMember() {
+    const res = await fetch(`/api/v2/member/@me`, {
+        headers: {
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+        }
+    });
     const json = await res.json();
     return json;
 }

@@ -226,9 +226,9 @@ function yipnyap_load_scripts(): void
         'yipnyap-xmtooltip-scripts'
     ];
 
-    $app_bundle_file = '/src/js/app.bundle.min.js';
+    $app_bundle_file = '/src/js/bundle.min.js';
     // add main script
-    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
+    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/bundle.js';
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
 
     global $yipnyap_settings;

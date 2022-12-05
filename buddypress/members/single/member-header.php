@@ -1,11 +1,11 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Member Header
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
  */
 
   $member = get_query_var('member');
@@ -27,7 +27,7 @@
   /**
    * Profile Header
    */
-  get_template_part('template-part/profile/profile-header', null, [
+  get_template_part('template-part/profile/header', null, [
     'member'        => $member,
     'social_links'  => $social_links
   ]);
@@ -49,7 +49,7 @@
     <?php
 
       $sidebar_menu_sections = [
-        [  
+        [
           'menu_items'      => $member_subnavigation_items
         ]
       ];

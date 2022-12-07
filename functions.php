@@ -7,6 +7,32 @@
  * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
+
+/**
+ * Count render time
+ */
+// Start
+$AnalyticalRenderTime = [
+    'start' => microtime(true),
+    'end' => 0,
+    'total' => 0,
+    'human' => 0,
+];
+
+// Hook into the 'wp_footer' action
+add_action('wp_footer', function() {
+    global $AnalyticalRenderTime;
+    // End
+    $AnalyticalRenderTime['end'] = microtime(true);
+
+    // Calculate
+    $AnalyticalRenderTime['total'] = $AnalyticalRenderTime['end'] - $AnalyticalRenderTime['start'];
+    $AnalyticalRenderTime['human'] = number_format($AnalyticalRenderTime['total'], 2);
+
+    // Send render time to client
+    echo '<script>console.log("[Server] Render time: ' . $AnalyticalRenderTime['human'] . 's")</script>';
+});
+
 /**
  * Theme paths and urls
  */

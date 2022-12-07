@@ -27,11 +27,10 @@ function YipnyapGetBitwiseValues(): array
 /**
  * Get member data by ID
  *
- * @param int $member_id Member ID.
+ * @param int|string $member_id Member ID.
+ * @param int $bitwise
  * @return array Member data.
  * @since hk15
- * @author Rekkisomo
- * @package Yipnyap
  *
  * @see yipnyap_members_get
  */
@@ -93,4 +92,39 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     }
 
     return $member;
+}
+
+/**
+ * Login member based on username and password
+ *
+ * @param string|null $username Username
+ * @param string|null $password Password
+ * @return array Member data
+ * @since hk15
+ *
+ * @see wp_authenticate, YipnyapGetMember
+ */
+function YipnyapLoginMember(string|null $username, string|null $password): array
+{
+    if (empty($username) || empty($password)) {
+        return [
+            'code' => 400,
+            'error' => 'Username and password are required.',
+        ];
+    }
+
+    $user = wp_authenticate($username, $password);
+    if (is_wp_error($user)) {
+        return [
+            'code' => 401,
+            'error' => 'Invalid username or password.',
+        ];
+    } else {
+        $YipnyapUser = YipnyapGetMember($user->ID);
+        $result = [
+            'code' => 200
+        ];
+        return array_merge($result, $YipnyapUser);
+
+    }
 }

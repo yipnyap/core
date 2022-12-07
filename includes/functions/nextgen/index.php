@@ -1,0 +1,8 @@
+<?php
+
+$NextgenModulePath = dirname(__FILE__) . '/';
+
+/**
+ * Member
+ */
+require $NextgenModulePath . 'MemberData/index.php';

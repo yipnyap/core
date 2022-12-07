@@ -39,13 +39,6 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapLoginMember($request['username'], $request['password']));
         },
     ));
-    // ^
-    register_rest_route('v2', '/member/(?P<id>\d+)/(?P<bitwise>\d+)', array(
-        'methods' => 'GET',
-        'callback' => function($arguments) {
-            wp_send_json(YipnyapGetMember($arguments['id'], $arguments['bitwise']));
-        },
-    ));
 });
 
 /**

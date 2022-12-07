@@ -558,6 +558,7 @@ if (bp_is_active('settings')) {
          */
         function yipnyap_members_settings_account_settings_page_screen_content()
         {
+            require_once YIPNYAP_PATH . '/includes/functions/nextgen/AllocatedStorage/index.php';
             $member = get_query_var('member');
 
             ?>

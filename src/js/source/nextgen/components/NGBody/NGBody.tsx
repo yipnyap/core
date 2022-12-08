@@ -18,7 +18,7 @@ export default function NGBody({...props}: NGBodyType) {
     let theme = buildClassObject(NGBodyTheming, props.theme || undefined)
 
     return (
-        <div className="h-screen flex overflow-none">
+        <div className="h-full flex overflow-none">
             {props.children}
         </div>
     );

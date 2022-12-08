@@ -273,7 +273,7 @@ function ProfileSettingsScreen(props) {
 
     return (
         <div className="account-hub-content">
-            <SectionHeader pretitle={yipnyap_translation.my_profile} title={yipnyap_translation.profile_info}/>
+            {/*<SectionHeader pretitle={yipnyap_translation.my_profile} title={yipnyap_translation.profile_info}/>*/}
 
             {/* MESSAGE BOX */}
             <MessageBox forwardedRef={messageBoxRef}
@@ -293,7 +293,7 @@ function ProfileSettingsScreen(props) {
             }
             {
                 loggedUser &&
-                <div className="grid-column">
+                <div className="grid-column space-y-6">
                     {/* GRID */}
                     <div className="grid grid-3-3-3 centered">
                         <UserPreview data={loggedUser}

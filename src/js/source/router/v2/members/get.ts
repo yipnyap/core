@@ -20,6 +20,5 @@ export async function getCurrentMember() {
             'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
         }
     });
-    const json = await res.json();
-    return json;
+    return await res.json();
 }

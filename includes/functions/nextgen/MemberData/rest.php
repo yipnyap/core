@@ -17,7 +17,7 @@ add_action('rest_api_init', function () {
         },
     ));
     // ^
-    register_rest_route('v2', '/member/(?P<id>\d+)/(?P<bitwise>\d+)', array(
+    register_rest_route('v2', '/member/(\@?)(?P<id>[\w\d]+)/(?P<bitwise>\d+)', array(
         'methods' => 'GET',
         'callback' => function($arguments) {
             wp_send_json(YipnyapGetMember($arguments['id'], $arguments['bitwise']));

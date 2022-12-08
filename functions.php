@@ -34,6 +34,14 @@ add_action('wp_footer', function() {
 });
 
 /**
+ * After theme loaded, run init.php
+ */
+add_action('after_setup_theme', function() {
+    // Load init.php
+    require_once get_template_directory() . '/page-templates/init.php';
+});
+
+/**
  * Theme paths and urls
  */
 define('YIPNYAP_PATH', get_template_directory());

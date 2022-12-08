@@ -574,10 +574,6 @@ if (bp_is_active('settings')) {
                     'section_title' => esc_html__('Account Settings', 'yipnyap')
                 ]);
 
-                /**
-                 * Spoofed. No one will ever reach the limit, though this will be real soon.
-                 * TODO: Get actual, real data to detemine this.
-                 */
                 get_template_part('template-part/alert/alert', 'line', [
                     'type' => 'box',
                     'icon' => 'server',

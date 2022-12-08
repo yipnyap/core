@@ -59,7 +59,7 @@ if (str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_pale
     }
 
     #cmui-entire-content {
-        padding: 0 !important;
+        /*padding: 0 !important;*/
     <?php if (!empty($background)) { ?>
         background: <?php echo $background; ?> !important;
     <?php } ?>

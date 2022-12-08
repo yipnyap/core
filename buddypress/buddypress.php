@@ -8,7 +8,9 @@
  *
  */
 
-get_header();
+get_header(null, [
+        'selfControlCMUI' => bp_is_user_activity()
+]);
 
 if (have_posts()) {
     the_post();

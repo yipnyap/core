@@ -111,4 +111,6 @@ if ($sidemenu_status === 'display') {
 <!-- /HEADER -->
 
 <!-- CMUI Entire Content begin -->
-<div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">
+<?php if (!isset($args['selfControlCMUI']) || $args['selfControlCMUI'] === false) { ?>
+    <div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">
+<?php } ?>

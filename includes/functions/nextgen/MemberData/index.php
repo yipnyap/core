@@ -86,7 +86,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
      * If the bitwise is set, then add the key to the member array.
      */
     foreach ($GetMemberBit as $key => $value) {
-        if ($bitwise & $value) {
+        if (($bitwise & $value) && isset($memberOld[$key])) {
             $member[$key] = $memberOld[$key];
         }
     }

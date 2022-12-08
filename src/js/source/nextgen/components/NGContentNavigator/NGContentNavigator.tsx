@@ -1,11 +1,13 @@
 import React from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {NavLink} from "react-router-dom";
+import {HomeIcon} from "@heroicons/react/24/outline";
 
 export declare interface NGContentNavigatorItemType {
     name: string;
     description: string;
     href: string;
+    target?: string;
     current: boolean;
     icon: ((props: React.SVGProps<SVGSVGElement>) => JSX.Element) | string;
 }
@@ -32,6 +34,14 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
 
     const slimNavClass = props.slimContentNavigator ? 'w-20' : 'w-96';
 
+    props.items.length === 0 && (props.items = [{
+        name: 'Home',
+        description: '',
+        href: '/',
+        icon: HomeIcon,
+        current: location.pathname === '/',
+    }]);
+
     return (
         <nav
             aria-label="Sections"
@@ -40,7 +50,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             + ` dark:bg-neutral-800 dark:border-neutral-600`}>
             {!props.slimContentNavigator && (
                 <div className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
-                    <p className="text-lg font-medium text-blue-gray-900 dark:text-white">Home</p>
+                    <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{location.pathname.split('/')[1] || 'Home'}</p>
                 </div>
             )}
             <div className="flex-1 min-h-0 overflow-y-auto">
@@ -48,6 +58,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                     <NavLink
                         key={item.name}
                         to={item.href}
+                        target={item.target}
                         className={classNames(
                             item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700',
                             'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'
@@ -74,7 +85,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                 ))}
             </div>
             {props.footer && (
-                <div className="flex-shrink-0 h-16 px-6 text-sm text-default-alt border-t border-blue-gray-200 flex items-center dark:border-neutral-600">
+                <div className="flex-shrink-0 h-16 text-sm text-default-alt border-t border-blue-gray-200 flex items-center dark:border-neutral-600">
                     {props.footer}
                 </div>
             )}

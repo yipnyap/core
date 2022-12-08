@@ -21,11 +21,11 @@ export default function NGAlertCard({...props}: NGAlertCardType) {
     let theme = buildClassObject(NGAlertCardTheming, props.theme || undefined)
 
     return (
-        <div className="dark:border-gradient-red-dark p-4 -inset-px rounded-lg border-2 border-transparent">
-            <p className="text-white flex space-x-4">
+        <div className="dark:border-gradient-red-dark p-4 -inset-px rounded-lg border-2 border-solid border-transparent">
+            <div className="text-white flex space-x-4">
                 <ExclamationTriangleIcon className="w-6" />
                 {typeof props.body === 'string' ? <span>{props.body}</span> : props.body}
-            </p>
+            </div>
         </div>
     );
 }

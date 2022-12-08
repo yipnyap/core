@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Profile from '../../../component/nextgen2/profile';
+import {router} from "../../../component/nextgen2/profile/pages/settings";
+import {RouterProvider} from "react-router-dom";
 
 let NGProfileHeaderElement: Element | null;
 NGProfileHeaderElement = document.querySelector('#nextgen-profile-header');
@@ -9,9 +9,7 @@ NGProfileHeaderElement = document.querySelector('#nextgen-profile-header');
 if (NGProfileHeaderElement) {
     const userID = NGProfileHeaderElement.getAttribute('data-userid') || false;
     ReactDOM.render(
-        <Profile
-            userID={userID}
-        />,
+        <RouterProvider router={router} />,
         NGProfileHeaderElement
     );
 }

@@ -112,7 +112,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     return (
         <div className="relative z-10 pb-8 rounded-lg bg-default">
             <div>
-                <img className="h-32 w-full object-cover lg:h-60" src={profile.pictures?.header?.url || props.defaults?.header || '/img/default-cover.png'} alt="Profile cover" />
+                <img className="rounded-lg h-32 w-full object-cover lg:h-60" src={profile.pictures?.header?.url || props.defaults?.header || '/img/default-cover.png'} alt="Profile cover" />
             </div>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
@@ -138,7 +138,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                     </div>
                 </div>
                 <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
-                    <h1 className="text-2xl font-bold text-gray-900 truncate">{profile.username}</h1>
+                    <h1 className="text-2xl font-bold text-default truncate">{profile.username}</h1>
                 </div>
             </div>
         </div>

@@ -50,7 +50,7 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     <div className="flex space-x-3">
                         <div className="flex-shrink-0">
                             <img className="h-10 w-10 rounded-full"
-                                 src={props.post.user.imageUrl || '/img/default-avatar.png'} alt=""/>
+                                 src={props.post.user.imageUrl || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`} alt=""/>
                         </div>
                         <div className="min-w-0 flex-1">
                             <p className="text-sm font-medium text-neutral-900 dark:text-white cursor-pointer hover:underline">

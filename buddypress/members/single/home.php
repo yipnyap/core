@@ -109,7 +109,7 @@ get_template_part('template-part/common/header/header', '', [
             bp_get_template_part('members/single/activity');
 
         } else if (bp_is_user_blogs()) {
-            bp_get_template_part('members/single/blogs');
+//            bp_get_template_part('members/single/blogs');
 
         } else if (bp_is_user_friends()) {
             bp_get_template_part('members/single/friends');
@@ -118,7 +118,7 @@ get_template_part('template-part/common/header/header', '', [
             bp_get_template_part('members/single/groups');
 
         } else if (bp_is_user_messages()) {
-            bp_get_template_part('members/single/messages');
+//            bp_get_template_part('members/single/messages');
 
         } else if (bp_is_user_profile()) {
             bp_get_template_part('members/single/profile');

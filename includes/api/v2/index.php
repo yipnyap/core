@@ -20,3 +20,4 @@ add_action('rest_api_init', function () {
 });
 
 require_once __DIR__ . '/member.php';
+require_once __DIR__ . '/relationships.php';

@@ -5,6 +5,8 @@ import getMember from "../../../router/v2/members/get";
 import {Dialog, Transition} from "@headlessui/react";
 // @ts-ignore
 import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
+// @ts-ignore
+import ActivityPhotoList from '../../legacy/activity/activity-media/activity-media-photo/ActivityPhotoList.js';
 import {useHeading} from "../../../providers/PageHeading.provider";
 import {Cog6ToothIcon, HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
 import {useLocation} from "react-router-dom";
@@ -155,7 +157,7 @@ export default function Profile({...props}) {
                 ...userSubNav ?? []
             ]
         })
-    }, [userID, userSubNav, location.pathname]);
+    }, [location.pathname, userSubNav])
 
     return (
         <>
@@ -173,7 +175,19 @@ export default function Profile({...props}) {
                                 header: `${yipnyap_constants.yipnyap_url}/img/cover/default-cover.png`
                             }}
                         />
-                        <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+
+                        {
+                            location.pathname === `/${userID}/` && (
+                                <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                            )
+                        }
+                        {
+                            location.pathname === `/${userID}/photos/` && (
+                                <ActivityPhotoList  userID={user.id}
+                                                    perPage={24}
+                                                    order='DESC' />
+                            )
+                        }
                     </div>
                 )
             }

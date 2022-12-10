@@ -117,28 +117,28 @@ export default function Profile({...props}) {
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);
-
-            setHeading({
-                heading: null,
-                padding: false,
-                subNavigation: [
-                    {
-                        name: 'User Feed',
-                        description: '',
-                        href: `/${user.username}/`,
-                        icon: HomeIcon,
-                        current: location.pathname === `/${user.username}/`
-                    },
-                    {
-                        name: 'Photos',
-                        description: '',
-                        href: `/${user.username}/photos/`,
-                        icon: PhotoIcon,
-                        current: location.pathname === `/${user.username}/photos/`
-                    }
-                ]
-            })
         });
+
+        setHeading({
+            heading: null,
+            padding: false,
+            subNavigation: [
+                {
+                    name: 'User Feed',
+                    description: '',
+                    href: `/${userID}/`,
+                    icon: HomeIcon,
+                    current: location.pathname === `/${userID}/`
+                },
+                {
+                    name: 'Photos',
+                    description: '',
+                    href: `/${userID}/photos/`,
+                    icon: PhotoIcon,
+                    current: location.pathname === `/${userID}/photos/`
+                }
+            ]
+        })
     }, [userID, location.pathname]);
 
     return (

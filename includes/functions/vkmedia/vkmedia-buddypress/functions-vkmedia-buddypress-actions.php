@@ -46,13 +46,7 @@ if (yipnyap_settings_media_file_upload_is_enabled('image')) {
     /**
      * Members photos page HTML content
      */
-    function yipnyap_members_photos_page_screen_content() {
-      $member = get_query_var('member');
-
-      ?>
-      <div id="activity-photo-list" data-userid=<?php echo esc_attr($member['id']); ?>></div>
-      <?php
-    }
+    function yipnyap_members_photos_page_screen_content() {}
   }
 }
 

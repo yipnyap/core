@@ -6,7 +6,7 @@ import {Dialog, Transition} from "@headlessui/react";
 // @ts-ignore
 import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
 import {useHeading} from "../../../providers/PageHeading.provider";
-import {HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
+import {Cog6ToothIcon, HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 
@@ -119,6 +119,17 @@ export default function Profile({...props}) {
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);
+            if (user.username === yipnyap_constants.currentUser.username) {
+                setUserSubNav([
+                    {
+                        name: 'Settings',
+                        description: '',
+                        href: '/settings/',
+                        icon: Cog6ToothIcon,
+                        current: false,
+                    }
+                ])
+            }
         });
 
         setHeading({

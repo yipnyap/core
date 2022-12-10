@@ -123,9 +123,9 @@ export default function Profile({...props}) {
                     {
                         name: 'Home',
                         description: 'User Feed',
-                        href: `/profile/${userID}`,
+                        href: `/${user.username}/`,
                         icon: HomeIcon,
-                        current: location.pathname === `/${user.username}`
+                        current: location.pathname === `/${user.username}/`
                     }
                 ]
             })

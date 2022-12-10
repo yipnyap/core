@@ -32,7 +32,7 @@ export function NextgenProfilesWelcomeModal() {
 
     function closeModal() {
         setIsOpen(false);
-        // localStorage.setItem('nextgen-profile-welcome-modal', '1');
+        localStorage.setItem('nextgen-profile-welcome-modal', '1');
     }
 
     function openModal() {

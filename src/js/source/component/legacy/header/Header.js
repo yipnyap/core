@@ -28,13 +28,11 @@ function toggleLoggedUserColorTheme(e) {
     toggleLoggedUserColorThemePromise
         .done((response) => {
             console.log('TOGGLE LOGGED USER COLOR THEME - RESPONSE', response);
+            window.location.reload();
         })
         .fail((error) => {
             console.log('TOGGLE LOGGED USER COLOR THEME - ERROR', error);
         })
-        .always(() => {
-            window.location.reload();
-        });
 }
 
 function classNames(...classes) {
@@ -388,11 +386,11 @@ export default function Header() {
                             {
                                 !loadingUser &&
                                 <span className="inline-flex">
-                                    <a href="src/js/source/component/legacy/header/Header#" onClick={toggleLoggedUserColorTheme}
-                                       className="ypsdk button-icon -mx-1 p-1 rounded-full text-neutral-400 hover:text-neutral-500">
+                                    <div onClick={toggleLoggedUserColorTheme}
+                                       className="ypsdk button-icon cursor-pointer -mx-1 p-1 rounded-full text-neutral-400 hover:text-neutral-500">
                                         <span className="sr-only">Toggle dark mode</span>
                                         <MoonIcon className="h-6 w-6" aria-hidden="true"/>
-                                    </a>
+                                    </div>
                                 </span>
                             }
 

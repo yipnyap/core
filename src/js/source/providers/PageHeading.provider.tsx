@@ -1,12 +1,13 @@
-import { createContext, useContext, useState } from 'react';
+import {createContext, useContext, useState} from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import {NGContentNavigatorItemType} from "../nextgen/components/NGContentNavigator/NGContentNavigator";
 
 interface PageHeadingContextType {
     heading: string | JSX.Element | null;
     bold?: boolean;
     padding?: boolean;
     slimContentNavigator?: boolean;
-    subNavigation?: any[];
+    subNavigation?: NGContentNavigatorItemType[];
 }
 
 const PageHeadingContext = createContext<[PageHeadingContextType | null, Dispatch<SetStateAction<PageHeadingContextType | null>>] | undefined>(undefined);

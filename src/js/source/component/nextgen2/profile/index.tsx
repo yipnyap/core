@@ -123,15 +123,15 @@ export default function Profile({...props}) {
                 padding: false,
                 subNavigation: [
                     {
-                        name: 'Home',
-                        description: 'User Feed',
+                        name: 'User Feed',
+                        description: '',
                         href: `/${user.username}/`,
                         icon: HomeIcon,
                         current: location.pathname === `/${user.username}/`
                     },
                     {
                         name: 'Photos',
-                        description: 'User Photos',
+                        description: '',
                         href: `/${user.username}/photos/`,
                         icon: PhotoIcon,
                         current: location.pathname === `/${user.username}/photos/`

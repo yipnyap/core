@@ -6,7 +6,8 @@ import {Dialog, Transition} from "@headlessui/react";
 // @ts-ignore
 import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
 import {useHeading} from "../../../providers/PageHeading.provider";
-import {HomeIcon} from "@heroicons/react/24/solid";
+import {HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
+import {useLocation} from "react-router-dom";
 
 interface NGProfileType {
     id: number;
@@ -103,6 +104,7 @@ export function NextgenProfilesWelcomeModal() {
 export default function Profile({...props}) {
     const [user, setUser] = useState<NGProfileType | null>(null);
     const [, setHeading] = useHeading();
+    const location = useLocation();
     let {userID} = props;
 
     if (!userID) {
@@ -126,11 +128,18 @@ export default function Profile({...props}) {
                         href: `/${user.username}/`,
                         icon: HomeIcon,
                         current: location.pathname === `/${user.username}/`
+                    },
+                    {
+                        name: 'Photos',
+                        description: 'User Photos',
+                        href: `/${user.username}/photos/`,
+                        icon: PhotoIcon,
+                        current: location.pathname === `/${user.username}/photos/`
                     }
                 ]
             })
         });
-    }, [userID])
+    }, [userID, location.pathname]);
 
     return (
         <>

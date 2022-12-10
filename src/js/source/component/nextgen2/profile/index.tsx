@@ -8,6 +8,7 @@ import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList
 import {useHeading} from "../../../providers/PageHeading.provider";
 import {HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
 import {useLocation} from "react-router-dom";
+import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 
 interface NGProfileType {
     id: number;
@@ -103,6 +104,7 @@ export function NextgenProfilesWelcomeModal() {
 
 export default function Profile({...props}) {
     const [user, setUser] = useState<NGProfileType | null>(null);
+    const [userSubNav, setUserSubNav] = useState<NGContentNavigatorItemType[]>([]);
     const [, setHeading] = useHeading();
     const location = useLocation();
     let {userID} = props;
@@ -136,10 +138,11 @@ export default function Profile({...props}) {
                     href: `/${userID}/photos/`,
                     icon: PhotoIcon,
                     current: location.pathname === `/${userID}/photos/`
-                }
+                },
+                ...userSubNav ?? []
             ]
         })
-    }, [userID, location.pathname]);
+    }, [userID, userSubNav, location.pathname]);
 
     return (
         <>

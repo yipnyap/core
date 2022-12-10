@@ -109,11 +109,11 @@ export default function Profile({...props}) {
 
     if (!userID) {
         // Get username from url
-        userID = `@${location.pathname.split('/')[1]}`;
+        userID = location.pathname.split('/')[1];
     }
 
     useEffect(() => {
-        const userPromise = userID ? getMember(userID, 2) : null;
+        const userPromise = userID ? getMember(`@${userID}`, 2) : null;
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);

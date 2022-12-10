@@ -3,6 +3,10 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {NGProfileHeader} from '../../../nextgen/components/NGProfileHeader';
 import getMember from "../../../router/v2/members/get";
 import {Dialog, Transition} from "@headlessui/react";
+// @ts-ignore
+import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
+import {useHeading} from "../../../providers/PageHeading.provider";
+import {HomeIcon} from "@heroicons/react/24/solid";
 
 interface NGProfileType {
     id: number;
@@ -97,7 +101,8 @@ export function NextgenProfilesWelcomeModal() {
 }
 
 export default function Profile({...props}) {
-    const [user, setUser] = useState<NGProfileType | false>(false);
+    const [user, setUser] = useState<NGProfileType | null>(null);
+    const [, setHeading] = useHeading();
     let {userID} = props;
 
     if (!userID) {
@@ -110,24 +115,43 @@ export default function Profile({...props}) {
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);
-        })
+
+            setHeading({
+                heading: null,
+                padding: false,
+                subNavigation: [
+                    {
+                        name: 'Home',
+                        description: 'User Feed',
+                        href: `/profile/${userID}`,
+                        icon: HomeIcon,
+                        current: location.pathname === `/${user.username}`
+                    }
+                ]
+            })
+        });
     }, [userID])
 
     return (
-        <div className="m-auto p-8 max-w-5xl">
+        <>
             {
-                yipnyap_constants.currentUser.username && <NextgenProfilesWelcomeModal />
+                user && (
+                    <div className="m-auto p-8 max-w-3xl space-y-4">
+                        {
+                            (yipnyap_constants.currentUser.username && yipnyap_constants.currentUser.username === user.username) && <NextgenProfilesWelcomeModal />
+                        }
+                        <NGProfileHeader
+                            user={user}
+                            loggedIn={yipnyap_constants.currentUser}
+                            self={yipnyap_constants.currentUser === user.username}
+                            defaults={{
+                                header: `${yipnyap_constants.yipnyap_url}/img/cover/default-cover.png`
+                            }}
+                        />
+                        <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                    </div>
+                )
             }
-            {user &&
-                <NGProfileHeader
-                    user={user}
-                    loggedIn={yipnyap_constants.currentUser}
-                    self={yipnyap_constants.currentUser === user.username}
-                    defaults={{
-                        header: `${yipnyap_constants.yipnyap_url}/img/cover/default-cover.png`
-                    }}
-                />
-            }
-        </div>
+        </>
     )
 }

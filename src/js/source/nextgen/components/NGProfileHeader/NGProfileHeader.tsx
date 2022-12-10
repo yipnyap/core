@@ -1,7 +1,8 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
-import {ChevronDownIcon, EnvelopeIcon, UserPlusIcon} from "@heroicons/react/24/solid";
+import {ChevronDownIcon, EnvelopeIcon, UserPlusIcon, UserMinusIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
+import {follow, isFollowing, unfollow} from "../../../router/v2/relationships/post";
 
 export declare interface NGProfileHeaderType {
     user: any;
@@ -11,7 +12,6 @@ export declare interface NGProfileHeaderType {
         header?: string;
         profile?: string;
     }
-
     theme?: any;
     children?: React.ReactNode;
 }
@@ -38,11 +38,11 @@ const items = [
      * Original Description:
      * "They will be unable to see that you follow them, but you will still affect their count."
      */
-    {
-        name: 'Follow silently',
-        description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you follow.',
-        href: '#'
-    },
+    // {
+    //     name: 'Follow silently',
+    //     description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you follow.',
+    //     href: '#'
+    // },
     {
         name: 'Block',
         href: '#'
@@ -54,14 +54,53 @@ function classNames(...classes: any[]) {
 }
 
 function NGFollowButton({...props}: any) {
+    const [following, setFollowing] = useState<boolean>(false);
+    const { user } = props;
+
+    async function toggleFollow() {
+        if (user) {
+            if (following) {
+                // Unfollow
+                unfollow(user.id).then((res) => {
+                    if (res.success) {
+                        setFollowing(false);
+                    }
+                })
+            } else {
+                // Follow
+                follow(user.id).then((res) => {
+                    if (res.success) {
+                        setFollowing(true);
+                    }
+                })
+            }
+        }
+    }
+
+    useEffect(() => {
+        isFollowing(user.id).then((res) => {
+            setFollowing(res);
+        })
+    }, [props.user])
+
     return (
         <span className="relative inline-flex shadow-sm rounded-lg">
       <button
           type="button"
           className={`${props.theme.button} relative items-center rounded-none rounded-l-md`}
+          onClick={toggleFollow}
       >
-          <UserPlusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
-          Follow
+          {
+              !following
+                  ? <>
+                      <UserPlusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
+                      Follow
+                  </>
+                  : <>
+                      <UserMinusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
+                      Unfollow
+                  </>
+          }
       </button>
       <Menu as="span" className="-ml-px relative block">
         <Menu.Button className={`${props.theme.button} relative rounded-none px-2 rounded-r-md`}>
@@ -132,7 +171,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                                     <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
                                     <span>Message</span>
                                 </button>
-                                <NGFollowButton theme={theme} />
+                                <NGFollowButton theme={theme} user={profile} />
                             </div>
                         )}
                     </div>

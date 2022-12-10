@@ -225,7 +225,7 @@ function NotificationsSettingsScreen(props) {
 
             {
                 loggedUser &&
-                <ScrollPager loadMoreItems={getNotificationsPage} moreItems={moreItems} initialFetch={initialFetch}>
+                <ScrollPager loadMoreItems={getNotificationsPage} moreItems={moreItems} initialFetch={initialFetch} element={props.element || null}>
                     <React.Fragment>
                         {
                             (notifications.length === 0) && !moreItems &&

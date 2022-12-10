@@ -4,26 +4,31 @@ import Loader from '../loader/Loader';
 
 function ScrollPager(props) {
     const loaderRef = useRef(null);
+    let element;
 
     useEffect(() => {
+        element = (typeof props.element === 'string' ? document.getElementById(props.element) : props.element) || document.body;
+
         if (!props.initialFetch && props.moreItems) {
-            document.body.addEventListener('scroll', loadMoreOnScroll);
+            element.addEventListener('scroll', loadMoreOnScroll);
         }
 
         return () => {
-            document.body.removeEventListener('scroll', loadMoreOnScroll);
+            element.removeEventListener('scroll', loadMoreOnScroll);
         };
     }, [props.initialFetch]);
 
     const scrolledThrough = (el) => {
         const elementScrollPosition = {
-                y: el.offsetTop + el.offsetHeight - document.body.offsetHeight
+                y: el.offsetTop + el.offsetHeight - element.offsetHeight
             },
             windowScrollPosition = {
-                y: document.body.scrollTop
+                y: element.scrollTop
             };
 
-        console.log(`[ScrollPager] elementScrollPosition.y: ${elementScrollPosition.y}, windowScrollPosition.y: ${windowScrollPosition.y}`);
+        if (props.element === 'NGContent') elementScrollPosition.y = elementScrollPosition.y - 84;
+
+        // console.log(`[ScrollPager] elementScrollPosition.y: ${elementScrollPosition.y}, windowScrollPosition.y: ${windowScrollPosition.y}`);
 
         return windowScrollPosition.y > elementScrollPosition.y;
     };
@@ -31,7 +36,7 @@ function ScrollPager(props) {
     const loadMoreOnScroll = () => {
         if (scrolledThrough(loaderRef.current)) {
             console.log('[ScrollPager] load more');
-            document.body.removeEventListener('scroll', loadMoreOnScroll);
+            element.removeEventListener('scroll', loadMoreOnScroll);
             loadMoreItems();
         }
     };
@@ -39,7 +44,7 @@ function ScrollPager(props) {
     const loadMoreItems = () => {
         props.loadMoreItems((moreItems) => {
             if (moreItems) {
-                document.body.addEventListener('scroll', loadMoreOnScroll);
+                element.addEventListener('scroll', loadMoreOnScroll);
             }
         });
     };
@@ -49,7 +54,7 @@ function ScrollPager(props) {
             {props.children}
             {
                 props.moreItems &&
-                <Loader/>
+                <Loader className='pt-4' />
             }
         </div>
     );

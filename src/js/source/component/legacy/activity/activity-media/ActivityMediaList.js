@@ -423,7 +423,7 @@ function ActivityMediaList(props) {
                     </SectionHeader>
 
                     <ScrollPager loadMoreItems={getActivitiesPage} moreItems={activities.moreItems}
-                                 initialFetch={activities.initialFetch}>
+                                 initialFetch={activities.initialFetch} element={props.element || null}>
                         <React.Fragment>
                             {
                                 (activities.items.length === 0) && !activities.moreItems &&

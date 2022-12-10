@@ -34,7 +34,7 @@ add_action('wp_footer', function() {
 });
 
 /**
- * After theme loaded, run init.php
+ * After theme loaded, load page templates
  */
 add_action('after_setup_theme', function() {
     // Load init.php
@@ -388,6 +388,7 @@ require_once YIPNYAP_PATH . '/includes/filters/filters.php';
  * Yipnyap AJAX
  */
 require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
+require_once YIPNYAP_PATH . '/includes/api/v2/index.php';
 
 /**
  * Yipnyap sidebars

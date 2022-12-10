@@ -35,6 +35,16 @@ add_action('rest_api_init', function () {
      */
     register_rest_route('v2', '/id/login', array(
         'methods' => 'POST',
+        'args' => [
+            'username' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+        ],
         'callback' => function($request) {
             wp_send_json(YipnyapLoginMember($request['username'], $request['password']));
         },
@@ -56,25 +66,4 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapGetBitwiseValues());
         },
     ));
-});
-
-// TODO: Move to a separate file.
-add_action('rest_api_init', function () {
-    /**
-     * GET /
-     * @return object API metadata.
-     * @since hk15
-     */
-    add_filter('rest_index', function ($response){
-        $data = [
-            'version' => 'v2',
-            'notices' => [
-                '2-12-2022' => 'This API is still in development.'
-            ],
-        ];
-
-        $response->set_data($data);
-
-        return $response;
-    });
 });

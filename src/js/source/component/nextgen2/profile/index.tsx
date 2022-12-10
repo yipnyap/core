@@ -131,7 +131,9 @@ export default function Profile({...props}) {
                 ])
             }
         });
+    }, [userID, location.pathname]);
 
+    useEffect(() => {
         setHeading({
             heading: null,
             padding: false,

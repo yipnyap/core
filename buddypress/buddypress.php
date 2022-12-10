@@ -8,9 +8,16 @@
  *
  */
 
+$SelfControlCMUIPages = ['photos'];
+$SelfControlCMUI = bp_is_user_activity() || in_array(bp_current_component(), $SelfControlCMUIPages);
+
 get_header(null, [
-        'selfControlCMUI' => bp_is_user_activity()
+        'selfControlCMUI' => $SelfControlCMUI
 ]);
+
+if ($SelfControlCMUI) {
+    echo '<div id="cmui-entire-content" class="lg:pl-20" style="height: calc(100% - 64px); overflow: hidden !important;"><div class="h-full" id="nextgen-settings-page"></div>';
+}
 
 if (have_posts()) {
     the_post();

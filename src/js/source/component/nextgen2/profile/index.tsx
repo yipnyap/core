@@ -139,23 +139,25 @@ export default function Profile({...props}) {
         setHeading({
             heading: null,
             padding: false,
-            subNavigation: [
-                {
-                    name: 'User Feed',
-                    description: '',
-                    href: `/${userID}/`,
-                    icon: HomeIcon,
-                    current: location.pathname === `/${userID}/`
-                },
-                {
-                    name: 'Photos',
-                    description: '',
-                    href: `/${userID}/photos/`,
-                    icon: PhotoIcon,
-                    current: location.pathname === `/${userID}/photos/`
-                },
-                ...userSubNav ?? []
-            ]
+            navigator: {
+                subNavigation: [
+                    {
+                        name: 'User Feed',
+                        description: '',
+                        href: `/${userID}/`,
+                        icon: HomeIcon,
+                        current: location.pathname === `/${userID}/`
+                    },
+                    {
+                        name: 'Photos',
+                        description: '',
+                        href: `/${userID}/photos/`,
+                        icon: PhotoIcon,
+                        current: location.pathname === `/${userID}/photos/`
+                    },
+                    ...userSubNav ?? []
+                ]
+            }
         })
     }, [location.pathname, userSubNav])
 

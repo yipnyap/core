@@ -12,23 +12,25 @@ export default function SettingsGeneral() {
         setHeading({
             heading: "Settings",
             padding: true,
-            subNavigation: [
-                {
-                    name: 'General',
-                    description: '',
-                    href: '/settings/',
-                    icon: Cog6ToothIcon,
-                    current: location.pathname === '/settings/',
-                },
-                {
-                    name: 'More',
-                    description: 'Go to Legacy Settings',
-                    href: `/${yipnyap_constants.currentUser.username}/settings`,
-                    target: '_blank',
-                    icon: QuestionMarkCircleIcon,
-                    current: false,
-                }
-            ]
+            navigator: {
+                subNavigation: [
+                    {
+                        name: 'General',
+                        description: '',
+                        href: '/settings/',
+                        icon: Cog6ToothIcon,
+                        current: location.pathname === '/settings/',
+                    },
+                    {
+                        name: 'More',
+                        description: 'Go to Legacy Settings',
+                        href: `/${yipnyap_constants.currentUser.username}/settings`,
+                        target: '_blank',
+                        icon: QuestionMarkCircleIcon,
+                        current: false,
+                    }
+                ]
+            }
         })
     }, [location.pathname])
 

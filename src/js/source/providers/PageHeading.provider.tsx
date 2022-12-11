@@ -7,7 +7,9 @@ interface PageHeadingContextType {
     bold?: boolean;
     padding?: boolean;
     slimContentNavigator?: boolean;
-    subNavigation?: NGContentNavigatorItemType[];
+    navigator?: {
+        subNavigation?: NGContentNavigatorItemType[];
+    };
 }
 
 const PageHeadingContext = createContext<[PageHeadingContextType | null, Dispatch<SetStateAction<PageHeadingContextType | null>>] | undefined>(undefined);
@@ -17,7 +19,9 @@ function PageHeadingProvider({ children }: { children: ReactNode }) {
       heading: null,
       bold: false,
       padding: false,
-      subNavigation: [],
+      navigator: {
+          subNavigation: []
+      },
   });
 
   return <PageHeadingContext.Provider value={[heading, setHeading]}>{children}</PageHeadingContext.Provider>;

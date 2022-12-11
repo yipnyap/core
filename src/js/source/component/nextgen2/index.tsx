@@ -35,6 +35,12 @@ export const router = createBrowserRouter([
             {
                 path: "/settings/",
                 element: <SettingsGeneral />,
+                children: [
+                    {
+                        path: "*",
+                        element: <SettingsGeneral />,
+                    },
+                ]
             },
             {
                 path: "/:username",

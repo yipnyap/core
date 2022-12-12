@@ -9,6 +9,7 @@ import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList
 import ActivityPhotoList from '../../legacy/activity/activity-media/activity-media-photo/ActivityPhotoList.js';
 import {useHeading} from "../../../providers/PageHeading.provider";
 import {Cog6ToothIcon, HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
+import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 
@@ -124,7 +125,7 @@ export default function Profile({...props}) {
             if (user.username === yipnyap_constants.currentUser.username) {
                 setUserSubNav([
                     {
-                        name: 'Settings',
+                        name: <span className='inline-flex'>Settings <ArrowUpRightIcon className='w-4'/></span>,
                         description: '',
                         href: '/settings/',
                         icon: Cog6ToothIcon,

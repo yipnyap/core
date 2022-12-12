@@ -4,7 +4,7 @@ import {NavLink} from "react-router-dom";
 import {HomeIcon} from "@heroicons/react/24/outline";
 
 export declare interface NGContentNavigatorItemType {
-    name: string;
+    name: string | JSX.Element;
     description: string;
     href: string;
     target?: string;
@@ -54,9 +54,9 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                 </div>
             )}
             <div className="flex-1 min-h-0 overflow-y-auto">
-                {props.items.map((item) => (
+                {props.items.map((item, i) => (
                     <NavLink
-                        key={item.name}
+                        key={i}
                         to={item.href}
                         target={item.target}
                         className={classNames(

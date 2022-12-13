@@ -18,13 +18,15 @@ add_action('after_setup_theme', function(): void {
 });
 
 /**
- * Remove the wordpress admin bar
+ * Remove the wordpress admin bar.
+ * Some reason, it only works when you use both of these functions.
  *
  * @return void
  * @package Yipnyap WP Beheadding
  * @since hk15
  */
 show_admin_bar(false);
+add_filter('show_admin_bar', '__return_false');
 
 /**
  * Remove the Wordpress version from the header

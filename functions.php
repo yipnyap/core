@@ -50,6 +50,7 @@ define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
 define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
 require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
+require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 
 /**
  * Rename "Keymaster" role
@@ -152,8 +153,6 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
         update_option($key, $option);
     }
 }
-
-require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 
 /**
  * Disables BuddyPress' registration process and fallsback to WordPress' one.

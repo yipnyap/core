@@ -134,7 +134,12 @@ define('YIPNYAP_WPOPTIONS', array(
             'disallow_palette_render_str' => 'prevent others ui palette from rendering',
             'hide_customised_ui_str' => 'hide customised ui notice on others profiles'
         ]
-    ]
+    ],
+    'google_font_url' => 'https://fonts.googleapis.com/css2?family=Lexend:wght@300..700',
+    'fonts' => [
+        'primary' => 'Lexend',
+        'secondary' => 'Lexend'
+    ],
 ));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
@@ -190,7 +195,7 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 function yipnyap_admin_load_scripts(): void
 {
     // load fonts
-    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,500,600,700|Poppins:400,900&display=swap');
+    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap');
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.11.0');
@@ -218,7 +223,7 @@ function yipnyap_load_scripts(): void
     $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
     // load fonts
-    wp_enqueue_style('yipnyap-fonts', 'https://fonts.googleapis.com/css?family=' . $fonts['primary'] . ':400,500,600,700|' . $fonts['secondary'] . ':400,900&display=swap');
+    wp_enqueue_style('yipnyap-fonts', get_option('google_font_url'));
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');

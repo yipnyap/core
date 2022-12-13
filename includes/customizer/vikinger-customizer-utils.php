@@ -1117,7 +1117,7 @@ function yipnyap_customizer_theme_fonts_get_for_enqueue()
  */
 function yipnyap_customizer_theme_fonts_get_style()
 {
-    $fonts = yipnyap_customizer_theme_fonts_custom_get();
+    $fonts = get_option('fonts');
 
     $font_style = '
     :root {

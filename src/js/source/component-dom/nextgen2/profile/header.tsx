@@ -5,9 +5,9 @@ import {RouterProvider} from "react-router-dom";
 
 let NGProfileHeaderElement: Element | null;
 NGProfileHeaderElement = document.querySelector('#nextgen-profile-header');
-document.body.style.overflow = 'hidden';
 
 if (NGProfileHeaderElement) {
+    document.body.style.overflow = 'hidden';
     const userID = NGProfileHeaderElement.getAttribute('data-userid') || false;
     ReactDOM.render(
         <RouterProvider router={router} />,

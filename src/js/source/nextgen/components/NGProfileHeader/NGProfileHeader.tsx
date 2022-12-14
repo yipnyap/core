@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
-import {ChevronDownIcon, EnvelopeIcon, UserPlusIcon, UserMinusIcon} from "@heroicons/react/24/solid";
+import {ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {follow, isFollowing, unfollow, friendRequest, getFriendRequests} from "../../../router/v2/relationships/post";
 import {ChatBubbleLeftIcon, UserGroupIcon} from "@heroicons/react/20/solid";
@@ -206,7 +206,12 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                     </div>
                     <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
-                            <h1 className="text-2xl font-bold text-default truncate">{profile.display_name}</h1>
+                            <h1 className="text-2xl font-bold text-default truncate">
+                                {profile.display_name}
+                                {profile.verified && <CheckBadgeIcon className="h-5 inline ml-1 text-primary" style={(profile.ui_skin?.primary) ? {
+                                    color: profile.ui_skin.primary,
+                                } : {}} />}
+                            </h1>
                             {/* Small @username */}
                             <div className="flex items-center">
                                 <p className="text-sm font-medium text-alt-2 truncate">

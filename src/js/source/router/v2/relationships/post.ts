@@ -58,3 +58,37 @@ export async function unfollow(userid: number): Promise<{ success: boolean; rela
     });
     return await res.json();
 }
+
+/**
+ * POST friend request a user
+ *
+ * @returns boolean
+ * @param userid
+ */
+export async function friendRequest(userid: number): Promise<{ success: boolean; relationship: any }> {
+    const res = await fetch(`/api/v2/relationships/friend/request`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+        },
+        body: JSON.stringify({
+            'target': userid
+        })
+    });
+    return await res.json();
+}
+
+/**
+ * GET friend requests for logged in user
+ */
+export async function getFriendRequests(): Promise<{ success: boolean; requests: any[] }> {
+    const res = await fetch(`/api/v2/relationships/friend/request`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+        }
+    });
+    return await res.json();
+}

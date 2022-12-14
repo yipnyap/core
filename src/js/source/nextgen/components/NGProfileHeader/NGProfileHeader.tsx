@@ -2,7 +2,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {ChevronDownIcon, EnvelopeIcon, UserPlusIcon, UserMinusIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
-import {follow, isFollowing, unfollow} from "../../../router/v2/relationships/post";
+import {follow, isFollowing, unfollow, friendRequest, getFriendRequests} from "../../../router/v2/relationships/post";
 
 export declare interface NGProfileHeaderType {
     user: any;
@@ -25,9 +25,9 @@ export const NGProfileHeaderTheming = {
 
 const items = [
     {
+        id: 'new_friend_request',
         name: 'Send Friend Request',
         description: 'Being friend\'s with a user will still count a follow.',
-        href: '#'
     },
     /* "There is a genuine danger to it too. Stalkers. You can't block a stalker when you don't know their account."
      * -Tap
@@ -43,10 +43,10 @@ const items = [
     //     description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you follow.',
     //     href: '#'
     // },
-    {
-        name: 'Block',
-        href: '#'
-    },
+    // {
+    //     name: 'Block',
+    //     href: '#'
+    // },
 ]
 
 function classNames(...classes: any[]) {
@@ -61,14 +61,14 @@ function NGFollowButton({...props}: any) {
         if (user) {
             if (following) {
                 // Unfollow
-                unfollow(user.id).then((res) => {
+                unfollow(user.id).then(res => {
                     if (res.success) {
                         setFollowing(false);
                     }
                 })
             } else {
                 // Follow
-                follow(user.id).then((res) => {
+                follow(user.id).then(res => {
                     if (res.success) {
                         setFollowing(true);
                     }
@@ -77,9 +77,40 @@ function NGFollowButton({...props}: any) {
         }
     }
 
+    async function sendFriendRequest() {
+        if (user) {
+            friendRequest(user.id).then(res => {
+                if (res.success) {
+                    // Replace Item ID 'new_friend_request'
+                    items.map((item, index) => {
+                        if (item.id === 'new_friend_request') {
+                            items[index].name = 'Undo Friend Request';
+                            items[index].description = 'You have sent a friend request to this user.';
+                        }
+                    })
+                }
+            })
+        }
+    }
+
     useEffect(() => {
         isFollowing(user.id).then((res) => {
             setFollowing(res);
+        })
+        getFriendRequests().then((res: any) => {
+            if (res) {
+                res.requests.map((request: any) => {
+                  if (request.id === user.id) {
+                      // Replace Item ID 'new_friend_request'
+                      items.map((item, index) => {
+                          if (item.id === 'new_friend_request') {
+                              items[index].name = 'Undo Friend Request';
+                              items[index].description = 'You have sent a friend request to this user.';
+                          }
+                      })
+                  }
+                })
+            }
         })
     }, [props.user])
 
@@ -121,8 +152,8 @@ function NGFollowButton({...props}: any) {
               {items.map((item) => (
                   <Menu.Item key={item.name}>
                       {({ active }) => (
-                          <a
-                              href={item.href}
+                          <div
+                              onClick={item.id === 'new_friend_request' ? sendFriendRequest : () => {}}
                               className={classNames(
                                   active ? 'bg-default-alt text-default-alt' : 'text-default',
                                   'block px-4 py-2 text-sm'
@@ -132,7 +163,7 @@ function NGFollowButton({...props}: any) {
                               {item.description && (
                                   <span className="block text-xs text-gray-400">{item.description}</span>
                               )}
-                          </a>
+                          </div>
                       )}
                   </Menu.Item>
               ))}

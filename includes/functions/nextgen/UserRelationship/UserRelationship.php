@@ -9,7 +9,7 @@ class UserRelationship {
     /**
      * Configure relationship initiator and target.
      */
-    function SetRelationshipInfo($initiator, $target): void
+    function SetRelationshipInfo($initiator, $target = 0): void
     {
         $this->InitiatorID = $initiator;
         $this->TargetID = $target;
@@ -23,6 +23,14 @@ class UserRelationship {
         $this->RelationshipStatus = 'none';
         if ($this->IsFollowing()) {
             $this->RelationshipStatus = 'following';
+        }
+
+        // Loop through array, match ID
+        $friendRequests = $this->GetFriendRequests();
+        foreach ($friendRequests as $friendRequest) {
+            if ($friendRequest['id'] === $this->TargetID) {
+                $this->RelationshipStatus = 'friend_request_sent';
+            }
         }
 
         return [
@@ -80,5 +88,28 @@ class UserRelationship {
         ]);
 
         return $Target && $Initiator;
+    }
+
+    /**
+     * Get friend requests
+     */
+    function GetFriendRequests(): array
+    {
+        $requests = [];
+        $friend_requests = yipnyap_get_friend_requests_sent($this->InitiatorID);
+        foreach ($friend_requests as $request) {
+            $requests[] = [
+                'id' => $request->id,
+            ];
+        }
+
+        return $requests;
+    }
+    /**
+     * Create a friend request
+     */
+    function CreateFriendRequest(): bool
+    {
+        return friends_add_friend($this->InitiatorID, $this->TargetID);
     }
 }

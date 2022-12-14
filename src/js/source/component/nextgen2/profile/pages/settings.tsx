@@ -1,11 +1,20 @@
 import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
-import {Cog6ToothIcon, PaintBrushIcon, QuestionMarkCircleIcon} from "@heroicons/react/24/outline";
+import {
+    Cog6ToothIcon,
+    PaintBrushIcon,
+    QuestionMarkCircleIcon, ServerStackIcon,
+    ShareIcon,
+} from "@heroicons/react/24/outline";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useHeading} from "../../../../providers/PageHeading.provider";
 
 // @ts-ignore
 import ProfileSettingsScreen from '../../../legacy/settings/ProfileSettingsScreen.js';
+// @ts-ignore
+import SocialSettingsScreen from '../../../legacy/settings/SocialSettingsScreen.js';
+// @ts-ignore
+import AccountInfoSettingsScreen from '../../../legacy/settings/AccountInfoSettingsScreen.js';
 import SettingsSkin from "./settings/skin";
 
 export default function SettingsGeneral() {
@@ -33,6 +42,20 @@ export default function SettingsGeneral() {
                         current: location.pathname === '/settings/skin',
                     },
                     {
+                        name: 'Social',
+                        description: '',
+                        href: '/settings/social',
+                        icon: ShareIcon,
+                        current: location.pathname === '/settings/social',
+                    },
+                    {
+                        name: 'Storage',
+                        description: '',
+                        href: '/settings/kukiko-id',
+                        icon: ServerStackIcon,
+                        current: location.pathname === '/settings/kukiko-id',
+                    },
+                    {
                         name: <span className='inline-flex'>More <ArrowUpRightIcon className='w-4'/></span>,
                         description: 'Go to Legacy Settings',
                         href: `/${yipnyap_constants.currentUser.username}/settings`,
@@ -50,8 +73,17 @@ export default function SettingsGeneral() {
             {
                 location.pathname === '/settings/' && <ProfileSettingsScreen/>
             }
+
             {
                 location.pathname === '/settings/skin' && <SettingsSkin/>
+            }
+
+            {
+                location.pathname === '/settings/social' && <SocialSettingsScreen/>
+            }
+
+            {
+                location.pathname === '/settings/kukiko-id' && <div className='flex flex-col items-center justify-center h-full'> <h1 className='text-2xl font-bold'>Kukiko ID</h1> <p className='text-gray-500'>Snap-in Unavailable. Go to Legacy Settings.</p> </div>
             }
         </>
     )

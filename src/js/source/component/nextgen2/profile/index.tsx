@@ -93,9 +93,8 @@ export function NextgenProfilesWelcomeModal() {
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <p className="text-sm text-gray-500">
-                                        You can now change your profile banner, avatar, bio, and more, from the profile
-                                        page. You can now add custom nav links, as well as custom HTML, widgets, or
-                                        change the template entirely.
+                                        No more eyesore! You can now change your profile banner, avatar, bio, and more,
+                                        from the profile page.
                                     </p>
                                 </div>
 

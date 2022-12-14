@@ -1048,7 +1048,7 @@
     19. USER PREVIEW WIDGET
 -----------------------------*/
 .user-preview-widget {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   padding-bottom: 28px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
@@ -2064,7 +2064,7 @@
 .popup-event {
   width: 90%;
   max-width: 584px;
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -3124,7 +3124,7 @@
     74. QUICK POST
 ---------------------------------*/
 .quick-post {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 
@@ -3331,7 +3331,7 @@
   width: 180px;
   // max-height: 140px;
   padding: 8px 0;
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
   position: absolute;
@@ -4402,7 +4402,7 @@
     99. TAB BOX
 ---------------------------------*/
 .tab-box {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);
 

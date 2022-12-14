@@ -7,7 +7,7 @@
     1. WIDGET BOX
 --------------------*/
 .widget-box {
-  @apply relative rounded-default;
+  @apply relative rounded-default backdrop-blur-lg;
   padding: 32px 28px;
   background-color: var(--color-box-background);
   box-shadow: var(--color-box-shadow);

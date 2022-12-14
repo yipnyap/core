@@ -232,7 +232,7 @@ $slide-menu-transition: opacity .25s $snapper-crawl-text-cubic-bezier, visibilit
     4. SECTION NAVIGATION
 -----------------------------*/
 .section-navigation {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   height: 80px;
   padding: 0 43px;
   background-color: var(--color-box-background);

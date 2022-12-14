@@ -1,6 +1,6 @@
 .cmui {
   &.navigator {
-    @apply border-solid border-0 border-r;
+    @apply border-solid border-0 border-r backdrop-blur-lg;
     position: fixed;
     background-color: var(--color-box-background);
     color: var(--color-text);

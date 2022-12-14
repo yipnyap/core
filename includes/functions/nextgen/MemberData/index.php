@@ -69,11 +69,18 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
 
     // TODO: Deperecate "mention_name" in the future.
     $member = [
-        "id" => $memberOld['id'],
-        "display_name" => $memberOld['name'],
-        "username" => $memberOld['mention_name'],
-        "avatar" => $memberOld['avatar_url'],
-        "header" => yipnyap_member_get_cover_url($memberOld['id']),
+        'id' => $memberOld['id'],
+        'display_name' => $memberOld['name'],
+        'username' => $memberOld['mention_name'],
+        'avatar' => $memberOld['avatar_url'],
+        'header' => yipnyap_member_get_cover_url($member_id),
+        'followers' => count(bp_follow_get_followers(array(
+            'user_id' => $member_id
+        ))),
+        'following' => count(bp_follow_get_following(array(
+            'user_id' => $member_id
+        ))),
+        'posts' => YipnyapGetMemberActivityCount($member_id),
     ];
     $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
 
@@ -130,6 +137,29 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     }
 
     return $member;
+}
+
+/**
+ * Get member activity count
+ *
+ * @param int $member_id Member ID.
+ * @return int Activity count.
+ * @since hk15
+ */
+function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
+{
+    global $wpdb;
+
+    $table = buddypress()->activity->table_name;
+    $where_conditions = [];
+    $where_conditions[] = $wpdb->prepare('user_id = %d', $member_id);
+    if ($type) {
+        $where_conditions[] = $wpdb->prepare('type = %s', $type);
+    }
+
+    $whe_sql = join(' AND ', $where_conditions);
+
+    return absint($wpdb->get_var("SELECT count(DISTINCT id) FROM {$table} WHERE {$whe_sql}"));
 }
 
 /**

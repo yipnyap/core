@@ -3,6 +3,7 @@ import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {ChevronDownIcon, EnvelopeIcon, UserPlusIcon, UserMinusIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {follow, isFollowing, unfollow, friendRequest, getFriendRequests} from "../../../router/v2/relationships/post";
+import {ChatBubbleLeftIcon, UserGroupIcon} from "@heroicons/react/20/solid";
 
 export declare interface NGProfileHeaderType {
     user: any;
@@ -180,6 +181,15 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     const profile = props.user;
     const header = profile.header || props.defaults?.header;
 
+    const URL_REGEX = /(http|ftp|https):\/\/([\w_-]+(?:\.[\w_-]+)+)([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
+    const renderBio = (bio: string) => {
+        return bio
+            .split(/([ \n])+/)
+            .map(part =>
+                URL_REGEX.test(part) ? <a href={part}>{part} </a> : part + " "
+            );
+    }
+
     return (
         <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-lg bg-box`}>
             <div className={!header ? 'h-0' : ''}>
@@ -199,7 +209,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             <h1 className="text-2xl font-bold text-default truncate">{profile.display_name}</h1>
                             {/* Small @username */}
                             <div className="flex items-center">
-                                <p className="text-sm font-medium text-neutral-400 dark:text-neutral-500 truncate">
+                                <p className="text-sm font-medium text-alt-2 truncate">
                                     @{profile.username}
                                 </p>
                             </div>
@@ -221,11 +231,47 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                 <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
                     <h1 className="text-2xl font-bold text-default truncate">{profile.username}</h1>
                 </div>
-                {/* Bio */}
-                <div className="hidden md:block mt-6 min-w-0 flex-1">
-                    <p className="text-sm text-default">
-                        {profile.bio}
+                <div className="hidden md:block mt-6 min-w-0 flex-1 text-default">
+                    {/* Bio */}
+                    <p className="text-sm whitespace-pre-line">
+                        {renderBio(profile.bio)}
                     </p>
+
+                    <div className="mt-2 flex flex-col text-sm text-alt-2">
+                        <div className="flex">
+                            {/* Follower count */}
+                            {profile.followers !== undefined && (
+                                <>
+                                    <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <span>
+                                        {profile.followers} followers
+                                    </span>
+                                </>
+                            )}
+
+                            {/* Following count */}
+                            {profile.following !== undefined && (
+                                <>
+                                    <span className="mx-2"> | </span>
+                                    <span>
+                                        {profile.following} following
+                                    </span>
+                                </>
+                            )}
+                        </div>
+
+                        <div className="flex">
+                            {/* Post count */}
+                            {profile.posts !== undefined && (
+                                <>
+                                    <ChatBubbleLeftIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <span>
+                                        {profile.posts} posts
+                                    </span>
+                                </>
+                            )}
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

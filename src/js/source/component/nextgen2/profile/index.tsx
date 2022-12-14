@@ -27,6 +27,7 @@ import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentN
 interface NGProfileType {
     id: number;
     username: string;
+    display_name: string;
     avatar: string;
     banner?: string;
     bio?: string;
@@ -129,10 +130,15 @@ export default function Profile({...props}) {
     }
 
     useEffect(() => {
-        const userPromise = userID ? getMember(`@${userID}`, 2) : null;
+        const userPromise = userID ? getMember(`@${userID}`, (2 + 4)) : null;
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);
+            if (user.ui_skin) {
+                const cmuiContent = document.getElementById('cmui-entire-content');
+                if (user.ui_skin.background) cmuiContent?.style.setProperty('background', user.ui_skin.background.replace('&amp;', '&'));
+                if (user.ui_skin.primary) document.body.style.setProperty('--color-primary', user.ui_skin.primary);
+            }
             if (user.username === yipnyap_constants.currentUser.username) {
                 setUserSubNav([
                     {
@@ -204,11 +210,8 @@ export default function Profile({...props}) {
                         }
                         <NGProfileHeader
                             user={user}
-                            loggedIn={yipnyap_constants.currentUser}
-                            self={yipnyap_constants.currentUser === user.username}
-                            defaults={{
-                                header: `${yipnyap_constants.yipnyap_url}/img/cover/default-cover.png`
-                            }}
+                            loggedIn={yipnyap_constants.currentUser.username}
+                            self={yipnyap_constants.currentUser.username === user.username}
                         />
 
                         {

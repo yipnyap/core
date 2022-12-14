@@ -147,11 +147,16 @@ function NGFollowButton({...props}: any) {
 export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     let theme = buildClassObject(NGProfileHeaderTheming, props.theme || undefined);
     const profile = props.user;
+    const header = profile.header || props.defaults?.header;
 
     return (
-        <div className="relative z-10 pb-8 rounded-lg bg-default">
-            <div>
-                <img className="rounded-lg h-32 w-full object-cover lg:h-60" src={profile.pictures?.header?.url || props.defaults?.header || '/img/default-cover.png'} alt="Profile cover" />
+        <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-lg bg-box`}>
+            <div className={!header ? 'h-0' : ''}>
+                {
+                    header
+                        ? <img className={`rounded-lg w-full object-cover h-32 lg:h-60`} src={header} alt="Profile cover" />
+                        : <div className='h-4'></div>
+                }
             </div>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
@@ -160,17 +165,23 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                     </div>
                     <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
-                            <h1 className="text-2xl font-bold text-default truncate">{profile.username}</h1>
+                            <h1 className="text-2xl font-bold text-default truncate">{profile.display_name}</h1>
+                            {/* Small @username */}
+                            <div className="flex items-center">
+                                <p className="text-sm font-medium text-neutral-400 dark:text-neutral-500 truncate">
+                                    @{profile.username}
+                                </p>
+                            </div>
                         </div>
                         {props.loggedIn && !props.self && (
                             <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                <button
+                                {/*<button
                                     type="button"
                                     className={`${theme.button}`}
                                 >
                                     <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
                                     <span>Message</span>
-                                </button>
+                                </button>*/}
                                 <NGFollowButton theme={theme} user={profile} />
                             </div>
                         )}
@@ -178,6 +189,12 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                 </div>
                 <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
                     <h1 className="text-2xl font-bold text-default truncate">{profile.username}</h1>
+                </div>
+                {/* Bio */}
+                <div className="hidden md:block mt-6 min-w-0 flex-1">
+                    <p className="text-sm text-default">
+                        {profile.bio}
+                    </p>
                 </div>
             </div>
         </div>

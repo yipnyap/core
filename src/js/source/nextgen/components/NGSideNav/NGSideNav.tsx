@@ -276,17 +276,7 @@ export default function NGSideNav({...props}: NGSideNavType) {
                             {/* Content Navigator */}
                             {props.showContentNavigator && (
                                 // @ts-ignore
-                                <NGContentNavigator slimContentNavigator={props.slimContentNavigator || false} items={props.contentNavigatorItems || []}
-                                                    footer={
-                                                    /* Beta Banner */
-                                                    <div className="w-full h-full flex-shrink-0 flex items-center justify-center bg-blue-600 dark:bg-blue-700">
-                                                        <div className="flex items-center justify-center">
-                                                            <p className="text-sm text-blue-200 dark:text-blue-300">
-                                                                <span className="text-default font-medium">Beta</span> - Nextgen is still WIP.
-                                                            </p>
-                                                        </div>
-                                                    </div>
-                                } />
+                                <NGContentNavigator slimContentNavigator={props.slimContentNavigator || false} items={props.contentNavigatorItems || []}/>
                             )}
                             {/* Main content */}
                             {props.children}

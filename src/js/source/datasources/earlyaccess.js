@@ -9,14 +9,11 @@ export function earlyAccess() {
         title: 'Nextgen Profiles',
         description: <>
           Nextgen Profiles are a new way to view and edit profiles. They are a work in progress and will be improved
-          over time. They are currently available only to Verified users.
-          <br /><br />
-          You might not be able to see Nextgen Profiles yet, as they have conditions on when they are shown. You cannot
-          force them to be shown.
+          over time!
         </>,
         icon: IdentificationIcon,
-        condition: 'verified',
-        conditionHumanReadable: 'Verified users only'
+        condition: 'everyone',
+        conditionHumanReadable: 'Everyone'
       }
     }
   }

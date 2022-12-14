@@ -3,7 +3,7 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
 import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
-import {ArrowLeftCircleIcon, CheckBadgeIcon, HomeIcon} from '@heroicons/react/24/solid';
+import {ArrowLeftCircleIcon, CheckBadgeIcon, ExclamationCircleIcon, HomeIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../../router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
@@ -220,7 +220,15 @@ export default function Header() {
                         "id": "welcome-notif",
                         "icon": HomeIcon,
                         "title": "Welcome to Your View",
-                        "body": "Important notifications and updates will appear here. Right click to dismiss."
+                        "body": <>
+                            Important notifications and updates will appear here.
+                            <br/><br/>
+                            <div className="flex flex-inline">
+                                {/* Icon */}
+                                <ExclamationCircleIcon className="h-5 w-5 mr-1"/> Right click anywhere on the card to
+                                dismiss!
+                            </div>
+                        </>
                     })
                 }
 
@@ -233,10 +241,12 @@ export default function Header() {
                         "body": "Doing great things? Get swanky badge to show it off (for free)!",
                         "href": '/verified-program'
                     })
-                } else if (res.verified) {
-                    import('../../../datasources/earlyaccess.js').then((earlyAccess) => {
-                        earlyAccess = earlyAccess.earlyAccess();
+                }
 
+                import('../../../datasources/earlyaccess.js').then((earlyAccess) => {
+                    earlyAccess = earlyAccess.earlyAccess();
+
+                    if (res.verified) {
                         yourViewNotifications.push({
                             "id": "verified-acquired",
                             "icon": CheckBadgeIcon,
@@ -252,22 +262,31 @@ export default function Header() {
                                 it's a bit plain in most places right now.)
                             </>,
                         })
+                    }
 
-                        // loop through objects in early access
-                        for (const [key, value] of Object.entries(earlyAccess.feature)) {
-                            if (yourViewSeen.indexOf(key) === -1 && value.available) {
-                                yourViewNotifications.push({
-                                    id: key,
-                                    icon: value.icon,
-                                    title: value.title,
-                                    body: value.description,
-                                    href: value.href || false,
-                                    condition: value.condition || false,
-                                })
+                    // loop through objects in early access
+                    for (const [key, value] of Object.entries(earlyAccess.feature)) {
+                        if (yourViewSeen.indexOf(key) === -1 && value.available) {
+                            const notification = {
+                                id: key,
+                                icon: value.icon,
+                                title: value.title,
+                                body: value.description,
+                                href: value.href || false,
+                                condition: value.condition || false,
+                                earlyAccess: true
+                            };
+
+                            if (value.condition === 'verified') {
+                                if (res.verified) {
+                                    yourViewNotifications.push(notification)
+                                }
+                            } else {
+                                yourViewNotifications.push(notification)
                             }
                         }
-                    })
-                }
+                    }
+                })
 
                 setYourViewNotifications(yourViewNotifications);
                 setLoadingUser(false);
@@ -484,7 +503,7 @@ export default function Header() {
                                 {
                                     yourViewNotifications.map((notification, i) => (
                                         <div key={i} data-id={notification.id} className={`max-w-lg bg-box-solid flex flex-col p-8 rounded-xl border border-solid
-                                        border-divider ${notification.condition === 'verified' ? 'bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5' : ''}
+                                        border-divider ${notification.earlyAccess ? 'bg-gradient-to-r from-indigo-500/5 via-purple-500/5 to-pink-500/5' : ''}
                                         ${notification.href ? 'cursor-pointer hover:bg-box-alt transition ease-in-out duration-100' : ''}`} onClick={() => {if (notification.href) window.location.href = notification.href}}>
                                             <h3 className="inline-flex items-center text-primary leading-3 font-extrabold"><notification.icon className="w-5 h-5 mr-2" />
                                                 {notification.title}</h3>

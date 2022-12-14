@@ -7,8 +7,7 @@
  * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
-
-$SelfControlCMUIPages = ['photos'];
+$SelfControlCMUIPages = ['photos', 'videos', 'badges', 'friends'];
 $SelfControlCMUI = bp_is_user_activity() || in_array(bp_current_component(), $SelfControlCMUIPages);
 
 get_header(null, [

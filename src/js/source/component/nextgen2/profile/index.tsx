@@ -7,8 +7,19 @@ import {Dialog, Transition} from "@headlessui/react";
 import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
 // @ts-ignore
 import ActivityPhotoList from '../../legacy/activity/activity-media/activity-media-photo/ActivityPhotoList.js';
+// @ts-ignore
+import ActivityVideoList from '../../../component/legacy/activity/activity-media/activity-media-video/ActivityVideoList';
+// @ts-ignore
+import MemberFilterableList from '../../../component/legacy/filter/MemberFilterableList';
 import {useHeading} from "../../../providers/PageHeading.provider";
-import {Cog6ToothIcon, HomeIcon, PhotoIcon} from "@heroicons/react/24/outline";
+import {
+    Cog6ToothIcon,
+    FaceSmileIcon,
+    HomeIcon,
+    PhotoIcon,
+    TrophyIcon,
+    VideoCameraIcon
+} from "@heroicons/react/24/outline";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
@@ -81,9 +92,9 @@ export function NextgenProfilesWelcomeModal() {
                                 </Dialog.Title>
                                 <div className="mt-2">
                                     <p className="text-sm text-gray-500">
-                                        You can now change your profile banner, avatar, bio,
-                                        and more, from the profile page. You can also now add custom HTML to your
-                                        profile, which can be used to add custom widgets.
+                                        You can now change your profile banner, avatar, bio, and more, from the profile
+                                        page. You can now add custom nav links, as well as custom HTML, widgets, or
+                                        change the template entirely.
                                     </p>
                                 </div>
 
@@ -156,6 +167,27 @@ export default function Profile({...props}) {
                         icon: PhotoIcon,
                         current: location.pathname === `/${userID}/photos/`
                     },
+                    {
+                        name: 'Videos',
+                        description: '',
+                        href: `/${userID}/videos/`,
+                        icon: VideoCameraIcon,
+                        current: location.pathname === `/${userID}/videos/`
+                    },
+                    {
+                        name: 'Friends',
+                        description: '',
+                        href: `/${userID}/friends/`,
+                        icon: FaceSmileIcon,
+                        current: location.pathname === `/${userID}/friends/`
+                    },
+                    {
+                        name: 'Badges',
+                        description: '',
+                        href: `/${userID}/badges/`,
+                        icon: TrophyIcon,
+                        current: location.pathname === `/${userID}/badges/`
+                    },
                     ...userSubNav ?? []
                 ]
             }
@@ -184,11 +216,28 @@ export default function Profile({...props}) {
                                 <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
                             )
                         }
+
                         {
                             location.pathname === `/${userID}/photos/` && (
                                 <ActivityPhotoList  userID={user.id}
                                                     perPage={24}
                                                     order='DESC' />
+                            )
+                        }
+
+                        {
+                            location.pathname === `/${userID}/videos/` && (
+                                <ActivityVideoList  userID={user.id}
+                                                    perPage={24}
+                                                    order='DESC' />
+                            )
+                        }
+
+                        {
+                            location.pathname === `/${userID}/friends/` && (
+                                <MemberFilterableList itemsPerPage={12}
+                                                      userID={userID}
+                                />
                             )
                         }
                     </div>

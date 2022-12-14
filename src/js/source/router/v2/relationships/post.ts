@@ -80,6 +80,20 @@ export async function friendRequest(userid: number): Promise<{ success: boolean;
 }
 
 /**
+ * GET relationship
+ */
+export async function getRelationship(userid: number): Promise<{ success: boolean; relationship: any }> {
+    const res = await fetch(`/api/v2/relationships/get/${userid}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+        }
+    });
+    return await res.json();
+}
+
+/**
  * GET friend requests for logged in user
  */
 export async function getFriendRequests(): Promise<{ success: boolean; requests: any[] }> {

@@ -33,6 +33,10 @@ class UserRelationship {
             }
         }
 
+        if ($this->IsFriend()) {
+            $this->RelationshipStatus = 'friend';
+        }
+
         return [
             'initiator' => $this->InitiatorID,
             'target' => $this->TargetID,
@@ -88,6 +92,16 @@ class UserRelationship {
         ]);
 
         return $Target && $Initiator;
+    }
+
+    /**
+     * Check if users are friends
+     * @return bool
+     * @since hk15
+     */
+    function IsFriend(): bool
+    {
+        return friends_check_friendship($this->InitiatorID, $this->TargetID);
     }
 
     /**

@@ -2,7 +2,14 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
-import {follow, isFollowing, unfollow, friendRequest, getFriendRequests} from "../../../router/v2/relationships/post";
+import {
+    follow,
+    isFollowing,
+    unfollow,
+    friendRequest,
+    getFriendRequests,
+    getRelationship
+} from "../../../router/v2/relationships/post";
 import {ChatBubbleLeftIcon, UserGroupIcon} from "@heroicons/react/20/solid";
 
 export declare interface NGProfileHeaderType {
@@ -98,6 +105,19 @@ function NGFollowButton({...props}: any) {
         isFollowing(user.id).then((res) => {
             setFollowing(res);
         })
+
+        getRelationship(user.id).then((res) => {
+            if (res.relationship?.status === 'friend') {
+                // Replace Item ID 'new_friend_request'
+                items.map((item, index) => {
+                    if (item.id === 'new_friend_request') {
+                        items[index].name = 'Unfriend';
+                        items[index].description = 'You are friends with this user.';
+                    }
+                })
+            }
+        })
+
         getFriendRequests().then((res: any) => {
             if (res) {
                 res.requests.map((request: any) => {
@@ -219,7 +239,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                                 </p>
                             </div>
                         </div>
-                        {props.loggedIn && !props.self && (
+                        {props.loggedIn && props.self && (
                             <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                                 {/*<button
                                     type="button"

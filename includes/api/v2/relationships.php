@@ -18,6 +18,30 @@ add_action('rest_api_init', function () {
         'initiator' => $Initiator,
         'target' => $Target,
     ];
+
+    /**
+     * GET /relationships/get/<TargetUserID>
+     * @return object Relationship data.
+     * @since hk15
+     */
+    register_rest_route('v2', '/relationships/get/(?P<target>\d+)', array(
+        'methods' => 'GET',
+        'callback' => function($request) {
+            if (empty(get_current_user_id())) {
+                wp_send_json([
+                    'success' => false,
+                    'error' => 'Not logged in.',
+                ]);
+            }
+            $result = [];
+            $Relationship = new UserRelationship();
+            $Relationship->SetRelationshipInfo(get_current_user_id(), $request['target']);
+            $result['relationship'] = $Relationship->GetRelationshipInfo();
+            $result['success'] = true;
+            wp_send_json($result);
+        },
+    ));
+
     /**
      * POST /relationships/follow
      * @param string $initiator Initiator ID.

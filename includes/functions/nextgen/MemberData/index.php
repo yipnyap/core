@@ -5,6 +5,7 @@
 $GetMemberBit = [
     'link' => 1,
     'rank' => 2,
+    'ui_skin' => 4,
 ];
 
 /**
@@ -46,6 +47,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
          * Check if ID is "me", and if so, get the logged in user's ID.
          */
         if ($member_id === 'me') {
+            $isSelf = true;
             $member_id = get_current_user_id();
         } else {
             $member_by_login = get_user_by('login', $member_id);
@@ -68,15 +70,53 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     // TODO: Deperecate "mention_name" in the future.
     $member = [
         "id" => $memberOld['id'],
+        "display_name" => $memberOld['name'],
         "username" => $memberOld['mention_name'],
         "avatar" => $memberOld['avatar_url'],
+        "header" => yipnyap_member_get_cover_url($memberOld['id']),
     ];
+    $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
 
     /**
      * Check if member is verified, then add "verified" to the member array.
      */
     if ($memberOld['verified']) {
         $member['verified'] = true;
+    }
+
+    $profile_data = [
+        'profile_data' => yipnyap_member_get_xprofile_data($member_id),
+    ];
+
+    /**
+     * Check if Bio exists, and if so, add it to the array.
+     */
+    $memberBio = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
+    if ($memberBio) {
+        $member['bio'] = $memberBio;
+    }
+
+    /**
+     * Check if member is "me", then add UI Privacy
+     */
+    if (isset($isSelf)) {
+        $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
+        $unicornEngine = get_option('unicorn_engine');
+        $member['ui_privacy'] = [
+            'hide_custom_ui_notice' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['hide_customised_ui_str']),
+            'disallow_bg_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str']),
+            'disallow_palette_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str']),
+        ];
+    }
+
+    /**
+     * Check if bitwise has "ui_skin", add Unicorn Engine
+     */
+    if ($bitwise & $GetMemberBit['ui_skin']) {
+        $member['ui_skin'] = [
+            'primary' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Primary Accent'),
+            'background' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Background'),
+        ];
     }
 
     /**

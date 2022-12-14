@@ -205,9 +205,9 @@ export default function Header() {
                     {border: true},
                     {
                         name: 'User Settings',
-                        href: `${res.link}settings/`,
+                        href: `/settings/`,
                         children: [
-                            {name: 'Edit Profile', href: `${res.link}settings/`},
+                            {name: 'Edit Profile', href: `/settings/`},
                             {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
                         ],
                     },

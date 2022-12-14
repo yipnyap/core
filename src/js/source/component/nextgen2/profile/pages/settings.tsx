@@ -1,7 +1,7 @@
 import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
-    Cog6ToothIcon,
+    Cog6ToothIcon, CursorArrowRaysIcon,
     PaintBrushIcon,
     QuestionMarkCircleIcon, ServerStackIcon,
     ShareIcon,
@@ -16,6 +16,7 @@ import SocialSettingsScreen from '../../../legacy/settings/SocialSettingsScreen.
 // @ts-ignore
 import AccountInfoSettingsScreen from '../../../legacy/settings/AccountInfoSettingsScreen.js';
 import SettingsSkin from "./settings/skin";
+import SettingsAccessibility from "./settings/accessibility";
 
 export default function SettingsGeneral() {
     const [, setHeading] = useHeading();
@@ -34,12 +35,19 @@ export default function SettingsGeneral() {
                         icon: Cog6ToothIcon,
                         current: location.pathname === '/settings/',
                     },
+                    // {
+                    //     name: 'Profile Skin',
+                    //     description: '',
+                    //     href: '/settings/skin',
+                    //     icon: PaintBrushIcon,
+                    //     current: location.pathname === '/settings/skin',
+                    // },
                     {
-                        name: 'Profile Skin',
-                        description: '',
-                        href: '/settings/skin',
-                        icon: PaintBrushIcon,
-                        current: location.pathname === '/settings/skin',
+                        name: 'Accessibility',
+                        description: 'Change font size, etc.',
+                        href: '/settings/accessibility',
+                        icon: CursorArrowRaysIcon,
+                        current: location.pathname === '/settings/accessibility',
                     },
                     {
                         name: 'Social',
@@ -76,6 +84,10 @@ export default function SettingsGeneral() {
 
             {
                 location.pathname === '/settings/skin' && <SettingsSkin/>
+            }
+
+            {
+                location.pathname === '/settings/accessibility' && <SettingsAccessibility/>
             }
 
             {

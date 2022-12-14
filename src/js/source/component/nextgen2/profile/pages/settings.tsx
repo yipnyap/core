@@ -15,7 +15,7 @@ export default function SettingsGeneral() {
     useEffect(() => {
         setHeading({
             heading: location.pathname === '/settings/' ? 'Settings' : null,
-            padding: location.pathname === '/settings/',
+            padding: location.pathname !== '/settings/skin',
             navigator: {
                 subNavigation: [
                     {

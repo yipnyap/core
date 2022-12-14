@@ -45,9 +45,9 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
     return (
         <nav
             aria-label="Sections"
-            className={`${location.pathname === '/' ? `flex flex-col grow sm:grow-0` : 'hidden lg:flex lg:flex-col'} ${slimNavClass} flex-shrink-0 bg-white border-r border-blue-gray-200 xl:overflow-y-auto`
+            className={`${location.pathname === '/' ? `flex flex-col grow sm:grow-0` : 'hidden lg:flex lg:flex-col'} ${slimNavClass} flex-shrink-0 bg-box border-r border-blue-gray-200 xl:overflow-y-auto`
                 // Dark mode
-            + ` dark:bg-neutral-800 dark:border-neutral-600`}>
+            + ` dark:border-neutral-600`}>
             {!props.slimContentNavigator && (
                 <div className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
                     <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{location.pathname.split('/')[1] || 'Home'}</p>

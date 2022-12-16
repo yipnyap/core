@@ -258,9 +258,11 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                 </div>
                 <div className="hidden md:block mt-6 min-w-0 flex-1 text-default">
                     {/* Bio */}
-                    <p className="text-sm whitespace-pre-line">
-                        {renderBio(profile.bio)}
-                    </p>
+                    {profile.bio && (
+                        <p className="text-sm whitespace-pre-line">
+                            {renderBio(profile.bio)}
+                        </p>
+                    )}
 
                     <div className="mt-2 flex flex-col text-sm text-alt-2">
                         <div className="flex">

@@ -40,7 +40,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
-    if (!preg_replace('/[^0-9]/', '', $member_id)) {
+    if (!preg_match('/^[0-9]*$/', $member_id)) {
         $member_id = str_replace('@', '', $member_id);
 
         /**

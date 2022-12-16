@@ -209,7 +209,7 @@ export default function Profile({...props}) {
                         }
                         <NGProfileHeader
                             user={user}
-                            loggedIn={yipnyap_constants.currentUser.username}
+                            loggedIn={yipnyap_constants.currentUser.username?.length > 0}
                             self={yipnyap_constants.currentUser.username === user.username}
                         />
 

@@ -119,7 +119,7 @@ function NGFollowButton({...props}: any) {
         })
 
         getFriendRequests().then((res: any) => {
-            if (res) {
+            if (res && res.requests) {
                 res.requests.map((request: any) => {
                   if (request.id === user.id) {
                       // Replace Item ID 'new_friend_request'

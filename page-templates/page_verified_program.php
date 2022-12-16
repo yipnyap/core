@@ -6,7 +6,7 @@
  * @since hk15
  * @author Yipnyap (https://yipnyap.xyz/)
  */
-include YIPNYAP_PATH . '/includes/functions/unicornengine/index.php';
+require_once YIPNYAP_PATH . '/includes/functions/unicornengine/index.php';
 
 get_header();
 

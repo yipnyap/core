@@ -90,7 +90,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('credits')) {
 /**
  * Member Profile - Badges Page
  */
-if (yipnyap_settings_members_profile_page_is_enabled('badges') && yipnyap_gamipress_achievement_type_exists('badge')) {
+if (yipnyap_gamipress_achievement_type_exists('badge')) {
     if (!function_exists('yipnyap_members_badges_page_setup_nav')) {
         /**
          * Creates member badges page navigation

@@ -7,6 +7,40 @@
  * @author Yipnyap (https://yipnyap.xyz/)
  *
  */
+
+/**
+ * Count render time
+ */
+// Start
+$AnalyticalRenderTime = [
+    'start' => microtime(true),
+    'end' => 0,
+    'total' => 0,
+    'human' => 0,
+];
+
+// Hook into the 'wp_footer' action
+add_action('wp_footer', function() {
+    global $AnalyticalRenderTime;
+    // End
+    $AnalyticalRenderTime['end'] = microtime(true);
+
+    // Calculate
+    $AnalyticalRenderTime['total'] = $AnalyticalRenderTime['end'] - $AnalyticalRenderTime['start'];
+    $AnalyticalRenderTime['human'] = number_format($AnalyticalRenderTime['total'], 2);
+
+    // Send render time to client
+    echo '<script>console.log("[Server] Render time: ' . $AnalyticalRenderTime['human'] . 's")</script>';
+});
+
+/**
+ * After theme loaded, load page templates
+ */
+add_action('after_setup_theme', function() {
+    // Load init.php
+    require_once get_template_directory() . '/page-templates/init.php';
+});
+
 /**
  * Theme paths and urls
  */
@@ -16,6 +50,7 @@ define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
 define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
 require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
+require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 
 /**
  * Rename "Keymaster" role
@@ -73,7 +108,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'hk15-1-NextgenUIMerge-fr2hf1');
+    : 'hk16');
 //const YIPNYAP_VERSION = 'hk13';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
@@ -100,7 +135,12 @@ define('YIPNYAP_WPOPTIONS', array(
             'disallow_palette_render_str' => 'prevent others ui palette from rendering',
             'hide_customised_ui_str' => 'hide customised ui notice on others profiles'
         ]
-    ]
+    ],
+    'google_font_url' => 'https://fonts.googleapis.com/css2?family=Lexend:wght@300..700',
+    'fonts' => [
+        'primary' => 'Lexend',
+        'secondary' => 'Lexend'
+    ],
 ));
 const YIPNYAP_OPTIONS = array(
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
@@ -131,19 +171,6 @@ function yipnyap_redirect_bp_signup_page(): string
 add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
 
 /**
- * Remove the wordpress admin bar
- * @return void
- */
-function yipnyap_remove_admin_bar(): void
-{
-    $current_user = wp_get_current_user();
-    if (!current_user_can('see_admin_bar') && !is_admin()) {
-        show_admin_bar(false);
-    }
-}
-add_action('after_setup_theme', 'yipnyap_remove_admin_bar');
-
-/**
  * Redirect to login after reset password
  */
 add_action('login_headerurl', function () {
@@ -167,7 +194,7 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 function yipnyap_admin_load_scripts(): void
 {
     // load fonts
-    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Nunito+Sans:400,500,600,700|Poppins:400,900&display=swap');
+    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap');
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.11.0');
@@ -195,7 +222,7 @@ function yipnyap_load_scripts(): void
     $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
     // load fonts
-    wp_enqueue_style('yipnyap-fonts', 'https://fonts.googleapis.com/css?family=' . $fonts['primary'] . ':400,500,600,700|' . $fonts['secondary'] . ':400,900&display=swap');
+    wp_enqueue_style('yipnyap-fonts', get_option('google_font_url'));
 
     // add custom stylesheets
     wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
@@ -237,9 +264,9 @@ function yipnyap_load_scripts(): void
         'yipnyap-xmtooltip-scripts'
     ];
 
-    $app_bundle_file = '/src/js/app.bundle.min.js';
+    $app_bundle_file = '/src/js/bundle.min.js';
     // add main script
-    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/app.bundle.js';
+    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/bundle.js';
     wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
 
     global $yipnyap_settings;
@@ -308,13 +335,6 @@ function yipnyap_body_classes($classes)
 
 add_filter('body_class', 'yipnyap_body_classes');
 
-add_filter('admin_title', 'my_admin_title', 10, 2);
-function my_admin_title($admin_title, $title): string
-{
-    // get_bloginfo('name')
-    return 'Houndboard &bull; ' . $title;
-}
-
 /**
  * Add support for features
  */
@@ -359,38 +379,6 @@ function yipnyap_support_features(): void
 add_action('after_setup_theme', 'yipnyap_support_features');
 
 /**
- * Remove uneeded classes that Wordpress (and plugins) generate.
- * They were for detecting plugins in the admin area, however there
- * better standard ways of doing this now.
- *
- * @param $wp_classes
- * @param $extra_classes
- * @return array New classes.
- */
-function yipnyap_body_class($wp_classes, $extra_classes): array
-{
-    // List of the only WP generated classes allowed
-    $whitelist = array('portfolio', 'home', 'error404');
-
-    // Filter the body classes
-    $wp_classes = array_intersect($wp_classes, $whitelist);
-
-    // Add the extra classes back untouched
-    return array_merge($wp_classes, (array)$extra_classes);
-}
-
-add_filter('body_class', 'yipnyap_body_class', 10, 2);
-
-/**
- * Hide admin bar for non administrators
- */
-$admin_bar_status = get_theme_mod('yipnyap_adminbar_setting_display', 'hide');
-
-if (($admin_bar_status === 'hide') && !current_user_can('administrator')) {
-    show_admin_bar(false);
-}
-
-/**
  * Yipnyap functions
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions.php';
@@ -404,6 +392,7 @@ require_once YIPNYAP_PATH . '/includes/filters/filters.php';
  * Yipnyap AJAX
  */
 require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
+require_once YIPNYAP_PATH . '/includes/api/v2/index.php';
 
 /**
  * Yipnyap sidebars
@@ -483,9 +472,7 @@ add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
  */
 function yipnyap_set_default_member_avatar(): string
 {
-    $members_default_avatar_url = yipnyap_get_default_member_avatar_url();
-
-    return $members_default_avatar_url;
+    return yipnyap_get_default_member_avatar_url();
 }
 
 add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
@@ -495,9 +482,7 @@ add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
  */
 function yipnyap_set_default_group_avatar(): string
 {
-    $groups_default_avatar_url = yipnyap_get_default_group_avatar_url();
-
-    return $groups_default_avatar_url;
+    return yipnyap_get_default_group_avatar_url();
 }
 
 add_filter('bp_core_default_avatar_group', 'yipnyap_set_default_group_avatar');
@@ -511,41 +496,6 @@ function yipnyap_translations_load(): void
 }
 
 add_action('after_setup_theme', 'yipnyap_translations_load');
-
-add_filter('login_title', function ($login_title) {
-    return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'),), array(' &lsaquo;', ''), $login_title);
-});
-
-/*
- * Replace Wordpress' error message generator with a custom.
- */
-add_filter(
-    'wp_php_error_message',
-    function ($message, $error) {
-        global $wp_filter;
-
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-        $date = date('c', strtotime('now'));
-        $YIPNYAP_VERSION = YIPNYAP_VERSION;
-        $new_error = substr($error['message'], 0, 100) . '...';
-        // . '<br><br>' . $error["message"]
-
-        postDiscordWebhookAsError(array(
-            'content' => 'Houndkit crashed.',
-            'embeds' => [
-                [
-                    'title' => 'ERRT-' . $error['type'] . '-' . $error['line'],
-                    'description' => "Yipnyap Version {$YIPNYAP_VERSION}\n{$actual_link}\n```bash\n" . $error["message"] . "```",
-                    'timestamp' => $date,
-                ],
-            ],
-        ));
-
-        return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
-    },
-    10,
-    2
-);
 
 function my_retrieve_password_subject_filter($old_subject): string
 {
@@ -587,22 +537,7 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login): s
 add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1);
 add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 10, 3);
 
-/* Remove wp_generator */
-remove_action('wp_head', 'wp_generator');
-
 add_filter('bp_core_enable_root_profiles', '__return_true');
-
-// This changes /no-admin-ajax/ -> /sdk/
-const WP_NO_ADMIN_AJAX_URL = 'sdk';
-add_filter('no-admin-ajax/keyword', function () {
-    return 'sdk';
-});
-
-// This will replace the 'wp-json' REST API prefix with 'api'.
-// Be sure to flush your rewrite rules for this change to work.
-add_filter('rest_url_prefix', function () {
-    return 'api';
-});
 
 /*
  * Now time for the fun stuff. Manipulating buddypress to do
@@ -639,43 +574,6 @@ function yipnyap_cover_image_upload_dir($upload): array
 }
 
 add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1, 1);
-
-/* Again, wordpress, respectfully, i hope you die in the
- * fiery pits of hell from where you came. Wordpress,
- * for some reason, will not allow you to remove its
- * stupid "Gutenberg" editor, as well as it's own emoji
- * handler, and for some reason it's picker. So, we have
- * to do this. This will remove it's bullsh*ttery from
- * pages (EVEN THOUGH WE USE IT LITERALLY NOWHERE!!!???)
- *
- * Let me add to the pain: it loads SVGs and scripts,
- * that are loaded *from s.w.org*, their CDN, with a unique
- * UUID, that's only supposed to be used when you have blog
- * federation on (we do not). This entire time i was
- * disobeying our own Privacy Policy because wordpress
- * decided to be quirky different 🤪✌️
- *
- * At this point with all these modifications, we've
- * basically made our own Wordpres fork. Can't wait for
- * snow2 so we can just ditch this shit.
- * Kill me now :)
- *
- * ^Rek(t)
- */
-add_action('after_setup_theme', function() {
-    // remove SVG and global styles
-    remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
-    remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
-    remove_action( 'wp_body_open', 'gutenberg_global_styles_render_svg_filters' );
-
-    // remove wp_footer actions which add's global inline styles
-    remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
-
-    // remove render_block filters which adding unnecessary stuff
-    remove_filter('render_block', 'wp_render_duotone_support');
-    remove_filter('render_block', 'wp_restore_group_inner_container');
-    remove_filter('render_block', 'wp_render_layout_support_flag');
-});
 
 // Set limits for the number of characters in bio and textboxes
 function yipnyap_set_xprofile_character_limit($validated, $values, $field) {

@@ -1,4 +1,4 @@
-@import 'wordpress-theme-header';
+@import 'legacy/wordpress-theme-header';
 
 @tailwind base;
 @tailwind components;
@@ -15,103 +15,34 @@
   }
 }
 
-.menu-main-item-link-icon {
-  @apply inline;
+/* Colours */
+.text-default {
+  @apply text-neutral-900 dark:text-white;
 }
 
-.menu-main-item-link {
-  color: var(--color-text) !important;
+.text-default-alt {
+  @apply text-neutral-500 dark:text-neutral-400;
 }
 
-/*------------
-    RESET
-------------*/
-@import 'reset';
+.bg-default {
+  @apply backdrop-blur-lg bg-white dark:bg-neutral-800;
+}
 
-/*-------------
-    GENERAL
--------------*/
-@import 'font';
-@import 'color';
-@import 'color-theme';
-@import 'form';
-@import 'icon';
-@import 'grid';
-@import 'general';
-@import 'button';
-@import 'utils';
-@import 'table';
-@import 'widget';
-@import 'loader';
-@import 'error';
-@import 'forum';
-@import 'woocommerce';
+.bg-default-alt {
+  @apply bg-neutral-100 dark:bg-neutral-700;
+}
 
-/*---------------
-    COMPONENT
----------------*/
-@import 'emoji/main';
-@import 'picture/main';
-@import 'progress-stat/main';
-@import 'progress-arc/main';
-@import 'user-avatar/main';
-@import 'user-status/main';
-@import 'cart-item-preview/main';
-@import 'form-box/main';
-@import 'landing/main';
-@import 'dropdown-box/main';
-@import 'dropdown-navigation/main';
-@import 'navigation-widget/main';
-@import 'chat-widget/main';
-@import 'profile-header/main';
-@import 'post-preview/main';
-@import 'post-comment/main';
-@import 'post-open/main';
-@import 'page-open/main';
-@import 'product-preview/main';
-@import 'stream-box/main';
-@import 'video-box/main';
-@import 'video-status/main';
-@import 'content-actions/main';
-@import 'user-preview/main';
-@import 'album-preview/main';
-@import 'popup-box/main';
-@import 'badge-item/main';
-@import 'streamer-box/main';
-@import 'calendar/main';
-@import 'event-preview/main';
-@import 'quest/main';
-@import 'forum-post/main';
-@import 'slider-panel/main';
-@import 'chart/main';
-@import 'demo-box/main';
-@import 'community-ui/main';
+.bg-default-alt-dark {
+  @apply bg-white dark:bg-neutral-700;
+}
 
-/*-------------
-    PLUGIN
--------------*/
-@import 'xm-tab';
-@import 'xm-popup';
-@import 'xm-popup-custom';
-@import 'bp-verified-badge';
-@import 'bp-better-messages';
-@import 'pmpro';
-@import 'pmpro-bbpress';
-@import 'pmpro-buddypress';
+.border-default {
+  @apply border-neutral-300 dark:border-neutral-700;
+}
 
-/*-------------
-    LAYOUT
--------------*/
-@import 'header';
-@import 'navigation';
-@import 'sidebar';
-@import 'section';
-@import 'footer';
+.dark\:border-gradient-red-dark {
+  background: linear-gradient(#3d1d1d, #3d1d1d) padding-box, linear-gradient(to top,#f43f5e,#fb7185,#ef4444) border-box
+}
 
-/*-------------------------
-    WORDPRESS OVERRIDES
--------------------------*/
-@import 'wordpress-overrides';
-@import 'elementor-overrides';
-@import 'swiper-overrides';
-@import 'bp-register';
+@import 'nextgen2/main';
+@import 'legacy/main';

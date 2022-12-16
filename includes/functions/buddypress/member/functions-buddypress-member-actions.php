@@ -558,6 +558,7 @@ if (bp_is_active('settings')) {
          */
         function yipnyap_members_settings_account_settings_page_screen_content()
         {
+            require_once YIPNYAP_PATH . '/includes/functions/nextgen/AllocatedStorage/index.php';
             $member = get_query_var('member');
 
             ?>
@@ -573,10 +574,6 @@ if (bp_is_active('settings')) {
                     'section_title' => esc_html__('Account Settings', 'yipnyap')
                 ]);
 
-                /**
-                 * Spoofed. No one will ever reach the limit, though this will be real soon.
-                 * TODO: Get actual, real data to detemine this.
-                 */
                 get_template_part('template-part/alert/alert', 'line', [
                     'type' => 'box',
                     'icon' => 'server',

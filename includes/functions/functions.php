@@ -8,7 +8,7 @@
 /**
  * Allocated Storage functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/allocatedstorage/index.php';
+require_once YIPNYAP_PATH . '/includes/functions/nextgen/index.php';
 
 /**
  * UTILS functions

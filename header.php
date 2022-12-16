@@ -20,7 +20,7 @@
     <?php endif; ?>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?> style="-webkit-font-smoothing: antialiased;">
+<body <?php body_class(yipnyap_logged_user_color_theme_get()); ?> style="-webkit-font-smoothing: antialiased;">
 <?php
 wp_body_open();
 
@@ -140,7 +140,8 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
                 'side_menu_items_flat' => $side_menu_items_flat,
                 'header_menu_items' => $header_menu_items,
                 'header_features_menu_items' => $header_features_menu_items,
-                'settings_navigation_sections' => $settings_navigation_sections
+                'settings_navigation_sections' => $settings_navigation_sections,
+                'selfControlCMUI' => $args['selfControlCMUI'] ?? false,
             ]);
         } else {
             /**
@@ -151,7 +152,8 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
                 'header_features_menu_items' => $header_features_menu_items,
                 'side_menu_items' => $side_menu_items_threaded,
                 'side_menu_items_flat' => $side_menu_items_flat,
-                'yipnyap_settings' => $yipnyap_settings
+                'yipnyap_settings' => $yipnyap_settings,
+                'selfControlCMUI' => $args['selfControlCMUI'] ?? false
             ]);
         }
     }

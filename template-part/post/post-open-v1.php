@@ -88,11 +88,6 @@ get_template_part('template-part/common/header/header', '', [
                             </div>
                         </div>
                     </div>
-                    <div class="mt-4">
-                        <h1 class="text-2xl font-semibold text-primary-900">
-                            <?php echo esc_html($args['post']['title']); ?>
-                        </h1>
-                    </div>
                     <div class="mt-6">
                         <?php if ($args['post']['cover_url']) : ?>
                             <div class="aspect-w-16 aspect-h-9">

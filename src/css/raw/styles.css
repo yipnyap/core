@@ -17,6 +17,199 @@
     @apply text-xl;
   }
 }
+/* Colours */
+.text-default {
+  @apply text-neutral-900 dark:text-white;
+}
+
+.text-default-alt {
+  @apply text-neutral-500 dark:text-neutral-400;
+}
+
+.bg-default {
+  @apply backdrop-blur-lg bg-white dark:bg-neutral-800;
+}
+
+.bg-default-alt {
+  @apply bg-neutral-100 dark:bg-neutral-700;
+}
+
+.bg-default-alt-dark {
+  @apply bg-white dark:bg-neutral-700;
+}
+
+.border-default {
+  @apply border-neutral-300 dark:border-neutral-700;
+}
+
+.dark\:border-gradient-red-dark {
+  background: -webkit-gradient(linear, left top, left bottom, from(#3d1d1d), to(#3d1d1d)) padding-box, -webkit-gradient(linear, left bottom, left top, from(#f43f5e), color-stop(#fb7185), to(#ef4444)) border-box;
+  background: -o-linear-gradient(#3d1d1d, #3d1d1d) padding-box, -o-linear-gradient(bottom, #f43f5e, #fb7185, #ef4444) border-box;
+  background: linear-gradient(#3d1d1d, #3d1d1d) padding-box, linear-gradient(to top, #f43f5e, #fb7185, #ef4444) border-box;
+}
+
+* {
+  -webkit-font-feature-settings: "ss04", "zero", "tnum", "caps";
+          font-feature-settings: "ss04", "zero", "tnum", "caps";
+}
+
+.container {
+  padding: 0 2rem;
+}
+
+.main {
+  min-height: 100vh;
+  padding: 4rem 0;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  padding: 2rem 0;
+  border-top: 1px solid #eaeaea;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.footer a {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+}
+
+.title a {
+  color: #0070f3;
+  text-decoration: none;
+}
+
+.title a:hover,
+.title a:focus,
+.title a:active {
+  text-decoration: underline;
+}
+
+.title {
+  margin: 0;
+  line-height: 1.15;
+  font-size: 4rem;
+}
+
+.title,
+.description {
+  text-align: center;
+}
+
+.description {
+  margin: 4rem 0;
+  line-height: 1.5;
+  font-size: 1.5rem;
+}
+
+.code {
+  background: #fafafa;
+  border-radius: 5px;
+  padding: 0.75rem;
+  font-size: 1.1rem;
+  font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+}
+
+.grid {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+}
+
+.card {
+  margin: 1rem;
+  padding: 1.5rem;
+  text-align: left;
+  color: inherit;
+  text-decoration: none;
+  border: 1px solid #eaeaea;
+  border-radius: 10px;
+  -webkit-transition: color 0.15s ease, border-color 0.15s ease;
+  -o-transition: color 0.15s ease, border-color 0.15s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
+  max-width: 300px;
+}
+
+.card:hover,
+.card:focus,
+.card:active {
+  color: #0070f3;
+  border-color: #0070f3;
+}
+
+.card h2 {
+  margin: 0 0 1rem 0;
+  font-size: 1.5rem;
+}
+
+.card p {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+@media (max-width: 600px) {
+  .grid {
+    width: 100%;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .card,
+.footer {
+    border-color: #222;
+  }
+  .code {
+    background: #111;
+  }
+}
 .menu-main-item-link-icon {
   @apply inline;
 }
@@ -3555,7 +3748,7 @@ a:hover {
     19. USER PREVIEW WIDGET
 -----------------------------*/
 .user-preview-widget {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   padding-bottom: 28px;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -4497,7 +4690,7 @@ a:hover {
 .popup-event {
   width: 90%;
   max-width: 584px;
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   opacity: 0;
   visibility: hidden;
@@ -5522,7 +5715,7 @@ a:hover {
     74. QUICK POST
 ---------------------------------*/
 .quick-post {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -5707,7 +5900,7 @@ a:hover {
 .mention-list {
   width: 180px;
   padding: 8px 0;
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -6642,7 +6835,7 @@ a:hover {
     99. TAB BOX
 ---------------------------------*/
 .tab-box {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
           box-shadow: var(--color-box-shadow);
@@ -9684,7 +9877,7 @@ a:hover {
     1. WIDGET BOX
 --------------------*/
 .widget-box {
-  @apply relative rounded-default;
+  @apply relative rounded-default backdrop-blur-lg;
   padding: 32px 28px;
   background-color: var(--color-box-background);
   -webkit-box-shadow: var(--color-box-shadow);
@@ -22570,7 +22763,7 @@ img[alt=logo].logo-image {
 }
 
 .cmui.navigator {
-  @apply border-solid border-0 border-r;
+  @apply border-solid border-0 border-r backdrop-blur-lg;
   position: fixed;
   background-color: var(--color-box-background);
   color: var(--color-text);
@@ -24364,7 +24557,7 @@ form.pmpro_form .pmpro_submit .pmpro_btn:link + .pmpro_btn {
     4. SECTION NAVIGATION
 -----------------------------*/
 .section-navigation {
-  @apply rounded-default;
+  @apply rounded-default backdrop-blur-lg;
   height: 80px;
   padding: 0 43px;
   background-color: var(--color-box-background);

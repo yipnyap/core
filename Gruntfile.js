@@ -53,24 +53,36 @@ module.exports = function (grunt) {
             }
         },
         browserify: {
-            options: {
-                browserifyOptions: {
-                    extensions: ['.jsx', '.js', '.ts', '.tsx'],
-                },
-                transform: [
-                    [
-                        'babelify',
-                        {
-                            presets: ['@babel/env', '@babel/preset-react'],
-                            compact: true
-                        }
-                    ]
-                ]
+            main: {
+                src: 'src/js/source/app.tsx',
+                dest: 'src/js/bundle/bundle.js',
             },
-            build: {
-                files: {
-                    'src/js/bundle/app.bundle.js': 'src/js/source/app.js'
-                }
+            options: {
+                // watch: true,
+                // keepAlive: true,
+                sourceMap: false,
+                browserifyOptions: {
+                    debug: true
+                },
+                configure: function (bundler) {
+                    bundler.plugin(require('tsify'));
+                    bundler.transform(require('babelify'), {
+                        presets: [
+                            '@babel/preset-typescript',
+                            [
+                                '@babel/env',
+                                {
+                                    debug: true
+                                }
+                            ],
+                            ['@babel/preset-react', {runtime: 'automatic'}],
+                        ],
+                        extensions: ['.js', '.ts', '.tsx'],
+                        compact: true,
+                        global: true,
+                        ignore: [/\/node_modules\/(?!src\/)/]
+                    });
+                },
             }
         },
         watch: {
@@ -91,6 +103,10 @@ module.exports = function (grunt) {
             jsx: {
                 files: ['src/js/**/*.jsx'],
                 tasks: ['scripts']
+            },
+            ts: {
+                files: ['src/js/**/*.ts', 'src/js/**/*.tsx'],
+                tasks: ['scripts']
             }
         }
     });
@@ -107,6 +123,6 @@ module.exports = function (grunt) {
 
     // Register custom tasks
     grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix']);
-    grunt.registerTask('scripts', ['browserify:build', /*'uglify:*/]);
+    grunt.registerTask('scripts', ['browserify', /*'uglify:*/]);
     grunt.registerTask('launch', ['watch']);
 };

@@ -10,14 +10,14 @@ add_action('rest_api_init', function () {
      * @return object Member data.
      * @since hk15
      */
-    register_rest_route('v2', '/member/(\@?)(?P<id>[\w\d]+)', array(
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)', array(
         'methods' => 'GET',
         'callback' => function($arguments) {
             wp_send_json(YipnyapGetMember($arguments['id']));
         },
     ));
     // ^
-    register_rest_route('v2', '/member/(\@?)(?P<id>[\w\d]+)/(?P<bitwise>\d+)', array(
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/(?P<bitwise>\d+)', array(
         'methods' => 'GET',
         'callback' => function($arguments) {
             wp_send_json(YipnyapGetMember($arguments['id'], $arguments['bitwise']));

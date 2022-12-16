@@ -236,8 +236,8 @@
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: -webkit-gradient(linear, left top, right top, color-stop(10%, var(--vk-color-primary)), color-stop(42%, rgba(35, 210, 226, 0)));
   background: -o-linear-gradient(left, var(--vk-color-primary) 10%, rgba(35, 210, 226, 0) 42%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(10%, var(--vk-color-primary)), color-stop(42%, rgba(35, 210, 226, 0)));
   background: linear-gradient(to right, var(--vk-color-primary) 10%, rgba(35, 210, 226, 0) 42%);
   -webkit-animation: loader-spinner 1.4s infinite linear;
           animation: loader-spinner 1.4s infinite linear;
@@ -321,8 +321,8 @@
 }
 .vk-content .button .loader-spinner {
   margin-left: 12px;
-  background: -webkit-gradient(linear, left top, right top, color-stop(10%, #fff), color-stop(42%, rgba(35, 210, 226, 0)));
   background: -o-linear-gradient(left, #fff 10%, rgba(35, 210, 226, 0) 42%);
+  background: -webkit-gradient(linear, left top, right top, color-stop(10%, #fff), color-stop(42%, rgba(35, 210, 226, 0)));
   background: linear-gradient(to right, #fff 10%, rgba(35, 210, 226, 0) 42%);
 }
 .vk-content .button .loader-spinner:before {

@@ -239,7 +239,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                                 </p>
                             </div>
                         </div>
-                        {props.loggedIn && props.self && (
+                        {props.loggedIn && !props.self && (
                             <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                                 {/*<button
                                     type="button"

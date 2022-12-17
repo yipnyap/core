@@ -8,9 +8,13 @@
 function YipnyapGetStorageUsage($user_id): int
 {
     $user_dir = YIPNYAP_UPLOADS_PATH . '/member/' . $user_id;
+    $user_meta_dir = wp_get_upload_dir()['basedir'] . '/members/' . $user_id;
     $bytes = 0;
     if (is_dir($user_dir)) {
         $bytes = YipnyapGetDirectorySize($user_dir);
+    }
+    if (is_dir($user_meta_dir)) {
+        $bytes += YipnyapGetDirectorySize($user_meta_dir);
     }
     return $bytes;
 }

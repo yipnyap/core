@@ -18,29 +18,31 @@ class UserRelationship {
     /**
      * Get relationship status.
      */
-    function GetRelationshipInfo(): array
+    function GetRelationshipInfo($skipFollowCheck = false): array
     {
-        $this->RelationshipStatus = 'none';
-        if ($this->IsFollowing()) {
-            $this->RelationshipStatus = 'following';
+        $this->RelationshipStatus = [];
+        if ($this->IsFollowing() && !$skipFollowCheck) {
+            $this->RelationshipStatus[] = 'following';
         }
 
-        // Loop through array, match ID
         $friendRequests = $this->GetFriendRequests();
-        foreach ($friendRequests as $friendRequest) {
-            if ($friendRequest['id'] === $this->TargetID) {
-                $this->RelationshipStatus = 'friend_request_sent';
-            }
-        }
-
-        if ($this->IsFriend()) {
-            $this->RelationshipStatus = 'friend';
+        $friendRequestsReceived = $this->GetReceivedFriendRequests();
+        if (in_array($this->InitiatorID, $friendRequests)) {
+            $this->RelationshipStatus[] = 'pending';
+        } else if (in_array($this->TargetID, $friendRequests)) {
+            $this->RelationshipStatus[] = 'awaiting_response';
+        } else if (in_array($this->InitiatorID, $friendRequestsReceived)) {
+            $this->RelationshipStatus[] = 'awaiting_response';
+        } else if (in_array($this->TargetID, $friendRequestsReceived)) {
+            $this->RelationshipStatus[] = 'pending';
+        } else if ($this->IsFriend()) {
+            $this->RelationshipStatus[] = 'is_friend';
         }
 
         return [
             'initiator' => $this->InitiatorID,
             'target' => $this->TargetID,
-            'status' => $this->RelationshipStatus,
+            'status' => join('|', $this->RelationshipStatus),
         ];
     }
 
@@ -101,7 +103,8 @@ class UserRelationship {
      */
     function IsFriend(): bool
     {
-        return friends_check_friendship($this->InitiatorID, $this->TargetID);
+        $friends = $this->GetFriends();
+        return in_array($this->TargetID, $friends);
     }
 
     /**
@@ -119,11 +122,59 @@ class UserRelationship {
 
         return $requests;
     }
+
+    /**
+     * Get received friend requests
+     * @return array
+     * @since hk16-hf2
+     */
+    function GetReceivedFriendRequests(): array
+    {
+        $requests = [];
+        $friend_requests = yipnyap_get_friend_requests_received($this->InitiatorID);
+        foreach ($friend_requests as $request) {
+            $requests[] = [
+                'id' => $request->id,
+            ];
+        }
+
+        return $requests;
+    }
+    
     /**
      * Create a friend request
      */
     function CreateFriendRequest(): bool
     {
-        return friends_add_friend($this->InitiatorID, $this->TargetID);
+        if ($this->GetRelationshipInfo(true)['status'] !== '') {
+            return false;
+        } else {
+            return friends_add_friend($this->InitiatorID, $this->TargetID);
+        }
+    }
+
+    /**
+     * Get all friends
+     * @return array
+     * @since hk16-hf2
+     */
+    function GetFriends(): array
+    {
+        $friend_args = [
+            'per_page' => 0,
+            'page' => 0,
+            'filter' => ''
+        ];
+
+        // $friend_args = array_replace($friend_args, $args);
+
+        $friends = friends_get_alphabetically($this->InitiatorID, $friend_args['per_page'], $friend_args['page'], $friend_args['filter']);
+        $f = [];
+
+        foreach ($friends['users'] as $friend) {
+            $f[] = $friend->ID;
+        }
+
+        return $f;
     }
 }

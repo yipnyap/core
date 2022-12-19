@@ -22,7 +22,6 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapGetMember($arguments['id']));
         },
     ));
-
 });
 
 /**

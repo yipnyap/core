@@ -1,6 +1,5 @@
 import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
-import {ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon} from "@heroicons/react/24/solid";
 import {Menu, Transition} from "@headlessui/react";
 import {
     follow,
@@ -10,7 +9,7 @@ import {
     getFriendRequests,
     getRelationship
 } from "../../../router/v2/relationships/post";
-import {ChatBubbleLeftIcon, UserGroupIcon} from "@heroicons/react/20/solid";
+import {ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon, ChatBubbleLeftIcon, LinkIcon, UserGroupIcon} from "@heroicons/react/20/solid";
 
 export declare interface NGProfileHeaderType {
     user: any;
@@ -298,6 +297,18 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                                     <span>
                                         {profile.posts} posts
                                     </span>
+                                </>
+                            )}
+                        </div>
+
+                        <div className="flex">
+                            {/* Post count */}
+                            {profile.exturl !== undefined && (
+                                <>
+                                    <LinkIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <a href={profile.exturl} target="_blank" rel="noreferrer">
+                                        {profile.exturl}
+                                    </a>
                                 </>
                             )}
                         </div>

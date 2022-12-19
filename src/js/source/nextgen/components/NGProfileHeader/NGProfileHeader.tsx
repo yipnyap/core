@@ -301,7 +301,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             )}
                         </div>
 
-                        <div className="flex">
+                        <div className="flex items-center">
                             {/* Post count */}
                             {profile.exturl !== undefined && (
                                 <>

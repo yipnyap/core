@@ -58,8 +58,8 @@ module.exports = function (grunt) {
                 dest: 'src/js/bundle/bundle.js',
             },
             options: {
-                // watch: true,
-                // keepAlive: true,
+                watch: true,
+                keepAlive: true,
                 sourceMap: false,
                 browserifyOptions: {
                     debug: true

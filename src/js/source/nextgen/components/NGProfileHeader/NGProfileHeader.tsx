@@ -107,7 +107,10 @@ function NGFollowButton({...props}: any) {
         })
 
         getRelationship(user.id).then((res) => {
-            if (res.relationship?.status === 'friend') {
+            const { relationship } = res;
+            const { status } = relationship;
+            console.log(relationship);
+            if (status.indexOf('is_friend') > -1) {
                 // Replace Item ID 'new_friend_request'
                 items.map((item, index) => {
                     if (item.id === 'new_friend_request') {
@@ -115,21 +118,21 @@ function NGFollowButton({...props}: any) {
                         items[index].description = 'You are friends with this user.';
                     }
                 })
-            }
-        })
-
-        getFriendRequests().then((res: any) => {
-            if (res && res.requests) {
-                res.requests.map((request: any) => {
-                  if (request.id === user.id) {
-                      // Replace Item ID 'new_friend_request'
-                      items.map((item, index) => {
-                          if (item.id === 'new_friend_request') {
-                              items[index].name = 'Undo Friend Request';
-                              items[index].description = 'You have sent a friend request to this user.';
-                          }
-                      })
-                  }
+            } else if (status.indexOf('pending') > -1) {
+                // Replace Item ID 'new_friend_request'
+                items.map((item, index) => {
+                    if (item.id === 'new_friend_request') {
+                        items[index].name = 'Undo Friend Request';
+                        items[index].description = 'You have sent a friend request to this user.';
+                    }
+                })
+            } else if (status.indexOf('awaiting_response') > -1) {
+                // Replace Item ID 'new_friend_request'
+                items.map((item, index) => {
+                    if (item.id === 'new_friend_request') {
+                        items[index].name = 'Answer Friend Request';
+                        items[index].description = 'You have a friend request from this user.';
+                    }
                 })
             }
         })

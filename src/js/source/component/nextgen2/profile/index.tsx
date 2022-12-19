@@ -238,7 +238,7 @@ export default function Profile({...props}) {
                         {
                             location.pathname === `/${userID}/friends/` && (
                                 <MemberFilterableList itemsPerPage={12}
-                                                      userID={userID}
+                                                      userID={user.id}
                                 />
                             )
                         }

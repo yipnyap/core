@@ -146,7 +146,8 @@ class UserRelationship {
      */
     function CreateFriendRequest(): bool
     {
-        if ($this->GetRelationshipInfo(true)['status'] !== '') {
+        $relationship = $this->GetRelationshipInfo(true);
+        if ($relationship['status'] !== '') {
             return false;
         } else {
             return friends_add_friend($this->InitiatorID, $this->TargetID);

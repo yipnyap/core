@@ -29,12 +29,7 @@ $display_verified_in_username = $display_verified && $yipnyap_settings['bp_verif
 
 $verified_user = $args['post']['author']['verified'];
 
-$breadcrumbs = [
-    [
-        'title' => 'Blog',
-        'url' => '/blog',
-    ]
-];
+$breadcrumbs = [];
 foreach ($args['post']['categories'] as $category) {
     $breadcrumbs[] = [
         'title' => esc_html($category->name),

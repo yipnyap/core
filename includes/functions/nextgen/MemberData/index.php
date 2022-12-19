@@ -80,7 +80,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
         'following' => count(bp_follow_get_following(array(
             'user_id' => $member_id
         ))),
-        'posts' => YipnyapGetMemberActivityCount($member_id),
+        'posts' => YipnyapGetMemberActivityCount($member_id)
     ];
     $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
 
@@ -101,6 +101,11 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     $memberBio = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
     if ($memberBio) {
         $member['bio'] = $memberBio;
+    }
+
+    $memberExtURL = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Web');
+    if ($memberExtURL) {
+        $member['exturl'] = $memberExtURL;
     }
 
     /**

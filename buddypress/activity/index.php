@@ -132,7 +132,7 @@ get_template_part('template-part/common/header/header', null, [
         <div class="hidden col-span-2 xl:block">
             <?php
 
-            $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 15, 'hide_system' => true]);
+            $online_members = yipnyap_members_get(['type' => 'online', 'per_page' => 20, 'hide_system' => true]);
             $active_members = yipnyap_members_get(['type' => 'active', 'per_page' => 20, 'hide_system' => true]);
 
             /**

@@ -142,15 +142,15 @@ get_template_part('template-part/common/header/header', null, [
                 'widget_title' => esc_html__('Online Users', 'yipnyap'),
                 'tabs' => [
                     [
-                        'title' => 'Online Now',
-                        'users' => $online_members,
-                        'no_results_text' => esc_html__('Nobody is online!', 'yipnyap')
-                    ],
-                    [
                         'title' => 'Recent',
                         'users' => $active_members,
                         'no_results_text' => esc_html__('Something went wrong.', 'yipnyap')
-                    ]
+                    ],
+                    [
+                        'title' => 'This minute',
+                        'users' => $online_members,
+                        'no_results_text' => esc_html__('Nobody is online!', 'yipnyap')
+                    ],
                 ],
             ]);
 
@@ -212,27 +212,6 @@ get_template_part('template-part/common/header/header', null, [
                     <!-- /ALERT LINE TEXT -->
                 </div>
             <?php } ?>
-
-            <div class="alert-line alert-line-info">
-                <!-- ALERT LINE ICON WRAP -->
-                <div class="alert-line-icon-wrap">
-                    <!-- ALERT LINE ICON -->
-                    <svg class="alert-line-icon icon-info">
-                        <use href="#svg-info"></use>
-                    </svg>
-                    <!-- /ALERT LINE ICON -->
-                </div>
-                <!-- /ALERT LINE ICON WRAP -->
-
-                <!-- ALERT LINE TEXT -->
-                <p class="alert-line-text">
-                    <b>An issue is preventing friends list from loading.</b>
-                    <br/><br/>
-                    We're aware of this, and are working on a fix. You are still friends with people and can still
-                    send requests!
-                </p>
-                <!-- /ALERT LINE TEXT -->
-            </div>
 
             <!-- ACTIVITY FILTERABLE LIST -->
             <div id="activity-filterable-list" class="grid-column"></div>

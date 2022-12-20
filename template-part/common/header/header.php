@@ -23,6 +23,7 @@ $icon = $args['icon'] ?? 'black-question-mark-ornament';
         padding: 0 0 80px 80px !important;
         overflow-x: visible !important;
         overflow-y: visible !important;
+        transform: translateZ(0);
     }
 
     @media (max-width: 1024px) {

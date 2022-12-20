@@ -124,6 +124,9 @@ export default function Profile({...props}) {
     const location = useLocation();
     let {userID} = props;
 
+    const pageIsGabe = userID === 'rekkisomo';
+    const selfIsGabe = yipnyap_constants.currentUser.username === 'rekkisomo';
+
     if (!userID) {
         // Get username from url
         userID = location.pathname.split('/')[1];
@@ -131,7 +134,7 @@ export default function Profile({...props}) {
 
     useEffect(() => {
         // If voidhound_, show "Arcana" tab
-        if (userID === 'rekkisomo') {
+        if (pageIsGabe) {
             setUserSubNav([
                 {
                     name: 'Arcana',
@@ -216,7 +219,7 @@ export default function Profile({...props}) {
                     <>
                         {
                             location.pathname.startsWith(`/${userID}/arcana/`) ? (
-                                <Arcana />
+                                <Arcana isGabe={selfIsGabe} />
                             ) : (
                                 <div className="m-auto p-8 max-w-3xl space-y-4">
                                     {

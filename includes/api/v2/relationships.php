@@ -74,6 +74,7 @@ add_action('rest_api_init', function () {
             wp_send_json($result);
         },
     ));
+
     /**
      * POST /relationships/unfollow
      * @param string $initiator Initiator ID.
@@ -106,6 +107,7 @@ add_action('rest_api_init', function () {
             wp_send_json($result);
         },
     ));
+
     /**
      * POST /relationships/following
      * @param string $initiator Initiator ID.
@@ -138,6 +140,7 @@ add_action('rest_api_init', function () {
             wp_send_json($result);
         },
     ));
+
     /**
      * POST /relationships/mutuals
      * @param string $initiator Initiator ID.

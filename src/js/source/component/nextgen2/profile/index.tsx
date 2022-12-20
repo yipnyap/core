@@ -238,25 +238,31 @@ export default function Profile({...props}) {
 
                                     {
                                         location.pathname === `/${userID}/photos/` && (
-                                            <ActivityPhotoList  userID={user.id}
-                                                                perPage={24}
-                                                                order='DESC' />
+                                            <div className="bg-box p-8 rounded-xl">
+                                                <ActivityPhotoList  userID={user.id}
+                                                                    perPage={24}
+                                                                    order='DESC' />
+                                            </div>
                                         )
                                     }
 
                                     {
                                         location.pathname === `/${userID}/videos/` && (
-                                            <ActivityVideoList  userID={user.id}
-                                                                perPage={24}
-                                                                order='DESC' />
+                                            <div className="bg-box p-8 rounded-xl">
+                                                <ActivityVideoList  userID={user.id}
+                                                                    perPage={24}
+                                                                    order='DESC' />
+                                            </div>
                                         )
                                     }
 
                                     {
                                         location.pathname === `/${userID}/friends/` && (
-                                            <MemberFilterableList itemsPerPage={12}
-                                                                  userID={user.id}
-                                            />
+                                            <div className="bg-box p-8 rounded-xl">
+                                                <MemberFilterableList itemsPerPage={12}
+                                                                      userID={user.id}
+                                                />
+                                            </div>
                                         )
                                     }
                                 </div>

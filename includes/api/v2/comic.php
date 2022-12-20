@@ -18,11 +18,13 @@ add_action('rest_api_init', function() {
                     if (str_starts_with($file, 'arcana')) {
                         $comicEntry = str_replace('arcana-', '', $file);
                         $arcanaSplit = explode('-', $comicEntry);
-                        $arcana[] = [
-                            'chapter' => $arcanaSplit[0],
-                            'page' => explode('.', $arcanaSplit[1])[0],
-                            'image' => YIPNYAP_UPLOADS_URL . '/member/1/' . $file
-                        ];
+                        if (isset($arcanaSplit[1])) {
+                            $arcana[] = [
+                                'chapter' => $arcanaSplit[0],
+                                'page' => explode('.', $arcanaSplit[1])[0],
+                                'image' => YIPNYAP_UPLOADS_URL . '/member/1/' . $file
+                            ];
+                        }
                     }
                 }
                 return $arcana;

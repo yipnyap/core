@@ -793,6 +793,7 @@ textarea {
   }
 
   .icon-cross {
+    opacity: 0;
     fill: transparent;
     transition: fill .2s ease-in-out;
   }

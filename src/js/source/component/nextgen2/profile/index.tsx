@@ -23,6 +23,7 @@ import {
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
+import Arcana from "./pages/special/arcana";
 
 interface NGProfileType {
     id: number;
@@ -129,6 +130,19 @@ export default function Profile({...props}) {
     }
 
     useEffect(() => {
+        // If voidhound_, show "Arcana" tab
+        if (userID === 'rekkisomo') {
+            setUserSubNav([
+                {
+                    name: 'Arcana',
+                    description: '',
+                    href: `/${userID}/arcana/`,
+                    icon: 'https://yipnyap.xyz/vault/@server/uploads/2022/12/dorito.png',
+                    current: location.pathname === `/${userID}/arcana/`,
+                }
+            ])
+        }
+
         const userPromise = userID ? getMember(`@${userID}`, (2 + 4)) : null;
         userPromise?.then((user) => {
             console.log(user);
@@ -137,17 +151,6 @@ export default function Profile({...props}) {
                 const cmuiContent = document.getElementById('cmui-entire-content');
                 if (user.ui_skin.background) cmuiContent?.style.setProperty('background', user.ui_skin.background.replace('&amp;', '&'));
                 if (user.ui_skin.primary) document.body.style.setProperty('--color-primary', user.ui_skin.primary);
-            }
-            if (user.username === yipnyap_constants.currentUser.username) {
-                setUserSubNav([
-                    {
-                        name: <span className='inline-flex'>Settings <ArrowUpRightIcon className='w-4'/></span>,
-                        description: '',
-                        href: '/settings/',
-                        icon: Cog6ToothIcon,
-                        current: false,
-                    }
-                ])
             }
         });
     }, [userID, location.pathname]);
@@ -165,6 +168,7 @@ export default function Profile({...props}) {
                         icon: HomeIcon,
                         current: location.pathname === `/${userID}/`
                     },
+                    ...userSubNav ?? [],
                     {
                         name: 'Photos',
                         description: '',
@@ -193,7 +197,13 @@ export default function Profile({...props}) {
                         icon: TrophyIcon,
                         current: location.pathname === `/${userID}/badges/`
                     },
-                    ...userSubNav ?? []
+                    ...yipnyap_constants.currentUser.username === userID ? [{
+                        name: <span className='inline-flex'>Settings <ArrowUpRightIcon className='w-4'/></span>,
+                        description: '',
+                        href: '/settings/',
+                        icon: Cog6ToothIcon,
+                        current: false,
+                    }] : [],
                 ]
             }
         })
@@ -203,46 +213,56 @@ export default function Profile({...props}) {
         <>
             {
                 user && (
-                    <div className="m-auto p-8 max-w-3xl space-y-4">
+                    <>
                         {
-                            (yipnyap_constants.currentUser.username && yipnyap_constants.currentUser.username === user.username) && <NextgenProfilesWelcomeModal />
-                        }
-                        <NGProfileHeader
-                            user={user}
-                            loggedIn={yipnyap_constants.currentUser.username?.length > 0}
-                            self={yipnyap_constants.currentUser.username === user.username}
-                        />
+                            location.pathname.startsWith(`/${userID}/arcana/`) ? (
+                                <Arcana />
+                            ) : (
+                                <div className="m-auto p-8 max-w-3xl space-y-4">
+                                    {
+                                        (yipnyap_constants.currentUser.username && yipnyap_constants.currentUser.username === user.username) && <NextgenProfilesWelcomeModal />
+                                    }
+                                    {
+                                        location.pathname !== `/${userID}/arcana/` &&  <NGProfileHeader
+                                            user={user}
+                                            loggedIn={yipnyap_constants.currentUser.username?.length > 0}
+                                            self={yipnyap_constants.currentUser.username === user.username}
+                                        />
+                                    }
 
-                        {
-                            location.pathname === `/${userID}/` && (
-                                <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                                    {
+                                        location.pathname === `/${userID}/` && (
+                                            <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname === `/${userID}/photos/` && (
+                                            <ActivityPhotoList  userID={user.id}
+                                                                perPage={24}
+                                                                order='DESC' />
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname === `/${userID}/videos/` && (
+                                            <ActivityVideoList  userID={user.id}
+                                                                perPage={24}
+                                                                order='DESC' />
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname === `/${userID}/friends/` && (
+                                            <MemberFilterableList itemsPerPage={12}
+                                                                  userID={user.id}
+                                            />
+                                        )
+                                    }
+                                </div>
                             )
                         }
-
-                        {
-                            location.pathname === `/${userID}/photos/` && (
-                                <ActivityPhotoList  userID={user.id}
-                                                    perPage={24}
-                                                    order='DESC' />
-                            )
-                        }
-
-                        {
-                            location.pathname === `/${userID}/videos/` && (
-                                <ActivityVideoList  userID={user.id}
-                                                    perPage={24}
-                                                    order='DESC' />
-                            )
-                        }
-
-                        {
-                            location.pathname === `/${userID}/friends/` && (
-                                <MemberFilterableList itemsPerPage={12}
-                                                      userID={user.id}
-                                />
-                            )
-                        }
-                    </div>
+                    </>
                 )
             }
         </>

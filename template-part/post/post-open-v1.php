@@ -33,7 +33,7 @@ $breadcrumbs = [];
 foreach ($args['post']['categories'] as $category) {
     $breadcrumbs[] = [
         'title' => esc_html($category->name),
-        'url' => esc_url(get_category_link($category->cat_ID))
+        'url' => esc_url($category->name === 'Arcana' ? '/voidhound_/arcana/' : get_category_link($category->cat_ID))
     ];
 }
 $breadcrumbs[] = [

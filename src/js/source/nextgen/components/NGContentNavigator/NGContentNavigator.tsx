@@ -71,7 +71,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
 
                         { typeof item.icon === 'string' && (
                             <img
-                                className="flex-shrink-0 -mt-0.5 h-6 w-6 rounded-lg"
+                                className="flex-shrink-0 -mt-0.5 h-6 w-6 rounded-lg dark:invert"
                                 src={item.icon}
                             />
                         )}

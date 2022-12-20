@@ -294,7 +294,8 @@ function yipnyap_load_scripts(): void
         'gamipress_badge_type_exists' => yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge'),
         'colors' => yipnyap_customizer_theme_colors_get_array(),
         'settings' => $yipnyap_settings,
-        'yipnyap_server_version' => YIPNYAP_VERSION
+        'yipnyap_server_version' => YIPNYAP_VERSION,
+        'upload_url' => wp_upload_dir()['baseurl'],
     ]);
 
     // pass translation strings to javascript file

@@ -39,6 +39,13 @@ export default function Arcana({...props}: any) {
         pages: string[];
     }[]>([]);
 
+    useEffect(() => {
+        console.log(isOpen);
+        if (!isOpen) {
+            history.pushState("", document.title, window.location.pathname + window.location.search);
+        }
+    }, [isOpen]);
+
     useEffect( () => {
         // Get comic data
         fetch('/api/v2/comic/arcana').then(async (res) => {
@@ -111,8 +118,8 @@ export default function Arcana({...props}: any) {
                             >
                                 <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-box align-middle shadow-xl transition-all">
                                     {/* Loop through post pages */}
-                                    {openChapterID && posts[openChapterID - 1]?.pages.map((page) => (
-                                        <img key={page} src={page} />
+                                    {openChapterID && posts[openChapterID - 1]?.pages.map((page, index) => (
+                                        <img key={index} src={page} />
                                     ))}
 
                                 </Dialog.Panel>
@@ -145,14 +152,14 @@ export default function Arcana({...props}: any) {
             {/* List of chapters and summary */}
             <div className="flex flex-col w-full h-full p-8 bg-box">
                 {/* How-to card if user is voidhound_ */}
-                {yipnyap_constants.currentUser.username === 'rekkisomo' && (
+                {props.isGabe && (
                     <>
                         <div className="flex items-center text-2xl font-bold leading-none text-default mb-12">
                             <ExclamationCircleIcon className="h-6 w-6 mr-2" /> Creator Notices
                         </div>
                         <div className="max-w-lg grid gap-5 lg:grid-cols-3 lg:max-w-none mb-12">
-                            {creatorNotices.map((notice) => (
-                                <div className="flex flex-col bg-box p-8 mb-8 max-w-lg rounded-xl">
+                            {creatorNotices.map((notice, index) => (
+                                <div key={index} className="flex flex-col bg-box p-8 mb-8 max-w-lg rounded-xl">
                                     {/* "Only you can see this" */}
                                     <div className="flex flex-row items-center mb-4">
                                         <ExclamationTriangleIcon className="h-6 w-6 text-yellow-500" />

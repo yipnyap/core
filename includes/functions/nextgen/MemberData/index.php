@@ -248,12 +248,26 @@ function YipnyapGetMemberBadges(string|int $member_id): array
     foreach ($gp_achievements as $gp_achievement) {
         $complete = in_array($gp_achievement->ID, $member_achievements);
         if ($complete) {
-            $badges[] = [
+            $badgeBuild = [
                 'id' => $gp_achievement->ID,
-                'name' => $gp_achievement->post_title,
-                'description' => wp_strip_all_tags($gp_achievement->post_content),
                 'image' => get_post(get_post_thumbnail_id($gp_achievement->ID))->guid,
             ];
+
+            $badgeMeta = [
+                'name' => $gp_achievement->post_title,
+                'description' => wp_strip_all_tags($gp_achievement->post_content),
+            ];
+
+            if (str_starts_with($gp_achievement->post_title, '🙈')) {
+                $badgeBuild['secret'] = true;
+            } else if(str_starts_with($gp_achievement->post_title, '✨')) {
+                $badgeBuild['deluxe'] = true;
+                $badgeBuild = array_merge($badgeBuild, $badgeMeta);
+            } else {
+                $badgeBuild = array_merge($badgeBuild, $badgeMeta);
+            }
+
+            $badges[] = $badgeBuild;
         }
     }
 

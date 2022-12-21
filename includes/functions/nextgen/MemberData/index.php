@@ -24,6 +24,35 @@ function YipnyapGetBitwiseValues(): array
 }
 
 /**
+ * Get member ID if username is provided, otherwise return ID
+ * @param int|string $member_id Member ID or username.
+ * @return int Member ID.
+ * @since hk16-2
+ */
+function YipnyapFetchMemberID(int|string $member_id): int
+{
+    if (!preg_match('/^[0-9]*$/', $member_id)) {
+        $member_id = str_replace('@', '', $member_id);
+
+        /**
+         * Check if ID is "me", and if so, get the logged in user's ID.
+         */
+        if ($member_id === 'me') {
+            $member_id = get_current_user_id();
+        } else {
+            $member_by_login = get_user_by('login', $member_id);
+            if ($member_by_login) {
+                $member_id = $member_by_login->ID;
+            } else {
+                return 0;
+            }
+        }
+    }
+
+    return intval($member_id);
+}
+
+/**
  * Get member data by ID
  *
  * @param int|string $member_id Member ID.
@@ -37,25 +66,14 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
 {
     global $GetMemberBit;
 
+    if ($member_id === '@me') {
+        $isSelf = true;
+    }
+
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
-    if (!preg_match('/^[0-9]*$/', $member_id)) {
-        $member_id = str_replace('@', '', $member_id);
-
-        /**
-         * Check if ID is "me", and if so, get the logged in user's ID.
-         */
-        if ($member_id === 'me') {
-            $isSelf = true;
-            $member_id = get_current_user_id();
-        } else {
-            $member_by_login = get_user_by('login', $member_id);
-            if ($member_by_login) {
-                $member_id = $member_by_login->ID;
-            }
-        }
-    }
+    $member_id = YipnyapFetchMemberID($member_id);
 
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {

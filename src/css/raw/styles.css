@@ -1315,9 +1315,11 @@ textarea::placeholder {
   border-color: var(--color-primary);
 }
 .checkbox-box.active .icon-cross {
+  opacity: 1;
   color: var(--color-box-background);
 }
 .checkbox-box .icon-cross {
+  opacity: 0;
   fill: transparent;
   -webkit-transition: fill 0.2s ease-in-out;
   -o-transition: fill 0.2s ease-in-out;

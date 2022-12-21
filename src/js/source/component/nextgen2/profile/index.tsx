@@ -24,6 +24,7 @@ import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 import Arcana from "./pages/special/arcana";
+import ProfileBadges from "./pages/badges";
 
 interface NGProfileType {
     id: number;
@@ -124,13 +125,13 @@ export default function Profile({...props}) {
     const location = useLocation();
     let {userID} = props;
 
-    const pageIsGabe = userID === 'rekkisomo';
-    const selfIsGabe = yipnyap_constants.currentUser.username === 'rekkisomo';
-
     if (!userID) {
         // Get username from url
         userID = location.pathname.split('/')[1];
     }
+
+    const pageIsGabe = userID === 'rekkisomo';
+    const selfIsGabe = yipnyap_constants.currentUser.username === 'rekkisomo';
 
     useEffect(() => {
         // If voidhound_, show "Arcana" tab
@@ -265,6 +266,14 @@ export default function Profile({...props}) {
                                                 <MemberFilterableList itemsPerPage={12}
                                                                       userID={user.id}
                                                 />
+                                            </div>
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname === `/${userID}/badges/` && (
+                                            <div className="bg-box p-8 rounded-xl">
+                                                <ProfileBadges userID={user.id} />
                                             </div>
                                         )
                                     }

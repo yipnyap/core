@@ -130,8 +130,8 @@ export default function Profile({...props}) {
         userID = location.pathname.split('/')[1];
     }
 
-    const pageIsGabe = userID === 'rekkisomo';
-    const selfIsGabe = yipnyap_constants.currentUser.username === 'rekkisomo';
+    const pageIsGabe = userID === 'voidhound_';
+    const selfIsGabe = yipnyap_constants.currentUser.username === 'voidhound_';
 
     useEffect(() => {
         // If voidhound_, show "Arcana" tab

@@ -219,3 +219,43 @@ function YipnyapLoginMember(string|null $username, string|null $password): array
 
     }
 }
+
+/**
+ * Get member's badges
+ * @param string|int $member_id Member ID
+ * @return array Member's badges
+ * @since hk16-2
+ */
+function YipnyapGetMemberBadges(string|int $member_id): array
+{
+    $member_id = YipnyapFetchMemberID($member_id);
+    $badges = [];
+
+    $gp_achievements = gamipress_get_achievements([
+        'post_type' => 'badge',
+    ]);
+
+    $member_achievements = gamipress_get_user_achievements([
+        'user_id' => $member_id,
+        'achievement_type' => 'badge',
+    ]);
+
+    // Convert $member_achievements to array of achievement IDs
+    $member_achievements = array_map(function ($achievement) {
+        return $achievement->ID;
+    }, $member_achievements);
+
+    foreach ($gp_achievements as $gp_achievement) {
+        $complete = in_array($gp_achievement->ID, $member_achievements);
+        if ($complete) {
+            $badges[] = [
+                'id' => $gp_achievement->ID,
+                'name' => $gp_achievement->post_title,
+                'description' => wp_strip_all_tags($gp_achievement->post_content),
+                'image' => get_post(get_post_thumbnail_id($gp_achievement->ID))->guid,
+            ];
+        }
+    }
+
+    return $badges;
+}

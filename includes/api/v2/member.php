@@ -4,6 +4,19 @@
  */
 add_action('rest_api_init', function () {
     /**
+     * GET /member/{id}/badges
+     * @param int $id Member ID.
+     * @return object Member badges.
+     * @since hk16-2
+     */
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/badges', array(
+        'methods' => 'GET',
+        'callback' => function($arguments) {
+            wp_send_json(YipnyapGetMemberBadges($arguments['id']));
+        },
+    ));
+
+    /**
      * GET /member/{id}
      * @param int $id Member ID.
      * @param int $bitwise Bitwise (optional).

@@ -1,7 +1,8 @@
 module.exports = function (grunt) {
 
-    const sass = require('sass'),
-        cssnano = require('cssnano');
+    const sass = require('sass');
+    const cssnano = require('cssnano');
+    const browserifyCSS = require('browserify-css');
 
     grunt.initConfig({
         sass: {
@@ -82,6 +83,7 @@ module.exports = function (grunt) {
                         global: true,
                         ignore: [/\/node_modules\/(?!src\/)/]
                     });
+                    bundler.transform(browserifyCSS);
                 },
             }
         },

@@ -42,6 +42,7 @@
     "@babel/preset-typescript": "^7.18.6",
     "@heroicons/react": "^2.0.13",
     "@tailwindcss/forms": "^0.4.0",
+    "browserify-css": "^0.15.0",
     "concurrently": "^7.4.0",
     "lodash": "^4.17.21",
     "progressbar.js": "^1.1.0",

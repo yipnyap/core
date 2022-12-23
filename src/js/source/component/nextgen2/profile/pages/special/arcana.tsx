@@ -11,11 +11,11 @@ const creatorNotices = [
             chapter number will be automatically detected and the page(s) will be added to the
             chapter.
             <br /><br />
-            The asset name must be in the format of <code>arcana_chap#_page#</code> where <code>chap#</code> is
+            The asset name must be in the format of <code>arcana-chap#-page#</code> where <code>chap#</code> is
             the chapter number and <code>page#</code> is the page number.
             <br /><br />
             For example, the asset's file name, for page 2 of chapter 1 (which is a jpg in this
-            example) would be <code>arcana_1_2.jpg</code>.
+            example) would be <code>arcana-1-2.jpg</code>.
         </>
     },
     {

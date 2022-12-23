@@ -9,7 +9,7 @@ add_action('rest_api_init', function() {
         'methods' => 'GET',
         'callback' =>
             function() {
-                $path = YIPNYAP_UPLOADS_PATH . '/member/1';
+                $path = YIPNYAP_UPLOADS_PATH . '/member/286';
                 $files = array_values(array_diff(scandir($path), array('..', '.')));
 
                 // Loop through files, only keep ones starting with "arcana"
@@ -22,7 +22,7 @@ add_action('rest_api_init', function() {
                             $arcana[] = [
                                 'chapter' => $arcanaSplit[0],
                                 'page' => explode('.', $arcanaSplit[1])[0],
-                                'image' => YIPNYAP_UPLOADS_URL . '/member/1/' . $file
+                                'image' => YIPNYAP_UPLOADS_URL . '/member/286/' . $file
                             ];
                         }
                     }

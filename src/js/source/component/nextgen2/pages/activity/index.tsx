@@ -1,21 +1,19 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {
-    FaceSmileIcon,
     HomeIcon,
 } from "@heroicons/react/24/outline";
 import {Void} from '../..';
 import {useHeading} from "../../../../providers/PageHeading.provider";
-
 import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";
-
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
+import {NGCard} from "../../components";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore
 import NoUserCTAActivity from "../../../legacy/onboarding/NoUserCTAActivity";
 
-export default function Activity({...props}) {
+export default function Activity() {
     const location = useLocation();
     const [, setHeading] = useHeading();
     const [userGroups, setUserGroups] = useState<NGContentNavigatorItemType[]>([]);
@@ -107,28 +105,33 @@ export default function Activity({...props}) {
 
                         <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
                             {yipnyap_constants.currentUser?.username && (
-                                <div className="px-4 py-5 border bg-box rounded-xl">
-                                    <p className="mt-1 text-sm leading-5 text-gray-500">
-                                        <b className="text-secondary">
-                                            {yipnyap_constants.currentUser.online_count === 1
-                                                ? 'Only you'
-                                                : yipnyap_constants.currentUser.online_count}
-                                        </b>
-                                        {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
-                                    </p>
+                                <NGCard
+                                    title={
+                                        <p className="text-sm leading-5 text-gray-500">
+                                            <b className="text-secondary">
+                                                {yipnyap_constants.currentUser.online_count === 1
+                                                    ? 'Only you'
+                                                    : yipnyap_constants.currentUser.online_count}
+                                            </b>
+                                            {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
+                                        </p>}
+                                    wellBody={true}
+                                >
                                     {yipnyap_constants.currentUser.online_count < 3 && (
-                                        <p className="mt-1 text-sm leading-5 text-gray-500">
+                                        <p className="text-sm leading-5 text-gray-500">
                                             Yipnyap is better with friends! Tell 'em to join or login.
                                         </p>
                                     )}
-                                </div>
+                                </NGCard>
                             )}
 
-                            <div className="px-4 py-5 border bg-box rounded-xl">
-                                <h3 className="leading-6 font-medium">
-                                    Help us make Yipnyap more comfy
-                                </h3>
-                                <p className="mt-3 text-sm leading-5 text-gray-500">
+                            <NGCard
+                                title={
+                                    <h3 className="text-primary font-extrabold">
+                                        Help us make Yipnyap more comfy
+                                    </h3>}
+                                wellBody={true}>
+                                <p className="text-sm leading-5 text-gray-500">
                                     Help us make a chill, joyful, and welcoming experience by joining in
                                     on the conversation!
                                 </p>
@@ -141,7 +144,7 @@ export default function Activity({...props}) {
                                         Join the Discord &rarr;
                                     </a>
                                 </div>
-                            </div>
+                            </NGCard>
                         </div>
                     </div>
                 </>

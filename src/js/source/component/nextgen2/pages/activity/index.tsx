@@ -12,6 +12,8 @@ import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/g
 import {NGContentNavigatorItemType} from "../../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
+// @ts-ignore
+import NoUserCTAActivity from "../../../legacy/onboarding/NoUserCTAActivity";
 
 export default function Activity({...props}) {
     const location = useLocation();
@@ -95,51 +97,54 @@ export default function Activity({...props}) {
     return (
         <>
             {showVoid ? <Void /> : (
-                <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
-                    <ActivityFilterableList order="DESC"
-                                            groupID={currentGroup}
-                                            perPage={5}
-                                            className="w-full"/>
+                <>
+                    {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity />}
+                    <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
+                        <ActivityFilterableList order="DESC"
+                                                groupID={currentGroup}
+                                                perPage={5}
+                                                className="w-full"/>
 
-                    <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
-                        {yipnyap_constants.currentUser?.username && (
-                            <div className="px-4 py-5 border bg-box rounded-xl">
-                                <p className="mt-1 text-sm leading-5 text-gray-500">
-                                    <b className="text-secondary">
-                                        {yipnyap_constants.currentUser.online_count === 1
-                                            ? 'Only you'
-                                            : yipnyap_constants.currentUser.online_count}
-                                    </b>
-                                    {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
-                                </p>
-                                {yipnyap_constants.currentUser.online_count < 3 && (
+                        <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
+                            {yipnyap_constants.currentUser?.username && (
+                                <div className="px-4 py-5 border bg-box rounded-xl">
                                     <p className="mt-1 text-sm leading-5 text-gray-500">
-                                        Yipnyap is better with friends! Tell 'em to join or login.
+                                        <b className="text-secondary">
+                                            {yipnyap_constants.currentUser.online_count === 1
+                                                ? 'Only you'
+                                                : yipnyap_constants.currentUser.online_count}
+                                        </b>
+                                        {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
                                     </p>
-                                )}
-                            </div>
-                        )}
+                                    {yipnyap_constants.currentUser.online_count < 3 && (
+                                        <p className="mt-1 text-sm leading-5 text-gray-500">
+                                            Yipnyap is better with friends! Tell 'em to join or login.
+                                        </p>
+                                    )}
+                                </div>
+                            )}
 
-                        <div className="px-4 py-5 border bg-box rounded-xl">
-                            <h3 className="leading-6 font-medium">
-                                Help us make Yipnyap more comfy
-                            </h3>
-                            <p className="mt-3 text-sm leading-5 text-gray-500">
-                                Help us make a chill, joyful, and welcoming experience by joining in
-                                on the conversation!
-                            </p>
-                            <div className="mt-3 text-sm leading-5">
-                                <a
-                                    className="font-medium text-primary hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                                    href="https://discord.gg/wrCGpAB"
-                                    target="_blank"
-                                >
-                                    Join the Discord &rarr;
-                                </a>
+                            <div className="px-4 py-5 border bg-box rounded-xl">
+                                <h3 className="leading-6 font-medium">
+                                    Help us make Yipnyap more comfy
+                                </h3>
+                                <p className="mt-3 text-sm leading-5 text-gray-500">
+                                    Help us make a chill, joyful, and welcoming experience by joining in
+                                    on the conversation!
+                                </p>
+                                <div className="mt-3 text-sm leading-5">
+                                    <a
+                                        className="font-medium text-primary hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                                        href="https://discord.gg/wrCGpAB"
+                                        target="_blank"
+                                    >
+                                        Join the Discord &rarr;
+                                    </a>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                </>
             )}
         </>
     )

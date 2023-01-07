@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {
     createBrowserRouter,
 } from "react-router-dom"
-import {NGAlertCard} from "../../nextgen/components/NGAlertCard";
+import {NGAlertCard} from "./components/NGAlertCard";
 import {useHeading} from "../../providers/PageHeading.provider";
 import Root from "./root";
 import Profile from "./pages/profile";

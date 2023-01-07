@@ -8,7 +8,7 @@ import {
     friendRequest,
     getFriendRequests,
     getRelationship
-} from "../../../router/v2/relationships/post";
+} from "../../../../router/v2/relationships/post";
 import {ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon, ChatBubbleLeftIcon, LinkIcon, UserGroupIcon} from "@heroicons/react/20/solid";
 
 export declare interface NGProfileHeaderType {

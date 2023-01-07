@@ -1,6 +1,6 @@
 import React, {Fragment, useEffect, useState} from 'react';
 
-import {NGProfileHeader} from '../../../../nextgen/components/NGProfileHeader';
+import {NGProfileHeader} from '../../components/NGProfileHeader';
 import getMember from "../../../../router/v2/members/get";
 import {Dialog, Transition} from "@headlessui/react";
 
@@ -23,7 +23,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
-import {NGContentNavigatorItemType} from "../../../../nextgen/components/NGContentNavigator/NGContentNavigator";
+import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
 import Arcana from "./pages/special/arcana";
 import ProfileBadges from "./pages/badges";
 

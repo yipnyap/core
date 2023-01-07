@@ -2,7 +2,7 @@ import ContextProvider from "./ContextProvider";
 import {PageHeadingProvider, useHeading} from "../../providers/PageHeading.provider";
 import {useUser} from "../../providers/contexts";
 import React, {useEffect} from "react";
-import {NGBody, NGContent, NGSideNav} from "../../nextgen";
+import {NGBody, NGContent, NGSideNav} from "./components";
 import {Outlet, useLocation} from "react-router-dom";
 import {HomeIcon, UserIcon} from "@heroicons/react/24/outline";
 

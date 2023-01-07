@@ -9,7 +9,7 @@ import {useHeading} from "../../../../providers/PageHeading.provider";
 
 import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";
 
-import {NGContentNavigatorItemType} from "../../../../nextgen/components/NGContentNavigator/NGContentNavigator";
+import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore

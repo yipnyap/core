@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import {useHeading} from "../../../../../../providers/PageHeading.provider";
 import {useLocation} from "react-router-dom";
-import {NGAlertCard} from "../../../../../../nextgen/components/NGAlertCard";
+import {NGAlertCard} from "../../../../components/NGAlertCard";
 
 export default function SettingsSkin({...props}) {
     const [heading, setHeading] = useHeading();

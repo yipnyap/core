@@ -30,7 +30,7 @@ function YipnyapGetBitwiseValues(): array
  * @return int Member ID.
  * @since hk16-2
  */
-function YipnyapFetchMemberID(int|string $member_id): int
+function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = false): int
 {
     if (!preg_match('/^[0-9]*$/', $member_id)) {
         $member_id = str_replace('@', '', $member_id);
@@ -45,7 +45,14 @@ function YipnyapFetchMemberID(int|string $member_id): int
             if ($member_by_login) {
                 $member_id = $member_by_login->ID;
             } else {
-                return 0;
+                if (!$skipErrorReturn) {
+                    wp_send_json([
+                        'code' => 404,
+                        'error' => 'Member not found.',
+                    ]);
+                } else {
+                    return 0;
+                }
             }
         }
     }
@@ -74,7 +81,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
-    $member_id = YipnyapFetchMemberID($member_id);
+    $member_id = YipnyapFetchMemberID($member_id, true);
 
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {

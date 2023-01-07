@@ -74,14 +74,12 @@ function ChatMessageOpen(props) {
 
         starMessagePromise
             .done((response) => {
-                console.log('CHAT MESSAGE OPEN - STAR MESSAGE RESPONSE: ', response);
-
                 setStarred(true);
 
                 props.onStarMessage();
             })
             .fail((error) => {
-                console.log('CHAT MESSAGE OPEN - STAR MESSAGE ERROR: ', error);
+                throw error;
             })
             .always(() => {
                 setProcessingStarred(false);
@@ -100,14 +98,12 @@ function ChatMessageOpen(props) {
 
         unstarMessagePromise
             .done((response) => {
-                console.log('CHAT MESSAGE OPEN - UNSTAR MESSAGE RESPONSE: ', response);
-
                 setStarred(false);
 
                 props.onUnstarMessage();
             })
             .fail((error) => {
-                console.log('CHAT MESSAGE OPEN - UNSTAR MESSAGE ERROR: ', error);
+                throw error;
             })
             .always(() => {
                 setProcessingStarred(false);
@@ -125,8 +121,6 @@ function ChatMessageOpen(props) {
         if (sendMessageText === '') {
             return;
         }
-
-        console.log('CHAT MESSAGE OPEN - ON SUBMIT: ', props.data.id, sendMessageText);
 
         props.onSendMessage(props.data.id, sendMessageText, props.data.recipients_ids, () => {
             setSendMessageText('');

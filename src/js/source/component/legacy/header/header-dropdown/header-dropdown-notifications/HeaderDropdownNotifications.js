@@ -19,7 +19,7 @@ function HeaderDropdownNotifications(props) {
     const markNotificationAsRead = (i) => {
         const selectedNotification = notifications[i];
 
-        console.log('HEADER DROPDOWN NOTIFICATIONS - MARK NOTIFICATION AS READ: ', notifications[i]);
+        
 
         // update notification data to be marked as read
         const markNotificationAsReadPromise = notificationRouter.markNotificationAsRead({
@@ -28,10 +28,10 @@ function HeaderDropdownNotifications(props) {
 
         markNotificationAsReadPromise
             .done((response) => {
-                console.log('HEADER DROPDOWN NOTIFICATIONS - MARK NOTIFICATIONS AS READ RESPONSE: ', response);
+                
             })
             .fail((error) => {
-                console.log('HEADER DROPDOWN NOTIFICATIONS - MARK NOTIFICATIONS AS READ ERROR: ', error);
+                
             });
 
         // mark notification as read in state (optimistic approach)
@@ -44,7 +44,7 @@ function HeaderDropdownNotifications(props) {
                 return notification;
             });
 
-            console.log('HEADER DROPDOWN NOTIFICATIONS - UPDATED NOTIFICATIONS: ', newNotifications);
+            
 
             return newNotifications;
         });
@@ -59,12 +59,12 @@ function HeaderDropdownNotifications(props) {
 
         unreadNotificationsCountPromise
             .done((response) => {
-                console.log('HEADER DROPDOWN NOFITICATIONS - GET UNREAD NOTIFICATIONS COUNT: ', response);
+                
 
                 setUnreadNotificationsCount(Number.parseInt(response, 10));
             })
             .fail((error) => {
-                console.log('HEADER DROPDOWN NOFITICATIONS - GET UNREAD NOTIFICATIONS COUNT ERROR: ', error);
+                
             });
     };
 
@@ -73,12 +73,12 @@ function HeaderDropdownNotifications(props) {
 
         getNotificationsPromise
             .done((response) => {
-                console.log('HEADER DROPDOWN NOTIFICATIONS - GET NOTIFICATIONS RESPONSE: ', response);
+                
 
                 setNotifications(response ? response : []);
             })
             .fail((error) => {
-                console.log('HEADER DROPDOWN NOTIFICATIONS - GET NOTIFICATIONS RESPONSE: ', error);
+                
             });
     };
 

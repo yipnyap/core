@@ -8100,6 +8100,9 @@ a:hover {
   display: flex;
   margin-right: 26px;
 }
+.quick-filters .quick-filters-tabs:hover {
+  overflow-x: auto;
+}
 .quick-filters .quick-filters-tabs .quick-filters-tab {
   height: 80px;
   margin-right: 12px;

@@ -10,19 +10,15 @@ const Reactionable = (props) => {
 
     const sortedReactionData = reactions.sort((firstEl, secondEl) => {
       if (firstEl.reaction_count < secondEl.reaction_count) {
-        console.log(firstEl.reaction_count + '<' + secondEl.reaction_count);
         return -1;
       }
 
       if (firstEl.reaction_count > secondEl.reaction_count) {
-        console.log(firstEl.reaction_count + '>' + secondEl.reaction_count);
         return 1;
       }
 
       return 0;
     });
-
-    console.log('REACTIONABLE - SORTED REACTION DATA: ', sortedReactionData);
 
     return sortedReactionData;
   };
@@ -42,8 +38,6 @@ const Reactionable = (props) => {
         // add user
         reactions[i].users.push(props.user);
 
-        console.log('CREATE MODIFIED REACTION DATA: ', reactions);
-
         return reactions;
       }
     }
@@ -59,8 +53,6 @@ const Reactionable = (props) => {
         newReaction.users.push(props.user);
 
         reactions.unshift(newReaction);
-
-        console.log('CREATE MODIFIED REACTION DATA: ', reactions);
 
         return reactions;
       }
@@ -81,8 +73,6 @@ const Reactionable = (props) => {
         const user = reaction.users[j];
         // found user
         if (user.id === props.user.id) {
-          console.log('FOUND USER: ', user);
-
           // decrease reaction count
           const newReactionCount = Number.parseInt(reaction.reaction_count, 10) - 1;
 
@@ -96,8 +86,6 @@ const Reactionable = (props) => {
             // decrease reaction count
             reactions[i].reaction_count = newReactionCount + '';
           }
-
-          console.log('DELETE MODIFIED REACTION DATA: ', reactions);
 
           break;
         }
@@ -129,16 +117,12 @@ const Reactionable = (props) => {
   };
 
   const createUserReaction = (reactionID) => {
-    console.log('REACTIONABLE - CREATE USER REACTION: ', reactionID);
-
     const userReaction = getUserReaction();
 
     if (userReaction && (userReaction.id == reactionID)) {
       // reaction already selected
       return;
     }
-
-    console.log('REACTIONABLE - CREATE WITH: ', props.entityData);
 
     const config = {
       user_id: props.user.id,
@@ -148,11 +132,7 @@ const Reactionable = (props) => {
     deepExtend(config, props.entityData);
 
     // create user reaction
-    props.createUserReaction(config, (response) => {
-      console.log('REACTIONABLE - CREATE USER REACTION: ', response);
-
-      // check if created correctly
-    });
+    props.createUserReaction(config);
 
     // remove other reaction from this user on this activity if exists
     // and reduce reaction count
@@ -178,8 +158,6 @@ const Reactionable = (props) => {
 
     // delete user reaction
     props.deleteUserReaction(config, (response) => {
-      console.log('REACTIONABLE - DELETE USER REACTION: ', response);
-
       // check if deleted correctly
     });
 

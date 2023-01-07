@@ -7,16 +7,19 @@ function CrawlText(props) {
     const [display, setDisplay] = useState(false);
     const [textDOM, setTextDOM] = useState([]);
 
-    console.log('[Snapper Engine] CrawlText: ', message, index, delay, fast, display, textDOM);
+    const LogPrefix = '[🐲 Snapper Engine : 🐞 CrawlText]';
+    const Log = (message) => {
+        console.log(`${LogPrefix} ${message}`);
+    }
 
-    if (!message) throw new Error('[Snapper Engine] CrawlText: message is required');
+    if (!message) throw new Error(`${LogPrefix} message is required`);
 
     const textArray = [];
     let index = 0;
 
     useEffect(() => {
+        Log('Request to re-render needs fulfilment');
         const text = message.split(' ');
-        console.log('[Snapper Engine] CrawlText: text: ', text);
         let currentColour = 'primary';
         let isBold = false;
         for (const i of text) {
@@ -24,14 +27,12 @@ function CrawlText(props) {
                 const command = i.replace('::', '').split(':');
                 switch (command[0]) {
                     case 'c': {
-                        console.log(`[Snapper Engine] CrawlText: remove: ${i}, ${index}`);
                         currentColour = command[1];
                         text[index] = '';
                         break;
                     }
 
                     case 'bold': {
-                        console.log(`[Snapper Engine] CrawlText: remove: ${i}, ${index}`);
                         isBold = true;
                         text[index] = '';
                         break;
@@ -50,8 +51,8 @@ function CrawlText(props) {
             index++;
 
             if (index === text.length) {
-                console.log('[Snapper Engine] CrawlText: textArray: ', textArray);
                 setTextDOM(textArray);
+                Log('Ready to display');
                 setTimeout(() => {
                     setDisplay(true);
                 }, delay);
@@ -62,9 +63,9 @@ function CrawlText(props) {
     return (
         <>
             {textDOM.map((current, index) =>
-                <>
+                <React.Fragment key={index}>
                     {
-                        current.i === '::break:' ? <br/> : (
+                        current.i === '::break:' ? <br /> : (
                             <span
                                 className={`snapanim-crawl u-rise child-rise${fast ? '-fast' : ''} text-${current.currentColour} ${current.isBold ? 'font-bold' : ''} ${display ? 'risen' : ''} ${current.i.indexOf('<br') > -1 ? 'span-break' : ''}`}
                             >
@@ -72,7 +73,7 @@ function CrawlText(props) {
                             </span>
                         )
                     }
-                </>
+                </React.Fragment>
             )}
         </>
     )

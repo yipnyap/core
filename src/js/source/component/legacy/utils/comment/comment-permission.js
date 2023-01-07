@@ -117,9 +117,6 @@ const commentEditableTimeHasElapsed = (commentData) => {
         const commentDate = new Date(commentData.date);
 
         const minutesSinceCommentWasCreated = dateMinutesDiff(commentDate, currentDateUTC);
-
-        console.log('COMMENT - EDITABLE TIME ELAPSED: ', minutesSinceCommentWasCreated);
-
         if (minutesSinceCommentWasCreated >= editableTimeLimit) {
             return true;
         }

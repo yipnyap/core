@@ -74,7 +74,7 @@ function ProfileSettingsScreen(props) {
     };
 
     const updateAvatarFile = (file) => {
-        console.log('PROFILE SETTINGS SCREEN - AVATAR FILE: ', file);
+        
 
         setAvatarFile(file);
         setDeleteAvatar(false);
@@ -99,7 +99,7 @@ function ProfileSettingsScreen(props) {
     };
 
     const updateCoverFile = (file) => {
-        console.log('PROFILE SETTINGS SCREEN - COVER FILE: ', file);
+        
 
         setCoverFile(file);
         setDeleteCover(false);
@@ -124,7 +124,7 @@ function ProfileSettingsScreen(props) {
     };
 
     const updateProfileData = (field, value) => {
-        console.log('PROFILE SETTINGS SCREEN - UPDATE PROFILE DATA: ', field, value);
+        
 
         setProfileDataFields(previousProfileDataFields => {
             return {
@@ -193,53 +193,53 @@ function ProfileSettingsScreen(props) {
             jQuery
                 .when(uploadAvatarPromise, deleteAvatarPromise, uploadCoverPromise, deleteCoverPromise, updateProfileDataPromise)
                 .done((avatarUploadResponse, deleteAvatarResponse, coverUploadResponse, deleteCoverResponse, updateProfileDataResponse) => {
-                    console.log('PROFILE SETTINGS SCREEN - AVATAR UPLOAD RESPONSE:', avatarUploadResponse);
-                    console.log('PROFILE SETTINGS SCREEN - COVER UPLOAD RESPONSE:', coverUploadResponse);
-                    console.log('PROFILE SETTINGS SCREEN - UPDATE PROFILE DATA RESPONSE:', updateProfileDataResponse);
+                    
+                    
+                    
 
                     // check if avatar was selected to be uploaded
                     if (typeof avatarUploadResponse.no_result !== 'undefined') {
-                        console.log('PROFILE SETTINGS SCREEN - USER DIDN\'T SELECT AVATAR TO CHANGE');
+                        
                     } else {
                         // success, release blob image resource
-                        console.log('PROFILE SETTINGS SCREEN - AVATAR UPLOAD RESPONSE:', avatarUploadResponse);
+                        
                     }
 
                     // check if avatar was selected to be deleted
                     if (typeof deleteAvatarResponse.no_result !== 'undefined') {
-                        console.log('PROFILE SETTINGS SCREEN - USER DIDN\'T SELECT AVATAR TO DELETE');
+                        
                     } else {
-                        console.log('PROFILE SETTINGS SCREEN - AVATAR DELETE RESPONSE:', deleteAvatarResponse);
+                        
                     }
 
                     // check if cover was selected to be uploaded
                     if (typeof coverUploadResponse.no_result !== 'undefined') {
-                        console.log('PROFILE SETTINGS SCREEN - USER DIDN\'T SELECT COVER TO CHANGE');
+                        
                     } else {
                         // success, release blob image resource
-                        console.log('PROFILE SETTINGS SCREEN - COVER UPLOAD SUCCESS');
+                        
                     }
 
                     // check if cover was selected to be deleted
                     if (typeof deleteCoverResponse.no_result !== 'undefined') {
-                        console.log('PROFILE SETTINGS SCREEN - USER DIDN\'T SELECT COVER TO DELETE');
+                        
                     } else {
-                        console.log('PROFILE SETTINGS SCREEN - COVER DELETE RESPONSE:', deleteCoverResponse);
+                        
                     }
 
                     // check if profile data was updated
                     if (typeof updateProfileDataResponse.no_result !== 'undefined') {
-                        console.log('PROFILE SETTINGS SCREEN - USER DIDN\'T CHANGE ANY PROFILE FIELDS');
+                        
                     } else {
                         // success
-                        console.log('PROFILE SETTINGS SCREEN - USER UPDATED PROFILE FIELDS');
+                        
                     }
 
                     // refresh page
                     window.location.reload();
                 })
                 .fail((error) => {
-                    console.log('PROFILE SETTINGS SCREEN - ERROR WHEN SAVING: ', error);
+                    
 
                     const errorJSON = error.responseJSON;
 

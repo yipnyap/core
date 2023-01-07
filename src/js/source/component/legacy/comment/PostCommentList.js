@@ -18,7 +18,7 @@ function PostCommentList(props) {
 
         deepExtend(config, commentData);
 
-        console.log('CREATE COMMENT WITH CONFIG: ', config);
+        
 
         commentRouter.createComment(config, (response) => {
             if (response) {
@@ -35,7 +35,7 @@ function PostCommentList(props) {
             comment_content: commentData.content
         };
 
-        console.log('POST COMMENT LIST - UPDATE COMMENT - CONFIG: ', config);
+        
 
         return commentRouter.updateComment(config);
     };

@@ -50,7 +50,7 @@ function NotificationsSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember()
             .done((response) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 setLoggedUser(response);
             });
@@ -70,16 +70,16 @@ function NotificationsSettingsScreen(props) {
             }
         });
 
-        console.log('NOTIFICATIONS SETTINGS SCREEN - DELETE: ', notificationsToDelete);
+        
 
         const deleteNotificationsPromise = notificationRouter.deleteNotifications(notificationsToDelete);
 
         deleteNotificationsPromise
             .done((response) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - DELETE RESPONSE: ', response);
+                
             })
             .fail((error) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - DELETE ERROR: ', error);
+                
             });
 
         // delete notifications (optimistic approach)
@@ -87,7 +87,7 @@ function NotificationsSettingsScreen(props) {
             return !notificationsToDelete.includes(notification.id);
         });
 
-        console.log('NOTIFICATIONS SETTINGS SCREEN - UPDATED NOTIFICATIONS: ', newNotifications);
+        
 
         setNotifications(newNotifications);
         setSelectedNotifications((new Array(newNotifications.length)).fill(false));
@@ -104,16 +104,16 @@ function NotificationsSettingsScreen(props) {
             }
         });
 
-        console.log('NOTIFICATIONS SETTINGS SCREEN - MARK AS READ: ', notificationsToMarkAsRead);
+        
 
         const markNotificationsAsReadPromise = notificationRouter.markNotificationsAsRead(notificationsToMarkAsRead);
 
         markNotificationsAsReadPromise
             .done((response) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - MARK AS READ RESPONSE: ', response);
+                
             })
             .fail((error) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - MARK AS READ ERROR: ', error);
+                
             });
 
         // mark notifications as read in state (optimistic approach)
@@ -126,7 +126,7 @@ function NotificationsSettingsScreen(props) {
             }
         }
 
-        console.log('NOTIFICATIONS SETTINGS SCREEN - UPDATED NOTIFICATIONS: ', newNotifications);
+        
 
         setNotifications(newNotifications);
     };
@@ -136,7 +136,7 @@ function NotificationsSettingsScreen(props) {
 
         newSelectedNotifications[i] = !newSelectedNotifications[i];
 
-        console.log('NOTIFICATIONS SETTINGS SCREEN - SELECTED NOTIFICATIONS: ', newSelectedNotifications);
+        
 
         setSelectedNotifications(newSelectedNotifications);
     };
@@ -169,7 +169,7 @@ function NotificationsSettingsScreen(props) {
 
         notificationsPromise
             .done((response) => {
-                console.log('NOTIFICATIONS SETTINGS SCREEN - GET NOTIFICATIONS PAGE ', currentPage.current, ' RESPONSE: ', response);
+                
 
                 currentPage.current += 1;
 

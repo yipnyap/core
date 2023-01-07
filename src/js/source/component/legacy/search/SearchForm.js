@@ -165,7 +165,7 @@ function SearchForm(props) {
 
         searchMembersPromise
             .done((response) => {
-                console.log('SEARCH FORM - SEARCH MEMBERS RESPONSE: ', response);
+                
 
                 // cancel search if there was a new one made after this one
                 if (searchText !== currentSearch) {
@@ -175,7 +175,7 @@ function SearchForm(props) {
                 }
             })
             .fail((error) => {
-                console.log('SEARCH FORM - SEARCH MEMBERS ERROR: ', error);
+                
             })
             .always(() => {
                 setLoadingMembers(false);
@@ -196,7 +196,7 @@ function SearchForm(props) {
 
         searchGroupsPromise
             .done((response) => {
-                console.log('SEARCH FORM - SEARCH GROUPS RESPONSE: ', response);
+                
 
                 // cancel search if there was a new one made after this one
                 if (searchText !== currentSearch) {
@@ -206,7 +206,7 @@ function SearchForm(props) {
                 }
             })
             .fail((error) => {
-                console.log('SEARCH FORM - SEARCH GROUPS ERROR: ', error);
+                
             })
             .always(() => {
                 setLoadingGroups(false);
@@ -238,7 +238,7 @@ function SearchForm(props) {
                 if (searchText !== currentSearch) {
                     return;
                 } else {
-                    console.log('SEARCH FORM - GET POSTS PROMISES - GET POSTS RESULTS: ', getPostsResults);
+                    
 
                     let postResults = [];
 
@@ -250,13 +250,13 @@ function SearchForm(props) {
                         }
                     }
 
-                    console.log('SEARCH FORM - GET POSTS PROMISES - POST RESULTS: ', postResults);
+                    
 
                     setPosts(postResults);
                 }
             })
             .fail((error) => {
-                console.log('SEARCH FORM - SEARCH POSTS ERROR: ', error);
+                
             })
             .always(() => {
                 setLoadingPosts(false);

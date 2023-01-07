@@ -45,8 +45,8 @@ function AsyncCommentList(props) {
 
             newComments = iterateCommentsFilter(newComments, commentID);
 
-            console.log('ASYNC COMMENT LIST - NEW COMMENTS: ', newComments);
-            console.log('ASYNC COMMENT LIST - DELETED COMMENT COUNT: ', deletedCommentCount);
+            
+            
 
             return {
                 items: newComments,
@@ -58,11 +58,11 @@ function AsyncCommentList(props) {
     const deleteComment = (config, callback) => {
         const deleteCommentPromise = props.deleteComment(config);
 
-        console.log('ASYNC COMMENT LIST - DELETE COMMENT CONFIG: ', config);
+        
 
         deleteCommentPromise
             .done((response) => {
-                console.log('ASYNC COMMENT LIST - DELETE COMMENT RESPONSE: ', response);
+                
 
                 // comment deleted succesfully, remove comment and all its children from the comments
                 if (response) {
@@ -74,7 +74,7 @@ function AsyncCommentList(props) {
                 }
             })
             .fail((error) => {
-                console.log('ASYNC COMMENT LIST - DELETE COMMENT ERROR: ', error);
+                
 
                 // show error
                 callback(false);
@@ -148,13 +148,13 @@ function AsyncCommentList(props) {
     };
 
     const getChildrenComments = (parentID) => {
-        console.log('ASYNC COMMENT LIST - GET CHILDREN COMMENTS FOR: ', parentID);
+        
 
         for (const comment of commentsWithChildren.current) {
             if (comment.id === parentID) {
                 const children = comment.children;
-                console.log('ASYNC COMMENT LIST - FOUND PARENT: ', parentID);
-                console.log('ASYNC COMMENT LIST - PARENT CHILDREN COMMENTS: ', children);
+                
+                
 
                 setComments(previousComments => {
                     const newComments = previousComments.items.slice();
@@ -183,14 +183,14 @@ function AsyncCommentList(props) {
             page: currentPage.current
         };
 
-        console.log('ASYNC COMMENT LIST - GET COMMENTS PAGE CONFIG: ', config);
+        
 
         currentPage.current += 1;
 
-        console.log('ASYNC COMMENT LIST - GET COMMENTS PAGE NEXT PAGE: ', currentPage.current);
+        
 
         props.getComments((requestedComments) => {
-            console.log('ASYNC COMMENT LIST - GET COMMENTS PAGE RESPONSE: ', requestedComments);
+            
 
             let newRequestedComments = [];
 
@@ -214,17 +214,17 @@ function AsyncCommentList(props) {
                 }
             }
 
-            console.log('COMMENTS WITHOUT DUPLICATES: ', newComments);
+            
 
             // save original comments with children
             commentsWithChildren.current = commentsWithChildren.current.concat(requestedComments);
-            console.log('COMMENTS WITH CHILDREN: ', commentsWithChildren.current);
+            
 
             // remove children comments from top level
             // and add children comment count property
             clearChildrenComments(newComments);
 
-            console.log('COMMENTS WITHOUT CHILDREN: ', newComments);
+            
 
             callback(newComments);
         }, config);
@@ -269,10 +269,10 @@ function AsyncCommentList(props) {
     };
 
     const createComment = (commentData, callback) => {
-        console.log('ASYNC COMMENT LIST - CREATE COMMENT: ', commentData);
+        
 
         props.createComment(commentData, (response) => {
-            console.log('ASYNC COMMENT LIST - CREATE COMMENT RESPONSE: ', response);
+            
 
             if (!response) {
                 callback('An error has ocurred, please try again later');
@@ -287,12 +287,12 @@ function AsyncCommentList(props) {
     };
 
     const newCommentCreated = (commentID) => {
-        console.log('ASYNC COMMENT LIST - NEW COMMENT CREATED - COMMENT ID: ', commentID);
+        
 
         // get created comment and update comment list state
         props.getComment(commentID, (comment) => {
             setComments(previousComments => {
-                console.log('ASYNC COMMENT LIST - GET COMMENT RESPONSE: ', comment);
+                
 
                 comment.showReplyForm = false;
 
@@ -304,7 +304,7 @@ function AsyncCommentList(props) {
                 if (comment.parent == 0) {
                     commentCount++;
 
-                    console.log('ORDER: ', props.order);
+                    
                     if (props.order === 'ASC') {
                         newComments.push(comment);
                     } else if (props.order === 'DESC') {
@@ -338,7 +338,7 @@ function AsyncCommentList(props) {
                     });
                 }
 
-                console.log('ASYNC COMMENT LIST - NEW COMMENTS: ', newComments);
+                
 
                 return {
                     items: newComments,
@@ -353,10 +353,10 @@ function AsyncCommentList(props) {
 
         updateCommentPromise
             .done((response) => {
-                console.log('ASYNC COMMENT LIST - UPDATE COMMENT - RESPONSE: ', response);
+                
 
                 props.getComment(commentData.id, (updatedCommentData) => {
-                    console.log('ASYNC COMMENT LIST - GET UPDATED COMMENT - RESPONSE: ', updatedCommentData);
+                    
 
                     onCommentUpdate(updatedCommentData);
 
@@ -364,12 +364,12 @@ function AsyncCommentList(props) {
                 });
             })
             .fail((error) => {
-                console.log('ASYNC COMMENT LIST - UPDATE COMMENT - ERROR: ', error);
+                
             });
     };
 
     const onCommentUpdate = (newCommentData) => {
-        console.log('ASYNC COMMENT LIST - ON COMMENT UPDATE - NEW COMMENT DATA: ', newCommentData);
+        
 
         setComments(previousComments => {
             return {

@@ -20,7 +20,7 @@ function ReceivedGroupInvitationsSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-groups-received-invitations')
             .done((response) => {
-                console.log('RECEIVED GROUP INVITATIONS SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 setLoggedUser(response);
             });

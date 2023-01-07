@@ -43,7 +43,7 @@ function WidgetPhotos(props) {
 
         userRouter.getLoggedInMember(userScope)
             .done((loggedUser) => {
-                console.log('WIDGET PHOTOS - LOGGED USER: ', loggedUser);
+                
 
                 setLoggedUser(loggedUser);
             });
@@ -52,7 +52,7 @@ function WidgetPhotos(props) {
     const getPhotosUser = () => {
         memberRouter.getMembers({include: [props.userID]})
             .done((response) => {
-                console.log('WIDGET PHOTOS - PHOTOS USER: ', response[0]);
+                
 
                 setPhotosUser(response[0]);
             });
@@ -61,7 +61,7 @@ function WidgetPhotos(props) {
     const getPhotosGroup = () => {
         groupRouter.getGroups({include: [props.groupID]})
             .done((response) => {
-                console.log('WIDGET PHOTOS - PHOTOS GROUP: ', response[0]);
+                
 
                 setPhotosGroup(response[0]);
             });
@@ -85,7 +85,7 @@ function WidgetPhotos(props) {
         }
 
         activityRouter.getActivities(filters, (response) => {
-            console.log('WIDGET PHOTOS - ACTIVITY DATA: ', response);
+            
 
             setPhotos(response.activities);
             setLoading(false);
@@ -95,14 +95,14 @@ function WidgetPhotos(props) {
     const getReactions = () => {
         reactionRouter.getReactions()
             .done((response) => {
-                console.log('WIDGET PHOTOS - REACTIONS: ', response);
+                
 
                 setReactions(response);
             });
     };
 
     const onActivityUpdate = (newActivityData) => {
-        console.log('WIDGET PHOTOS - ON ACTIVITY UPDATE - NEW ACTIVITY DATA: ', newActivityData);
+        
 
         setPhotos(previousActivities => {
             return updateActivities(previousActivities, newActivityData);

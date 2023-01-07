@@ -21,7 +21,7 @@ function ManageGroupsSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-groups-preview')
             .done((response) => {
-                console.log('MANAGE GROUPS SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 setLoggedUser(response);
             });

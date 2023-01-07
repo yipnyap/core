@@ -104,9 +104,6 @@ function ExpandableTextarea(props) {
     };
 
     const getTextWithMention = (mentionText) => {
-        console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - TEXT: ', textareaRef.current.value);
-        console.log('EXPANDABLE TEXTAREA - GET TEXT WITH MENTION - WORD IN CURSOR: ', wordInCursor.current);
-
         const newText = insertWordInText(textareaRef.current.value, `@${mentionText}`, wordInCursor.current.startIndex, wordInCursor.current.word.length);
 
         return newText;
@@ -126,8 +123,6 @@ function ExpandableTextarea(props) {
         // enable arrows
         textareaRef.current.removeEventListener('keydown', disableInputArrows);
 
-        console.log('APPLY SELECTED MENTION - EVENT: ', event);
-
         // if event is not keydown (user didn't press spacebar/enter to select mention), remove enter/spacebar block
         if (event !== 'keydown') {
             textareaRef.current.removeEventListener('keydown', oneTimeDisableInput);
@@ -138,10 +133,6 @@ function ExpandableTextarea(props) {
         // get word in current cursor position
         const currentCursorPosition = textareaRef.current.selectionStart,
             currentWordInCursor = getWordInPosition(text, currentCursorPosition);
-
-        console.log('CURSOR POSITION: ', currentCursorPosition);
-        console.log('WORD IN CURSOR POSITION: ', currentWordInCursor.word);
-        console.log('WORD IN CURSOR START INDEX: ', currentWordInCursor.startIndex);
 
         // if word has @, user is trying to mention
         const mentionRegex = /@/igm,
@@ -185,7 +176,6 @@ function ExpandableTextarea(props) {
     };
 
     const handleChange = (e) => {
-        console.log('EXPANDABLE TEXTAREA - HANDLE CHANGE: ', e.target.value);
         // check for mentions (@name)
         checkForMentions(e.target.value);
 
@@ -193,12 +183,7 @@ function ExpandableTextarea(props) {
     };
 
     const applySelectedMention = (user, event) => {
-        console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION: ', user);
-
         const newText = getTextWithMention(user.mention_name);
-
-        console.log('EXPANDABLE TEXTAREA - APPLY SELECTED MENTION NEW TEXT: ', newText);
-
         closeMention(user.mention_name, event);
 
         props.handleChange({

@@ -41,17 +41,17 @@ function CommentForm(props) {
             author: props.user.name
         };
 
-        console.log('COMMENT FORM - COMMENT DATA: ', commentData);
+        
 
         props.createComment(commentData, (response) => {
-            console.log('COMMENT FORM - FORM CREATE COMMENT WITH ID: ', response);
+            
 
             setLoading(false);
             setDisabled(false);
 
             // if comment was not created
             if (Number.isNaN(Number.parseInt(response, 10))) {
-                console.log('COMMENT FORM - COULDN\'T CREATE COMMENT: ', response);
+                
                 setError(response);
             } else {
                 resetInput();

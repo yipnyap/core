@@ -31,7 +31,7 @@ function FilterableList(props) {
 
         getLoggedInMemberPromise
             .done((loggedUser) => {
-                console.log('FILTERABLE LIST - LOGGED USER: ', loggedUser);
+                
 
                 setLoggedUser(loggedUser);
                 setLoadingUser(false);
@@ -54,7 +54,7 @@ function FilterableList(props) {
 
         deepExtend(config, filters.current);
 
-        console.log('FILTERABLE LIST - GET ITEMS CONFIG: ', config);
+        
 
         return props.getItems(config);
     };
@@ -62,7 +62,7 @@ function FilterableList(props) {
     const getItemsCount = (callback) => {
         const config = props.getItemsCountFilters(filters.current);
 
-        console.log('FILTERABLE LIST - GET ITEMS COUNT CONFIG: ', config);
+        
 
         props.getItemsCount(config, callback);
     };
@@ -72,12 +72,12 @@ function FilterableList(props) {
 
         getItems()
             .done((items) => {
-                console.log('FILTERABLE LIST - ITEMS: ', items);
+                
 
                 setItems(items);
             })
             .fail((error) => {
-                console.log('FILTERABLE LIST - ERROR: ', error);
+                
             })
             .always(() => {
                 setLoadingItems(false);
@@ -86,14 +86,14 @@ function FilterableList(props) {
 
     const updateItemsCount = () => {
         getItemsCount((itemCount) => {
-            console.log('FILTERABLE LIST - ITEM COUNT: ', itemCount);
+            
 
             setItemCount(itemCount);
         });
     };
 
     const applyFilters = (filtersData) => {
-        console.log('FILTERABLE LIST - APPLY FILTERS: ', filtersData);
+        
 
         // check if filters changed
         let filtersChanged = false;
@@ -129,20 +129,20 @@ function FilterableList(props) {
                 grid_type: gridType
             });
 
-            console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE: ', props.itemType, gridType);
+            
 
             updateLoggedUserGridTypePromise
                 .done((response) => {
-                    console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE RESPONSE: ', response);
+                    
                 })
                 .fail((error) => {
-                    console.log('FILTERABLE LIST - UPDATE LOGGED USER GRID TYPE ERROR: ', error);
+                    
                 });
         }
     };
 
     const onPageChange = () => {
-        console.log('FILTERABLE LIST - ON PAGE CHANGE: ', filterableListRef.current);
+        
 
         if (filterableListRef.current) {
             filterableListRef.current.scrollIntoView();

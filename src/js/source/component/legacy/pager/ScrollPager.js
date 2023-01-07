@@ -28,14 +28,12 @@ function ScrollPager(props) {
 
         if (props.element === 'NGContent') elementScrollPosition.y = elementScrollPosition.y - 84;
 
-        // console.log(`[ScrollPager] elementScrollPosition.y: ${elementScrollPosition.y}, windowScrollPosition.y: ${windowScrollPosition.y}`);
-
         return windowScrollPosition.y > elementScrollPosition.y;
     };
 
     const loadMoreOnScroll = () => {
         if (scrolledThrough(loaderRef.current)) {
-            console.log('[ScrollPager] load more');
+            
             element.removeEventListener('scroll', loadMoreOnScroll);
             loadMoreItems();
         }

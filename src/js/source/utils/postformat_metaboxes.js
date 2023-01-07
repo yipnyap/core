@@ -22,7 +22,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
     galleryImages.classList.add('yipnyap_gallery-images');
 
     const removeGalleryImage = function (id) {
-        console.log('REMOVING IMAGE: ', id);
+
         for (let i = 0; i < gallery.length; i++) {
             const image = gallery[i];
 
@@ -73,7 +73,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
     const loadSavedGallery = function (callback) {
         if (galleryInput.value !== '') {
             getAttachments(galleryInput.value, function (response) {
-                console.log('SAVED GALLERY ITEMS: ', response);
+
                 gallery = gallery.concat(response);
                 callback();
             });
@@ -116,7 +116,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
     };
 
     const toggleMetaDataFields = function () {
-        console.log(postFormatSelect.value);
+        
 
         if (postFormatSelect.value === 'video') {
             videoMetaContainer.style.display = 'block';
@@ -151,7 +151,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
     );
 
     const openImageSelector = function (e) {
-        console.log('UPLOAD IMAGE');
+        
         e.preventDefault();
 
         metaImageFrame.open();
@@ -160,7 +160,7 @@ function loadPostFormatMetaboxes(postFormatSelect) {
     const processSelectedImages = function () {
         const selectedImages = metaImageFrame.state().get('selection').toJSON();
 
-        console.log('SELECTED IMAGES: ', selectedImages);
+        
 
         // remove duplicates
         for (let i = selectedImages.length - 1; i >= 0; i--) {
@@ -192,11 +192,11 @@ function loadPostFormatMetaboxes(postFormatSelect) {
 
     loadSavedGallery(updateGalleryContent);
 
-    console.log(wp);
+    
 }
 
 window.addEventListener('load', function () {
-    console.log('POST FORMAT METABOXES');
+    
     const postFormatSelect = document.querySelector('#post-format-selector-0');
 
     // continue searching for postFormatSelect until found, otherwise don't do anything

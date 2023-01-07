@@ -34,8 +34,6 @@ function FormRow(props) {
             Input = FormInputSelect;
           }
 
-          console.log(field);
-
           return (
             <div key={field.name} className="form-item">
               <Input  label={field.name}

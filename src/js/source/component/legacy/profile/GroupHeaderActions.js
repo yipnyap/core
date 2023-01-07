@@ -22,7 +22,7 @@ function GroupHeaderActions(props) {
     }) => {
         userRouter.getLoggedInMember('user-groups')
             .done((response) => {
-                console.log('GROUP HEADER ACTIONS - GET LOGGED USER RESPONSE: ', response);
+                
 
                 setLoggedUser(response);
 
@@ -33,7 +33,7 @@ function GroupHeaderActions(props) {
     const getGroup = () => {
         groupRouter.getGroups({include: [props.groupID]})
             .done((response) => {
-                console.log('GROUP HEADER ACTIONS - GET GROUP RESPONSE: ', response);
+                
 
                 setGroup(response[0]);
             });

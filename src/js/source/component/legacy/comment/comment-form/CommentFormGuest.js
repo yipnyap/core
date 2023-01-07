@@ -86,14 +86,14 @@ function CommentFormGuest(props) {
         };
 
         props.createComment(commentData, (response) => {
-            console.log('COMMENT FORM GUEST - COMMENT ID: ', response);
+            
 
             setLoading(false);
             setDisabled(false);
 
             // if comment was not created
             if (Number.isNaN(Number.parseInt(response, 10))) {
-                console.log('COMMENT FORM GUEST - COULDN\'T CREATE COMMENT: ', response);
+                
                 setError(response);
                 setReplyTextError(true);
             } else {

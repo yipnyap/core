@@ -14,7 +14,7 @@ function HeaderNotifications(props) {
     }) => {
         userRouter.getLoggedInMember('user-friends')
             .done((loggedUser) => {
-                console.log('HEADER NOTIFICATIONS - GET LOGGED USER RESPONSE: ', loggedUser);
+                
 
                 setLoggedUser(loggedUser);
 

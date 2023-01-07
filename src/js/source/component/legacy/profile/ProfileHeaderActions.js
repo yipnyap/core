@@ -33,7 +33,7 @@ function ProfileHeaderActions(props) {
     }) => {
         userRouter.getLoggedInMember('user-friends')
             .done((response) => {
-                console.log('PROFILE HEADER ACTIONS - LOGGED USER: ', response);
+                
 
                 setLoggedUser(response);
                 setRejecting(false);

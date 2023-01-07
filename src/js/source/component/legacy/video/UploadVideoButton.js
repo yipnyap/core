@@ -26,7 +26,7 @@ function UploadVideoButton(props) {
     const uploadFiles = () => {
         const files = fileInputRef.current.files;
 
-        console.log('UPLOAD VIDEO BUTTON - UPLOAD FILES: ', files);
+        
 
         const fileData = [];
 
@@ -43,7 +43,7 @@ function UploadVideoButton(props) {
             fileID.current += 1;
         }
 
-        console.log('UPLOAD VIDEO BUTTON - FILE DATA: ', fileData);
+        
 
         if (props.onSelect) {
             props.onSelect(fileData);

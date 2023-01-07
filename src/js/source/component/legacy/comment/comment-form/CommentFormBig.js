@@ -44,14 +44,14 @@ function CommentFormBig(props) {
         };
 
         props.createComment(commentData, (response) => {
-            console.log('COMMENT FORM BIG - COMMENT ID: ', response);
+            
 
             setLoading(false);
             setDisabled(false);
 
             // if comment was not created
             if (Number.isNaN(Number.parseInt(response, 10))) {
-                console.log('COMMENT FORM BIG - COULDN\'T CREATE COMMENT: ', response);
+                
                 setError(response);
             } else {
                 resetInput();

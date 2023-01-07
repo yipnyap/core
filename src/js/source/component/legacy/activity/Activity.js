@@ -77,7 +77,7 @@ function Activity(props) {
 
         setProcessingDelete(true);
 
-        console.log('ACTIVITY - DELETE ACTIVITY ID: ', props.data.id, 'FROM USER: ', props.user.id);
+        
 
         props.deleteActivity(props.data.id, (response) => {
             setProcessingDelete(false);
@@ -91,7 +91,7 @@ function Activity(props) {
 
         setProcessingPinned(true);
 
-        console.log('ACTIVITY - PIN ACTIVITY ID: ', props.data.id, 'FROM USER: ', props.user.id);
+        
 
         props.pinActivity(props.data.id, () => {
             setProcessingPinned(false);
@@ -105,7 +105,7 @@ function Activity(props) {
 
         setProcessingPinned(true);
 
-        console.log('ACTIVITY - UNPIN ACTIVITY ID: ', props.data.id, 'FROM USER: ', props.user.id);
+        
 
         props.unpinActivity(() => {
             setProcessingPinned(false);
@@ -117,7 +117,7 @@ function Activity(props) {
             return;
         }
 
-        console.log('ACTIVITY - ADD FAVORITE ACTIVITY ID: ', props.data.id, 'FROM USER: ', props.user.id);
+        
 
         setProcessingFavorite(true);
 
@@ -127,7 +127,7 @@ function Activity(props) {
         };
 
         activityRouter.addActivityFavorite(config, (response) => {
-            console.log('ACTIVITY - FAVORITE ADD RESPONSE: ', response);
+            
 
             if (response) {
                 setFavorite(true);
@@ -142,7 +142,7 @@ function Activity(props) {
             return;
         }
 
-        console.log('ACTIVITY - REMOVE FAVORITE ACTIVITY ID: ', props.data.id, 'FROM USER: ', props.user.id);
+        
 
         setProcessingFavorite(true);
 
@@ -152,7 +152,7 @@ function Activity(props) {
         };
 
         activityRouter.removeActivityFavorite(config, (response) => {
-            console.log('ACTIVITY - FAVORITE REMOVE RESPONSE: ', response);
+            
 
             if (response) {
                 setFavorite(false);

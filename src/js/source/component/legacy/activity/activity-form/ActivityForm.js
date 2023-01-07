@@ -48,7 +48,7 @@ function ActivityForm(props) {
     useEffect(() => {
         const formDataEqual = isEqual(formData, initialFormData);
         setShowDiscard(!formDataEqual);
-        console.log('[ActivityForm] formData match? ', formDataEqual);
+        
     }, [formData])
 
     const fileID = useRef(1);
@@ -129,10 +129,10 @@ function ActivityForm(props) {
             };
         });
 
-        console.log('ACTIVITY FORM - POST CONTENT: ', formData);
+        
 
         props.onSubmit(formData, (response) => {
-            console.log('ACTIVITY FORM - CREATED ACTIVITY: ', response);
+            
 
             if (response) {
                 discardContent();
@@ -141,7 +141,7 @@ function ActivityForm(props) {
                     props.popup.hide();
                 }
             } else {
-                console.log('ACTIVITY FORM - ERROR CREATING ACTIVITY');
+                
             }
 
             setFormData(previousFormData => {
@@ -183,7 +183,7 @@ function ActivityForm(props) {
             e.persist();
         }
 
-        console.log('ACTIVITY FORM - EXTRACTED ATTACHED MEDIA: ', attached_media);
+        
 
         setFormData(previousFormData => {
             return {
@@ -198,7 +198,7 @@ function ActivityForm(props) {
     const uploadVideo = () => {
         const files = fileInputRef.current.files;
 
-        console.log('UPLOAD VIDEO BUTTON - UPLOAD FILES: ', files);
+        
 
         const fileData = [];
 
@@ -215,7 +215,7 @@ function ActivityForm(props) {
             fileID.current += 1;
         }
 
-        console.log('UPLOAD VIDEO BUTTON - FILE DATA: ', fileData);
+        
 
         addUploadableVideo(fileData);
     };
@@ -271,7 +271,7 @@ function ActivityForm(props) {
     };
 
     const addUploadableMedia = (data) => {
-        console.log('ACTIVITY FORM - ADD UPLOADABLE MEDIA: ', data);
+        
 
         // only add photos data if user didn't cancel
         if (data.length > 0) {
@@ -313,7 +313,7 @@ function ActivityForm(props) {
             setFormData(previousFormData => {
                 const newUploadableMedia = previousFormData.uploadable_media.concat(photosData);
 
-                console.log('ACTIVITY FORM - UPLOADABLE MEDIA: ', newUploadableMedia);
+                
 
                 return {
                     ...previousFormData,
@@ -325,7 +325,7 @@ function ActivityForm(props) {
     };
 
     const removeUploadableMedia = (id) => {
-        console.log('ACTIVITY FORM - REMOVE UPLOADABLE MEDIA: ', id);
+        
 
         setFormData(previousFormData => {
             const uploadableMedia = previousFormData.uploadable_media.filter((media, i) => {
@@ -337,7 +337,7 @@ function ActivityForm(props) {
                 return media.id !== id;
             });
 
-            console.log('ACTIVITY FORM - UPLOADABLE MEDIA: ', uploadableMedia);
+            
 
             return {
                 ...previousFormData,

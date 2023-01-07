@@ -23,7 +23,7 @@ function AccountInfoSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-settings')
             .done((response) => {
-                console.log('ACCOUNT INFO SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 // get social data
                 const loggedUserProfileDataGroups = getGroups(response.profile_data, 'account');
@@ -68,18 +68,18 @@ function AccountInfoSettingsScreen(props) {
 
             updateProfileDataPromise
                 .then((updateProfileDataResponse) => {
-                    console.log('ACCOUNT INFO SETTINGS SCREEN - UPDATE PROFILE DATA RESPONSE:', updateProfileDataResponse);
+                    
 
                     // refresh page
                     window.location.reload();
                 }, (error) => {
-                    console.log('ACCOUNT INFO SETTINGS SCREEN - ERROR WHEN SAVING: ', error);
+                    
                 });
         }
     };
 
-    console.log('ACCOUNT INFO SETTINGS SCREEN - PROFILE DATA GROUPS: ', profileDataGroups);
-    console.log('ACCOUNT INFO SETTINGS SCREEN - PROFILE DATA FIELDS: ', profileDataFields);
+    
+    
 
     return (
         <div className="account-hub-content">

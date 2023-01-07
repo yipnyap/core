@@ -25,9 +25,6 @@ function UploadableMediaSelector(props) {
 
     const uploadFiles = () => {
         const files = fileInputRef.current.files;
-
-        console.log('UPLOADABLE MEDIA SELECTOR - UPLOAD FILES: ', files);
-
         const fileData = [];
 
         for (const file of files) {

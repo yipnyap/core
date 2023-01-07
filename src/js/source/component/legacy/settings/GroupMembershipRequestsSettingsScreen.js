@@ -17,7 +17,7 @@ function GroupMembershipRequestsSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-groups-memberships')
             .done((response) => {
-                console.log('GROUP MEMBERSHIP REQUESTS SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 setLoggedUser(response);
             });

@@ -256,8 +256,7 @@ const getWordInPosition = (text, position) => {
         }
     }
 
-    console.log('GET WORD INDEX - START: ', wordStartIndex);
-    console.log('GET WORD INDEX - END: ', wordEndIndex);
+    
 
     return {
         word: text.substring(wordStartIndex, wordEndIndex),
@@ -271,10 +270,10 @@ const getPositionInInput = (input, shadowInput, index) => {
         const inputDimensions = input.getBoundingClientRect(),
             shadowInputDimensions = shadowInput.children[index - 1].getBoundingClientRect();
 
-        console.log('INPUT CLIENT RECT: ', inputDimensions);
+        
         console.log('SHADOW INPUT CLIENT RECT: ', shadowInput.getBoundingClientRect());
-        console.log('SHADOW INPUT CURRENT SPAN: ', shadowInput.children[index - 1]);
-        console.log('SHADOW INPUT CURRENT SPAN CLIENT RECT: ', shadowInputDimensions);
+        
+        
 
         return {
             width: shadowInputDimensions.width,
@@ -301,7 +300,7 @@ const updateShadowInput = (shadowInput, text) => {
 
     const textCharacters = text.split('');
 
-    console.log('TEXT CHARACTERS: ', textCharacters);
+    
 
     for (const character of textCharacters) {
         const span = document.createElement('span');
@@ -317,15 +316,15 @@ const updateShadowInput = (shadowInput, text) => {
         shadowInput.appendChild(span);
     }
 
-    console.log('UPDATE SHADOW INPUT: ', shadowInput);
+    
 };
 
 const insertWordInText = (text, word, index, offset = 0) => {
     const textBeforeWord = text.substring(0, index),
         textAfterWord = text.substring(index + offset);
 
-    console.log('TEXT BEFORE WORD: ', textBeforeWord);
-    console.log('TEXT AFTER WORD: ', textAfterWord);
+    
+    
 
     return textBeforeWord + word + textAfterWord;
 };

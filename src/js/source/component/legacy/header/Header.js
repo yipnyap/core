@@ -27,11 +27,11 @@ function toggleLoggedUserColorTheme(e) {
 
     toggleLoggedUserColorThemePromise
         .done((response) => {
-            console.log('TOGGLE LOGGED USER COLOR THEME - RESPONSE', response);
+            
             window.location.reload();
         })
         .fail((error) => {
-            console.log('TOGGLE LOGGED USER COLOR THEME - ERROR', error);
+            
         })
 }
 

@@ -19,8 +19,6 @@ function ActionIconButton(props) {
 
             props.action()
                 .done((response) => {
-                    console.log('ACTION ICON BUTTON - ACTION RESPONSE: ', response);
-
                     if (response) {
                         if (props.onActionComplete) {
                             props.onActionComplete();
@@ -31,8 +29,6 @@ function ActionIconButton(props) {
 
                 })
                 .fail((error) => {
-                    console.log('ACTION ICON BUTTON - ACTION ERROR: ', error);
-
                     setLoading(false);
                 });
         }

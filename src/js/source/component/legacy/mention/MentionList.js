@@ -60,8 +60,8 @@ function MentionList(props) {
         // spacebar or enter key pressed
         if ((e.keyCode === 32) || (e.keyCode === 13)) {
             if (userMatches.current.length > 0) {
-                //   console.log('MENTION LIST - ON KEY PRESSED ACTIVE USER INDEX: ', activeUserIndexRef.current);
-                //   console.log('MENTION LIST - ON KEY PRESSED USER MATCHES: ', userMatches.current);
+                //   
+                //   
                 props.onItemSelection(userMatches.current[activeUserIndexRef.current], 'keydown');
             }
         }
@@ -98,12 +98,12 @@ function MentionList(props) {
     });
 
     useEffect(() => {
-        console.log('MENTION LIST - USE EFFECT SEARCH TEXT: ', props.searchText);
+        
 
         setActiveUserIndex(0);
     }, [props.searchText]);
 
-    console.log('MENTION LIST - DATA: ', props.data);
+    
 
     userMatches.current = [];
 
@@ -119,8 +119,8 @@ function MentionList(props) {
     // // sort users that matched searchText by lower index
     userMatches.current.sort(userMatchCompareFunction);
 
-    console.log('MENTION LIST - ACTIVE USER INDEX: ', activeUserIndex);
-    console.log('MENTION LIST - USER MATCHES: ', userMatches.current);
+    
+    
 
     return (
         <div ref={mentionListRef} className="mention-list">

@@ -47,7 +47,7 @@ function PasswordSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-settings-password')
             .done((response) => {
-                console.log('PASSWORD SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 setLoggedUser(response);
             });
@@ -84,10 +84,10 @@ function PasswordSettingsScreen(props) {
 
             passwordCheckPromise
                 .done((passwordMatches) => {
-                    console.log('PASSWORD SETTINGS SCREEN - CHECK PASSWORD RESPONSE: ', passwordMatches);
+                    
 
                     if (passwordMatches) {
-                        console.log('PASSWORD SETTINGS SCREEN - ENTERED PASSWORD MATCHES CURRENT PASSWORD');
+                        
 
                         // update password
                         const updatePasswordPromise = memberRouter.updatePassword({
@@ -97,11 +97,11 @@ function PasswordSettingsScreen(props) {
 
                         updatePasswordPromise
                             .done((response) => {
-                                console.log('PASSWORD SETTINGS SCREEN - UPDATE PASSWORD RESPONSE: ', response);
+                                
 
                                 // if password updated
                                 if (response) {
-                                    console.log('PASSWORD SETTINGS SCREEN - PASSWORD UPDATED CORRECTLY');
+                                    
 
                                     window.location.reload();
                                 } else {
@@ -131,7 +131,7 @@ function PasswordSettingsScreen(props) {
                     }
                 })
                 .fail((error) => {
-                    console.log('PASSWORD SETTINGS SCREEN - CHECK PASSWORD ERROR: ', error);
+                    
                     setSaving(false);
                 });
         } else {

@@ -35,8 +35,6 @@ function ChatMessageNew(props) {
     };
 
     const handleRecipientsTextChange = (e) => {
-        console.log('CHAT MESSAGE NEW - ON RECIPIENTS CHANGE: ', e.target);
-
         if (e.target.user) {
             sendMessageTextInputRef.current.focus();
         }

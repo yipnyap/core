@@ -19,8 +19,6 @@ function ActionButton(props) {
 
             props.action()
                 .done((result) => {
-                    console.log('ACTION BUTTON - RESULT: ', result);
-
                     if (result) {
                         if (props.onActionComplete) {
                             props.onActionComplete();
@@ -30,8 +28,6 @@ function ActionButton(props) {
                     }
                 })
                 .fail((error) => {
-                    console.log('ACTION BUTTON - ERROR: ', error);
-
                     setLoading(false);
                 });
         }

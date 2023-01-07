@@ -17,7 +17,7 @@ function UploadBox(props) {
     const updateFile = () => {
         const file = fileInputRef.current.files[0];
 
-        console.log('UPLOAD BOX - SELECTED FILE: ', file);
+        
 
         // if no file selected (user clicked cancel)
         if (typeof file === 'undefined') {
@@ -27,7 +27,7 @@ function UploadBox(props) {
         // release previous blob image resource if exists
         if (fileData.current) {
             URL.revokeObjectURL(fileData.current.url);
-            console.log('UPLOAD BOX - REVOKE FILE URL: ', fileData.current.url);
+            
         }
 
         // save new selected file

@@ -26,14 +26,14 @@ function HeaderDropdownMessages(props) {
 
             getMessagesPromise
                 .done((response) => {
-                    console.log('HEADER DROPDOWN MESSAGES - GET MESSAGES RESPONSE: ', response);
+                    
 
                     if (response && response.data && response.data instanceof Array) {
                         setMessages(response.data);
                     }
                 })
                 .fail((error) => {
-                    console.log('HEADER DROPDOWN MESSAGES - GET MESSAGES ERROR: ', error);
+                    
                 })
                 .always(() => {
                     setLoading(false);

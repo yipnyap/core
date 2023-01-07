@@ -186,8 +186,6 @@ function GroupManagePopup(props) {
 
         getGroupsPromise
             .done((response) => {
-                console.log('GROUP MANAGE POPUP - GET GROUP DATA RESPONSE: ', response);
-
                 const groupResponseData = response[0];
 
                 const newGroupMeta = getCustomGroupMeta(groupResponseData);
@@ -221,7 +219,7 @@ function GroupManagePopup(props) {
                 }
             })
             .fail((error) => {
-                console.log('GROUP MANAGE POPUP - GET GROUP DATA ERROR: ', error);
+                throw error;
             });
     };
 
@@ -230,8 +228,6 @@ function GroupManagePopup(props) {
 
         getGroupAssociatedForumPromise
             .done((response) => {
-                console.log('GROUP MANAGE POPUP - GET GROUP ASSOCIATED FORUM RESPONSE: ', props.data.id, response);
-
                 if (response && response.length > 0) {
                     const groupForumData = response[0];
 
@@ -244,7 +240,7 @@ function GroupManagePopup(props) {
                 }
             })
             .fail((error) => {
-                console.log('GROUP MANAGE POPUP - GET GROUP ASSOCIATED FORUM ERROR: ', error);
+                throw error;
             });
     };
 
@@ -292,8 +288,6 @@ function GroupManagePopup(props) {
     };
 
     const updateAvatarFile = (file) => {
-        console.log('GROUP MANAGE POPUP - AVATAR FILE: ', file);
-
         setGroup(previousGroup => {
             return {
                 ...previousGroup,
@@ -307,8 +301,6 @@ function GroupManagePopup(props) {
     };
 
     const updateCoverFile = (file) => {
-        console.log('GROUP MANAGE POPUP - COVER FILE: ', file);
-
         setGroup(previousGroup => {
             return {
                 ...previousGroup,
@@ -322,8 +314,6 @@ function GroupManagePopup(props) {
     };
 
     const updateSocialMeta = (field, data) => {
-        console.log('GROUP MANAGE POPUP - SOCIAL FIELD UPDATE: ', field, data);
-
         setGroupMeta(previousGroupMeta => {
             const newGroupMeta = deepMerge(previousGroupMeta);
 
@@ -389,15 +379,12 @@ function GroupManagePopup(props) {
 
         deleteGroupPromise
             .done((response) => {
-                console.log('GROUP MANAGE POPUP - GROUP DELETE RESPONSE: ', response);
-
                 // refresh
                 window.location.reload();
             })
             .fail((error) => {
-                console.log('GROUP MANAGE POPUP - GROUP DELETE ERROR: ', error);
-
                 setDeleting(false);
+                throw error;
             });
     };
 
@@ -412,14 +399,10 @@ function GroupManagePopup(props) {
 
         // if creating a group
         if (creatingGroup) {
-            console.log('GROUP MANAGE POPUP - CREATING');
-
             // if required fields have no value, show message and return
             if ((groupData.name === '') || (groupData.description === '')) {
                 setSaving(false);
                 setMarkAsRequired(true);
-
-                console.log('GROUP MANAGE POPUP - MISSING REQUIRED FIELDS');
 
                 return;
             }
@@ -428,11 +411,7 @@ function GroupManagePopup(props) {
             const createGroupConfig = deepMerge(groupData, {creator_id: props.loggedUser.id}),
                 createGroupPromise = groupRouter.createGroup(createGroupConfig);
 
-            console.log('GROUP MANAGE POPUP - CREATE GROUP WITH DATA: ', groupData);
-
             createGroupPromise.done((response) => {
-                console.log('GROUP MANAGE POPUP - CREATE GROUP RESPONSE: ', response);
-
                 let uploadAvatarPromise = {no_result: true},
                     uploadCoverPromise = {no_result: true},
                     updateGroupMetaPromise = {no_result: true};
@@ -471,14 +450,6 @@ function GroupManagePopup(props) {
 
                     jQuery
                         .when(uploadAvatarPromise, uploadCoverPromise, updateGroupMetaPromise)
-                        .done((avatarUploadResponse, coverUploadResponse, updateGroupMetaResponse) => {
-                            console.log('GROUP MANAGE POPUP - AVATAR UPLOAD RESPONSE:', avatarUploadResponse);
-                            console.log('GROUP MANAGE POPUP - COVER UPLOAD RESPONSE:', coverUploadResponse);
-                            console.log('GROUP MANAGE POPUP - GROUP META UPDATE RESPONSE:', updateGroupMetaResponse);
-                        })
-                        .fail((error) => {
-                            console.log('GROUP MANAGE POPUP - UPLOAD AVATAR/COVER OR UPDATE GROUP META ERROR: ', error);
-                        })
                         .always(() => {
                             // refresh
                             window.location.reload();
@@ -489,15 +460,10 @@ function GroupManagePopup(props) {
                 }
             })
                 .fail((error) => {
-                    console.log('GROUP MANAGE POPUP - CREATE GROUP ERROR: ', error);
-
                     setSaving(false);
                     setError(true);
                 });
         } else {
-            // if editing a group
-            console.log('GROUP MANAGE POPUP - EDITING');
-
             // if required fields have no value, show message and return
             const emptyGroupName = groupData.name === '',
                 emptyGroupDescription = groupData.description === '',
@@ -508,8 +474,6 @@ function GroupManagePopup(props) {
             if ((emptyGroupName || emptyGroupDescription) || (usingForum && (emptyForumName || emptyForumDescription))) {
                 setSaving(false);
                 setMarkAsRequired(true);
-
-                console.log('GROUP MANAGE POPUP - MISSING REQUIRED FIELDS');
 
                 return;
             }
@@ -530,8 +494,6 @@ function GroupManagePopup(props) {
 
                 updateGroupDataPromise = groupRouter.updateGroup(updatedFields);
             }
-
-            console.log('GROUP MANAGE POPUP - GROUP DATA UPDATED FIELDS: ', updatedFields);
 
             const avatarChanged = avatarFile,
                 coverChanged = coverFile,
@@ -570,8 +532,6 @@ function GroupManagePopup(props) {
                     const groupMetaFieldsToDelete = [],
                         groupMetaFieldsToUpdate = {};
 
-                    console.log('GROUP MANAGE POPUP - GROUP META TO UPDATE STATE: ', groupMetaToUpdate);
-
                     // only update meta fields if they are not empty, otherwise delete them
                     for (const metaKey in groupMetaToUpdate) {
                         const metaValue = groupMetaToUpdate[metaKey];
@@ -582,9 +542,6 @@ function GroupManagePopup(props) {
                             groupMetaFieldsToUpdate[metaKey] = metaValue;
                         }
                     }
-
-                    console.log('GROUP MANAGE POPUP - GROUP META TO DELETE: ', groupMetaFieldsToDelete);
-                    console.log('GROUP MANAGE POPUP - GROUP META TO UPDATE: ', groupMetaFieldsToUpdate);
 
                     if (groupMetaFieldsToDelete.length > 0) {
                         // delete empty meta
@@ -610,30 +567,13 @@ function GroupManagePopup(props) {
             // associate forum to group
             if (forumChanged) {
                 const forumData = deepMerge(forum);
-
-                console.log('GROUP MANAGE POPUP - UPDATE FORUM WITH DATA: ', forumData);
-
                 createGroupForumPromise = forumRouter.createGroupForum(forumData, props.data.id);
             } else if (forum.ID) {
-                console.log('GROUP MANAGE POPUP - DELETE FORUM WITH DATA: ', forum);
-
                 deleteGroupForumPromise = forumRouter.deleteGroupForum({forum_id: forum.ID, group_id: props.data.id});
             }
 
             jQuery
                 .when(updateGroupDataPromise, uploadAvatarPromise, uploadCoverPromise, updateGroupMetaPromise, deleteGroupMetaPromise, createGroupForumPromise, deleteGroupForumPromise)
-                .done((updateGroupDataPromiseResponse, avatarUploadResponse, coverUploadResponse, updateGroupMetaResponse, deleteGroupMetaResponse, createGroupForumResponse, deleteGroupForumResponse) => {
-                    console.log('GROUP MANAGE POPUP - GROUP DATA UPDATE RESPONSE:', updateGroupDataPromiseResponse);
-                    console.log('GROUP MANAGE POPUP - AVATAR UPLOAD RESPONSE:', avatarUploadResponse);
-                    console.log('GROUP MANAGE POPUP - COVER UPLOAD RESPONSE:', coverUploadResponse);
-                    console.log('GROUP MANAGE POPUP - GROUP META UPDATE RESPONSE:', updateGroupMetaResponse);
-                    console.log('GROUP MANAGE POPUP - GROUP META DELETE RESPONSE:', deleteGroupMetaResponse);
-                    console.log('GROUP MANAGE POPUP - CREATE GROUP FORUM RESPONSE:', createGroupForumResponse);
-                    console.log('GROUP MANAGE POPUP - DELETE FORUM RESPONSE:', deleteGroupForumResponse);
-                })
-                .fail((error) => {
-                    console.log('GROUP MANAGE POPUP - GROUP DATA UPDATE: ', error);
-                })
                 .always(() => {
                     // refresh
                     window.location.reload();

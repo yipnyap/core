@@ -12,7 +12,7 @@ function YTPlayer(props) {
   const onPlayerStateChange = (e, callback = () => {}) => {
     const playing = e.data === window.YT.PlayerState.PLAYING;
 
-    console.log('YTPLAYER - ON PLAYER STATE CHANGE STATUS: ', e.data);
+    
 
     // notify parent that this player started playing
     if (playing) {
@@ -21,7 +21,7 @@ function YTPlayer(props) {
   };
 
   const loadPlayer = (onPlayerStateChange) => {
-    console.log('YTPLAYER - LOAD PLAYER: ', iframeRef.current);
+    
 
     player.current = new window.YT.Player(iframeRef.current, {
       events: {
@@ -31,7 +31,7 @@ function YTPlayer(props) {
   };
 
   useEffect(() => {
-    console.log('YTPLAYER - MOUNTING VIDEO: ', iframeRef.current);
+    
 
     // load YT Iframe player API if it isn't loaded
     if (!window.YT && !document.querySelector('#ytIframePlayerScript')) {
@@ -62,9 +62,9 @@ function YTPlayer(props) {
   }, []);
 
   useEffect(() => {
-    console.log('YTPLAYER - COMPONENT DID UPDATE PLAYER: ', player.current);
-    console.log('YTPLAYER - COMPONENT DID UPDATE PLAYER PAUSE VIDEO: ', player.current.pauseVideo);
-    console.log('YTPLAYER - COMPONENT DID UPDATE IFRAME: ', iframeRef.current);
+    
+    
+    
     // hidden / popup iframes aren't loaded and won't have a player yet
     if (player.current && player.current.pauseVideo) {
       player.current.pauseVideo();

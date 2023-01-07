@@ -15,8 +15,6 @@ function PostFooter(props) {
     const [shareCount, setShareCount] = useState(props.shareCount);
 
     const onShare = (data, callback) => {
-        console.log('POST FOOTER - SHARE DATA: ', data);
-
         const itemID = Number.parseInt(data.postIn, 10);
 
         // post public by default
@@ -49,8 +47,6 @@ function PostFooter(props) {
                 count: shareCount + 1
             }
         };
-
-        console.log('POST FOOTER - SHARE: ', activityData);
 
         activityRouter.createActivity(activityData, (response) => {
             // activity created successfully

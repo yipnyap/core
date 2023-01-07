@@ -21,7 +21,7 @@ function ActivityCommentList(props) {
 
         deepExtend(config, commentData);
 
-        console.log('CREATE COMMENT - CONFIG: ', config);
+        
 
         activityRouter.createActivityComment(config, (response) => {
             if (response) {
@@ -44,7 +44,7 @@ function ActivityCommentList(props) {
             secondary_item_id: commentData.secondary_item_id
         };
 
-        console.log('ACTIVITY COMMENT LIST - UPDATE COMMENT - CONFIG: ', config);
+        
 
         return activityRouter.updateActivity(config);
     };
@@ -70,15 +70,15 @@ function ActivityCommentList(props) {
             endPosition = startPosition + props.perPage,
             newComments = comments.current.slice(startPosition, endPosition);
 
-        console.log('ACTIVITY COMMENT LIST - GET COMMENTS - START POSITION: ', startPosition);
-        console.log('ACTIVITY COMMENT LIST - GET COMMENTS - END POSITION: ', endPosition);
-        console.log('ACTIVITY COMMENT LIST - COMMENTS: ', comments.current);
+        
+        
+        
 
         callback(newComments);
     };
 
     const getCommentCount = (callback) => {
-        console.log('ACTIVITY COMMENT LIST - COMMENT COUNT: ', comments.current.length);
+        
 
         callback(comments.current.length);
     };

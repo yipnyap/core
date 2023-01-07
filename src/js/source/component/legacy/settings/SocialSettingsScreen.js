@@ -27,7 +27,7 @@ function SocialSettingsScreen(props) {
     const getLoggedInMember = () => {
         userRouter.getLoggedInMember('user-settings')
             .done((response) => {
-                console.log('SOCIAL SETTINGS SCREEN - LOGGED IN USER: ', response);
+                
 
                 // get social data
                 const loggedUserProfileDataGroups = getGroups(response.profile_data, 'social');
@@ -65,13 +65,13 @@ function SocialSettingsScreen(props) {
 
             updateProfileDataPromise
                 .done((updateProfileDataResponse) => {
-                    console.log('SOCIAL SETTINGS SCREEN - UPDATE PROFILE DATA RESPONSE:', updateProfileDataResponse);
+                    
 
                     // refresh page
                     window.location.reload();
                 })
                 .fail((error) => {
-                    console.log('SOCIAL SETTINGS SCREEN - ERROR WHEN SAVING: ', error);
+                    
                     setSaving(false);
                 });
         } else {

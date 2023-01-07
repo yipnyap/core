@@ -6,6 +6,7 @@ $GetMemberBit = [
     'link' => 1,
     'rank' => 2,
     'ui_skin' => 4,
+    'online_count' => 8,
 ];
 
 /**
@@ -150,6 +151,18 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     }
 
     /**
+     * Check if bitwise has "online_count", add currently online count
+     */
+    if ($bitwise & $GetMemberBit['online_count']) {
+        $request = new WP_REST_Request('GET', '/buddypress/v1/members');
+        $request->set_param('type', 'online');
+        $request->set_param('populate_extras', 0);
+        $response = rest_do_request($request);
+
+        $member['online_count'] = count($response->data);
+    }
+
+    /**
      * Compare bitwise with $GetMemberBit for each key.
      * If the bitwise is set, then add the key to the member array.
      */
@@ -272,4 +285,66 @@ function YipnyapGetMemberBadges(string|int $member_id): array
     }
 
     return $badges;
+}
+
+/**
+ * Get member's groups
+ *
+ * @param string|int $member_id Member ID
+ * @return array Member's groups
+ * @since ui3
+ */
+function YipnyapGetMemberGroups(string|int $member_id): array
+{
+    $member_id = YipnyapFetchMemberID($member_id);
+    $groups = [];
+
+    $gp_groups = groups_get_groups([
+        'user_id' => $member_id,
+    ]);
+
+    foreach ($gp_groups['groups'] as $gp_group) {
+        // check if int, if so, true.
+        $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
+        $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
+        $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
+        $groups[] = [
+            'id' => $gp_group->id,
+            'name' => $gp_group->name,
+            'description' => $gp_group->description,
+            'avatar' => bp_core_fetch_avatar([
+                'item_id' => $gp_group->id,
+                'object' => 'group',
+                'type' => 'full',
+                'html' => false,
+            ]),
+            'member_count' => $gp_group->total_member_count,
+            'is_admin' => $is_admin,
+            'is_mod' => $is_mod,
+            'is_member' => $is_member,
+        ];
+    }
+
+    return $groups;
+}
+
+/**
+ * Get member's friends
+ *
+ * @param string|int $member_id Member ID
+ * @return array Member's friends
+ * @since ui3
+ */
+function YipnyapGetMemberFriends(string|int $member_id): array
+{
+    $member_id = YipnyapFetchMemberID($member_id);
+    $friends = [];
+
+    $gp_friends = friends_get_friend_user_ids($member_id);
+
+    foreach ($gp_friends as $gp_friend) {
+        $friends[] = YipnyapGetMember($gp_friend);
+    }
+
+    return $friends;
 }

@@ -17,6 +17,32 @@ add_action('rest_api_init', function () {
     ));
 
     /**
+     * GET /member/{id}/groups
+     * @param int $id Member ID.
+     * @return object Member groups.
+     * @since ui3
+     */
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/groups', array(
+        'methods' => 'GET',
+        'callback' => function($arguments) {
+            wp_send_json(YipnyapGetMemberGroups($arguments['id']));
+        },
+    ));
+
+    /**
+     * GET /member/{id}/friends
+     * @param int $id Member ID.
+     * @return object Member friends.
+     * @since ui3
+     */
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/friends', array(
+        'methods' => 'GET',
+        'callback' => function($arguments) {
+            wp_send_json(YipnyapGetMemberFriends($arguments['id']));
+        },
+    ));
+
+    /**
      * GET /member/{id}
      * @param int $id Member ID.
      * @param int $bitwise Bitwise (optional).

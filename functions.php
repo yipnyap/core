@@ -8,6 +8,9 @@
  *
  */
 
+// Load Nextgen 2 Debugger
+require_once __DIR__ . '/global/nextgen2/debug.php';
+
 /**
  * Count render time
  */
@@ -30,7 +33,7 @@ add_action('wp_footer', function() {
     $AnalyticalRenderTime['human'] = number_format($AnalyticalRenderTime['total'], 2);
 
     // Send render time to client
-    echo '<script>console.log("[Server] Render time: ' . $AnalyticalRenderTime['human'] . 's")</script>';
+    echo console_log($AnalyticalRenderTime);
 });
 
 /**

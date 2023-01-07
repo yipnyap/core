@@ -369,14 +369,14 @@ export default function Header() {
                     <nav aria-label="Global" className="flex space-x-10">
                         <a href="https://ko-fi.com/rekkisomo" target="_blank"
                            className="text-sm font-medium text-primary">
-                            Ko-fi
+                            ❤️ Donate
                         </a>
                         <a href="https://yipnyap.atlassian.net/servicedesk" target="_blank"
                            className="text-sm font-medium text-primary">
-                            Support & Feedback
+                            🛟 Support
                         </a>
                         <a href="/community-guidelines" className="text-sm font-medium text-primary">
-                            Guidelines
+                            📜 Guidelines
                         </a>
                     </nav>
 

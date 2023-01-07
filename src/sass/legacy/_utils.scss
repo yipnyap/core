@@ -5689,6 +5689,9 @@
   .quick-filters-tabs {
     display: flex;
     margin-right: 26px;
+    &:hover {
+      overflow-x: auto;
+    }
 
     .quick-filters-tab {
       height: 80px;

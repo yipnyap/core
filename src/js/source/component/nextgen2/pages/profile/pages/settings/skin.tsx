@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
-import {useHeading} from "../../../../../providers/PageHeading.provider";
+import {useHeading} from "../../../../../../providers/PageHeading.provider";
 import {useLocation} from "react-router-dom";
-import {NGAlertCard} from "../../../../../nextgen/components/NGAlertCard";
+import {NGAlertCard} from "../../../../../../nextgen/components/NGAlertCard";
 
 export default function SettingsSkin({...props}) {
     const [heading, setHeading] = useHeading();
@@ -34,7 +34,7 @@ export default function SettingsSkin({...props}) {
                             </p>
                             {/* Small "New Skin" CTA button */}
                             <div className="mt-10 sm:mt-12">
-                                <a href="#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark md:py-4 md:text-lg md:px-10">
+                                <a href="settings#" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-secondary hover:bg-secondary-dark md:py-4 md:text-lg md:px-10">
                                     New Skin
                                 </a>
                             </div>

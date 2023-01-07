@@ -16,7 +16,7 @@ export declare interface NGContentNavigatorType {
     slimContentNavigator: boolean;
     items: NGContentNavigatorItemType[];
     footer?: React.ReactNode;
-
+    heading?: string | null;
     theme?: any;
     children?: React.ReactNode;
 }
@@ -50,7 +50,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             + ` dark:border-neutral-600`}>
             {!props.slimContentNavigator && (
                 <div className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
-                    <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{location.pathname.split('/')[1] || 'Home'}</p>
+                    <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{props.heading || location.pathname.split('/')[1] || 'Home'}</p>
                 </div>
             )}
             <div className="flex-1 min-h-0 overflow-y-auto">
@@ -71,7 +71,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
 
                         { typeof item.icon === 'string' && (
                             <img
-                                className="flex-shrink-0 -mt-0.5 h-6 w-6 rounded-lg dark:invert"
+                                className="flex-shrink-0 -mt-0.5 h-6 w-6 rounded-lg"
                                 src={item.icon}
                             />
                         )}

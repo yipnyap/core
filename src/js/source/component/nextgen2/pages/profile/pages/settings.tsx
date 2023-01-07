@@ -7,14 +7,13 @@ import {
     ShareIcon,
 } from "@heroicons/react/24/outline";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
-import {useHeading} from "../../../../providers/PageHeading.provider";
-
+import {useHeading} from "../../../../../providers/PageHeading.provider";
 // @ts-ignore
-import ProfileSettingsScreen from '../../../legacy/settings/ProfileSettingsScreen.js';
+import ProfileSettingsScreen from '../../../../legacy/settings/ProfileSettingsScreen.js';
 // @ts-ignore
-import SocialSettingsScreen from '../../../legacy/settings/SocialSettingsScreen.js';
+import SocialSettingsScreen from '../../../../legacy/settings/SocialSettingsScreen.js';
 // @ts-ignore
-import AccountInfoSettingsScreen from '../../../legacy/settings/AccountInfoSettingsScreen.js';
+import AccountInfoSettingsScreen from '../../../../legacy/settings/AccountInfoSettingsScreen.js';
 import SettingsSkin from "./settings/skin";
 import SettingsAccessibility from "./settings/accessibility";
 

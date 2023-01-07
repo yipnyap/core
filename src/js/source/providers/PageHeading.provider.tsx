@@ -8,6 +8,7 @@ interface PageHeadingContextType {
     padding?: boolean;
     slimContentNavigator?: boolean;
     navigator?: {
+        heading?: string;
         subNavigation?: NGContentNavigatorItemType[];
     };
 }

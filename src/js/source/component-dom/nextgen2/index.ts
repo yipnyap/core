@@ -5,6 +5,11 @@
 import {populateCurrentUser} from './global/user';
 populateCurrentUser().then(async r => {
     /**
+     * Activity DOM
+     */
+    await import('./activity');
+
+    /**
      * Profile DOM
      */
     await import('./profile/header');

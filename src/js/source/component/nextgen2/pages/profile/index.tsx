@@ -1,17 +1,18 @@
 import React, {Fragment, useEffect, useState} from 'react';
 
-import {NGProfileHeader} from '../../../nextgen/components/NGProfileHeader';
-import getMember from "../../../router/v2/members/get";
+import {NGProfileHeader} from '../../../../nextgen/components/NGProfileHeader';
+import getMember from "../../../../router/v2/members/get";
 import {Dialog, Transition} from "@headlessui/react";
+
 // @ts-ignore
-import ActivityFilterableList from '../../legacy/activity/ActivityFilterableList.js';
+import ActivityFilterableList from '../../../legacy/activity/ActivityFilterableList.js';
 // @ts-ignore
-import ActivityPhotoList from '../../legacy/activity/activity-media/activity-media-photo/ActivityPhotoList.js';
+import ActivityPhotoList from '../../../legacy/activity/activity-media/activity-media-photo/ActivityPhotoList.js';
 // @ts-ignore
-import ActivityVideoList from '../../../component/legacy/activity/activity-media/activity-media-video/ActivityVideoList';
+import ActivityVideoList from '../../../legacy/activity/activity-media/activity-media-video/ActivityVideoList';
 // @ts-ignore
-import MemberFilterableList from '../../../component/legacy/filter/MemberFilterableList';
-import {useHeading} from "../../../providers/PageHeading.provider";
+import MemberFilterableList from '../../../legacy/filter/MemberFilterableList';
+import {useHeading} from "../../../../providers/PageHeading.provider";
 import {
     Cog6ToothIcon,
     FaceSmileIcon,
@@ -22,7 +23,7 @@ import {
 } from "@heroicons/react/24/outline";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
-import {NGContentNavigatorItemType} from "../../../nextgen/components/NGContentNavigator/NGContentNavigator";
+import {NGContentNavigatorItemType} from "../../../../nextgen/components/NGContentNavigator/NGContentNavigator";
 import Arcana from "./pages/special/arcana";
 import ProfileBadges from "./pages/badges";
 

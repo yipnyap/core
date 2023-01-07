@@ -599,6 +599,27 @@ function ActivityFilterableList(props) {
         });
     }, []);
 
+    // Check if groupID has changed, if so, reset activities and get new ones
+    const usePrevious = value => {
+        const ref = useRef();
+        useEffect(() => {
+            ref.current = value;
+        });
+        return ref.current;
+    };
+
+    const prevGroupID = usePrevious(props.groupID);
+    useEffect(() => {
+        console.log('AWAIT! RESET!');
+        if(props.groupID && props.groupID !== prevGroupID) {
+            console.log('OK! RESET!');
+            onFiltersChange({
+                scope: false,
+                filter: {}
+            })
+        }
+    }, [props]);
+
     let postInDefault = '0';
 
     // if user is logged in and viewing a group activity feed
@@ -619,7 +640,7 @@ function ActivityFilterableList(props) {
         ownGroup = onGroupNewsfeed && loggedUser.groups.some((group) => !group.is_banned && (group.id === props.groupID));
 
     return (
-        <div className="grid">
+        <div className={`grid ${props.className}`}>
             {
                 fetchingUser &&
                 <Loader />

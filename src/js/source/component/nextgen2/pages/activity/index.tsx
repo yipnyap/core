@@ -1,0 +1,146 @@
+import React, {useEffect, useState} from 'react';
+import {useLocation} from "react-router-dom";
+import {
+    FaceSmileIcon,
+    HomeIcon,
+} from "@heroicons/react/24/outline";
+import {Void} from '../..';
+import {useHeading} from "../../../../providers/PageHeading.provider";
+
+import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";
+
+import {NGContentNavigatorItemType} from "../../../../nextgen/components/NGContentNavigator/NGContentNavigator";
+// @ts-ignore
+import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
+
+export default function Activity({...props}) {
+    const location = useLocation();
+    const [, setHeading] = useHeading();
+    const [userGroups, setUserGroups] = useState<NGContentNavigatorItemType[]>([]);
+    const [userFriends, setUserFriends] = useState<NGContentNavigatorItemType[]>([]);
+    const [currentGroup, setCurrentGroup] = useState<string | false>(false);
+    const [showVoid, setShowVoid] = useState<boolean>(false);
+
+    useEffect(() => {
+        // Get current user groups
+        getMemberGroups(yipnyap_constants.currentUser.id).then((groups) => {
+            const userGroupsBuild = [];
+            for (const group of groups) {
+                userGroupsBuild.push({
+                    name: group.name,
+                    description: group.description,
+                    href: `/groups/${group.id}/`,
+                    icon: group.avatar,
+                    current: location.pathname === `/groups/${group.id}/`,
+                });
+            }
+
+            // Check if any of the groups are the current group
+            if (location.pathname.startsWith('/groups/')) {
+                const currentGroup = parseInt(location.pathname.split('/')[2]);
+                if (currentGroup) {
+                    const group = groups.find((group: { id: number; }) => group.id === currentGroup);
+                    if (group) {
+                        setCurrentGroup(group.id);
+                        setShowVoid(false);
+                    } else {
+                        setCurrentGroup(false);
+                        setShowVoid(true);
+                    }
+                }
+            } else if (location.pathname === '/activity/') {
+                setCurrentGroup(false);
+                setShowVoid(false);
+            }
+            setUserGroups(userGroupsBuild);
+        })
+
+        // Get current user friends
+        getMemberFriends(yipnyap_constants.currentUser.id).then((friends) => {
+            const userFriendsBuild = [];
+            for (const friend of friends) {
+                userFriendsBuild.push({
+                    name: friend.display_name,
+                    description: `@${friend.username}`,
+                    href: `/${friend.username}/`,
+                    icon: friend.avatar,
+                    current: location.pathname === `/${friend.username}/`,
+                });
+            }
+            setUserFriends(userFriendsBuild);
+        })
+    }, [location.pathname])
+
+    useEffect(() => {
+        setHeading({
+            heading: null,
+            padding: false,
+            navigator: {
+                heading: `Hey, ${yipnyap_constants.currentUser.display_name || 'Stranger'}!`,
+                subNavigation: [
+                    {
+                        name: 'Home',
+                        description: '',
+                        href: `/activity/`,
+                        icon: HomeIcon,
+                        current: location.pathname === `/activity/`
+                    },
+                    ...userGroups ?? [],
+                    ...userFriends ?? [],
+                ]
+            }
+        })
+    }, [location.pathname, userGroups, userFriends])
+
+    return (
+        <>
+            {showVoid ? <Void /> : (
+                <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
+                    <ActivityFilterableList order="DESC"
+                                            groupID={currentGroup}
+                                            perPage={5}
+                                            className="w-full"/>
+
+                    <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
+                        {yipnyap_constants.currentUser?.username && (
+                            <div className="px-4 py-5 border bg-box rounded-xl">
+                                <p className="mt-1 text-sm leading-5 text-gray-500">
+                                    <b className="text-secondary">
+                                        {yipnyap_constants.currentUser.online_count === 1
+                                            ? 'Only you'
+                                            : yipnyap_constants.currentUser.online_count}
+                                    </b>
+                                    {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
+                                </p>
+                                {yipnyap_constants.currentUser.online_count < 3 && (
+                                    <p className="mt-1 text-sm leading-5 text-gray-500">
+                                        Yipnyap is better with friends! Tell 'em to join or login.
+                                    </p>
+                                )}
+                            </div>
+                        )}
+
+                        <div className="px-4 py-5 border bg-box rounded-xl">
+                            <h3 className="leading-6 font-medium">
+                                Help us make Yipnyap more comfy
+                            </h3>
+                            <p className="mt-3 text-sm leading-5 text-gray-500">
+                                Help us make a chill, joyful, and welcoming experience by joining in
+                                on the conversation!
+                            </p>
+                            <div className="mt-3 text-sm leading-5">
+                                <a
+                                    className="font-medium text-primary hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                                    href="https://discord.gg/wrCGpAB"
+                                    target="_blank"
+                                >
+                                    Join the Discord &rarr;
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+        </>
+    )
+}

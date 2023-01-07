@@ -1,14 +1,13 @@
 import React, {useEffect} from 'react'
-import ReactDOM from 'react-dom'
 import {
     createBrowserRouter,
-    RouterProvider,
 } from "react-router-dom"
 import {NGAlertCard} from "../../nextgen/components/NGAlertCard";
 import {useHeading} from "../../providers/PageHeading.provider";
 import Root from "./root";
-import Profile from "./profile";
-import SettingsGeneral from "./profile/pages/settings";
+import Profile from "./pages/profile";
+import SettingsGeneral from "./pages/profile/pages/settings";
+import Activity from "./pages/activity";
 
 let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience.mp3`);
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
@@ -33,6 +32,14 @@ export const router = createBrowserRouter([
         </div>,
         children: [
             {
+                path: '/activity/',
+                element: <Activity />,
+            },
+            {
+                path: '/groups/:groupId/',
+                element: <Activity />,
+            },
+            {
                 path: "/settings/",
                 element: <SettingsGeneral />,
                 children: [
@@ -56,7 +63,7 @@ export const router = createBrowserRouter([
     },
 ]);
 
-function Void({...props}) {
+export function Void({...props}) {
     const [, setHeading] = useHeading();
 
     useEffect(() => {

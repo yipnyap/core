@@ -44,7 +44,12 @@ function RootWithinProvider() {
 
     return (
         <NGBody>
-            <NGSideNav items={null} logoURL={`${yipnyap_constants.yipnyap_url}/img/yipnyap-logo.png`} slimContentNavigator={heading?.slimContentNavigator} showContentNavigator={true} contentNavigatorItems={heading?.navigator?.subNavigation}>
+            <NGSideNav items={null}
+                       logoURL={`${yipnyap_constants.yipnyap_url}/img/yipnyap-logo.png`}
+                       slimContentNavigator={heading?.slimContentNavigator}
+                       showContentNavigator={true}
+                       contentNavigatorItems={heading?.navigator?.subNavigation}
+                       contentNavigatorHeading={heading?.navigator?.heading}>
                 <NGContent srHeading={'Unknown'} heading={heading || { heading: null }}>
                     <Outlet />
                 </NGContent>

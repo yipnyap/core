@@ -11,6 +11,9 @@
 // Load Nextgen 2 Debugger
 require_once __DIR__ . '/global/nextgen2/debug.php';
 
+// Load plugins bundled with theme
+require_once __DIR__ . '/plugins/plugins.php';
+
 /**
  * Count render time
  */

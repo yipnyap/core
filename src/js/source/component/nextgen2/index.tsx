@@ -32,7 +32,7 @@ export const router = createBrowserRouter([
         </div>,
         children: [
             {
-                path: '/activity/',
+                path: '/home/',
                 element: <Activity />,
             },
             {

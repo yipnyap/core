@@ -48,7 +48,7 @@ export default function Activity() {
                         setShowVoid(true);
                     }
                 }
-            } else if (location.pathname === '/activity/') {
+            } else if (location.pathname === '/home/') {
                 setCurrentGroup(false);
                 setShowVoid(false);
             }
@@ -81,9 +81,9 @@ export default function Activity() {
                     {
                         name: 'Home',
                         description: '',
-                        href: `/activity/`,
+                        href: `/home/`,
                         icon: HomeIcon,
-                        current: location.pathname === `/activity/`
+                        current: location.pathname === `/home/`
                     },
                     ...userGroups ?? [],
                     ...userFriends ?? [],

@@ -287,7 +287,7 @@ function yipnyap_load_scripts(): void
         'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
-        'logout_url' => wp_logout_url('/activity'),
+        'logout_url' => wp_logout_url('/'),
         'logo_url' => get_option('yipnyap_logo_url'),
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),

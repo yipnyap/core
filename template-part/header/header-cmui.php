@@ -23,15 +23,6 @@
 $sidemenu_status = get_theme_mod('yipnyap_sidemenu_setting_display', 'display');
 $header_version  = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v2');
 
-$has_custom_logo = has_custom_logo();
-
-if ($has_custom_logo) {
-	$logo_id  = get_theme_mod('custom_logo');
-	$logo_url = wp_get_attachment_image_src($logo_id, 'full');
-} else {
-	$logo_url = get_option('yipnyap_logo_url');
-}
-
 global $yipnyap_settings;
 
 $display_search = ($yipnyap_settings['search_status'] === 'display') && ($yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled']);
@@ -49,14 +40,14 @@ if ($sidemenu_status === 'display') {
          style="z-index: 900; padding-bottom: 0; padding-top: 1em;"
          class="cmui navigator border-divider navigation-widget navigation-widget-desktop hidden lg:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
         <?php if (isset($args['user']) && get_option('cmui_use_profile_as_colour_palette') === 'yes') { ?>
-        <a class="flex items-center justify-center" href="/" style="mask: url(<?php echo esc_url( $logo_url[0] ) ?>); mask-size: 2.5rem; animation: 1s logoHue ease-out;">
+        <a class="flex items-center justify-center" href="/" style="mask: url(<?php echo esc_url(get_option('yipnyap_logo_url')) ?>); mask-size: 2.5rem; animation: 1s logoHue ease-out;">
             <img class="w-10 rounded"
                  src="<?php echo esc_url($args['user']['avatar_url']); ?>" alt="logo" style="filter: blur(5px) brightness(1.3); transform: scale(1.5);">
         </a>
         <?php } else { ?>
         <a class="logo flex items-center justify-center" href="/">
             <img class="logo-image"
-                 src="<?php echo esc_url($logo_url[0]) ?>" alt="logo">
+                 src="<?php echo esc_url(get_option('yipnyap_logo_url')) ?>" alt="logo">
         </a>
         <?php } ?>
         <div class="section-divider">

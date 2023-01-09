@@ -102,8 +102,7 @@ function ntwb_bbpress_custom_role_names(): array
 /**
  * THEME CONSTANTS
  */
-if (str_contains($_SERVER['SERVER_NAME'], 'local')) define('YIPNYAP_IS_LOCAL_DEV', true);
-else define('YIPNYAP_IS_LOCAL_DEV', false);
+define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local'));
 $current_user = wp_get_current_user();
 
 /**
@@ -127,7 +126,7 @@ define('YIPNYAP_WPOPTIONS', array(
      * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
      */
     'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
-    'yipnyap_logo_url' => array(YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png'),
+    'yipnyap_logo_url' => YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png',
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads'
@@ -276,12 +275,12 @@ function yipnyap_load_scripts(): void
 
     $yipnyap_settings = yipnyap_settings_get();
 
-    if (has_custom_logo()) {
-        $logo_id = get_theme_mod('custom_logo');
-        $logo_url = wp_get_attachment_image_src($logo_id, 'full');
-    } else {
-        $logo_url = get_option('yipnyap_logo_url');
-    }
+//    if (has_custom_logo()) {
+//        $logo_id = get_theme_mod('custom_logo');
+//        $logo_url = wp_get_attachment_image_src($logo_id, 'full');
+//    } else {
+//        $logo_url = get_option('yipnyap_logo_url');
+//    }
 
     // pass php variables to javascript file
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
@@ -289,7 +288,7 @@ function yipnyap_load_scripts(): void
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
         'logout_url' => wp_logout_url('/activity'),
-        'logo_url' => $logo_url[0],
+        'logo_url' => get_option('yipnyap_logo_url'),
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
         'rest_root' => esc_url_raw(rest_url()),

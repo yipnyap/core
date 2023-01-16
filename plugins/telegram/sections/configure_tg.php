@@ -26,7 +26,7 @@ if (isset($_GET['tab'])) {
 
             <?php
 
-            if ($this->is_valid_bot() && get_the_author_meta("tg_wp_factor_chat_id",
+            if ($this->IsValidBot() && get_the_author_meta("tg_wp_factor_chat_id",
                     get_current_user_id()) !== false) {
                 ?>
 
@@ -143,7 +143,7 @@ if (isset($_GET['tab'])) {
 
             } else {
 
-                if ($this->is_valid_bot() && get_the_author_meta("tg_wp_factor_chat_id",
+                if ($this->IsValidBot() && get_the_author_meta("tg_wp_factor_chat_id",
                         get_current_user_id()) !== false) :
 
                     $chat_id = get_user_meta(get_current_user_id(), "tg_wp_factor_chat_id", true);

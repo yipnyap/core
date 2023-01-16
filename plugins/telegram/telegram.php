@@ -25,11 +25,11 @@ const WP_FACTOR_TG_GETME_TRANSIENT = 'tg_wp_factor_valid_bot';
  * The main plugin class
  *
  */
-require_once("includes/class-wp-factor-telegram-plugin.php");
+require_once("includes/class-plugin.php");
 
-function WFT(): WP_Factor_Telegram_Plugin
+function WFT(): YipnyapTelegramInteraction
 {
-    return WP_Factor_Telegram_Plugin::get_instance();
+    return YipnyapTelegramInteraction::GetInstance();
 }
 
 WFT();

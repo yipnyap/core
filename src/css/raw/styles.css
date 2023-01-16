@@ -459,12 +459,6 @@ select {
 /*------------------------------
     2.13 HIGHLIGHT
 ------------------------------*/
-.highlight-main {
-  /* .bg-color-main */
-  @apply border-slate-200 dark:border-slate-700;
-  @apply focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm text-slate-400 rounded-default ring-1 ring-slate-900/10 shadow-sm dark:bg-slate-800 dark:highlight-white/5;
-}
-
 /*-------------------------------------------------------------------
                         3. COMPONENT COLORS
 -------------------------------------------------------------------*/

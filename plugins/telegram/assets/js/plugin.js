@@ -2,7 +2,7 @@
  * WP Factor Telegram Plugin
  */
 
-var WP_Factor_Telegram_Plugin = function ($) {
+var YipnyapTelegramInteraction = function ($) {
 
     var $twfci = $("#tg_wp_factor_chat_id");
     var $twfciconf = $("#tg_wp_factor_chat_id_confirm");
@@ -22,7 +22,7 @@ var WP_Factor_Telegram_Plugin = function ($) {
 
     function init() {
 
-        $twfci.on("change", function (evt) {
+        $twfci.on("change", function () {
             $twctrl.val(0);
         });
 
@@ -30,7 +30,7 @@ var WP_Factor_Telegram_Plugin = function ($) {
 
             evt.preventDefault();
             var chat_id = $twfci.val();
-            send_tg_token(chat_id);
+            SendTgToken(chat_id);
 
         });
 
@@ -62,11 +62,11 @@ var WP_Factor_Telegram_Plugin = function ($) {
             url: ajaxurl,
             data: {
                 'nonce': tlj.checkbot_nonce,
-                'action': 'check_bot',
+                'action': 'CheckBot',
                 'bot_token': bot_token
             },
             beforeSend: function () {
-                $twbcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twbcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
             },
             dataType: 'json',
             success: function (response) {
@@ -94,12 +94,12 @@ var WP_Factor_Telegram_Plugin = function ($) {
             type: "POST",
             url: ajaxurl,
             data: {
-                'action': 'token_check',
+                'action': 'TokenCheck',
                 'nonce': tlj.sendtoken_nonce,
                 'token': token
             },
             beforeSend: function () {
-                $twfcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twfcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
                 $twfcr.hide();
             },
             dataType: "json",
@@ -131,19 +131,19 @@ var WP_Factor_Telegram_Plugin = function ($) {
 
     }
 
-    function send_tg_token(chat_id) {
+    function SendTgToken(chat_id) {
 
         $.ajax({
 
             type: "POST",
             url: ajaxurl,
             data: {
-                'action': 'send_token_check',
+                'action': 'SendTokenCheck',
                 'nonce': tlj.tokencheck_nonce,
                 'chat_id': chat_id
             },
             beforeSend: function () {
-                $twbtn.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twbtn.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
                 $twfcr.hide();
                 $twfconf.hide();
             },

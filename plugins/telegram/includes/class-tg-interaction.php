@@ -1,6 +1,5 @@
 <?php
-
-class WP_Telegram
+class YipnyapTelegram
 {
     public $lastError;
     protected $bot_token;
@@ -21,7 +20,7 @@ class WP_Telegram
      *
      * @return $this
      */
-    public function set_bot_token($bot_token)
+    public function SetBotToken($bot_token): static
     {
         $this->bot_token = $bot_token;
         return $this;
@@ -31,9 +30,9 @@ class WP_Telegram
      * Get info about bot
      * @return bool | object
      */
-    public function get_me()
+    public function GetMe(): object|bool
     {
-        $request = $this->make_request("/getMe");
+        $request = $this->MakeRequest("/getMe");
 
         if (is_wp_error($request)) {
             $this->lastError = __("Ooops! Server failure, try again!", "yipnyap-telegram");
@@ -57,9 +56,9 @@ class WP_Telegram
      *
      * @return array|WP_Error
      */
-    private function make_request($route, $args = array())
+    private function MakeRequest($route, $args = array()): WP_Error|array
     {
-        $endpoint = $this->get_route($route);
+        $endpoint = $this->GetRoute($route);
         return wp_remote_post($endpoint, array(
             'body' => $args
         ));
@@ -73,7 +72,7 @@ class WP_Telegram
      *
      * @return string
      */
-    private function get_route($route)
+    private function GetRoute($route): string
     {
         $endpoint = sprintf("https://api.telegram.org/bot%s", $this->bot_token);
         return $endpoint . $route;
@@ -88,13 +87,13 @@ class WP_Telegram
      * @return bool
      */
 
-    public function send_tg_token($token, $chat_id = false)
+    public function SendTgToken($token, $chat_id = false): bool
     {
         if ($chat_id === false) {
             $chat_id = get_user_meta(get_current_user_id(), "tg_wp_factor_chat_id");
         }
 
-        return $this->send(sprintf(esc_html__("This is your access code: %s", "yipnyap-telegram"), $token), $chat_id);
+        return $this->Send(sprintf(esc_html__("This is your access code: %s", "yipnyap-telegram"), $token), $chat_id);
     }
 
     /**
@@ -105,9 +104,9 @@ class WP_Telegram
      *
      * @return bool
      */
-    public function send($msg, $chat_id)
+    public function Send($msg, $chat_id): bool
     {
-        $request = $this->make_request("/sendMessage", array(
+        $request = $this->MakeRequest("/sendMessage", array(
             'chat_id' => $chat_id,
             'text' => $msg,
             'parse_mode' => 'HTML'
@@ -136,7 +135,7 @@ class WP_Telegram
      *
      * @return bool
      */
-    public function send_tg_failed_login($user_login)
+    public function SendTgFailedLogin($user_login): bool
     {
         // Get plugin options
         $options = get_option($this->namespace);
@@ -182,7 +181,7 @@ class WP_Telegram
             $msg = sprintf(__("Failed attempt to access for the user: %s (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
         }
 
-        return $this->send($msg, $chat_id);
+        return $this->Send($msg, $chat_id);
     }
 
 }

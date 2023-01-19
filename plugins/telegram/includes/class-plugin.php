@@ -44,9 +44,7 @@ final class YipnyapTelegramInteraction
      */
     public static function GetInstance(): YipnyapTelegramInteraction
     {
-        if (empty(self::$instance)
-            && !(self::$instance instanceof YipnyapTelegramInteraction)
-        ) {
+        if (empty(self::$instance)) {
             self::$instance = new YipnyapTelegramInteraction;
             self::$instance->Includes();
             self::$instance->telegram = new YipnyapTelegram;

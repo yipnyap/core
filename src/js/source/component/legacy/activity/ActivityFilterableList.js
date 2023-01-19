@@ -41,12 +41,14 @@ function ActivityFilterableList(props) {
     const filters = useRef({
         per_page: props.perPage,
         sort: props.order,
-        show_hidden: !!props.groupID,
+        show_hidden: true,
         scope: 'myfollowing',
         filter: {}
     });
 
     useEffect(() => {
+        // filters.current.show_hidden = props.groupID !== undefined;
+
         if (props.activityID) {
             filters.current.in = props.activityID;
         }
@@ -93,8 +95,6 @@ function ActivityFilterableList(props) {
     }, []);
 
     const onFiltersChange = (newFilters) => {
-        
-
         deepExtend(filters.current, newFilters);
 
         if (typeof filters.current.filter.action === 'undefined') {
@@ -458,9 +458,6 @@ function ActivityFilterableList(props) {
                         callback();
                     });
                 }
-            })
-            .fail((error) => {
-                
             });
     };
 
@@ -610,9 +607,7 @@ function ActivityFilterableList(props) {
 
     const prevGroupID = usePrevious(props.groupID);
     useEffect(() => {
-        
-        if(props.groupID && props.groupID !== prevGroupID) {
-            
+        if(props.groupID !== prevGroupID) {
             onFiltersChange({
                 scope: false,
                 filter: {}

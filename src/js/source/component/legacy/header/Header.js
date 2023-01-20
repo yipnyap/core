@@ -321,6 +321,38 @@ export default function Header() {
         }
     }, []);
 
+    function attemptSearch(e) {
+        if (e.key !== 'Enter') return;
+
+        console.log(`[Search UI] Attempting search for ${searchQuery}`);
+
+        switch (searchQuery) {
+            case 'test':
+                console.log('test');
+                break;
+            case '🐈':
+                const slurpAudio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/slurp.ogg`);
+                slurpAudio.volume = 0.5;
+                if (slurpAudio.paused) {
+                    slurpAudio.play();
+                } else {
+                    slurpAudio.currentTime = 0
+                }
+
+                slurpAudio.onended = () => {
+                    setCatEatingEasterEgg(false);
+                }
+
+                setCatEatingEasterEgg(true);
+                break;
+            case 'haha one':
+                setLogoURL('https://tr.rbxcdn.com/ce959d1004974a0909d894fd120e2211/420/420/Image/Png')
+                break;
+            default:
+                console.log('nothing');
+        }
+    }
+
     return (
         <header className="flex-shrink-0 relative h-16 flex items-center"
         >
@@ -350,25 +382,27 @@ export default function Header() {
             {/* Desktop nav area */}
             <div className="hidden md:min-w-0 lg:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                {/*<div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">*/}
-                {/*    <label htmlFor="search"*/}
-                {/*           className="sr-only">*/}
-                {/*        Search*/}
-                {/*    </label>*/}
-                {/*    <div className="mt-1 relative rounded-default shadow-sm">*/}
-                {/*        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"*/}
-                {/*             aria-hidden="true">*/}
-                {/*            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"*/}
-                {/*                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">*/}
-                {/*                <path fillRule="evenodd"*/}
-                {/*                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"*/}
-                {/*                      clipRule="evenodd"></path>*/}
-                {/*            </svg>*/}
-                {/*        </div>*/}
-                {/*        <input type="text" name="search" id="search" disabled className="highlight-main block w-full pl-9 max-h-9"*/}
-                {/*               placeholder="Searching is disabled"/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">
+                    <label htmlFor="search"
+                           className="sr-only">
+                        Search
+                    </label>
+                    <div className="mt-1 relative rounded-default shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                             aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
+                                <path fillRule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clipRule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <input type="text" name="search" id="search" value={searchQuery}
+                               onChange={e => setSearchQuery(e.target.value)}
+                               className="highlight-main block w-full pl-9 max-h-9"
+                               placeholder="@Users, Things, Stuff..." onKeyDown={attemptSearch}/>
+                    </div>
+                </div>
 
                 <div className="relative"/>
 
@@ -430,15 +464,9 @@ export default function Header() {
                                 <div className="flex-shrink-0">
                                     {/* Loading Spinner */}
                                     {loadingUser ?
-                                        <svg className="animate-spin h-5 w-5 text-primary"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10"
-                                                    stroke="currentColor"
-                                                    strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor"
-                                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg> :
+                                        <img className="h-5 w-5 animate-spin dark:invert"
+                                             src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                             alt="Process working spinner"/> :
                                         <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url}
                                              alt=""/>
                                     }

@@ -41,13 +41,13 @@ function ActivityFilterableList(props) {
     const filters = useRef({
         per_page: props.perPage,
         sort: props.order,
-        show_hidden: true,
+        show_hidden: false,
         scope: 'myfollowing',
         filter: {}
     });
 
     useEffect(() => {
-        // filters.current.show_hidden = props.groupID !== undefined;
+        filters.current.show_hidden = props.groupID !== undefined && parseInt(props.groupID) > 0;
 
         if (props.activityID) {
             filters.current.in = props.activityID;

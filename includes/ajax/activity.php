@@ -17,8 +17,16 @@ use JetBrains\PhpStorm\NoReturn;
 
   $filters = $_POST['filters'] ?? [];
 
-  if (array_key_exists('show_hidden', $filters)) {
-    $filters['show_hidden'] = $filters['show_hidden'] === 'true';
+  if ($filters['filter']['object'] === 'groups') {
+    // check if user is apart of a group
+    $userGroups = YipnyapGetMemberGroups(get_current_user_id(), ['fields' => 'ids']);
+    if (!in_array($filters['filter']['primary_id'], $userGroups)) {
+      wp_send_json_error('You are not apart of this group');
+    } else {
+      $filters['show_hidden'] = true;
+    }
+  } else {
+    $filters['show_hidden'] = false;
   }
 
   $activities = yipnyap_get_activities($filters);

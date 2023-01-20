@@ -11,6 +11,28 @@ $anim-cubic-bezier: 0.25s cubic-bezier(0,1.25,0,1);
   }
 }
 
+.snapanim-shake {
+  animation: shake infinite 100ms;
+}
+
+@keyframes shake {
+  0% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  50% {
+    transform: translateX(4px);
+  }
+  75% {
+    transform: translateY(-4px);
+  }
+  100% {
+    transform: translateY(4px);
+  }
+}
+
 @keyframes zoomIn {
   from {
     transform: scale(0);

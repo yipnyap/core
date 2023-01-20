@@ -153,6 +153,9 @@ export default function Header() {
     const [loggedUser, setLoggedUser] = useState(false);
     const [loadingUser, setLoadingUser] = useState(true);
     const [yourViewNotifications, setYourViewNotifications] = useState([]);
+    const [logoURL, setLogoURL] = useState(`${yipnyap_constants.logo_url || ''}`);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [catEatingEasterEgg, setCatEatingEasterEgg] = useState(false);
 
     function populateUserLocalStorageCache() {
         userRouter.getLoggedInMember()
@@ -319,11 +322,17 @@ export default function Header() {
     }, []);
 
     return (
-        <header className="flex-shrink-0 relative h-16 flex items-center lg:pl-24"
+        <header className="flex-shrink-0 relative h-16 flex items-center"
         >
-            <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 lg:hidden">
-                <img src={yipnyap_constants.logo_url} alt="Yipnyap"
-                     className="h-8 w-auto inline-flex items-center justify-center rounded-default"/>
+            {catEatingEasterEgg &&
+                <div className="absolute top-4 left-12 p-12 snapanim-shake">
+                    <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/gray-cat.png`}
+                         alt="Gray cat eating a bowl of ramen" className="h-24 w-auto"/>
+                </div>
+            }
+            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 lg:px-6">
+                <img src={logoURL} alt="Yipnyap"
+                     className="logo-image h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>
             {/* Menu button area */}
             <div className="inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">

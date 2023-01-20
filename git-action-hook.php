@@ -27,7 +27,7 @@ if ($hookSecret) {
         throw new \Exception("Missing 'hash' extension to check the secret code validity.");
     }
 
-    list($algo, $hash) = explode('=', $_SERVER['HTTP_X_HUB_SIGNATURE'], 2) + array('', '');
+    list($algo, $hash) = explode('=', $_SERVER['HTTP_X_HUB_SIGNATURE'], 2) + ['', ''];
     if (!in_array($algo, hash_algos(), true)) {
         throw new \Exception("Hash algorithm '$algo' is not supported.");
     }
@@ -66,9 +66,9 @@ switch (strtolower($_SERVER['HTTP_X_GITHUB_EVENT'])) {
         echo 'pong';
         break;
 
-	case 'push':
-        $result = array();
-		exec('git pull', $result);
+    case 'push':
+        $result = [];
+        exec('git pull', $result);
         header('HTTP/1.0 202 Accepted');
         echo "Event:$_SERVER[HTTP_X_GITHUB_EVENT] Payload:\n" . implode("\n", $result);
         break;

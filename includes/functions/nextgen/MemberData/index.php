@@ -100,12 +100,12 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
         'header' => yipnyap_member_get_cover_url($member_id),
-        'followers' => count(bp_follow_get_followers(array(
+        'followers' => count(bp_follow_get_followers([
             'user_id' => $member_id
-        ))),
-        'following' => count(bp_follow_get_following(array(
+        ])),
+        'following' => count(bp_follow_get_following([
             'user_id' => $member_id
-        ))),
+        ])),
         'posts' => YipnyapGetMemberActivityCount($member_id)
     ];
     $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];

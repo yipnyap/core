@@ -132,10 +132,8 @@ const dateDiff = (date1, date2 = new Date()) => {
 };
 
 const dateMinutesDiff = (date1, date2 = new Date()) => {
-    const timeDiff = Math.abs(date1.getTime() - date2.getTime()),
-        minutesDiff = Math.floor(timeDiff / (1000 * 60));
-
-    return minutesDiff;
+    const timeDiff = Math.abs(date1.getTime() - date2.getTime());
+    return Math.floor(timeDiff / (1000 * 60));
 };
 
 const truncateText = (text, limit, moreText = '...') => {
@@ -149,9 +147,7 @@ const truncateText = (text, limit, moreText = '...') => {
 };
 
 const joinText = (text, separator = '-') => {
-    const joinedText = text.replace(/\s+/igm, separator);
-
-    return joinedText;
+    return text.replace(/\s+/igm, separator);
 };
 
 const getMediaLink = (type, id) => {
@@ -172,7 +168,7 @@ const extractAttachedMedia = (string) => {
     let attached_media = false,
         minMatchIndex = Number.MAX_SAFE_INTEGER;
 
-    // test for youtube link match
+    // test for YouTube link match
     const youtubeLinkRegex = /youtube\.com\/watch\?v=(.*?)(&|\s|$)/igm,
         youtubeLinkMatches = youtubeLinkRegex.exec(string);
 
@@ -330,10 +326,8 @@ const insertWordInText = (text, word, index, offset = 0) => {
 };
 
 const replaceEnterWithBr = (text) => {
-    const enterRegex = /\r\n/gim,
-        newText = text.replace(enterRegex, '<br>');
-
-    return newText;
+    const enterRegex = /\r\n/gim;
+    return text.replace(enterRegex, '<br>');
 };
 
 const ucfirst = (string) => {

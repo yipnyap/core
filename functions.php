@@ -68,38 +68,38 @@ add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
 /** @noinspection PhpUndefinedFunctionInspection */
 function ntwb_bbpress_custom_role_names(): array
 {
-    return array(
+    return [
 
         // Keymaster
-        bbp_get_keymaster_role() => array(
+        bbp_get_keymaster_role() => [
             'name' => 'Staff',
             'capabilities' => bbp_get_caps_for_role(bbp_get_keymaster_role())
-        ),
+        ],
 
         // Moderator
-        bbp_get_moderator_role() => array(
+        bbp_get_moderator_role() => [
             'name' => 'Moderator',
             'capabilities' => bbp_get_caps_for_role(bbp_get_moderator_role())
-        ),
+        ],
 
         // Participant
-        bbp_get_participant_role() => array(
+        bbp_get_participant_role() => [
             'name' => 'Participant',
             'capabilities' => bbp_get_caps_for_role(bbp_get_participant_role())
-        ),
+        ],
 
         // Spectator
-        bbp_get_spectator_role() => array(
+        bbp_get_spectator_role() => [
             'name' => 'Spectator',
             'capabilities' => bbp_get_caps_for_role(bbp_get_spectator_role())
-        ),
+        ],
 
         // Blocked
-        bbp_get_blocked_role() => array(
+        bbp_get_blocked_role() => [
             'name' => 'Blocked',
             'capabilities' => bbp_get_caps_for_role(bbp_get_blocked_role())
-        )
-    );
+        ]
+    ];
 }
 
 /**
@@ -120,7 +120,7 @@ const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 /**
  * Change Wordpress Settings
  */
-define('YIPNYAP_WPOPTIONS', array(
+define('YIPNYAP_WPOPTIONS', [
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
     'users_can_register' => true,
@@ -146,10 +146,10 @@ define('YIPNYAP_WPOPTIONS', array(
         'primary' => 'Lexend',
         'secondary' => 'Lexend'
     ],
-));
-const YIPNYAP_OPTIONS = array(
+]);
+const YIPNYAP_OPTIONS = [
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
-);
+];
 
 foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     $change_required = get_option($key) !== $option;
@@ -202,12 +202,12 @@ function yipnyap_admin_load_scripts(): void
     wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap');
 
     // add custom stylesheets
-    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', array(), '1.11.0');
+    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', [], '1.11.0');
 
     // pass php variables to javascript file
-    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', array(
+    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', [
         'yipnyap_admin_ajax_nonce' => wp_create_nonce('yipnyap_admin_ajax')
-    ));
+    ]);
 
     // pass translation strings to javascript file
     wp_localize_script('yipnyap-admin-scripts', 'yipnyap_translation', yipnyap_translation_get());
@@ -346,7 +346,7 @@ add_filter('body_class', 'yipnyap_body_classes');
  */
 function yipnyap_support_features(): void
 {
-    add_theme_support('post-formats', array('video', 'audio', 'gallery'));
+    add_theme_support('post-formats', ['video', 'audio', 'gallery']);
 
     add_theme_support('title-tag');
     add_theme_support('custom-logo');
@@ -553,7 +553,7 @@ add_filter('bp_core_enable_root_profiles', '__return_true');
 // Dont save activities of types
 function yipnyap_dont_save_activity($activity_object): void
 {
-    $exclude = array('new_avatar', 'updated_profile', 'friendship_created', 'created_group', 'joined_group', 'new_member');
+    $exclude = ['new_avatar', 'updated_profile', 'friendship_created', 'created_group', 'joined_group', 'new_member'];
 
     if (in_array($activity_object->type, $exclude))
         $activity_object->type = false;
@@ -569,14 +569,14 @@ function yipnyap_cover_image_upload_dir($upload): array
     $path = $base_dir . $upload['subdir'];
     $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $upload['subdir'];
 
-    return array(
+    return [
         'path' => $path,
         'url' => $url,
         'subdir' => $upload['subdir'],
         'basedir' => $base_dir,
         'baseurl' => YIPNYAP_WPOPTIONS['buddypress']['baseurl'],
         'error' => false
-    );
+    ];
 }
 
 add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1, 1);

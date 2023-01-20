@@ -1,10 +1,10 @@
-import React, {Fragment, useState, useRef, useEffect, useLayoutEffect} from 'react';
+import React, {useEffect, useLayoutEffect, useRef, useState} from 'react';
 
 import MentionList from '../mention/MentionList';
 
 import LoaderSpinner from '../loader/LoaderSpinner';
 
-import {getWordInPosition, getPositionInInput, updateShadowInput, insertWordInText} from '../../../utils/core';
+import {getPositionInInput, getWordInPosition, insertWordInText, updateShadowInput} from '../../../utils/core';
 import {createFormInput} from '../../../utils/plugins';
 
 function ExpandableTextarea(props) {
@@ -104,9 +104,7 @@ function ExpandableTextarea(props) {
     };
 
     const getTextWithMention = (mentionText) => {
-        const newText = insertWordInText(textareaRef.current.value, `@${mentionText}`, wordInCursor.current.startIndex, wordInCursor.current.word.length);
-
-        return newText;
+        return insertWordInText(textareaRef.current.value, `@${mentionText}`, wordInCursor.current.startIndex, wordInCursor.current.word.length);
     };
 
     const closeMention = (mentionData, event) => {

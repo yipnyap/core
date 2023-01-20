@@ -21,7 +21,7 @@ defined('ABSPATH') || exit;
 
 				<?php do_action('bbp_theme_before_forum_subscription_action'); ?>
 
-                <?php bbp_forum_subscription_link(array('before' => '', 'subscribe' => '+', 'unsubscribe' => '&times;')); ?>
+                <?php bbp_forum_subscription_link(['before' => '', 'subscribe' => '+', 'unsubscribe' => '&times;']); ?>
 
                 <?php do_action('bbp_theme_after_forum_subscription_action'); ?>
 

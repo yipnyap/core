@@ -153,21 +153,20 @@ add_action('wp_ajax_yipnyap_create_activity_comment', 'yipnyap_create_activity_c
         // add task to scheduler
         $create_activity_scheduler->addTask($create_uploadedmedia_id_meta_task);
 
-        // set activity type based on uploaded media type
-        if ($args['uploadable_media_type'] === 'image') {
-          $activity_type = 'activity_media';
-        } else if ($args['uploadable_media_type'] === 'video') {
-          $activity_type = 'activity_video';
-        }
-
         // create media individual activity
         $activity_media_args = [
             'component' => $args['creation_config']['component'],
             'item_id' => $args['uploadable_media']['component']['id'],
             'hide_sitewide' => $args['creation_config']['hide_sitewide'],
-            'type' => $activity_type,
             'content' => ''
         ];
+
+        // set activity type based on uploaded media type
+        if ($args['uploadable_media_type'] === 'image') {
+          $activity_media_args['type'] = 'activity_media';
+        } elseif ($args['uploadable_media_type'] === 'video') {
+          $activity_media_args['type'] = 'activity_video';
+        }
 
         // if there is only 1 media to upload, set media activity content to the same as the activity
         if (count($args['uploadable_media']['files']) === 1) {
@@ -190,7 +189,7 @@ add_action('wp_ajax_yipnyap_create_activity_comment', 'yipnyap_create_activity_c
         // add task to scheduler
         $create_activity_scheduler->addTask($create_activity_share_count_meta_task);
         // sharing a post
-      } else if ($args['share_config']['type'] === 'post') {
+      } elseif ($args['share_config']['type'] === 'post') {
         // create post share count meta task
         $create_post_share_count_meta_task = yipnyap_post_create_meta_share_count_task($args['share_config']);
         // add task to scheduler
@@ -282,7 +281,7 @@ add_action('wp_ajax_yipnyap_create_activity_ajax', 'yipnyap_create_activity_ajax
   $activity_belongs_to_group = $activity->component === 'groups';
   $activity_group_id = $activity_belongs_to_group ? $activity->item_id : 0;
 
-  // // logged user is activity group admin or mod
+  // logged user is activity group admin or mod
   $logged_user_is_activity_group_admin = $activity_belongs_to_group ? groups_is_user_admin($logged_user_id, $activity_group_id) : false;
   $logged_user_is_activity_group_mod = $activity_belongs_to_group ? groups_is_user_mod($logged_user_id, $activity_group_id) : false;
 

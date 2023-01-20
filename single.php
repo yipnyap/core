@@ -43,6 +43,7 @@ if (have_posts()) {
                     $post_data = yipnyap_gamipress_get_rank($post->ID, get_current_user_id());
                 }
 
+                /** @var object $post_data */
                 $achievement_args = [
                     'achievement' => $post_data,
                     'user_points' => $user_points,

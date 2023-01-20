@@ -6,6 +6,9 @@
  * @type string $section_name Section name.
  * @type array $section_links Section links.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
  *

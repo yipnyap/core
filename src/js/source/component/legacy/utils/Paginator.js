@@ -1,4 +1,4 @@
-import { deepExtend } from '../../../utils/core';
+import {deepExtend} from '../../../utils/core';
 
 const Paginator = {
   getNextPageToFetch: function (options) {
@@ -39,16 +39,10 @@ const Paginator = {
 
     // if any duplicates were found
     if (duplicateItemKeys.length > 0) {
-      const itemsWithoutDuplicates = newItems.filter((item) => {
+      return newItems.filter((item) => {
         return !(duplicateItemKeys.includes(item[compareKey]));
       });
-
-      
-
-      return itemsWithoutDuplicates;
     }
-
-    
 
     return newItems;
   }

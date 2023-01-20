@@ -483,18 +483,18 @@ if (!function_exists('yipnyap_get_posts_query')) {
             }
 
             if ($args['related_by'] === 'all_or') {
-                $query_args['tax_query'] = array(
+                $query_args['tax_query'] = [
                     'relation' => 'OR',
-                    array(
+                    [
                         'taxonomy' => 'category',
                         'terms' => yipnyap_get_post_categories_IDs($args['post_ID']),
                         'include_children' => false
-                    ),
-                    array(
+                    ],
+                    [
                         'taxonomy' => 'post_tag',
                         'terms' => yipnyap_get_post_tags_IDs($args['post_ID'])
-                    )
-                );
+                    ]
+                ];
             }
             // popular posts
         } else if ($args['query'] === 'popular') {

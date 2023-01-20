@@ -9,14 +9,14 @@ function ActivityShareBody(props) {
     let ActivityFormat, ActivityTemplate;
 
     if (props.data.shared_item) {
-        ActivityFormat = props.data.shared_item.format ? props.data.shared_item.format : false,
-            ActivityTemplate = getActivityTemplate(props.data.shared_item.type, ActivityFormat)({
-                data: props.data.shared_item,
-                updateSlider: props.updateSlider,
-                loggedUser: props.user,
-                simpleActivity: true,
-                sharePopupActivity: props.sharePopupActivity
-            });
+        ActivityFormat = props.data.shared_item.format ? props.data.shared_item.format : false
+        ActivityTemplate = getActivityTemplate(props.data.shared_item.type, ActivityFormat)({
+            data: props.data.shared_item,
+            updateSlider: props.updateSlider,
+            loggedUser: props.user,
+            simpleActivity: true,
+            sharePopupActivity: props.sharePopupActivity
+        });
     }
 
     const filteredActivityContent = filterActivityContentForDisplay(props.data.content);

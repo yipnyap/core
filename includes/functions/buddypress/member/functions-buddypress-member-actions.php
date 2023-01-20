@@ -1014,14 +1014,14 @@ if (!function_exists('yipnyap_groups_remove_unused_subnav_items')) {
 
         $parent_slug = $slug . '_manage';
 
-        $hide_tabs = array(
+        $hide_tabs = [
             'edit-details' => 1,
             'group-settings' => 1,
             'group-avatar' => 1,
             'group-cover-image' => 1,
             'manage-members' => 1,
             'delete-group' => 1
-        );
+        ];
 
         foreach (array_keys($hide_tabs) as $tab) {
             bp_core_remove_subnav_item($parent_slug, $tab, 'groups');

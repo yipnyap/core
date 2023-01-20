@@ -274,7 +274,7 @@ function ActivityFilterableList(props) {
                 preloadedActivities.current = preloadActivities(options, filters.current.scope);
             }, options);
         } else {
-            // dump preloaded activities and preload next page if has more items
+            // dump preloaded activities and preload next page if it has more items
             preloadedActivities.current
                 .done((activities, hasMoreItems) => {
                     
@@ -289,7 +289,7 @@ function ActivityFilterableList(props) {
 
                     callback(hasMoreItems);
 
-                    // preload next page if has more items
+                    // preload next page if it has more items
                     if (hasMoreItems) {
                         // preload next page activities
                         preloadedActivities.current = preloadActivities(options, filters.current.scope);
@@ -397,7 +397,7 @@ function ActivityFilterableList(props) {
             postedInMyGroup = itemID === props.groupID,
             postedInNewsfeed = !props.userID;
 
-        // if activity created and logged user is viewing newsfeed, it's own profile or the group where he is posting
+        // if activity created and logged user is viewing newsfeed, its own profile or the group where he is posting
         // get created activity for display
         if (postedInNewsfeed || postedInMyProfile || postedInMyGroup) {
             // get created activity using current filters, if the created activity returns then prepend it

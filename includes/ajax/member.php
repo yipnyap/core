@@ -330,17 +330,17 @@ function yipnyap_update_password_ajax() {
   if (!$logged_user_is_password_user) {
     wp_die('Unauthorized');
   }
-  
+
   wp_set_password($args['password'], $user_id);
 
   // wp_set_password logs user out, so we have to log user in again
   $user = get_userdata($user_id);
 
-  $creds = array(
-    'user_login'    => $user->user_login,
-    'user_password' => $args['password'],
-    'remember'      => true
-  );
+  $creds = [
+      'user_login' => $user->user_login,
+      'user_password' => $args['password'],
+      'remember' => true
+  ];
 
   $result = wp_signon($creds, false);
 

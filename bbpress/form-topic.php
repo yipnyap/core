@@ -109,7 +109,7 @@ if (!bbp_is_single_forum()) : ?>
 
                         <?php do_action('bbp_theme_before_topic_form_content'); ?>
 
-                        <?php bbp_the_content(array('context' => 'topic')); ?>
+                        <?php bbp_the_content(['context' => 'topic']); ?>
 
                         <?php do_action('bbp_theme_after_topic_form_content'); ?>
 
@@ -153,10 +153,10 @@ if (!bbp_is_single_forum()) : ?>
                                 <div class="form-select">
                                     <label for="bbp_forum_id"><?php esc_html_e('Forum:', 'bbpress'); ?></label>
                                     <?php
-                                    bbp_dropdown(array(
+                                    bbp_dropdown([
                                         'show_none' => esc_html__('&mdash; No forum &mdash;', 'bbpress'),
                                         'selected' => bbp_get_form_topic_forum()
-                                    ));
+                                    ]);
                                     ?>
                                     <?php
 

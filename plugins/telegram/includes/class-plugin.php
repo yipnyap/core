@@ -70,46 +70,46 @@ final class YipnyapTelegramInteraction
      */
     public function AddHooks(): void
     {
-        add_action('wp_login', array($this, 'TGLogin'), 10, 2);
+        add_action('wp_login', [$this, 'TGLogin'], 10, 2);
         add_action('wp_login_failed',
-            array($this->telegram, 'SendTgFailedLogin'), 10, 2);
-        add_action('login_form_validate_tg', array($this, 'ValidateTGAuthCode'));
+            [$this->telegram, 'SendTgFailedLogin'], 10, 2);
+        add_action('login_form_validate_tg', [$this, 'ValidateTGAuthCode']);
 
         if (is_admin()) {
-            add_action('admin_init', array($this, 'RegisterTGSettings'));
-            add_action("admin_menu", array($this, 'TGLoadAdminMenu'));
+            add_action('admin_init', [$this, 'RegisterTGSettings']);
+            add_action("admin_menu", [$this, 'TGLoadAdminMenu']);
             add_filter("plugin_action_links_"
                 . plugin_basename(WP_FACTOR_TG_FILE),
-                array($this, 'ActionLink'));
-            add_action('updated_option', array($this, 'DeleteTransients'),
+                [$this, 'ActionLink']);
+            add_action('updated_option', [$this, 'DeleteTransients'],
                 10, 3);
         }
 
         if (!$this->IsValidBot()) {
             add_action('admin_notices',
-                array($this, 'ConfigureTGNoticeIfBotInvalid'));
+                [$this, 'ConfigureTGNoticeIfBotInvalid']);
         }
 
         if ($this->IsValidBot() && !$this->IsSetupChatID()) {
             add_action('admin_notices',
-                array($this, 'ConfigureTGNoticeIfCleanInstall'));
+                [$this, 'ConfigureTGNoticeIfCleanInstall']);
         }
 
         add_action('show_user_profile',
-            array($this, 'TGAdd2FAFields'));
+            [$this, 'TGAdd2FAFields']);
         add_action('edit_user_profile',
-            array($this, 'TGAdd2FAFields'));
+            [$this, 'TGAdd2FAFields']);
 
         add_action('personal_options_update',
-            array($this, 'SaveUserProfileFields'));
+            [$this, 'SaveUserProfileFields']);
         add_action('edit_user_profile_update',
-            array($this, 'SaveUserProfileFields'));
-        add_action('admin_enqueue_scripts', array($this, 'LoadTGLib'));
-        add_action('admin_footer', array($this, 'HookTGLib'));
+            [$this, 'SaveUserProfileFields']);
+        add_action('admin_enqueue_scripts', [$this, 'LoadTGLib']);
+        add_action('admin_footer', [$this, 'HookTGLib']);
         add_action('wp_ajax_send_token_check',
-            array($this, 'SendTokenCheck'));
-        add_action('wp_ajax_token_check', array($this, 'TokenCheck'));
-        add_action('wp_ajax_check_bot', array($this, 'CheckBot'));
+            [$this, 'SendTokenCheck']);
+        add_action('wp_ajax_token_check', [$this, 'TokenCheck']);
+        add_action('wp_ajax_check_bot', [$this, 'CheckBot']);
     }
 
     public function IsValidBot(): bool
@@ -384,10 +384,10 @@ final class YipnyapTelegramInteraction
             "yipnyap-telegram"),
             __("Two-Factor Authentication with Telegram",
                 "yipnyap-telegram"), "manage_options", "tg-conf",
-            array(
+            [
                 $this,
                 'ConfigureTGPage',
-            ));
+            ]);
     }
 
     /**
@@ -416,7 +416,7 @@ final class YipnyapTelegramInteraction
             __('Telegram Configuration', "yipnyap-telegram"), '',
             $this->namespace . '.php');
 
-        $field_args = array(
+        $field_args = [
             'type' => 'text',
             'id' => 'bot_token',
             'name' => 'bot_token',
@@ -424,16 +424,16 @@ final class YipnyapTelegramInteraction
             'std' => '',
             'label_for' => 'bot_token',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('bot_token',
-            __('Bot Token', "yipnyap-telegram"), array(
+            __('Bot Token', "yipnyap-telegram"), [
                 $this,
                 'DisplayTGSettings',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'text',
             'id' => 'chat_id',
             'name' => 'chat_id',
@@ -442,16 +442,16 @@ final class YipnyapTelegramInteraction
             'std' => '',
             'label_for' => 'chat_id',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('chat_id',
-            __('Chat ID', "yipnyap-telegram"), array(
+            __('Chat ID', "yipnyap-telegram"), [
                 $this,
                 'DisplayTGSettings',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'enabled',
             'name' => 'enabled',
@@ -460,16 +460,16 @@ final class YipnyapTelegramInteraction
             'std' => '',
             'label_for' => 'enabled',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('enabled',
-            __('Enable plugin?', 'yipnyap-telegram'), array(
+            __('Enable plugin?', 'yipnyap-telegram'), [
                 $this,
                 'DisplayTGSettings',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'show_site_name',
             'name' => 'show_site_name',
@@ -478,16 +478,16 @@ final class YipnyapTelegramInteraction
             'std' => '',
             'label_for' => 'show_site_name',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('show_site_name',
-            __('Show site name?', 'yipnyap-telegram'), array(
+            __('Show site name?', 'yipnyap-telegram'), [
                 $this,
                 'DisplayTGSettings',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'show_site_url',
             'name' => 'show_site_url',
@@ -496,13 +496,13 @@ final class YipnyapTelegramInteraction
             'std' => '',
             'label_for' => 'show_site_url',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('show_site_url',
-            __('Show site URL?', 'yipnyap-telegram'), array(
+            __('Show site URL?', 'yipnyap-telegram'), [
                 $this,
                 'DisplayTGSettings',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
     }
 
@@ -571,10 +571,10 @@ final class YipnyapTelegramInteraction
                 wp_editor(
                     $options[$id],
                     $id,
-                    array(
+                    [
                         'textarea_name' => $option_name . "[$id]",
                         'style' => 'width: 200px',
-                    )
+                    ]
                 );
 
                 break;
@@ -589,10 +589,10 @@ final class YipnyapTelegramInteraction
      */
     public function ActionLink($links): array
     {
-        $plugin_links = array(
+        $plugin_links = [
             '<a href="' . admin_url('options-general.php?page=tg-conf') . '">'
             . __('Settings', 'yipnyap-telegram') . '</a>',
-        );
+        ];
 
         return array_merge($plugin_links, $links);
     }
@@ -770,7 +770,7 @@ final class YipnyapTelegramInteraction
                 YIPNYAP_URL . "/plugins/telegram/assets/js/plugin.js",
                 ['jquery'], '1.0.0', true);
 
-            wp_localize_script("tg_lib_js", "tlj", array(
+            wp_localize_script("tg_lib_js", "tlj", [
 
                 "ajax_error" => __('Ooops! Server failure, try again! ',
                     'yipnyap-telegram'),
@@ -778,7 +778,7 @@ final class YipnyapTelegramInteraction
                 "sendtoken_nonce" => wp_create_nonce('ajax-sendtoken-nonce'),
                 "tokencheck_nonce" => wp_create_nonce('ajax-tokencheck-nonce'),
                 "spinner" => admin_url("/images/spinner.gif")
-            ));
+            ]);
 
             wp_enqueue_script("tg_lib_js");
 
@@ -787,7 +787,7 @@ final class YipnyapTelegramInteraction
                 'custom-accordion',
                 plugins_url('assets/js/accordion.js',
                     dirname(__FILE__)),
-                array('jquery', 'jquery-ui-core', 'jquery-ui-accordion')
+                ['jquery', 'jquery-ui-core', 'jquery-ui-accordion']
             );
 
 
@@ -822,9 +822,9 @@ final class YipnyapTelegramInteraction
 
     #[NoReturn] public function SendTokenCheck(): void
     {
-        $response = array(
+        $response = [
             'type' => 'error'
-        );
+        ];
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-tokencheck-nonce')) {
             $response['msg'] = __('Security check error',
@@ -866,9 +866,9 @@ final class YipnyapTelegramInteraction
     #[NoReturn] public function CheckBot(): void
     {
 
-        $response = array(
+        $response = [
             'type' => 'error'
-        );
+        ];
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-checkbot-nonce')) {
             $response['msg'] = __('Security check error',
@@ -891,24 +891,24 @@ final class YipnyapTelegramInteraction
             die(json_encode($response));
         }
 
-        $response = array(
+        $response = [
             'type' => 'success',
             'msg' => __('This bot exists.', 'yipnyap-telegram'),
-            'args' => array(
+            'args' => [
                 'id' => $me->id,
                 'first_name' => $me->first_name,
                 'username' => $me->username,
-            ),
-        );
+            ],
+        ];
 
         die(json_encode($response));
     }
 
     #[NoReturn] public function TokenCheck(): void
     {
-        $response = array(
+        $response = [
             'type' => 'error'
-        );
+        ];
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-sendtoken-nonce')) {
             $response['msg'] = __('Security check error',

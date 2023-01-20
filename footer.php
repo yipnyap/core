@@ -79,5 +79,3 @@ endif;
 <?php wp_footer(); ?>
 <!-- CMUI Entire Content End -->
 <!--</div>-->
-</body>
-</html>

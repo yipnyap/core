@@ -219,7 +219,7 @@ if (!function_exists('yipnyap_friend_friendship_user_ids_get')) {
      * Gets ids of users that are a part of a friendship.
      *
      * @param int $friendship_id ID of the friendship.
-     * @return array
+     * @return int[] | false
      */
     function yipnyap_friend_friendship_user_ids_get($friendship_id)
     {

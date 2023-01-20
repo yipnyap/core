@@ -19,7 +19,8 @@
 <div class="achievement-preview">
     <!-- ACHIEVEMENT PREVIEW INFO -->
     <div class="achievement-preview-info">
-        <?php if (($args['achievement']['achievement_type'] === 'quest') && !$args['achievement']['completed']) : ?>
+        <?php /** @var object $args */
+        if (($args['achievement']['achievement_type'] === 'quest') && !$args['achievement']['completed']) : ?>
             <img class="achievement-preview-image" src="<?php echo YIPNYAP_URL; ?>/img/quest/quest-open.png"
                  alt="quest-open">
         <?php else: ?>

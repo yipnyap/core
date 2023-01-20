@@ -502,9 +502,6 @@ function yipnyap_plugin_is_active($plugin)
         case 'bp-better-messages':
             $is_active = class_exists('BP_Better_Messages');
             break;
-        case 'bp-verified-member':
-            $is_active = class_exists('BP_Verified_Member');
-            break;
         case 'gamipress':
             $is_active = function_exists('GamiPress');
             break;

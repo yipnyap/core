@@ -1,20 +1,19 @@
 /**
  * WP Factor Telegram Plugin
  */
+const YipnyapTelegramInteraction = function ($) {
 
-var YipnyapTelegramInteraction = function ($) {
+    const $twfci = $("#tg_wp_factor_chat_id");
+    const $twfciconf = $("#tg_wp_factor_chat_id_confirm");
+    const $twbtn = $("#tg_wp_factor_chat_id_send");
+    const $twctrl = $("#tg_wp_factor_valid");
 
-    var $twfci = $("#tg_wp_factor_chat_id");
-    var $twfciconf = $("#tg_wp_factor_chat_id_confirm");
-    var $twbtn = $("#tg_wp_factor_chat_id_send");
-    var $twctrl = $("#tg_wp_factor_valid");
-
-    var $twfcr = $("#factor-chat-response");
-    var $twfconf = $("#factor-chat-confirm");
-    var $twfcheck = $("#tg_wp_factor_chat_id_check");
-    var $twbcheck = $("#checkbot");
-    var $twb = $("#bot_token");
-    var $twbdesc = $("#bot_token_desc");
+    const $twfcr = $("#factor-chat-response");
+    const $twfconf = $("#factor-chat-confirm");
+    const $twfcheck = $("#tg_wp_factor_chat_id_check");
+    const $twbcheck = $("#checkbot");
+    const $twb = $("#bot_token");
+    const $twbdesc = $("#bot_token_desc");
 
     return {
         init: init
@@ -29,7 +28,7 @@ var YipnyapTelegramInteraction = function ($) {
         $twbtn.on("click", function (evt) {
 
             evt.preventDefault();
-            var chat_id = $twfci.val();
+            const chat_id = $twfci.val();
             SendTgToken(chat_id);
 
         });
@@ -37,7 +36,7 @@ var YipnyapTelegramInteraction = function ($) {
         $twfcheck.on("click", function (evt) {
 
             evt.preventDefault();
-            var token = $twfciconf.val();
+            const token = $twfciconf.val();
             check_tg_token(token);
 
         });
@@ -45,7 +44,7 @@ var YipnyapTelegramInteraction = function ($) {
         $twbcheck.on("click", function (evt) {
 
             evt.preventDefault();
-            var bot_token = $twb.val();
+            const bot_token = $twb.val();
             check_tg_bot(bot_token);
 
         });

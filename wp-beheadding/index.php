@@ -61,7 +61,7 @@ add_filter('admin_title', function(string $admin_title, string $title): string
 add_filter('body_class', function($wp_classes, $extra_classes): array
 {
     // List of the only WP generated classes allowed
-    $whitelist = array('portfolio', 'home', 'error404');
+    $whitelist = ['portfolio', 'home', 'error404'];
 
     // Filter the body classes
     $wp_classes = array_intersect($wp_classes, $whitelist);
@@ -78,7 +78,7 @@ add_filter('body_class', function($wp_classes, $extra_classes): array
  * @since hk15
  */
 add_filter('login_title', function ($login_title) {
-    return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'),), array(' &lsaquo;', ''), $login_title);
+    return str_replace([' &lsaquo;', ' &#8212; WordPress', __('WordPress'),], [' &lsaquo;', ''], $login_title);
 });
 
 /**
@@ -99,7 +99,7 @@ add_filter(
         $new_error = substr($error['message'], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
-        postDiscordWebhookAsError(array(
+        postDiscordWebhookAsError([
             'content' => 'Houndkit crashed.',
             'embeds' => [
                 [
@@ -108,7 +108,7 @@ add_filter(
                     'timestamp' => $date,
                 ],
             ],
-        ));
+        ]);
 
         return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
     },

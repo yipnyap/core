@@ -17,9 +17,9 @@
 if (!empty($args)) {
     $post_count = $args['member']['stats']['post_count'];
     $friend_count = $args['member']['stats']['friend_count'];
-    $follow_count = bp_follow_total_follow_counts(array(
+    $follow_count = bp_follow_total_follow_counts([
         'user_id' => $args['member']['id']
-    ))['followers'];
+    ])['followers'];
 }
 
 global $yipnyap_settings;

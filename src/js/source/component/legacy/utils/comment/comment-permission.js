@@ -71,11 +71,7 @@ const userCanEditComment = (commentData, user, group) => {
         }
     }
 
-    if (commentEditableTimeHasElapsed(commentData)) {
-        return false;
-    }
-
-    return true;
+    return !commentEditableTimeHasElapsed(commentData);
 };
 
 const userCanDeleteComment = (commentData, user, group) => {

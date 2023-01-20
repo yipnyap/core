@@ -188,6 +188,7 @@ if (isset($_GET['tab'])) {
                 endif;
                 ?>
 
+                <!--suppress HtmlUnknownTarget -->
                 <form method="post" enctype="multipart/form-data" action="options.php">
 
                     <?php

@@ -8,6 +8,9 @@
  * @type int $more_count Optional. How many more badges the user has.
  * @type string $more_link Optional. Link to the page that shows all the user badges.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
  *

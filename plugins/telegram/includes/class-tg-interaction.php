@@ -52,16 +52,16 @@ class YipnyapTelegram
      * Make request
      *
      * @param $route
-     * @param $args
+     * @param array $args
      *
      * @return array|WP_Error
      */
-    private function MakeRequest($route, $args = array()): WP_Error|array
+    private function MakeRequest($route, array $args = []): WP_Error|array
     {
         $endpoint = $this->GetRoute($route);
-        return wp_remote_post($endpoint, array(
+        return wp_remote_post($endpoint, [
             'body' => $args
-        ));
+        ]);
 
     }
 
@@ -106,11 +106,11 @@ class YipnyapTelegram
      */
     public function Send($msg, $chat_id): bool
     {
-        $request = $this->MakeRequest("/sendMessage", array(
+        $request = $this->MakeRequest("/sendMessage", [
             'chat_id' => $chat_id,
             'text' => $msg,
             'parse_mode' => 'HTML'
-        ));
+        ]);
 
         if (is_wp_error($request)) {
             $this->lastError = __("Ooops! Server failure, try again!", "yipnyap-telegram");

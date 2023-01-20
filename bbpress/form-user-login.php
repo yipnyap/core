@@ -12,7 +12,7 @@ defined('ABSPATH') || exit;
 
 ?>
 
-<form method="post" action="<?php bbp_wp_login_action(array('context' => 'login_post')); ?>" class="bbp-login-form">
+<form method="post" action="<?php bbp_wp_login_action(['context' => 'login_post']); ?>" class="bbp-login-form">
     <fieldset class="bbp-form">
         <legend><?php esc_html_e('Log In', 'bbpress'); ?></legend>
 

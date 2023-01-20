@@ -8,6 +8,9 @@
  * @type bool $no_border Optional. Adds a border if set.
  * @type bool $linked Optional. Adds a link to the user profile if set.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.3.6
  * @author Yipnyap (https://yipnyap.xyz/)
  *

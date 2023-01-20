@@ -127,7 +127,7 @@ function MessagesSettingsScreen(props) {
 
                 let newSelectedMessage = (typeof selectFirst === 'boolean') && selectFirst && newMessages.length > 0 ? newMessages[0] : selectedMessage;
 
-                // pre selected message
+                // pre-selected message
                 if (messageID) {
                     for (const message of newMessages) {
                         if (message.id === messageID) {

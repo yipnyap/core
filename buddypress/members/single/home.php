@@ -105,28 +105,22 @@ get_template_part('template-part/common/header/header', '', [
          */
         if (bp_is_user_front()) {
             bp_displayed_user_front_template_part();
-        } else if (bp_is_user_activity()) {
+        } elseif (bp_is_user_activity()) {
             bp_get_template_part('members/single/activity');
 
-        } else if (bp_is_user_blogs()) {
-//            bp_get_template_part('members/single/blogs');
-
-        } else if (bp_is_user_friends()) {
+        } elseif (bp_is_user_friends()) {
             bp_get_template_part('members/single/friends');
 
-        } else if (bp_is_user_groups()) {
+        } elseif (bp_is_user_groups()) {
             bp_get_template_part('members/single/groups');
 
-        } else if (bp_is_user_messages()) {
-//            bp_get_template_part('members/single/messages');
-
-        } else if (bp_is_user_profile()) {
+        } elseif (bp_is_user_profile()) {
             bp_get_template_part('members/single/profile');
 
-        } else if (bp_is_user_notifications()) {
+        } elseif (bp_is_user_notifications()) {
             bp_get_template_part('members/single/notifications');
 
-        } else if (bp_is_user_settings()) {
+        } elseif (bp_is_user_settings()) {
             bp_get_template_part('members/single/settings');
 
         } else {

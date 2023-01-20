@@ -10,23 +10,23 @@
  *
  */
 
-  $member = get_query_var('member');
+$member = get_query_var('member');
 
-  /**
-   * Section Header
-   */
-  $count = bp_follow_total_follow_counts(array(
+/**
+ * Section Header
+ */
+$count = bp_follow_total_follow_counts([
     'user_id' => $member['id']
-  ));
+]);
 
-  get_template_part('template-part/section/section', 'header', [
-    'section_pretitle'  => sprintf(
-      esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
-      $member['name']
+get_template_part('template-part/section/section', 'header', [
+    'section_pretitle' => sprintf(
+        esc_html_x('Browse %s', 'Section Header - Pretitle', 'yipnyap'),
+        $member['name']
     ),
-    'section_title'     => esc_html__('Follow', 'yipnyap'),
-    'section_text'      => $count['followers']
-  ]);
+    'section_title' => esc_html__('Follow', 'yipnyap'),
+    'section_text' => $count['followers']
+]);
 
   $members_grid_type = yipnyap_logged_user_grid_type_get('member');
 

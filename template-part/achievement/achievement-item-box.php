@@ -59,6 +59,7 @@ $achievement_type = $args['achievement_type'] ?? 'achievement';
                 <!-- ACHIEVEMENT ITEM BOX IMAGE WRAP -->
                 <div class="achievement-item-box-image-wrap">
                     <?php
+                    /** @var object $args */
                     if (($args['achievement']['achievement_type'] === 'quest') && !$args['achievement']['completed']) :
                         ?>
                         <!-- ACHIEVEMENT ITEM BOX IMAGE -->

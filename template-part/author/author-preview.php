@@ -7,6 +7,9 @@
  * @type string $modifiers Optional. Additional class names to add to the HTML wrapper.
  * @type bool $linked Optional. Adds a link to the user profile if set.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
  *

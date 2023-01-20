@@ -301,7 +301,7 @@ function YipnyapGetMemberBadges(string|int $member_id): array
  * @return array Member's groups
  * @since ui3
  */
-function YipnyapGetMemberGroups(string|int $member_id): array
+function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array
 {
     $member_id = YipnyapFetchMemberID($member_id);
     $groups = [];
@@ -311,25 +311,30 @@ function YipnyapGetMemberGroups(string|int $member_id): array
     ]);
 
     foreach ($gp_groups['groups'] as $gp_group) {
-        // check if int, if so, true.
-        $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
-        $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
-        $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
-        $groups[] = [
-            'id' => $gp_group->id,
-            'name' => $gp_group->name,
-            'description' => $gp_group->description,
-            'avatar' => bp_core_fetch_avatar([
-                'item_id' => $gp_group->id,
-                'object' => 'group',
-                'type' => 'full',
-                'html' => false,
-            ]),
-            'member_count' => $gp_group->total_member_count,
-            'is_admin' => $is_admin,
-            'is_mod' => $is_mod,
-            'is_member' => $is_member,
-        ];
+        // check if fields should only include IDs
+        if ($query['fields'] === 'ids') {
+            $groups[] = $gp_group->id;
+        } else {
+            // check if int, if so, true.
+            $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
+            $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
+            $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
+            $groups[] = [
+                'id' => $gp_group->id,
+                'name' => $gp_group->name,
+                'description' => $gp_group->description,
+                'avatar' => bp_core_fetch_avatar([
+                    'item_id' => $gp_group->id,
+                    'object' => 'group',
+                    'type' => 'full',
+                    'html' => false,
+                ]),
+                'member_count' => $gp_group->total_member_count,
+                'is_admin' => $is_admin,
+                'is_mod' => $is_mod,
+                'is_member' => $is_member,
+            ];
+        }
     }
 
     return $groups;

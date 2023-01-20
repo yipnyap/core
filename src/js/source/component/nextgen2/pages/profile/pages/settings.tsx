@@ -16,6 +16,7 @@ import SocialSettingsScreen from '../../../../legacy/settings/SocialSettingsScre
 import AccountInfoSettingsScreen from '../../../../legacy/settings/AccountInfoSettingsScreen.js';
 import SettingsSkin from "./settings/skin";
 import SettingsAccessibility from "./settings/accessibility";
+import SettingsTelegram from "./settings/telegram";
 
 export default function SettingsGeneral() {
     const [, setHeading] = useHeading();
@@ -33,6 +34,13 @@ export default function SettingsGeneral() {
                         href: '/settings/',
                         icon: Cog6ToothIcon,
                         current: location.pathname === '/settings/',
+                    },
+                    {
+                        name: 'Telegram Notifications',
+                        description: 'Configure Telegram notifcations, OTP, and more.',
+                        href: '/settings/telegram',
+                        icon: ShareIcon,
+                        current: location.pathname === '/settings/telegram',
                     },
                     // {
                     //     name: 'Profile Skin',
@@ -79,6 +87,10 @@ export default function SettingsGeneral() {
         <>
             {
                 location.pathname === '/settings/' && <ProfileSettingsScreen/>
+            }
+
+            {
+                location.pathname === '/settings/telegram' && <SettingsTelegram/>
             }
 
             {

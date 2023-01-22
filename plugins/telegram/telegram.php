@@ -27,9 +27,9 @@ const WP_FACTOR_TG_GETME_TRANSIENT = 'tg_wp_factor_valid_bot';
  */
 require_once("includes/class-plugin.php");
 
-function WFT(): YipnyapTelegramInteraction
+function WFT(): YipnyapTelegramLinkage
 {
-    return YipnyapTelegramInteraction::GetInstance();
+    return YipnyapTelegramLinkage::GetInstance();
 }
 
 WFT();

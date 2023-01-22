@@ -3,14 +3,14 @@
  */
 const YipnyapTelegramInteraction = function ($) {
 
-    const $twfci = $("#tg_wp_factor_chat_id");
-    const $twfciconf = $("#tg_wp_factor_chat_id_confirm");
-    const $twbtn = $("#tg_wp_factor_chat_id_send");
+    const $twfci = $("#tgid");
+    const $twfciconf = $("#tgid_confirm");
+    const $twbtn = $("#tgid_send");
     const $twctrl = $("#tg_wp_factor_valid");
 
     const $twfcr = $("#factor-chat-response");
     const $twfconf = $("#factor-chat-confirm");
-    const $twfcheck = $("#tg_wp_factor_chat_id_check");
+    const $twfcheck = $("#tgid_check");
     const $twbcheck = $("#checkbot");
     const $twb = $("#bot_token");
     const $twbdesc = $("#bot_token_desc");

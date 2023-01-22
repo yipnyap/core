@@ -90,10 +90,10 @@ class YipnyapTelegram
     public function SendTgToken($token, $chat_id = false): bool
     {
         if ($chat_id === false) {
-            $chat_id = get_user_meta(get_current_user_id(), "tg_wp_factor_chat_id");
+            $chat_id = get_user_meta(get_current_user_id(), "tgid");
         }
 
-        return $this->Send(sprintf(esc_html__("This is your access code: %s", "yipnyap-telegram"), $token), $chat_id);
+        return $this->Send(sprintf("🔒 Here's your OTP: %s\n\nDon't share this code! If you didn't request this, <b>reset your password immediately.</b>", $token), $chat_id);
     }
 
     /**
@@ -123,9 +123,8 @@ class YipnyapTelegram
             return true;
         }
 
-        $this->lastError = sprintf(__("%s (Error code %d)", $body->description, $body->error_code, "yipnyap-telegram"));
+        $this->lastError = sprintf(__("%s (Error code %d)", "yipnyap-telegram"), $body->description, $body->error_code);
         return false;
-
     }
 
     /**
@@ -151,35 +150,7 @@ class YipnyapTelegram
         // Get IP from computer attempting to login
         $ip_address = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ? wp_unslash($_SERVER["HTTP_CF_CONNECTING_IP"]) : wp_unslash($_SERVER['REMOTE_ADDR']));
 
-        if ($options['show_site_name'] === '1' && $options['show_site_url'] === '1') {
-            // Get site name
-            $site_name = get_bloginfo('name');
-
-            // Get site URL
-            $site_url = home_url();
-
-            // Message with site name
-            /* translators: 1. Site name, 2. Site URL, 3. Username, 4. IP address */
-            $msg = sprintf(__("Failed attempt to access to the site <strong>%s</strong> (%s) for the user: %s (IP: %s)", "yipnyap-telegram"), $site_name, $site_url, $user_login, $ip_address);
-        } elseif ($options['show_site_name'] === '1') {
-            // Get site name
-            $site_name = get_bloginfo('name');
-
-            // Message with URL
-            /* translators: 1. Site name, 2. Username, 3. IP address */
-            $msg = sprintf(__("Failed attempt to access to the site <strong>%s</strong> for the user: %s (IP: %s)", "yipnyap-telegram"), $site_name, $user_login, $ip_address);
-        } elseif ($options['show_site_url'] === '1') {
-            // Get site URL
-            $site_url = home_url();
-
-            // Message with URL
-            /* translators: 1. Site URL, 2. Username, 3. IP address */
-            $msg = sprintf(__("Failed attempt to access to the site %s for the user: %s (IP: %s)", "yipnyap-telegram"), $site_url, $user_login, $ip_address);
-        } else {
-            // Message just with Username and IP address
-            /* translators: 1. Username, 2. IP address */
-            $msg = sprintf(__("Failed attempt to access for the user: %s (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
-        }
+        $msg = sprintf(__("Failed attempt for the user: %s (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
 
         return $this->Send($msg, $chat_id);
     }

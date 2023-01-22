@@ -21,6 +21,8 @@ export const ButtonTheming = {
     tabVoid: ['text-neutral-500', 'dark:text-neutral-400']
 }
 
+let TelegramAuthData: TelegramResponseType;
+
 function SetupDialog({...props}) {
     /**
      * This is an attempt at using GNOME Human Interface Guidelines & Adwaita styling. Testing the waters.
@@ -139,9 +141,8 @@ function SetupDialog({...props}) {
                         setIsAuthorising(false);
                         setTelegramAuthData(result);
 
-                        console.log('[TelegramLinkageService] result: ', result);
-
                         if (result.username) {
+                            TelegramAuthData = result;
                             allowNext.current = true;
                         } else {
                             setTelegramUsernameError(`You need to set a username in your Telegram account.`);
@@ -231,7 +232,7 @@ function SetupDialog({...props}) {
 
                 return (
                     <div className="flex flex-col gap-4 max-w-lg">
-                        <h2>Authorise Telegram Passport</h2>
+                        <h2>Check if number is required</h2>
                         <p className="text-sm text-alt-2">Your Telegram Chat #, Username, and whether or not a Phone
                             Number
                             exists, <b>will be stored on Yipnyap until you deauthorise</b>. Yipnyap will not store any
@@ -263,14 +264,59 @@ function SetupDialog({...props}) {
             name: 'Process',
             description: 'Allow Yipnyap to process the data it receives from Telegram',
             children: () => {
+                const [isProcessing, setIsProcessing] = useState(true);
+                const [patchError, setPatchError] = useState();
+
+                useEffect(() => {
+                    console.log(TelegramAuthData);
+
+                    // Send via PATCH /api/v2/telegram
+                    fetch(`/api/v2/telegram`, {
+                        method: 'PATCH',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+                        },
+                        body: JSON.stringify({
+                            id: TelegramAuthData.id,
+                        })
+                    }).then(response => {
+                        setIsProcessing(false);
+                        response.json().then(data => {
+                            if (data.success) {
+                                setIsProcessing(false);
+                            }
+                        })
+                    })
+                }, [])
                 return (
                     <>
-                        <h2 className="flex gap-2 items-center">
-                            <img className="h-5 w-5 animate-spin dark:invert"
-                                 src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
-                                 alt="Process working spinner"/>
-                            Wait for Yipnyap to digest
-                        </h2>
+                        {
+                            isProcessing && (
+                                <h2 className="flex gap-2 items-center">
+                                    <img className="h-5 w-5 animate-spin dark:invert"
+                                         src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                         alt="Process working spinner"/>
+                                    Wait for Yipnyap to digest
+                                </h2>
+                            )
+                        }
+
+                        {
+                            !isProcessing && (
+                                <div className="flex flex-col gap-y-4 max-w-lg">
+                                    <h2>👍 All done!</h2>
+                                    <p className="text-sm text-alt-2">
+                                        Your Yipnyap account is now linked to your Telegram account, and you can now
+                                        use Telegram as 2FA, notifications, and more!
+                                    </p>
+                                    <p className="text-sm text-alt-2">
+                                        You can deauthorise Yipnyap from your Telegram account at any time by
+                                        clicking the "Deauthorise" button on the Yipnyap settings page.
+                                    </p>
+                                </div>
+                            )
+                        }
                     </>
                 )
             }

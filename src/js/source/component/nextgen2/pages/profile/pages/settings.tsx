@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
     Cog6ToothIcon, CursorArrowRaysIcon,
-    PaintBrushIcon,
+    PaintBrushIcon, PaperAirplaneIcon,
     QuestionMarkCircleIcon, ServerStackIcon,
     ShareIcon,
 } from "@heroicons/react/24/outline";
@@ -36,10 +36,10 @@ export default function SettingsGeneral() {
                         current: location.pathname === '/settings/',
                     },
                     {
-                        name: 'Telegram Notifications',
-                        description: 'Configure Telegram notifcations, OTP, and more.',
+                        name: 'Telegram',
+                        description: 'Claim this account and configure Telegram notifcations, OTP, and more.',
                         href: '/settings/telegram',
-                        icon: ShareIcon,
+                        icon: PaperAirplaneIcon,
                         current: location.pathname === '/settings/telegram',
                     },
                     // {

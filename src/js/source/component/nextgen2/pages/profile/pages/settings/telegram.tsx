@@ -33,6 +33,7 @@ function SetupDialog({...props}) {
     const [selectedIndex, setSelectedIndex] = useState(0);
 
     const allowNext = useRef(true);
+    const reloadWhenWizardFinish = useRef(true);
 
     function closeModal() {
         setIsOpen(false);
@@ -47,6 +48,11 @@ function SetupDialog({...props}) {
         if (!allowNext.current) return;
         if (selectedIndex < (SetupGroups.length - 1)) {
             setSelectedIndex(selectedIndex + 1);
+        } else {
+            closeModal();
+            if (reloadWhenWizardFinish.current) {
+                window.location.reload();
+            }
         }
     }
 
@@ -80,10 +86,9 @@ function SetupDialog({...props}) {
                                         will be able to unlink your Telegram account at any time.
                                     </p>
                                     <p className="text-sm text-alt-2">
-                                        If you'd like to claim this Yipnyap account, you will need a Telegram
-                                        account that has a verified phone number. If you don't have a verified
-                                        phone number, you can still use Yipnyap, but you will not be able to
-                                        reset your password, use the Yipnyap Market, view explicit content
+                                        If you refuse to claim this account, you can still use Yipnyap, but you will
+                                        not be able to reset your password, use the Yipnyap Market, view explicit
+                                        content
                                         (depending on region), or request a storage quota increase.
                                     </p>
                                     <hr/>
@@ -91,16 +96,23 @@ function SetupDialog({...props}) {
                                     <div className="flex flex-col gap-y-4">
                                         <div className="gap-x-2">
                                             <div className="flex flex-row gap-x-2 text-secondary items-center">
-                                                <LockClosedIcon className="h-5 w-5"/><b>Yipnyap can't send or read
-                                                messages
-                                                as you, or otherwise do any action via Telegram Passport.</b>
+                                                <LockClosedIcon className="h-5 w-5"/><b>Yipnyap can't interact as
+                                                you on Telegram.</b>
                                             </div>
                                             <p className="text-sm text-alt-2">
                                                 Telegram gives us barebones, read-only data, which is shared only once
-                                                per
-                                                authorisation via this wizard. Our Telegram bot, @yipnyapbot, will send
-                                                you messages, but we don't receive anything you send.
+                                                per authorisation via this wizard. The data is as follows:
                                             </p>
+                                            <ul className="text-sm text-alt-2 list-disc list-inside">
+                                                <li>Telegram ID (<code>id</code>)</li>
+                                                <li>Telegram Username (<code>username</code>)</li>
+                                                <li>Telegram First Name (<code>first_name</code>)</li>
+                                                <li>Telegram Last Name (<code>last_name</code>)</li>
+                                                <li>Telegram Profile Picture (<code>photo_url</code>)</li>
+                                                <li>Date of when authorisation was provided (<code>auth_date</code>)
+                                                </li>
+                                                <li>Hash of the above data (<code>hash</code>)</li>
+                                            </ul>
                                         </div>
                                         <div className="gap-x-2">
                                             <div className="flex flex-row gap-x-2 text-secondary items-center">
@@ -216,89 +228,57 @@ function SetupDialog({...props}) {
             }
         },
         {
-            name: 'Check',
-            description: 'Check if Telegram Passport is required',
-            children: () => {
-                const [isProcessing, setIsProcessing] = useState(true);
-                const [requirePassportAuth, setRequirePassportAuth] = useState(false);
-                allowNext.current = false;
-
-                setTimeout(() => {
-                    if (!yipnyap_constants.TelegramRequirePassportAuthentication) {
-                        setIsProcessing(false);
-                        allowNext.current = true;
-                    }
-                }, 5000);
-
-                return (
-                    <div className="flex flex-col gap-4 max-w-lg">
-                        <h2>Check if number is required</h2>
-                        <p className="text-sm text-alt-2">Your Telegram Chat #, Username, and whether or not a Phone
-                            Number
-                            exists, <b>will be stored on Yipnyap until you deauthorise</b>. Yipnyap will not store any
-                            other
-                            information about your Telegram account.</p>
-                        <p className="text-sm text-alt-2">Your Phone Number will be processed, however it will be
-                            discarded.
-                            A true/false value will be stored instead, confirming the validity of the number.</p>
-                        {isProcessing && (
-                            <div className="flex gap-2 items-center text-default text-sm">
-                                <img className="animate-spin dark:invert"
-                                     src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
-                                     width="16" height="16" alt="Process working spinner"/>
-                                Yipnyap is working...
-                            </div>
-                        )}
-
-                        {(!isProcessing && !requirePassportAuth) && (
-                            <div className="flex gap-2 items-center text-green-500 text-sm">
-                                <CheckBadgeIcon className="h-5 w-5" aria-hidden="true"/>
-                                You don't need to authorise Telegram Passport!
-                            </div>
-                        )}
-                    </div>
-                )
-            }
-        },
-        {
             name: 'Process',
             description: 'Allow Yipnyap to process the data it receives from Telegram',
             children: () => {
                 const [isProcessing, setIsProcessing] = useState(true);
                 const [patchError, setPatchError] = useState();
+                const [status, setStatus] = useState('Yipnyap is waiting');
+
+                allowNext.current = false;
 
                 useEffect(() => {
-                    console.log(TelegramAuthData);
-
-                    // Send via PATCH /api/v2/telegram
-                    fetch(`/api/v2/telegram`, {
-                        method: 'PATCH',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
-                        },
-                        body: JSON.stringify({
-                            id: TelegramAuthData.id,
+                    setTimeout(() => {
+                        setStatus('Yipnyap is working')
+                        // Send via PATCH /api/v2/telegram
+                        fetch(`/api/v2/telegram`, {
+                            method: 'PATCH',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+                            },
+                            body: JSON.stringify({
+                                id: TelegramAuthData.id,
+                            })
+                        }).then(response => {
+                            setStatus('Client is processing')
+                            setTimeout(() => {
+                                response.json().then(data => {
+                                    if (data.success) {
+                                        setIsProcessing(false);
+                                        allowNext.current = true;
+                                    }
+                                })
+                            }, 1000)
                         })
-                    }).then(response => {
-                        setIsProcessing(false);
-                        response.json().then(data => {
-                            if (data.success) {
-                                setIsProcessing(false);
-                            }
-                        })
-                    })
+                    }, 2000)
                 }, [])
                 return (
                     <>
                         {
                             isProcessing && (
-                                <h2 className="flex gap-2 items-center">
-                                    <img className="h-5 w-5 animate-spin dark:invert"
-                                         src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
-                                         alt="Process working spinner"/>
-                                    Wait for Yipnyap to digest
-                                </h2>
+                                <div className="flex flex-col gap-y-4 max-w-lg">
+                                    <h2 className="flex gap-2 items-center">
+                                        Finish up
+                                    </h2>
+
+                                    <div className="flex gap-2 items-center text-default text-sm">
+                                        <img className="animate-spin dark:invert"
+                                             src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                             width="16" height="16" alt="Process working spinner"/>
+                                        {status || 'Yipnyap is working'}...
+                                    </div>
+                                </div>
                             )
                         }
 
@@ -307,12 +287,16 @@ function SetupDialog({...props}) {
                                 <div className="flex flex-col gap-y-4 max-w-lg">
                                     <h2>👍 All done!</h2>
                                     <p className="text-sm text-alt-2">
-                                        Your Yipnyap account is now linked to your Telegram account, and you can now
-                                        use Telegram as 2FA, notifications, and more!
+                                        Your Yipnyap account is now linked to your Telegram account. From here
+                                        on out, you'll need to use Telegram as 2-factor authentication for
+                                        Yipnyap.
                                     </p>
                                     <p className="text-sm text-alt-2">
                                         You can deauthorise Yipnyap from your Telegram account at any time by
                                         clicking the "Deauthorise" button on the Yipnyap settings page.
+                                    </p>
+                                    <p className="text-sm text-alt-2">
+                                        👋 <b>Yipnyap will now reload.</b>
                                     </p>
                                 </div>
                             )
@@ -375,6 +359,10 @@ function SetupDialog({...props}) {
                                         </Tab.Group>
                                     </div>
 
+                                    <span className="hidden xl:block absolute bottom-0 right-0 p-4 text-sm text-alt-2">
+                                        Yipnyap will reload after you finish
+                                    </span>
+
                                     <div
                                         className="flex flex-col md:flex-row sticky bottom-0 items-center justify-center w-full border-t border-b-0 border-x-0 border-solid border-divider divide-x divide-y-0 divide-solid divide-neutral-300 dark:divide-neutral-700">
                                         <button
@@ -417,7 +405,7 @@ export default function SettingsTelegram({...props}) {
     const [heading, setHeading] = useHeading();
 
     useEffect(() => {
-        if (heading?.heading !== 'Telegram') {
+        if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {
             setHeading({
                 heading: 'Telegram',
                 padding: true,
@@ -429,11 +417,16 @@ export default function SettingsTelegram({...props}) {
     return (
         <>
             <div className="flex">
-                <div className="flex-1 gap-x-4">
+                <div className="flex-1 mr-auto gap-x-4 max-w-lg">
                     <h2 className="text-2xl font-bold">Setup Telegram to claim this account.</h2>
                     <p className="text-sm">
                         Yipnyap uses Telegram to verify your account. You will need to create a Telegram
                         account if you don't already have one.
+                    </p>
+                    <p className="text-sm text-tertiary">
+                        You must connect your Telegram account to be able to recover your account. In
+                        some regions, you might not be able to view explicit content until you connect your
+                        Telegram account with a valid phone number.
                     </p>
                 </div>
 

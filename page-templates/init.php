@@ -43,21 +43,39 @@ add_filter('template_include', function($template) {
             return $title_parts;
         });
 
-        return locate_template('page-templates/page_settings.php');
+        return locate_template('page-templates/nextgen_locked.php');
     }
 
     return $template;
 });
 
-add_filter('bp_setup_nav', function() {
+add_filter('template_include', function ($template) {
+    $prefix = '/id'; // Your prefix
+    $prefixExist = str_starts_with($_SERVER['REQUEST_URI'], $prefix);
+
+    if ($prefixExist) {
+        header('HTTP/1.1 200 OK');
+
+        add_filter('document_title_parts', function ($title_parts) {
+            $title_parts['title'] = 'ID';
+            return $title_parts;
+        });
+
+        return locate_template('page-templates/nextgen.php');
+    }
+
+    return $template;
+});
+
+add_filter('bp_setup_nav', function () {
     global $bp;
     bp_core_new_nav_item([
         'name' => 'Arcana',
         'slug' => 'arcana',
         'parent_url' => $bp->displayed_user->domain,
         'parent_slug' => $bp->profile->slug,
-        'screen_function' => function() {
-            add_action('bp_template_content', function() {
+        'screen_function' => function () {
+            add_action('bp_template_content', function () {
                 echo 'Arcana';
             });
             bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));

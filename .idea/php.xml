@@ -12,7 +12,6 @@
   <component name="PhpIncludePathManager">
     <include_path>
       <path value="$USER_HOME$/Local Sites/yipnyap/app/public" />
-      <path value="$USER_HOME$/Local Sites/yipnyapdev/app/public" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.1">

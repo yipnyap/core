@@ -6,11 +6,13 @@ import {ButtonTheming} from "../../pages/profile/pages/settings/telegram";
 export default function NGWizard(props: {
     theme?: any;
     isOpen?: any;
+    dontAnimate?: boolean;
     onClose?: any;
     onChange: Function;
     children: JSX.Element;
 }) {
     const theme = props.theme || buildClassObject(ButtonTheming, 'neutral');
+    const [isOpen, setIsOpen] = useState(props.isOpen || false);
 
     /**
      * This is an attempt at using GNOME Human Interface Guidelines & Adwaita styling. Testing the waters.
@@ -25,14 +27,18 @@ export default function NGWizard(props: {
     }
 
     requestAnimationFrame(() => {
-        if (dialog.current && dialogInner.current) {
+        if (!props.dontAnimate && dialog.current && dialogInner.current) {
             dialog.current.style.width = `${dialogInner.current.scrollWidth}px`;
             dialog.current.style.height = `${dialog.current.offsetHeight}px`;
         }
     })
 
+    useEffect(() => {
+        setIsOpen(props.isOpen);
+    }, [props.isOpen])
+
     return (
-        <Transition key={props.isOpen} appear show={props.isOpen} as={Fragment}>
+        <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative" style={{zIndex: '900'}} onClose={closeModal}>
                 <Transition.Child
                     key={props.isOpen}
@@ -61,7 +67,7 @@ export default function NGWizard(props: {
                         >
                             <Dialog.Panel
                                 ref={dialog}
-                                className="min-h-sm max-h-full m-auto flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider"
+                                className="min-w-md max-w-full min-h-sm max-h-full m-auto flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider"
                             >
                                 <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-scroll">
                                     {props.children}

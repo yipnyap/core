@@ -72,11 +72,6 @@ final class YipnyapTelegramLinkage
      */
     public function AddHooks(): void
     {
-        add_action('wp_login', [$this, 'ShowTGLogin'], 10, 2);
-        add_action('wp_login_failed',
-            [$this->telegram, 'SendTgFailedLogin'], 10, 2);
-        add_action('login_form_validate_tg', [$this, 'ValidateAuthCode']);
-
         if (is_admin()) {
             add_action('admin_init', [$this, 'TGSettingsInit']);
             add_action("admin_menu", [$this, 'LoadAdminMenu']);

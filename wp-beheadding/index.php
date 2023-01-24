@@ -1,12 +1,30 @@
 <?php
 /**
+ * Remove the WordPress login & Register pages
+ *
+ * @return void
+ * @package Yipnyap WP Beheadding
+ * @since ui1
+ */
+add_action('init', function () {
+    $current = $_SERVER['REQUEST_URI'];
+    if ((str_starts_with($current, '/login') || str_starts_with($current, '/wp-login')) && $_GET['action'] != 'logout') {
+        wp_redirect('/id/login');
+        exit();
+    } elseif (str_starts_with($current, '/register') || str_starts_with($current, '/wp-login')) {
+        wp_redirect('/id/create');
+        exit();
+    }
+});
+
+/**
  * Remove REST API & oEmbed Discovery links from header
  *
  * @return void
  * @package Yipnyap WP Beheadding
  * @since hk15
  */
-add_action('after_setup_theme', function(): void {
+add_action('after_setup_theme', function (): void {
     // Disable REST API link tag
     remove_action('wp_head', 'rest_output_link_wp_head');
 

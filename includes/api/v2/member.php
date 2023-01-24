@@ -82,9 +82,17 @@ add_action('rest_api_init', function () {
                 'required' => true,
                 'type' => 'string',
             ],
+            'remember' => [
+                'required' => false,
+                'type' => 'boolean',
+            ],
+            'otp' => [
+                'required' => false,
+                'type' => 'string',
+            ],
         ],
         'callback' => function ($request) {
-            wp_send_json(YipnyapLoginMember($request['username'], $request['password']));
+            wp_send_json(YipnyapLoginMember($request['username'], $request['password'], $request['otp'], $request['remember']));
         },
     ]);
 });

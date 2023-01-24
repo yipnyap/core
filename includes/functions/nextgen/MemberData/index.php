@@ -70,7 +70,7 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  *
  * @see yipnyap_members_get
  */
-function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
+function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0, bool $isSelf = false): array
 {
     global $GetMemberBit;
 
@@ -135,7 +135,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     }
 
     /**
-     * Check if member is "me", then add UI Privacy
+     * Check if member is "me", then add UI Privacy & Security to the member array.
      */
     if (isset($isSelf)) {
         $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
@@ -145,6 +145,8 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
             'disallow_bg_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str']),
             'disallow_palette_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str']),
         ];
+
+        $member['tgid'] = get_user_meta($member_id, 'tgid', true);
     }
 
     /**
@@ -210,12 +212,14 @@ function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
  *
  * @param string|null $username Username
  * @param string|null $password Password
+ * @param bool $remember Remember
+ * @param string|null $otp OTP
  * @return array Member data
- * @since hk15
- *
+ * @throws Exception
  * @see wp_authenticate, YipnyapGetMember
+ * @since hk15
  */
-function YipnyapLoginMember(string|null $username, string|null $password): array
+function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp, bool|null $remember): array
 {
     if (empty($username) || empty($password)) {
         return [
@@ -232,10 +236,63 @@ function YipnyapLoginMember(string|null $username, string|null $password): array
         ];
     } else {
         $YipnyapUser = YipnyapGetMember($user->ID);
-        $result = [
-            'code' => 200
+
+        if ($YipnyapUser['tgid']) {
+            // Ready Telegram
+            $tg = new YipnyapTelegram();
+
+            // Check if OTP exists, otherwise generate a code
+            $otpCode = false;
+            // if $otp is blank, assume that the user was not prompted for OTP yet
+            if (!empty($otp)) $otpCode = get_user_meta($user->ID, 'SecureID:OCA', true);
+            if (empty($otpCode)) {
+                // Generate random string, using the users' security level
+                // as the length of the string.
+                $secureIDLevel = get_user_meta($user->ID, 'SecureID:Level', true);
+                $otpCode = match ($secureIDLevel) {
+                    'medium' => bin2hex(random_bytes(8)),
+                    'high' => bin2hex(random_bytes(16)),
+                    default => bin2hex(random_bytes(4)),
+                };
+                update_user_meta($user->ID, 'SecureID:OCA', $otpCode);
+
+                // Send OTP to Telegram
+                $tg->SendTgToken($otpCode, $YipnyapUser['tgid']);
+
+                return [
+                    'code' => 401,
+                    'error' => 'OTP is required.',
+                ];
+            }
+
+            // Check if OTP is correct
+            if ($otp !== $otpCode) {
+                $tg->SendFailedLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+                delete_user_meta($user->ID, 'SecureID:OCA');
+
+                return [
+                    'code' => 401,
+                    'error' => 'Invalid OTP.',
+                ];
+            } else {
+                // Delete OTP
+                delete_user_meta($user->ID, 'SecureID:OCA');
+                $tg->SendSuccessfulLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+            }
+        }
+
+        // Login user to WordPress
+        wp_signon([
+            'user_login' => $username,
+            'user_password' => $password,
+            'remember' => $remember,
+        ], true);
+        wp_set_current_user($user->ID);
+
+        return [
+            'code' => 200,
+            'user' => $YipnyapUser,
         ];
-        return array_merge($result, $YipnyapUser);
 
     }
 }

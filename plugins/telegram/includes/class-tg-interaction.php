@@ -82,14 +82,14 @@ class YipnyapTelegram
      * Send authentication token with Telegram
      *
      * @param $token
-     * @param $chat_id bool
+     * @param $chat_id
      *
      * @return bool
      */
 
-    public function SendTgToken($token, $chat_id = false): bool
+    public function SendTgToken($token, $chat_id): bool
     {
-        if ($chat_id === false) {
+        if (empty($chat_id)) {
             $chat_id = get_user_meta(get_current_user_id(), "tgid");
         }
 
@@ -131,16 +131,14 @@ class YipnyapTelegram
      * Send a User failed login notification to Telegram
      *
      * @param $user_login
-     *
+     * @param $chat_id
      * @return bool
      */
-    public function SendTgFailedLogin($user_login): bool
+    public function SendFailedLogin($user_login, $chat_id): bool
     {
-        // Get plugin options
-        $options = get_option($this->namespace);
-
-        // Get Chat ID
-        $chat_id = $options['chat_id'];
+        if (empty($chat_id)) {
+            get_user_meta(get_current_user_id(), "tgid", true);
+        }
 
         /**
          * @from 1.2
@@ -150,10 +148,35 @@ class YipnyapTelegram
         // Get IP from computer attempting to login
         $ip_address = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ? wp_unslash($_SERVER["HTTP_CF_CONNECTING_IP"]) : wp_unslash($_SERVER['REMOTE_ADDR']));
 
-        $msg = sprintf(__("Failed attempt for the user: %s (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
+        $msg = sprintf(__("❌ Failed attempt for the user: %s (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
 
         return $this->Send($msg, $chat_id);
     }
 
+    /**
+     * Send a User successful login notification to Telegram
+     *
+     * @param $user_login
+     * @param $chat_id
+     * @return bool
+     */
+    public function SendSuccessfulLogin($user_login, $chat_id): bool
+    {
+        if (empty($chat_id)) {
+            get_user_meta(get_current_user_id(), "tgid", true);
+        }
+
+        /**
+         * @from 1.2
+         * Get IP address behind CloudFlare proxy
+         */
+
+        // Get IP from computer attempting to login
+        $ip_address = (isset($_SERVER["HTTP_CF_CONNECTING_IP"]) ? wp_unslash($_SERVER["HTTP_CF_CONNECTING_IP"]) : wp_unslash($_SERVER['REMOTE_ADDR']));
+
+        $msg = sprintf(__("✅ %s was successfully accessed. (IP: %s)", "yipnyap-telegram"), $user_login, $ip_address);
+
+        return $this->Send($msg, $chat_id);
+    }
 }
 

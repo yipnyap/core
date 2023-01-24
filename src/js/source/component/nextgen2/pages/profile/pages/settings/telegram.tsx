@@ -3,6 +3,8 @@ import {useHeading} from "../../../../../../providers/PageHeading.provider";
 import {buildClassObject} from "../../../../utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {Tab, Dialog, Transition} from "@headlessui/react";
+import {useLocation} from "react-router-dom";
+import {NGCard} from "../../../../components";
 
 export const ButtonTheming = {
     main: [],
@@ -410,38 +412,74 @@ function SetupDialog({...props}) {
 export default function SettingsTelegram({...props}) {
     let theme = buildClassObject(ButtonTheming, 'neutral');
     const [heading, setHeading] = useHeading();
+    const location = useLocation();
 
     useEffect(() => {
         if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {
             setHeading({
-                heading: 'Telegram',
+                heading: !yipnyap_constants.currentUser?.tgid ? 'Telegram' : null,
                 padding: true,
                 navigator: heading?.navigator,
             })
         }
-    });
+    }, [location.pathname]);
 
     return (
         <>
-            <div className="flex">
-                <div className="flex-1 mr-auto gap-x-4 max-w-lg">
-                    <h2 className="text-2xl font-bold">Setup Telegram to claim this account.</h2>
-                    <p className="text-sm">
-                        Yipnyap uses Telegram to verify your account. You will need to create a Telegram
-                        account if you don't already have one.
-                    </p>
-                    <p className="text-sm text-tertiary">
-                        You must connect your Telegram account to be able to recover your account. In
-                        some regions, you might not be able to view explicit content until you connect your
-                        Telegram account with a valid phone number.
-                    </p>
-                </div>
+            {!yipnyap_constants.currentUser?.tgid && (
+                <div className="flex">
+                    <div className="flex-1 mr-auto gap-x-4 max-w-lg">
+                        <h2 className="text-2xl font-bold">Setup Telegram to claim this account.</h2>
+                        <p className="text-sm">
+                            Yipnyap uses Telegram to verify your account. You will need to create a Telegram
+                            account if you don't already have one.
+                        </p>
+                        <p className="text-sm text-tertiary">
+                            You must connect your Telegram account to be able to recover your account. In
+                            some regions, you might not be able to view explicit content until you connect your
+                            Telegram account with a valid phone number.
+                        </p>
+                    </div>
 
-                {/* Get Started button */}
-                <div className="max-w-md my-auto">
-                    <SetupDialog theme={theme}/>
+                    {/* Get Started button */}
+                    <div className="max-w-md my-auto">
+                        <SetupDialog theme={theme}/>
+                    </div>
                 </div>
-            </div>
+            )}
+
+            {yipnyap_constants.currentUser?.tgid && (
+                <div className="flex flex-col space-y-4">
+                    <div className="flex flex-row space-x-4 justify-center items-center">
+                        <div className="flex-1 mr-auto">
+                            <h2 className="text-2xl font-bold">Manage Telegram</h2>
+                        </div>
+
+                        <div className="max-w-md my-auto">
+                            <img
+                                src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/girl-loudspeaker-announcement.png`}
+                                alt="Telegram header image" className="h-48"/>
+                        </div>
+                    </div>
+
+                    <NGCard title="Unlink Telegram" wellBody={true}>
+                        <div
+                            className="flex flex-col lg:flex-row space-y-4 lg:space-x-4 lg:space-y-0 justify-center items-center">
+                            <p className="mr-auto text-sm text-alt-2">
+                                Unlinking your Telegram will put your account at risk of being lost, as well as other
+                                limits.
+                            </p>
+
+                            <button
+                                type="button"
+                                className={`${theme.button} bg-red-300 dark:bg-red-700 hover:bg-red-400 dark:hover:bg-red-800 py-2 px-4 max-w-md`}
+                            >
+                                Unlink
+                            </button>
+                        </div>
+                    </NGCard>
+                </div>
+            )}
         </>
     )
 }

@@ -99,7 +99,7 @@ export default function Activity() {
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}
                     {
-                        yipnyap_constants.currentUser?.display_name && (
+                        (yipnyap_constants.currentUser?.display_name && !yipnyap_constants.currentUser?.tgid) && (
                             <div className="flex flex-col justify-center m-auto py-8 max-w-4xl">
                                 <SettingsTelegram onlyShowOnboarding={true}/>
                             </div>

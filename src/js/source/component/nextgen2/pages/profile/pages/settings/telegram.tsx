@@ -34,6 +34,8 @@ function SetupDialog({...props}) {
 
     const allowNext = useRef(true);
     const reloadWhenWizardFinish = useRef(true);
+    const dialog = useRef<HTMLDivElement>(null);
+    const dialogInner = useRef<HTMLDivElement>(null);
 
     function closeModal() {
         setIsOpen(false);
@@ -307,6 +309,13 @@ function SetupDialog({...props}) {
         }
     ]
 
+    requestAnimationFrame(() => {
+        if (dialog.current && dialogInner.current) {
+            dialog.current.style.width = `${dialogInner.current.scrollWidth}px`;
+            dialog.current.style.height = `${dialog.current.offsetHeight}px`;
+        }
+    })
+
     return (
         <>
             <Transition appear show={isOpen} as={Fragment}>
@@ -324,7 +333,7 @@ function SetupDialog({...props}) {
                     </Transition.Child>
 
                     <div className="fixed inset-0 overflow-y-auto">
-                        <div className="flex h-full md:min-h-full md:p-4 text-center">
+                        <div className="flex h-full md:min-h-full md:p-4 lg:p-12 xl:p-24 text-center">
                             <Transition.Child
                                 as={Fragment}
                                 enter="ease-out duration-300"
@@ -335,8 +344,10 @@ function SetupDialog({...props}) {
                                 leaveTo="opacity-0 scale-95"
                             >
                                 <Dialog.Panel
-                                    className="w-full md:m-12 lg:m-24 flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider">
-                                    <div className="p-12 flex-1 overflow-scroll">
+                                    ref={dialog}
+                                    className="max-h-full m-auto flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider"
+                                >
+                                    <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-scroll">
                                         <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
                                             <Tab.List
                                                 className="flex max-w-lg p-1 space-x-1 bg-neutral-100 dark:bg-neutral-800 rounded mx-auto pointer-events-none">
@@ -358,10 +369,6 @@ function SetupDialog({...props}) {
                                             </Tab.Panels>
                                         </Tab.Group>
                                     </div>
-
-                                    <span className="hidden xl:block absolute bottom-0 right-0 p-4 text-sm text-alt-2">
-                                        Yipnyap will reload after you finish
-                                    </span>
 
                                     <div
                                         className="flex flex-col md:flex-row sticky bottom-0 items-center justify-center w-full border-t border-b-0 border-x-0 border-solid border-divider divide-x divide-y-0 divide-solid divide-neutral-300 dark:divide-neutral-700">

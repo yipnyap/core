@@ -95,6 +95,79 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapLoginMember($request['username'], $request['password'], $request['otp'], $request['remember']));
         },
     ]);
+
+    /**
+     * POST /id/register
+     * @since ui1
+     */
+    register_rest_route('v2', '/id/register', [
+        'methods' => 'POST',
+        'args' => [
+            'username' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+        ],
+        'callback' => function ($request) {
+            // Register member to WordPress.
+            $userExists = username_exists($request['username']);
+            if ($userExists) {
+                wp_send_json([
+                    'success' => false,
+                    'message' => 'Username already exists.',
+                ]);
+            } else {
+                /*
+                 * Read reserved.json, check if username contains it
+                 */
+                $reservedUsernames = json_decode(file_get_contents('reserved.json', true), true);
+                foreach ($reservedUsernames as $reservedUsername) {
+                    if (stripos($request['username'], $reservedUsername) === 0) {
+                        wp_send_json([
+                            'success' => false,
+                            'message' => 'Username is invalid - contains a restricted phrase at a restricted point.',
+                        ]);
+                    }
+                }
+
+                /*
+                 * ^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
+                 *  └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
+                 *        │         │         │            │           no _ or . at the end
+                 *        │         │         │            │
+                 *        │         │         │            allowed characters
+                 *        │         │         │
+                 *        │         │         no __ or _. or ._ or .. inside
+                 *        │         │
+                 *        │         no _ or . at the beginning
+                 *        │
+                 *        username is 4-20 characters long ( ͡° ͜ʖ ͡°)
+                 */
+                $usernameRegexCheck = preg_match('/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $request['username']);
+                if (!$usernameRegexCheck) {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Username is invalid - doesn\'t follow naming structure.',
+                    ]);
+                } else {
+                    $user = wp_create_user($request['username'], $request['password']);
+                    if (is_wp_error($user)) {
+                        wp_send_json([
+                            'success' => false,
+                            'message' => $user->get_error_message(),
+                        ]);
+                    } else {
+                        wp_send_json(YipnyapLoginMember($request['username'], $request['password']));
+                    }
+                }
+            }
+        },
+    ]);
+
 });
 
 /**

@@ -212,14 +212,14 @@ function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
  *
  * @param string|null $username Username
  * @param string|null $password Password
- * @param bool $remember Remember
+ * @param bool|null $remember Remember
  * @param string|null $otp OTP
  * @return array Member data
  * @throws Exception
  * @see wp_authenticate, YipnyapGetMember
  * @since hk15
  */
-function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp, bool|null $remember): array
+function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp = null, bool|null $remember = null): array
 {
     if (empty($username) || empty($password)) {
         return [

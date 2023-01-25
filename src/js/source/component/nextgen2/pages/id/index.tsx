@@ -7,6 +7,7 @@ import {
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {Void} from "../..";
 import Login from "./login";
+import Register from "./create";
 
 export default function YipnyapID() {
     const [heading, setHeading] = useHeading();
@@ -41,6 +42,7 @@ export default function YipnyapID() {
         <>
             {!heading?.navigator?.subNavigation?.find((item) => item.current) && <Void/>}
             {location.pathname === '/id/login' && <Login/>}
+            {location.pathname === '/id/create' && <Register/>}
         </>
     )
 }

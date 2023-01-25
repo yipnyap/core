@@ -7,3 +7,4 @@ export {NGSideNav} from "./NGSideNav";
 export {NGWizard} from "./NGWizard";
 export {NGAlertCard} from "./NGAlertCard";
 export {NGSwitch} from "./NGSwitch";
+export {NGTabList} from "./NGTabList";

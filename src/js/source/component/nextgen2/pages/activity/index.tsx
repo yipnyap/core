@@ -121,7 +121,8 @@ export default function Activity() {
                                                     ? 'Only you'
                                                     : yipnyap_constants.currentUser.online_count}
                                             </b>
-                                            {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
+                                            {yipnyap_constants.currentUser.online_count > 1 ? ' people' : ''} are
+                                            online.
                                         </p>}
                                     wellBody={true}
                                 >

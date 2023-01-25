@@ -4,7 +4,7 @@ import {buildClassObject} from "../../../../utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {Tab, Dialog, Transition} from "@headlessui/react";
 import {useLocation} from "react-router-dom";
-import {NGCard, NGWizard} from "../../../../components";
+import {NGCard, NGWizard, NGSwitch} from "../../../../components";
 
 export const ButtonTheming = {
     main: [],
@@ -258,7 +258,7 @@ function SetupDialog({...props}) {
                             setStatus('Client is processing')
                             setTimeout(() => {
                                 response.json().then(data => {
-                                    if (data.success) {
+                                    if (data.code === 200) {
                                         setIsProcessing(false);
                                         allowNext.current = true;
                                     }
@@ -443,7 +443,7 @@ export default function SettingsTelegram({...props}) {
     }
 
     return (
-        <>
+        <div className="mb-8">
             {!yipnyap_constants.currentUser?.tgid && (
                 <div className="flex">
                     <div className="flex-1 mr-auto gap-x-4 max-w-lg">
@@ -468,6 +468,7 @@ export default function SettingsTelegram({...props}) {
 
             {yipnyap_constants.currentUser?.tgid && (
                 <div className="flex flex-col space-y-4">
+                    {/* Header w/ image */}
                     <div className="flex flex-row space-x-4 justify-center items-center">
                         <div className="flex-1 mr-auto">
                             <h2 className="text-2xl font-bold">Manage Telegram</h2>
@@ -479,6 +480,20 @@ export default function SettingsTelegram({...props}) {
                                 alt="Telegram header image" className="h-48"/>
                         </div>
                     </div>
+
+                    {/* Notification toggles */}
+                    <NGCard title="Notifications" wellBody={true}>
+                        <div className="flex flex-col space-y-4">
+                            <p className="text-sm text-alt-2">
+                                These settings only affect the notifications we send you via Telegram, and not
+                                the notifications you get on Yipnyap.
+                            </p>
+                            <NGSwitch enabled disabled title="Account Security"
+                                      description="Notifications related to sign ins, failed attempts, et cetera. You cannot disable this."/>
+                            <NGSwitch disabled title="Yipnyap Updates"
+                                      description={'Sorry, you cannot change this setting at this time (current value: "NO").'}/>
+                        </div>
+                    </NGCard>
 
                     {/* Telegram Unlink */}
                     <NGWizard isOpen={showUnlinkDialog} onChange={doTelegramUnlink} dontAnimate={true} theme={theme}>
@@ -510,6 +525,6 @@ export default function SettingsTelegram({...props}) {
                     </NGCard>
                 </div>
             )}
-        </>
+        </div>
     )
 }

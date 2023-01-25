@@ -149,7 +149,7 @@ function SetupDialog({...props}) {
                     setIsAuthorising(true);
                     window.Telegram.Login.auth({
                         request_access: 'write',
-                        bot_id: '5771442649',
+                        bot_id: yipnyap_constants.telegram_bot,
                     }, (result) => {
                         setIsAuthorising(false);
                         setTelegramAuthData(result);

@@ -301,6 +301,7 @@ function yipnyap_load_scripts(): void
         'settings' => $yipnyap_settings,
         'yipnyap_server_version' => YIPNYAP_VERSION,
         'upload_url' => wp_upload_dir()['baseurl'],
+        'telegram_bot' => explode(':', get_option('tg_col')['bot_token'])[0],
     ]);
 
     // pass translation strings to javascript file

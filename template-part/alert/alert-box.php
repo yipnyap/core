@@ -1,16 +1,18 @@
 <?php
 /**
  * Yipnyap Template Part - Alert Box
- * 
- * @package Yipnyap
+ *
+ * @param array $args {
+ * @type string $type Alert box type.
+ * @type string $title Alert box title.
+ * @type string $text Alert box text.
+ * }
+ *
  * @since 1.2.0
  * @author Yipnyap (https://yipnyap.xyz/)
- * 
- * @param array $args {
- *   @type string $type     Alert box type.
- *   @type string $title    Alert box title.
- *   @type string $text     Alert box text.
- * }
+ *
+ * @package Yipnyap
+ * @var object $args
  */
 
 ?>

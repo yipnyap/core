@@ -42,9 +42,9 @@ if (!function_exists('yipnyap_get_activities')) {
         if (isset($args['scope']) && $args['scope'] === 'myfollowing' && $current_user_id !== 0) {
             $following_ids = $current_user_id . ',' . bp_get_following_ids('user_id=' . $current_user_id);
 
-            $activities_args['filter'] = array(
+            $activities_args['filter'] = [
                 'user_id' => $following_ids
-            );
+            ];
         }
 
         $activities_args = array_replace_recursive($activities_args, $args);

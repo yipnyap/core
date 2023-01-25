@@ -4,14 +4,14 @@
   "description": "The Yipnyap Experience",
   "main": "Gruntfile.js",
   "scripts": {
-    "build": "browserify ./src/js/source/app.js --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/app.bundle.min.js",
+    "build": "terser -c -m -o ./src/js/bundle.min.js -- ./src/js/bundle/bundle.js",
     "build_admin": "browserify ./src/js/source/admin.js --extension=jsx --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/admin.bundle.min.js",
     "dev:tailwind": "npx tailwindcss -i \"./src/css/raw/styles.css\" -o \"./style.css\" --watch",
     "dev:grunt": "grunt"
   },
   "author": "Rekkisomo",
   "devDependencies": {
-    "@babel/core": "^7.11.6",
+    "@babel/core": "^7.18.6",
     "@babel/plugin-transform-runtime": "^7.19.6",
     "@babel/preset-env": "^7.11.5",
     "@babel/preset-react": "^7.10.4",
@@ -42,6 +42,7 @@
     "@babel/preset-typescript": "^7.18.6",
     "@heroicons/react": "^2.0.13",
     "@tailwindcss/forms": "^0.4.0",
+    "@testing-library/react": "^13.4.0",
     "browserify-css": "^0.15.0",
     "concurrently": "^7.4.0",
     "lodash": "^4.17.21",

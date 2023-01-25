@@ -292,12 +292,9 @@ function AsyncCommentList(props) {
         // get created comment and update comment list state
         props.getComment(commentID, (comment) => {
             setComments(previousComments => {
-                
-
                 comment.showReplyForm = false;
 
                 const newComments = previousComments.items.slice();
-
                 let commentCount = previousComments.count;
 
                 // if comment doesn't have parent push it to newComments array
@@ -337,8 +334,6 @@ function AsyncCommentList(props) {
                         }
                     });
                 }
-
-                
 
                 return {
                     items: newComments,

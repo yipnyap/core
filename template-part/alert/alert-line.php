@@ -2,14 +2,16 @@
 /**
  * Yipnyap Template Part - Alert Line
  *
- * @package Yipnyap
+ * @param array $args {
+ * @type string $type Alert line type.
+ * @type string $text Alert line text.
+ * }
+ *
  * @since 1.3.3
  * @author Yipnyap (https://yipnyap.xyz/)
  *
- * @param array $args {
- *   @type string $type     Alert line type.
- *   @type string $text     Alert line text.
- * }
+ * @package Yipnyap
+ * @var object $args
  */
 
 ?>

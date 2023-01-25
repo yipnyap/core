@@ -87,12 +87,12 @@ if (!function_exists('yipnyap_get_logged_user_member_data')) {
         if (is_user_logged_in()) {
             $user_id = get_current_user_id();
             $user = yipnyap_members_get(['include' => [$user_id], 'data_scope' => $data_scope, 'include_member_links' => $include_member_links])[0];
-            $user['followers'] = bp_follow_get_followers(array(
+            $user['followers'] = bp_follow_get_followers([
                 'user_id' => $user_id
-            ));
-            $user['following'] = bp_follow_get_following(array(
+            ]);
+            $user['following'] = bp_follow_get_following([
                 'user_id' => $user_id
-            ));
+            ]);
             $user['profile_data'] = yipnyap_member_get_xprofile_data($user_id);
         }
 

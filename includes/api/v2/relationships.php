@@ -24,9 +24,9 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/get/(?P<target>\d+)', array(
+    register_rest_route('v2', '/relationships/get/(?P<target>\d+)', [
         'methods' => 'GET',
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -40,7 +40,7 @@ add_action('rest_api_init', function () {
             $result['success'] = true;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * POST /relationships/follow
@@ -49,10 +49,10 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/follow', array(
+    register_rest_route('v2', '/relationships/follow', [
         'methods' => 'POST',
         'args' => $Target,
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -73,7 +73,7 @@ add_action('rest_api_init', function () {
             $result['success'] = $success;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * POST /relationships/unfollow
@@ -82,10 +82,10 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/unfollow', array(
+    register_rest_route('v2', '/relationships/unfollow', [
         'methods' => 'POST',
         'args' => $Target,
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -106,7 +106,7 @@ add_action('rest_api_init', function () {
             $result['success'] = $success;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * POST /relationships/following
@@ -115,10 +115,10 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/following', array(
+    register_rest_route('v2', '/relationships/following', [
         'methods' => 'POST',
         'args' => $Target,
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -139,7 +139,7 @@ add_action('rest_api_init', function () {
             $result['success'] = $success;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * POST /relationships/mutuals
@@ -148,10 +148,10 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/mutuals', array(
+    register_rest_route('v2', '/relationships/mutuals', [
         'methods' => 'POST',
         'args' => $Target,
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -172,7 +172,7 @@ add_action('rest_api_init', function () {
             $result['success'] = $success;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * POST /relationships/friend/request
@@ -181,10 +181,10 @@ add_action('rest_api_init', function () {
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/friend/request', array(
+    register_rest_route('v2', '/relationships/friend/request', [
         'methods' => 'POST',
         'args' => $Target,
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -212,16 +212,16 @@ add_action('rest_api_init', function () {
             $result['success'] = $success;
             wp_send_json($result);
         },
-    ));
+    ]);
 
     /**
      * GET /relationships/friend/request
      * @return object Relationship data.
      * @since hk15
      */
-    register_rest_route('v2', '/relationships/friend/request', array(
+    register_rest_route('v2', '/relationships/friend/request', [
         'methods' => 'GET',
-        'callback' => function($request) {
+        'callback' => function ($request) {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
@@ -235,5 +235,5 @@ add_action('rest_api_init', function () {
             $result['success'] = true;
             wp_send_json($result);
         },
-    ));
+    ]);
 });

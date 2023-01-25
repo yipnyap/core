@@ -75,7 +75,7 @@ defined('ABSPATH') || exit;
                                 </div>
                                 <!-- /FORM ITEM -->
 
-                                <?php if (bbp_has_topics(array('show_stickies' => false, 'post_parent' => bbp_get_reply_forum_id(bbp_get_reply_id()), 'post__not_in' => array(bbp_get_reply_topic_id(bbp_get_reply_id()))))) : ?>
+                                <?php if (bbp_has_topics(['show_stickies' => false, 'post_parent' => bbp_get_reply_forum_id(bbp_get_reply_id()), 'post__not_in' => [bbp_get_reply_topic_id(bbp_get_reply_id())]])) : ?>
 
                                     <!-- FORM ITEM -->
                                     <div class="form-item">
@@ -100,13 +100,13 @@ defined('ABSPATH') || exit;
                                         <div class="form-select">
                                             <?php
 
-                                            bbp_dropdown(array(
+                                            bbp_dropdown([
                                                 'post_type' => bbp_get_topic_post_type(),
                                                 'post_parent' => bbp_get_reply_forum_id(bbp_get_reply_id()),
                                                 'selected' => -1,
                                                 'exclude' => bbp_get_reply_topic_id(bbp_get_reply_id()),
                                                 'select_id' => 'bbp_destination_topic'
-                                            ));
+                                            ]);
 
                                             /**
                                              * Icon SVG

@@ -1,4 +1,4 @@
-import { deepExtend, deepMerge } from '../../../utils/core';
+import {deepExtend, deepMerge} from '../../../utils/core';
 
 import * as reactionRouter from '../../../router/reaction/reaction-router';
 
@@ -8,7 +8,7 @@ const Reactionable = (props) => {
 
     deepExtend(reactions, reactionData);
 
-    const sortedReactionData = reactions.sort((firstEl, secondEl) => {
+    return reactions.sort((firstEl, secondEl) => {
       if (firstEl.reaction_count < secondEl.reaction_count) {
         return -1;
       }
@@ -19,8 +19,6 @@ const Reactionable = (props) => {
 
       return 0;
     });
-
-    return sortedReactionData;
   };
 
   const createUserReactionStatic = (reactionData, reactionID) => {
@@ -206,15 +204,13 @@ const updatePostReactions = (post, newReactions) => {
 };
 
 const updatePosts = (posts, newPostData) => {
-  const newPosts = posts.map((post) => {
+  return posts.map((post) => {
     if (post.id === newPostData.id) {
       return newPostData;
     }
 
     return post;
   });
-
-  return newPosts;
 };
 
 const getAllReactionUsers = (reactionData) => {

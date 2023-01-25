@@ -9,7 +9,6 @@ function console_log(): string {
                 $members = [];
                 $class = get_class($obj);
                 foreach ((new ReflectionClass($class))->getProperties() as $prop) {
-                    $prop->setAccessible(true);
                     $name = $prop->getName();
                     if (isset($obj->{$name})) {
                         $value = $prop->getValue($obj);

@@ -268,7 +268,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                 } else {
                     // get default notification content
 
-                    $notification_ref_array = array(
+                    $notification_ref_array = [
                         $notification['action'],
                         $notification['item_id'],
                         $notification['secondary_item_id'],
@@ -277,7 +277,7 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                         $notification['action'],
                         $notification['name'] ?? '',
                         $notification['id']
-                    );
+                    ];
 
                     $notification['description'] = apply_filters_ref_array('bp_notifications_get_notifications_for_user', $notification_ref_array);
                 }

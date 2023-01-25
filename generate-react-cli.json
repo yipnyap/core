@@ -1,0 +1,22 @@
+{
+  "usesTypeScript": true,
+  "usesCssModule": false,
+  "cssPreprocessor": "less",
+  "testLibrary": "Testing Library",
+  "component": {
+    "default": {
+      "path": "src/js/source/component/nextgen2/components",
+      "withStyle": false,
+      "withTest": true,
+      "withStory": true,
+      "withLazy": false,
+      "withIndex": true,
+      "customTemplates": {
+        "index": "src/templates/default/index.ts",
+        "component": "src/templates/default/NGTemplateName.tsx",
+        "test": "src/templates/default/NGTemplateName.test.tsx",
+        "story": "src/templates/default/NGTemplateName.stories.js"
+      }
+    }
+  }
+}

@@ -30,28 +30,20 @@
       if (bp_is_group_home()) {
         // if the group is visible to the current logged in user
         if (bp_group_is_visible()) {
-					bp_groups_front_template_part();
-				} else {
-        // the group isn't visible to the current logged in user
+            bp_groups_front_template_part();
         }
       } elseif (bp_is_group_admin_page()) {
         bp_get_template_part('groups/single/admin');
-
       } elseif (bp_is_group_activity()) {
         bp_get_template_part('groups/single/activity');
-
       } elseif (bp_is_group_members()) {
         bp_get_template_part('groups/single/members');
-
       } elseif (bp_is_group_invites()) {
         bp_get_template_part('groups/single/send-invites');
-
       } elseif (bp_is_group_membership_request()) {
         bp_get_template_part('groups/single/request-membership');
-
       } else {
         bp_get_template_part('groups/single/plugins');
-
       }
     }
   }

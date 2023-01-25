@@ -10,7 +10,8 @@
 
 ?>
 <!DOCTYPE html>
-<html <?php language_attributes(); ?>>
+<html <?php language_attributes(); ?> lang="en-AU">
+<!--suppress HtmlRequiredTitleElement -->
 <head>
     <meta charset="<?php bloginfo('charset'); ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -18,6 +19,7 @@
         <!-- favicon -->
         <link rel="icon" href="<?php site_icon_url(); ?>">
     <?php endif; ?>
+    <script src='https://telegram.org/js/telegram-widget.js?21'></script>
     <?php wp_head(); ?>
 </head>
 <body <?php body_class(yipnyap_logged_user_color_theme_get()); ?> style="-webkit-font-smoothing: antialiased;">

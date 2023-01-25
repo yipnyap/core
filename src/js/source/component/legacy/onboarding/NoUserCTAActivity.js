@@ -82,7 +82,7 @@ export default function NoUserCTAActivity() {
                                 >
                                     <div className="rounded-lg shadow">
                                         <a
-                                            href="/register"
+                                            href="/id/create"
                                             className="ypsdk button-upgrade flex items-center justify-center !px-8 !py-3 !leading-6"
                                             color="primary"
                                         >

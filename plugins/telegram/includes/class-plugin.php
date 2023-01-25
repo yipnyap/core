@@ -1,11 +1,13 @@
 <?php
 
-final class WP_Factor_Telegram_Plugin
+use JetBrains\PhpStorm\NoReturn;
+
+final class YipnyapTelegramLinkage
 {
     /**
      * Get an instance
      *
-     * @var WP_Factor_Telegram_Plugin
+     * @var YipnyapTelegramLinkage
      */
     private static $instance;
 
@@ -14,41 +16,41 @@ final class WP_Factor_Telegram_Plugin
      *
      * @var string
      */
-    private $namespace = "tg_col";
+    private string $namespace = "tg_col";
 
     /**
      * Cookie Name
      *
      * @var string
      */
-    private $cookie_name = "auth_tg_cookie";
+    private string $cookie_name = "auth_tg_cookie";
 
     /**
      * Check cookie Name
      *
      * @var string
      */
-    private $check_cookie_name = "check_tg_cookie";
+    private string $check_cookie_name = "check_tg_cookie";
 
     /**
-     * @var WP_Telegram
+     * @var YipnyapTelegram
      */
-    private $telegram;
+    private YipnyapTelegram $telegram;
 
     /**
      * Get WP Factor Telegram
      *
-     * @return WP_Factor_Telegram_Plugin
+     * @return YipnyapTelegramLinkage
      */
-    public static function get_instance()
+    public static function GetInstance(): YipnyapTelegramLinkage
     {
         if (empty(self::$instance)
-            && !(self::$instance instanceof WP_Factor_Telegram_Plugin)
+            && !(self::$instance instanceof YipnyapTelegramLinkage)
         ) {
-            self::$instance = new WP_Factor_Telegram_Plugin;
-            self::$instance->includes();
-            self::$instance->telegram = new WP_Telegram;
-            self::$instance->add_hooks();
+            self::$instance = new YipnyapTelegramLinkage;
+            self::$instance->Includes();
+            self::$instance->telegram = new YipnyapTelegram;
+            self::$instance->AddHooks();
 
             do_action("wp_factor_telegram_loaded");
         }
@@ -59,90 +61,72 @@ final class WP_Factor_Telegram_Plugin
     /**
      * Include classes
      */
-    public function includes()
+    public function Includes(): void
     {
         require_once(dirname(WP_FACTOR_TG_FILE)
-            . "/includes/class-wp-telegram.php");
+            . "/includes/class-tg-interaction.php");
     }
 
     /**
      * Add hooks
      */
-
-    public function add_hooks()
+    public function AddHooks(): void
     {
-        add_action('wp_login', array($this, 'tg_login'), 10, 2);
-        add_action('wp_login_failed',
-            array($this->telegram, 'send_tg_failed_login'), 10, 2);
-        add_action('login_form_validate_tg', array($this, 'validate_tg'));
-
         if (is_admin()) {
-            add_action('admin_init', array($this, 'tg_register_settings'));
-            add_action("admin_menu", array($this, 'tg_load_menu'));
+            add_action('admin_init', [$this, 'TGSettingsInit']);
+            add_action("admin_menu", [$this, 'LoadAdminMenu']);
             add_filter("plugin_action_links_"
                 . plugin_basename(WP_FACTOR_TG_FILE),
-                array($this, 'action_links'));
-            add_action('updated_option', array($this, 'delete_transients'),
+                [$this, 'ActionLink']);
+            add_action('updated_option', [$this, 'DeleteTransients'],
                 10, 3);
         }
 
-        if (!$this->is_valid_bot()) {
+        if (!$this->IsValidBot()) {
             add_action('admin_notices',
-                array($this, 'settings_error_not_valid_bot'));
+                [$this, 'InvalidBotError']);
         }
 
-        if ($this->is_valid_bot() && !$this->is_setup_chatid()) {
+        if ($this->IsValidBot() && !$this->ChatIDExists()) {
             add_action('admin_notices',
-                array($this, 'settings_error_set_chatid'));
+                [$this, 'ChatIDMissingError']);
         }
 
-        add_action('show_user_profile',
-            array($this, 'tg_add_two_factor_fields'));
-        add_action('edit_user_profile',
-            array($this, 'tg_add_two_factor_fields'));
-
-        add_action('personal_options_update',
-            array($this, 'tg_save_custom_user_profile_fields'));
-        add_action('edit_user_profile_update',
-            array($this, 'tg_save_custom_user_profile_fields'));
-        add_action('admin_enqueue_scripts', array($this, 'load_tg_lib'));
-        add_action('admin_footer', array($this, 'hook_tg_lib'));
-        add_action('wp_ajax_send_token_check',
-            array($this, 'send_token_check'));
-        add_action('wp_ajax_token_check', array($this, 'token_check'));
-        add_action('wp_ajax_check_bot', array($this, 'check_bot'));
-        add_action("tft_copyright", array($this, "change_copyright"));
+        add_action('admin_enqueue_scripts', [$this, 'EnqueueScripts']);
+        add_action('admin_footer', [$this, 'HookIntoFooter']);
+        add_action('wp_ajax_token_check', [$this, 'CheckValidBotToken']);
+        add_action('wp_ajax_check_bot', [$this, 'CheckValidBot']);
     }
 
-    public function is_valid_bot()
+    public function IsValidBot(): bool
     {
         $valid_bot_transient = WP_FACTOR_TG_GETME_TRANSIENT;
 
-        if (($is_valid_bot = get_transient($valid_bot_transient))
+        if (($IsValidBot = get_transient($valid_bot_transient))
             === false
         ) {
-            $is_valid_bot = $this->telegram->get_me() !== false;
-            var_dump($is_valid_bot);
-            set_transient($valid_bot_transient, $is_valid_bot, 60 * 60 * 24);
+            $IsValidBot = $this->telegram->GetMe() !== false;
+            var_dump($IsValidBot);
+            set_transient($valid_bot_transient, $IsValidBot, 60 * 60 * 24);
         }
 
-        return boolval($is_valid_bot);
+        return boolval($IsValidBot);
     }
 
-    public function is_setup_chatid($user_id = false)
+    public function ChatIDExists($user_id = false): bool
     {
-        $chat_id = $this->get_user_chatid($user_id);
+        $chat_id = $this->GetUserChatID($user_id);
 
         return $chat_id !== false;
     }
 
-    public function get_user_chatid($user_id = false)
+    public function GetUserChatID($user_id = false): string
     {
         if ($user_id === false) {
             $user_id = get_current_user_id();
         }
 
-        return get_the_author_meta("tg_wp_factor_chat_id", $user_id);
+        return get_the_author_meta("tgid", $user_id);
     }
 
     /**
@@ -151,13 +135,13 @@ final class WP_Factor_Telegram_Plugin
      * @param $user_login
      * @param $user
      */
-    public function tg_login($user_login, $user)
+    public function ShowTGLogin($user_login, $user): void
     {
         if (get_option($this->namespace)['enabled'] === '1'
-            && get_the_author_meta("tg_wp_factor_enabled", $user->ID) === "1"
+            && get_user_meta($user->ID, 'tgid') !== 0
         ) {
             wp_clear_auth_cookie();
-            $this->show_two_factor_login($user);
+            $this->ShowTwoFactorLogin($user);
             exit;
         }
     }
@@ -167,21 +151,21 @@ final class WP_Factor_Telegram_Plugin
      *
      * @param $user
      */
-    private function show_two_factor_login($user)
+    private function ShowTwoFactorLogin($user): void
     {
-        $auth_code = $this->get_auth_code();
+        $auth_code = $this->GetAuthCode();
 
         setcookie($this->cookie_name, null, strtotime('-1 day'));
         setcookie($this->cookie_name, sha1($auth_code),
             time() + (60 * 20));
 
-        $chat_id = $this->get_user_chatid($user->ID);
-        $this->telegram->send_tg_token($auth_code, $chat_id);
+        $chat_id = $this->GetUserChatID($user->ID);
+        $this->telegram->SendTgToken($auth_code, $chat_id);
 
         $redirect_to = isset($_REQUEST['redirect_to'])
             ? wp_sanitize_redirect($_REQUEST['redirect_to']) : wp_unslash($_SERVER['REQUEST_URI']);
 
-        $this->login_html($user, $redirect_to);
+        $this->LoginHTML($user, $redirect_to);
     }
 
     /**
@@ -191,7 +175,7 @@ final class WP_Factor_Telegram_Plugin
      *
      * @return string
      */
-    private function get_auth_code($length = 5)
+    private function GetAuthCode(int $length = 5): string
     {
         $pool = array_merge(range(0, 9), range('a', 'z'),
             range('A', 'Z'));
@@ -212,7 +196,7 @@ final class WP_Factor_Telegram_Plugin
      * @param          $redirect_to
      * @param string $error_msg
      */
-    private function login_html($user, $redirect_to, $error_msg = '')
+    private function LoginHTML($user, $redirect_to, string $error_msg = ''): void
     {
         $rememberme = 0;
         if (isset($_REQUEST['rememberme']) && $_REQUEST['rememberme']) {
@@ -248,7 +232,7 @@ final class WP_Factor_Telegram_Plugin
             echo esc_attr($rememberme); ?>"/>
 
             <?php
-            $this->authentication_page($user); ?>
+            $this->AuthenticationHTML(); ?>
         </form>
 
         <p id="backtoblog">
@@ -263,18 +247,13 @@ final class WP_Factor_Telegram_Plugin
         <?php
         do_action('login_footer'); ?>
         <div class="clear"></div>
-        </body>
-
-        </html>
         <?php
     }
 
     /**
      * Authentication page
-     *
-     * @param $user
      */
-    private function authentication_page($user)
+    private function AuthenticationHTML(): void
     {
         require_once(ABSPATH . '/wp-admin/includes/template.php');
         ?>
@@ -302,7 +281,7 @@ final class WP_Factor_Telegram_Plugin
     /**
      * Validate telegram auth code login
      */
-    public function validate_tg()
+    public function ValidateAuthCode(): void
     {
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-login-tg')) {
@@ -318,19 +297,19 @@ final class WP_Factor_Telegram_Plugin
             return;
         }
 
-        if (true !== $this->is_valid_authcode($_REQUEST['authcode'])) {
+        if (true !== $this->ValidAuthCode($_REQUEST['authcode'])) {
             do_action('wp_factor_telegram_failed', $user->user_login);
 
-            $auth_code = $this->get_auth_code();
+            $auth_code = $this->GetAuthCode();
 
             setcookie($this->cookie_name, null, strtotime('-1 day'));
             setcookie($this->cookie_name, sha1($auth_code),
                 time() + (60 * 20));
 
-            $chat_id = $this->get_user_chatid($user->ID);
-            $this->telegram->send_tg_token($auth_code, $chat_id);
+            $chat_id = $this->GetUserChatID($user->ID);
+            $this->telegram->SendTgToken($auth_code, $chat_id);
 
-            $this->login_html($user, $_REQUEST['redirect_to'],
+            $this->LoginHTML($user, $_REQUEST['redirect_to'],
                 __('Wrong verification code, we just sent a new code, please try again!',
                     'yipnyap-telegram'));
             exit;
@@ -350,7 +329,7 @@ final class WP_Factor_Telegram_Plugin
         exit;
     }
 
-    private function is_valid_authcode($authcode, $cookie = false)
+    private function ValidAuthCode($authcode, $cookie = false): bool
     {
         if ($cookie === false) {
             $cookie = $this->cookie_name;
@@ -363,31 +342,31 @@ final class WP_Factor_Telegram_Plugin
         return false;
     }
 
-    public function configure_tg()
+    public function TGConfig(): void
     {
         require(dirname(WP_FACTOR_TG_FILE) . "/sections/configure_tg.php");
     }
 
-    public function tg_load_menu()
+    public function LoadAdminMenu(): void
     {
         add_options_page(__("Two-Factor Authentication with Telegram",
             "yipnyap-telegram"),
             __("Two-Factor Authentication with Telegram",
                 "yipnyap-telegram"), "manage_options", "tg-conf",
-            array(
+            [
                 $this,
-                "configure_tg",
-            ));
+                "TGConfig",
+            ]);
     }
 
-    function delete_transients($option_name, $old_value, $new_value)
+    public function DeleteTransients($option_name, $old_value, $new_value): void
     {
         if ($this->namespace === $option_name) {
             delete_transient(WP_FACTOR_TG_GETME_TRANSIENT);
         }
     }
 
-    function tg_register_settings()
+    public function TGSettingsInit(): void
     {
         register_setting($this->namespace, $this->namespace);
 
@@ -395,7 +374,7 @@ final class WP_Factor_Telegram_Plugin
             __('Telegram Configuration', "yipnyap-telegram"), '',
             $this->namespace . '.php');
 
-        $field_args = array(
+        $field_args = [
             'type' => 'text',
             'id' => 'bot_token',
             'name' => 'bot_token',
@@ -403,16 +382,16 @@ final class WP_Factor_Telegram_Plugin
             'std' => '',
             'label_for' => 'bot_token',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('bot_token',
-            __('Bot Token', "yipnyap-telegram"), array(
+            __('Bot Token', "yipnyap-telegram"), [
                 $this,
-                'tg_display_setting',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+                'RenderSetting',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'text',
             'id' => 'chat_id',
             'name' => 'chat_id',
@@ -421,16 +400,16 @@ final class WP_Factor_Telegram_Plugin
             'std' => '',
             'label_for' => 'chat_id',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('chat_id',
-            __('Chat ID', "yipnyap-telegram"), array(
+            __('Chat ID', "yipnyap-telegram"), [
                 $this,
-                'tg_display_setting',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+                'RenderSetting',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'enabled',
             'name' => 'enabled',
@@ -439,16 +418,16 @@ final class WP_Factor_Telegram_Plugin
             'std' => '',
             'label_for' => 'enabled',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('enabled',
-            __('Enable plugin?', 'yipnyap-telegram'), array(
+            __('Enable plugin?', 'yipnyap-telegram'), [
                 $this,
-                'tg_display_setting',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+                'RenderSetting',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'show_site_name',
             'name' => 'show_site_name',
@@ -457,16 +436,16 @@ final class WP_Factor_Telegram_Plugin
             'std' => '',
             'label_for' => 'show_site_name',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('show_site_name',
-            __('Show site name?', 'yipnyap-telegram'), array(
+            __('Show site name?', 'yipnyap-telegram'), [
                 $this,
-                'tg_display_setting',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+                'RenderSetting',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
 
-        $field_args = array(
+        $field_args = [
             'type' => 'checkbox',
             'id' => 'show_site_url',
             'name' => 'show_site_url',
@@ -475,17 +454,17 @@ final class WP_Factor_Telegram_Plugin
             'std' => '',
             'label_for' => 'show_site_url',
             'class' => 'css_class',
-        );
+        ];
 
         add_settings_field('show_site_url',
-            __('Show site URL?', 'yipnyap-telegram'), array(
+            __('Show site URL?', 'yipnyap-telegram'), [
                 $this,
-                'tg_display_setting',
-            ), $this->namespace . '.php', $this->namespace . '_section',
+                'RenderSetting',
+            ], $this->namespace . '.php', $this->namespace . '_section',
             $field_args);
     }
 
-    public function tg_display_setting($args)
+    public function RenderSetting($args): void
     {
         extract($args);
 
@@ -544,10 +523,10 @@ final class WP_Factor_Telegram_Plugin
                 wp_editor(
                     $options[$id],
                     $id,
-                    array(
+                    [
                         'textarea_name' => $option_name . "[$id]",
                         'style' => 'width: 200px',
-                    )
+                    ]
                 );
 
                 break;
@@ -560,25 +539,23 @@ final class WP_Factor_Telegram_Plugin
      * @param $links
      * @return array
      */
-    public function action_links($links)
+    public function ActionLink($links): array
     {
-        /** @noinspection PhpUndefinedConstantInspection */
-
-        $plugin_links = array(
+        $plugin_links = [
             '<a href="' . admin_url('options-general.php?page=tg-conf') . '">'
             . __('Settings', 'yipnyap-telegram') . '</a>',
-        );
+        ];
 
         return array_merge($plugin_links, $links);
     }
 
-    public function settings_error_set_chatid()
+    public function ChatIDMissingError(): void
     {
         if (get_current_screen()->id != "profile") {
             ?>
             <div class="notice notice-warning is-dismissible">
                 <p><?php
-                    printf(__('Do you want to configure Two Factor Authentication with Telegram?  <a href="%s">click here</a>!',
+                    printf(__('Do you want to configure Two-Factor Authentication with Telegram?  <a href="%s">click here</a>!',
                         "yipnyap-telegram"),
                         admin_url("profile.php"));
                     ?></p>
@@ -587,13 +564,13 @@ final class WP_Factor_Telegram_Plugin
         }
     }
 
-    public function settings_error_not_valid_bot()
+    public function InvalidBotError(): void
     {
         if (get_current_screen()->id != "settings_page_tg-conf") {
             ?>
             <div class="notice notice-error is-dismissible">
                 <p><?php
-                    printf(__('Do you want to configure Two Factor Authentication with Telegram?  <a href="%s">click here</a>!',
+                    printf(__('Do you want to configure Two-Factor Authentication with Telegram?  <a href="%s">click here</a>!',
                         "yipnyap-telegram"),
                         admin_url("options-general.php?page=tg-conf")); ?>
                 </p>
@@ -602,142 +579,7 @@ final class WP_Factor_Telegram_Plugin
         }
     }
 
-    /**
-     * @param $user
-     */
-    public function tg_add_two_factor_fields($user)
-    {
-        ?>
-        <h3 id="wptl"><?php
-            _e('Two-Factor Authentication with Telegram',
-                'yipnyap-telegram'); ?></h3>
-
-        <table class="form-table">
-
-            <tr>
-                <th>
-                    <label for="tg_wp_factor_enabled"><?php
-                        _e('Enable Two-Factor Authentication',
-                            'yipnyap-telegram'); ?>
-                    </label>
-                </th>
-                <td colspan="2">
-                    <input type="hidden" name="tg_wp_factor_valid"
-                           id="tg_wp_factor_valid" value="<?php
-                    echo (int)(esc_attr(get_the_author_meta('tg_wp_factor_enabled',
-                            $user->ID)) === "1"); ?>">
-                    <input type="checkbox" name="tg_wp_factor_enabled"
-                           id="tg_wp_factor_enabled" value="1"
-                           class="regular-text" <?php
-                    echo checked(esc_attr(get_the_author_meta('tg_wp_factor_enabled',
-                        $user->ID)), 1); ?> /><br/>
-                </td>
-            </tr>
-
-            <tr>
-
-                <td colspan="3">
-
-                    <?php
-                    $username = $this->telegram->get_me()->username;
-                    ?>
-
-                    <div>
-
-                        <ol>
-                            <li>
-                                <?php
-                                printf(__('Open Telegram and start a conversation with %s',
-                                    "yipnyap-telegram"),
-                                    '<a href="https://telegram.me/myidbot" target="_blank">@MyIDBot</a>');
-                                ?>
-                            </li>
-
-                            <li>
-                                <?php
-                                printf(__('Type command %s to obtain your Chat ID.',
-                                    "yipnyap-telegram"),
-                                    '<code>/getid</code>');
-                                ?>
-                            </li>
-                            <li>
-                                <?php
-                                _e("Inside of the answer you'll find your <strong>Chat ID</strong>",
-                                    'yipnyap-telegram');
-                                ?>
-                            </li>
-
-                            <li><?php
-                                printf(__('Now, open a conversation with %s and press on <strong>Start</strong>',
-                                    'yipnyap-telegram'),
-                                    '<a href="https://telegram.me/' . $username
-                                    . '">@' . $username . '</a>');
-                                ?></li>
-                            <li><?php
-                                _e('You can go :) Insert your Chat ID and press <strong>Submit code</strong>',
-                                    'two-factor-plugin'); ?></li>
-                        </ol>
-
-                        </p>
-                    </div>
-                </td>
-
-            </tr>
-
-            <tr>
-                <th>
-                    <label for="tg_wp_factor_chat_id"><?php
-                        _e('Telegram Chat ID',
-                            'yipnyap-telegram'); ?>
-                    </label></th>
-                <td>
-                    <input type="text" name="tg_wp_factor_chat_id"
-                           id="tg_wp_factor_chat_id" value="<?php
-                    echo esc_attr(get_the_author_meta('tg_wp_factor_chat_id',
-                        $user->ID)); ?>" class="regular-text"/><br/>
-                    <span class="description"><?php
-                        _e('Put your Telegram Chat ID',
-                            'yipnyap-telegram'); ?></span>
-                </td>
-                <td>
-                    <button class="button" id="tg_wp_factor_chat_id_send"><?php
-                        _e("Submit code",
-                            "yipnyap-telegram"); ?></button>
-                </td>
-            </tr>
-
-            <tr id="factor-chat-confirm">
-                <th>
-                    <label for="tg_wp_factor_chat_id_confirm"><?php
-                        _e('Confirmation code',
-                            'yipnyap-telegram'); ?>
-                    </label></th>
-                <td>
-                    <input type="text" name="tg_wp_factor_chat_id_confirm"
-                           id="tg_wp_factor_chat_id_confirm" value=""
-                           class="regular-text"/><br/>
-                    <span class="description"><?php
-                        _e('Please enter the confirmation code you received on Telegram',
-                            'yipnyap-telegram'); ?></span>
-                </td>
-                <td>
-                    <button class="button" id="tg_wp_factor_chat_id_check"><?php
-                        _e("Validate",
-                            "yipnyap-telegram"); ?></button>
-                </td>
-            </tr>
-            <tr id="factor-chat-response">
-                <td colspan="3">
-                    <div class="wpft-notice wpft-notice-warning">
-                        <p></p>
-                    </div>
-                </td>
-            </tr>
-        </table>
-        <?php
-    }
-
-    public function load_tg_lib()
+    public function EnqueueScripts(): void
     {
         $screen = get_current_screen();
         if (in_array($screen->id, ["profile", "settings_page_tg-conf"])) {
@@ -748,9 +590,9 @@ final class WP_Factor_Telegram_Plugin
 
             wp_register_script("tg_lib_js",
                 plugins_url("assets/js/wp-factor-telegram-plugin.js",
-                    dirname(__FILE__)), array('jquery'), '1.0.0', true);
+                    dirname(__FILE__)), ['jquery'], '1.0.0', true);
 
-            wp_localize_script("tg_lib_js", "tlj", array(
+            wp_localize_script("tg_lib_js", "tlj", [
 
                 "ajax_error" => __('Ooops! Server failure, try again! ',
                     'yipnyap-telegram'),
@@ -758,7 +600,7 @@ final class WP_Factor_Telegram_Plugin
                 "sendtoken_nonce" => wp_create_nonce('ajax-sendtoken-nonce'),
                 "tokencheck_nonce" => wp_create_nonce('ajax-tokencheck-nonce'),
                 "spinner" => admin_url("/images/spinner.gif")
-            ));
+            ]);
 
             wp_enqueue_script("tg_lib_js");
 
@@ -767,7 +609,7 @@ final class WP_Factor_Telegram_Plugin
                 'custom-accordion',
                 plugins_url('assets/js/wp-factor-telegram-accordion.js',
                     dirname(__FILE__)),
-                array('jquery', 'jquery-ui-core', 'jquery-ui-accordion')
+                ['jquery', 'jquery-ui-core', 'jquery-ui-accordion']
             );
 
 
@@ -779,7 +621,7 @@ final class WP_Factor_Telegram_Plugin
         }
     }
 
-    public function hook_tg_lib()
+    public function HookIntoFooter(): void
     {
         $screen = get_current_screen();
         if (in_array($screen->id, ["profile", "settings_page_tg-conf"])):
@@ -790,7 +632,7 @@ final class WP_Factor_Telegram_Plugin
                 (function ($) {
 
                     $(document).ready(function () {
-                        WP_Factor_Telegram_Plugin.init();
+                        YipnyapTelegramLinkage.init();
                     });
 
                 })(jQuery);
@@ -800,55 +642,12 @@ final class WP_Factor_Telegram_Plugin
         endif;
     }
 
-    public function send_token_check()
-    {
-        $response = array(
-            'type' => 'error'
-        );
-
-        if (!wp_verify_nonce($_POST['nonce'], 'ajax-tokencheck-nonce')) {
-            $response['msg'] = __('Security check error',
-                'yipnyap-telegram');
-            die(json_encode($response));
-        }
-
-        $response['msg'] = __('Please fill Chat ID field.',
-            'yipnyap-telegram');
-
-        if (!isset($_POST['chat_id']) || $_POST['chat_id'] == "") {
-            die(json_encode($response));
-        }
-
-        $auth_code = $this->get_auth_code();
-
-        setcookie($this->check_cookie_name, null, strtotime('-1 day'));
-        setcookie($this->check_cookie_name, sha1($auth_code),
-            time() + (60 * 20));
-
-        $tg = $this->telegram;
-        $send
-            = $tg->send(sprintf(__("This is the validation code to use WP Two Factor with Telegram: %s",
-            "yipnyap-telegram"), $auth_code), $_POST['chat_id']);
-
-        if (!$send) {
-            $response['msg']
-                = sprintf(__("Error (%s): validation code was not sent, try again!",
-                'yipnyap-telegram'), $tg->lastError);
-        } else {
-            $response['type'] = "success";
-            $response['msg'] = __("Validation code was successfully sent",
-                'yipnyap-telegram');
-        }
-
-        die(json_encode($response));
-    }
-
-    public function check_bot()
+    #[NoReturn] public function CheckValidBot(): void
     {
 
-        $response = array(
+        $response = [
             'type' => 'error'
-        );
+        ];
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-checkbot-nonce')) {
             $response['msg'] = __('Security check error',
@@ -863,7 +662,7 @@ final class WP_Factor_Telegram_Plugin
         }
 
         $tg = $this->telegram;
-        $me = $tg->set_bot_token($_POST['bot_token'])->get_me();
+        $me = $tg->SetBotToken($_POST['bot_token'])->GetMe();
 
         if ($me === false) {
             $response['msg'] = __('Unable to get Bot infos, please retry.',
@@ -871,24 +670,24 @@ final class WP_Factor_Telegram_Plugin
             die(json_encode($response));
         }
 
-        $response = array(
+        $response = [
             'type' => 'success',
             'msg' => __('This bot exists.', 'yipnyap-telegram'),
-            'args' => array(
+            'args' => [
                 'id' => $me->id,
                 'first_name' => $me->first_name,
                 'username' => $me->username,
-            ),
-        );
+            ],
+        ];
 
         die(json_encode($response));
     }
 
-    public function token_check()
+    #[NoReturn] public function CheckValidBotToken(): void
     {
-        $response = array(
+        $response = [
             'type' => 'error'
-        );
+        ];
 
         if (!wp_verify_nonce($_POST['nonce'], 'ajax-sendtoken-nonce')) {
             $response['msg'] = __('Security check error',
@@ -905,7 +704,7 @@ final class WP_Factor_Telegram_Plugin
         }
 
 
-        if (!$this->is_valid_authcode($_POST['token'],
+        if (!$this->ValidAuthCode($_POST['token'],
             $this->check_cookie_name)
         ) {
             $response['msg'] = __('Validation code entered is wrong.',
@@ -918,43 +717,4 @@ final class WP_Factor_Telegram_Plugin
 
         die(json_encode($response));
     }
-
-    public function tg_save_custom_user_profile_fields($user_id)
-    {
-        if (!current_user_can('edit_user', $user_id)) {
-            return false;
-        }
-
-        if ($_POST['tg_wp_factor_valid'] == 0
-            || $_POST['tg_wp_factor_chat_id'] == ""
-        ) {
-            return false;
-        }
-
-        update_user_meta($user_id, 'tg_wp_factor_chat_id',
-            $_POST['tg_wp_factor_chat_id']);
-        update_user_meta($user_id, 'tg_wp_factor_enabled',
-            $_POST['tg_wp_factor_enabled']);
-
-        return true;
-    }
-
-    function ts_footer_admin_text()
-    {
-        return __(' | This plugin is powered by', 'yipnyap-telegram')
-            . ' <a href="https://www.dueclic.com/" target="_blank">dueclic</a>. <a class="social-foot" href="https://www.facebook.com/dueclic/"><span class="dashicons dashicons-facebook bg-fb"></span></a>';
-    }
-
-    function ts_footer_version()
-    {
-        return "";
-    }
-
-    public function change_copyright()
-    {
-        add_filter('admin_footer_text', array($this, 'ts_footer_admin_text'),
-            11);
-        add_filter('update_footer', array($this, 'ts_footer_version'), 11);
-    }
-
 }

@@ -64,24 +64,25 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  * Get member data by ID
  *
  * @param int|string $member_id Member ID.
- * @param int $bitwise
+ * @param int|null $bitwise
+ * @param bool $isSelf
  * @return array Member data.
  * @since hk15
  *
  * @see yipnyap_members_get
  */
-function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
+function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false): array
 {
     global $GetMemberBit;
-
-    if ($member_id === '@me') {
-        $isSelf = true;
-    }
 
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
     $member_id = YipnyapFetchMemberID($member_id, true);
+
+    if ($member_id === get_current_user_id()) {
+        $isSelf = true;
+    }
 
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {
@@ -100,12 +101,12 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
         'header' => yipnyap_member_get_cover_url($member_id),
-        'followers' => count(bp_follow_get_followers(array(
+        'followers' => count(bp_follow_get_followers([
             'user_id' => $member_id
-        ))),
-        'following' => count(bp_follow_get_following(array(
+        ])),
+        'following' => count(bp_follow_get_following([
             'user_id' => $member_id
-        ))),
+        ])),
         'posts' => YipnyapGetMemberActivityCount($member_id)
     ];
     $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
@@ -135,9 +136,9 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
     }
 
     /**
-     * Check if member is "me", then add UI Privacy
+     * Check if member is "me", then add UI Privacy & Security to the member array.
      */
-    if (isset($isSelf)) {
+    if ($isSelf) {
         $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
         $unicornEngine = get_option('unicorn_engine');
         $member['ui_privacy'] = [
@@ -145,6 +146,8 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0): array
             'disallow_bg_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str']),
             'disallow_palette_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str']),
         ];
+
+        $member['tgid'] = get_user_meta($member_id, 'tgid', true);
     }
 
     /**
@@ -210,33 +213,117 @@ function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
  *
  * @param string|null $username Username
  * @param string|null $password Password
+ * @param bool|null $remember Remember
+ * @param string|null $otp OTP
  * @return array Member data
- * @since hk15
- *
+ * @throws Exception
  * @see wp_authenticate, YipnyapGetMember
+ * @since hk15
  */
-function YipnyapLoginMember(string|null $username, string|null $password): array
+function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp = null, bool|null $remember = null): array
 {
     if (empty($username) || empty($password)) {
         return [
-            'code' => 400,
-            'error' => 'Username and password are required.',
+            'success' => false,
+            'message' => 'Username and password are required.',
         ];
     }
 
     $user = wp_authenticate($username, $password);
     if (is_wp_error($user)) {
         return [
-            'code' => 401,
-            'error' => 'Invalid username or password.',
+            'success' => false,
+            'message' => 'Invalid username or password.',
         ];
     } else {
-        $YipnyapUser = YipnyapGetMember($user->ID);
-        $result = [
-            'code' => 200
-        ];
-        return array_merge($result, $YipnyapUser);
+        $YipnyapUser = YipnyapGetMember($user->ID, null, true);
 
+        if ($YipnyapUser['tgid']) {
+            $OTPResult = YipnyapCheckOTP($YipnyapUser, $otp);
+            if (!$OTPResult['success']) {
+                // If OTP is not correct, return the error message.
+                return $OTPResult;
+            }
+        }
+
+        // Login user to WordPress
+        wp_signon([
+            'user_login' => $username,
+            'user_password' => $password,
+            'remember' => $remember,
+        ], true);
+        wp_set_current_user($user->ID);
+
+        return [
+            'success' => true,
+            'user' => $YipnyapUser,
+        ];
+
+    }
+}
+
+/**
+ * Check OTP, send one if not exists.
+ * @param $YipnyapUser
+ * @param string|null $otp
+ * @return array ['success' => bool, 'message' => string] - success is true only if OTP is correct.
+ * @throws Exception
+ */
+function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
+{
+    // Check if OTP is required
+    if (empty($YipnyapUser['tgid'])) {
+        return [
+            'success' => true,
+            'message' => 'No OTP required.',
+        ];
+    }
+
+    // Ready Telegram
+    $tg = new YipnyapTelegram();
+
+    // Check if OTP exists, otherwise generate a code
+    $otpCode = false;
+    // if $otp is blank, assume that the user was not prompted for OTP yet
+    if (!empty($otp)) $otpCode = get_user_meta($YipnyapUser['id'], 'SecureID:OCA', true);
+    if (empty($otpCode)) {
+        // Generate random string, using the users' security level
+        // as the length of the string.
+        $secureIDLevel = get_user_meta($YipnyapUser['id'], 'SecureID:Level', true);
+        $otpCode = match ($secureIDLevel) {
+            'medium' => bin2hex(random_bytes(16)),
+            'high' => bin2hex(random_bytes(24)),
+            default => bin2hex(random_bytes(8)),
+        };
+
+        // Send OTP to Telegram
+        $tg->SendTgToken($otpCode, $YipnyapUser['tgid']);
+
+        update_user_meta($YipnyapUser['id'], 'SecureID:OCA', md5($otpCode));
+
+        return [
+            'success' => false,
+            'message' => 'OTP is required.',
+        ];
+    }
+
+    // Check if OTP is correct
+    if (md5($otp) !== $otpCode) {
+        $tg->SendFailedLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+        delete_user_meta($YipnyapUser['id'], 'SecureID:OCA');
+
+        return [
+            'success' => false,
+            'message' => 'Invalid OTP.',
+        ];
+    } else {
+        // Delete OTP
+        delete_user_meta($YipnyapUser['id'], 'SecureID:OCA');
+        $tg->SendSuccessfulLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+
+        return [
+            'success' => true,
+        ];
     }
 }
 
@@ -299,9 +386,9 @@ function YipnyapGetMemberBadges(string|int $member_id): array
  *
  * @param string|int $member_id Member ID
  * @return array Member's groups
- * @since ui3
+ * @since ui1
  */
-function YipnyapGetMemberGroups(string|int $member_id): array
+function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array
 {
     $member_id = YipnyapFetchMemberID($member_id);
     $groups = [];
@@ -311,25 +398,30 @@ function YipnyapGetMemberGroups(string|int $member_id): array
     ]);
 
     foreach ($gp_groups['groups'] as $gp_group) {
-        // check if int, if so, true.
-        $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
-        $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
-        $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
-        $groups[] = [
-            'id' => $gp_group->id,
-            'name' => $gp_group->name,
-            'description' => $gp_group->description,
-            'avatar' => bp_core_fetch_avatar([
-                'item_id' => $gp_group->id,
-                'object' => 'group',
-                'type' => 'full',
-                'html' => false,
-            ]),
-            'member_count' => $gp_group->total_member_count,
-            'is_admin' => $is_admin,
-            'is_mod' => $is_mod,
-            'is_member' => $is_member,
-        ];
+        // check if fields should only include IDs
+        if ($query['fields'] === 'ids') {
+            $groups[] = $gp_group->id;
+        } else {
+            // check if int, if so, true.
+            $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
+            $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
+            $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
+            $groups[] = [
+                'id' => $gp_group->id,
+                'name' => $gp_group->name,
+                'description' => $gp_group->description,
+                'avatar' => bp_core_fetch_avatar([
+                    'item_id' => $gp_group->id,
+                    'object' => 'group',
+                    'type' => 'full',
+                    'html' => false,
+                ]),
+                'member_count' => $gp_group->total_member_count,
+                'is_admin' => $is_admin,
+                'is_mod' => $is_mod,
+                'is_member' => $is_member,
+            ];
+        }
     }
 
     return $groups;
@@ -340,7 +432,7 @@ function YipnyapGetMemberGroups(string|int $member_id): array
  *
  * @param string|int $member_id Member ID
  * @return array Member's friends
- * @since ui3
+ * @since ui1
  */
 function YipnyapGetMemberFriends(string|int $member_id): array
 {

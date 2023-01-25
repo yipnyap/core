@@ -1,4 +1,4 @@
-import React, {useState, useRef, useEffect} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 
 import HeaderDropdown from '../HeaderDropdown';
 
@@ -36,17 +36,13 @@ function HeaderDropdownNotifications(props) {
 
         // mark notification as read in state (optimistic approach)
         setNotifications(previousNotifications => {
-            const newNotifications = previousNotifications.map((notification) => {
+            return previousNotifications.map((notification) => {
                 if (notification.id === selectedNotification.id) {
                     notification.is_new = 0;
                 }
 
                 return notification;
             });
-
-            
-
-            return newNotifications;
         });
 
         setUnreadNotificationsCount(previousUnreadNotificationsCount => {

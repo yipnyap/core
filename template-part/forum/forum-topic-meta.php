@@ -5,6 +5,9 @@
  * @param array $args {
  * @type array $last_activity_data Last activity data.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.3.0
  * @author Yipnyap (https://yipnyap.xyz/)
  *

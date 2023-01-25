@@ -7,7 +7,7 @@ function FormInputURL(props) {
     [props.name]: props.value || ''
   });
 
-  const [active, setActive] = useState(props.value ? true : false);
+  const [active, setActive] = useState(!!props.value);
 
   const inputRef = useRef(null);
 

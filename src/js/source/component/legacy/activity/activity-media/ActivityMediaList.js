@@ -46,7 +46,7 @@ function ActivityMediaList(props) {
     const filters = useRef({
         per_page: props.perPage,
         sort: props.order,
-        show_hidden: props.groupID ? true : false,
+        show_hidden: !!props.groupID,
         filter: {
             object: props.userID ? 'activity' : 'groups',
             action: props.activityGetType,
@@ -315,7 +315,7 @@ function ActivityMediaList(props) {
 
     const getActivitiesCount = () => {
         const config = {
-            show_hidden: props.groupID ? true : false,
+            show_hidden: !!props.groupID,
             filter: filters.current.filter
         };
 
@@ -392,7 +392,7 @@ function ActivityMediaList(props) {
         }
     }
 
-    // allow logged user to delete items if viewing it's own profile, or a group he is an admin or mod of
+    // allow logged user to delete items if viewing its own profile, or a group he is an admin or mod of
     const allowDelete = inLoggedUserProfile || (inLoggedUserGroup && (loggedUserIsGroupAdmin || loggedUserIsGroupMod));
 
     return (

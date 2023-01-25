@@ -7,6 +7,9 @@
  * @type array $navigation_sections Navigation sections.
  * @type string $modifiers Optional. Additional class names to add to the HTML wrapper.
  * }
+ *
+ * @var object $args
+ *
  * @since 1.0.0
  * @author Yipnyap (https://yipnyap.xyz/)
  *

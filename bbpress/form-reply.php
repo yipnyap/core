@@ -72,7 +72,7 @@ if (bbp_is_reply_edit()) : ?>
 
                         <?php do_action('bbp_theme_before_reply_form_content'); ?>
 
-                        <?php bbp_the_content(array('context' => 'reply')); ?>
+                        <?php bbp_the_content(['context' => 'reply']); ?>
 
                         <?php do_action('bbp_theme_after_reply_form_content'); ?>
 

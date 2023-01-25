@@ -19,6 +19,7 @@
 <div class="achievement-preview-list">
     <?php
 
+    /** @var object $args */
     foreach ($args['achievements'] as $achievement) {
         /**
          * Achievement Preview

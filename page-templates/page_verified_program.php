@@ -50,19 +50,20 @@ get_template_part('template-part/common/header/header', null, [
                         Verified Program for those who do great
                     </p>
                     <p class="text-xl text-neutral-500">
-                        Make amazing stuff? Worried about being impersonated? Don't wanna give
+                        Make amazing stuff? Worried about being impersonated? Don't want to give
                         twitter $8? Yipnyap has a free Verified Program that gives you a badge
                         and extra perks while using Yipnyap, similar to a partner program.
                     </p>
                     <div class="flex gap-x-4 sm:justify-center">
-                        <a href="https://yipnyap.atlassian.net/servicedesk/customer/portal/3/group/11/create/65" class="inline-block ypsdk button-upgrade shadow-sm" color="primary">
+                        <a href="https://yipnyap.atlassian.net/servicedesk/customer/portal/3/group/11/create/65"
+                           class="inline-block ypsdk button-upgrade shadow-sm" color="primary">
                             Get started
                             <span class="text-indigo-200" aria-hidden="true">&rarr;</span>
                         </a>
-<!--                        <a href="#" class="inline-block rounded-xl px-4 py-1.5 text-base font-semibold leading-7 text-primary ring-1 ring-gray-900/10 hover:ring-gray-900/20">-->
-<!--                            Learn more-->
-<!--                            <span class="text-neutral-400" aria-hidden="true">&rarr;</span>-->
-<!--                        </a>-->
+                        <!--                        <a href="#" class="inline-block rounded-xl px-4 py-1.5 text-base font-semibold leading-7 text-primary ring-1 ring-gray-900/10 hover:ring-gray-900/20">-->
+                        <!--                            Learn more-->
+                        <!--                            <span class="text-neutral-400" aria-hidden="true">&rarr;</span>-->
+                        <!--                        </a>-->
                     </div>
                 </div>
             </div>

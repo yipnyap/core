@@ -1,20 +1,19 @@
 /**
  * WP Factor Telegram Plugin
  */
+const YipnyapTelegramInteraction = function ($) {
 
-var WP_Factor_Telegram_Plugin = function ($) {
+    const $twfci = $("#tgid");
+    const $twfciconf = $("#tgid_confirm");
+    const $twbtn = $("#tgid_send");
+    const $twctrl = $("#tg_wp_factor_valid");
 
-    var $twfci = $("#tg_wp_factor_chat_id");
-    var $twfciconf = $("#tg_wp_factor_chat_id_confirm");
-    var $twbtn = $("#tg_wp_factor_chat_id_send");
-    var $twctrl = $("#tg_wp_factor_valid");
-
-    var $twfcr = $("#factor-chat-response");
-    var $twfconf = $("#factor-chat-confirm");
-    var $twfcheck = $("#tg_wp_factor_chat_id_check");
-    var $twbcheck = $("#checkbot");
-    var $twb = $("#bot_token");
-    var $twbdesc = $("#bot_token_desc");
+    const $twfcr = $("#factor-chat-response");
+    const $twfconf = $("#factor-chat-confirm");
+    const $twfcheck = $("#tgid_check");
+    const $twbcheck = $("#checkbot");
+    const $twb = $("#bot_token");
+    const $twbdesc = $("#bot_token_desc");
 
     return {
         init: init
@@ -22,22 +21,22 @@ var WP_Factor_Telegram_Plugin = function ($) {
 
     function init() {
 
-        $twfci.on("change", function (evt) {
+        $twfci.on("change", function () {
             $twctrl.val(0);
         });
 
         $twbtn.on("click", function (evt) {
 
             evt.preventDefault();
-            var chat_id = $twfci.val();
-            send_tg_token(chat_id);
+            const chat_id = $twfci.val();
+            SendTgToken(chat_id);
 
         });
 
         $twfcheck.on("click", function (evt) {
 
             evt.preventDefault();
-            var token = $twfciconf.val();
+            const token = $twfciconf.val();
             check_tg_token(token);
 
         });
@@ -45,7 +44,7 @@ var WP_Factor_Telegram_Plugin = function ($) {
         $twbcheck.on("click", function (evt) {
 
             evt.preventDefault();
-            var bot_token = $twb.val();
+            const bot_token = $twb.val();
             check_tg_bot(bot_token);
 
         });
@@ -62,11 +61,11 @@ var WP_Factor_Telegram_Plugin = function ($) {
             url: ajaxurl,
             data: {
                 'nonce': tlj.checkbot_nonce,
-                'action': 'check_bot',
+                'action': 'CheckBot',
                 'bot_token': bot_token
             },
             beforeSend: function () {
-                $twbcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twbcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
             },
             dataType: 'json',
             success: function (response) {
@@ -94,12 +93,12 @@ var WP_Factor_Telegram_Plugin = function ($) {
             type: "POST",
             url: ajaxurl,
             data: {
-                'action': 'token_check',
+                'action': 'TokenCheck',
                 'nonce': tlj.sendtoken_nonce,
                 'token': token
             },
             beforeSend: function () {
-                $twfcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twfcheck.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
                 $twfcr.hide();
             },
             dataType: "json",
@@ -131,19 +130,19 @@ var WP_Factor_Telegram_Plugin = function ($) {
 
     }
 
-    function send_tg_token(chat_id) {
+    function SendTgToken(chat_id) {
 
         $.ajax({
 
             type: "POST",
             url: ajaxurl,
             data: {
-                'action': 'send_token_check',
+                'action': 'SendTokenCheck',
                 'nonce': tlj.tokencheck_nonce,
                 'chat_id': chat_id
             },
             beforeSend: function () {
-                $twbtn.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '" /></div>');
+                $twbtn.addClass('disabled').after('<div class="load-spinner"><img src="' + tlj.spinner + '"  alt="Spinner"/></div>');
                 $twfcr.hide();
                 $twfconf.hide();
             },

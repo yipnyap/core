@@ -50,11 +50,7 @@ const userCanPinActivity = (activityData, user, currentProfileUserID) => {
         return false;
     }
 
-    if (!(user.id) === currentProfileUserID) {
-        return false;
-    }
-
-    return true;
+    return !(user.id) !== currentProfileUserID;
 };
 
 const userCanEditActivity = (activityData, user) => {
@@ -85,11 +81,9 @@ const userCanEditActivity = (activityData, user) => {
         }
     }
 
-    if (activityEditableTimeHasElapsed(activityData)) {
-        return false;
-    }
+    return !activityEditableTimeHasElapsed(activityData);
 
-    return true;
+
 };
 
 const userCanDeleteActivity = (activityData, user) => {

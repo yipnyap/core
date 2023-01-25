@@ -8,6 +8,7 @@ import Root from "./root";
 import Profile from "./pages/profile";
 import SettingsGeneral from "./pages/profile/pages/settings";
 import Activity from "./pages/activity";
+import YipnyapID from "./pages/id";
 
 let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience.mp3`);
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
@@ -40,25 +41,43 @@ export const router = createBrowserRouter([
                 element: <Activity />,
             },
             {
-                path: "/settings/",
-                element: <SettingsGeneral />,
+                path: '/settings/',
+                element: <SettingsGeneral/>,
                 children: [
                     {
-                        path: "*",
-                        element: <SettingsGeneral />,
+                        path: '*',
+                        element: <SettingsGeneral/>,
                     },
                 ]
             },
             {
-                path: "/:username",
-                element: <Profile />,
+                path: '/id/',
+                element: <YipnyapID/>,
                 children: [
                     {
-                        path: "*",
-                        element: <Profile />,
+                        path: 'login',
+                        element: <YipnyapID/>,
+                    },
+                    {
+                        path: 'create',
+                        element: <YipnyapID/>,
+                    },
+                    {
+                        path: 'recovery',
+                        element: <YipnyapID/>,
                     }
                 ]
-            }
+            },
+            {
+                path: '/:username',
+                element: <Profile/>,
+                children: [
+                    {
+                        path: '*',
+                        element: <Profile/>,
+                    }
+                ]
+            },
         ]
     },
 ]);

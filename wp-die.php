@@ -12,7 +12,7 @@ endif;
 
 ?><!DOCTYPE html>
 
-<html>
+<html lang="en-AU">
 <head>
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1"/>
@@ -649,10 +649,10 @@ endif;
         }
 
         .inset-0 {
-            top: 0px;
-            right: 0px;
-            bottom: 0px;
-            left: 0px;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
         }
 
         .z-10 {
@@ -1080,7 +1080,7 @@ endif;
             }
 
             .sm\:mt-0 {
-                margin-top: 0px;
+                margin-top: 0;
             }
 
             .sm\:ml-4 {
@@ -1156,7 +1156,7 @@ endif;
             }
 
             .sm\:p-0 {
-                padding: 0px;
+                padding: 0;
             }
 
             .sm\:p-6 {
@@ -1200,6 +1200,7 @@ endif;
             }
         }
     </style>
+    <title>Yipnyap Died</title>
 </head>
 <body
         style=""

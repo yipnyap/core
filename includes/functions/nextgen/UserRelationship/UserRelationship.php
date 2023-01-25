@@ -1,15 +1,16 @@
 <?php
 namespace Yipnyap;
 
-class UserRelationship {
-    public $RelationshipStatus;
+class UserRelationship
+{
+    public array $RelationshipStatus;
     public string $InitiatorID;
     public string $TargetID;
 
     /**
      * Configure relationship initiator and target.
      */
-    function SetRelationshipInfo($initiator, $target = 0): void
+    public function SetRelationshipInfo($initiator, $target = 0): void
     {
         $this->InitiatorID = $initiator;
         $this->TargetID = $target;
@@ -18,7 +19,7 @@ class UserRelationship {
     /**
      * Get relationship status.
      */
-    function GetRelationshipInfo($skipFollowCheck = false): array
+    public function GetRelationshipInfo($skipFollowCheck = false): array
     {
         $this->RelationshipStatus = [];
         if ($this->IsFollowing() && !$skipFollowCheck) {
@@ -49,7 +50,7 @@ class UserRelationship {
     /**
      * Create follow
      */
-    function CreateFollow(): bool
+    public function CreateFollow(): bool
     {
         return bp_follow_start_following([
             'leader_id' => $this->TargetID,
@@ -60,7 +61,7 @@ class UserRelationship {
     /**
      * Remove follow
      */
-    function RemoveFollow(): bool
+    public function RemoveFollow(): bool
     {
         return bp_follow_stop_following([
             'leader_id' => $this->TargetID,
@@ -71,7 +72,7 @@ class UserRelationship {
     /**
      * Check if user is following another user
      */
-    function IsFollowing(): bool
+    public function IsFollowing(): bool
     {
         return bp_follow_is_following([
             'leader_id' => $this->TargetID,
@@ -82,7 +83,7 @@ class UserRelationship {
     /**
      * Check if users are mutuals (following each other)
      */
-    function IsMutual(): bool
+    public function IsMutual(): bool
     {
         $Target = bp_follow_is_following([
             'leader_id' => $this->TargetID,
@@ -101,7 +102,7 @@ class UserRelationship {
      * @return bool
      * @since hk15
      */
-    function IsFriend(): bool
+    public function IsFriend(): bool
     {
         $friends = $this->GetFriends();
         return in_array($this->TargetID, $friends);
@@ -110,7 +111,7 @@ class UserRelationship {
     /**
      * Get friend requests
      */
-    function GetFriendRequests(): array
+    public function GetFriendRequests(): array
     {
         $requests = [];
         $friend_requests = yipnyap_get_friend_requests_sent($this->InitiatorID);
@@ -128,7 +129,7 @@ class UserRelationship {
      * @return array
      * @since hk16-hf2
      */
-    function GetReceivedFriendRequests(): array
+    public function GetReceivedFriendRequests(): array
     {
         $requests = [];
         $friend_requests = yipnyap_get_friend_requests_received($this->InitiatorID);
@@ -140,11 +141,11 @@ class UserRelationship {
 
         return $requests;
     }
-    
+
     /**
      * Create a friend request
      */
-    function CreateFriendRequest(): bool
+    public function CreateFriendRequest(): bool
     {
         $relationship = $this->GetRelationshipInfo(true);
         if ($relationship['status'] !== '') {
@@ -159,7 +160,7 @@ class UserRelationship {
      * @return array
      * @since hk16-hf2
      */
-    function GetFriends(): array
+    public function GetFriends(): array
     {
         $friend_args = [
             'per_page' => 0,

@@ -16,9 +16,17 @@ if ($achievement_unlock_submitted) {
     $achievement_unlock_id = absint($_POST['achievement_unlock_id']);
     $achievement_unlocked = yipnyap_gamipress_unlock_logged_user_achievement_with_points($achievement_unlock_id);
 
-    // Redirect to same page to avoid form resubmission
-    $redirect_url = esc_url(home_url($wp->request));
-    wp_safe_redirect($redirect_url);
+    /**
+     * Redirect to same page to avoid form resubmission.
+     *
+     * $wp is global to WordPress, and is an instance of WP.
+     * @see https://developer.wordpress.org/reference/classes/wp/
+     *
+     */
+    if (!empty($wp)) {
+        $redirect_url = esc_url(home_url($wp->request));
+        wp_safe_redirect($redirect_url);
+    }
     exit;
 }
 

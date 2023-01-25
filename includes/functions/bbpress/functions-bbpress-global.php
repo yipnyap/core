@@ -321,7 +321,7 @@ if (!function_exists('yipnyap_bbpress_group_forum_create')) {
       bbp_repair_forum_visibility();
     }
 
-    return $result;
+    return $created_forum_id;
   }
 }
 

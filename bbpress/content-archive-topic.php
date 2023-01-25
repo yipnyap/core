@@ -22,27 +22,27 @@ defined( 'ABSPATH' ) || exit;
 
 			<?php bbp_get_template_part( 'form', 'search' ); ?>
 
-		</div>
+        </div>
 
-	<?php endif; ?>
+    <?php endif; ?>
 
-	<?php do_action( 'bbp_template_before_topic_tag_description' ); ?>
+    <?php do_action('bbp_template_before_topic_tag_description'); ?>
 
-	<?php if ( bbp_is_topic_tag() ) : ?>
+    <?php if (bbp_is_topic_tag()) : ?>
 
-		<?php bbp_topic_tag_description( array( 'before' => '<div class="bbp-template-notice info"><ul><li>', 'after' => '</li></ul></div>' ) ); ?>
+        <?php bbp_topic_tag_description(['before' => '<div class="bbp-template-notice info"><ul><li>', 'after' => '</li></ul></div>']); ?>
 
-	<?php endif; ?>
+    <?php endif; ?>
 
-	<?php do_action( 'bbp_template_after_topic_tag_description' ); ?>
+    <?php do_action('bbp_template_after_topic_tag_description'); ?>
 
-	<?php do_action( 'bbp_template_before_topics_index' ); ?>
+    <?php do_action('bbp_template_before_topics_index'); ?>
 
-	<?php if ( bbp_has_topics() ) : ?>
+    <?php if (bbp_has_topics()) : ?>
 
-		<?php bbp_get_template_part( 'pagination', 'topics'    ); ?>
+        <?php bbp_get_template_part('pagination', 'topics'); ?>
 
-		<?php bbp_get_template_part( 'loop',       'topics'    ); ?>
+        <?php bbp_get_template_part('loop', 'topics'); ?>
 
 		<?php bbp_get_template_part( 'pagination', 'topics'    ); ?>
 

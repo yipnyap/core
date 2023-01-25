@@ -10,7 +10,7 @@ add_action('rest_api_init', function() {
         'callback' =>
             function() {
                 $path = YIPNYAP_UPLOADS_PATH . '/member/286';
-                $files = array_values(array_diff(scandir($path), array('..', '.')));
+                $files = array_values(array_diff(scandir($path), ['..', '.']));
 
                 // Loop through files, only keep ones starting with "arcana"
                 $arcana = [];

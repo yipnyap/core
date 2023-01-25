@@ -24,24 +24,24 @@ if ( ! defined( 'ABSPATH' ) ) {
   <!-- FORM SELECT -->
   <div class="form-select">
     <select name="orderby" class="orderby" aria-label="<?php esc_attr_e( 'Shop order', 'woocommerce' ); ?>">
-      <?php foreach ( $catalog_orderby_options as $id => $name ) : ?>
-        <option value="<?php echo esc_attr( $id ); ?>" <?php selected( $orderby, $id ); ?>><?php echo esc_html( $name ); ?></option>
-      <?php endforeach; ?>
+        <?php foreach ($catalog_orderby_options as $id => $name) : ?>
+            <option value="<?php echo esc_attr($id); ?>" <?php selected($orderby, $id); ?>><?php echo esc_html($name); ?></option>
+        <?php endforeach; ?>
     </select>
 
-    <?php
+      <?php
 
-     /**
-      * Icon SVG
-      */
+      /**
+       * Icon SVG
+       */
       get_template_part('template-part/icon/icon', 'svg', [
-        'icon'      => 'small-arrow',
-        'modifiers' => 'form-select-icon'
+          'icon' => 'small-arrow',
+          'modifiers' => 'form-select-icon'
       ]);
-        
-    ?>
+
+      ?>
   </div>
-  <!-- /FORM SELECT -->
-	<input type="hidden" name="paged" value="1" />
-	<?php wc_query_string_form_fields( null, array( 'orderby', 'submit', 'paged', 'product-page' ) ); ?>
+    <!-- /FORM SELECT -->
+    <input type="hidden" name="paged" value="1"/>
+    <?php wc_query_string_form_fields(null, ['orderby', 'submit', 'paged', 'product-page']); ?>
 </form>

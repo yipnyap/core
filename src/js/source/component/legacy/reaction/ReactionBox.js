@@ -40,7 +40,7 @@ function ReactionBox(props) {
             <div className="reaction-box-content">
                 {
                     props.activeTab === 0 &&
-                    <div className="reaction-box-item" data-simplebar>
+                    <div className="reaction-box-item" data-simplebar="">
                         <UserStatusList data={allReactionUsers}
                                         showVerifiedBadge={yipnyap_constants.settings.bp_verified_member_display_badge_in_members_lists}/>
                     </div>
@@ -49,7 +49,7 @@ function ReactionBox(props) {
                     reactions.map((reaction, i) => {
                         return (
                             (props.activeTab === (i + 1)) &&
-                            <div key={reaction.id} className="reaction-box-item" data-simplebar>
+                            <div key={reaction.id} className="reaction-box-item" data-simplebar="">
                                 <UserStatusList data={reaction.users}
                                                 showVerifiedBadge={yipnyap_constants.settings.bp_verified_member_display_badge_in_members_lists}/>
                             </div>

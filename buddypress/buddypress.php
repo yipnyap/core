@@ -34,7 +34,8 @@ if (have_posts()) {
         ?>
         <!-- CONTENT GRID -->
         <div class="content-grid">
-            <?php echo $post_access_data['message']; ?>
+            <?php /** @var object $post_access_data */
+            echo $post_access_data['message']; ?>
         </div>
         <!-- /CONTENT GRID -->
         <?php

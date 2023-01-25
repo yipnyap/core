@@ -12,6 +12,7 @@ import {NGCard} from "../../components";
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore
 import NoUserCTAActivity from "../../../legacy/onboarding/NoUserCTAActivity";
+import SettingsTelegram from "../profile/pages/settings/telegram";
 
 export default function Activity() {
     const location = useLocation();
@@ -93,10 +94,17 @@ export default function Activity() {
     }, [location.pathname, userGroups, userFriends])
 
     return (
-        <>
-            {showVoid ? <Void /> : (
+        <div className="p-4 md:p-0">
+            {showVoid ? <Void/> : (
                 <>
-                    {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity />}
+                    {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}
+                    {
+                        (yipnyap_constants.currentUser?.display_name && !yipnyap_constants.currentUser?.tgid) && (
+                            <div className="flex flex-col justify-center m-auto py-8 max-w-4xl">
+                                <SettingsTelegram onlyShowOnboarding={true}/>
+                            </div>
+                        )
+                    }
                     <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
                         <ActivityFilterableList order="DESC"
                                                 groupID={currentGroup}
@@ -113,7 +121,8 @@ export default function Activity() {
                                                     ? 'Only you'
                                                     : yipnyap_constants.currentUser.online_count}
                                             </b>
-                                            {yipnyap_constants.currentUser.online_count > 1 ? 'people' : ''} are online.
+                                            {yipnyap_constants.currentUser.online_count > 1 ? ' people' : ''} are
+                                            online.
                                         </p>}
                                     wellBody={true}
                                 >
@@ -149,6 +158,6 @@ export default function Activity() {
                     </div>
                 </>
             )}
-        </>
+        </div>
     )
 }

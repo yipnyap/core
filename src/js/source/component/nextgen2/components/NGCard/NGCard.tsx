@@ -4,6 +4,8 @@ import {buildClassObject} from "../../utils/ColourScheme.utils";
 export declare interface NGCardType {
     title?: undefined | string | React.ReactNode;
     wellBody?: boolean;
+
+    className?: string;
     theme?: any;
     children?: React.ReactNode;
 }
@@ -25,7 +27,7 @@ export default function NGCard({...props}: NGCardType) {
     let theme = buildClassObject(NGCardTheming, props.theme || undefined, 'card', (props.wellBody ? 'wellBody' : undefined))
 
     return (
-        <div className={`${theme.main}`}>
+        <div className={`${theme.main} ${props.className}`}>
             {props.title && (
                 <div className={`${theme.all} ${theme.card?.header}`}>
                     {props.title}

@@ -101,9 +101,11 @@ function yipnyap_file_default_allowed_extensions_get($file_type, $format = 'stri
  */
 function yipnyap_delete_file($filepath)
 {
-    $result = wp_delete_file($filepath);
+    wp_delete_file($filepath);
 
-    return $result;
+    return [
+        'success' => true
+    ];
 }
 
 /**
@@ -159,6 +161,8 @@ function yipnyap_get_component_upload_path($component)
     if ($component['type'] === 'group') {
         return yipnyap_get_group_uploads_path($component['id']);
     }
+
+    return null;
 }
 
 /**
@@ -176,6 +180,8 @@ function yipnyap_get_component_upload_url($component)
     if ($component['type'] === 'group') {
         return yipnyap_get_group_uploads_url($component['id']);
     }
+
+    return null;
 }
 
 /**

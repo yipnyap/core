@@ -153,6 +153,9 @@ export default function Header() {
     const [loggedUser, setLoggedUser] = useState(false);
     const [loadingUser, setLoadingUser] = useState(true);
     const [yourViewNotifications, setYourViewNotifications] = useState([]);
+    const [logoURL, setLogoURL] = useState(`${yipnyap_constants.logo_url || ''}`);
+    const [searchQuery, setSearchQuery] = useState('');
+    const [catEatingEasterEgg, setCatEatingEasterEgg] = useState(false);
 
     function populateUserLocalStorageCache() {
         userRouter.getLoggedInMember()
@@ -169,8 +172,8 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
-                        {name: 'Sign In', href: '/login'},
-                        {name: 'Sign Up', href: '/register'}
+                        {name: 'Sign In', href: '/id/login'},
+                        {name: 'Sign Up', href: '/id/create'}
                     ]
 
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
@@ -318,12 +321,50 @@ export default function Header() {
         }
     }, []);
 
+    function attemptSearch(e) {
+        if (e.key !== 'Enter') return;
+
+        console.log(`[Search UI] Attempting search for ${searchQuery}`);
+
+        switch (searchQuery) {
+            case 'test':
+                console.log('test');
+                break;
+            case '🐈':
+                const slurpAudio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/slurp.ogg`);
+                slurpAudio.volume = 0.5;
+                if (slurpAudio.paused) {
+                    slurpAudio.play();
+                } else {
+                    slurpAudio.currentTime = 0
+                }
+
+                slurpAudio.onended = () => {
+                    setCatEatingEasterEgg(false);
+                }
+
+                setCatEatingEasterEgg(true);
+                break;
+            case 'haha one':
+                setLogoURL('https://tr.rbxcdn.com/ce959d1004974a0909d894fd120e2211/420/420/Image/Png')
+                break;
+            default:
+                console.log('nothing');
+        }
+    }
+
     return (
-        <header className="flex-shrink-0 relative h-16 flex items-center lg:pl-24"
+        <header className="flex-shrink-0 relative h-16 flex items-center"
         >
-            <a href="/" className="flex-grow inset-0 left-0 pl-4 items-center sm:pl-6 lg:hidden">
-                <img src={yipnyap_constants.logo_url} alt="Yipnyap"
-                     className="h-8 w-auto inline-flex items-center justify-center rounded-default"/>
+            {catEatingEasterEgg &&
+                <div className="absolute top-4 left-12 p-12 snapanim-shake">
+                    <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/gray-cat.png`}
+                         alt="Gray cat eating a bowl of ramen" className="h-24 w-auto"/>
+                </div>
+            }
+            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 lg:px-6">
+                <img src={logoURL} alt="Yipnyap"
+                     className="logo-image h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>
             {/* Menu button area */}
             <div className="inset-y-0 right-0 pr-4 flex items-center sm:pr-6 md:hidden">
@@ -341,25 +382,27 @@ export default function Header() {
             {/* Desktop nav area */}
             <div className="hidden md:min-w-0 lg:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                {/*<div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">*/}
-                {/*    <label htmlFor="search"*/}
-                {/*           className="sr-only">*/}
-                {/*        Search*/}
-                {/*    </label>*/}
-                {/*    <div className="mt-1 relative rounded-default shadow-sm">*/}
-                {/*        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"*/}
-                {/*             aria-hidden="true">*/}
-                {/*            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"*/}
-                {/*                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">*/}
-                {/*                <path fillRule="evenodd"*/}
-                {/*                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"*/}
-                {/*                      clipRule="evenodd"></path>*/}
-                {/*            </svg>*/}
-                {/*        </div>*/}
-                {/*        <input type="text" name="search" id="search" disabled className="highlight-main block w-full pl-9 max-h-9"*/}
-                {/*               placeholder="Searching is disabled"/>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+                <div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">
+                    <label htmlFor="search"
+                           className="sr-only">
+                        Search
+                    </label>
+                    <div className="mt-1 relative rounded-default shadow-sm">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
+                             aria-hidden="true">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+                                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
+                                <path fillRule="evenodd"
+                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                      clipRule="evenodd"></path>
+                            </svg>
+                        </div>
+                        <input type="text" name="search" id="search" value={searchQuery}
+                               onChange={e => setSearchQuery(e.target.value)}
+                               className="highlight-main block w-full pl-9 max-h-9"
+                               placeholder="@Users, Things, Stuff..." onKeyDown={attemptSearch}/>
+                    </div>
+                </div>
 
                 <div className="relative"/>
 
@@ -367,7 +410,7 @@ export default function Header() {
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
                     {/* Navigation links */}
                     <nav aria-label="Global" className="flex space-x-10">
-                        <a href="https://ko-fi.com/rekkisomo" target="_blank"
+                        <a href="https://patreon.com/yipnyap" target="_blank"
                            className="text-sm font-medium text-primary">
                             ❤️ Donate
                         </a>
@@ -382,11 +425,11 @@ export default function Header() {
 
                     {(!loggedUser && !loadingUser) &&
                         <div className="flex items-center space-x-4">
-                            <a href="/register" className="ypsdk button-upgrade inline-flex items-center">
+                            <a href="/id/create" className="ypsdk button-upgrade inline-flex items-center">
                                 Sign Up
                             </a>
 
-                            <a href="/login" className="ypsdk button-upgrade inline-flex items-center"
+                            <a href="/id/login" className="ypsdk button-upgrade inline-flex items-center"
                                color="primary">
                                 Login
                             </a>
@@ -421,15 +464,9 @@ export default function Header() {
                                 <div className="flex-shrink-0">
                                     {/* Loading Spinner */}
                                     {loadingUser ?
-                                        <svg className="animate-spin h-5 w-5 text-primary"
-                                             xmlns="http://www.w3.org/2000/svg"
-                                             fill="none" viewBox="0 0 24 24">
-                                            <circle className="opacity-25" cx="12" cy="12" r="10"
-                                                    stroke="currentColor"
-                                                    strokeWidth="4"></circle>
-                                            <path className="opacity-75" fill="currentColor"
-                                                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                                        </svg> :
+                                        <img className="h-5 w-5 animate-spin dark:invert"
+                                             src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                             alt="Process working spinner"/> :
                                         <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url}
                                              alt=""/>
                                     }

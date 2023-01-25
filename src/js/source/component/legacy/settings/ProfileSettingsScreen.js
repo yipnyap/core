@@ -192,55 +192,11 @@ function ProfileSettingsScreen(props) {
 
             jQuery
                 .when(uploadAvatarPromise, deleteAvatarPromise, uploadCoverPromise, deleteCoverPromise, updateProfileDataPromise)
-                .done((avatarUploadResponse, deleteAvatarResponse, coverUploadResponse, deleteCoverResponse, updateProfileDataResponse) => {
-                    
-                    
-                    
-
-                    // check if avatar was selected to be uploaded
-                    if (typeof avatarUploadResponse.no_result !== 'undefined') {
-                        
-                    } else {
-                        // success, release blob image resource
-                        
-                    }
-
-                    // check if avatar was selected to be deleted
-                    if (typeof deleteAvatarResponse.no_result !== 'undefined') {
-                        
-                    } else {
-                        
-                    }
-
-                    // check if cover was selected to be uploaded
-                    if (typeof coverUploadResponse.no_result !== 'undefined') {
-                        
-                    } else {
-                        // success, release blob image resource
-                        
-                    }
-
-                    // check if cover was selected to be deleted
-                    if (typeof deleteCoverResponse.no_result !== 'undefined') {
-                        
-                    } else {
-                        
-                    }
-
-                    // check if profile data was updated
-                    if (typeof updateProfileDataResponse.no_result !== 'undefined') {
-                        
-                    } else {
-                        // success
-                        
-                    }
-
+                .done(() => {
                     // refresh page
                     window.location.reload();
                 })
                 .fail((error) => {
-                    
-
                     const errorJSON = error.responseJSON;
 
                     let messageBoxErrorTitle;

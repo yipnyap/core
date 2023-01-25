@@ -1,12 +1,30 @@
 <?php
 /**
+ * Remove the WordPress login & Register pages
+ *
+ * @return void
+ * @package Yipnyap WP Beheadding
+ * @since ui1
+ */
+add_action('init', function () {
+    $current = $_SERVER['REQUEST_URI'];
+    if ((str_starts_with($current, '/login') || str_starts_with($current, '/wp-login')) && $_GET['action'] != 'logout') {
+        wp_redirect('/id/login');
+        exit();
+    } elseif (str_starts_with($current, '/register') || str_starts_with($current, '/wp-login')) {
+        wp_redirect('/id/create');
+        exit();
+    }
+});
+
+/**
  * Remove REST API & oEmbed Discovery links from header
  *
  * @return void
  * @package Yipnyap WP Beheadding
  * @since hk15
  */
-add_action('after_setup_theme', function(): void {
+add_action('after_setup_theme', function (): void {
     // Disable REST API link tag
     remove_action('wp_head', 'rest_output_link_wp_head');
 
@@ -61,7 +79,7 @@ add_filter('admin_title', function(string $admin_title, string $title): string
 add_filter('body_class', function($wp_classes, $extra_classes): array
 {
     // List of the only WP generated classes allowed
-    $whitelist = array('portfolio', 'home', 'error404');
+    $whitelist = ['portfolio', 'home', 'error404'];
 
     // Filter the body classes
     $wp_classes = array_intersect($wp_classes, $whitelist);
@@ -78,7 +96,7 @@ add_filter('body_class', function($wp_classes, $extra_classes): array
  * @since hk15
  */
 add_filter('login_title', function ($login_title) {
-    return str_replace(array(' &lsaquo;', ' &#8212; WordPress', __('WordPress'),), array(' &lsaquo;', ''), $login_title);
+    return str_replace([' &lsaquo;', ' &#8212; WordPress', __('WordPress'),], [' &lsaquo;', ''], $login_title);
 });
 
 /**
@@ -99,7 +117,7 @@ add_filter(
         $new_error = substr($error['message'], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
-        postDiscordWebhookAsError(array(
+        postDiscordWebhookAsError([
             'content' => 'Houndkit crashed.',
             'embeds' => [
                 [
@@ -108,7 +126,7 @@ add_filter(
                     'timestamp' => $date,
                 ],
             ],
-        ));
+        ]);
 
         return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
     },

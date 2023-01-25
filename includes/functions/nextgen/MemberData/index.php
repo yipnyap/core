@@ -223,16 +223,16 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
 {
     if (empty($username) || empty($password)) {
         return [
-            'code' => 400,
-            'error' => 'Username and password are required.',
+            'success' => false,
+            'message' => 'Username and password are required.',
         ];
     }
 
     $user = wp_authenticate($username, $password);
     if (is_wp_error($user)) {
         return [
-            'code' => 401,
-            'error' => 'Invalid username or password.',
+            'success' => false,
+            'message' => 'Invalid username or password.',
         ];
     } else {
         $YipnyapUser = YipnyapGetMember($user->ID);
@@ -261,8 +261,8 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
                 update_user_meta($user->ID, 'SecureID:OCA', md5($otpCode));
 
                 return [
-                    'code' => 401,
-                    'error' => 'OTP is required.',
+                    'success' => false,
+                    'message' => 'OTP is required.',
                 ];
             }
 
@@ -272,8 +272,8 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
                 delete_user_meta($user->ID, 'SecureID:OCA');
 
                 return [
-                    'code' => 401,
-                    'error' => 'Invalid OTP.',
+                    'success' => false,
+                    'message' => 'Invalid OTP.',
                 ];
             } else {
                 // Delete OTP
@@ -291,7 +291,7 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
         wp_set_current_user($user->ID);
 
         return [
-            'code' => 200,
+            'success' => true,
             'user' => $YipnyapUser,
         ];
 

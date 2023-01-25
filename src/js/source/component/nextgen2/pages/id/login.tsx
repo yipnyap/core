@@ -58,7 +58,7 @@ export default function Login() {
             .then((data) => {
                 setLoading(false);
 
-                if (data.code !== 200) {
+                if (!data.success) {
                     handleLoginError(data);
                 } else {
                     window.location.href = '/home/';
@@ -72,12 +72,12 @@ export default function Login() {
         setLoading(false);
         console.log('[LoginService] err during login', err);
 
-        if (err.error.toLowerCase().startsWith('otp is required')) {
+        if (err.message.toLowerCase().startsWith('otp is required')) {
             setTelegramAuthDialogOpen(true);
             return;
         }
 
-        setError(err.error);
+        setError(err.message);
 
         loginCard.current?.classList.add('snapanim-shake');
         setTimeout(() => {

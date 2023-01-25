@@ -259,13 +259,14 @@ export default function NGSideNav({...props}: NGSideNavType) {
                         {location.pathname !== '/home/' && (
                             <nav aria-label="Breadcrumb" className="bg-white border-b border-blue-gray-200 dark:bg-neutral-800 dark:border-neutral-600">
                                 <div className="max-w-3xl mx-auto py-3 px-4 flex items-start sm:px-6 lg:px-8">
-                                    <NavLink
-                                        to="/home/"
+                                    <a
+                                        href="/home/"
                                         className="-ml-1 cursor-pointer inline-flex items-center space-x-3 text-sm font-medium text-blue-gray-900 dark:text-neutral-50"
                                     >
-                                        <ChevronLeftIcon className="h-5 w-5 text-blue-gray-400 dark:text-neutral-400" aria-hidden="true" />
+                                        <ChevronLeftIcon className="h-5 w-5 text-blue-gray-400 dark:text-neutral-400"
+                                                         aria-hidden="true"/>
                                         <span>Detach</span>
-                                    </NavLink>
+                                    </a>
                                 </div>
                             </nav>
                         )}

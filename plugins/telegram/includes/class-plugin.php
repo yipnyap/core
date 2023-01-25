@@ -106,7 +106,6 @@ final class YipnyapTelegramLinkage
             === false
         ) {
             $IsValidBot = $this->telegram->GetMe() !== false;
-            var_dump($IsValidBot);
             set_transient($valid_bot_transient, $IsValidBot, 60 * 60 * 24);
         }
 

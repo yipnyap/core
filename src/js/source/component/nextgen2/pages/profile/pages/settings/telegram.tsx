@@ -258,7 +258,7 @@ function SetupDialog({...props}) {
                             setStatus('Client is processing')
                             setTimeout(() => {
                                 response.json().then(data => {
-                                    if (data.code === 200) {
+                                    if (data.success) {
                                         setIsProcessing(false);
                                         allowNext.current = true;
                                     }
@@ -436,7 +436,7 @@ export default function SettingsTelegram({...props}) {
         })
             .then((res) => res.json())
             .then((res) => {
-                if (res.code === 200) {
+                if (res.success) {
                     window.location.reload()
                 }
             }).catch(alert)

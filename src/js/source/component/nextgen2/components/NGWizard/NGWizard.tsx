@@ -9,6 +9,7 @@ export default function NGWizard(props: {
     dontAnimate?: boolean;
     onClose?: any;
     onChange: Function;
+    isTertiary?: boolean;
     children: JSX.Element;
 }) {
     const theme = props.theme || buildClassObject(ButtonTheming, 'neutral');
@@ -71,7 +72,7 @@ export default function NGWizard(props: {
                         >
                             <Dialog.Panel
                                 ref={dialog}
-                                className="min-w-md max-w-full min-h-sm max-h-full m-auto flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider"
+                                className={`${props.isTertiary ? '!bg-opacity-50 bg-red-100 dark:bg-red-900' : ''} max-w-md max-w-full min-h-sm max-h-full m-auto flex flex-col bg-box transform overflow-hidden rounded-2xl text-left align-middle shadow-xl transition-all border border-solid border-divider`}
                             >
                                 <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-scroll">
                                     {props.children}

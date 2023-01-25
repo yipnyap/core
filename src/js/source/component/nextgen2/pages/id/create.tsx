@@ -46,6 +46,12 @@ export default function Register() {
         if (isLoading) return;
         setLoading(true)
 
+        if (event.target.password.value !== event.target.password_verify.value) {
+            setLoading(false);
+            handleLoginError({message: 'Passwords do not match'});
+            return;
+        }
+
         fetch('/api/v2/id/register', {
             method: 'POST',
             headers: {
@@ -66,7 +72,7 @@ export default function Register() {
                     window.location.href = '/home/';
                 }
             }).catch(err => {
-            handleLoginError({error: err.message});
+            handleLoginError(err);
         })
     }
 
@@ -155,7 +161,7 @@ export default function Register() {
                                 <div className="mt-1">
                                     <input
                                         id="password-verify"
-                                        name="password-verify"
+                                        name="password_verify"
                                         type="password"
                                         autoComplete="none"
                                         required

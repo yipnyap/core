@@ -63,9 +63,10 @@ export default function Login() {
                 } else {
                     window.location.href = '/home/';
                 }
-            }).catch(err => {
-            handleLoginError({error: err.message});
-        })
+            })
+            .catch(err => {
+                handleLoginError({error: err.message});
+            })
     }
 
     const handleLoginError = (err: any) => {

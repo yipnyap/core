@@ -71,9 +71,10 @@ export default function Register() {
                 } else {
                     window.location.href = '/home/';
                 }
-            }).catch(err => {
-            handleLoginError(err);
-        })
+            })
+            .catch(err => {
+                handleLoginError(err);
+            })
     }
 
     const handleLoginError = (err: any) => {

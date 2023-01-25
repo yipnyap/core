@@ -109,6 +109,7 @@ export default function Activity() {
                         <ActivityFilterableList order="DESC"
                                                 groupID={currentGroup}
                                                 perPage={5}
+                                                element="NGContent"
                                                 className="w-full"/>
 
                         <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">

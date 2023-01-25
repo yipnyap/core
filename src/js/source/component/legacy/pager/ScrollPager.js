@@ -33,7 +33,6 @@ function ScrollPager(props) {
 
     const loadMoreOnScroll = () => {
         if (scrolledThrough(loaderRef.current)) {
-            
             element.removeEventListener('scroll', loadMoreOnScroll);
             loadMoreItems();
         }

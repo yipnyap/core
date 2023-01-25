@@ -238,47 +238,10 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
         $YipnyapUser = YipnyapGetMember($user->ID);
 
         if ($YipnyapUser['tgid']) {
-            // Ready Telegram
-            $tg = new YipnyapTelegram();
-
-            // Check if OTP exists, otherwise generate a code
-            $otpCode = false;
-            // if $otp is blank, assume that the user was not prompted for OTP yet
-            if (!empty($otp)) $otpCode = get_user_meta($user->ID, 'SecureID:OCA', true);
-            if (empty($otpCode)) {
-                // Generate random string, using the users' security level
-                // as the length of the string.
-                $secureIDLevel = get_user_meta($user->ID, 'SecureID:Level', true);
-                $otpCode = match ($secureIDLevel) {
-                    'medium' => bin2hex(random_bytes(8)),
-                    'high' => bin2hex(random_bytes(16)),
-                    default => bin2hex(random_bytes(4)),
-                };
-
-                // Send OTP to Telegram
-                $tg->SendTgToken($otpCode, $YipnyapUser['tgid']);
-
-                update_user_meta($user->ID, 'SecureID:OCA', md5($otpCode));
-
-                return [
-                    'success' => false,
-                    'message' => 'OTP is required.',
-                ];
-            }
-
-            // Check if OTP is correct
-            if (md5($otp) !== $otpCode) {
-                $tg->SendFailedLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
-                delete_user_meta($user->ID, 'SecureID:OCA');
-
-                return [
-                    'success' => false,
-                    'message' => 'Invalid OTP.',
-                ];
-            } else {
-                // Delete OTP
-                delete_user_meta($user->ID, 'SecureID:OCA');
-                $tg->SendSuccessfulLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+            $OTPResult = YipnyapCheckOTP($YipnyapUser, $otp);
+            if (!$OTPResult['success']) {
+                // If OTP is not correct, return the error message.
+                return $OTPResult;
             }
         }
 
@@ -295,6 +258,63 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             'user' => $YipnyapUser,
         ];
 
+    }
+}
+
+/**
+ * Check OTP, send one if not exists.
+ * @param $YipnyapUser
+ * @param string $otp
+ * @return array ['success' => bool, 'message' => string] - success is true only if OTP is correct.
+ * @throws Exception
+ */
+function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
+{
+    // Ready Telegram
+    $tg = new YipnyapTelegram();
+
+    // Check if OTP exists, otherwise generate a code
+    $otpCode = false;
+    // if $otp is blank, assume that the user was not prompted for OTP yet
+    if (!empty($otp)) $otpCode = get_user_meta($YipnyapUser['id'], 'SecureID:OCA', true);
+    if (empty($otpCode)) {
+        // Generate random string, using the users' security level
+        // as the length of the string.
+        $secureIDLevel = get_user_meta($YipnyapUser['id'], 'SecureID:Level', true);
+        $otpCode = match ($secureIDLevel) {
+            'medium' => bin2hex(random_bytes(8)),
+            'high' => bin2hex(random_bytes(16)),
+            default => bin2hex(random_bytes(4)),
+        };
+
+        // Send OTP to Telegram
+        $tg->SendTgToken($otpCode, $YipnyapUser['tgid']);
+
+        update_user_meta($YipnyapUser['id'], 'SecureID:OCA', md5($otpCode));
+
+        return [
+            'success' => false,
+            'message' => 'OTP is required.',
+        ];
+    }
+
+    // Check if OTP is correct
+    if (md5($otp) !== $otpCode) {
+        $tg->SendFailedLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+        delete_user_meta($YipnyapUser['id'], 'SecureID:OCA');
+
+        return [
+            'success' => false,
+            'message' => 'Invalid OTP.',
+        ];
+    } else {
+        // Delete OTP
+        delete_user_meta($YipnyapUser['id'], 'SecureID:OCA');
+        $tg->SendSuccessfulLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
+
+        return [
+            'success' => true,
+        ];
     }
 }
 

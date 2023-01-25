@@ -118,7 +118,7 @@ export default function Login() {
             <div className="flex flex-col py-12 sm:px-6 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-md">
                     <img
-                        className="mx-auto h-12 w-auto rounded-default"
+                        className="logo-image mx-auto h-12 w-auto rounded-default"
                         src={yipnyap_constants.logo_url}
                         alt="Yipnyap Logo"
                     />

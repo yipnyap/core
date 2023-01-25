@@ -19,7 +19,7 @@ add_action('rest_api_init', function () {
         'callback' => function ($request) {
             // Set the ID inside WordPress user meta.
             update_user_meta(get_current_user_id(), 'tgid', $request['id']);
-            wp_send_json(['success' => 'ID set.']);
+            wp_send_json(['code' => 200, 'message' => 'ID set.']);
         },
     ]);
 

@@ -168,6 +168,62 @@ add_action('rest_api_init', function () {
         },
     ]);
 
+    /**
+     * POST /id/recover
+     * @since ui1
+     */
+    register_rest_route('v2', '/id/recover', [
+        'methods' => 'POST',
+        'args' => [
+            'username' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+            'password' => [
+                'required' => false,
+                'type' => 'string',
+            ],
+            'otp' => [
+                'required' => false,
+                'type' => 'string',
+            ],
+        ],
+        'callback' => function ($request) {
+            // Check if user exists
+            $userExists = username_exists($request['username']);
+            if (!$userExists) {
+                wp_send_json([
+                    'success' => false,
+                    'message' => 'Username doesn\'t exist.',
+                ]);
+            } else {
+                $YipnyapUser = YipnyapGetMember($userExists, null, true);
+                if (empty($YipnyapUser['tgid'])) {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Cannot recover an unclaimed account. If you completely lost access, you\'re out of luck. Create a new account.',
+                    ]);
+                }
+                $OTPResult = YipnyapCheckOTP($YipnyapUser, $request['otp']);
+                if (!$OTPResult['success']) {
+                    // If OTP is missing or incorrect
+                    wp_send_json($OTPResult);
+                } elseif (empty($request['password'])) {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Password is required.',
+                    ]);
+                } else {
+                    // User is verified, reset password
+                    wp_set_password($request['password'], $userExists);
+                    wp_send_json([
+                        'success' => true,
+                        'message' => 'Password reset successfully.',
+                    ]);
+                }
+            }
+        }
+    ]);
 });
 
 /**

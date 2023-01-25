@@ -194,10 +194,10 @@ export default function Login() {
                                 </div>
 
                                 <div className="text-sm">
-                                    <a href="src/route/id/login#"
-                                       className="font-medium text-blue-600 hover:text-blue-500">
-                                        Forgot your password?
-                                    </a>
+                                    <NavLink to={'/id/recovery'}
+                                             className="font-medium text-blue-600 hover:text-blue-500">
+                                        Need help logging in?
+                                    </NavLink>
                                 </div>
                             </div>
 

@@ -61,6 +61,10 @@ export const router = createBrowserRouter([
                     {
                         path: 'create',
                         element: <YipnyapID/>,
+                    },
+                    {
+                        path: 'recovery',
+                        element: <YipnyapID/>,
                     }
                 ]
             },

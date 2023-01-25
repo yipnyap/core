@@ -64,24 +64,25 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  * Get member data by ID
  *
  * @param int|string $member_id Member ID.
- * @param int $bitwise
+ * @param int|null $bitwise
+ * @param bool $isSelf
  * @return array Member data.
  * @since hk15
  *
  * @see yipnyap_members_get
  */
-function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0, bool $isSelf = false): array
+function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false): array
 {
     global $GetMemberBit;
-
-    if ($member_id === '@me') {
-        $isSelf = true;
-    }
 
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
     $member_id = YipnyapFetchMemberID($member_id, true);
+
+    if ($member_id === get_current_user_id()) {
+        $isSelf = true;
+    }
 
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {
@@ -137,7 +138,7 @@ function YipnyapGetMember(int|string $member_id, int $bitwise = 0x0, bool $isSel
     /**
      * Check if member is "me", then add UI Privacy & Security to the member array.
      */
-    if (isset($isSelf)) {
+    if ($isSelf) {
         $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
         $unicornEngine = get_option('unicorn_engine');
         $member['ui_privacy'] = [
@@ -235,7 +236,7 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             'message' => 'Invalid username or password.',
         ];
     } else {
-        $YipnyapUser = YipnyapGetMember($user->ID);
+        $YipnyapUser = YipnyapGetMember($user->ID, null, true);
 
         if ($YipnyapUser['tgid']) {
             $OTPResult = YipnyapCheckOTP($YipnyapUser, $otp);
@@ -264,12 +265,20 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
 /**
  * Check OTP, send one if not exists.
  * @param $YipnyapUser
- * @param string $otp
+ * @param string|null $otp
  * @return array ['success' => bool, 'message' => string] - success is true only if OTP is correct.
  * @throws Exception
  */
 function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
 {
+    // Check if OTP is required
+    if (empty($YipnyapUser['tgid'])) {
+        return [
+            'success' => true,
+            'message' => 'No OTP required.',
+        ];
+    }
+
     // Ready Telegram
     $tg = new YipnyapTelegram();
 

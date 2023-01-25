@@ -254,10 +254,11 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
                     'high' => bin2hex(random_bytes(16)),
                     default => bin2hex(random_bytes(4)),
                 };
-                update_user_meta($user->ID, 'SecureID:OCA', $otpCode);
 
                 // Send OTP to Telegram
                 $tg->SendTgToken($otpCode, $YipnyapUser['tgid']);
+
+                update_user_meta($user->ID, 'SecureID:OCA', md5($otpCode));
 
                 return [
                     'code' => 401,
@@ -266,7 +267,7 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             }
 
             // Check if OTP is correct
-            if ($otp !== $otpCode) {
+            if (md5($otp) !== $otpCode) {
                 $tg->SendFailedLogin($YipnyapUser['username'], $YipnyapUser['tgid']);
                 delete_user_meta($user->ID, 'SecureID:OCA');
 

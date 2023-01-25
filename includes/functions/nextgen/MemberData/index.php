@@ -291,9 +291,9 @@ function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
         // as the length of the string.
         $secureIDLevel = get_user_meta($YipnyapUser['id'], 'SecureID:Level', true);
         $otpCode = match ($secureIDLevel) {
-            'medium' => bin2hex(random_bytes(8)),
-            'high' => bin2hex(random_bytes(16)),
-            default => bin2hex(random_bytes(4)),
+            'medium' => bin2hex(random_bytes(16)),
+            'high' => bin2hex(random_bytes(24)),
+            default => bin2hex(random_bytes(8)),
         };
 
         // Send OTP to Telegram

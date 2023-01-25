@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
-    Cog6ToothIcon,
-    PaperAirplaneIcon,
+    KeyIcon,
+    UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {Void} from "../..";
@@ -22,14 +22,14 @@ export default function YipnyapID() {
                         name: 'Login',
                         description: '',
                         href: '/id/login',
-                        icon: Cog6ToothIcon,
+                        icon: KeyIcon,
                         current: location.pathname === '/id/login',
                     },
                     {
                         name: 'Register',
                         description: '',
                         href: '/id/create',
-                        icon: PaperAirplaneIcon,
+                        icon: UserPlusIcon,
                         current: location.pathname === '/id/create',
                     },
                 ]

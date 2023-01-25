@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="MySQL - local@localhost" read-only="true" uuid="d5c1103f-fedc-4e5f-88b5-ac29ddff53cf">
+    <data-source source="LOCAL" name="MySQL - local@localhost" uuid="d5c1103f-fedc-4e5f-88b5-ac29ddff53cf">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:10004/local</jdbc-url>
+      <jdbc-url>jdbc:mysql:///local?junixsocket.file=$USER_HOME$/.config/Local/run/-eYCKwpa7/mysql/mysqld.sock&amp;socketFactory=org.newsclub.net.mysql.AFUNIXDatabaseSocketFactoryCJ</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
+      <keep-alive enable="true" />
     </data-source>
   </component>
 </project>

@@ -22608,7 +22608,7 @@ img.logo-image {
 }
 .snapanim-elastic.snapanim-in {
   -webkit-transform: scale(0);
-      -ms-transform: scale(0);
+  -ms-transform: scale(0);
   transform: scale(0);
   -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
   transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
@@ -22669,7 +22669,6 @@ img.logo-image {
     transform: translateY(4px);
   }
 }
-
 @-webkit-keyframes zoomIn {
   from {
     -webkit-transform: scale(0);

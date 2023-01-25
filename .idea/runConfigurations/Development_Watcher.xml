@@ -5,7 +5,9 @@
     <tasks>
       <task value="default" />
     </tasks>
-    <envs />
+    <envs>
+      <env name="GRUNT_WATCH" value="true" />
+    </envs>
     <method v="2" />
   </configuration>
 </component>

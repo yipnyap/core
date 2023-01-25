@@ -59,8 +59,8 @@ module.exports = function (grunt) {
                 dest: 'src/js/bundle/bundle.js',
             },
             options: {
-                watch: true,
-                keepAlive: true,
+                watch: process.env.GRUNT_WATCH === true,
+                keepAlive: process.env.GRUNT_WATCH === true,
                 sourceMap: false,
                 browserifyOptions: {
                     debug: true
@@ -87,30 +87,6 @@ module.exports = function (grunt) {
                 },
             }
         },
-        watch: {
-            options: {
-                livereload: true
-            },
-            php: {
-                files: ['*.php', '**/*.php']
-            },
-            sass: {
-                files: ['src/sass/**'],
-                tasks: ['styles']
-            },
-            js: {
-                files: ['src/js/**/*.js', '!src/js/bundle/**', '!src/js/vendor/*.min.js', '!src/js/*.min.js'],
-                tasks: ['scripts']
-            },
-            jsx: {
-                files: ['src/js/**/*.jsx'],
-                tasks: ['scripts']
-            },
-            ts: {
-                files: ['src/js/**/*.ts', 'src/js/**/*.tsx'],
-                tasks: ['scripts']
-            }
-        }
     });
 
     // Load tasks
@@ -121,10 +97,9 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Register global tasks
-    grunt.registerTask('default', ['styles', 'scripts', 'launch']);
+    grunt.registerTask('default', ['styles', 'scripts']);
 
     // Register custom tasks
     grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix']);
     grunt.registerTask('scripts', ['browserify', /*'uglify:*/]);
-    grunt.registerTask('launch', ['watch']);
 };

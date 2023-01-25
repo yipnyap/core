@@ -48,9 +48,6 @@ export default function Recovery() {
             setLoading(false);
             setTelegramAuthDialogOpen(true);
             return;
-        } else if (newPassword) {
-            setPasswordResetStep(1);
-            return;
         }
 
         fetch('/api/v2/id/recover', {

@@ -23,7 +23,11 @@ export default function NGWizard(props: {
     const dialogInner = useRef<HTMLDivElement>(null);
 
     function closeModal() {
-        props.onClose && props.onClose();
+        if (props.onClose) {
+            props.onClose();
+        } else {
+            setIsOpen(false);
+        }
     }
 
     requestAnimationFrame(() => {

@@ -20,7 +20,7 @@ add_action('rest_api_init', function () {
      * GET /member/{id}/groups
      * @param int $id Member ID.
      * @return object Member groups.
-     * @since ui3
+     * @since ui1
      */
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/groups', [
         'methods' => 'GET',
@@ -33,7 +33,7 @@ add_action('rest_api_init', function () {
      * GET /member/{id}/friends
      * @param int $id Member ID.
      * @return object Member friends.
-     * @since ui3
+     * @since ui1
      */
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/friends', [
         'methods' => 'GET',

@@ -386,7 +386,7 @@ function YipnyapGetMemberBadges(string|int $member_id): array
  *
  * @param string|int $member_id Member ID
  * @return array Member's groups
- * @since ui3
+ * @since ui1
  */
 function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array
 {
@@ -432,7 +432,7 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
  *
  * @param string|int $member_id Member ID
  * @return array Member's friends
- * @since ui3
+ * @since ui1
  */
 function YipnyapGetMemberFriends(string|int $member_id): array
 {

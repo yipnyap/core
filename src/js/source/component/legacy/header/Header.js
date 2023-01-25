@@ -172,8 +172,8 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
-                        {name: 'Sign In', href: '/login'},
-                        {name: 'Sign Up', href: '/register'}
+                        {name: 'Sign In', href: '/id/login'},
+                        {name: 'Sign Up', href: '/id/create'}
                     ]
 
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
@@ -425,11 +425,11 @@ export default function Header() {
 
                     {(!loggedUser && !loadingUser) &&
                         <div className="flex items-center space-x-4">
-                            <a href="/register" className="ypsdk button-upgrade inline-flex items-center">
+                            <a href="/id/create" className="ypsdk button-upgrade inline-flex items-center">
                                 Sign Up
                             </a>
 
-                            <a href="/login" className="ypsdk button-upgrade inline-flex items-center"
+                            <a href="/id/login" className="ypsdk button-upgrade inline-flex items-center"
                                color="primary">
                                 Login
                             </a>

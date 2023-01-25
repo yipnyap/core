@@ -22,4 +22,17 @@ add_action('rest_api_init', function () {
             wp_send_json(['success' => 'ID set.']);
         },
     ]);
+
+    /**
+     * DELETE /telegram
+     * @since ui1
+     */
+    register_rest_route('v2', '/telegram', [
+        'methods' => 'DELETE',
+        'callback' => function () {
+            // Delete the ID inside WordPress user meta.
+            delete_user_meta(get_current_user_id(), 'tgid');
+            wp_send_json(['code' => 200, 'message' => 'ID deleted.']);
+        },
+    ]);
 });

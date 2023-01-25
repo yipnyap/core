@@ -4,12 +4,12 @@ import {buildClassObject} from "../../../../utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {Tab, Dialog, Transition} from "@headlessui/react";
 import {useLocation} from "react-router-dom";
-import {NGCard} from "../../../../components";
+import {NGCard, NGWizard} from "../../../../components";
 
 export const ButtonTheming = {
     main: [],
     button: ['w-full', 'inline-flex', 'justify-center',
-        'shadow-sm', 'bg-default', 'text-sm', 'font-medium', 'text-default',
+        'shadow-sm', 'text-sm', 'font-medium', 'text-default',
         'hover:bg-neutral-50 dark:hover:bg-neutral-700'],
     buttonPrimary: ['w-full', 'inline-flex', 'justify-center',
         'shadow-sm', 'text-blue-500', 'text-sm', 'font-medium',
@@ -376,7 +376,7 @@ function SetupDialog({...props}) {
                                         className="flex flex-col md:flex-row sticky bottom-0 items-center justify-center w-full border-t border-b-0 border-x-0 border-solid border-divider divide-x divide-y-0 divide-solid divide-neutral-300 dark:divide-neutral-700">
                                         <button
                                             type="button"
-                                            className={`${props.theme.button} p-4 rounded-none`}
+                                            className={`${props.theme.button} bg-default p-4 rounded-none`}
                                             onClick={closeModal}
                                         >
                                             Cancel
@@ -384,7 +384,7 @@ function SetupDialog({...props}) {
 
                                         <button
                                             type="button"
-                                            className={`${props.theme.buttonPrimary} p-4 rounded-none`}
+                                            className={`${props.theme.buttonPrimary} bg-default p-4 rounded-none`}
                                             onClick={setNextTab}
                                         >
                                             Continue
@@ -398,7 +398,7 @@ function SetupDialog({...props}) {
             </Transition>
             <button
                 type="button"
-                className={`${props.theme.button} py-2 px-4`}
+                className={`${props.theme.button} bg-default py-2 px-4`}
                 onClick={openModal}
             >
                 <ArrowRightCircleIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
@@ -414,6 +414,8 @@ export default function SettingsTelegram({...props}) {
     const [heading, setHeading] = useHeading();
     const location = useLocation();
 
+    const [showUnlinkDialog, setShowUnlinkDialog] = useState(false);
+
     useEffect(() => {
         if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {
             setHeading({
@@ -423,6 +425,22 @@ export default function SettingsTelegram({...props}) {
             })
         }
     }, [location.pathname]);
+
+    function doTelegramUnlink() {
+        fetch('/api/v2/telegram', {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+            },
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                if (res.code === 200) {
+                    window.location.reload()
+                }
+            }).catch(alert)
+    }
 
     return (
         <>
@@ -462,6 +480,17 @@ export default function SettingsTelegram({...props}) {
                         </div>
                     </div>
 
+                    {/* Telegram Unlink */}
+                    <NGWizard isOpen={showUnlinkDialog} onChange={doTelegramUnlink} dontAnimate={true} theme={theme}>
+                        <div className="flex flex-col gap-4 max-w-lg">
+                            <h2>Are you sure?</h2>
+                            <p className="text-sm text-alt-2">
+                                You won't be able to reset your password, as well as other features,
+                                if you unlink your Telegram account. You'll have to do the setup again if you
+                                want to relink.
+                            </p>
+                        </div>
+                    </NGWizard>
                     <NGCard title="Unlink Telegram" wellBody={true}>
                         <div
                             className="flex flex-col lg:flex-row space-y-4 lg:space-x-4 lg:space-y-0 justify-center items-center">
@@ -472,7 +501,8 @@ export default function SettingsTelegram({...props}) {
 
                             <button
                                 type="button"
-                                className={`${theme.button} bg-red-300 dark:bg-red-700 hover:bg-red-400 dark:hover:bg-red-800 py-2 px-4 max-w-md`}
+                                className={`${theme.button} bg-red-500 dark:bg-red-700 hover:bg-red-400 dark:hover:bg-red-800 py-2 px-4 max-w-md`}
+                                onClick={() => setShowUnlinkDialog(true)}
                             >
                                 Unlink
                             </button>

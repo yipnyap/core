@@ -95,6 +95,10 @@ function SetupDialog({...props}) {
                                         content
                                         (depending on region), or request a storage quota increase.
                                     </p>
+                                    <p className="text-sm text-tertiary">
+                                        Multiple accounts will be privately linked together. No one will be able
+                                        to find your other accounts through this, however Yipnyap staff can.
+                                    </p>
                                     <hr/>
                                     <h2>Few things to note</h2>
                                     <div className="flex flex-col gap-y-4">
@@ -105,17 +109,10 @@ function SetupDialog({...props}) {
                                             </div>
                                             <p className="text-sm text-alt-2">
                                                 Telegram gives us barebones, read-only data, which is shared only once
-                                                per authorisation via this wizard. The data is as follows:
+                                                per authorisation via this wizard. The following is sent to Yipnyap:
                                             </p>
                                             <ul className="text-sm text-alt-2 list-disc list-inside">
-                                                <li>Telegram ID (<code>id</code>)</li>
-                                                <li>Telegram Username (<code>username</code>)</li>
-                                                <li>Telegram First Name (<code>first_name</code>)</li>
-                                                <li>Telegram Last Name (<code>last_name</code>)</li>
-                                                <li>Telegram Profile Picture (<code>photo_url</code>)</li>
-                                                <li>Date of when authorisation was provided (<code>auth_date</code>)
-                                                </li>
-                                                <li>Hash of the above data (<code>hash</code>)</li>
+                                                <li>Telegram ID (<code>id</code>) - Used to send you messages</li>
                                             </ul>
                                         </div>
                                         <div className="gap-x-2">

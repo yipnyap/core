@@ -140,7 +140,7 @@ $color-text-alt-2: $gray;
 }
 
 .text-alt-2 {
-  color: var(--color-text-alt-2);
+  @apply text-neutral-400;
 }
 
 .text-secondary {

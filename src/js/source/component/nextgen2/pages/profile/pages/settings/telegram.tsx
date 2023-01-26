@@ -412,6 +412,7 @@ export default function SettingsTelegram({...props}) {
     const location = useLocation();
 
     const [showUnlinkDialog, setShowUnlinkDialog] = useState(false);
+    const [telegramIsAllowed, setTelegramIsAllowed] = useState(false);
 
     useEffect(() => {
         if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {
@@ -441,7 +442,30 @@ export default function SettingsTelegram({...props}) {
 
     return (
         <div className="mb-8">
-            {!yipnyap_constants.currentUser?.tgid && (
+            {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser.tgid && !telegramIsAllowed) && (
+                <div className="flex flex-row space-x-4 justify-center items-center">
+                    <div className="flex-1 mr-auto space-y-4 max-w-lg">
+                        <h2 className="text-2xl font-bold">Telegram linkage unavailable</h2>
+                        <p className="text-sm text-alt-2">
+                            Linking Telegram is currently disabled. You can still unlink your Telegram
+                            account, but you will not be able to link it again until this feature
+                            is available again.
+                        </p>
+                        {yipnyap_constants.notices?.tgLink && (
+                            <p className="text-sm text-alt-2">
+                                <span className="text-blue-500">From Staff</span>: {yipnyap_constants.notices?.tgLink}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="max-w-md my-auto">
+                        <img
+                            src={`${yipnyap_constants.yipnyap_url}/img/illustrations/lost-boi.png`}
+                            alt="Telegram header image" className="h-48"/>
+                    </div>
+                </div>
+            )}
+            {(!yipnyap_constants.currentUser?.tgid && telegramIsAllowed) && (
                 <div className="flex">
                     <div className="flex-1 mr-auto gap-x-4 max-w-lg">
                         <h2 className="text-2xl font-bold">Setup Telegram to claim this account.</h2>
@@ -467,8 +491,15 @@ export default function SettingsTelegram({...props}) {
                 <div className="flex flex-col space-y-4">
                     {/* Header w/ image */}
                     <div className="flex flex-row space-x-4 justify-center items-center">
-                        <div className="flex-1 mr-auto">
+                        <div className="flex-1 mr-auto space-y-4">
                             <h2 className="text-2xl font-bold">Manage Telegram</h2>
+                            {!telegramIsAllowed && (
+                                <p className="text-sm text-tertiary">
+                                    Linking Telegram is currently disabled. You can still unlink your Telegram
+                                    account, but you will not be able to link it again until this feature
+                                    is available again.
+                                </p>
+                            )}
                         </div>
 
                         <div className="max-w-md my-auto">

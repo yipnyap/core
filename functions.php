@@ -113,7 +113,7 @@ $current_user = wp_get_current_user();
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
 define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'ui1.1');
+    : 'ui1.1 - 0ee74a3c');
 //const YIPNYAP_VERSION = 'hk13-hf1';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
@@ -302,6 +302,9 @@ function yipnyap_load_scripts(): void
         'yipnyap_server_version' => YIPNYAP_VERSION,
         'upload_url' => wp_upload_dir()['baseurl'],
         'telegram_bot' => explode(':', get_option('tg_col')['bot_token'])[0],
+        'notices' => [
+            'tgLink' => "@rekkisomo: Due to an issue with Telegram's Login Widget, you can't link Telegram right now. We're working to fix this issue, conversing with Telegram Support. Sorry for the inconvenience 😔",
+        ]
     ]);
 
     // pass translation strings to javascript file

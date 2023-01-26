@@ -59,8 +59,8 @@ module.exports = function (grunt) {
                 dest: 'src/js/bundle/bundle.js',
             },
             options: {
-                watch: process.env.GRUNT_WATCH === true,
-                keepAlive: process.env.GRUNT_WATCH === true,
+                watch: process.env.GRUNT_WATCH === 'true',
+                keepAlive: process.env.GRUNT_WATCH === 'true',
                 sourceMap: false,
                 browserifyOptions: {
                     debug: true

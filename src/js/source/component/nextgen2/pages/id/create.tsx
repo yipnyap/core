@@ -188,10 +188,15 @@ export default function Register() {
                             </div>
 
                             <div>
-                                <span className="text-xs text-alt-2">
+                                <p className="text-xs text-alt-2">
                                     You will need to link Telegram to your Yipnyap account after
                                     sign up! We'll guide you through it.
-                                </span>
+                                </p>
+                                <p className="text-xs text-alt-2">
+                                    By signing up, you agree to our <a href="/community-guidelines"
+                                                                       className="text-blue-600 hover:text-blue-500">Guidelines</a> and <a
+                                    href="/privacy" className="text-blue-600 hover:text-blue-500">Privacy Policy</a>.
+                                </p>
                                 <button
                                     type="submit"
                                     className="mt-2 w-full flex justify-center py-2 px-4 border border-transparent rounded-lg shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"

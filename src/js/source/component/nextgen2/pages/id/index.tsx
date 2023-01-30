@@ -1,7 +1,8 @@
 import React, {useEffect} from "react";
 import {useLocation} from "react-router-dom";
 import {
-    KeyIcon, LifebuoyIcon,
+    ClipboardDocumentListIcon,
+    KeyIcon, LifebuoyIcon, ShieldCheckIcon,
     UserPlusIcon,
 } from "@heroicons/react/24/outline";
 import {useHeading} from "../../../../providers/PageHeading.provider";
@@ -9,6 +10,7 @@ import {Void} from "../..";
 import Login from "./login";
 import Register from "./create";
 import Recovery from "./recovery";
+import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 
 export default function YipnyapID() {
     const [heading, setHeading] = useHeading();
@@ -41,6 +43,22 @@ export default function YipnyapID() {
                         icon: LifebuoyIcon,
                         current: location.pathname === '/id/recovery',
                     },
+                    {
+                        name: <span className='inline-flex'>Privacy <ArrowUpRightIcon className='w-4'/></span>,
+                        description: '',
+                        href: '/privacy',
+                        icon: ShieldCheckIcon,
+                        target: '_blank',
+                        current: location.pathname === '/privacy',
+                    },
+                    {
+                        name: <span className='inline-flex'>Guidelines <ArrowUpRightIcon className='w-4'/></span>,
+                        description: '',
+                        href: '/community-guidelines',
+                        icon: ClipboardDocumentListIcon,
+                        target: '_blank',
+                        current: location.pathname === '/community-guidelines',
+                    }
                 ]
             }
         })

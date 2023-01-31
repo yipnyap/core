@@ -81,6 +81,12 @@ add_action('wp_ajax_yipnyap_create_activity_comment', 'yipnyap_create_activity_c
     wp_die();
   }
 
+  if ($creation_config['type'] === 'activity_share') {
+    header('Content-Type: application/json');
+    echo json_encode(false);
+    wp_die();
+  }
+
   // die early if activity user id doesn't match loggedin user id
   if (array_key_exists('user_id', $creation_config)) {
     if (((int)$creation_config['user_id']) !== get_current_user_id()) {

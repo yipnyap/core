@@ -4,6 +4,7 @@
   "description": "The Yipnyap Experience",
   "main": "Gruntfile.js",
   "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 0",
     "build": "grunt && npx tailwindcss -i \"./src/css/raw/styles.css\" -o \"./style.css\" && terser -c -m -o ./src/js/bundle.min.js -- ./src/js/bundle/bundle.js",
     "build_admin": "browserify ./src/js/source/admin.js --extension=jsx --extension=js -t [ babelify --presets [ @babel/env @babel/preset-react ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle > ./src/js/admin.bundle.min.js",
     "dev:tailwind": "npx tailwindcss -i \"./src/css/raw/styles.css\" -o \"./style.css\" --watch",

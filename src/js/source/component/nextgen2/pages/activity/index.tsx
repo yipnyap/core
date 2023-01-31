@@ -11,6 +11,8 @@ import {NGCard} from "../../components";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore
+import Loader from '../../../legacy/loader/Loader';
+// @ts-ignore
 import NoUserCTAActivity from "../../../legacy/onboarding/NoUserCTAActivity";
 import SettingsTelegram from "../profile/pages/settings/telegram";
 
@@ -19,8 +21,9 @@ export default function Activity() {
     const [, setHeading] = useHeading();
     const [userGroups, setUserGroups] = useState<NGContentNavigatorItemType[]>([]);
     const [userFriends, setUserFriends] = useState<NGContentNavigatorItemType[]>([]);
-    const [currentGroup, setCurrentGroup] = useState<string | false>(false);
+    const [currentGroup, setCurrentGroup] = useState<string | false>();
     const [showVoid, setShowVoid] = useState<boolean>(false);
+    const [readyToRender, setReadyToRender] = useState<boolean>(false);
 
     useEffect(() => {
         // Get current user groups
@@ -69,6 +72,7 @@ export default function Activity() {
                 });
             }
             setUserFriends(userFriendsBuild);
+            setReadyToRender(true);
         })
     }, [location.pathname])
 
@@ -106,11 +110,26 @@ export default function Activity() {
                         )
                     }
                     <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
-                        <ActivityFilterableList order="DESC"
-                                                groupID={currentGroup}
-                                                perPage={5}
-                                                element="NGContent"
-                                                className="w-full"/>
+                        {
+                            readyToRender ? (
+                                <>
+                                    {currentGroup !== false ? (
+                                        <ActivityFilterableList order="DESC"
+                                                                groupID={currentGroup}
+                                                                perPage={5}
+                                                                element="NGContent"
+                                                                className="w-full"/>
+                                    ) : (
+                                        <ActivityFilterableList order="DESC"
+                                                                perPage={5}
+                                                                element="NGContent"
+                                                                className="w-full"/>
+                                    )}
+                                </>
+                            ) : (
+                                <Loader/>
+                            )
+                        }
 
                         <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
                             {yipnyap_constants.currentUser?.username && (

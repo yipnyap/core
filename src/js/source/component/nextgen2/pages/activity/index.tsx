@@ -74,6 +74,10 @@ export default function Activity() {
             setUserFriends(userFriendsBuild);
             setReadyToRender(true);
         })
+
+        if (!yipnyap_constants.currentUser?.display_name) {
+            setReadyToRender(true);
+        }
     }, [location.pathname])
 
     useEffect(() => {

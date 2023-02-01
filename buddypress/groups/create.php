@@ -1,11 +1,11 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Groups Creation
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   if (is_user_logged_in()) {

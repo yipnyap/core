@@ -1,11 +1,11 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Activity Entry
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
 ?>

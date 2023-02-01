@@ -142,7 +142,7 @@ export default function Profile({...props}) {
                     name: 'Arcana',
                     description: '',
                     href: `/${userID}/arcana/`,
-                    icon: 'https://yipnyap.xyz/vault/@server/uploads/2022/12/dorito.png',
+                    icon: 'https://yipnyap.me/vault/@server/uploads/2022/12/dorito.png',
                     current: location.pathname === `/${userID}/arcana/`,
                 }
             ])

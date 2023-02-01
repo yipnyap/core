@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Member Plugins
- * 
+ *
  * Loads member custom templates
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   do_action('bp_template_content');

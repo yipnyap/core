@@ -41,7 +41,7 @@ function yipnyap_customizer_stream($wp_customize) {
    */
   $wp_customize->add_setting('yipnyap_stream_setting_twitch_embed_parent', [
     'sanitize_callback' => 'yipnyap_customizer_sanitize_text_comma_separated',
-    'default'           => 'yipnyap.xyz'
+    'default' => 'yipnyap.me'
   ]);
 
   $wp_customize->add_control('yipnyap_stream_control_twitch_embed_parent', [

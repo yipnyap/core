@@ -1,13 +1,13 @@
 <?php
 /**
  * Functions - Stream
- * 
+ *
  * @package Yipnyap
- * 
+ *
  * @since 2022.05.2
- * 
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
 if (!function_exists('yipnyap_stream_twitch_embed_src_get')) {

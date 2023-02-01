@@ -18,6 +18,17 @@ add_action('init', function () {
 });
 
 /**
+ * Stop WordPress from guessing the correct URL
+ *
+ * @return void
+ * @package Yipnyap WP Beheadding
+ * @since ui1.2
+ */
+add_filter('do_redirect_guess_404_permalink', function () {
+    return false;
+});
+
+/**
  * Remove REST API & oEmbed Discovery links from header
  *
  * @return void

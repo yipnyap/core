@@ -14,6 +14,8 @@ let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
 let sans = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/voice_sans.mp3`);
 
+document.body.style.overflow = 'hidden';
+
 function playAudio() {
     document.getElementById("NGContentArea")?.classList.add("opacity-0");
     audio.play();
@@ -22,7 +24,7 @@ function playAudio() {
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: <Root/>,
         errorElement: <div className="w-screen h-screen flex justify-center items-center bg-default">
             <NGAlertCard body={
                 <div>

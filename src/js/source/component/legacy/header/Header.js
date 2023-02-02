@@ -667,6 +667,14 @@ export default function Header() {
                                             </div>
                                         )
                                     )}
+
+                                    {yipnyap_constants.currentUser?.display_name &&
+                                        <a onClick={toggleLoggedUserColorTheme}
+                                           className="header-menu-entity !flex py-2 pl-5 space-x-2 text-base text-default">
+                                            <MoonIcon className="h-6 w-6" aria-hidden="true"/>
+                                            <span>Toggle dark mode</span>
+                                        </a>
+                                    }
                                 </div>
                             </div>
                             {/* Bottom Account Section */}

@@ -102,7 +102,7 @@ export default function Activity() {
     }, [location.pathname, userGroups, userFriends])
 
     return (
-        <div className="p-4 md:p-0">
+        <div className="p-12">
             {showVoid ? <Void/> : (
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}

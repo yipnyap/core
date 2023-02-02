@@ -237,16 +237,24 @@ export default function Profile({...props}) {
 
                                     {
                                         location.pathname === `/${userID}/` && (
-                                            <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                                            <ActivityFilterableList userID={user.id} perPage={5} element='NGContent'/>
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname.startsWith(`/${userID}/activity/`) && (
+                                            <ActivityFilterableList userID={user.id}
+                                                                    activityID={location.pathname.split('/')[3]} perPage={5}
+                                                                    element='NGContent'/>
                                         )
                                     }
 
                                     {
                                         location.pathname === `/${userID}/photos/` && (
                                             <div className="bg-box p-8 rounded-xl">
-                                                <ActivityPhotoList  userID={user.id}
-                                                                    perPage={24}
-                                                                    order='DESC' />
+                                                <ActivityPhotoList userID={user.id}
+                                                                   perPage={24}
+                                                                   order='DESC'/>
                                             </div>
                                         )
                                     }

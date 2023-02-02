@@ -43,17 +43,65 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
     }]);
 
     return (
-        <nav
-            aria-label="Sections"
-            className={`${location.pathname === '/' ? `flex flex-col grow sm:grow-0` : 'hidden lg:flex lg:flex-col'} ${slimNavClass} flex-shrink-0 bg-box border-r border-blue-gray-200 overflow-y-auto`
-                // Dark mode
-            + ` dark:border-neutral-600`}>
-            {!props.slimContentNavigator && (
-                <div className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
-                    <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{props.heading || location.pathname.split('/')[1] || 'Home'}</p>
+        <>
+            <nav
+                aria-label="Sections"
+                className={`${location.pathname === '/' ? `flex flex-col grow sm:grow-0` : 'hidden lg:flex lg:flex-col'} ${slimNavClass} flex-shrink-0 bg-box border-r border-blue-gray-200 overflow-y-auto`
+                    // Dark mode
+                    + ` dark:border-neutral-600`}>
+                {!props.slimContentNavigator && (
+                    <div
+                        className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
+                        <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{props.heading || location.pathname.split('/')[1] || 'Home'}</p>
+                    </div>
+                )}
+                <div className="flex-1 min-h-0 overflow-y-auto">
+                    {props.items.map((item, i) => (
+                        <NavLink
+                            key={i}
+                            to={item.href}
+                            target={item.target}
+                            className={classNames(
+                                item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700',
+                                'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'
+                            )}
+                            aria-current={item.current ? 'page' : undefined}
+                        >
+                            {typeof item.icon !== 'string' && (
+                                <item.icon className="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
+                                           aria-hidden="true"/>
+                            )}
+
+                            {typeof item.icon === 'string' && (
+                                <img
+                                    className={`flex-shrink-0 -mt-0.5 h-6 w-6 ${item.description.startsWith('@') ? 'rounded-full' : 'rounded-lg'}`}
+                                    src={item.icon}
+                                    alt={`Icon for ${item.name}`}
+                                />
+                            )}
+                            {!props.slimContentNavigator && (
+                                <div className="ml-3 text-sm">
+                                    <p className="font-medium text-blue-gray-900 dark:text-neutral-50">{item.name}</p>
+                                    <p className="mt-1 text-blue-gray-500 dark:text-neutral-500">{item.description}</p>
+                                </div>
+                            )}
+                        </NavLink>
+                    ))}
                 </div>
-            )}
-            <div className="flex-1 min-h-0 overflow-y-auto">
+                {props.footer && (
+                    <div
+                        className="flex-shrink-0 h-16 text-sm text-default-alt border-t border-blue-gray-200 flex items-center dark:border-neutral-600">
+                        {props.footer}
+                    </div>
+                )}
+            </nav>
+
+            {/* Bottom horizontal navigator */}
+            <nav
+                aria-label="Sections"
+                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full bottom-0 left-0 border-t border-blue-gray-200 rounded-tl-xl rounded-tr-xl overflow-x-auto`
+                    // Dark mode
+                    + ` dark:border-neutral-600`}>
                 {props.items.map((item, i) => (
                     <NavLink
                         key={i}
@@ -65,31 +113,21 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                         )}
                         aria-current={item.current ? 'page' : undefined}
                     >
-                        { typeof item.icon !== 'string' && (
-                            <item.icon className="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400" aria-hidden="true" />
+                        {typeof item.icon !== 'string' && (
+                            <item.icon className="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400" aria-hidden="true"/>
                         )}
 
-                        { typeof item.icon === 'string' && (
+                        {typeof item.icon === 'string' && (
                             <img
-                                className="flex-shrink-0 -mt-0.5 h-6 w-6 rounded-lg"
+                                className={`flex-shrink-0 -mt-0.5 h-6 w-6 ${item.description.startsWith('@') ? 'rounded-full' : 'rounded-lg'}`}
                                 src={item.icon}
+                                alt={`Icon for ${item.name}`}
                             />
-                        )}
-                        {!props.slimContentNavigator && (
-                            <div className="ml-3 text-sm">
-                                <p className="font-medium text-blue-gray-900 dark:text-neutral-50">{item.name}</p>
-                                <p className="mt-1 text-blue-gray-500 dark:text-neutral-500">{item.description}</p>
-                            </div>
                         )}
                     </NavLink>
                 ))}
-            </div>
-            {props.footer && (
-                <div className="flex-shrink-0 h-16 text-sm text-default-alt border-t border-blue-gray-200 flex items-center dark:border-neutral-600">
-                    {props.footer}
-                </div>
-            )}
-        </nav>
+            </nav>
+        </>
 
     );
 }

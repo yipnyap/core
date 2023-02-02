@@ -110,7 +110,7 @@ export default function Activity() {
     }, [location.pathname, userGroups, userFriends])
 
     return (
-        <div className="flex mx-auto">
+        <div className="flex mx-auto px-4">
             {showVoid ? <Void/> : (
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}

@@ -211,8 +211,18 @@ export default function Header() {
                         href: `/settings/`,
                         children: [
                             {name: 'Edit Profile', href: `/settings/`},
+                            {name: 'Telegram', href: `/settings/telegram`},
                             {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
                         ],
+                    },
+                    {border: true},
+                    {
+                        name: 'Privacy',
+                        href: `/privacy`,
+                    },
+                    {
+                        name: 'Guidelines',
+                        href: `/community-guidelines`,
                     },
                     {border: true},
                 ];

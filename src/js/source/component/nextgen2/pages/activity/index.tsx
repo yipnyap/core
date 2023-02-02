@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {
-    HomeIcon,
+    HomeIcon, PlusCircleIcon,
 } from "@heroicons/react/24/outline";
 import {Void} from '../..';
 import {useHeading} from "../../../../providers/PageHeading.provider";
@@ -56,6 +56,14 @@ export default function Activity() {
                 setCurrentGroup(false);
                 setShowVoid(false);
             }
+
+            userGroupsBuild.push({
+                name: 'Join a group',
+                description: 'Groups you\'re a member of and your friends will appear here!',
+                href: `/groups/`,
+                target: '_top',
+                icon: PlusCircleIcon,
+            });
             setUserGroups(userGroupsBuild);
         })
 
@@ -102,7 +110,7 @@ export default function Activity() {
     }, [location.pathname, userGroups, userFriends])
 
     return (
-        <div className="flex mx-auto p-12">
+        <div className="flex mx-auto">
             {showVoid ? <Void/> : (
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}

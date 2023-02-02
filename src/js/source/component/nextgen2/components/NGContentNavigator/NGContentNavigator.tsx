@@ -99,7 +99,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             {/* Bottom horizontal navigator */}
             <nav
                 aria-label="Sections"
-                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full bottom-0 left-0 border-t border-x-0 border-b-0 border-solid border-default rounded-tl-xl rounded-tr-xl overflow-x-auto`
+                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full z-10 bottom-0 left-0 border-t border-x-0 border-b-0 border-solid border-default rounded-tl-xl rounded-tr-xl overflow-x-auto`
                     // Dark mode
                     + ` dark:border-neutral-600`}>
                 {props.items.map((item, i) => (

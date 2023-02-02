@@ -8,7 +8,7 @@ export declare interface NGContentNavigatorItemType {
     description: string;
     href: string;
     target?: string;
-    current: boolean;
+    current?: boolean;
     icon: ((props: React.SVGProps<SVGSVGElement>) => JSX.Element) | string;
 }
 

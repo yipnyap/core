@@ -258,7 +258,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                 <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
                     <h1 className="text-2xl font-bold text-default truncate">{profile.username}</h1>
                 </div>
-                <div className="hidden md:block mt-6 min-w-0 flex-1 text-default">
+                <div className="block mt-6 min-w-0 flex-1 text-default">
                     {/* Bio */}
                     {profile.bio && (
                         <p className="text-sm whitespace-pre-line">

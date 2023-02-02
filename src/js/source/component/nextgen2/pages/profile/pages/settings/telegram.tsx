@@ -412,7 +412,7 @@ export default function SettingsTelegram({...props}) {
     const location = useLocation();
 
     const [showUnlinkDialog, setShowUnlinkDialog] = useState(false);
-    const [telegramIsAllowed, setTelegramIsAllowed] = useState(false);
+    const [telegramIsAllowed, setTelegramIsAllowed] = useState(true);
 
     useEffect(() => {
         if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {

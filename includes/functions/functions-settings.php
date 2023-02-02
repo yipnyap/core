@@ -6,7 +6,7 @@
  *
  * @since 1.3.3
  *
- * @author Yipnyap (https://yipnyap.xyz/)
+ * @author Yipnyap (https://yipnyap.me/)
  *
  */
 
@@ -256,7 +256,7 @@ function yipnyap_settings_stream_profile_is_enabled()
  */
 function yipnyap_settings_stream_twitch_embed_parent_get()
 {
-    return get_theme_mod('yipnyap_stream_setting_twitch_embed_parent', 'yipnyap.xyz');
+    return get_theme_mod('yipnyap_stream_setting_twitch_embed_parent', 'yipnyap.me');
 }
 
 ?>

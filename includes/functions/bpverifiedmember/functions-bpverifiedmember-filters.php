@@ -1,13 +1,13 @@
 <?php
 /**
  * Functions - BP Verified Member - Filters
- * 
+ *
  * @package Yipnyap
- * 
+ *
  * @since 2022.05.2
- * 
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
 if (!function_exists('yipnyap_comment_author_filter')) {

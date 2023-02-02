@@ -17,7 +17,7 @@ Default.args = {
         author: {
             name: 'Rek',
             imageUrl:
-                'https://yipnyap.xyz/vault/@server/uploads/members/1/avatars//1660767122-bpfull.png',
+                'https://yipnyap.me/vault/@server/uploads/members/1/avatars//1660767122-bpfull.png',
             username: 'rek',
         },
         date: '~1h ago',

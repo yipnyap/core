@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Groups Home
- * 
+ *
  * Determines group template to display
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   if (bp_has_groups()) {

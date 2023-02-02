@@ -49,9 +49,9 @@
 }
 
 * {
-    font-family: var(--font-primary);
-    -webkit-font-feature-settings: "ss04", "zero", "tnum", "caps";
-    font-feature-settings: "ss04", "zero", "tnum", "caps";
+  font-family: var(--font-primary);
+  -webkit-font-feature-settings: "ss04", "zero", "tnum", "caps";
+  font-feature-settings: "ss04", "zero", "tnum", "caps";
 }
 
 .container {
@@ -4521,21 +4521,21 @@ a:hover {
 
 .post-format-tag,
 .gallery-popup-button {
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    -webkit-box-pack: center;
-    -ms-flex-pack: center;
-    justify-content: center;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 44px;
-    height: 44px;
-    @apply rounded-default;
-    background-color: var(--color-primary);
-    -webkit-box-shadow: 3px 5px 20px 0 rgba(94, 92, 154, 0.3);
-    box-shadow: 3px 5px 20px 0 rgba(94, 92, 154, 0.3);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 44px;
+  height: 44px;
+  @apply rounded-default;
+  background-color: var(--color-primary);
+  -webkit-box-shadow: 3px 5px 20px 0 rgba(94, 92, 154, 0.3);
+  box-shadow: 3px 5px 20px 0 rgba(94, 92, 154, 0.3);
 }
 
 .post-format-tag .post-format-tag-icon {
@@ -10379,9 +10379,9 @@ a:hover {
 }
 
 img.logo-image {
-    -webkit-animation: logoHue 1s ease-out 1s, logoHue 120s ease-out 2s;
-    animation: logoHue 1s ease-out 1s, logoHue 120s ease-out 2s;
-    border-radius: 0.3em;
+  -webkit-animation: logoHue 1s ease-out 1s, logoHue 120s ease-out 2s;
+  animation: logoHue 1s ease-out 1s, logoHue 120s ease-out 2s;
+  border-radius: 0.3em;
 }
 
 /*---------------------
@@ -22128,7 +22128,7 @@ img.logo-image {
 }
 
 /*!
- * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
+ * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.me/oss/frontend for more information.
  */
 .snapanim-crawl.u-rise {
   display: inline-block;
@@ -22607,76 +22607,76 @@ img.logo-image {
   }
 }
 .snapanim-elastic.snapanim-in {
-    -webkit-transform: scale(0);
-    -ms-transform: scale(0);
-    transform: scale(0);
-    -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
-    transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
-    -o-transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1);
-    transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1);
-    transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1), -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
-    -webkit-animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
-    animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
+  -webkit-transform: scale(0);
+  -ms-transform: scale(0);
+  transform: scale(0);
+  -webkit-transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  transition: -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  -o-transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  transition: transform 0.25s cubic-bezier(0, 1.25, 0, 1), -webkit-transform 0.25s cubic-bezier(0, 1.25, 0, 1);
+  -webkit-animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
+  animation: zoomIn 0.25s cubic-bezier(0, 1.25, 0, 1) forwards;
 }
 
 .snapanim-shake {
-    -webkit-animation: shake infinite 100ms;
-    animation: shake infinite 100ms;
+  -webkit-animation: shake infinite 100ms;
+  animation: shake infinite 100ms;
 }
 
 @-webkit-keyframes shake {
   0% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
   25% {
-      -webkit-transform: translateX(-4px);
-      transform: translateX(-4px);
+    -webkit-transform: translateX(-4px);
+    transform: translateX(-4px);
   }
   50% {
-      -webkit-transform: translateX(4px);
-      transform: translateX(4px);
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
   }
   75% {
-      -webkit-transform: translateY(-4px);
-      transform: translateY(-4px);
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
   }
   100% {
-      -webkit-transform: translateY(4px);
-      transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
   }
 }
 
 @keyframes shake {
   0% {
-      -webkit-transform: translateX(0);
-      transform: translateX(0);
+    -webkit-transform: translateX(0);
+    transform: translateX(0);
   }
   25% {
-      -webkit-transform: translateX(-4px);
-      transform: translateX(-4px);
+    -webkit-transform: translateX(-4px);
+    transform: translateX(-4px);
   }
   50% {
-      -webkit-transform: translateX(4px);
-      transform: translateX(4px);
+    -webkit-transform: translateX(4px);
+    transform: translateX(4px);
   }
   75% {
-      -webkit-transform: translateY(-4px);
-      transform: translateY(-4px);
+    -webkit-transform: translateY(-4px);
+    transform: translateY(-4px);
   }
   100% {
-      -webkit-transform: translateY(4px);
-      transform: translateY(4px);
+    -webkit-transform: translateY(4px);
+    transform: translateY(4px);
   }
 }
 @-webkit-keyframes zoomIn {
   from {
-      -webkit-transform: scale(0);
-      transform: scale(0);
+    -webkit-transform: scale(0);
+    transform: scale(0);
   }
   to {
-      -webkit-transform: scale(1);
-      transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1);
   }
 }
 @keyframes zoomIn {
@@ -22749,7 +22749,7 @@ img.logo-image {
 }
 
 /*!
- * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.xyz/oss/frontend for more information.
+ * Copyright (c) 2020 "Yipnyap". See https://federation.yipnyap.me/oss/frontend for more information.
  */
 /*------------------------------------------------------------------
 [Table of contents]
@@ -22809,21 +22809,21 @@ img.logo-image {
 }
 
 .cmui.navigator {
-    @apply border-solid border-0 border-r backdrop-blur-lg;
-    position: fixed;
-    background-color: var(--color-box-background);
-    color: var(--color-text);
-    -webkit-box-orient: vertical;
-    -webkit-box-direction: normal;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    -webkit-box-align: center;
-    -ms-flex-align: center;
-    align-items: center;
-    width: 5rem;
-    height: 100%;
-    margin-top: 4em;
-    border-radius: 0.25rem;
+  @apply border-solid border-0 border-r backdrop-blur-lg;
+  position: fixed;
+  background-color: var(--color-box-background);
+  color: var(--color-text);
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  width: 5rem;
+  height: 100%;
+  margin-top: 4em;
+  border-radius: 0.25rem;
 }
 .cmui.navigator .section-divider {
   display: -webkit-box;

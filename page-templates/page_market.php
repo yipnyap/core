@@ -4,7 +4,7 @@
  *
  * @package Yipnyap
  * @since hk14
- * @author Yipnyap (https://yipnyap.xyz/)
+ * @author Yipnyap (https://yipnyap.me/)
  *
  */
 

@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Members Friends
- * 
+ *
  * Displays member friends
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   $member = get_query_var('member');

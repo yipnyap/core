@@ -1,13 +1,13 @@
 <?php
 /**
  * Yipnyap Template - BuddyPress Groups Loop
- * 
+ *
  * Displays the groups loop
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   $groups_grid_type = yipnyap_logged_user_grid_type_get('group');

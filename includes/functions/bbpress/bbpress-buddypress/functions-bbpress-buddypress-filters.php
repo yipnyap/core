@@ -1,13 +1,13 @@
 <?php
 /**
  * Functions - bbPress + BuddyPress - Filters
- * 
+ *
  * @package Yipnyap
- * 
+ *
  * @since 2022.05.2
- * 
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ *
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
 if (!function_exists('yipnyap_bbpress_format_activity_action_new_topic')) {

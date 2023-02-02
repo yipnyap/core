@@ -1,13 +1,13 @@
 <?php 
 /**
  * Yipnyap Template - BuddyPress Groups Members
- * 
+ *
  * Displays group members
- * 
+ *
  * @package Yipnyap
  * @since 1.0.0
- * @author Yipnyap (https://yipnyap.xyz/)
- * 
+ * @author Yipnyap (https://yipnyap.me/)
+ *
  */
 
   $group = get_query_var('group');

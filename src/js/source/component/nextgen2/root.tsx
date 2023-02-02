@@ -25,22 +25,9 @@ export default function Root() {
 }
 
 function RootWithinProvider() {
-    const [user, setUser] = useUser();
     const [heading] = useHeading();
-    const location = useLocation();
 
-    useEffect(() => {
-        const cachedUserString = localStorage.getItem('cachedUser');
-        const cachedToken = localStorage.getItem('token');
-        const cachedUser = cachedUserString && (JSON.parse(cachedUserString));
-        if (cachedUser && !user.loggedIn) {
-            setUser({
-                // @ts-ignore
-                ...cachedUser,
-                token: cachedToken
-            })
-        }
-    })
+    document.body.style.overflow = 'hidden';
 
     return (
         <NGBody>

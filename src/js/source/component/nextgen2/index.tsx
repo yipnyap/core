@@ -14,8 +14,6 @@ let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
 let sans = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/voice_sans.mp3`);
 
-document.body.style.overflow = 'hidden';
-
 function playAudio() {
     document.getElementById("NGContentArea")?.classList.add("opacity-0");
     audio.play();

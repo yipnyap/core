@@ -366,15 +366,14 @@ export default function Header() {
     }
 
     return (
-        <header className="flex-shrink-0 relative h-16 flex items-center"
-        >
+        <header className="flex-shrink-0 relative h-16 px-6 flex items-center">
             {catEatingEasterEgg &&
                 <div className="absolute top-4 left-12 p-12 snapanim-shake">
                     <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/gray-cat.png`}
                          alt="Gray cat eating a bowl of ramen" className="h-24 w-auto"/>
                 </div>
             }
-            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 lg:px-6">
+            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 pr-4 lg:pr-6">
                 <img src={logoURL} alt="Yipnyap"
                      className="logo-image h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>

@@ -99,7 +99,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             {/* Bottom horizontal navigator */}
             <nav
                 aria-label="Sections"
-                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full bottom-0 left-0 border-t border-blue-gray-200 rounded-tl-xl rounded-tr-xl overflow-x-auto`
+                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full bottom-0 left-0 border-t border-x-0 border-b-0 border-solid border-default rounded-tl-xl rounded-tr-xl overflow-x-auto`
                     // Dark mode
                     + ` dark:border-neutral-600`}>
                 {props.items.map((item, i) => (
@@ -118,11 +118,13 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                         )}
 
                         {typeof item.icon === 'string' && (
-                            <img
-                                className={`flex-shrink-0 -mt-0.5 h-6 w-6 ${item.description.startsWith('@') ? 'rounded-full' : 'rounded-lg'}`}
-                                src={item.icon}
-                                alt={`Icon for ${item.name}`}
-                            />
+                            <div className="flex-shrink-0 -mt-0.5 h-6 w-6">
+                                <img
+                                    className={`h-6 w-6 ${item.description.startsWith('@') ? 'rounded-full' : 'rounded-lg'}`}
+                                    src={item.icon}
+                                    alt={`Icon for ${item.name}`}
+                                />
+                            </div>
                         )}
                     </NavLink>
                 ))}

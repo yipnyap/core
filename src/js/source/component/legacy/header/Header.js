@@ -236,15 +236,15 @@ export default function Header() {
                 }
 
                 // Add verification program availabe notification
-                if (yourViewSeen.indexOf('verified-available') === -1 && !res.verified) {
-                    yourViewNotifications.push({
-                        "id": "verified-available",
-                        "icon": CheckBadgeIcon,
-                        "title": "Verification Program Available!",
-                        "body": "Doing great things? Get swanky badge to show it off (for free)!",
-                        "href": '/verified-program'
-                    })
-                }
+                // if (yourViewSeen.indexOf('verified-available') === -1 && !res.verified) {
+                //     yourViewNotifications.push({
+                //         "id": "verified-available",
+                //         "icon": CheckBadgeIcon,
+                //         "title": "Verification Program Available!",
+                //         "body": "Doing great things? Get swanky badge to show it off (for free)!",
+                //         "href": '/verified-program'
+                //     })
+                // }
 
                 import('../../../datasources/earlyaccess.js').then((earlyAccess) => {
                     earlyAccess = earlyAccess.earlyAccess();
@@ -253,15 +253,18 @@ export default function Header() {
                         yourViewNotifications.push({
                             "id": "verified-acquired",
                             "icon": CheckBadgeIcon,
-                            "title": <p>Welcome to the <span className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Verified Program</span>!</p>,
+                            "title": <p>Welcome to the <span
+                                className="text-transparent bg-clip-text bg-gradient-to-r from-purple-400 to-pink-600">Verified Program</span>!
+                            </p>,
                             "body": <>
                                 You'll see early access to new features and more here. Your badge is always visible,
                                 everywhere on Yipnyap, so show it off!
-                                <br /><br />
+                                <br/><br/>
                                 <b>You are signed up as a partner.</b>
-                                <br /><br />
+                                <br/><br/>
                                 Your badge's colour is based on your accent
-                                colour. You can change it in your settings. (We're still working on the badge's design, so
+                                colour. You can change it in your settings. (We're still working on the badge's design,
+                                so
                                 it's a bit plain in most places right now.)
                             </>,
                         })

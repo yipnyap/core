@@ -51,8 +51,10 @@ function HeaderDropdown(props) {
                 <p className="mt-1 text-sm text-alt-2">
                   Your notifications will soon be moving to it's own tab in your profile, and on the sidebar.
                   You can still access them here for now.
-                  <br /><br />
-                  Notifications via Discord DMs or Webhooks will also be coming soon! <a href="https://discord.gg/wrCGpAB" className="text-default underline" target="_blank">Join our Discord server</a> to stay up to date.
+                  <br/><br/>
+                  Notifications via Telegram will also be coming soon! <a href="https://discord.gg/wrCGpAB"
+                                                                          className="text-default underline"
+                                                                          target="_blank">Join our Discord server</a> to stay up to date.
                 </p>
             </div>
         </div>

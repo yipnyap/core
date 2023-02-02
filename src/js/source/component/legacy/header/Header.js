@@ -455,18 +455,6 @@ export default function Header() {
                                 <HeaderDropdownNotifications loggedUser={loggedUser}/>
                             }
 
-                            {/* Theme switcher */}
-                            {
-                                !loadingUser &&
-                                <span className="inline-flex">
-                                    <div onClick={toggleLoggedUserColorTheme}
-                                       className="ypsdk button-icon cursor-pointer -mx-1 p-1 rounded-full text-neutral-400 hover:text-neutral-500">
-                                        <span className="sr-only">Toggle dark mode</span>
-                                        <MoonIcon className="h-6 w-6" aria-hidden="true"/>
-                                    </div>
-                                </span>
-                            }
-
                             {/* User menu */}
                             <button
                                 className="flex items-center rounded-xl focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-600"
@@ -669,11 +657,13 @@ export default function Header() {
                                     )}
 
                                     {yipnyap_constants.currentUser?.display_name &&
-                                        <a onClick={toggleLoggedUserColorTheme}
-                                           className="header-menu-entity !flex py-2 pl-5 space-x-2 text-base text-default">
-                                            <MoonIcon className="h-6 w-6" aria-hidden="true"/>
-                                            <span>Toggle dark mode</span>
-                                        </a>
+                                        <div className="px-2 sm:px-4">
+                                            <a onClick={toggleLoggedUserColorTheme}
+                                               className="header-menu-entity !flex py-2 px-3 space-x-2 text-base text-default">
+                                                <MoonIcon className="h-6 w-6" aria-hidden="true"/>
+                                                <span>Toggle dark mode</span>
+                                            </a>
+                                        </div>
                                     }
                                 </div>
                             </div>

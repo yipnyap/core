@@ -163,7 +163,7 @@ export default function Header() {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
 
                 userNavigationMobile = [
-                    {name: 'Home', href: '/'},
+                    {name: 'Home', href: '/home/'},
                     {name: 'Members', href: '/members'},
                     {name: 'Groups', href: '/groups'}
                 ];
@@ -172,8 +172,12 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
+                        {name: 'Home', href: '/home/'},
                         {name: 'Sign In', href: '/id/login'},
-                        {name: 'Sign Up', href: '/id/create'}
+                        {name: 'Sign Up', href: '/id/create'},
+                        {name: 'Account Recovery', href: '/id/recover'},
+                        {name: 'Privacy', href: `/privacy`},
+                        {name: 'Guidelines', href: `/community-guidelines`},
                     ]
 
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
@@ -194,7 +198,7 @@ export default function Header() {
                             {name: 'Send Invites', href: `${res.link}settings/send-group-invitations`},
                             {name: 'Received Invites', href: `${res.link}settings/received-group-invitations`},
                             {name: 'Join Requests', href: `${res.link}settings/membership-requests`},
-                            {name: 'Manage', href: `${res.link}settings/manage-groups`},
+                            {name: 'Create & Manage', href: `${res.link}settings/manage-groups`},
                         ]
                     },
                     // {border: true},
@@ -212,18 +216,13 @@ export default function Header() {
                         children: [
                             {name: 'Edit Profile', href: `/settings/`},
                             {name: 'Telegram', href: `/settings/telegram`},
+                            {name: 'Password', href: `${res.link}settings/password`},
                             {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
                         ],
                     },
                     {border: true},
-                    {
-                        name: 'Privacy',
-                        href: `/privacy`,
-                    },
-                    {
-                        name: 'Guidelines',
-                        href: `/community-guidelines`,
-                    },
+                    {name: 'Privacy', href: `/privacy`},
+                    {name: 'Guidelines', href: `/community-guidelines`},
                     {border: true},
                 ];
 

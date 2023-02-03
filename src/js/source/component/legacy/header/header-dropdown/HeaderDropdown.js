@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 
-import {BellIcon} from "@heroicons/react/24/outline";
-import {BeakerIcon} from "@heroicons/react/24/solid";
+import {BellIcon, BeakerIcon} from "@heroicons/react/24/solid";
 
 function HeaderDropdown(props) {
   const [dropdownIsOpen, setDropdownIsOpen] = useState(false);

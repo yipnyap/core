@@ -1,8 +1,7 @@
 import React, {Fragment, useState} from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {Dialog, Transition} from "@headlessui/react";
-import {Bars3Icon, XMarkIcon} from "@heroicons/react/24/outline";
-import {ChevronLeftIcon} from "@heroicons/react/24/solid";
+import {Bars3Icon, XMarkIcon, ChevronLeftIcon} from "@heroicons/react/24/solid";
 import {NGContentNavigator} from "../NGContentNavigator";
 import {NGContentNavigatorItemType} from "../NGContentNavigator/NGContentNavigator";
 import {NavLink} from "react-router-dom";

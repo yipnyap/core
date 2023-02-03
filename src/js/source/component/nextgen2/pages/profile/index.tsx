@@ -20,7 +20,7 @@ import {
     PhotoIcon,
     TrophyIcon,
     VideoCameraIcon
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
@@ -132,7 +132,7 @@ export default function Profile({...props}) {
     }
 
     const pageIsGabe = userID === 'voidhound_';
-    const selfIsGabe = yipnyap_constants.currentUser.username === 'voidhound_';
+    const selfIsGabe = yipnyap_constants.currentUser?.username === 'voidhound_';
 
     useEffect(() => {
         // If voidhound_, show "Arcana" tab
@@ -202,7 +202,7 @@ export default function Profile({...props}) {
                         icon: TrophyIcon,
                         current: location.pathname === `/${userID}/badges/`
                     },
-                    ...yipnyap_constants.currentUser.username === userID ? [{
+                    ...yipnyap_constants.currentUser?.username === userID ? [{
                         name: <span className='inline-flex'>Settings <ArrowUpRightIcon className='w-4'/></span>,
                         description: '',
                         href: '/settings/',
@@ -225,28 +225,37 @@ export default function Profile({...props}) {
                             ) : (
                                 <div className="m-auto p-8 max-w-3xl space-y-4">
                                     {
-                                        (yipnyap_constants.currentUser.username && yipnyap_constants.currentUser.username === user.username) && <NextgenProfilesWelcomeModal />
+                                        (yipnyap_constants.currentUser?.username && yipnyap_constants.currentUser?.username === user.username) &&
+                                        <NextgenProfilesWelcomeModal/>
                                     }
                                     {
-                                        location.pathname !== `/${userID}/arcana/` &&  <NGProfileHeader
+                                        location.pathname !== `/${userID}/arcana/` && <NGProfileHeader
                                             user={user}
-                                            loggedIn={yipnyap_constants.currentUser.username?.length > 0}
-                                            self={yipnyap_constants.currentUser.username === user.username}
+                                            loggedIn={yipnyap_constants.currentUser?.username?.length > 0}
+                                            self={yipnyap_constants.currentUser?.username === user.username}
                                         />
                                     }
 
                                     {
                                         location.pathname === `/${userID}/` && (
-                                            <ActivityFilterableList userID={user.id} perPage={5} element='NGContent' />
+                                            <ActivityFilterableList userID={user.id} perPage={5} element='NGContent'/>
+                                        )
+                                    }
+
+                                    {
+                                        location.pathname.startsWith(`/${userID}/activity/`) && (
+                                            <ActivityFilterableList userID={user.id}
+                                                                    activityID={location.pathname.split('/')[3]} perPage={5}
+                                                                    element='NGContent'/>
                                         )
                                     }
 
                                     {
                                         location.pathname === `/${userID}/photos/` && (
                                             <div className="bg-box p-8 rounded-xl">
-                                                <ActivityPhotoList  userID={user.id}
-                                                                    perPage={24}
-                                                                    order='DESC' />
+                                                <ActivityPhotoList userID={user.id}
+                                                                   perPage={24}
+                                                                   order='DESC'/>
                                             </div>
                                         )
                                     }

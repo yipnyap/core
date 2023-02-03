@@ -4,7 +4,7 @@ import {
     ClipboardDocumentListIcon,
     KeyIcon, LifebuoyIcon, ShieldCheckIcon,
     UserPlusIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {Void} from "../..";
 import Login from "./login";

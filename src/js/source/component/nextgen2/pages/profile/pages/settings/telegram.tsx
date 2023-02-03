@@ -2,9 +2,10 @@ import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {useHeading} from "../../../../../../providers/PageHeading.provider";
 import {buildClassObject} from "../../../../utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
-import {Tab, Dialog, Transition} from "@headlessui/react";
+import {Tab, Dialog, Transition, RadioGroup} from "@headlessui/react";
 import {useLocation} from "react-router-dom";
 import {NGCard, NGWizard, NGSwitch} from "../../../../components";
+import {CheckIcon, QuestionMarkCircleIcon} from "@heroicons/react/24/solid";
 
 export const ButtonTheming = {
     main: [],
@@ -24,6 +25,22 @@ export const ButtonTheming = {
 }
 
 let TelegramAuthData: TelegramResponseType;
+
+const secureIDLevels = [
+    {
+        name: 'Default',
+        desc: '6 digits, code expires each attempt',
+    },
+    {
+        name: 'Medium',
+        desc: 'Hexadecimal, code expires each attempt',
+    },
+    {
+        name: 'High',
+        desc: 'Longer Hexadecimal, code expires after 5 minutes, after 5 failed attempts your vault is wiped.',
+        warn: 'Any data not backed up will be lost if wiped. This is irreversible.',
+    }
+]
 
 function SetupDialog({...props}) {
     /**
@@ -413,6 +430,7 @@ export default function SettingsTelegram({...props}) {
 
     const [showUnlinkDialog, setShowUnlinkDialog] = useState(false);
     const [telegramIsAllowed, setTelegramIsAllowed] = useState(true);
+    const [selectedSecureID, setSelectedSecureID] = useState<{ name: string; desc: string; warn?: undefined; } | { name: string; desc: string; warn: string; }>();
 
     useEffect(() => {
         if (heading?.heading !== 'Telegram' && !props.onlyShowOnboarding) {
@@ -421,8 +439,30 @@ export default function SettingsTelegram({...props}) {
                 padding: true,
                 navigator: heading?.navigator,
             })
+
+            if (yipnyap_constants.currentUser?.secureIDLevel) {
+                const level = secureIDLevels.find((level) => level.name.toLowerCase() === yipnyap_constants.currentUser?.secureIDLevel);
+                setSelectedSecureID(level || secureIDLevels[0]);
+            } else {
+                setSelectedSecureID(secureIDLevels[0]);
+            }
         }
     }, [location.pathname]);
+
+    function doSecureIDChange(value: { name: string; desc: string; warn?: undefined; } | { name: string; desc: string; warn: string; }) {
+        setSelectedSecureID(value);
+
+        fetch('/api/v2/telegram/secureid', {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+            },
+            body: JSON.stringify({
+                level: value.name.toLowerCase(),
+            }),
+        })
+    }
 
     function doTelegramUnlink() {
         fetch('/api/v2/telegram', {
@@ -442,7 +482,7 @@ export default function SettingsTelegram({...props}) {
 
     return (
         <div className="mb-8">
-            {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser.tgid && !telegramIsAllowed) && (
+            {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.tgid && !telegramIsAllowed) && (
                 <div className="flex flex-row space-x-4 justify-center items-center">
                     <div className="flex-1 mr-auto space-y-4 max-w-lg">
                         <h2 className="text-2xl font-bold">Telegram linkage unavailable</h2>
@@ -520,6 +560,87 @@ export default function SettingsTelegram({...props}) {
                                       description="Notifications related to sign ins, failed attempts, et cetera. You cannot disable this."/>
                             <NGSwitch disabled title="Yipnyap Updates"
                                       description={'Sorry, you cannot change this setting at this time (current value: "NO").'}/>
+                        </div>
+                    </NGCard>
+
+                    {/* OTP Crypt Sensitivity */}
+                    <NGCard title="Secure ID Sensitivity" wellBody={true}>
+                        <div
+                            className="flex flex-col space-y-4">
+                            <p className="text-sm text-alt-2">
+                                Secure ID is the feature that sends you a code via Telegram when you sign in to
+                                Yipnyap, your Vault, and other encrypted data. This setting controls how sensitive
+                                and long the code is.
+                            </p>
+                            <fieldset>
+                                <legend className="text-sm font-medium text-default">Level</legend>
+                                <div className="mt-2 space-y-5">
+                                    <RadioGroup value={selectedSecureID} onChange={doSecureIDChange}>
+                                        <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+                                        <div className="space-y-2">
+                                            {secureIDLevels.map((levelOption) => (
+                                                <RadioGroup.Option
+                                                    key={levelOption.name}
+                                                    value={levelOption}
+                                                    className={({active, checked}) =>
+                                                        `${
+                                                            active
+                                                                ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
+                                                                : ''
+                                                        }
+                                                                                    ${
+                                                            checked ? 'bg-default-alt bg-opacity-75 text-default' : 'bg-default dark:bg-transparent'
+                                                        }
+                                                                                    relative flex cursor-pointer rounded-lg px-5 py-4 border border-default focus:outline-none hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:bg-opacity-75`
+                                                    }
+                                                >
+                                                    {({active, checked}) => (
+                                                        <>
+                                                            <div className="flex w-full items-center justify-between">
+                                                                <div className="flex items-center">
+                                                                    <div className="text-sm">
+                                                                        <RadioGroup.Label
+                                                                            as="p"
+                                                                            className={`font-medium  ${
+                                                                                checked ? 'text-default' : 'text-default-alt'
+                                                                            }`}
+                                                                        >
+                                                                            {levelOption.name}
+                                                                        </RadioGroup.Label>
+                                                                        <RadioGroup.Description
+                                                                            as="span"
+                                                                            className={`inline ${
+                                                                                checked ? 'text-neutral-400 dark:text-neutral-100' : 'text-neutral-500'
+                                                                            }`}
+                                                                        >
+                                                                            <span>
+                                                                                {levelOption.desc}
+                                                                            </span>{' '}
+                                                                            {levelOption.warn && (
+                                                                                <p className="inline-flex items-center">
+                                                                                    <QuestionMarkCircleIcon
+                                                                                        className="w-4 h-4 text-default-alt"/>
+                                                                                    <span
+                                                                                        className="ml-2">{levelOption.warn}</span>
+                                                                                </p>
+                                                                            )}
+                                                                        </RadioGroup.Description>
+                                                                    </div>
+                                                                </div>
+                                                                {checked && (
+                                                                    <div className="shrink-0 text-default">
+                                                                        <CheckIcon className="h-6 w-6"/>
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        </>
+                                                    )}
+                                                </RadioGroup.Option>
+                                            ))}
+                                        </div>
+                                    </RadioGroup>
+                                </div>
+                            </fieldset>
                         </div>
                     </NGCard>
 

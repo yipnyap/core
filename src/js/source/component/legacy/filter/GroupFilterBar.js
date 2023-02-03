@@ -7,7 +7,7 @@ import GridOptions from '../grid/GridOptions';
 import {createFormInput} from '../../../utils/plugins';
 
 function GroupFilterBar(props) {
-    const [type, setType] = useState('alphabetical');
+    const [type, setType] = useState('active');
     const [search, setSearch] = useState(props.searchTerm || '');
 
     const searchInputRef = useRef(null);

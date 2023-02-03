@@ -1,7 +1,7 @@
 /* eslint-disable */
 import React from 'react';
 import NGSideNav from './NGSideNav';
-import {BookmarkIcon, FireIcon, HomeIcon, InboxIcon, UserIcon} from "@heroicons/react/24/outline";
+import {BookmarkIcon, FireIcon, HomeIcon, InboxIcon, UserIcon} from "@heroicons/react/24/solid";
 
 export default {
     title: "NGSideNav",

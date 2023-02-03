@@ -5,7 +5,7 @@ import {
     PaintBrushIcon, PaperAirplaneIcon,
     QuestionMarkCircleIcon, ServerStackIcon,
     ShareIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useHeading} from "../../../../../providers/PageHeading.provider";
 // @ts-ignore
@@ -73,7 +73,7 @@ export default function SettingsGeneral() {
                     {
                         name: <span className='inline-flex'>More <ArrowUpRightIcon className='w-4'/></span>,
                         description: 'Go to Legacy Settings',
-                        href: `/${yipnyap_constants.currentUser.username}/settings`,
+                        href: `/${yipnyap_constants.currentUser?.username}/settings`,
                         target: '_blank',
                         icon: QuestionMarkCircleIcon,
                         current: false,

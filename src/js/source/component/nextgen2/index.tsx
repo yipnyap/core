@@ -22,7 +22,7 @@ function playAudio() {
 export const router = createBrowserRouter([
     {
         path: "/",
-        element: <Root />,
+        element: <Root/>,
         errorElement: <div className="w-screen h-screen flex justify-center items-center bg-default">
             <NGAlertCard body={
                 <div>

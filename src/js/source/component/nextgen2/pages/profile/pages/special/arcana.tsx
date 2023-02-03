@@ -21,7 +21,8 @@ const creatorNotices = [
     {
         title: 'Replacing a page',
         body: <>
-            To replace a page, go to <a href={`/${yipnyap_constants.currentUser.username}/photos`}>your photos</a>,
+            To replace a page, go to <a href={`/${yipnyap_constants.currentUser?.username || 'yipnyap'}/photos`}>your
+            photos</a>,
             then find and delete the old asset. simply upload the new asset as you were adding a new page, with
             the same name as the old asset. It will be inserted in the same place as the old asset.
         </>

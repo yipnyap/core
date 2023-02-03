@@ -1,13 +1,13 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {
-    HomeIcon,
-} from "@heroicons/react/24/outline";
+    HomeIcon, PlusCircleIcon,
+} from "@heroicons/react/24/solid";
 import {Void} from '../..';
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
-import {NGCard} from "../../components";
+import {NGCard, NGNewUserOnboarding} from "../../components";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore
@@ -27,7 +27,7 @@ export default function Activity() {
 
     useEffect(() => {
         // Get current user groups
-        getMemberGroups(yipnyap_constants.currentUser.id).then((groups) => {
+        getMemberGroups(yipnyap_constants.currentUser?.id).then((groups) => {
             const userGroupsBuild = [];
             for (const group of groups) {
                 userGroupsBuild.push({
@@ -56,11 +56,19 @@ export default function Activity() {
                 setCurrentGroup(false);
                 setShowVoid(false);
             }
+
+            userGroupsBuild.push({
+                name: 'Join a group',
+                description: 'Groups you\'re a member of and your friends will appear here!',
+                href: `/groups/`,
+                target: '_top',
+                icon: PlusCircleIcon,
+            });
             setUserGroups(userGroupsBuild);
         })
 
         // Get current user friends
-        getMemberFriends(yipnyap_constants.currentUser.id).then((friends) => {
+        getMemberFriends(yipnyap_constants.currentUser?.id).then((friends) => {
             const userFriendsBuild = [];
             for (const friend of friends) {
                 userFriendsBuild.push({
@@ -85,7 +93,7 @@ export default function Activity() {
             heading: null,
             padding: false,
             navigator: {
-                heading: `Hey, ${yipnyap_constants.currentUser.display_name || 'Stranger'}!`,
+                heading: `Hey, ${yipnyap_constants.currentUser?.display_name || 'Stranger'}!`,
                 subNavigation: [
                     {
                         name: 'Home',
@@ -102,18 +110,26 @@ export default function Activity() {
     }, [location.pathname, userGroups, userFriends])
 
     return (
-        <div className="p-4 md:p-0">
+        <div className="flex flex-col mx-auto px-4">
             {showVoid ? <Void/> : (
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}
                     {
-                        (yipnyap_constants.currentUser?.display_name && !yipnyap_constants.currentUser?.tgid) && (
+                        (yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.tgid) && (
                             <div className="flex flex-col justify-center m-auto py-8 max-w-4xl">
                                 <SettingsTelegram onlyShowOnboarding={true}/>
                             </div>
                         )
                     }
-                    <div className="flex flex-row justify-center space-x-4 m-auto py-8 max-w-4xl">
+                    {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.dipswitch?.hide_onboarding) && (
+                        <div className="p-8">
+                            <NGNewUserOnboarding/>
+                        </div>
+                    )}
+                    <div
+                        id="onboarding-create_post"
+                        className="flex flex-row justify-center space-x-4 mx-auto py-8 max-w-4xl"
+                    >
                         {
                             readyToRender ? (
                                 <>
@@ -135,50 +151,52 @@ export default function Activity() {
                             )
                         }
 
-                        <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
-                            {yipnyap_constants.currentUser?.username && (
+                        {readyToRender && (
+                            <div className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
+                                {yipnyap_constants.currentUser?.username && (
+                                    <NGCard
+                                        title={
+                                            <p className="text-sm leading-5 text-gray-500">
+                                                <b className="text-secondary">
+                                                    {yipnyap_constants.currentUser?.online_count === 1
+                                                        ? 'Only you'
+                                                        : yipnyap_constants.currentUser?.online_count}
+                                                </b>
+                                                {yipnyap_constants.currentUser?.online_count > 1 ? ' people' : ''} are
+                                                online.
+                                            </p>}
+                                        wellBody={true}
+                                    >
+                                        {yipnyap_constants.currentUser?.online_count < 3 && (
+                                            <p className="text-sm leading-5 text-gray-500">
+                                                Yipnyap is better with friends! Tell 'em to join or login.
+                                            </p>
+                                        )}
+                                    </NGCard>
+                                )}
+
                                 <NGCard
                                     title={
-                                        <p className="text-sm leading-5 text-gray-500">
-                                            <b className="text-secondary">
-                                                {yipnyap_constants.currentUser.online_count === 1
-                                                    ? 'Only you'
-                                                    : yipnyap_constants.currentUser.online_count}
-                                            </b>
-                                            {yipnyap_constants.currentUser.online_count > 1 ? ' people' : ''} are
-                                            online.
-                                        </p>}
-                                    wellBody={true}
-                                >
-                                    {yipnyap_constants.currentUser.online_count < 3 && (
-                                        <p className="text-sm leading-5 text-gray-500">
-                                            Yipnyap is better with friends! Tell 'em to join or login.
-                                        </p>
-                                    )}
+                                        <h3 className="text-primary font-extrabold">
+                                            Help us make Yipnyap more comfy
+                                        </h3>}
+                                    wellBody={true}>
+                                    <p className="text-sm leading-5 text-gray-500">
+                                        Help us make a chill, joyful, and welcoming experience by joining in
+                                        on the conversation!
+                                    </p>
+                                    <div className="mt-3 text-sm leading-5">
+                                        <a
+                                            className="font-medium text-primary hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
+                                            href="https://discord.gg/wrCGpAB"
+                                            target="_blank"
+                                        >
+                                            Join the Discord &rarr;
+                                        </a>
+                                    </div>
                                 </NGCard>
-                            )}
-
-                            <NGCard
-                                title={
-                                    <h3 className="text-primary font-extrabold">
-                                        Help us make Yipnyap more comfy
-                                    </h3>}
-                                wellBody={true}>
-                                <p className="text-sm leading-5 text-gray-500">
-                                    Help us make a chill, joyful, and welcoming experience by joining in
-                                    on the conversation!
-                                </p>
-                                <div className="mt-3 text-sm leading-5">
-                                    <a
-                                        className="font-medium text-primary hover:text-indigo-500 focus:outline-none focus:underline transition ease-in-out duration-150"
-                                        href="https://discord.gg/wrCGpAB"
-                                        target="_blank"
-                                    >
-                                        Join the Discord &rarr;
-                                    </a>
-                                </div>
-                            </NGCard>
-                        </div>
+                            </div>
+                        )}
                     </div>
                 </>
             )}

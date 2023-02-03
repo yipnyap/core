@@ -2,7 +2,7 @@
 
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
+import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/solid';
 import {ArrowLeftCircleIcon, CheckBadgeIcon, ExclamationCircleIcon, HomeIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../../router/user/user-router";
@@ -163,7 +163,7 @@ export default function Header() {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
 
                 userNavigationMobile = [
-                    {name: 'Home', href: '/'},
+                    {name: 'Home', href: '/home/'},
                     {name: 'Members', href: '/members'},
                     {name: 'Groups', href: '/groups'}
                 ];
@@ -172,8 +172,12 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
+                        {name: 'Home', href: '/home/'},
                         {name: 'Sign In', href: '/id/login'},
-                        {name: 'Sign Up', href: '/id/create'}
+                        {name: 'Sign Up', href: '/id/create'},
+                        {name: 'Account Recovery', href: '/id/recover'},
+                        {name: 'Privacy', href: `/privacy`},
+                        {name: 'Guidelines', href: `/community-guidelines`},
                     ]
 
                     return localStorage.setItem('user-profile-cache', JSON.stringify({error: 'ERRT-3011'}))
@@ -194,7 +198,7 @@ export default function Header() {
                             {name: 'Send Invites', href: `${res.link}settings/send-group-invitations`},
                             {name: 'Received Invites', href: `${res.link}settings/received-group-invitations`},
                             {name: 'Join Requests', href: `${res.link}settings/membership-requests`},
-                            {name: 'Manage', href: `${res.link}settings/manage-groups`},
+                            {name: 'Create & Manage', href: `${res.link}settings/manage-groups`},
                         ]
                     },
                     // {border: true},
@@ -211,9 +215,14 @@ export default function Header() {
                         href: `/settings/`,
                         children: [
                             {name: 'Edit Profile', href: `/settings/`},
+                            {name: 'Telegram', href: `/settings/telegram`},
+                            {name: 'Password', href: `${res.link}settings/password`},
                             {name: 'Manage Kukiko ID', href: `${res.link}settings/account-settings`},
                         ],
                     },
+                    {border: true},
+                    {name: 'Privacy', href: `/privacy`},
+                    {name: 'Guidelines', href: `/community-guidelines`},
                     {border: true},
                 ];
 
@@ -357,15 +366,14 @@ export default function Header() {
     }
 
     return (
-        <header className="flex-shrink-0 relative h-16 flex items-center"
-        >
+        <header className="flex-shrink-0 relative h-16 px-6 flex items-center">
             {catEatingEasterEgg &&
                 <div className="absolute top-4 left-12 p-12 snapanim-shake">
                     <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/gray-cat.png`}
                          alt="Gray cat eating a bowl of ramen" className="h-24 w-auto"/>
                 </div>
             }
-            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 lg:px-6">
+            <a href="/" className="flex-grow inset-0 left-0 items-center lg:flex-grow-0 pr-4 lg:pr-6">
                 <img src={logoURL} alt="Yipnyap"
                      className="logo-image h-8 w-auto inline-flex items-center justify-center rounded-default"/>
             </a>
@@ -445,18 +453,6 @@ export default function Header() {
                             {/* Notifications */}
                             {(!loadingUser && loggedUser) &&
                                 <HeaderDropdownNotifications loggedUser={loggedUser}/>
-                            }
-
-                            {/* Theme switcher */}
-                            {
-                                !loadingUser &&
-                                <span className="inline-flex">
-                                    <div onClick={toggleLoggedUserColorTheme}
-                                       className="ypsdk button-icon cursor-pointer -mx-1 p-1 rounded-full text-neutral-400 hover:text-neutral-500">
-                                        <span className="sr-only">Toggle dark mode</span>
-                                        <MoonIcon className="h-6 w-6" aria-hidden="true"/>
-                                    </div>
-                                </span>
                             }
 
                             {/* User menu */}
@@ -659,6 +655,16 @@ export default function Header() {
                                             </div>
                                         )
                                     )}
+
+                                    {yipnyap_constants.currentUser?.display_name &&
+                                        <div className="px-2 sm:px-4">
+                                            <a onClick={toggleLoggedUserColorTheme}
+                                               className="header-menu-entity !flex py-2 px-3 space-x-2 text-base text-default">
+                                                <MoonIcon className="h-6 w-6" aria-hidden="true"/>
+                                                <span>Toggle dark mode</span>
+                                            </a>
+                                        </div>
+                                    }
                                 </div>
                             </div>
                             {/* Bottom Account Section */}

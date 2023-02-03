@@ -1,9 +1,7 @@
 import React from 'react';
 import {Fragment, useRef, useState} from 'react';
 
-import IconSVG from '../icon/IconSVG';
-import {Dialog, Transition} from "@headlessui/react";
-import {ExclamationTriangleIcon} from "@heroicons/react/24/outline";
+import {ExclamationTriangleIcon} from "@heroicons/react/24/solid";
 
 function MessageBox(props) {
     const [open, setOpen] = useState(true);

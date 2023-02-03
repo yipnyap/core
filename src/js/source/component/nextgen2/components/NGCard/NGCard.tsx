@@ -4,6 +4,7 @@ import {buildClassObject} from "../../utils/ColourScheme.utils";
 export declare interface NGCardType {
     title?: undefined | string | React.ReactNode;
     wellBody?: boolean;
+    noPadding?: boolean;
 
     className?: string;
     theme?: any;
@@ -34,7 +35,7 @@ export default function NGCard({...props}: NGCardType) {
                 </div>
             )}
             {props.children && (
-                <div className={`${theme.all} ${theme.card?.body}`}>
+                <div className={`${!props.noPadding ? theme.all : ''} ${theme.card?.body}`}>
                     {props.children}
                 </div>
             )}

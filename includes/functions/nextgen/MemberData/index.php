@@ -149,6 +149,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
 
         $member['tgid'] = get_user_meta($member_id, 'tgid', true);
         $member['secureIDLevel'] = get_user_meta($member_id, 'SecureID:Level', true);
+        $member['dipswitch'] = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
     }
 
     /**

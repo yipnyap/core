@@ -4,12 +4,11 @@ import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {Menu, Transition} from "@headlessui/react";
 import {
     ChatBubbleBottomCenterTextIcon,
-    CodeBracketIcon,
     EllipsisHorizontalIcon,
     FlagIcon,
     HandThumbUpIcon, ShareIcon,
     StarIcon
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {NGCard} from "../NGCard";
 import {NavLink} from "react-router-dom";
 

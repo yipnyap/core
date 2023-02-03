@@ -2,7 +2,7 @@
 
 import React, {Fragment, useEffect, useState} from 'react';
 import {Dialog, Transition} from '@headlessui/react';
-import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/outline';
+import {Bars3Icon, BellIcon, XMarkIcon, MoonIcon} from '@heroicons/react/24/solid';
 import {ArrowLeftCircleIcon, CheckBadgeIcon, ExclamationCircleIcon, HomeIcon} from '@heroicons/react/24/solid';
 
 import * as userRouter from "../../../router/user/user-router";

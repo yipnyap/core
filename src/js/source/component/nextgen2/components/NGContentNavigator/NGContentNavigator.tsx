@@ -1,7 +1,7 @@
 import React from 'react';
 import {buildClassObject} from "../../utils/ColourScheme.utils";
 import {NavLink} from "react-router-dom";
-import {HomeIcon} from "@heroicons/react/24/outline";
+import {HomeIcon} from "@heroicons/react/24/solid";
 
 export declare interface NGContentNavigatorItemType {
     name: string | JSX.Element;

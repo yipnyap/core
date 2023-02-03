@@ -20,7 +20,7 @@ import {
     PhotoIcon,
     TrophyIcon,
     VideoCameraIcon
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";

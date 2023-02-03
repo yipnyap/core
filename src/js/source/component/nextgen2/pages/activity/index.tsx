@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
 import {
     HomeIcon, PlusCircleIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {Void} from '../..';
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";

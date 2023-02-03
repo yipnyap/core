@@ -5,7 +5,7 @@ import {
     PaintBrushIcon, PaperAirplaneIcon,
     QuestionMarkCircleIcon, ServerStackIcon,
     ShareIcon,
-} from "@heroicons/react/24/outline";
+} from "@heroicons/react/24/solid";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
 import {useHeading} from "../../../../../providers/PageHeading.provider";
 // @ts-ignore

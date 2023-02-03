@@ -1,10 +1,9 @@
 import ContextProvider from "./ContextProvider";
 import {PageHeadingProvider, useHeading} from "../../providers/PageHeading.provider";
-import {useUser} from "../../providers/contexts";
-import React, {useEffect} from "react";
+import React from "react";
 import {NGBody, NGContent, NGSideNav} from "./components";
-import {Outlet, useLocation} from "react-router-dom";
-import {HomeIcon, UserIcon} from "@heroicons/react/24/outline";
+import {Outlet} from "react-router-dom";
+import {HomeIcon, UserIcon} from "@heroicons/react/24/solid";
 
 const navigation = [
     {name: 'Home', href: '/feed', icon: HomeIcon},

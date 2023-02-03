@@ -32,7 +32,30 @@ add_action('rest_api_init', function () {
         'callback' => function () {
             // Delete the ID inside WordPress user meta.
             delete_user_meta(get_current_user_id(), 'tgid');
+            delete_user_meta(get_current_user_id(), 'SecureID:Level');
             wp_send_json(['success' => true, 'message' => 'ID deleted.']);
+        },
+    ]);
+
+    /**
+     * PATCH /telegram/secureid
+     * @param int $level Secure ID Level.
+     * @since ui1.3
+     */
+    register_rest_route('v2', '/telegram/secureid', [
+        'methods' => 'PATCH',
+        'args' => [
+            'level' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+        ],
+        'callback' => function ($request) {
+            if (!in_array($request['level'], ['default', 'medium', 'high']))
+                wp_send_json(['success' => false, 'message' => 'Invalid Secure ID Level.'], 400);
+            // Set the Secure ID Level inside WordPress user meta.
+            update_user_meta(get_current_user_id(), 'SecureID:Level', $request['level']);
+            wp_send_json(['success' => true, 'message' => 'Secure ID Level set.']);
         },
     ]);
 });

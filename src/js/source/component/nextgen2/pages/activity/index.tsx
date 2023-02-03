@@ -7,7 +7,7 @@ import {Void} from '../..';
 import {useHeading} from "../../../../providers/PageHeading.provider";
 import {getMemberFriends, getMemberGroups} from "../../../../router/v2/members/get";
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
-import {NGCard} from "../../components";
+import {NGCard, NGNewUserOnboarding} from "../../components";
 // @ts-ignore
 import ActivityFilterableList from "../../../legacy/activity/ActivityFilterableList";
 // @ts-ignore
@@ -121,6 +121,11 @@ export default function Activity() {
                             </div>
                         )
                     }
+                    {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.incompleteProfile) && (
+                        <div className="p-8">
+                            <NGNewUserOnboarding/>
+                        </div>
+                    )}
                     <div
                         className="flex flex-row justify-center space-x-4 mx-auto py-8 max-w-4xl"
                     >

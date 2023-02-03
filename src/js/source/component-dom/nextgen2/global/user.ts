@@ -5,8 +5,10 @@ import {getCurrentMember} from "../../../router/v2/members/get";
  */
 export async function populateCurrentUser() {
     const user = await getCurrentMember();
-    if (user) {
+    if (user.code !== 404) {
         yipnyap_constants.currentUser = user;
+    } else {
+        yipnyap_constants.currentUser = null;
     }
 }
 

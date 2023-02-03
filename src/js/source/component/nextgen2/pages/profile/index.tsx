@@ -132,7 +132,7 @@ export default function Profile({...props}) {
     }
 
     const pageIsGabe = userID === 'voidhound_';
-    const selfIsGabe = yipnyap_constants.currentUser.username === 'voidhound_';
+    const selfIsGabe = yipnyap_constants.currentUser?.username === 'voidhound_';
 
     useEffect(() => {
         // If voidhound_, show "Arcana" tab
@@ -202,7 +202,7 @@ export default function Profile({...props}) {
                         icon: TrophyIcon,
                         current: location.pathname === `/${userID}/badges/`
                     },
-                    ...yipnyap_constants.currentUser.username === userID ? [{
+                    ...yipnyap_constants.currentUser?.username === userID ? [{
                         name: <span className='inline-flex'>Settings <ArrowUpRightIcon className='w-4'/></span>,
                         description: '',
                         href: '/settings/',
@@ -225,13 +225,14 @@ export default function Profile({...props}) {
                             ) : (
                                 <div className="m-auto p-8 max-w-3xl space-y-4">
                                     {
-                                        (yipnyap_constants.currentUser.username && yipnyap_constants.currentUser.username === user.username) && <NextgenProfilesWelcomeModal />
+                                        (yipnyap_constants.currentUser?.username && yipnyap_constants.currentUser?.username === user.username) &&
+                                        <NextgenProfilesWelcomeModal/>
                                     }
                                     {
-                                        location.pathname !== `/${userID}/arcana/` &&  <NGProfileHeader
+                                        location.pathname !== `/${userID}/arcana/` && <NGProfileHeader
                                             user={user}
-                                            loggedIn={yipnyap_constants.currentUser.username?.length > 0}
-                                            self={yipnyap_constants.currentUser.username === user.username}
+                                            loggedIn={yipnyap_constants.currentUser?.username?.length > 0}
+                                            self={yipnyap_constants.currentUser?.username === user.username}
                                         />
                                     }
 

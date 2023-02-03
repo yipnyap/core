@@ -482,7 +482,7 @@ export default function SettingsTelegram({...props}) {
 
     return (
         <div className="mb-8">
-            {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser.tgid && !telegramIsAllowed) && (
+            {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.tgid && !telegramIsAllowed) && (
                 <div className="flex flex-row space-x-4 justify-center items-center">
                     <div className="flex-1 mr-auto space-y-4 max-w-lg">
                         <h2 className="text-2xl font-bold">Telegram linkage unavailable</h2>

@@ -27,7 +27,7 @@ export default function Activity() {
 
     useEffect(() => {
         // Get current user groups
-        getMemberGroups(yipnyap_constants.currentUser.id).then((groups) => {
+        getMemberGroups(yipnyap_constants.currentUser?.id).then((groups) => {
             const userGroupsBuild = [];
             for (const group of groups) {
                 userGroupsBuild.push({
@@ -68,7 +68,7 @@ export default function Activity() {
         })
 
         // Get current user friends
-        getMemberFriends(yipnyap_constants.currentUser.id).then((friends) => {
+        getMemberFriends(yipnyap_constants.currentUser?.id).then((friends) => {
             const userFriendsBuild = [];
             for (const friend of friends) {
                 userFriendsBuild.push({
@@ -93,7 +93,7 @@ export default function Activity() {
             heading: null,
             padding: false,
             navigator: {
-                heading: `Hey, ${yipnyap_constants.currentUser.display_name || 'Stranger'}!`,
+                heading: `Hey, ${yipnyap_constants.currentUser?.display_name || 'Stranger'}!`,
                 subNavigation: [
                     {
                         name: 'Home',
@@ -115,7 +115,7 @@ export default function Activity() {
                 <>
                     {!yipnyap_constants.currentUser?.display_name && <NoUserCTAActivity/>}
                     {
-                        (yipnyap_constants.currentUser?.display_name && !yipnyap_constants.currentUser?.tgid) && (
+                        (yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.tgid) && (
                             <div className="flex flex-col justify-center m-auto py-8 max-w-4xl">
                                 <SettingsTelegram onlyShowOnboarding={true}/>
                             </div>
@@ -157,16 +157,16 @@ export default function Activity() {
                                         title={
                                             <p className="text-sm leading-5 text-gray-500">
                                                 <b className="text-secondary">
-                                                    {yipnyap_constants.currentUser.online_count === 1
+                                                    {yipnyap_constants.currentUser?.online_count === 1
                                                         ? 'Only you'
-                                                        : yipnyap_constants.currentUser.online_count}
+                                                        : yipnyap_constants.currentUser?.online_count}
                                                 </b>
-                                                {yipnyap_constants.currentUser.online_count > 1 ? ' people' : ''} are
+                                                {yipnyap_constants.currentUser?.online_count > 1 ? ' people' : ''} are
                                                 online.
                                             </p>}
                                         wellBody={true}
                                     >
-                                        {yipnyap_constants.currentUser.online_count < 3 && (
+                                        {yipnyap_constants.currentUser?.online_count < 3 && (
                                             <p className="text-sm leading-5 text-gray-500">
                                                 Yipnyap is better with friends! Tell 'em to join or login.
                                             </p>

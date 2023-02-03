@@ -70,7 +70,7 @@ export default function NGNewUserOnboarding({...props}: NGNewUserOnboardingType)
         <NGCard>
             <div>
                 <h2 className="text-lg font-medium">Welcome to
-                    Yipnyap, {yipnyap_constants.currentUser.display_name}!</h2>
+                    Yipnyap, {yipnyap_constants.currentUser?.display_name}!</h2>
                 <p className="mt-1 text-sm text-default-alt">
                     Welcome to Yipnyap! Below are some things you can do to ✨customize✨ your profile, and get started on
                     Yipnyap.

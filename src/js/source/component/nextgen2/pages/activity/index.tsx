@@ -121,12 +121,13 @@ export default function Activity() {
                             </div>
                         )
                     }
-                    {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.incompleteProfile) && (
+                    {(yipnyap_constants.currentUser && !yipnyap_constants.currentUser?.dipswitch?.hide_onboarding) && (
                         <div className="p-8">
                             <NGNewUserOnboarding/>
                         </div>
                     )}
                     <div
+                        id="onboarding-create_post"
                         className="flex flex-row justify-center space-x-4 mx-auto py-8 max-w-4xl"
                     >
                         {

@@ -6,8 +6,6 @@ import VideoPreview from '../../../video/VideoPreview';
 
 import ActivityMediaPopup from '../../activity-popup/ActivityMediaPopup';
 
-import YTPlayer from '../../../iframe/YTPlayer';
-
 import {getMediaLink} from '../../../../../utils/core';
 
 import {filterActivityContentForDisplay} from '../../../utils/activity/activity-filter';
@@ -93,37 +91,6 @@ function ActivityStatusBody(props) {
                         </React.Fragment>
                     }
                 </React.Fragment>
-            }
-
-            {
-                props.data.meta.attached_media_type && props.data.meta.attached_media_id &&
-                <div className="iframe-wrap">
-                    {
-                        (props.data.meta.attached_media_type[0] === 'youtube') &&
-                        <React.Fragment>
-                            {
-                                (yipnyap_constants.settings.newsfeed_yt_playback_limit === 'yes') && !props.sharePopupActivity &&
-                                <YTPlayer videoID={props.data.meta.attached_media_id[0]}
-                                          stop={props.data.meta.attached_media_stop}
-                                          onPlay={onPlay}
-                                />
-                            }
-                            {
-                                ((yipnyap_constants.settings.newsfeed_yt_playback_limit === 'no') || props.sharePopupActivity) &&
-                                <iframe
-                                    src={getMediaLink(props.data.meta.attached_media_type[0], props.data.meta.attached_media_id[0])}
-                                    allowFullScreen></iframe>
-                            }
-                        </React.Fragment>
-                    }
-
-                    {
-                        (props.data.meta.attached_media_type[0] !== 'youtube') &&
-                        <iframe
-                            src={getMediaLink(props.data.meta.attached_media_type[0], props.data.meta.attached_media_id[0])}
-                            allowFullScreen></iframe>
-                    }
-                </div>
             }
         </div>
     );

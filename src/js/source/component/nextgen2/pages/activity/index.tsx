@@ -163,13 +163,13 @@ export default function Activity() {
                                                         : yipnyap_constants.currentUser?.online_count}
                                                 </b>
                                                 {yipnyap_constants.currentUser?.online_count > 1 ? ' people' : ''} are
-                                                online.
+                                                online this minute.
                                             </p>}
                                         wellBody={true}
                                     >
                                         {yipnyap_constants.currentUser?.online_count < 3 && (
                                             <p className="text-sm leading-5 text-gray-500">
-                                                Yipnyap is better with friends! Tell 'em to join or login.
+                                                Yipnyap is better with others! Tell 'em to join or login.
                                             </p>
                                         )}
                                     </NGCard>

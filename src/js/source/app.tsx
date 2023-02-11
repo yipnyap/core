@@ -127,7 +127,6 @@ import './component-dom/legacy/settings/settings-profile';
 import './component-dom/legacy/settings/settings-social';
 import './component-dom/legacy/settings/settings-stream';
 import './component-dom/legacy/settings/settings-notifications';
-import './component-dom/legacy/settings/settings-messages';
 import './component-dom/legacy/settings/settings-friend-requests';
 
 import './component-dom/legacy/settings/settings-account-info';

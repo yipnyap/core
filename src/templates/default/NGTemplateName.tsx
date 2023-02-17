@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 // @ts-ignore
-import {buildClassObject} from "../../utils/ColourScheme.utils";
+import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
 
 export declare interface NGTemplateNameType {
     theme?: any;

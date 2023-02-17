@@ -1,6 +1,6 @@
-import {querySelector} from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
-import * as userRouter from '../router/user/user-router';
+import * as userRouter from '@legacy/router/user/user-router';
 
 // if side menu is showing, center content grid based on its size
 if (yipnyap_constants.settings.sidemenu_status === 'display') {

@@ -1,4 +1,4 @@
-import {querySelector} from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('.vk-form-counter-input', (els) => {
     for (const counter of els) {

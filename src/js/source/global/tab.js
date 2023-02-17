@@ -1,4 +1,4 @@
-import { createTab } from '../utils/plugins';
+import {createTab} from '@legacy/utils/plugins';
 
 /**
  * TAB

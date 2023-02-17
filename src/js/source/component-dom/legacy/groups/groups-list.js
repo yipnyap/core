@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import GroupFilterableList from '../../../component/legacy/filter/GroupFilterableList';
+import GroupFilterableList from '../../../component//filter/GroupFilterableList';
 
 const groupFilterableListElement = document.querySelector('#group-filterable-list');
 

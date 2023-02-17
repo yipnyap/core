@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import MemberFilterableList from '../../../component/legacy/filter/MemberFilterableList';
+import MemberFilterableList from '../../../component//filter/MemberFilterableList';
 
 const memberFilterableListElement = document.querySelector('#member-filterable-list');
 

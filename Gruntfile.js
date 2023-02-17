@@ -78,6 +78,21 @@ module.exports = function (grunt) {
                             ],
                             ['@babel/preset-react', {runtime: 'automatic'}],
                         ],
+                        plugins: [
+                            "@babel/plugin-transform-runtime",
+                            [
+                                "module-resolver",
+                                {
+                                    "root": [
+                                        "./src"
+                                    ],
+                                    "alias": {
+                                        "@nextgen2": "./src/nextgen2",
+                                        "@legacy": "./src/js/source"
+                                    }
+                                }
+                            ]
+                        ],
                         extensions: ['.js', '.ts', '.tsx'],
                         compact: true,
                         global: true,

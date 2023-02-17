@@ -1,4 +1,4 @@
-import { querySelector } from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('.vk-el-navigation-mobile-trigger-open', (triggers) => {
   const navigationActiveSelector = 'vk-el-navigation-mobile-active',

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import WidgetPhotos from '../../../component/legacy/widget/WidgetPhotos';
+import WidgetPhotos from '../../../component/widget/WidgetPhotos';
 
 const photosWidgetElement = document.querySelector('#photos-widget');
 

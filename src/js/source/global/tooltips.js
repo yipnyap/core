@@ -1,4 +1,4 @@
-import { createTooltip } from '../utils/plugins';
+import {createTooltip} from '@legacy/utils/plugins';
 
 createTooltip({
   container: '.text-tooltip-tfr',

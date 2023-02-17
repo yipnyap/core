@@ -1,4 +1,4 @@
-import { createDropdown } from '../utils/plugins';
+import {createDropdown} from '@legacy/utils/plugins';
 
 /**
  * HEADER SETTINGS

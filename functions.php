@@ -154,7 +154,7 @@ const YIPNYAP_OPTIONS = [
 foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
     $change_required = get_option($key) !== $option;
 //    echo $key . ': ' . $option . ' | current: ' . get_option($key) . ' | change required: ' . $change_required . '<br>';
-    if ($change_required && $option !== 'DEVTEST') {
+    if ($change_required && ($option !== 'DEVTEST' || $key !== 'yipnyap_logo_url')) {
         update_option($key, $option);
     }
 }
@@ -291,7 +291,7 @@ function yipnyap_load_scripts(): void
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
         'logout_url' => wp_logout_url('/'),
-        'logo_url' => get_option('yipnyap_logo_url'),
+        'logo_url' => YIPNYAP_WPOPTIONS['yipnyap_logo_url'],
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
         'rest_root' => esc_url_raw(rest_url()),

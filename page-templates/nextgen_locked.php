@@ -5,12 +5,17 @@ if (!is_user_logged_in()) {
 }
 
 get_header(null, [
-        'selfControlCMUI' => true,
+    'selfControlCMUI' => true,
 ]);
 ?>
-<div id="cmui-entire-content" class="lg:pl-20" style="height: calc(100% - 64px); overflow: hidden !important;">
+<div id="cmui-entire-content" class="h-full" style="overflow: hidden !important;">
+    <div class="h-full" id="ng2-entrypoint">
+        <div class="flex w-full h-full m-auto">
+            <img class="m-auto h-5 w-5 animate-spin dark:invert"
+                 src="<?php echo YIPNYAP_URL . '/img/symbolic/process-working.symbolic.png' ?>"
+                 alt="Process working spinner"/>
+        </div>
+    </div>
 
-<div class="h-full" id="nextgen-settings-page"></div>
-
-<?php get_footer(); ?>
+    <?php get_footer(); ?>
 

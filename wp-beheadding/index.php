@@ -29,6 +29,17 @@ add_filter('do_redirect_guess_404_permalink', function () {
 });
 
 /**
+ * Remove the WordPress Heartbeat API
+ *
+ * @return void
+ * @package Yipnyap WP Beheadding
+ * @since ui1.4
+ */
+add_action('init', function () {
+    wp_deregister_script('heartbeat');
+}, 1);
+
+/**
  * Remove REST API & oEmbed Discovery links from header
  *
  * @return void

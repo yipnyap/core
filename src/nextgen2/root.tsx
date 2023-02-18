@@ -5,18 +5,6 @@ import {NGBody, NGContent, NGSideNav} from "./components";
 import {Outlet} from "react-router-dom";
 import {BellIcon, HomeIcon, UserIcon} from "@heroicons/react/24/solid";
 
-const navigation = [
-    {name: 'Home', href: '/home/', icon: HomeIcon},
-    // {name: 'Trending', href: '#', icon: FireIcon},
-    // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
-    {name: 'Notifications', href: '#', icon: BellIcon},
-    {
-        name: 'Profile',
-        href: yipnyap_constants.currentUser ? `/@${yipnyap_constants.currentUser.username}/` : '/id/create',
-        icon: UserIcon
-    },
-]
-
 export default function Root() {
     return (
         <ContextProvider>
@@ -31,6 +19,18 @@ function RootWithinProvider() {
     const [heading] = useHeading();
 
     document.body.style.overflow = 'hidden';
+
+    const navigation = [
+        {name: 'Home', href: '/home/', icon: HomeIcon},
+        // {name: 'Trending', href: '#', icon: FireIcon},
+        // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
+        {name: 'Notifications', href: '#', icon: BellIcon},
+        {
+            name: 'Profile',
+            href: yipnyap_constants.currentUser ? `/@${yipnyap_constants.currentUser.username}/` : '/id/create',
+            icon: UserIcon
+        },
+    ];
 
     return (
         <NGBody>

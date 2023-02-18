@@ -340,7 +340,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
         /**
          * Box Colors
          */
-        '--color-box-background' => '#ffffffe6',
+        '--color-box-background' => '#ffffff',
         '--color-box-background-solid' => '#ffffff',
         '--color-box-background-alt' => '#fafafa',
         '--color-box-over-box-background' => '#e5e5e5',
@@ -448,7 +448,7 @@ function yipnyap_customizer_color_preset_default_colors_get($preset_name)
                 '--color-header-progressbar-line-gradient-end' => '#d9ff65',
                 '--color-header-progressbar-underline' => '#5538b5',
                 '--color-body' => '#171717',
-                '--color-box-background' => '#262626E6',
+                '--color-box-background' => '#262626',
                 '--color-box-background-solid' => '#262626',
                 '--color-box-background-alt' => '#2d2d2d',
                 '--color-box-over-box-background' => '#404040',

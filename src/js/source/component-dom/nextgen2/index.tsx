@@ -19,9 +19,4 @@ populateCurrentUser().then(async r => {
             NGActivityPageElement
         );
     }
-
-    /**
-     * Profile DOM
-     */
-    await import('./profile/header');
 });

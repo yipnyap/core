@@ -19,31 +19,27 @@
  *
  * @package Yipnyap
  */
-
-$sidemenu_status = get_theme_mod('yipnyap_sidemenu_setting_display', 'display');
-$header_version  = get_theme_mod('yipnyap_siteidentity_setting_header_type', 'v2');
-
 global $yipnyap_settings;
 
-$display_search = ($yipnyap_settings['search_status'] === 'display') && ($yipnyap_settings['search_members_enabled'] || $yipnyap_settings['search_groups_enabled'] || $yipnyap_settings['search_blog_enabled']);
-
 if (isset($args['user'])) {
-	$display_verified = yipnyap_plugin_bpverifiedmember_is_active();
+    $display_verified = yipnyap_plugin_bpverifiedmember_is_active();
 
-	$verified_user = $display_verified && $args['user']['verified'];
+    $verified_user = $display_verified && $args['user']['verified'];
 }
 
-if ($sidemenu_status === 'display') {
-	?>
-    <!-- NAVIGATION WIDGET -->
-    <nav id="navigation-widget-small"
-         style="z-index: 900; padding-bottom: 0;"
-         class="cmui navigator border-divider navigation-widget navigation-widget-desktop hidden lg:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
-        <div class="section-divider">
-			<?php
-            if(isset($args['user'])) {
-                /**
-                 * Avatar Small
+$selfControl = !isset($args['selfControlCMUI']) || $args['selfControlCMUI'] === false;
+
+if ($selfControl) {
+?>
+<!-- NAVIGATION WIDGET -->
+<nav id="navigation-widget-small"
+     style="z-index: 900; padding-bottom: 0;"
+     class="cmui navigator border-divider navigation-widget navigation-widget-desktop hidden lg:flex <?php echo $yipnyap_settings['sidemenu_active'] ? 'hidden' : ''; ?>">
+    <div class="section-divider">
+        <?php
+        if (isset($args['user'])) {
+            /**
+             * Avatar Small
                  */
                 get_template_part('template-part/avatar/avatar', 'small', [
                     'user'        => $args['user'],
@@ -84,13 +80,6 @@ if ($sidemenu_status === 'display') {
             </div>
 			<?php } ?>
     </nav>
-    <!-- /NAVIGATION WIDGET -->
-<?php } ?>
-<!-- HEADER -->
-<header id="cmui-header" class="bg-box border-solid border-0 border-b border-divider sticky top-0 w-full z-40" style="height: 64px;"></header>
-<!-- /HEADER -->
 
-<!-- CMUI Entire Content begin -->
-<?php if (!isset($args['selfControlCMUI']) || $args['selfControlCMUI'] === false) { ?>
     <div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">
 <?php } ?>

@@ -47,7 +47,7 @@ export default function NGSideNav({...props}: NGSideNavType) {
     const [user, setUser] = useState<NGUserType>({loggedIn: false});
     let theme = buildClassObject(NGSideNavTheming, props.theme || undefined);
 
-    const logoURL = props.logoURL || 'https://yipnyap.me/vault/@server/uploads/2022/04/cropped-yipnyap-logo.png'
+    const logoURL = props.logoURL || yipnyap_constants.logo_url || 'https://yipnyap.me/vault/@server/uploads/2022/04/cropped-yipnyap-logo.png'
 
     return (
         <>

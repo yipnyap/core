@@ -26,14 +26,36 @@ export async function getCurrentMember() {
  * Get member groups
  */
 export async function getMemberGroups(id: string) {
-    const res = await fetch(`/api/v2/member/${id}/groups`);
-    return await res.json();
+    // Check yipnyap_constants.currentUser for groups, if not, populate it.
+    if (yipnyap_constants.currentUser.groups === undefined || yipnyap_constants.currentUser.groups.length === 0) {
+        const res = await fetch(`/api/v2/member/${id}/groups`);
+        const json = await res.json();
+
+        if (Array.isArray(json)) {
+            yipnyap_constants.currentUser.groups = json;
+        } else {
+            yipnyap_constants.currentUser.groups = [];
+        }
+    }
+
+    return yipnyap_constants.currentUser.groups;
 }
 
 /**
  * Get member friends
  */
 export async function getMemberFriends(id: string) {
-    const res = await fetch(`/api/v2/member/${id}/friends`);
-    return await res.json();
+    // Check yipnyap_constants.currentUser for friends, if not, populate it.
+    if (yipnyap_constants.currentUser.friends === undefined || yipnyap_constants.currentUser.friends.length === 0) {
+        const res = await fetch(`/api/v2/member/${id}/friends`);
+        const json = await res.json();
+
+        if (Array.isArray(json)) {
+            yipnyap_constants.currentUser.friends = json;
+        } else {
+            yipnyap_constants.currentUser.friends = [];
+        }
+    }
+
+    return yipnyap_constants.currentUser.friends;
 }

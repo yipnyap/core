@@ -29,6 +29,7 @@ export default function Activity() {
         // Get current user groups
         getMemberGroups(yipnyap_constants.currentUser?.id).then((groups) => {
             const userGroupsBuild = [];
+            if (!Array.isArray(groups)) return;
             for (const group of groups) {
                 userGroupsBuild.push({
                     name: group.name,
@@ -65,11 +66,13 @@ export default function Activity() {
                 icon: PlusCircleIcon,
             });
             setUserGroups(userGroupsBuild);
+            setReadyToRender(true);
         })
 
         // Get current user friends
         getMemberFriends(yipnyap_constants.currentUser?.id).then((friends) => {
             const userFriendsBuild = [];
+            if (!Array.isArray(friends)) return;
             for (const friend of friends) {
                 userFriendsBuild.push({
                     name: friend.display_name,
@@ -80,7 +83,6 @@ export default function Activity() {
                 });
             }
             setUserFriends(userFriendsBuild);
-            setReadyToRender(true);
         })
 
         if (!yipnyap_constants.currentUser?.display_name) {

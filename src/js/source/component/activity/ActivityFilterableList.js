@@ -31,7 +31,7 @@ function ActivityFilterableList(props) {
     const [pinnedActivityID, setPinnedActivityID] = useState(false);
     const [reactions, setReactions] = useState([]);
     const [fetchingUser, setFetchingUser] = useState(false);
-    const [loggedUser, setLoggedUser] = useState(false);
+    const [loggedUser, setLoggedUser] = useState(yipnyap_constants.currentUser || false);
     const [hasCheckedLoggedUser, setHasCheckedLoggedUser] = useState(false);
 
     const currentPage = useRef(1);
@@ -526,18 +526,10 @@ function ActivityFilterableList(props) {
     };
 
     const getLoggedUser = (callback = () => {}) => {
-        setFetchingUser(true);
-
-        userRouter.getLoggedInMember('user-activity')
-            .done((loggedUser) => {
-                
-
-                setLoggedUser(loggedUser);
-                setFetchingUser(false);
-                setHasCheckedLoggedUser(true);
-
-                callback(loggedUser);
-            });
+        setLoggedUser(yipnyap_constants.currentUser);
+        setFetchingUser(false);
+        setHasCheckedLoggedUser(true);
+        callback(yipnyap_constants.currentUser);
     };
 
     const onPlay = (activityID = false) => {
@@ -590,10 +582,8 @@ function ActivityFilterableList(props) {
     };
 
     useEffect(() => {
-        if(!hasCheckedLoggedUser) getLoggedUser(() => {
-            getReactions();
-            getActivitiesPage();
-        });
+        getReactions();
+        getActivitiesPage();
     }, []);
 
     // Check if groupID has changed, if so, reset activities and get new ones

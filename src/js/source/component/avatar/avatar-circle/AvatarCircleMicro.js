@@ -9,7 +9,7 @@ function AvatarCircleMicro(props) {
                  {...(!props.noLink ? {href: props.data.link} : {})}
         >
             {/* USER AVATAR CIRCLE IMAGE */}
-            <img className="user-avatar-circle-image" src={props.data.avatar_url}
+            <img className="user-avatar-circle-image" src={props.data.avatar || props.data.avatar_url}
                  alt={props.group ? 'group-avatar' : 'user-avatar'}/>
             {/* USER AVATAR CIRCLE IMAGE */}
         </Element>

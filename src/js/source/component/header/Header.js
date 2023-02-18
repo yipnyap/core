@@ -466,7 +466,7 @@ export default function Header() {
                                         <img className="h-5 w-5 animate-spin dark:invert"
                                              src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
                                              alt="Process working spinner"/> :
-                                        <img className="h-8 w-8 rounded-full" src={loggedUser.avatar_url}
+                                        <img className="h-8 w-8 rounded-full" src={loggedUser.avatar}
                                              alt=""/>
                                     }
                                 </div>
@@ -589,7 +589,7 @@ export default function Header() {
                                 {(loggedUser && !loadingUser) &&
                                     <div className="max-w-8xl mx-auto px-4 flex items-center sm:px-6">
                                         <div className="flex-shrink-0">
-                                            <img className="h-10 w-10 rounded-full" src={loggedUser.avatar_url}
+                                            <img className="h-10 w-10 rounded-full" src={loggedUser.avatar}
                                                  alt=""/>
                                         </div>
                                         <a href={loggedUser.link} className="ml-3 min-w-0 flex-1">

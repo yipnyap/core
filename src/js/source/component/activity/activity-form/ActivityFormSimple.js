@@ -42,7 +42,7 @@ function ActivityFormSimple(props) {
                                                 value={text}
                                                 maxLength={yipnyap_constants.settings.activity_character_limit}
                                                 minHeight={120}
-                                                placeholder={`${yipnyap_translation.activity_form_placeholder_1} ${props.user.name}! ${yipnyap_translation.activity_form_placeholder_2}`}
+                                                placeholder={`${yipnyap_translation.activity_form_placeholder_1} ${props.user.username}! ${yipnyap_translation.activity_form_placeholder_2}`}
                                                 userFriends={props.user.friends}
                                                 handleChange={handleTextChange}
                                                 loading={submitting}

@@ -9,7 +9,8 @@ function AvatarCircleOverlaySmaller(props) {
                  {...(!props.noLink ? {href: props.link} : {})}
         >
             {/* USER AVATAR CIRCLE IMAGE */}
-            <img className="user-avatar-circle-image" src={props.data.avatar_url} alt="user-avatar"/>
+            <img className="user-avatar-circle-image" src={props.data.avatar || props.data.avatar_url}
+                 alt="user-avatar"/>
             {/* USER AVATAR CIRCLE IMAGE */}
 
             {/* USER AVATAR CIRCLE OVERLAY */}

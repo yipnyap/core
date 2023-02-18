@@ -514,9 +514,8 @@ export default function SettingsTelegram({...props}) {
                             account if you don't already have one.
                         </p>
                         <p className="text-sm text-tertiary">
-                            You must connect your Telegram account to be able to recover your account. In
-                            some regions, you might not be able to view explicit content until you connect your
-                            Telegram account with a valid phone number.
+                            You must connect your Telegram account to be able to recover your account if you lose
+                            your password.
                         </p>
                     </div>
 

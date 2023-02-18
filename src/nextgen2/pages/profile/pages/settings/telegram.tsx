@@ -363,7 +363,7 @@ function SetupDialog({...props}) {
                                     ref={dialog}
                                     className="max-h-full m-auto flex flex-col transform overflow-hidden rounded-2xl bg-box-solid text-left align-middle shadow-xl transition-all border border-solid border-divider"
                                 >
-                                    <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-scroll">
+                                    <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-auto">
                                         <Tab.Group selectedIndex={selectedIndex} onChange={setSelectedIndex}>
                                             <Tab.List
                                                 className="flex max-w-lg p-1 space-x-1 bg-neutral-100 dark:bg-neutral-800 rounded mx-auto pointer-events-none">

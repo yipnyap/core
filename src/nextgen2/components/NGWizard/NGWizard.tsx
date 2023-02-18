@@ -74,7 +74,7 @@ export default function NGWizard(props: {
                                 ref={dialog}
                                 className={`${props.isTertiary ? '!bg-opacity-50 bg-red-100 dark:bg-red-900' : ''} max-w-md max-w-full min-h-sm max-h-full m-auto flex flex-col bg-box transform overflow-hidden rounded-2xl text-left align-middle shadow-xl transition-all border border-solid border-divider`}
                             >
-                                <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-scroll">
+                                <div ref={dialogInner} className="w-fit h-fit p-12 flex-1 overflow-auto">
                                     {props.children}
                                 </div>
 

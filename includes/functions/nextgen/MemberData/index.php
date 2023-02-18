@@ -171,7 +171,17 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $request->set_param('populate_extras', 0);
         $response = rest_do_request($request);
 
-        $member['online_count'] = count($response->data);
+        $onlineCount = count($response->data);
+
+        // If the count is less than or equal to 1, generate a random online count based on the current time.
+        if ($onlineCount <= 1) {
+            // Add up current date, hour, and minute, then divide by 10.
+            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 15;
+            // Round the number to the nearest 10.
+            $onlineCount = round($onlineCount);
+        }
+
+        $member['online_count'] = $onlineCount;
     }
 
     /**

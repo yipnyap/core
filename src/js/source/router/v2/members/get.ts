@@ -27,15 +27,19 @@ export async function getCurrentMember() {
  */
 export async function getMemberGroups(id: string) {
     // Check yipnyap_constants.currentUser for groups, if not, populate it.
-    if (yipnyap_constants.currentUser.groups === undefined || yipnyap_constants.currentUser.groups.length === 0) {
+    if (!Array.isArray(yipnyap_constants.currentUser.groups)) {
         const res = await fetch(`/api/v2/member/${id}/groups`);
         const json = await res.json();
 
         if (Array.isArray(json)) {
+            console.log(`[🗄️ Cache] Member groups for ${id} cached.`);
             yipnyap_constants.currentUser.groups = json;
         } else {
+            console.log(`[🗄️ Cache] Member groups is non-existent or not an array for ${id}`);
             yipnyap_constants.currentUser.groups = [];
         }
+    } else {
+        console.log(`[🗄️ Cache] Member groups for ${id} already cached.`);
     }
 
     return yipnyap_constants.currentUser.groups;
@@ -46,7 +50,7 @@ export async function getMemberGroups(id: string) {
  */
 export async function getMemberFriends(id: string) {
     // Check yipnyap_constants.currentUser for friends, if not, populate it.
-    if (yipnyap_constants.currentUser.friends === undefined || yipnyap_constants.currentUser.friends.length === 0) {
+    if (!Array.isArray(yipnyap_constants.currentUser.friends)) {
         const res = await fetch(`/api/v2/member/${id}/friends`);
         const json = await res.json();
 
@@ -55,6 +59,8 @@ export async function getMemberFriends(id: string) {
         } else {
             yipnyap_constants.currentUser.friends = [];
         }
+    } else {
+        console.log(`[🗄️ Cache] Member friends for ${id} already cached.`);
     }
 
     return yipnyap_constants.currentUser.friends;

@@ -1,25 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
-
 import Paginator from '@legacy/component/utils/Paginator';
-
 import ActivityForm from './activity-form/ActivityForm';
 import ActivityFilterBar from './ActivityFilterBar';
 import ActivityList from './ActivityList';
-
 import Notification from '../notification/Notification';
-
 import Loader from '../loader/Loader';
-
 import ScrollPager from '../pager/ScrollPager';
-
 import {deepExtend, deepMerge} from '@legacy/utils/core';
 
-import * as userRouter from '@legacy/router/user/user-router';
 import * as activityRouter from '@legacy/router/activity/activity-router';
 import * as reactionRouter from '@legacy/router/reaction/reaction-router';
 
 import {filterActivityContentForSave} from '@legacy/component/utils/activity/activity-filter';
 import {updateActivities} from '@legacy/component/utils/activity/activity-data';
+import {getMemberGroups} from "@legacy/router/v2/members/get";
 
 function ActivityFilterableList(props) {
     const [activities, setActivities] = useState({
@@ -526,10 +520,13 @@ function ActivityFilterableList(props) {
     };
 
     const getLoggedUser = (callback = () => {}) => {
-        setLoggedUser(yipnyap_constants.currentUser);
-        setFetchingUser(false);
-        setHasCheckedLoggedUser(true);
-        callback(yipnyap_constants.currentUser);
+        // Get current user groups
+        getMemberGroups(yipnyap_constants.currentUser?.id).then(r => {
+            setLoggedUser(yipnyap_constants.currentUser);
+            setFetchingUser(false);
+            setHasCheckedLoggedUser(true);
+            callback(yipnyap_constants.currentUser);
+        });
     };
 
     const onPlay = (activityID = false) => {
@@ -582,8 +579,10 @@ function ActivityFilterableList(props) {
     };
 
     useEffect(() => {
-        getReactions();
-        getActivitiesPage();
+        getLoggedUser(() => {
+            getReactions();
+            getActivitiesPage();
+        });
     }, []);
 
     // Check if groupID has changed, if so, reset activities and get new ones

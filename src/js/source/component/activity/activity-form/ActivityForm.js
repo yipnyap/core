@@ -10,6 +10,7 @@ import VideoPreview from '../../video/VideoPreview';
 import {extractAttachedMedia} from '@legacy/utils/core';
 import {getActivityTemplate} from '@legacy/component/utils/activity/activity-template';
 import {VideoCameraIcon, PhotoIcon} from "@heroicons/react/24/solid";
+import {getMemberGroups} from "../../../router/v2/members/get";
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -31,6 +32,7 @@ function ActivityForm(props) {
 
     const [formData, setFormData] = useState(initialFormData);
     const [showDiscard, setShowDiscard] = useState(false);
+    const [userGroups, setUserGroups] = useState(props.user.groups?.filter(group => !group.is_banned) || []);
 
     // useEffect(() => {
     //     if (!props.shareData && yipnyap_constants.plugin_active.vkmedia && yipnyap_constants.settings.media_photo_upload_enabled) {
@@ -48,7 +50,6 @@ function ActivityForm(props) {
     useEffect(() => {
         const formDataEqual = isEqual(formData, initialFormData);
         setShowDiscard(!formDataEqual);
-        
     }, [formData])
 
     const fileID = useRef(1);
@@ -363,7 +364,12 @@ function ActivityForm(props) {
 
     const displayVerifiedMemberBadge = yipnyap_constants.plugin_active['bp-verified-member'] && yipnyap_constants.settings.bp_verified_member_display_badge_in_activity_stream && props.user.verified;
 
-    const userGroups = props.user.groups.filter(group => !group.is_banned);
+    if (!props.user.groups) {
+        // Get user groups
+        getMemberGroups(props.user.id).then((groups) => {
+            setUserGroups(groups.filter(group => !group.is_banned))
+        })
+    }
 
     return (
         <div ref={props.forwardedRef} className={`quick-post ${formData.submitting ? 'disabled' : ''}`}>

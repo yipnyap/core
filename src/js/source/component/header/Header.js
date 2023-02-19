@@ -7,6 +7,7 @@ import {ArrowLeftCircleIcon, CheckBadgeIcon, ExclamationCircleIcon, HomeIcon} fr
 
 import * as userRouter from "@legacy/router/user/user-router";
 import HeaderDropdownNotifications from "./header-dropdown/header-dropdown-notifications/HeaderDropdownNotifications";
+import {ExclamationTriangleIcon} from "@heroicons/react/20/solid";
 
 let changingColorTheme = false;
 
@@ -393,47 +394,40 @@ export default function Header() {
             {/* Desktop nav area */}
             <div className="hidden md:min-w-0 lg:flex-1 md:flex md:items-center md:justify-between">
                 {/* Search */}
-                <div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">
-                    <label htmlFor="search"
-                           className="sr-only">
-                        Search
-                    </label>
-                    <div className="mt-1 relative rounded-default shadow-sm">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"
-                             aria-hidden="true">
-                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
-                                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">
-                                <path fillRule="evenodd"
-                                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
-                                      clipRule="evenodd"></path>
-                            </svg>
-                        </div>
-                        <input type="text" name="search" id="search" value={searchQuery}
-                               onChange={e => setSearchQuery(e.target.value)}
-                               className="highlight-main block w-full pl-9 max-h-9"
-                               placeholder="@Users, Things, Stuff..." onKeyDown={attemptSearch}/>
+                {/*<div className="max-w-2xl relative text-neutral-400 focus-within:text-neutral-500">*/}
+                {/*    <label htmlFor="search"*/}
+                {/*           className="sr-only">*/}
+                {/*        Search*/}
+                {/*    </label>*/}
+                {/*    <div className="mt-1 relative rounded-default shadow-sm">*/}
+                {/*        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none"*/}
+                {/*             aria-hidden="true">*/}
+                {/*            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"*/}
+                {/*                 aria-hidden="true" className="mr-3 h-4 w-4 text-alt">*/}
+                {/*                <path fillRule="evenodd"*/}
+                {/*                      d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"*/}
+                {/*                      clipRule="evenodd"></path>*/}
+                {/*            </svg>*/}
+                {/*        </div>*/}
+                {/*        <input type="text" name="search" id="search" value={searchQuery}*/}
+                {/*               onChange={e => setSearchQuery(e.target.value)}*/}
+                {/*               className="highlight-main block w-full pl-9 max-h-9"*/}
+                {/*               placeholder="@Users, Things, Stuff..." onKeyDown={attemptSearch}/>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
+                {/* Centered warning notice */}
+                <div className="relative">
+                    <div className="inset-0 flex items-center text-tertiary" aria-hidden="true">
+                        <ExclamationTriangleIcon className="h-5 w-5"/>
+                        <span className="ml-3 text-sm font-medium">
+                            This is Yipnyap Legacy. Some features may not work, and some things may look weird.
+                        </span>
                     </div>
                 </div>
 
-                <div className="relative"/>
-
                 {/* Left nav area */}
                 <div className="ml-10 pr-4 flex-shrink-0 flex items-center space-x-10">
-                    {/* Navigation links */}
-                    <nav aria-label="Global" className="flex space-x-10">
-                        <a href="https://patreon.com/yipnyap" target="_blank"
-                           className="text-sm font-medium text-primary">
-                            ❤️ Donate
-                        </a>
-                        <a href="https://yipnyap.atlassian.net/servicedesk" target="_blank"
-                           className="text-sm font-medium text-primary">
-                            🛟 Support
-                        </a>
-                        <a href="/community-guidelines" className="text-sm font-medium text-primary">
-                            📜 Guidelines
-                        </a>
-                    </nav>
-
                     {(!loggedUser && !loadingUser) &&
                         <div className="flex items-center space-x-4">
                             <a href="/id/create" className="ypsdk button-upgrade inline-flex items-center">

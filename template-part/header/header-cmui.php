@@ -79,7 +79,9 @@ if ($selfControl) {
                 </a>
             </div>
 			<?php } ?>
-    </nav>
+</nav>
 
-    <div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">
+<header id="cmui-header" class="bg-box border-solid border-0 border-b border-divider sticky top-0 w-full z-40"
+        style="height: 64px;"></header>
+<div id="cmui-entire-content" class="px-4 md:pl-24 pr-4 pt-4" style="overflow-y: auto; overflow-x: hidden;">
 <?php } ?>

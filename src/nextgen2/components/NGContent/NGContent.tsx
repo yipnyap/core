@@ -35,7 +35,8 @@ export default function NGContent({...props}: NGContentType) {
     typeof props.heading?.fullHeight === 'undefined' && (props.heading.fullHeight = true)
 
     return (
-        <div id="NGContent" className={`${(location.pathname === '/') && 'hidden sm:block'} flex-1 overflow-y-auto`}>
+        <div id="NGContent"
+             className={`${(location.pathname === '/') && 'hidden sm:block'} mb-16 sm:mb-0 flex-1 overflow-y-auto`}>
             <div aria-labelledby="primary-heading" className={
                 (props.heading?.padding ? 'max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8' : '')
                 + ' mb-48 ' + (props.heading?.fullHeight ? 'h-full' : '')

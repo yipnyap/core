@@ -172,9 +172,11 @@ export default function NGSideNav({...props}: NGSideNavType) {
                         {/* Static sidebar for desktop */}
                         <div className="hidden lg:flex lg:flex-shrink-0">
                             <div className="flex flex-col w-20">
-                                <div className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-box-alt">
+                                <div
+                                    className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-blue-600 dark:bg-blue-700">
                                     <div className="flex-1">
-                                        <div className="bg-box py-4 flex items-center justify-center">
+                                        <div
+                                            className="bg-blue-700 py-4 flex items-center justify-center dark:bg-blue-800">
                                             <img
                                                 className="h-8 w-auto rounded-lg"
                                                 src={logoURL}
@@ -186,7 +188,7 @@ export default function NGSideNav({...props}: NGSideNavType) {
                                                 <NavLink
                                                     key={item.name}
                                                     to={item.href}
-                                                    className="flex cursor-pointer items-center p-4 rounded-lg text-default hover:bg-neutral-600"
+                                                    className="flex cursor-pointer items-center p-4 rounded-lg text-blue-200 hover:bg-blue-700 hover:!text-blue-200"
                                                 >
                                                     { typeof item.icon !== 'string' && (
                                                         <item.icon className="h-6 w-6" aria-hidden="true" />

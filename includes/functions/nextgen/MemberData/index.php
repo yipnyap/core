@@ -173,12 +173,15 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
 
         $onlineCount = count($response->data);
 
-        // If the count is less than or equal to 1, generate a random online count based on the current time.
-        if ($onlineCount <= 1) {
+        // If the count is less than or equal to 3, generate a random online count based on the current time.
+        if ($onlineCount <= 3) {
+            $originalOnlineCount = $onlineCount;
             // Add up current date, hour, and minute, then divide by 10.
-            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 15;
+            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 20;
             // Round the number to the nearest 10.
             $onlineCount = round($onlineCount);
+            // Add the original online count to the new online count.
+            $onlineCount += $originalOnlineCount;
         }
 
         $member['online_count'] = $onlineCount;
@@ -421,7 +424,7 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
             $groups[] = [
                 'id' => $gp_group->id,
                 'name' => $gp_group->name,
-                'description' => $gp_group->description,
+                'description' => html_entity_decode($gp_group->description),
                 'avatar' => bp_core_fetch_avatar([
                     'item_id' => $gp_group->id,
                     'object' => 'group',

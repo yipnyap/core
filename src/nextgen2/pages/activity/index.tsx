@@ -1,8 +1,5 @@
 import React, {useEffect, useState} from 'react';
 import {useLocation} from "react-router-dom";
-import {
-    HomeIcon, PlusCircleIcon,
-} from "@heroicons/react/24/solid";
 import {Void} from '@nextgen2';
 import {useHeading} from "@legacy/providers/PageHeading.provider";
 import {getMemberFriends, getMemberGroups} from "@legacy/router/v2/members/get";
@@ -15,6 +12,7 @@ import Loader from '@legacy/component/loader/Loader';
 // @ts-ignore
 import NoUserCTAActivity from "@legacy/component/onboarding/NoUserCTAActivity";
 import SettingsTelegram from "../profile/pages/settings/telegram";
+import {HomeIcon, SquaresPlusIcon, UserPlusIcon} from "@heroicons/react/24/solid";
 
 export default function Activity() {
     const location = useLocation();
@@ -58,13 +56,6 @@ export default function Activity() {
                 setShowVoid(false);
             }
 
-            userGroupsBuild.push({
-                name: 'Join a group',
-                description: 'Groups you\'re a member of and your friends will appear here!',
-                href: `/groups/`,
-                target: '_top',
-                icon: PlusCircleIcon,
-            });
             setUserGroups(userGroupsBuild);
             setReadyToRender(true);
         })
@@ -104,6 +95,22 @@ export default function Activity() {
                         icon: HomeIcon,
                         current: location.pathname === `/home/`
                     },
+                    ...(yipnyap_constants.currentUser && [
+                        {
+                            name: 'Join a group',
+                            description: 'Groups you\'re a member of and your friends will appear here!',
+                            href: `/groups/`,
+                            target: '_top',
+                            icon: SquaresPlusIcon,
+                        },
+                        {
+                            name: 'Search for friends',
+                            description: 'Your friends\' profiles will be easily accessible from here.',
+                            href: `/members/`,
+                            target: '_top',
+                            icon: UserPlusIcon,
+                        },
+                    ]),
                     ...userGroups ?? [],
                     ...userFriends ?? [],
                 ]

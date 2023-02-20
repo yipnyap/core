@@ -205,16 +205,17 @@ export default function NGSideNav({...props}: NGSideNavType) {
                                             ))}
                                         </nav>
                                     </div>
-                                    {user.loggedIn && (
+                                    {yipnyap_constants.currentUser && (
                                         <div className="flex-shrink-0 flex pb-5">
-                                            <NavLink to='/@me' className="cursor-pointer flex-shrink-0 w-full">
+                                            <NavLink to={`/settings/`}
+                                                     className="cursor-pointer flex-shrink-0 w-full">
                                                 <img
                                                     className="block mx-auto h-10 w-10 rounded-full"
-                                                    src={user?.pictures?.profile?.url || '/img/default-avatar.png'}
+                                                    src={yipnyap_constants.currentUser?.avatar || '/img/default-avatar.png'}
                                                     alt=""
                                                 />
                                                 <div className="sr-only">
-                                                    <p>{user.username}</p>
+                                                    <p>{yipnyap_constants.currentUser?.username}</p>
                                                     <p>Account settings</p>
                                                 </div>
                                             </NavLink>

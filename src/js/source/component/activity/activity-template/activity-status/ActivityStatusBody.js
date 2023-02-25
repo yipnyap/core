@@ -6,8 +6,6 @@ import VideoPreview from '../../../video/VideoPreview';
 
 import ActivityMediaPopup from '../../activity-popup/ActivityMediaPopup';
 
-import {getMediaLink} from '@legacy/utils/core';
-
 import {filterActivityContentForDisplay} from '@legacy/component/utils/activity/activity-filter';
 
 function ActivityStatusBody(props) {

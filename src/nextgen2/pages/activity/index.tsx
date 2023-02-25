@@ -95,7 +95,7 @@ export default function Activity() {
                         icon: HomeIcon,
                         current: location.pathname === `/home/`
                     },
-                    ...(yipnyap_constants.currentUser && [
+                    ...(yipnyap_constants.currentUser ? [
                         {
                             name: 'Join a group',
                             description: 'Groups you\'re a member of and your friends will appear here!',
@@ -110,7 +110,7 @@ export default function Activity() {
                             target: '_top',
                             icon: UserPlusIcon,
                         },
-                    ]),
+                    ] : []),
                     ...userGroups ?? [],
                     ...userFriends ?? [],
                 ]

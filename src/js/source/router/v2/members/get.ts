@@ -26,6 +26,12 @@ export async function getCurrentMember() {
  * Get member groups
  */
 export async function getMemberGroups(id: string) {
+    // Check yipnyap_constants.currentUser exists
+    if (!yipnyap_constants.currentUser) {
+        console.log(`[🗄️ Cache] Member groups for ${id} cannot be cached.`);
+        return [];
+    }
+
     // Check yipnyap_constants.currentUser for groups, if not, populate it.
     if (!Array.isArray(yipnyap_constants.currentUser.groups)) {
         const res = await fetch(`/api/v2/member/${id}/groups`);
@@ -49,6 +55,12 @@ export async function getMemberGroups(id: string) {
  * Get member friends
  */
 export async function getMemberFriends(id: string) {
+    // Check yipnyap_constants.currentUser exists
+    if (!yipnyap_constants.currentUser) {
+        console.log(`[🗄️ Cache] Member friends for ${id} cannot be cached.`);
+        return [];
+    }
+
     // Check yipnyap_constants.currentUser for friends, if not, populate it.
     if (!Array.isArray(yipnyap_constants.currentUser.friends)) {
         const res = await fetch(`/api/v2/member/${id}/friends`);

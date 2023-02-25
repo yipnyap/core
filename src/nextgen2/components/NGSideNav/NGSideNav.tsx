@@ -231,29 +231,27 @@ export default function NGSideNav({...props}: NGSideNavType) {
             <div id="NGContentArea" className="flex-1 min-w-0 flex flex-col overflow-hidden">
                 {/* Mobile top navigation */}
                 {
-                    false && (
-                        <div className="lg:hidden">
-                            <div className="bg-blue-600 py-2 px-4 flex items-center justify-between sm:px-6">
-                                <div>
-                                    <img
-                                        className="h-8 w-auto rounded-lg"
-                                        src={logoURL}
-                                        alt="Yipnyap"
-                                    />
-                                </div>
-                                <div>
-                                    <button
-                                        type="button"
-                                        className="-mr-3 h-12 w-12 inline-flex items-center justify-center bg-blue-600 rounded-lg text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
-                                        onClick={() => setMobileMenuOpen(true)}
-                                    >
-                                        <span className="sr-only">Open sidebar</span>
-                                        <Bars3Icon className="h-6 w-6" aria-hidden="true" />
-                                    </button>
-                                </div>
+                    <div className="lg:hidden">
+                        <div className="bg-blue-600 py-2 px-4 flex items-center justify-between sm:px-6">
+                            <div>
+                                <img
+                                    className="h-8 w-auto rounded-lg"
+                                    src={logoURL}
+                                    alt="Yipnyap"
+                                />
+                            </div>
+                            <div>
+                                <button
+                                    type="button"
+                                    className="-mr-3 h-12 w-12 inline-flex items-center justify-center bg-blue-600 rounded-lg text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-white"
+                                    onClick={() => setMobileMenuOpen(true)}
+                                >
+                                    <span className="sr-only">Open sidebar</span>
+                                    <Bars3Icon className="h-6 w-6" aria-hidden="true"/>
+                                </button>
                             </div>
                         </div>
-                    )
+                    </div>
                 }
                 <main className="flex-1 flex overflow-hidden">
                     <div className="flex-1 flex flex-col overflow-hidden">

@@ -105,16 +105,15 @@ function ntwb_bbpress_custom_role_names(): array
 /**
  * THEME CONSTANTS
  */
-define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local'));
-$current_user = wp_get_current_user();
+define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') || str_contains($_SERVER['SERVER_NAME'], 'ngrok'));
 
 /**
  * Versioning
  */
 define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
-define('YIPNYAP_VERSION', YIPNYAP_IS_LOCAL_DEV ? ($current_user->user_login ?? 'build_is_unlicensed') . '/' . YIPNYAP_DEVELOPER_VERSION
-    : 'ui1.3');
-//const YIPNYAP_VERSION = 'hk13-hf1';
+const YIPNYAP_VERSION = YIPNYAP_IS_LOCAL_DEV
+    ? 'linkbleed/' . YIPNYAP_DEVELOPER_VERSION
+    : 'ui1.3';
 const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
 
 /**
@@ -242,10 +241,10 @@ function yipnyap_load_scripts(): void
     wp_add_inline_style('yapex-styles', $custom_fonts);
 
     // get user custom theme colors
-    $custom_colors = yipnyap_customizer_theme_colors_get();
+//    $custom_colors = yipnyap_customizer_theme_colors_get();
 
     // add user custom theme colors
-    wp_add_inline_style('yapex-styles', $custom_colors);
+//    wp_add_inline_style('yapex-styles', $custom_colors);
 
     // add plugins
     wp_enqueue_script('yipnyap-swiper-scripts', YIPNYAP_URL . '/src/js/source/vendor/swiper.min.js', [], '1.0.0', true);

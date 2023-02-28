@@ -1,4 +1,14 @@
+@import 'color';
 @import 'font';
+
+// TODO: Bloody move these into their own stuff
+
+// Devel uses different header backgrounds
+.devel {
+  background-image: cross-fade(5% url("assets/devel-symbolic.svg"),
+          image(transparent));
+  background-repeat: repeat-x;
+}
 
 .container {
   padding: 0 2rem;

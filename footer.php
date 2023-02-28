@@ -69,10 +69,26 @@ if ($display_footer) :
     </div>
 <?php } ?>
 
-<footer class="footer-wrap"></footer>
+    <footer class="footer-wrap"></footer>
 <?php
 
 endif;
+
+if (YIPNYAP_IS_LOCAL_DEV) {
+    ?>
+    <div class="absolute top-0 left-0 devel" style="
+            background-image: -webkit-cross-fade(url('<?php echo YIPNYAP_URL ?>/img/symbolic/devel.symbolic.svg'),
+            url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAQAAAC1HAwCAAAAC0lEQVR42mNkYAAAAAYAAjCB0C8AAAAASUVORK5CYII=),
+            5%);
+            background-repeat: repeat-x;
+            width: 100%;
+            height: 4em;
+            z-index: 50;
+            opacity: 0.25;
+            pointer-events: none;
+            "></div>
+    <?php
+}
 
 ?>
 

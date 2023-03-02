@@ -42,13 +42,13 @@ export default function SettingsGeneral() {
                         icon: PaperAirplaneIcon,
                         current: location.pathname === '/settings/telegram',
                     },
-                    // {
-                    //     name: 'Profile Skin',
-                    //     description: '',
-                    //     href: '/settings/skin',
-                    //     icon: PaintBrushIcon,
-                    //     current: location.pathname === '/settings/skin',
-                    // },
+                    {
+                        name: 'Profile Skin',
+                        description: '',
+                        href: '/settings/skin',
+                        icon: PaintBrushIcon,
+                        current: location.pathname === '/settings/skin',
+                    },
                     {
                         name: 'Accessibility',
                         description: 'Change font size, etc.',

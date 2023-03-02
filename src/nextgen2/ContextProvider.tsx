@@ -1,5 +1,5 @@
 import React from 'react';
-import {UserContextProvider} from '@legacy/providers/contexts';
+import {ThemeContextProvider} from '@legacy/providers/contexts';
 
 interface Props {
     children: React.ReactNode
@@ -12,9 +12,9 @@ class ContextProvider extends React.Component<Props> {
 
     render() {
         return (
-            <UserContextProvider>
+            <ThemeContextProvider>
                 {this.props.children}
-            </UserContextProvider>
+            </ThemeContextProvider>
         );
     }
 }

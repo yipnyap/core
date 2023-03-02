@@ -36,21 +36,28 @@ export interface LocalUserContext {
     }
 }
 
-// @ts-ignore
-const UserContext = createContext<[LocalUserContext, Dispatch<SetStateAction<LocalUserContext>>]>(null);
-
-function UserContextProvider({ children }: { children: ReactNode }) {
-    const [user, useUser] = useState<LocalUserContext>({ loggedIn: false, id: '', token: '', displayName: '', username: '' });
-
-    return <UserContext.Provider value={[user, useUser]}>{children}</UserContext.Provider>;
+export interface LocalThemeContext {
+    variant: string;
 }
 
-function useUser() {
-    const context = useContext(UserContext);
+// @ts-ignore
+const ThemeContext = createContext<[LocalThemeContext, Dispatch<SetStateAction<LocalThemeContext>>]>(null);
+
+function ThemeContextProvider({children}: { children: ReactNode }) {
+    const [theme, useTheme] = useState<LocalThemeContext>({variant: localStorage.getItem('theme')?.toLowerCase() || 'system'});
+
+    console.log('[🌇 Theme] Initial: ', theme);
+    return <ThemeContext.Provider value={[theme, useTheme]}>{children}</ThemeContext.Provider>;
+}
+
+function useTheme() {
+    const context = useContext(ThemeContext);
     if (context === undefined) {
-        throw new Error('useUser must be used within a <UserContextProvider />');
+        throw new Error('useTheme must be used within a <ThemeContextProvider />');
     }
+
+    console.log('[🌇 Theme] Context pulled');
     return context;
 }
 
-export { UserContextProvider, useUser };
+export {ThemeContextProvider, useTheme};

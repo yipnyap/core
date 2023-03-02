@@ -1,9 +1,10 @@
-import React from "react";
+import React, {useEffect} from "react";
 import ContextProvider from "./ContextProvider";
 import {PageHeadingProvider, useHeading} from "@legacy/providers/PageHeading.provider";
 import {NGBody, NGContent, NGSideNav} from "./components";
 import {Outlet} from "react-router-dom";
 import {BellIcon, HomeIcon, UserIcon} from "@heroicons/react/24/solid";
+import {useTheme} from "@legacy/providers/contexts";
 
 export default function Root() {
     return (
@@ -17,6 +18,7 @@ export default function Root() {
 
 function RootWithinProvider() {
     const [heading] = useHeading();
+    const [theme] = useTheme();
 
     document.body.style.overflow = 'hidden';
 
@@ -31,6 +33,17 @@ function RootWithinProvider() {
             icon: UserIcon
         },
     ];
+
+    useEffect(() => {
+        console.log('[🌇 Theme] Change: ', theme)
+        const systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        console.log('[🌇 Theme] System dark: ', systemIsDark)
+        if (theme.variant === 'dark' || (theme.variant === 'system' && systemIsDark)) {
+            if (!document.body.classList.contains('dark')) document.body.classList.add('dark');
+        } else {
+            if (document.body.classList.contains('dark')) document.body.classList.remove('dark');
+        }
+    }, [theme]);
 
     return (
         <NGBody>

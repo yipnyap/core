@@ -86,19 +86,28 @@ export function NextgenProfilesWelcomeModal() {
                             <Dialog.Panel className="w-full max-w-md transform overflow-hidden rounded-2xl bg-white p-6 text-left align-middle shadow-xl transition-all">
                                 {/* Image */}
                                 <div className="flex justify-center pb-6">
-                                    <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/maneki-neko.png`} alt="Beckoning maneki-neko in-between houseplant and figurine" />
+                                    <img
+                                        src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/maneki-neko.png`}
+                                        alt="Beckoning maneki-neko in-between houseplant and figurine"/>
                                 </div>
                                 <Dialog.Title
                                     as="h3"
                                     className="text-lg font-medium leading-6 text-gray-900"
                                 >
-                                    Welcome to your new profile!
+                                    Welcome to your profile!
                                 </Dialog.Title>
-                                <div className="mt-2">
+                                <div className="mt-2 space-y-2">
                                     <p className="text-sm text-gray-500">
-                                        No more eyesore! You can now change your profile banner, avatar, bio, and more,
-                                        from the profile page.
+                                        This is where you can share your content, show off your achievements, and
+                                        create a space for yourself on Yipnyap.
                                     </p>
+                                    <div className="text-sm text-gray-500">
+                                        You can also use this page to share your social media links, so that people can
+                                        find you on other platforms. You can also add a bio, so that people can learn
+                                        more
+                                        about you! You can edit your profile by clicking the
+                                        <Cog6ToothIcon className="inline ml-1 w-4 h-4"/> icon in the navigator.
+                                    </div>
                                 </div>
 
                                 <div className="mt-4">

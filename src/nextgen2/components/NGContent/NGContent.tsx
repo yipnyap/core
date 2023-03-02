@@ -36,10 +36,11 @@ export default function NGContent({...props}: NGContentType) {
 
     return (
         <div id="NGContent"
-             className={`${(location.pathname === '/') && 'hidden sm:block'} mb-16 sm:mb-0 flex-1 overflow-y-auto`}>
+             className="lg:mb-0 flex-1 overflow-y-auto overflow-x-hidden"
+        >
             <div aria-labelledby="primary-heading" className={
                 (props.heading?.padding ? 'max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8' : '')
-                + ' mb-48 ' + (props.heading?.fullHeight ? 'h-full' : '')
+                + (props.heading?.fullHeight ? 'h-full' : '')
             }>
                 <h1 id="primary-heading" className="sr-only">
                     {props.srHeading}

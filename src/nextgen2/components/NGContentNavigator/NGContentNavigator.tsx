@@ -46,7 +46,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
         <>
             <nav
                 aria-label="Sections"
-                className={`${location.pathname === '/' ? `flex flex-col grow sm:grow-0` : 'hidden lg:flex lg:flex-col'} ${slimNavClass} flex-shrink-0 bg-box border-r border-blue-gray-200 overflow-y-auto`
+                className={`hidden lg:flex lg:flex-col ${slimNavClass} flex-shrink-0 bg-sidebar dark:bg-sidebar-dark border-r border-blue-gray-200 overflow-y-auto`
                     // Dark mode
                     + ` dark:border-neutral-600`}>
                 {!props.slimContentNavigator && (
@@ -62,7 +62,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                             to={item.href}
                             target={item.target}
                             className={classNames(
-                                item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700',
+                                item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-800' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-800',
                                 'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'
                             )}
                             aria-current={item.current ? 'page' : undefined}

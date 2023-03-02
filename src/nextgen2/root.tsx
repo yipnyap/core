@@ -23,7 +23,7 @@ function RootWithinProvider() {
     document.body.style.overflow = 'hidden';
 
     const navigation = [
-        {name: 'Home', href: '/home/', icon: HomeIcon},
+        {name: 'Home', href: '/', icon: HomeIcon},
         // {name: 'Trending', href: '#', icon: FireIcon},
         // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
         {name: 'Notifications', href: '#', icon: BellIcon},

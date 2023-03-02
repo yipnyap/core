@@ -9,6 +9,7 @@ import Profile from "./pages/profile";
 import SettingsGeneral from "./pages/profile/pages/settings";
 import Activity from "./pages/activity";
 import YipnyapID from "./pages/id";
+import {NGCard} from "@nextgen2/components";
 
 let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience.mp3`);
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
@@ -23,22 +24,33 @@ export const router = createBrowserRouter([
     {
         path: "/",
         element: <Root/>,
-        errorElement: <div className="w-screen h-screen flex justify-center items-center bg-default">
-            <NGAlertCard body={
-                <div>
-                    <p>Something is broken with Yipnyap.</p>
-                    <p className="text-default-alt">Try refreshing the page. Error info has been dumped into devtools</p>
-                </div>
-            } />
-        </div>,
+        errorElement:
+            <div className="w-screen h-screen flex justify-center items-center bg-default">
+                <NGCard className="w-1/2 -inset-px border-2 !highlight-white/0" title={<img className="m-auto"
+                                                                                            src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/dummy-mascot.png`}/>}>
+                    <div className="flex flex-col space-y-4">
+                        <h2>Whoops. Something unknown is broken.</h2>
+                        <p>
+                            We're not sure what's wrong, as it happened in a part of the code that we didn't expect to
+                            break.
+                        </p>
+                        <p>
+                            If you want to help us fix this, please contact us on Discord with the logs from
+                            your browser's console, typically accessible by pressing F12 or Ctrl+Shift+I, and then
+                            clicking on the "Console" tab. If you're not sure how to do this, please contact us on
+                            Discord and we'll help you out.
+                        </p>
+                    </div>
+                </NGCard>
+            </div>,
         children: [
             {
                 path: '/home/',
-                element: <Activity />,
+                element: <Activity/>,
             },
             {
                 path: '/groups/:groupId/',
-                element: <Activity />,
+                element: <Activity/>,
             },
             {
                 path: '/settings/',

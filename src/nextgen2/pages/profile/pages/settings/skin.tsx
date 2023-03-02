@@ -56,7 +56,7 @@ export default function SettingsSkin({...props}) {
                                 </span>
                                     <span
                                         className="mt-1 block text-4xl tracking-tight font-extrabold sm:text-5xl xl:text-6xl">
-                                    <span className="block text-default">Customize your profile</span>
+                                    <span className="block text-default">Customize Yipnyap</span>
                                 </span>
                                 </h1>
                                 <p className="mt-3 text-base text-alt-2 sm:mt-5 sm:text-xl lg:text-lg xl:text-xl">

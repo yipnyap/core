@@ -94,7 +94,7 @@ export default function SettingsSkin({...props}) {
                 <NGCard title="Global Variant">
                     <div
                         className="flex flex-col">
-                        <p className="text-sm text-alt-2 mb-2">
+                        <p className="text-default-alt mb-2">
                             This modifies the theme shown to you everywhere, not to anyone else. It's stacked on top of
                             your
                             profile skin.

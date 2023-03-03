@@ -91,7 +91,7 @@ export default function NGNewUserOnboarding({...props}: NGNewUserOnboardingType)
     return (
         <>
             {!hideOnboarding && (
-                <NGCard className="bg-gradient-to-b from-green-500/5">
+                <NGCard className="px-12 py-6 rounded-xl highlight-white/5 bg-gradient-to-b from-green-500/5">
                     <div>
                         <h2 className="text-lg font-medium">Welcome to
                             Yipnyap, {yipnyap_constants.currentUser?.display_name}!</h2>

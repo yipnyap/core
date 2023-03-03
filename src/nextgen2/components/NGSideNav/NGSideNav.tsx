@@ -257,7 +257,8 @@ export default function NGSideNav({...props}: NGSideNavType) {
                     <div className="flex-1 flex flex-col overflow-hidden">
                         {/* Breadcrumb */}
                         {location.pathname !== '/home/' && (
-                            <nav aria-label="Breadcrumb" className="bg-white border-b border-blue-gray-200 dark:bg-neutral-800 dark:border-neutral-600">
+                            <nav aria-label="Breadcrumb"
+                                 className="bg-white border-0 border-b border-solid border-default dark:bg-sidebar-dark">
                                 <div className="max-w-3xl mx-auto py-3 px-4 flex items-start sm:px-6 lg:px-8">
                                     <a
                                         href="/home/"

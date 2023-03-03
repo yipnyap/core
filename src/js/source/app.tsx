@@ -142,3 +142,11 @@ import './component-dom/legacy/settings/settings-group-membership-requests';
     PAGE LOADER
 -----------------*/
 import './global/page-loader';
+
+// Check if HMR interface is enabled
+// @ts-ignore
+if (module.hot) {
+    // Accept hot update
+    // @ts-ignore
+    module.hot.accept();
+}

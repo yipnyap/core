@@ -122,6 +122,7 @@ out
 package-lock.json
 
 # build
+dist
 /src/js/bundle/
 /src/js/app.bundle.min.js
 *.css.map

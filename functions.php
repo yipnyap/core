@@ -268,10 +268,14 @@ function yipnyap_load_scripts(): void
         'yipnyap-xmtooltip-scripts'
     ];
 
-    $app_bundle_file = '/src/js/bundle.min.js';
-    // add main script
-    if (YIPNYAP_IS_LOCAL_DEV) $app_bundle_file = '/src/js/bundle/bundle.js';
-    wp_enqueue_script('yipnyap-main-scripts', YIPNYAP_URL . $app_bundle_file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+    foreach (glob(get_template_directory() . '/dist/*.js') as $file) {
+        // remove the directory path from $file
+        $file = basename($file);
+
+        $domain = get_template_directory_uri() . '/dist/';
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://localhost:9000/';
+        wp_enqueue_script($file, $domain . $file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+    }
 
     global $yipnyap_settings;
 
@@ -284,8 +288,8 @@ function yipnyap_load_scripts(): void
 //        $logo_url = get_option('yipnyap_logo_url');
 //    }
 
-    // pass php variables to javascript file
-    wp_localize_script('yipnyap-main-scripts', 'yipnyap_constants', [
+    // pass php variables to window object
+    $yipnyap_constants = [
         'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
@@ -304,8 +308,13 @@ function yipnyap_load_scripts(): void
         'notices' => [
             'tgLink' => "@rekkisomo: Due to an issue with Telegram's Login Widget, you can't link Telegram right now. We're working to fix this issue, conversing with Telegram Support. Sorry for the inconvenience 😔",
         ]
-    ]);
-
+    ];
+    ?>
+    <script>
+        window.yipnyap_constants = <?php echo json_encode($yipnyap_constants); ?>;
+        window.yipnyap_translation = <?php echo json_encode(yipnyap_translation_get()); ?>;
+    </script>
+    <?php
     // pass translation strings to javascript file
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_translation', yipnyap_translation_get());
 }

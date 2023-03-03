@@ -36,7 +36,7 @@ export default function NGCard({...props}: NGCardType) {
             )}
             {props.children && (
                 <div
-                    className={`${!props.noPadding ? theme.all : ''} ${!props.wellBody ? '!pt-0' : ''} ${theme.card?.body}`}>
+                    className={`${!props.noPadding ? theme.all : ''} ${(!props.wellBody && props.title) ? '!pt-0' : ''} ${theme.card?.body}`}>
                     {props.children}
                 </div>
             )}

@@ -28,7 +28,6 @@
 @import 'loader';
 @import 'error';
 @import 'forum';
-@import 'woocommerce';
 
 /*---------------
     COMPONENT
@@ -39,20 +38,15 @@
 @import 'progress-arc/main';
 @import 'user-avatar/main';
 @import 'user-status/main';
-@import 'cart-item-preview/main';
 @import 'form-box/main';
 @import 'landing/main';
 @import 'dropdown-box/main';
 @import 'dropdown-navigation/main';
 @import 'navigation-widget/main';
-@import 'chat-widget/main';
-@import 'profile-header/main';
 @import 'post-preview/main';
 @import 'post-comment/main';
 @import 'post-open/main';
 @import 'page-open/main';
-@import 'product-preview/main';
-@import 'stream-box/main';
 @import 'video-box/main';
 @import 'video-status/main';
 @import 'content-actions/main';
@@ -60,14 +54,12 @@
 @import 'album-preview/main';
 @import 'popup-box/main';
 @import 'badge-item/main';
-@import 'streamer-box/main';
 @import 'calendar/main';
 @import 'event-preview/main';
 @import 'quest/main';
 @import 'forum-post/main';
 @import 'slider-panel/main';
 @import 'chart/main';
-@import 'demo-box/main';
 @import 'community-ui/main';
 
 /*-------------
@@ -77,10 +69,6 @@
 @import 'xm-popup';
 @import 'xm-popup-custom';
 @import 'bp-verified-badge';
-@import 'bp-better-messages';
-@import 'pmpro';
-@import 'pmpro-bbpress';
-@import 'pmpro-buddypress';
 
 /*-------------
     LAYOUT
@@ -95,6 +83,4 @@
     WORDPRESS OVERRIDES
 -------------------------*/
 @import 'wordpress-overrides';
-@import 'elementor-overrides';
 @import 'swiper-overrides';
-@import 'bp-register';

@@ -10,6 +10,7 @@ const CSSModuleLoader = {
             localIdentName: '[name]_[local]_[hash:base64:5]',
             exportLocalsConvention: 'camelCase',
         },
+        url: false,
         importLoaders: 2,
         sourceMap: false, // turned off as causes delay
     }
@@ -19,25 +20,26 @@ const CSSLoader = {
     loader: 'css-loader',
     options: {
         modules: {
-            auto: 'global',
+            mode: 'global',
             exportLocalsConvention: 'camelCase',
         },
+        url: false,
         importLoaders: 2,
         sourceMap: false, // turned off as causes delay
     }
 }
 // Our PostCSSLoader
 const autoprefixer = require('autoprefixer');
+const tailwindcss = require('tailwindcss');
 const PostCSSLoader = {
     loader: 'postcss-loader',
     options: {
         sourceMap: false, // turned off as causes delay
         postcssOptions: {
             ident: 'postcss',
-            plugins: () => [
-                autoprefixer({
-                    browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
-                })
+            plugins: [
+                autoprefixer(),
+                tailwindcss('./tailwind.config.js'),
             ]
         }
     }
@@ -54,11 +56,16 @@ module.exports = {
         filename: 'bundle.js',
     },
     devServer: {
+        client: {
+            overlay: {
+                warnings: false,
+                errors: true
+            },
+        },
         static: {
             directory: path.join(__dirname, 'dist'),
         },
         open: false,
-        hot: true,
         allowedHosts: "all",
         port: 9000,
         headers: {
@@ -118,6 +125,6 @@ module.exports = {
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.css'],
+        extensions: ['', '.js', '.jsx', '.ts', '.tsx', '.css', '.scss', '.sass'],
     }
 };

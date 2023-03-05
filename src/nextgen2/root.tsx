@@ -26,7 +26,7 @@ function RootWithinProvider() {
         {name: 'Home', href: '/', icon: HomeIcon},
         // {name: 'Trending', href: '#', icon: FireIcon},
         // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
-        {name: 'Notifications', href: '#', icon: BellIcon},
+        {name: 'Notifications', href: '/notifications/', icon: BellIcon},
         {
             name: 'Profile',
             href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',

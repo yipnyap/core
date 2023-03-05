@@ -35,7 +35,7 @@ export default function Recovery() {
     }, [setHeading])
 
     if (yipnyap_constants.currentUser?.display_name) {
-        return <Navigate replace to={'/home/'}/>
+        return <Navigate replace to={'/'}/>
     }
 
     const handleRecovery = (event: any) => {

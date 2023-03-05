@@ -256,12 +256,12 @@ export default function NGSideNav({...props}: NGSideNavType) {
                 <main className="flex-1 flex overflow-hidden">
                     <div className="flex-1 flex flex-col overflow-hidden">
                         {/* Breadcrumb */}
-                        {location.pathname !== '/home/' && (
+                        {location.pathname !== '/' && (
                             <nav aria-label="Breadcrumb"
                                  className="bg-white border-0 border-b border-solid border-default dark:bg-sidebar-dark">
                                 <div className="max-w-3xl mx-auto py-3 px-4 flex items-start sm:px-6 lg:px-8">
                                     <a
-                                        href="/home/"
+                                        href="/"
                                         className="-ml-1 cursor-pointer inline-flex items-center space-x-3 text-sm font-medium text-blue-gray-900 dark:text-neutral-50"
                                     >
                                         <ChevronLeftIcon className="h-5 w-5 text-blue-gray-400 dark:text-neutral-400"

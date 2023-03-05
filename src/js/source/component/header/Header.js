@@ -164,7 +164,7 @@ export default function Header() {
                 console.debug('[COMMUNITY UI 1] Debug user fetch - response', res);
 
                 userNavigationMobile = [
-                    {name: 'Home', href: '/home/'},
+                    {name: 'Home', href: '/'},
                     {name: 'Members', href: '/members'},
                     {name: 'Groups', href: '/groups'}
                 ];
@@ -173,7 +173,7 @@ export default function Header() {
                     setLoadingUser(false);
 
                     userNavigationMobile = [
-                        {name: 'Home', href: '/home/'},
+                        {name: 'Home', href: '/'},
                         {name: 'Sign In', href: '/id/login'},
                         {name: 'Sign Up', href: '/id/create'},
                         {name: 'Account Recovery', href: '/id/recover'},

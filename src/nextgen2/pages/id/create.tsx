@@ -37,7 +37,7 @@ export default function Register() {
 
 
     if (yipnyap_constants.currentUser?.display_name) {
-        return <Navigate replace to={'/home/'}/>
+        return <Navigate replace to={'/'}/>
     }
 
     const handleRegister = (event: any) => {
@@ -69,7 +69,7 @@ export default function Register() {
                 if (!data.success) {
                     handleLoginError(data);
                 } else {
-                    window.location.href = '/home/';
+                    window.location.href = '/';
                 }
             })
             .catch(err => {

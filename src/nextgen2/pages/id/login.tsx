@@ -33,7 +33,7 @@ export default function Login() {
     }, [setHeading])
 
     if (yipnyap_constants.currentUser?.display_name) {
-        return <Navigate replace to={'/home/'}/>
+        return <Navigate replace to={'/'}/>
     }
 
     const handleLogin = (event: any) => {
@@ -61,7 +61,7 @@ export default function Login() {
                 if (!data.success) {
                     handleLoginError(data);
                 } else {
-                    window.location.href = '/home/';
+                    window.location.href = '/';
                 }
             })
             .catch(err => {

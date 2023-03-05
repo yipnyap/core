@@ -461,16 +461,17 @@ add_action('init', 'yipnyap_allow_redirect_after_header');
 /**
  * Setup member cover preferred image size
  */
-function yipnyap_members_cover_image_setup($settings = [])
+function yipnyap_cover_image_setup($settings = [])
 {
     // dimension settings
-    $settings['width'] = 1184;
-    $settings['height'] = 300;
+    $settings['width'] = 1500;
+    $settings['height'] = 500;
 
     return $settings;
 }
 
-add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_members_cover_image_setup', 10, 1);
+add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_cover_image_setup', 10, 1);
+add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_image_setup', 10, 1);
 
 /**
  * Setup group cover preferred image size

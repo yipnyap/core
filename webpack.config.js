@@ -44,10 +44,9 @@ const PostCSSLoader = {
         }
     }
 }
-// Standard style loader (prod and dev covered here)
+
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const devMode = process.env.NODE_ENV !== 'production';
-const styleLoader = devMode ? 'style-loader' : MiniCssExtractPlugin.loader;
+const styleLoader = MiniCssExtractPlugin.loader;
 
 module.exports = {
     entry: './src/js/source/app.tsx',
@@ -77,6 +76,7 @@ module.exports = {
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
         new webpack.ProgressPlugin({profile: false}),
+        new MiniCssExtractPlugin(),
     ],
     mode: 'development',
     module: {

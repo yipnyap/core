@@ -217,34 +217,18 @@ add_action('admin_enqueue_scripts', 'yipnyap_admin_load_scripts');
 /**
  * Load theme styles and scripts
  */
-function yipnyap_load_scripts(): void
-{
+
+add_action('wp_enqueue_scripts', function () {
     // add EX script
     wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], YIPNYAP_VERSION, true);
-
-    // get fonts
-    $fonts = yipnyap_customizer_theme_fonts_get_for_enqueue();
 
     // load fonts
     wp_enqueue_style('yipnyap-fonts', get_option('google_font_url'));
 
     // add custom stylesheets
-    wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
-    wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
-    wp_enqueue_style('yapex-styles', get_template_directory_uri() . '/style.css', ['yipnyap-simplebar-styles', 'yipnyap-swiper-slider-styles'], YIPNYAP_VERSION);
+//    wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
+//    wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
     wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], YIPNYAP_VERSION);
-
-    // get user custom theme fonts
-    $custom_fonts = yipnyap_customizer_theme_fonts_get_style();
-
-    // add user custom theme fonts
-    wp_add_inline_style('yapex-styles', $custom_fonts);
-
-    // get user custom theme colors
-//    $custom_colors = yipnyap_customizer_theme_colors_get();
-
-    // add user custom theme colors
-//    wp_add_inline_style('yapex-styles', $custom_colors);
 
     // add plugins
     wp_enqueue_script('yipnyap-swiper-scripts', YIPNYAP_URL . '/src/js/source/vendor/swiper.min.js', [], '1.0.0', true);
@@ -274,7 +258,16 @@ function yipnyap_load_scripts(): void
 
         $domain = get_template_directory_uri() . '/dist/';
         if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://localhost:9000/';
-        wp_enqueue_script($file, $domain . $file, $yipnyap_main_scripts_dependencies, YIPNYAP_VERSION, true);
+        wp_enqueue_script($file, $domain . $file, [], YIPNYAP_VERSION, true);
+    }
+
+    foreach (glob(get_template_directory() . '/dist/*.css') as $file) {
+        // remove the directory path from $file
+        $file = basename($file);
+
+        $domain = get_template_directory_uri() . '/dist/';
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://localhost:9000/';
+        wp_enqueue_style($file, $domain . $file, [], YIPNYAP_VERSION);
     }
 
     global $yipnyap_settings;
@@ -317,9 +310,29 @@ function yipnyap_load_scripts(): void
     <?php
     // pass translation strings to javascript file
     wp_localize_script('yipnyap-main-scripts', 'yipnyap_translation', yipnyap_translation_get());
-}
+});
 
-add_action('wp_enqueue_scripts', 'yipnyap_load_scripts');
+add_filter('script_loader_tag', function ($tag, $handle) {
+    // if handle contains 'gami', 'bp-', don't add it
+    if (str_contains($handle, 'gamipress-') || str_contains($handle, 'bp-')) {
+        return '';
+    }
+
+    if ($handle !== 'bundle.js') {
+        return $tag;
+    }
+
+    return str_replace(' src', ' async defer src', $tag); // OR do both!
+}, 10, 2);
+
+add_filter('style_loader_tag', function ($tag, $handle) {
+    // if handle contains 'gamipress-', 'bp-', don't add it
+    if (str_contains($handle, 'gamipress-') || str_contains($handle, 'bp-')) {
+        return '';
+    }
+
+    return $tag;
+}, 10, 2);
 
 /**
  * Remove plugin styles that are not needed to reduce file queries
@@ -385,13 +398,6 @@ function yipnyap_support_features(): void
     // bbPress images
     add_post_type_support('forum', 'thumbnail');
     add_image_size('yipnyap-forum-thumb', 64, 64, true);
-
-    // WooCommerce support
-    add_theme_support('woocommerce');
-    // WooCommerce gallery support
-    add_theme_support('wc-product-gallery-zoom');
-    add_theme_support('wc-product-gallery-lightbox');
-    add_theme_support('wc-product-gallery-slider');
 }
 
 add_action('after_setup_theme', 'yipnyap_support_features');

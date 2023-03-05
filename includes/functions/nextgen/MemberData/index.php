@@ -431,6 +431,10 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
                     'type' => 'full',
                     'html' => false,
                 ]),
+                'banner' => bp_attachments_get_attachment('url', [
+                    'item_id' => $gp_group->id,
+                    'object_dir' => 'groups',
+                ]),
                 'member_count' => $gp_group->total_member_count,
                 'is_admin' => $is_admin,
                 'is_mod' => $is_mod,

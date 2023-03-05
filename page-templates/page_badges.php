@@ -46,7 +46,7 @@ $achievement_type = 'badge';
 
         ?>
         <!-- GRID -->
-        <div class="grid grid-3-3-3-3 medium-space centered-on-mobile grid-stretched">
+        <div class="grid-legacy grid-3-3-3-3 medium-space centered-on-mobile grid-stretched">
             <?php
 
             $achievement_args = [

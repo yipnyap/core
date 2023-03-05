@@ -17,10 +17,10 @@
 ?>
 
 <!-- GRID -->
-<div class="grid grid-3-6-3">
+<div class="grid-legacy grid-3-6-3">
   <!-- GRID COLUMN -->
   <div class="grid-column">
-  <?php
+    <?php
 
     /**
      * Widget Info About

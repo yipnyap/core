@@ -67,7 +67,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('credits')) {
 
             if ($point_count > 0) {
                 ?>
-                <div class="grid grid-3-3-3-3">
+                <div class="grid-legacy grid-3-3-3-3">
                     <?php
 
                     foreach ($points as $point) {
@@ -145,7 +145,7 @@ if (yipnyap_gamipress_achievement_type_exists('badge')) {
 
             if ($badges_count > 0) {
                 ?>
-                <div class="grid grid-3-3-3-3">
+                <div class="grid-legacy grid-3-3-3-3">
                     <?php
                     foreach ($badges as $badge) {
                         /**
@@ -221,7 +221,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('quests') && yipnyap_gamipr
 
             if ($quests_count > 0) {
                 ?>
-                <div class="grid grid-3-3-3-3">
+                <div class="grid-legacy grid-3-3-3-3">
                     <?php
                     foreach ($quests as $quest) {
                         /**
@@ -297,7 +297,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('ranks')) {
 
             if ($ranks_count > 0) {
                 ?>
-                <div class="grid grid-3-3-3-3">
+                <div class="grid-legacy grid-3-3-3-3">
                     <?php
                     foreach ($ranks as $rank) {
                         /**

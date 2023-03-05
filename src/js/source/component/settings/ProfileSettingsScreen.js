@@ -251,7 +251,7 @@ function ProfileSettingsScreen(props) {
                 loggedUser &&
                 <div className="grid-column space-y-6">
                     {/* GRID */}
-                    <div className="grid grid-3-3-3 centered">
+                    <div className="grid-legacy grid-3-3-3 centered">
                         <UserPreview data={loggedUser}
                                      actionableAvatar={loggedUser.avatar !== yipnyap_constants.settings.member_avatar_url_default}
                                      actionableCover={loggedUser.cover_url !== yipnyap_constants.settings.member_cover_image_url_default}

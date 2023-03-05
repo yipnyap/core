@@ -50,7 +50,7 @@ function ReceivedGroupInvitationsSettingsScreen(props) {
 
                     {
                         (loggedUser.group_invitations_received.length > 0) &&
-                        <div className="grid grid-3-3-3 centered-on-mobile">
+                        <div className="grid-legacy grid-3-3-3 centered-on-mobile">
                             {
                                 loggedUser.group_invitations_received.map((invitation) => {
                                     return (

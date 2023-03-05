@@ -52,7 +52,7 @@ function GroupMembershipRequestsSettingsScreen(props) {
 
                     {
                         (loggedUser.group_membership_requests_received.length > 0) &&
-                        <div className="grid grid-3-3-3 centered-on-mobile">
+                        <div className="grid-legacy grid-3-3-3 centered-on-mobile">
                             {
                                 loggedUser.group_membership_requests_received.map((membershipRequest) => {
                                     return (
@@ -88,7 +88,7 @@ function GroupMembershipRequestsSettingsScreen(props) {
 
                     {
                         (loggedUser.group_membership_requests_sent.length > 0) &&
-                        <div className="grid grid-3-3-3 centered-on-mobile">
+                        <div className="grid-legacy grid-3-3-3 centered-on-mobile">
                             {
                                 loggedUser.group_membership_requests_sent.map((membershipRequest) => {
                                     return (

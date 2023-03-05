@@ -15,10 +15,10 @@
 ?>
 
 <!-- GRID -->
-<div class="grid grid-3-6-3 mobile-prefer-content">
+<div class="grid-legacy grid-3-6-3 mobile-prefer-content">
   <!-- GRID COLUMN -->
   <div class="grid-column">
-  <?php
+    <?php
 
     $group_meta_args = [
       'group_id'  => $group['id']

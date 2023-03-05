@@ -2,7 +2,7 @@ import React from 'react';
 
 function Grid_3(props) {
   return (
-    <div className="grid grid-3-3-3-3 centered-on-mobile">
+    <div className="grid-legacy grid-3-3-3-3 centered-on-mobile">
       {props.content}
     </div>
   );

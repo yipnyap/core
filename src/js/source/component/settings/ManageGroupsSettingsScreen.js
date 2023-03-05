@@ -53,7 +53,7 @@ function ManageGroupsSettingsScreen(props) {
 
                     {
                         (userCanCreateGroups || (groups.length > 0)) &&
-                        <div className="grid grid-3-3-3 centered-on-mobile">
+                        <div className="grid-legacy grid-3-3-3 centered-on-mobile">
                             {
                                 userCanCreateGroups &&
                                 <ActionBox title={yipnyap_translation.create_new_group}

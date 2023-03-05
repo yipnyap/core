@@ -624,10 +624,10 @@ function ActivityFilterableList(props) {
         ownGroup = onGroupNewsfeed && loggedUser.groups.some((group) => !group.is_banned && (group.id === props.groupID));
 
     return (
-        <div className={`grid ${props.className}`}>
+        <div className={`grid-legacy ${props.className}`}>
             {
                 fetchingUser &&
-                <Loader />
+                <Loader/>
             }
             {
                 !fetchingUser &&

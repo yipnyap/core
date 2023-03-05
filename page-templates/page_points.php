@@ -35,7 +35,7 @@ get_header();
 
         ?>
         <!-- GRID -->
-        <div class="grid grid-3-3-3-3 centered-on-mobile">
+        <div class="grid-legacy grid-3-3-3-3 centered-on-mobile">
             <?php
 
             foreach ($points as $point) {
@@ -68,7 +68,7 @@ get_header();
             'section_title' => esc_html__('Credits Awards', 'yipnyap')
         ]);
         ?>
-        <div class="grid grid-half">
+        <div class="grid-legacy grid-half">
             <?php
 
             foreach ($point_types_awards as $point_type_awards) {
@@ -102,7 +102,7 @@ get_header();
             'section_title' => esc_html__('Credits Deducts', 'yipnyap')
         ]);
         ?>
-        <div class="grid grid-half">
+        <div class="grid-legacy grid-half">
             <?php
 
             foreach ($point_types_deducts as $point_type_deducts) {

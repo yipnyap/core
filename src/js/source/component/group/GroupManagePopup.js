@@ -773,7 +773,7 @@ function GroupManagePopup(props) {
 
                                 <div className="widget-box-content">
                                     {/* GRID */}
-                                    <div className="grid grid-3-3-3 centered">
+                                    <div className="grid-legacy grid-3-3-3 centered">
                                         <UploadBox title={uploadAvatarTitle}
                                                    onFileSelect={updateAvatarFile}
                                                    active={uploadAvatarActive}

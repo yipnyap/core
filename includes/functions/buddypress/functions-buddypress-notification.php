@@ -236,35 +236,6 @@ if (!function_exists('yipnyap_get_notifications_data')) {
                         $notification['user'] = yipnyap_members_get(['include' => [$notification['item_id']]])[0];
                         $notification['description'] = esc_html__('started following you', 'yipnyap');
                     }
-                } else if ($notification['component'] === 'forums') {
-                    // if bbPress plugin is not active, ignore notification
-                    if (!yipnyap_plugin_bbpress_is_active()) {
-                        continue;
-                    }
-
-                    $notification['user'] = yipnyap_members_get_fallback($notification['secondary_item_id']);
-                    $reply_id = $notification['item_id'];
-
-                    // add data according to action
-                    switch ($notification['action']) {
-                        case 'bbp_new_reply': {
-                            $reply_url = bbp_get_reply_url($reply_id);
-                            $reply_content = yipnyap_truncate_text(wp_strip_all_tags(bbp_get_reply_content($reply_id)), 15);
-
-                            $topic_id = bbp_get_reply_topic_id($reply_id);
-                            $topic_title = bbp_get_topic_title($topic_id);
-
-                            $notification['description'] = sprintf(
-                                esc_html__('replied %s"%s"%s in %s%s%s', 'yipnyap'),
-                                '<span class="bold">',
-                                $reply_content,
-                                '</span>',
-                                '<a class="highlighted" href="' . $reply_url . '">',
-                                $topic_title, '</a>'
-                            );
-                            break;
-                        }
-                    }
                 } else {
                     // get default notification content
 

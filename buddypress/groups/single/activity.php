@@ -85,18 +85,6 @@
       'no_results_text' => esc_html__('This group doesn\'t have any moderators', 'yipnyap')
     ]);
 
-    // add vkmedia photos widget if plugin is active
-    if (yipnyap_plugin_vkmedia_is_active()) :
-
-  ?>
-
-    <!-- PHOTOS WIDGET -->
-    <div id="photos-widget" data-groupid="<?php echo esc_attr($group['id']); ?>"></div>
-    <!-- /PHOTOS WIDGET -->
-  <?php
-
-    endif;
-
   ?>
   </div>
   <!-- /GRID COLUMN -->

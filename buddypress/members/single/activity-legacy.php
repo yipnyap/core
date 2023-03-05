@@ -91,19 +91,6 @@
       ]);
     }
 
-    // add vkmedia photos widget if plugin is active
-    if (yipnyap_plugin_vkmedia_is_active() && yipnyap_settings_media_file_upload_is_enabled('image')) :
-
-  ?>
-
-    <!-- PHOTOS WIDGET -->
-    <div id="photos-widget" data-userid="<?php echo esc_attr($member['id']); ?>"></div>
-    <!-- /PHOTOS WIDGET -->
-
-  <?php
-
-    endif;
-
     // if the groups component is active, show groups widget
     if (bp_is_active('groups')) {
       $user_groups = yipnyap_groups_get(['user_id' => $member['id'], 'type' => 'popular', 'per_page' => 5]);

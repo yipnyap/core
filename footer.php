@@ -11,9 +11,7 @@
 // footer status
 $footer_status = get_theme_mod('yipnyap_footer_setting_display', 'display');
 
-$buddypress_plugin_is_active = yipnyap_plugin_buddypress_is_active();
-
-$display_footer = ($footer_status === 'display') && (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation_page()) || !$buddypress_plugin_is_active);
+$display_footer = ($footer_status === 'display') && (!bp_is_register_page() && !bp_is_activation_page());
 
 if ($display_footer) :
     // floating banner settings (currently only for user registration notices)

@@ -42,12 +42,12 @@ if ($selfControl) {
              * Avatar Small
                  */
                 get_template_part('template-part/avatar/avatar', 'small', [
-                    'user'        => $args['user'],
-                    'linked'      => yipnyap_plugin_buddypress_is_active(),
-                    'no_border'   => true,
-                    'hide_rank'   => true,
-                    'a_class'     => 'cmui navigator-item mb-2 !mt-4',
-                    'img_class'   => 'h-8 w-8 rounded-full',
+                    'user' => $args['user'],
+                    'linked' => true,
+                    'no_border' => true,
+                    'hide_rank' => true,
+                    'a_class' => 'cmui navigator-item mb-2 !mt-4',
+                    'img_class' => 'h-8 w-8 rounded-full',
                 ]);
             }
 

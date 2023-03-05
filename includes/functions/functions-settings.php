@@ -29,11 +29,6 @@ function yipnyap_settings_get()
         'current_user_is_moderator' => current_user_can('moderator'),
 
         /**
-         * Paid Memberships Pro
-         */
-        'membership_levels_page_link' => yipnyap_plugin_pmpro_is_active() ? esc_url(pmpro_url('levels')) : '',
-
-        /**
          * Yipnyap
          */
 
@@ -57,7 +52,6 @@ function yipnyap_settings_get()
         'post_types_to_display_in_search' => yipnyap_blog_post_types_to_display_in_search_get(),
         'post_type_filter_display_is_enabled' => yipnyap_blog_post_type_filter_display_is_enabled(),
         'post_type_split_display_is_enabled' => yipnyap_blog_post_type_split_display_is_enabled(),
-        'post_excerpt_display_is_enabled' => !yipnyap_plugin_pmpro_is_active() || yipnyap_pmpro_excerpts_display_is_enabled(),
 
         /**
          * Playback
@@ -111,30 +105,9 @@ function yipnyap_settings_get()
         'footer_status' => get_theme_mod('yipnyap_footer_setting_display', 'display')
     ];
 
-    // add BuddyPress related options if BuddyPress plugin is active
-    if (yipnyap_plugin_buddypress_is_active()) {
-        $settings['bp_restrict_group_creation'] = (bool)bp_get_option('bp_restrict_group_creation', false);
-
-        // add bbPress related options if both BuddyPress and bbPress are active
-        if (yipnyap_plugin_bbpress_is_active()) {
-            $settings['bbp_is_group_forums_active'] = bbp_is_group_forums_active();
-        }
-    }
-
-    // add Verified Member for BuddyPress related options if plugin is active
-    if (yipnyap_plugin_bpverifiedmember_is_active()) {
-        $settings['bp_verified_member_badge'] = yipnyap_bpverifiedmember_badge_get();
-
-        $settings = array_merge($settings, yipnyap_bpverifiedmember_settings_get());
-    }
-
-    // add paid membership pro related options if plugin is active
-    if (yipnyap_plugin_pmpro_buddypress_is_active()) {
-        $settings['pmpro_bp_options'] = yipnyap_pmpro_buddypress_logged_user_membership_level_options_get();
-        $settings['pmpro_bp_membership_level_tag_display_on_profile_is_enabled'] = yipnyap_pmpro_buddypress_membership_level_tag_display_on_profile_is_enabled();
-    }
-
-    return $settings;
+    $settings['bp_restrict_group_creation'] = (bool)bp_get_option('bp_restrict_group_creation', false);
+    $settings['bp_verified_member_badge'] = yipnyap_bpverifiedmember_badge_get();
+    return array_merge($settings, yipnyap_bpverifiedmember_settings_get());
 }
 
 /**

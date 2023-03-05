@@ -70,14 +70,6 @@ if (!function_exists('yipnyap_menu_get_items')) {
       $nav_menu_object = wp_get_nav_menu_object($menu_id);
       $nav_items = wp_get_nav_menu_items($menu_id, $args);
 
-      // get current page ID, or front page ID if current page is front page
-      $current_post_id = get_queried_object_id();
-
-      // if BuddyPress plugin is active and a BuddyPress page is front page, get page on front id
-      if (yipnyap_plugin_buddypress_is_active() && bp_is_component_front_page()) {
-        $current_post_id = get_option('page_on_front');
-      }
-
       // if user assigned a menu to this location
       if ($nav_items) {
         global $wp;
@@ -267,12 +259,7 @@ if (!function_exists('yipnyap_reactions_insert_user_data')) {
       $reaction_data_cp['users'] = [];
 
       foreach ($reaction_data->users as $user_id) {
-        // add BuddyPress member data if plugin is active
-        if (yipnyap_plugin_buddypress_is_active()) {
-          $reaction_data_cp['users'][] = yipnyap_members_get_fallback($user_id);
-        } else {
-          $reaction_data_cp['users'][] = yipnyap_user_get_data($user_id);
-        }
+        $reaction_data_cp['users'][] = yipnyap_members_get_fallback($user_id);
       }
 
       $reactions_data_with_users[] = $reaction_data_cp;

@@ -161,12 +161,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
         } else {
             // add media information
             if (($activity_data['type'] === 'activity_media') || ($activity_data['type'] === 'activity_video')) {
-                // add vkmedia data if plugin is active
-                if (yipnyap_plugin_vkmedia_is_active()) {
-                    $activity_data['media'] = vkmedia_get_media($bp_activity->secondary_item_id);
-                } else {
-                    $activity_data['media'] = [];
-                }
+                $activity_data['media'] = vkmedia_get_media($bp_activity->secondary_item_id);
             }
 
             // add media information
@@ -217,10 +212,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
             $activity_data['action'] = yipnyap_bbpress_format_activity_action_new_topic($activity_data['action'], $bp_activity);
         }
 
-        // add vkreact-buddypress reactions data if plugin is active
-        if (yipnyap_plugin_vkreact_is_active() && yipnyap_plugin_vkreact_buddypress_is_active()) {
-            $activity_data['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($bp_activity->id));
-        }
+        $activity_data['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($bp_activity->id));
 
         // add group information
         if ($activity_data['component'] === 'groups') {
@@ -334,10 +326,7 @@ if (!function_exists('yipnyap_get_activity_comments_with_children_recursive')) {
                 'reactions' => []
             ];
 
-            // add vkreact-buddypress reactions data if plugin is active
-            if (yipnyap_plugin_vkreact_is_active() && yipnyap_plugin_vkreact_buddypress_is_active()) {
-                $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($comment->id));
-            }
+            $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($comment->id));
 
             if ($comment->children) {
                 $com['children'] = [];

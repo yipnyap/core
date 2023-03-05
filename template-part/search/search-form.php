@@ -15,15 +15,6 @@ $attributes = isset($args['attributes']) ? $args['attributes'] : [];
 
 $search_form_attributes = [];
 
-// add pmpro membership post and category restrictions
-if (yipnyap_plugin_pmpro_is_active() && yipnyap_pmpro_search_archives_limit_enabled()) {
-    $restricted_categories = yipnyap_pmpro_logged_user_restricted_categories_get();
-    $restricted_posts = yipnyap_pmpro_logged_user_restricted_posts_get();
-
-    $search_form_attributes['category-exclude'] = implode(',', $restricted_categories);
-    $search_form_attributes['post-exclude'] = implode(',', $restricted_posts);
-}
-
 $search_form_attributes = array_merge($search_form_attributes, $attributes);
 
 $search_form_attributes_string = '';

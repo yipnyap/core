@@ -22,7 +22,7 @@
     <script src='https://telegram.org/js/telegram-widget.js?21'></script>
     <?php wp_head(); ?>
 </head>
-<body class="h-screen" style="-webkit-font-smoothing: antialiased;">
+<body class="dark h-screen" style="-webkit-font-smoothing: antialiased;">
 <?php
 wp_body_open();
 

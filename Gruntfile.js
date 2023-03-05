@@ -59,22 +59,16 @@ module.exports = function (grunt) {
                 dest: 'src/js/bundle/bundle.js',
             },
             options: {
-                watch: process.env.GRUNT_WATCH === 'true',
-                keepAlive: process.env.GRUNT_WATCH === 'true',
+                // watch: process.env.GRUNT_WATCH === 'true',
+                // keepAlive: process.env.GRUNT_WATCH === 'true',
                 sourceMap: false,
-                browserifyOptions: {
-                    debug: true
-                },
                 configure: function (bundler) {
                     bundler.plugin(require('tsify'));
                     bundler.transform(require('babelify'), {
                         presets: [
                             '@babel/preset-typescript',
                             [
-                                '@babel/env',
-                                {
-                                    debug: true
-                                }
+                                '@babel/env'
                             ],
                             ['@babel/preset-react', {runtime: 'automatic'}],
                         ],
@@ -102,6 +96,15 @@ module.exports = function (grunt) {
                 },
             }
         },
+        watch: {
+            options: {
+                livereload: true,
+            },
+            js: {
+                files: ['src/nextgen2/**/*.ts', 'src/nextgen2/**/*.tsx', 'src/js/source/**/*.js', 'src/js/source/**/*.jsx'],
+                tasks: ['browserify'],
+            },
+        },
     });
 
     // Load tasks
@@ -112,7 +115,7 @@ module.exports = function (grunt) {
     grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Register global tasks
-    grunt.registerTask('default', ['styles', 'scripts']);
+    grunt.registerTask('default', ['styles', 'scripts', 'watch']);
 
     // Register custom tasks
     grunt.registerTask('styles', ['sass:build', 'postcss:autoprefix']);

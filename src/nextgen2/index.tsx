@@ -5,7 +5,7 @@ import {
 import {useHeading} from "@legacy/providers/PageHeading.provider";
 import Root from "./root";
 import Profile from "./pages/profile";
-import SettingsGeneral from "./pages/profile/pages/settings";
+import SettingsGeneral from "@nextgen2/pages/settings";
 import YipnyapID from "./pages/id";
 import {NGCard} from "@nextgen2/components";
 import {Index} from "./pages/index";

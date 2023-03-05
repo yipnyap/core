@@ -14,7 +14,7 @@ import {getMemberFriends, getMemberGroups} from "@legacy/router/v2/members/get";
 import {HomeIcon, NewspaperIcon, SquaresPlusIcon, UserPlusIcon} from "@heroicons/react/24/solid";
 import {useTheme} from "@legacy/providers/contexts";
 import {Void} from "@nextgen2";
-import SettingsTelegram from "@nextgen2/pages/profile/pages/settings/telegram";
+import SettingsTelegram from "@nextgen2/pages/settings/telegram";
 import {NGCard, NGNewUserOnboarding} from "@nextgen2/components";
 
 // @ts-ignore

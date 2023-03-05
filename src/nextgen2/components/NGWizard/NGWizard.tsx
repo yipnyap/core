@@ -1,7 +1,7 @@
 import React, {Fragment, useEffect, useRef, useState} from "react";
 import {Dialog, Tab, Transition} from "@headlessui/react";
 import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
-import {ButtonTheming} from "../../pages/profile/pages/settings/telegram";
+import {ButtonTheming} from "@nextgen2/pages/settings/telegram";
 
 export default function NGWizard(props: {
     theme?: any;

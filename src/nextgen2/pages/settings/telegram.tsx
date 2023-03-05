@@ -4,7 +4,7 @@ import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {Tab, Dialog, Transition, RadioGroup} from "@headlessui/react";
 import {useLocation} from "react-router-dom";
-import {NGCard, NGWizard, NGSwitch} from "../../../../components";
+import {NGCard, NGWizard, NGSwitch} from "../../components";
 import {CheckIcon, QuestionMarkCircleIcon} from "@heroicons/react/24/solid";
 
 export const ButtonTheming = {

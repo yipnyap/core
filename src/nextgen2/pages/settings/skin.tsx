@@ -1,7 +1,7 @@
 import React, {FormEventHandler, useEffect, useState} from 'react';
 import {useHeading} from "@legacy/providers/PageHeading.provider";
 import {useLocation} from "react-router-dom";
-import {NGAlertCard} from "../../../../components/NGAlertCard";
+import {NGAlertCard} from "../../components/NGAlertCard";
 import {RadioGroup} from "@headlessui/react";
 import {CheckIcon, QuestionMarkCircleIcon} from "@heroicons/react/24/solid";
 import {NGCard} from "@nextgen2/components";

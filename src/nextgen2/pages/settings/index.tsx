@@ -14,9 +14,9 @@ import ProfileSettingsScreen from '@legacy/component/settings/ProfileSettingsScr
 import SocialSettingsScreen from '@legacy/component/settings/SocialSettingsScreen.js';
 // @ts-ignore
 import AccountInfoSettingsScreen from '@legacy/component/settings/AccountInfoSettingsScreen.js';
-import SettingsSkin from "./settings/skin";
-import SettingsAccessibility from "./settings/accessibility";
-import SettingsTelegram from "./settings/telegram";
+import SettingsSkin from "@nextgen2/pages/settings/skin";
+import SettingsAccessibility from "@nextgen2/pages/settings/accessibility";
+import SettingsTelegram from "@nextgen2/pages/settings/telegram";
 
 export default function SettingsGeneral() {
     const [, setHeading] = useHeading();

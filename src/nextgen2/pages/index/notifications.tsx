@@ -17,7 +17,7 @@ export default function Notifications() {
             let i = 0;
             for (const notification of data) {
                 i++;
-                if (notification.action.startsWith('follow')) {
+                if (notification.type === 'follow') {
                     setFollowNotifications([...followNotifications, notification]);
                 }
 

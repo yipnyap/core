@@ -13,7 +13,8 @@ function YipnyapGetNotifications($user_id, $limit = 10, $offset = 0)
             'id' => $bp_notification->id,
             'date' => strtotime($bp_notification->date_notified),
             'unread' => $bp_notification->is_new,
-            'action' => $bp_notification->component_name . '::' . $bp_notification->component_action,
+            'type' => $bp_notification->component_name,
+            'action' => $bp_notification->component_action,
             'data' => []
         ];
 

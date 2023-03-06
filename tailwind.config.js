@@ -25,15 +25,15 @@ module.exports = {
                 },
                 neutral: colors.zinc,
                 sidebar: {
-                    DEFAULT: '#ffffff',
+                    default: '#ffffff',
                     dark: '#1b1b1c',
                 },
             },
             borderRadius: {
-                'default': '0.75rem',
+                default: '0.75rem',
             },
             transitionTimingFunction: {
-                'snapper': 'cubic-bezier(0,1.25,0,1)'
+                snapper: 'cubic-bezier(0,1.25,0,1)'
             }
         },
     },

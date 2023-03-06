@@ -2,7 +2,7 @@ import React, {useEffect} from 'react';
 import {UserPlusIcon} from "@heroicons/react/24/solid";
 import {NavLink, useLocation} from "react-router-dom";
 import {Cog6ToothIcon} from "@heroicons/react/20/solid";
-import {NGNewUserOnboarding} from "@nextgen2/components";
+import {NGNewUserOnboarding, NGSkeleton} from "@nextgen2/components";
 import {NGGroupCard} from "@nextgen2/components/NGGroupCard";
 import {LocalThemeContext} from '@legacy/providers/contexts';
 import {getMemberGroups} from "@legacy/router/v2/members/get";
@@ -14,14 +14,27 @@ interface Props {
 
 export default function Home({...props}: Props) {
     const [groups, setGroups] = React.useState([]);
+    const [ready, setReady] = React.useState(false);
     const location = useLocation();
 
     useEffect(() => {
-        if (yipnyap_constants.currentUser) {
+        let interval: string | number | NodeJS.Timeout | undefined;
+        if (yipnyap_constants.currentUser && !yipnyap_constants.currentUser.groups) {
             getMemberGroups(yipnyap_constants.currentUser.id).then((data) => {
                 setGroups(data);
+                setReady(true);
             });
+        } else {
+            interval = setTimeout(() => {
+                setReady(true);
+
+                if (yipnyap_constants.currentUser?.groups) {
+                    setGroups(yipnyap_constants.currentUser.groups);
+                }
+            }, 2000);
         }
+
+        return () => clearInterval(interval);
     }, [location.pathname]);
 
     return (
@@ -46,7 +59,9 @@ export default function Home({...props}: Props) {
                         </div>
                     </div>
 
-                    {yipnyap_constants.currentUser && (
+                    {!ready && (<NGSkeleton theme={props.theme}/>)}
+
+                    {(yipnyap_constants.currentUser && ready) && (
                         <>
                             {yipnyap_constants.currentUser?.friends?.length <= 3 && (
                                 <NGCTACard

@@ -1,6 +1,6 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {UserPlusIcon} from "@heroicons/react/24/solid";
-import {NavLink} from "react-router-dom";
+import {NavLink, useLocation} from "react-router-dom";
 import {Cog6ToothIcon} from "@heroicons/react/20/solid";
 import {NGNewUserOnboarding} from "@nextgen2/components";
 import {NGGroupCard} from "@nextgen2/components/NGGroupCard";
@@ -14,17 +14,22 @@ interface Props {
 
 export default function Home({...props}: Props) {
     const [groups, setGroups] = React.useState([]);
+    const location = useLocation();
 
-    getMemberGroups(yipnyap_constants.currentUser?.id).then((data) => {
-        setGroups(data);
-    });
+    useEffect(() => {
+        if (yipnyap_constants.currentUser) {
+            getMemberGroups(yipnyap_constants.currentUser.id).then((data) => {
+                setGroups(data);
+            });
+        }
+    }, [location.pathname]);
 
     return (
         <div className="flex justify-center m-auto lg:grid grid-cols-10 h-full">
             <div className="flex flex-col col-span-8 px-20 py-10 space-y-12 h-full overflow-y-auto">
                 <div className="space-y-6">
                     <div
-                        className="px-20 pt-10 pb-64 rounded-xl highlight-white/5"
+                        className="hidden sm:block px-20 pt-10 pb-64 rounded-xl highlight-white/5"
                         style={{
                             background: `linear-gradient(rgba(0, 0, 0, ${props.theme.variant === 'dark' ? '0.3' : '0'}), rgba(0, 0, 0, 0.3)), url('${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp') center center / cover no-repeat`
                         }}

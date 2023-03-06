@@ -21,6 +21,7 @@ add_action('rest_api_init', function () {
 
 require_once __DIR__ . '/comic.php';
 require_once __DIR__ . '/member.php';
+require_once __DIR__ . '/notifications.php';
 require_once __DIR__ . '/relationships.php';
 require_once __DIR__ . '/telegram.php';
 require_once __DIR__ . '/dipswitch.php';

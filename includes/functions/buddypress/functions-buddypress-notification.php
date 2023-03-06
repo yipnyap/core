@@ -36,8 +36,6 @@ if (!function_exists('yipnyap_get_notifications')) {
          */
         $args = apply_filters('yipnyap_notifications_get_args', $args);
 
-        $notifications = yipnyap_get_notifications_data($args);
-
         if (array_key_exists('is_new', $args)) {
             $notifications = yipnyap_get_notifications_data($args);
         } else {

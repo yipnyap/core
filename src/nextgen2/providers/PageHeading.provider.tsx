@@ -1,6 +1,6 @@
 import {createContext, useContext, useState} from 'react';
 import type {Dispatch, ReactNode, SetStateAction} from 'react';
-import {NGContentNavigatorItemType} from "../../../nextgen2/components/NGContentNavigator/NGContentNavigator";
+import {NGContentNavigatorItemType} from "../components/NGContentNavigator/NGContentNavigator";
 
 interface PageHeadingContextType {
     heading: string | JSX.Element | null;

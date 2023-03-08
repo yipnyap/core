@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import {useLocation} from "react-router-dom";
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {RadioGroup} from "@headlessui/react";
 
 const fontSpacings = [

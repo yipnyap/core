@@ -5,7 +5,7 @@ import {
     KeyIcon, LifebuoyIcon, ShieldCheckIcon,
     UserPlusIcon,
 } from "@heroicons/react/24/solid";
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {Void} from "../../index";
 import Login from "./login";
 import Register from "./create";

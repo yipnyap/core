@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
 import {ArrowRightCircleIcon, CheckBadgeIcon, LockClosedIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {Tab, Dialog, Transition, RadioGroup} from "@headlessui/react";

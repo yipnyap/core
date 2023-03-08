@@ -12,7 +12,7 @@ import ActivityPhotoList from '@legacy/component/activity/activity-media/activit
 import ActivityVideoList from '@legacy/component/activity/activity-media/activity-media-video/ActivityVideoList';
 // @ts-ignore
 import MemberFilterableList from '@legacy/component/filter/MemberFilterableList';
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {
     Cog6ToothIcon,
     FaceSmileIcon,

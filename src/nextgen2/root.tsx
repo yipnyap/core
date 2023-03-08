@@ -1,10 +1,10 @@
 import React, {useEffect} from "react";
 import ContextProvider from "./ContextProvider";
-import {PageHeadingProvider, useHeading} from "@legacy/providers/PageHeading.provider";
+import {PageHeadingProvider, useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {NGBody, NGContent, NGSideNav} from "./components";
 import {Outlet} from "react-router-dom";
 import {BellIcon, HomeIcon, UserIcon} from "@heroicons/react/24/solid";
-import {useTheme} from "@legacy/providers/contexts";
+import {useTheme} from "@nextgen2/providers/Theme.provider";
 
 export default function Root() {
     return (

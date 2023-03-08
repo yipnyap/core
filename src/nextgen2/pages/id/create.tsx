@@ -1,4 +1,4 @@
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import React, {useEffect, useRef, useState} from "react";
 import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
 import {Navigate, NavLink} from "react-router-dom";

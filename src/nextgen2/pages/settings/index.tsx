@@ -7,7 +7,7 @@ import {
     ShareIcon,
 } from "@heroicons/react/24/solid";
 import {ArrowUpRightIcon} from "@heroicons/react/20/solid";
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 // @ts-ignore
 import ProfileSettingsScreen from '@legacy/component/settings/ProfileSettingsScreen.js';
 // @ts-ignore

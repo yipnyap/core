@@ -4,7 +4,7 @@ import {NavLink, useLocation} from "react-router-dom";
 import {Cog6ToothIcon} from "@heroicons/react/20/solid";
 import {NGNewUserOnboarding, NGSkeleton} from "@nextgen2/components";
 import {NGGroupCard} from "@nextgen2/components/NGGroupCard";
-import {LocalThemeContext} from '@legacy/providers/contexts';
+import {LocalThemeContext} from '@nextgen2/providers/Theme.provider';
 import {getMemberGroups} from "@legacy/router/v2/members/get";
 import {NGCTACard} from "@nextgen2/components/NGCTACard";
 

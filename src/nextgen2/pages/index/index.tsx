@@ -6,13 +6,13 @@
  *
  * @file index.tsx
  */
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import React, {useEffect, useState} from "react";
 import {NavLink, useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "@nextgen2/components/NGContentNavigator/NGContentNavigator";
 import {getMemberFriends, getMemberGroups} from "@legacy/router/v2/members/get";
 import {BellIcon, HomeIcon, NewspaperIcon, SquaresPlusIcon, UserPlusIcon} from "@heroicons/react/24/solid";
-import {useTheme} from "@legacy/providers/contexts";
+import {useTheme} from "@nextgen2/providers/Theme.provider";
 import {Void} from "@nextgen2";
 import SettingsTelegram from "@nextgen2/pages/settings/telegram";
 import {NGCard, NGNewUserOnboarding} from "@nextgen2/components";

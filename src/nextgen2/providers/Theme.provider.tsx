@@ -1,41 +1,6 @@
 import { createContext, useContext, useState } from 'react';
 import type { Dispatch, ReactNode, SetStateAction } from 'react';
 
-export interface User {
-    id: string;
-    username: string;
-    displayName: string;
-    pictures?: {
-        profile?: {
-            version: number,
-            url: string,
-        },
-        header?: {
-            version: number,
-            url: string,
-        },
-    }
-}
-
-export interface LocalUserContext {
-    loggedIn: boolean;
-    self?: boolean;
-    token: string;
-    id: string;
-    username?: string;
-    displayName?: string;
-    pictures?: {
-        profile?: {
-            version: number,
-            url: string,
-        },
-        header?: {
-            version: number,
-            url: string,
-        },
-    }
-}
-
 export interface LocalThemeContext {
     variant: string;
 }

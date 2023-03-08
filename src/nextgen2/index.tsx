@@ -2,7 +2,7 @@ import React, {useEffect} from 'react'
 import {
     createBrowserRouter,
 } from "react-router-dom"
-import {useHeading} from "@legacy/providers/PageHeading.provider";
+import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import Root from "./root";
 import Profile from "./pages/profile";
 import SettingsGeneral from "@nextgen2/pages/settings";

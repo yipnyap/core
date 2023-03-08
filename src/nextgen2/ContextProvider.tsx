@@ -1,5 +1,5 @@
 import React from 'react';
-import {ThemeContextProvider} from '@legacy/providers/contexts';
+import {ThemeContextProvider} from '@nextgen2/providers/Theme.provider';
 
 interface Props {
     children: React.ReactNode

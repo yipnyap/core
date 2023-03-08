@@ -16,6 +16,12 @@ module.exports = {
         'dark:text-neutral-300',
         'divide-neutral-200',
         'dark:divide-neutral-700',
+
+        // for skeleton loader
+        'h-32',
+        'h-48',
+        'h-40',
+        'h-56',
     ],
     theme: {
         extend: {

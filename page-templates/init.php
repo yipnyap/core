@@ -4,11 +4,12 @@ if (!defined('ABSPATH')) {
 }
 
 $YipnyapPageTemplates = [
-//    [
-//        'slug' => 'settings',
-//        'title' => 'Settings',
-//        'children' => []
-//    ]
+    [
+        'slug' => 'notifications',
+        'title' => 'Notifications',
+        'nextgen' => true,
+        'children' => []
+    ]
 ];
 
 // Loop through each page template
@@ -28,7 +29,7 @@ foreach ($YipnyapPageTemplates as $YipnyapPageTemplate) {
     }
 
     // Set the page template
-    update_post_meta($YipnyapPageId, '_wp_page_template', 'page-templates/page_' . $YipnyapPageTemplate['slug'] . '.php');
+    update_post_meta($YipnyapPageId, '_wp_page_template', 'page-templates/' . ($YipnyapPageTemplate['nextgen'] ? 'nextgen' : 'page_' . $YipnyapPageTemplate['slug']) . '.php');
 }
 
 add_filter('template_include', function($template) {

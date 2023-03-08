@@ -63,6 +63,22 @@ export default function Home({...props}: Props) {
 
                     {(yipnyap_constants.currentUser && ready) && (
                         <>
+                            {yipnyap_constants.currentUser?.groups?.length >= 20 && (
+                                <NGCTACard
+                                    title="⚠️ You're in an abnormal amount of groups"
+                                    description="Being in a lot of groups can slow down your browser as they're cached per
+                                    session. If Yipnyap is slow, consider leaving some of them and see if that helps."
+                                />
+                            )}
+
+                            {yipnyap_constants.currentUser?.friends?.length >= 20 && (
+                                <NGCTACard
+                                    title="⚠️ You have an abnormal amount of friends"
+                                    description="Being friends with a ton of people can slow down your browser as they're
+                                    cached per session.If Yipnyap is slow, consider unfriending some of them and see if that helps."
+                                />
+                            )}
+
                             {yipnyap_constants.currentUser?.friends?.length <= 3 && (
                                 <NGCTACard
                                     title="Add your friends"
@@ -100,7 +116,7 @@ export default function Home({...props}: Props) {
                     <div className="flex flex-col">
                         <h2 className="text-2xl">Recommended Groups</h2>
                         <div className="mt-4 grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
-                            {groups.map((group) => (<NGGroupCard group={group}/>))}
+                            {groups.map((group, i) => (<NGGroupCard key={i} group={group}/>))}
                         </div>
                     </div>
                 )}

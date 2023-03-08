@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import ContextProvider from "./ContextProvider";
 import {PageHeadingProvider, useHeading} from "@nextgen2/providers/PageHeading.provider";
 import {NGBody, NGContent, NGSideNav} from "./components";
@@ -24,6 +24,9 @@ export default function Root() {
 function RootWithinProvider() {
     const [heading] = useHeading();
     const [theme] = useTheme();
+    const [, addNotification, removeNotification] = useNotification();
+
+    const [dontRerender] = useState(0);
 
     document.body.style.overflow = 'hidden';
 
@@ -38,6 +41,61 @@ function RootWithinProvider() {
             icon: UserIcon
         },
     ];
+
+    // run this useEffect only once
+    useEffect(() => {
+        // @ts-ignore
+        if (module.hot) {
+            // Connect to webpack-dev-server socket
+            let connection = new WebSocket('ws://localhost:9000/ws');
+
+            // Listen for messages
+            connection.onmessage = (e) => {
+                const data = JSON.parse(e.data);
+                console.log('[🔥 Hot] Message: ', data);
+
+                switch (data.type) {
+                    case 'invalid':
+                        // Invalid gets sent on rebuild
+                        addNotification({
+                            id: 'hot-reloading',
+                            title: 'Wait',
+                            message: 'Rebuild in progress',
+                            type: 'warning',
+                            persistent: true,
+                        });
+                        break;
+                    case 'hash':
+                        removeNotification('hot-reloading');
+                        addNotification({
+                            title: 'HMR Done',
+                            message: 'Rebuild complete',
+                            type: 'success',
+                        });
+                        break;
+                    case 'warnings':
+                        addNotification({
+                            title: 'Rebuilt with warnings',
+                            message: `${data.data.length} warnings`,
+                            type: 'warning',
+                        });
+                        break;
+                    default:
+                        break;
+                }
+            }
+
+            // On connect, submit to notification
+            connection.onopen = () => {
+                console.log('[🔥 Hot] Connected');
+                addNotification({
+                    title: 'Running in development mode',
+                    message: 'Connected to hot reloading server',
+                    type: 'success'
+                });
+            }
+        }
+    }, [dontRerender]);
 
     useEffect(() => {
         console.log('[🌇 Theme] Change: ', theme)

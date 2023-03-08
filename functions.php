@@ -257,7 +257,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://localhost:9000/';
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://' . $_SERVER['SERVER_NAME'] . ':9000/';
         wp_enqueue_script($file, $domain . $file, [], YIPNYAP_VERSION, true);
     }
 
@@ -266,7 +266,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://localhost:9000/';
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = 'http://' . $_SERVER['SERVER_NAME'] . ':9000/';
         wp_enqueue_style($file, $domain . $file, [], YIPNYAP_VERSION);
     }
 

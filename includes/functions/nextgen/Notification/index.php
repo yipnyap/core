@@ -2,7 +2,7 @@
 /**
  * Get notifications for a user
  */
-function YipnyapGetNotifications($user_id, $limit = 10, $offset = 0)
+function YipnyapGetNotifications($user_id, $limit = 10, $offset = 0): array
 {
     $bp_notifications = bp_notifications_get_all_notifications_for_user($user_id);
     $bp_notifications = array_slice($bp_notifications, $offset, $limit);
@@ -18,18 +18,20 @@ function YipnyapGetNotifications($user_id, $limit = 10, $offset = 0)
             'data' => []
         ];
 
+        /**
+         * Some reason, notification item IDs differ between components. It's either the user in question, the current
+         * user, or something else.
+         *
+         * 'groups' => secondary_item_id
+         * 'friends', 'follow' => item_id
+         */
         switch ($bp_notification->component_name) {
+            case 'groups':
+                $build['data']['user'] = YipnyapGetMember($bp_notification->secondary_item_id);
+                break;
             case 'friends':
             case 'follow':
-                $build['data']['user'] = [
-                    'id' => $bp_notification->item_id,
-                    'name' => bp_core_get_user_displayname($bp_notification->item_id),
-                    'avatar' => bp_core_fetch_avatar([
-                        'item_id' => $bp_notification->item_id,
-                        'type' => 'full',
-                        'html' => false,
-                    ]),
-                ];
+                $build['data']['user'] = YipnyapGetMember($bp_notification->item_id);
                 break;
 
             default:

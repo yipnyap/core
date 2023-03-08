@@ -19,20 +19,20 @@ export default function Home({...props}: Props) {
 
     useEffect(() => {
         let interval: string | number | NodeJS.Timeout | undefined;
-        if (yipnyap_constants.currentUser && !yipnyap_constants.currentUser.groups) {
-            getMemberGroups(yipnyap_constants.currentUser.id).then((data) => {
-                setGroups(data);
-                setReady(true);
-            });
-        } else {
-            interval = setTimeout(() => {
+        interval = setInterval(() => {
+            if (yipnyap_constants.currentUser && !yipnyap_constants.currentUser.groups) {
+                getMemberGroups(yipnyap_constants.currentUser.id).then((data) => {
+                    setGroups(data);
+                    setReady(true);
+                });
+            } else {
                 setReady(true);
 
                 if (yipnyap_constants.currentUser?.groups) {
                     setGroups(yipnyap_constants.currentUser.groups);
                 }
-            }, 2000);
-        }
+            }
+        }, 5000);
 
         return () => clearInterval(interval);
     }, [location.pathname]);

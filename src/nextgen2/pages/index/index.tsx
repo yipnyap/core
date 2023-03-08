@@ -28,9 +28,11 @@ import {Cog6ToothIcon, PlusIcon} from "@heroicons/react/20/solid";
 import {NGGroupCard} from "@nextgen2/components/NGGroupCard";
 import Home from "@nextgen2/pages/index/home";
 import Notifications from "@nextgen2/pages/index/notifications";
+import {useNotification} from "@nextgen2/providers/Notification.provider";
 
 export function Index({...props}) {
     const [, setHeading] = useHeading();
+    const [, addNotification] = useNotification();
     const [theme,] = useTheme();
     const location = useLocation();
     const [userGroups, setUserGroups] = useState<NGContentNavigatorItemType[]>([]);
@@ -74,6 +76,10 @@ export function Index({...props}) {
 
             setUserGroups(userGroupsBuild);
             setReadyToRender(true);
+            addNotification({
+                type: 'success',
+                title: 'Connected!',
+            });
         })
 
         // Get current user friends

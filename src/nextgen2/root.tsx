@@ -4,13 +4,18 @@ import {PageHeadingProvider, useHeading} from "@nextgen2/providers/PageHeading.p
 import {NGBody, NGContent, NGSideNav} from "./components";
 import {Outlet} from "react-router-dom";
 import {BellIcon, HomeIcon, UserIcon} from "@heroicons/react/24/solid";
-import {useTheme} from "@nextgen2/providers/Theme.provider";
+import {ThemeContextProvider, useTheme} from "@nextgen2/providers/Theme.provider";
+import NotificationContextProvider, {
+    NotificationContainer,
+    useNotification
+} from "@nextgen2/providers/Notification.provider";
 
 export default function Root() {
     return (
         <ContextProvider>
             <PageHeadingProvider>
-                <RootWithinProvider />
+                <NotificationContainer/>
+                <RootWithinProvider/>
             </PageHeadingProvider>
         </ContextProvider>
     )

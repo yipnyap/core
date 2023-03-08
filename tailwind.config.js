@@ -22,6 +22,11 @@ module.exports = {
         'h-48',
         'h-40',
         'h-56',
+
+        // for notification
+        'text-green-400',
+        'text-red-400',
+        'text-yellow-400',
     ],
     theme: {
         extend: {

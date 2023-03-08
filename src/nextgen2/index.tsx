@@ -28,7 +28,7 @@ export const router = createBrowserRouter([
                 <NGCard className="w-1/2 -inset-px border-2 !highlight-white/0"
                         title={<img className="m-auto"
                                     src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/dummy-mascot.png`}
-                        />}>
+                                    alt="Crocodile mascot falling"/>}>
                     <div className="flex flex-col space-y-4">
                         <h2>Whoops. Something unknown is broken.</h2>
                         <p>
@@ -115,14 +115,17 @@ export function Void({...props}) {
 
     return (
         <div className={"w-full h-full p-6"}>
-            <div className={"w-full h-full flex justify-center items-center justify-center items-center space-x-32 border border-dotted border-2 border-default rounded-lg"}>
+            <div
+                className={"w-full h-full flex justify-center items-center space-x-32 border-dotted border-2 border-default rounded-lg"}>
                 {/* Text on left, image on right */}
                 <div className={"flex flex-col"}>
                     <span className={"font-bold text-default-alt"}>No {props.type || 'page'} currently selected.</span>
                     <span className={"text-sm text-default-alt"} onClick={playAudio}>Just you and the void.</span>
                 </div>
                 <div className={"flex"}>
-                    <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/lost-boi.png`} className={"w-fit h-fit"} alt={"Illustration of a confused sabertooth-tiger floating on ice in the middle of the ocean"}/>
+                    <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/lost-boi.png`}
+                         className={"w-fit h-fit"}
+                         alt={"Illustration of a confused sabertooth-tiger floating on ice in the middle of the ocean"}/>
                 </div>
             </div>
         </div>
@@ -130,7 +133,7 @@ export function Void({...props}) {
 }
 
 if (localStorage.getItem('waaaaaaEE') === '1') {
-    addEventListener('click', (event) => {
+    addEventListener('click', () => {
         if (boing.paused) {
             boing.play();
         } else {
@@ -140,7 +143,7 @@ if (localStorage.getItem('waaaaaaEE') === '1') {
 }
 
 if (localStorage.getItem('sansEE') === '1') {
-    addEventListener('keypress', (event) => {
+    addEventListener('keypress', () => {
         if (sans.paused) {
             sans.play();
         } else {

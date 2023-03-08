@@ -40,6 +40,17 @@ add_action('init', function () {
 }, 1);
 
 /**
+ * Kill the WordPress Feed page
+ *
+ * @return void
+ * @package Yipnyap WP Beheadding
+ * @since ui2
+ */
+add_action('init', function () {
+    unset($GLOBALS['wp_rewrite']->feeds[array_search('feed', $GLOBALS['wp_rewrite']->feeds)]);
+});
+
+/**
  * Remove REST API & oEmbed Discovery links from header
  *
  * @return void
@@ -139,16 +150,16 @@ add_filter(
         $new_error = substr($error['message'], 0, 100) . '...';
         // . '<br><br>' . $error["message"]
 
-        postDiscordWebhookAsError([
-            'content' => 'Houndkit crashed.',
-            'embeds' => [
-                [
-                    'title' => 'ERRT-' . $error['type'] . '-' . $error['line'],
-                    'description' => "Yipnyap Version {$YIPNYAP_VERSION}\n{$actual_link}\n```bash\n" . $error["message"] . "```",
-                    'timestamp' => $date,
-                ],
-            ],
-        ]);
+//        postDiscordWebhookAsError([
+//            'content' => 'Houndkit crashed.',
+//            'embeds' => [
+//                [
+//                    'title' => 'ERRT-' . $error['type'] . '-' . $error['line'],
+//                    'description' => "Yipnyap Version {$YIPNYAP_VERSION}\n{$actual_link}\n```bash\n" . $error["message"] . "```",
+//                    'timestamp' => $date,
+//                ],
+//            ],
+//        ]);
 
         return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
     },

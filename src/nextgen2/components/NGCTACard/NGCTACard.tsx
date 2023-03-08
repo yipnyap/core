@@ -28,7 +28,7 @@ export default function NGCTACard({...props}: NGCtaCardType) {
     let theme = buildClassObject(NGCtaCardTheming, props.theme || undefined)
 
     return (
-        <div className="p-8 bg-box rounded-xl highlight-white/5">
+        <div className="p-8 bg-box rounded-default highlight-white/5">
             <div className="flex flex-col md:flex-row items-center justify-center">
                 <div className="flex flex-col flex-grow md:w-1/2 space-y-2">
                     <h4 className="text-lg">{props.title}</h4>

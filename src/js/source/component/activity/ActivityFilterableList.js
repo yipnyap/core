@@ -1,4 +1,8 @@
-import React, { useState, useRef, useEffect } from 'react';
+/**
+ * TODO: HOLY SHIT REMAKE THIS. PERIOD. FULLY. THIS IS A MESS. I'M SORRY. NOT REALLY. BUT I AM.
+ */
+
+import React, {useState, useRef, useEffect} from 'react';
 import Paginator from '@legacy/component/utils/Paginator';
 import ActivityForm from './activity-form/ActivityForm';
 import ActivityFilterBar from './ActivityFilterBar';
@@ -133,7 +137,6 @@ function ActivityFilterableList(props) {
             filters.current.filter.object.push('bbpress');
         }
 
-        
 
         reloadActivities();
     };
@@ -182,7 +185,6 @@ function ActivityFilterableList(props) {
             config.scope = config.scope === 'myfollowing' ? 'false' : config.scope;
         }
 
-        
 
         activityRouter.getActivities(config, callback);
     };
@@ -207,7 +209,7 @@ function ActivityFilterableList(props) {
         const preloadedActivities = jQuery.Deferred();
 
         getActivities((response) => {
-            
+
 
             // cancel if scope changed
             const newScope = filters.current.scope;
@@ -243,7 +245,8 @@ function ActivityFilterableList(props) {
                         message: response.data,
                         persistent: true
                     })
-                    return;
+                    setLoggedUser(false);
+                    throw new Error(`Failed to load group: ${response.data}`);
                 }
 
                 // cancel if scope changed
@@ -281,7 +284,7 @@ function ActivityFilterableList(props) {
             // dump preloaded activities and preload next page if it has more items
             preloadedActivities.current
                 .done((activities, hasMoreItems) => {
-                    
+
 
                     setActivities(previousActivities => {
                         return {
@@ -303,7 +306,7 @@ function ActivityFilterableList(props) {
     };
 
     const createActivity = (data, callback) => {
-        
+
 
         const itemID = Number.parseInt(data.postIn, 10);
 
@@ -380,10 +383,9 @@ function ActivityFilterableList(props) {
             uploadable_media_type: data.uploadable_media_type
         };
 
-        
 
         activityRouter.createActivity(activityData, (response) => {
-            
+
 
             // activity created
             if (response) {
@@ -411,7 +413,7 @@ function ActivityFilterableList(props) {
             getCreatedActivityFilters.in = activityID;
 
             activityRouter.getActivities(getCreatedActivityFilters, (createdActivityResponse) => {
-                
+
 
                 if (createdActivityResponse.activities.length) {
                     const createdActivity = createdActivityResponse.activities[0];
@@ -435,13 +437,13 @@ function ActivityFilterableList(props) {
     };
 
     const updateActivity = (data, callback) => {
-        
+
 
         const activityUpdatePromise = activityRouter.updateActivity(data);
 
         activityUpdatePromise
             .done((response) => {
-                
+
 
                 // activity updated successfully
                 if (response) {
@@ -451,7 +453,7 @@ function ActivityFilterableList(props) {
                     };
 
                     activityRouter.getActivities(getUpdatedActivityFilters, (updatedActivityResponse) => {
-                        
+
 
                         if (updatedActivityResponse.activities.length) {
                             const updatedActivity = updatedActivityResponse.activities[0];
@@ -466,10 +468,10 @@ function ActivityFilterableList(props) {
     };
 
     const deleteActivity = (activity_id, callback) => {
-        
+
 
         activityRouter.deleteActivity(activity_id, (response) => {
-            
+
 
             callback(response);
 
@@ -493,7 +495,7 @@ function ActivityFilterableList(props) {
     };
 
     const pinActivity = (activityID, callback) => {
-        
+
 
         const config = {
             userID: loggedUser.id,
@@ -501,7 +503,7 @@ function ActivityFilterableList(props) {
         };
 
         activityRouter.pinActivity(config, (response) => {
-            
+
 
             if (response) {
                 setPinnedActivityID(activityID);
@@ -512,14 +514,14 @@ function ActivityFilterableList(props) {
     };
 
     const unpinActivity = (callback) => {
-        
+
 
         const config = {
             userID: loggedUser.id
         };
 
         activityRouter.unpinActivity(config, (response) => {
-            
+
 
             if (response) {
                 setPinnedActivityID(false);
@@ -543,7 +545,6 @@ function ActivityFilterableList(props) {
         setActivities(previousActivities => {
             const activities = previousActivities.items.slice();
 
-            
 
             for (const activity of activities) {
                 if (activity.meta && activity.meta.attached_media_type && (activity.meta.attached_media_type[0] === 'youtube')) {
@@ -557,7 +558,6 @@ function ActivityFilterableList(props) {
                 }
             }
 
-            
 
             return {
                 ...previousActivities,
@@ -570,7 +570,7 @@ function ActivityFilterableList(props) {
         if (yipnyap_constants.plugin_active.vkreact && yipnyap_constants.plugin_active['vkreact-buddypress']) {
             reactionRouter.getReactions()
                 .done((response) => {
-                    
+
 
                     setReactions(response);
                 });
@@ -578,7 +578,7 @@ function ActivityFilterableList(props) {
     };
 
     const onActivityUpdate = (newActivityData) => {
-        
+
 
         setActivities(previousActivities => {
             return {
@@ -645,16 +645,16 @@ function ActivityFilterableList(props) {
                     {
                         (onNewsfeed || ownProfile || ownGroup) &&
                         <ActivityForm user={loggedUser}
-                            postIn={postInDefault}
-                            onSubmit={createActivity}
+                                      postIn={postInDefault}
+                                      onSubmit={createActivity}
                         />
                     }
                     {
                         !props.activityID &&
                         <ActivityFilterBar onFiltersChange={onFiltersChange}
-                            hideGroupsFilter={Boolean(props.groupID)}
-                            hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
-                            hideFollowing={props.userID || props.groupID || !loggedUser}
+                                           hideGroupsFilter={Boolean(props.groupID)}
+                                           hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
+                                           hideFollowing={props.userID || props.groupID || !loggedUser}
                         />
                     }
 
@@ -680,17 +680,17 @@ function ActivityFilterableList(props) {
                         {
                             (activities.items.length > 0) &&
                             <ActivityList data={activities.items}
-                                user={loggedUser}
-                                reactions={reactions}
-                                profileUserID={props.userID}
-                                pinnedActivityID={pinnedActivityID}
-                                pinActivity={pinActivity}
-                                unpinActivity={unpinActivity}
-                                updateActivity={updateActivity}
-                                deleteActivity={deleteActivity}
-                                onShare={onCreatedActivity}
-                                onPlay={onPlay}
-                                onActivityUpdate={onActivityUpdate}
+                                          user={loggedUser}
+                                          reactions={reactions}
+                                          profileUserID={props.userID}
+                                          pinnedActivityID={pinnedActivityID}
+                                          pinActivity={pinActivity}
+                                          unpinActivity={unpinActivity}
+                                          updateActivity={updateActivity}
+                                          deleteActivity={deleteActivity}
+                                          onShare={onCreatedActivity}
+                                          onPlay={onPlay}
+                                          onActivityUpdate={onActivityUpdate}
                             />
                         }
                     </ScrollPager>

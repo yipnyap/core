@@ -18,7 +18,14 @@ export default function NotificationContextProvider({children}: { children: Reac
     };
 
     const addNotification = (n: any): string | boolean => {
-        console.log('addNotification', n);
+        // Check if title and description match an existing notification
+        const existingNotification = notificationsCache.find((notification) => {
+            return notification.title === n.title && notification.message === n.message;
+        });
+
+        // If it does, return the id of the existing notification
+        if (existingNotification) return existingNotification.id;
+
         n.id = n.id || Math.random().toString(36).slice(2, 9);
         n.expire = n.expire || 5000;
         n.type = n.type || 'default';

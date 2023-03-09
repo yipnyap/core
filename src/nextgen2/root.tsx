@@ -109,7 +109,7 @@ function RootWithinProvider() {
     }, [theme]);
 
     return (
-        <NGBody>
+        <div className="h-full flex overflow-none">
             <NGSideNav items={navigation}
                        slimContentNavigator={heading?.slimContentNavigator}
                        showContentNavigator={true}
@@ -119,6 +119,6 @@ function RootWithinProvider() {
                     <Outlet/>
                 </NGContent>
             </NGSideNav>
-        </NGBody>
+        </div>
     );
 }

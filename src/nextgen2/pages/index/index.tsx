@@ -15,7 +15,7 @@ import {BellIcon, HomeIcon, NewspaperIcon, SquaresPlusIcon, UserPlusIcon} from "
 import {useTheme} from "@nextgen2/providers/Theme.provider";
 import {Void} from "@nextgen2";
 import SettingsTelegram from "@nextgen2/pages/settings/telegram";
-import {NGCard, NGNewUserOnboarding} from "@nextgen2/components";
+import {NGCard, NGNewUserOnboarding, NGSkeleton} from "@nextgen2/components";
 
 // @ts-ignore
 import ActivityFilterableList from "@legacy/component/activity/ActivityFilterableList";
@@ -37,12 +37,11 @@ export function Index({...props}) {
     const location = useLocation();
     const [userGroups, setUserGroups] = useState<NGContentNavigatorItemType[]>([]);
     const [userFriends, setUserFriends] = useState<NGContentNavigatorItemType[]>([]);
-    const [currentGroup, setCurrentGroup] = useState<string | false>();
     const [showVoid, setShowVoid] = useState<boolean>(false);
     const [readyToRender, setReadyToRender] = useState<boolean>(false);
 
     useEffect(() => {
-        // Get current user groups
+        if (readyToRender) return;
         getMemberGroups(yipnyap_constants.currentUser?.id).then((groups) => {
             const userGroupsBuild = [];
             if (!Array.isArray(groups)) return;
@@ -56,31 +55,13 @@ export function Index({...props}) {
                 });
             }
 
-            // Check if any of the groups are the current group
-            if (location.pathname.startsWith('/groups/')) {
-                const currentGroup = parseInt(location.pathname.split('/')[2]);
-                if (currentGroup) {
-                    const group = groups.find((group: { id: number; }) => group.id === currentGroup);
-                    if (group) {
-                        setCurrentGroup(group.id);
-                        setShowVoid(false);
-                    } else {
-                        setCurrentGroup(false);
-                        setShowVoid(true);
-                    }
-                }
-            } else if (location.pathname === '/feed/') {
-                setCurrentGroup(false);
-                setShowVoid(false);
-            }
-
             setUserGroups(userGroupsBuild);
             setReadyToRender(true);
             addNotification({
                 type: 'success',
-                title: 'Connected!',
+                title: 'Group Fetch OK',
             });
-        })
+        });
 
         // Get current user friends
         getMemberFriends(yipnyap_constants.currentUser?.id).then((friends) => {
@@ -96,10 +77,20 @@ export function Index({...props}) {
                 });
             }
             setUserFriends(userFriendsBuild);
+            addNotification({
+                type: 'success',
+                title: 'Friends Fetch OK',
+            });
         })
 
         if (!yipnyap_constants.currentUser?.display_name) {
             setReadyToRender(true);
+        }
+    }, [readyToRender]);
+
+    useEffect(() => {
+        if (location.pathname === '/feed/') {
+            setShowVoid(false);
         }
     }, [location.pathname])
 
@@ -159,7 +150,7 @@ export function Index({...props}) {
         <>
             {location.pathname === '/' && (<Home theme={theme}/>)}
             {location.pathname === '/notifications/' && (<Notifications/>)}
-            {location.pathname === '/feed/' || location.pathname.startsWith('/groups/') && (
+            {location.pathname === '/feed/' && (
                 <div className="flex flex-col mx-auto px-4">
                     {showVoid ? <Void/> : (
                         <>
@@ -176,22 +167,12 @@ export function Index({...props}) {
                             >
                                 {
                                     readyToRender ? (
-                                        <>
-                                            {currentGroup !== false ? (
-                                                <ActivityFilterableList order="DESC"
-                                                                        groupID={currentGroup}
-                                                                        perPage={5}
-                                                                        element="NGContent"
-                                                                        className="w-full"/>
-                                            ) : (
-                                                <ActivityFilterableList order="DESC"
-                                                                        perPage={5}
-                                                                        element="NGContent"
-                                                                        className="w-full"/>
-                                            )}
-                                        </>
+                                        <ActivityFilterableList order="DESC"
+                                                                perPage={5}
+                                                                element="NGContent"
+                                                                className="w-full"/>
                                     ) : (
-                                        <Loader/>
+                                        <NGSkeleton/>
                                     )
                                 }
 

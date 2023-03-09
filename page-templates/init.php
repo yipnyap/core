@@ -68,6 +68,24 @@ add_filter('template_include', function ($template) {
     return $template;
 });
 
+add_filter('template_include', function ($template) {
+    $prefix = '/groups'; // Your prefix
+    $prefixExist = str_starts_with($_SERVER['REQUEST_URI'], $prefix);
+
+    if ($prefixExist) {
+        header('HTTP/1.1 200 OK');
+
+        add_filter('document_title_parts', function ($title_parts) {
+            $title_parts['title'] = 'Groups';
+            return $title_parts;
+        });
+
+        return locate_template('page-templates/nextgen.php');
+    }
+
+    return $template;
+});
+
 add_filter('bp_setup_nav', function () {
     global $bp;
     bp_core_new_nav_item([

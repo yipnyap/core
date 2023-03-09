@@ -9,6 +9,7 @@ import SettingsGeneral from "@nextgen2/pages/settings";
 import YipnyapID from "./pages/id";
 import {NGCard} from "@nextgen2/components";
 import {Index} from "./pages/index";
+import GroupsIndex from "@nextgen2/pages/group";
 
 let audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/splat_ambience.mp3`);
 let boing = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/WAAAAAAA.mp3`);
@@ -58,8 +59,8 @@ export const router = createBrowserRouter([
                 element: <Index/>,
             },
             {
-                path: '/groups/:groupId/',
-                element: <Index/>,
+                path: '/groups/:groupId/*',
+                element: <GroupsIndex/>,
             },
             {
                 path: '/settings/',

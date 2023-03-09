@@ -20,8 +20,8 @@ export default function Home({...props}: Props) {
     const [, addNotification] = useNotification();
 
     useEffect(() => {
-        let interval: string | number | NodeJS.Timeout | undefined;
-        interval = setInterval(() => {
+        let timeout: string | number | NodeJS.Timeout | undefined;
+        timeout = setTimeout(() => {
             if (yipnyap_constants.currentUser && !yipnyap_constants.currentUser.groups) {
                 getMemberGroups(yipnyap_constants.currentUser.id).then((data) => {
                     setGroups(data);
@@ -36,14 +36,14 @@ export default function Home({...props}: Props) {
             }
         }, 5000);
 
-        return () => clearInterval(interval);
+        return () => clearTimeout(timeout);
     }, [location.pathname]);
 
     function testNotif() {
         addNotification({
             title: 'Test Notification',
             message: 'This is a test notification',
-        })
+        });
     }
 
     return (

@@ -16,13 +16,10 @@ get_header(null, [
 
 if ($SelfControlCMUI) { ?>
 <div id="cmui-entire-content" class="h-screen" style="overflow: hidden !important;"><?php
-    }
-
-    if (have_posts()) {
+    get_template_part('template-part/ng2-entrypoint/entrypoint');
+    } else if (have_posts()) {
         the_post();
         the_content();
-    } else {
-        get_template_part('template-part/ng2-entrypoint/entrypoint');
     }
 
     get_footer();

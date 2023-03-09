@@ -14,6 +14,7 @@ import * as reactionRouter from '@legacy/router/reaction/reaction-router';
 import {filterActivityContentForSave} from '@legacy/component/utils/activity/activity-filter';
 import {updateActivities} from '@legacy/component/utils/activity/activity-data';
 import {getMemberGroups} from "@legacy/router/v2/members/get";
+import {useNotification} from "@nextgen2/providers/Notification.provider";
 
 function ActivityFilterableList(props) {
     const [activities, setActivities] = useState({
@@ -27,6 +28,7 @@ function ActivityFilterableList(props) {
     const [fetchingUser, setFetchingUser] = useState(false);
     const [loggedUser, setLoggedUser] = useState(yipnyap_constants.currentUser || false);
     const [hasCheckedLoggedUser, setHasCheckedLoggedUser] = useState(false);
+    const [, addNotification] = useNotification();
 
     const currentPage = useRef(1);
     const createCount = useRef(0);
@@ -234,7 +236,15 @@ function ActivityFilterableList(props) {
 
         if (currentPage.current === 1) {
             getActivities((response) => {
-                
+                if (!response.activities) {
+                    addNotification({
+                        type: 'error',
+                        title: 'Failed to load group',
+                        message: response.data,
+                        persistent: true
+                    })
+                    return;
+                }
 
                 // cancel if scope changed
                 const newScope = filters.current.scope;
@@ -648,8 +658,9 @@ function ActivityFilterableList(props) {
                         />
                     }
 
-                    <ScrollPager modifiers="grid gap-4" loadMoreItems={getActivitiesPage} moreItems={activities.moreItems}
-                        initialFetch={activities.initialFetch} element={props.element || null}>
+                    <ScrollPager modifiers="grid-legacy gap-4" loadMoreItems={getActivitiesPage}
+                                 moreItems={activities.moreItems}
+                                 initialFetch={activities.initialFetch} element={props.element || null}>
                         {
                             (activities.items.length === 0) && !activities.moreItems &&
                             <Notification title={`o((⊙﹏⊙))o we couldn't discover any content`}

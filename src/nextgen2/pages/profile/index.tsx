@@ -26,6 +26,7 @@ import {useLocation} from "react-router-dom";
 import {NGContentNavigatorItemType} from "../../components/NGContentNavigator/NGContentNavigator";
 import Arcana from "./pages/special/arcana";
 import ProfileBadges from "./pages/badges";
+import {NGBody, NGSkeleton} from "@nextgen2/components";
 
 interface NGProfileType {
     id: number;
@@ -224,27 +225,27 @@ export default function Profile({...props}) {
     }, [location.pathname, userSubNav])
 
     return (
-        <>
-            {
-                user && (
-                    <>
-                        {
-                            location.pathname.startsWith(`/${userID}/arcana/`) ? (
-                                <Arcana isGabe={selfIsGabe} />
-                            ) : (
+        <NGBody>
+            {!user && <NGSkeleton/>}
+            {user && (
+                <>
+                    {
+                        location.pathname.startsWith(`/${userID}/arcana/`) ? (
+                            <Arcana isGabe={selfIsGabe}/>
+                        ) : (
+                            <>
+                                {
+                                    (yipnyap_constants.currentUser?.username && yipnyap_constants.currentUser?.username === user.username) &&
+                                    <NextgenProfilesWelcomeModal/>
+                                }
+                                {
+                                    location.pathname !== `/${userID}/arcana/` && <NGProfileHeader
+                                        user={user}
+                                        loggedIn={yipnyap_constants.currentUser?.username?.length > 0}
+                                        self={yipnyap_constants.currentUser?.username === user.username}
+                                    />
+                                }
                                 <div className="m-auto p-8 max-w-3xl space-y-4">
-                                    {
-                                        (yipnyap_constants.currentUser?.username && yipnyap_constants.currentUser?.username === user.username) &&
-                                        <NextgenProfilesWelcomeModal/>
-                                    }
-                                    {
-                                        location.pathname !== `/${userID}/arcana/` && <NGProfileHeader
-                                            user={user}
-                                            loggedIn={yipnyap_constants.currentUser?.username?.length > 0}
-                                            self={yipnyap_constants.currentUser?.username === user.username}
-                                        />
-                                    }
-
                                     {
                                         location.pathname === `/${userID}/` && (
                                             <ActivityFilterableList userID={user.id} perPage={5} element='NGContent'/>
@@ -272,9 +273,9 @@ export default function Profile({...props}) {
                                     {
                                         location.pathname === `/${userID}/videos/` && (
                                             <div className="bg-box p-8 rounded-xl">
-                                                <ActivityVideoList  userID={user.id}
-                                                                    perPage={24}
-                                                                    order='DESC' />
+                                                <ActivityVideoList userID={user.id}
+                                                                   perPage={24}
+                                                                   order='DESC'/>
                                             </div>
                                         )
                                     }
@@ -292,16 +293,16 @@ export default function Profile({...props}) {
                                     {
                                         location.pathname === `/${userID}/badges/` && (
                                             <div className="bg-box p-8 rounded-xl">
-                                                <ProfileBadges userID={user.id} />
+                                                <ProfileBadges userID={user.id}/>
                                             </div>
                                         )
                                     }
                                 </div>
-                            )
-                        }
-                    </>
-                )
-            }
-        </>
+                            </>
+                        )
+                    }
+                </>
+            )}
+        </NGBody>
     )
 }

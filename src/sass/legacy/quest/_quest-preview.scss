@@ -7,6 +7,8 @@
 /*----------------------------
     1. ACHIEVEMENT PREVIEW LIST
 ----------------------------*/
+@use "sass:math";
+
 .achievement-preview-list {
   .achievement-preview {
     margin-bottom: 28px;
@@ -44,7 +46,7 @@
       color: var(--color-text) !important;
       font-size: $fs-12;
       font-weight: $weight-medium;
-      line-height: (16 / 12) * 1em;
+      line-height: math.div(16, 12) * 1em;
     }
   }
 

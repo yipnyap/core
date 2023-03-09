@@ -7,6 +7,8 @@
 /*--------------------
     1. TABLE WRAP
 --------------------*/
+@use "sass:math";
+
 .table-wrap {
   overflow-x: auto;
 }
@@ -475,7 +477,7 @@
       color: var(--color-text) !important;
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (16 / 14) * 1em;
+      line-height: math.div(16, 14) * 1em;
 
       .light {
         color: var(--color-text-alt);

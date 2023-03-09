@@ -1,6 +1,8 @@
 /*--------------------
     WP LINK POPUP
 --------------------*/
+@use "sass:math";
+
 #wp-link-backdrop {
   background-color: rgb(21, 21, 31) !important;
   opacity: .96 !important;
@@ -660,7 +662,7 @@
     p {
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (24 / 14) * 1em;
+      line-height: math.div(24, 14) * 1em;
       word-break: break-word;
 
       img {
@@ -1006,7 +1008,7 @@
       .bbp-forum-title {
         font-size: $fs-18;
         font-weight: $weight-bold;
-        line-height: (24 / 18) * 1em;
+        line-height: math.div(24, 18) * 1em;
       }
 
       .bbp-forum-content {
@@ -1016,7 +1018,7 @@
         font-family: var(--font-primary);
         font-size: $fs-14;
         font-weight: $weight-medium;
-        line-height: (20 / 14) * 1em;
+        line-height: math.div(20, 14) * 1em;
       }
     }
   }
@@ -1281,7 +1283,7 @@
         color: var(--color-text) !important;
         font-size: $fs-14;
         font-weight: $weight-medium;
-        line-height: (18 / 14) * 1em;
+        line-height: math.div(18, 14) * 1em;
 
         &:last-child {
           margin-bottom: 0 !important;
@@ -1327,7 +1329,7 @@
     p {
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (18 / 14) * 1em;
+      line-height: math.div(18, 14) * 1em;
     }
   }
 

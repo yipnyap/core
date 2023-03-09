@@ -6,6 +6,8 @@
 /*--------------------
     1. POPUP BOX
 --------------------*/
+@use "sass:math";
+
 .popup-box {
   width: 90%;
   max-width: 984px;
@@ -86,7 +88,7 @@
       margin-top: 24px;
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (20 / 14) * 1em;
+      line-height: math.div(20, 14) * 1em;
     }
 
     .popup-box-action {
@@ -118,7 +120,7 @@
   }
 
   .popup-box-sidebar {
-    width: (284 / 784) * 100%;
+    width: math.div(284, 784) * 100%;
     border-right: 1px solid var(--color-divider);
 
     .sidebar-menu-item {
@@ -165,7 +167,7 @@
   }
 
   .popup-box-content {
-    width: (500 / 784) * 100%;
+    width: math.div(500, 784) * 100%;
     border-bottom-right-radius: 12px;
 
     &.limited {

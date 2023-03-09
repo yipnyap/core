@@ -7,6 +7,8 @@
 /*----------------------------
     1. BADGE ITEM PREVIEW
 ----------------------------*/
+@use "sass:math";
+
 .badge-item-preview {
   display: flex;
   height: 154px;
@@ -33,7 +35,7 @@
       margin-top: 8px;
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (20 / 14) * 1em;
+      line-height: math.div(20, 14) * 1em;
     }
 
     .badge-item-preview-timestamp {

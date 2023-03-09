@@ -10,6 +10,8 @@
 /*----------------------
     1. POST PREVIEW
 ----------------------*/
+@use "sass:math";
+
 .post-preview {
   min-height: 516px;
   @apply rounded-default;
@@ -158,7 +160,7 @@
     }
 
     .post-preview-image {
-      width: (584 / 1184) * 100%;
+      width: math.div(584, 1184) * 100%;
       height: 100%;
       border-top-right-radius: 0;
       border-bottom-left-radius: 12px;
@@ -181,17 +183,17 @@
 
       .post-preview-title {
         font-size: $fs-24;
-        line-height: (32 / 24) * 1em;
+        line-height: math.div(32, 24) * 1em;
 
         &.medium {
           font-size: $fs-28;
-          line-height: (32 / 28) * 1em;
+          line-height: math.div(32, 28) * 1em;
         }
       }
     }
 
     .content-actions {
-      width: (600 / 1184) * 100%;
+      width: math.div(600, 1184) * 100%;
     }
   }
 
@@ -275,7 +277,7 @@
     }
 
     .content-actions {
-      width: (324 / 584) * 100%;
+      width: math.div(324, 584) * 100%;
     }
   }
 
@@ -340,16 +342,16 @@
     }
 
     .post-preview-info {
-      width: (528/584)*100%;
+      width: math.div(528, 584)*100%;
       margin-top: -140px;
 
       .post-preview-title {
         font-size: $fs-24;
-        line-height: (32 / 24) * 1em;
+        line-height: math.div(32, 24) * 1em;
 
         &.medium {
           font-size: $fs-28;
-          line-height: (32 / 28) * 1em;
+          line-height: math.div(32, 28) * 1em;
         }
       }
 
@@ -376,7 +378,7 @@
   }
 
   .post-preview-info {
-    width: (352/384)*100%;
+    width: math.div(352, 384)*100%;
     padding: 28px;
     margin: -48px auto 0;
     @apply rounded-default;
@@ -408,7 +410,7 @@
       margin-top: 10px;
       font-size: $fs-20;
       font-weight: $weight-bold;
-      line-height: (24 / 20) * 1em;
+      line-height: (24 * 0.05) * 1em;
       word-wrap: break-word;
 
       a {
@@ -481,7 +483,7 @@
   .post-peek-title {
     font-size: $fs-14;
     font-weight: $weight-bold;
-    line-height: (16 / 14) * 1em;
+    line-height: math.div(16, 14) * 1em;
 
     a {
       color: var(--color-text) !important;
@@ -517,7 +519,7 @@
   .post-preview-line-title {
     font-size: $fs-14;
     font-weight: $weight-bold;
-    line-height: (16 / 14) * 1em;
+    line-height: math.div(16, 14) * 1em;
 
     a {
       color: var(--color-text) !important;

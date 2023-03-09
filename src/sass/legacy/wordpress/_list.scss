@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .vk-content {
   /*------------------
       ORDERED LIST
@@ -12,7 +14,7 @@
       .ordered-list-item-number,
       .ordered-list-item-text {
         font-size: 18px;
-        line-height: (24 / 18) * 1em;
+        line-height: math.div(24, 18) * 1em;
       }
 
       .ordered-list-item-number {
@@ -61,7 +63,7 @@
       .unordered-list-item-text {
         color: var(--vk-color-text);
         font-size: 18px;
-        line-height: (24 / 18) * 1em;
+        line-height: math.div(24, 18) * 1em;
 
         .bold {
           font-weight: 700;
@@ -75,7 +77,7 @@
         color: var(--vk-color-primary);
         font-size: 18px;
         font-weight: var(--vk-weight-bold);
-        line-height: (24 / 18) * 1em;
+        line-height: math.div(24, 18) * 1em;
         position: absolute;
         top: 0;
         left: 0;

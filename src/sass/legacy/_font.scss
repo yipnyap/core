@@ -10,6 +10,8 @@
 /*-----------------
     1. FONTS
 -----------------*/
+@use "sass:math";
+
 $font-primary: 'Inter', sans-serif;
 $font-secondary: 'Poppins', sans-serif;
 
@@ -26,36 +28,36 @@ $weight-black: 900;
     3. SIZES
 -----------------*/
 $base-size: 16;
-$fs-10: (10 / $base-size) * 1rem;
-$fs-11: (11 / $base-size) * 1rem;
-$fs-12: (12 / $base-size) * 1rem;
-$fs-14: (14 / $base-size) * 1rem;
-$fs-16: (16 / $base-size) * 1rem;
-$fs-18: (18 / $base-size) * 1rem;
-$fs-20: (20 / $base-size) * 1rem;
-$fs-22: (22 / $base-size) * 1rem;
-$fs-24: (24 / $base-size) * 1rem;
-$fs-26: (26 / $base-size) * 1rem;
-$fs-28: (28 / $base-size) * 1rem;
-$fs-32: (32 / $base-size) * 1rem;
-$fs-34: (34 / $base-size) * 1rem;
-$fs-36: (36 / $base-size) * 1rem;
-$fs-40: (40 / $base-size) * 1rem;
-$fs-46: (46 / $base-size) * 1rem;
-$fs-48: (48 / $base-size) * 1rem;
-$fs-54: (54 / $base-size) * 1rem;
-$fs-60: (60 / $base-size) * 1rem;
-$fs-104: (104 / $base-size) * 1rem;
-$fs-144: (144 / $base-size) * 1rem;
-$fs-253: (253 / $base-size) * 1rem;
+$fs-10: math.div(10, $base-size) * 1rem;
+$fs-11: math.div(11, $base-size) * 1rem;
+$fs-12: math.div(12, $base-size) * 1rem;
+$fs-14: math.div(14, $base-size) * 1rem;
+$fs-16: math.div(16, $base-size) * 1rem;
+$fs-18: math.div(18, $base-size) * 1rem;
+$fs-20: math.div(20, $base-size) * 1rem;
+$fs-22: math.div(22, $base-size) * 1rem;
+$fs-24: math.div(24, $base-size) * 1rem;
+$fs-26: math.div(26, $base-size) * 1rem;
+$fs-28: math.div(28, $base-size) * 1rem;
+$fs-32: math.div(32, $base-size) * 1rem;
+$fs-34: math.div(34, $base-size) * 1rem;
+$fs-36: math.div(36, $base-size) * 1rem;
+$fs-40: math.div(40, $base-size) * 1rem;
+$fs-46: math.div(46, $base-size) * 1rem;
+$fs-48: math.div(48, $base-size) * 1rem;
+$fs-54: math.div(54, $base-size) * 1rem;
+$fs-60: math.div(60, $base-size) * 1rem;
+$fs-104: math.div(104, $base-size) * 1rem;
+$fs-144: math.div(144, $base-size) * 1rem;
+$fs-253: math.div(253, $base-size) * 1rem;
 
 /*-----------------
     4. PARAGRAPH
 -----------------*/
 $fs-paragraph: $fs-14;
-$lh-paragraph: (24 / 14) * 1em;
+$lh-paragraph: math.div(24, 14) * 1em;
 $fs-paragraph-medium: $fs-18;
-$lh-paragraph-medium: (24 / 18) * 1em;
+$lh-paragraph-medium: math.div(24, 18) * 1em;
 
 /*-----------------
     5. MIXINS

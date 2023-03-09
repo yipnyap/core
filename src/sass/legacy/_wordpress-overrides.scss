@@ -1,6 +1,8 @@
 /*---------------
     ADMIN BAR
 ---------------*/
+@use "sass:math";
+
 body {
   &.yipnyap-top-space {
     .header {
@@ -171,32 +173,32 @@ svg {
 
     h1 {
       font-size: $fs-46;
-      line-height: (48 / 46) * 1em;
+      line-height: math.div(48, 46) * 1em;
     }
 
     h2 {
       font-size: $fs-40;
-      line-height: (42 / 40) * 1em;
+      line-height: (42 * 0.025) * 1em;
     }
 
     h3 {
       font-size: $fs-34;
-      line-height: (36 / 34) * 1em;
+      line-height: math.div(36, 34) * 1em;
     }
 
     h4 {
       font-size: $fs-28;
-      line-height: (32 / 28) * 1em;
+      line-height: math.div(32, 28) * 1em;
     }
 
     h5 {
       font-size: $fs-22;
-      line-height: (26 / 22) * 1em;
+      line-height: math.div(26, 22) * 1em;
     }
 
     h6 {
       font-size: $fs-18;
-      line-height: (22 / 18) * 1em;
+      line-height: math.div(22, 18) * 1em;
     }
 
     p {
@@ -796,11 +798,11 @@ svg {
     padding: 0 16px;
     font-size: $fs-22;
     font-weight: $weight-medium;
-    line-height: (34 / 22) * 1em;
+    line-height: math.div(34, 22) * 1em;
 
     p {
       font-weight: $weight-medium;
-      line-height: (34 / 22) * 1em;
+      line-height: math.div(34, 22) * 1em;
     }
 
     cite {
@@ -815,7 +817,7 @@ svg {
     &.is-style-large {
       p {
         font-size: $fs-28;
-        line-height: (40 / 28) * 1em;
+        line-height: math.div(40, 28) * 1em;
       }
 
       cite {
@@ -1196,7 +1198,7 @@ svg {
       p {
         color: var(--color-text) !important;
         font-size: $fs-14;
-        line-height: (24 / 14) * 1em;
+        line-height: math.div(24, 14) * 1em;
         font-weight: $weight-medium;
 
         img {

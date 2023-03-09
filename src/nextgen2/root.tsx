@@ -44,8 +44,13 @@ function RootWithinProvider() {
 
     // run this useEffect only once
     useEffect(() => {
+        const allowConnection = sessionStorage.getItem('alreadyOnWS') !== 'true';
+        window.onbeforeunload = function () {
+            sessionStorage.clear();
+        };
         // @ts-ignore
-        if (module.hot) {
+        if (module.hot && allowConnection) {
+            sessionStorage.setItem('alreadyOnWS', 'true');
             // Connect to webpack-dev-server socket
             let connection = new WebSocket('ws://localhost:9000/ws');
 

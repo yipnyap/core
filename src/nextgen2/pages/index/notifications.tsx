@@ -124,9 +124,9 @@ export default function Notifications() {
 
                 if (notification.data.length === 0) {
                     unsupported.push(notification);
+                } else {
+                    groups = orchestrateGrouping(notification, groups);
                 }
-
-                groups = orchestrateGrouping(notification, groups);
 
                 if (i === data.length) {
                     setGroupsState(groups);

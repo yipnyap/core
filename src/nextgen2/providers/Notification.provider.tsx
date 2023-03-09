@@ -44,6 +44,12 @@ export default function NotificationContextProvider({children}: { children: Reac
             }
         }
 
+        // play donk.ogg
+        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/donk.ogg`);
+        audio.play().then(() => {
+            audio.remove();
+        });
+
         notificationsCache.push(n);
         setNotifications(notificationsCache);
         return n.id;

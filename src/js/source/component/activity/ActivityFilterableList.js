@@ -243,7 +243,8 @@ function ActivityFilterableList(props) {
                         type: 'error',
                         title: 'Failed to load group',
                         message: response.data,
-                        persistent: true
+                        persistent: true,
+                        doNotStack: true,
                     })
                     setLoggedUser(false);
                     throw new Error(`Failed to load group: ${response.data}`);

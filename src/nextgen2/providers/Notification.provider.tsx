@@ -18,13 +18,32 @@ export default function NotificationContextProvider({children}: { children: Reac
     };
 
     const addNotification = (n: any): string | boolean => {
+        // play donk.ogg
+        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/donk.ogg`);
+
         // Check if title and description match an existing notification
         const existingNotification = notificationsCache.find((notification) => {
-            return notification.title === n.title && notification.message === n.message;
+            return notification.title.replace(/\s\(\d+\)$/, '') === n.title && notification.message === n.message;
         });
 
-        // If it does, return the id of the existing notification
-        if (existingNotification) return existingNotification.id;
+        // If it does, update the existing notification's title
+        if (existingNotification) {
+            if (!n.doNotStack) {
+                existingNotification.title = existingNotification.title.replace(/\s\(\d+\)$/, '')
+                existingNotification.count = existingNotification.count ? existingNotification.count + 1 : 2;
+                existingNotification.title = existingNotification.title + ` (${existingNotification.count})`;
+
+                audio.play().then(() => {
+                    audio.remove();
+                });
+            }
+
+            return existingNotification.id;
+        }
+
+        audio.play().then(() => {
+            audio.remove();
+        });
 
         n.id = n.id || Math.random().toString(36).slice(2, 9);
         n.expire = n.expire || 5000;
@@ -50,12 +69,6 @@ export default function NotificationContextProvider({children}: { children: Reac
                     break;
             }
         }
-
-        // play donk.ogg
-        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/donk.ogg`);
-        audio.play().then(() => {
-            audio.remove();
-        });
 
         notificationsCache.push(n);
         setNotifications(notificationsCache);
@@ -126,8 +139,9 @@ function Notification({...props}) {
     const [dontRerender] = useState(0);
 
     useEffect(() => {
+        let timeout: any;
         if (!props.persistent) {
-            setTimeout(() => {
+            timeout = setTimeout(() => {
                 setShow(false);
 
                 setTimeout(() => {
@@ -135,6 +149,8 @@ function Notification({...props}) {
                 }, 100);
             }, props.expire);
         }
+
+        return () => clearTimeout(timeout);
     }, [dontRerender]);
 
     return (

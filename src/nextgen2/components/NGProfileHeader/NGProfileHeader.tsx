@@ -221,11 +221,11 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     }
 
     return (
-        <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-lg bg-box`}>
+        <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-default bg-box`}>
             <div className={!header ? 'h-0' : ''}>
                 {
                     header
-                        ? <img className={`rounded-lg w-full object-cover h-32 lg:h-60`} src={header} alt="Profile cover" />
+                        ? <img className="rounded-default aspect-banner object-cover" src={header} alt="Profile cover"/>
                         : <div className='h-4'></div>
                 }
             </div>

@@ -64,7 +64,7 @@ export default function GroupsIndex() {
         <NGBody>
             {/* TODO: Move this as it's own component */}
             <div className="relative z-10 pb-8 rounded-default bg-box">
-                <img className="rounded-default w-full object-cover h-32 lg:h-60"
+                <img className="rounded-default aspect-banner object-cover"
                      src={`${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp`}
                      alt="Profile cover"/>
                 <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">

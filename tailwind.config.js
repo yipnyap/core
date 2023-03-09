@@ -40,6 +40,9 @@ module.exports = {
                     dark: '#1b1b1c',
                 },
             },
+            aspectRatio: {
+                'banner': '3 / 1',
+            },
             borderRadius: {
                 default: '0.75rem',
             },

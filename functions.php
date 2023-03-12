@@ -1,4 +1,4 @@
-<?php /** @noinspection PhpUnused */
+<?php
 /**
  * Yipnyap - Functions
  *
@@ -26,7 +26,7 @@ $AnalyticalRenderTime = [
 ];
 
 // Hook into the 'wp_footer' action
-add_action('wp_footer', function() {
+add_action('wp_footer', function () {
     global $AnalyticalRenderTime;
     // End
     $AnalyticalRenderTime['end'] = microtime(true);
@@ -42,7 +42,7 @@ add_action('wp_footer', function() {
 /**
  * After theme loaded, load page templates
  */
-add_action('after_setup_theme', function() {
+add_action('after_setup_theme', function () {
     // Load init.php
     require_once get_template_directory() . '/page-templates/init.php';
 });
@@ -66,39 +66,38 @@ require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
 
 /** @noinspection PhpUndefinedFunctionInspection */
-function ntwb_bbpress_custom_role_names(): array
-{
+function ntwb_bbpress_custom_role_names(): array {
     return [
 
         // Keymaster
         bbp_get_keymaster_role() => [
             'name' => 'Staff',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_keymaster_role())
+            'capabilities' => bbp_get_caps_for_role(bbp_get_keymaster_role()),
         ],
 
         // Moderator
         bbp_get_moderator_role() => [
             'name' => 'Moderator',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_moderator_role())
+            'capabilities' => bbp_get_caps_for_role(bbp_get_moderator_role()),
         ],
 
         // Participant
         bbp_get_participant_role() => [
             'name' => 'Participant',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_participant_role())
+            'capabilities' => bbp_get_caps_for_role(bbp_get_participant_role()),
         ],
 
         // Spectator
         bbp_get_spectator_role() => [
             'name' => 'Spectator',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_spectator_role())
+            'capabilities' => bbp_get_caps_for_role(bbp_get_spectator_role()),
         ],
 
         // Blocked
         bbp_get_blocked_role() => [
             'name' => 'Blocked',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_blocked_role())
-        ]
+            'capabilities' => bbp_get_caps_for_role(bbp_get_blocked_role()),
+        ],
     ];
 }
 
@@ -110,11 +109,12 @@ define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') ||
 /**
  * Versioning
  */
-define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
-const YIPNYAP_VERSION = YIPNYAP_IS_LOCAL_DEV
-    ? 'linkbleed/' . YIPNYAP_DEVELOPER_VERSION
-    : 'ui1.3';
-const YIPNYAP_VERSION_OPTION = 'yipnyap_version';
+try {
+    define('YIPNYAP_DEVELOPER_VERSION', bin2hex(random_bytes(8)));
+} catch (Exception $e) {
+    define('YIPNYAP_DEVELOPER_VERSION', 'dev/unknown');
+}
+const YIPNYAP_VERSION = YIPNYAP_IS_LOCAL_DEV ? 'linkbleed/' . YIPNYAP_DEVELOPER_VERSION : 'ui1.3';
 
 /**
  * Change Wordpress Settings
@@ -126,31 +126,30 @@ define('YIPNYAP_WPOPTIONS', [
 
     /*
      * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
-     */
-    'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
+     */ 'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
     'yipnyap_logo_url' => YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png',
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
-        'baseurl' => WP_CONTENT_URL . '/uploads'
+        'baseurl' => WP_CONTENT_URL . '/uploads',
     ],
     'unicorn_engine' => [
         'settings_str' => [
             'disallow_bg_render_str' => 'prevent others backgrounds from rendering',
             'disallow_palette_render_str' => 'prevent others ui palette from rendering',
-            'hide_customised_ui_str' => 'hide customised ui notice on others profiles'
-        ]
+            'hide_customised_ui_str' => 'hide customised ui notice on others profiles',
+        ],
     ],
     'google_font_url' => 'https://fonts.googleapis.com/css2?family=Lexend:wght@300..700',
     'fonts' => [
         'primary' => 'Lexend',
-        'secondary' => 'Lexend'
+        'secondary' => 'Lexend',
     ],
 ]);
 const YIPNYAP_OPTIONS = [
     'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
 ];
 
-foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
+foreach (get_object_vars((object) YIPNYAP_WPOPTIONS) as $key => $option) {
     $change_required = get_option($key) !== $option;
 //    echo $key . ': ' . $option . ' | current: ' . get_option($key) . ' | change required: ' . $change_required . '<br>';
     if ($change_required && ($option !== 'DEVTEST' || $key !== 'yipnyap_logo_url')) {
@@ -161,17 +160,17 @@ foreach (get_object_vars((object)YIPNYAP_WPOPTIONS) as $key => $option) {
 /**
  * Disables BuddyPress' registration process and fallsback to WordPress' one.
  */
-function yipnyap_disable_bp_registration(): void
-{
+function yipnyap_disable_bp_registration(): void {
     remove_action('bp_init', 'bp_core_wpsignup_redirect');
     remove_action('bp_screens', 'bp_core_screen_signup');
 }
+
 add_action('bp_loaded', 'yipnyap_disable_bp_registration');
 
-function yipnyap_redirect_bp_signup_page(): string
-{
+function yipnyap_redirect_bp_signup_page(): string {
     return bp_get_root_domain() . '/login/?action=register';
 }
+
 add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
 
 /**
@@ -181,7 +180,7 @@ add_action('login_headerurl', function () {
     // Check if have submitted
     $confirm = (isset($_GET['action']) && $_GET['action'] == 'resetpass');
 
-    if($confirm) {
+    if ($confirm) {
         wp_redirect('/login');
         exit;
     }
@@ -195,8 +194,7 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 /**
  * Load admin styles and scripts
  */
-function yipnyap_admin_load_scripts(): void
-{
+function yipnyap_admin_load_scripts(): void {
     // load fonts
     wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap');
 
@@ -205,7 +203,7 @@ function yipnyap_admin_load_scripts(): void
 
     // pass php variables to javascript file
     wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', [
-        'yipnyap_admin_ajax_nonce' => wp_create_nonce('yipnyap_admin_ajax')
+        'yipnyap_admin_ajax_nonce' => wp_create_nonce('yipnyap_admin_ajax'),
     ]);
 
     // pass translation strings to javascript file
@@ -249,7 +247,7 @@ add_action('wp_enqueue_scripts', function () {
         'yipnyap-xmpopup-scripts',
         'yipnyap-xmprogressBar-scripts',
         'yipnyap-xmtab-scripts',
-        'yipnyap-xmtooltip-scripts'
+        'yipnyap-xmtooltip-scripts',
     ];
 
     foreach (glob(get_template_directory() . '/dist/*.js') as $file) {
@@ -300,7 +298,7 @@ add_action('wp_enqueue_scripts', function () {
         'telegram_bot' => get_option('tg_col') ?? explode(':', get_option('tg_col')['bot_token'])[0],
         'notices' => [
             'tgLink' => "@rekkisomo: Due to an issue with Telegram's Login Widget, you can't link Telegram right now. We're working to fix this issue, conversing with Telegram Support. Sorry for the inconvenience 😔",
-        ]
+        ],
     ];
     ?>
     <script>
@@ -337,8 +335,7 @@ add_filter('style_loader_tag', function ($tag, $handle) {
 /**
  * Remove plugin styles that are not needed to reduce file queries
  */
-function yipnyap_dequeue_styles(): void
-{
+function yipnyap_dequeue_styles(): void {
     // remove BuddyPress styles
     wp_dequeue_style('bp-legacy-css');
 
@@ -351,8 +348,7 @@ add_action('wp_enqueue_scripts', 'yipnyap_dequeue_styles', 20);
 /**
  * Add body class filters
  */
-function yipnyap_body_classes($classes)
-{
+function yipnyap_body_classes($classes) {
     if (is_admin_bar_showing()) {
         $classes[] = 'yipnyap-top-space';
     }
@@ -369,8 +365,7 @@ add_filter('body_class', 'yipnyap_body_classes');
 /**
  * Add support for features
  */
-function yipnyap_support_features(): void
-{
+function yipnyap_support_features(): void {
     add_theme_support('post-formats', ['video', 'audio', 'gallery']);
 
     add_theme_support('title-tag');
@@ -431,8 +426,7 @@ require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
 /**
  * PHP Autoloader
  */
-function yipnyap_class_autoloader($class_name): void
-{
+function yipnyap_class_autoloader($class_name): void {
     $base_path = YIPNYAP_PATH . '/includes/classes';
 
     // utils classes
@@ -451,8 +445,7 @@ spl_autoload_register('yipnyap_class_autoloader');
 /**
  * Allow the use of wp_redirect / wp_safe_redirect after headers are sent (after the get_header() function is called)
  */
-function yipnyap_allow_redirect_after_header(): void
-{
+function yipnyap_allow_redirect_after_header(): void {
     ob_start();
 }
 
@@ -461,8 +454,7 @@ add_action('init', 'yipnyap_allow_redirect_after_header');
 /**
  * Setup member cover preferred image size
  */
-function yipnyap_cover_image_setup($settings = [])
-{
+function yipnyap_cover_image_setup($settings = []) {
     // dimension settings
     $settings['width'] = 1500;
     $settings['height'] = 500;
@@ -470,14 +462,13 @@ function yipnyap_cover_image_setup($settings = [])
     return $settings;
 }
 
-add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_cover_image_setup', 10, 1);
-add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_image_setup', 10, 1);
+add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_cover_image_setup');
+add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_image_setup');
 
 /**
  * Setup group cover preferred image size
  */
-function yipnyap_group_cover_image_setup($settings = [])
-{
+function yipnyap_group_cover_image_setup($settings = []) {
     // dimension settings
     $settings['width'] = 1184;
     $settings['height'] = 300;
@@ -485,7 +476,7 @@ function yipnyap_group_cover_image_setup($settings = [])
     return $settings;
 }
 
-add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_group_cover_image_setup', 10, 1);
+add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_group_cover_image_setup');
 
 /**
  * Disable Gravatar
@@ -495,8 +486,7 @@ add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
 /**
  * Set default member avatar
  */
-function yipnyap_set_default_member_avatar(): string
-{
+function yipnyap_set_default_member_avatar(): string {
     return yipnyap_get_default_member_avatar_url();
 }
 
@@ -505,8 +495,7 @@ add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 /**
  * Set default group avatar
  */
-function yipnyap_set_default_group_avatar(): string
-{
+function yipnyap_set_default_group_avatar(): string {
     return yipnyap_get_default_group_avatar_url();
 }
 
@@ -515,30 +504,26 @@ add_filter('bp_core_default_avatar_group', 'yipnyap_set_default_group_avatar');
 /**
  * Load translations
  */
-function yipnyap_translations_load(): void
-{
+function yipnyap_translations_load(): void {
     load_theme_textdomain('yipnyap', YIPNYAP_PATH . '/languages');
 }
 
 add_action('after_setup_theme', 'yipnyap_translations_load');
 
-function my_retrieve_password_subject_filter($old_subject): string
-{
+function my_retrieve_password_subject_filter($old_subject): string {
     // $old_subject is the default subject line created by WordPress.
     // (You don't have to use it.)
 
     $blogname = wp_specialchars_decode(get_option('blogname'), ENT_QUOTES);
-    $subject = sprintf(__('[%s] Password Reset'), $blogname);
     // This is how WordPress creates the subject line. It looks like this:
     // [Doug's blog] Password Reset
     // You can change this to fit your own needs.
 
     // You have to return your new subject line:
-    return $subject;
+    return sprintf(__('[%s] Password Reset'), $blogname);
 }
 
-function my_retrieve_password_message_filter($old_message, $key, $user_login): string
-{
+function my_retrieve_password_message_filter($old_message, $key, $user_login): string {
     // $old_message is the default message already created by WordPress.
     // (You don't have to use it.)
     // $key is the password-like token that allows the user to get
@@ -559,7 +544,7 @@ function my_retrieve_password_message_filter($old_message, $key, $user_login): s
 }
 
 // To get these filters up and running:
-add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter', 10, 1);
+add_filter('retrieve_password_title', 'my_retrieve_password_subject_filter');
 add_filter('retrieve_password_message', 'my_retrieve_password_message_filter', 10, 3);
 
 add_filter('bp_core_enable_root_profiles', '__return_true');
@@ -570,20 +555,19 @@ add_filter('bp_core_enable_root_profiles', '__return_true');
  */
 
 // Dont save activities of types
-function yipnyap_dont_save_activity($activity_object): void
-{
+function yipnyap_dont_save_activity($activity_object): void {
     $exclude = ['new_avatar', 'updated_profile', 'friendship_created', 'created_group', 'joined_group', 'new_member'];
 
-    if (in_array($activity_object->type, $exclude))
+    if (in_array($activity_object->type, $exclude)) {
         $activity_object->type = false;
+    }
 
 }
 
-add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1, 1);
+add_action('bp_activity_before_save', 'yipnyap_dont_save_activity', 1);
 
 // Change the cover upload directory to our custom one
-function yipnyap_cover_image_upload_dir($upload): array
-{
+function yipnyap_cover_image_upload_dir($upload): array {
     $base_dir = YIPNYAP_WPOPTIONS['buddypress']['basedir'] . '/';
     $path = $base_dir . $upload['subdir'];
     $url = YIPNYAP_WPOPTIONS['buddypress']['baseurl'] . $upload['subdir'];
@@ -594,11 +578,11 @@ function yipnyap_cover_image_upload_dir($upload): array
         'subdir' => $upload['subdir'],
         'basedir' => $base_dir,
         'baseurl' => YIPNYAP_WPOPTIONS['buddypress']['baseurl'],
-        'error' => false
+        'error' => false,
     ];
 }
 
-add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1, 1);
+add_filter('bp_attachments_cover_image_upload_dir', 'yipnyap_cover_image_upload_dir', 1);
 
 // Set limits for the number of characters in bio and textboxes
 function yipnyap_set_xprofile_character_limit($validated, $values, $field) {

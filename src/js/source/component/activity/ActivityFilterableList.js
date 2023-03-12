@@ -17,14 +17,12 @@ import * as reactionRouter from '@legacy/router/reaction/reaction-router';
 
 import {filterActivityContentForSave} from '@legacy/component/utils/activity/activity-filter';
 import {updateActivities} from '@legacy/component/utils/activity/activity-data';
-import {getMemberGroups} from "@legacy/router/v2/members/get";
-import {useNotification} from "@nextgen2/providers/Notification.provider";
+import {getMemberGroups} from '@legacy/router/v2/members/get';
+import {useNotification} from '@nextgen2/providers/Notification.provider';
 
 function ActivityFilterableList(props) {
     const [activities, setActivities] = useState({
-        items: [],
-        initialFetch: true,
-        moreItems: true
+        items: [], initialFetch: true, moreItems: true,
     });
 
     const [pinnedActivityID, setPinnedActivityID] = useState(false);
@@ -39,11 +37,7 @@ function ActivityFilterableList(props) {
     const deleteCount = useRef(0);
     const preloadedActivities = useRef(null);
     const filters = useRef({
-        per_page: props.perPage,
-        sort: props.order,
-        show_hidden: false,
-        scope: 'myfollowing',
-        filter: {}
+        per_page: props.perPage, sort: props.order, show_hidden: false, scope: 'myfollowing', filter: {},
     });
 
     useEffect(() => {
@@ -54,19 +48,11 @@ function ActivityFilterableList(props) {
         }
 
         if (!props.noFilter) {
-            filters.current.filter.object = [
-                'activity',
-                'profile',
-                // 'gamipress'
+            filters.current.filter.object = ['activity', 'profile', // 'gamipress'
             ];
 
-            filters.current.filter.action = [
-                'activity_update',
-                'activity_share',
-                'post_share',
-                // 'new_avatar',
-                'new_member'
-            ];
+            filters.current.filter.action = ['activity_update', 'activity_share', 'post_share', // 'new_avatar',
+                'new_member'];
 
             // add group activity object and actions if the BuddyPress groups component is active
             if (yipnyap_constants.plugin_active.buddypress_groups) {
@@ -98,11 +84,7 @@ function ActivityFilterableList(props) {
         deepExtend(filters.current, newFilters);
 
         if (typeof filters.current.filter.action === 'undefined') {
-            filters.current.filter.action = [
-                'activity_update',
-                'activity_share',
-                'post_share'
-            ];
+            filters.current.filter.action = ['activity_update', 'activity_share', 'post_share'];
 
             // add vkmedia activity actions if the plugin is active
             if (yipnyap_constants.plugin_active.vkmedia) {
@@ -116,10 +98,7 @@ function ActivityFilterableList(props) {
             }
         }
 
-        filters.current.filter.object = [
-            'activity',
-            'profile',
-            // 'gamipress'
+        filters.current.filter.object = ['activity', 'profile', // 'gamipress'
         ];
 
         // add group activity object if the BuddyPress groups component is active
@@ -147,7 +126,7 @@ function ActivityFilterableList(props) {
             page: currentPage.current,
             per_page: props.perPage,
             createCount: createCount.current,
-            deleteCount: deleteCount.current
+            deleteCount: deleteCount.current,
         });
 
         // reset counts
@@ -155,7 +134,7 @@ function ActivityFilterableList(props) {
         deleteCount.current = 0;
 
         const config = {
-            page: currentPage.current
+            page: currentPage.current,
         };
 
         deepExtend(config, filters.current);
@@ -197,9 +176,7 @@ function ActivityFilterableList(props) {
         deleteCount.current = 0;
 
         setActivities({
-            items: [],
-            initialFetch: true,
-            moreItems: true
+            items: [], initialFetch: true, moreItems: true,
         });
 
         getActivitiesPage();
@@ -234,20 +211,20 @@ function ActivityFilterableList(props) {
         const scope = filters.current.scope;
 
         // exclude pinned activity if exists
-        const options = pinnedActivityID ? { exclude: pinnedActivityID } : {};
+        const options = pinnedActivityID ? {exclude: pinnedActivityID} : {};
 
         if (currentPage.current === 1) {
             getActivities((response) => {
                 if (!response.activities) {
                     addNotification({
                         type: 'error',
-                        title: 'Failed to load group',
+                        title: 'Failed to load pack',
                         message: response.data,
                         persistent: true,
                         doNotStack: true,
                     })
                     setLoggedUser(false);
-                    throw new Error(`Failed to load group: ${response.data}`);
+                    throw new Error(`Failed to load pack: ${response.data}`);
                 }
 
                 // cancel if scope changed
@@ -272,7 +249,7 @@ function ActivityFilterableList(props) {
                     return {
                         items: previousActivities.items.concat(activitiesWithoutDuplicates),
                         moreItems: response.has_more_items,
-                        initialFetch: false
+                        initialFetch: false,
                     };
                 });
 
@@ -284,25 +261,25 @@ function ActivityFilterableList(props) {
         } else {
             // dump preloaded activities and preload next page if it has more items
             preloadedActivities.current
-                .done((activities, hasMoreItems) => {
+                               .done((activities, hasMoreItems) => {
 
 
-                    setActivities(previousActivities => {
-                        return {
-                            ...previousActivities,
-                            items: previousActivities.items.concat(activities),
-                            moreItems: hasMoreItems
-                        };
-                    });
+                                   setActivities(previousActivities => {
+                                       return {
+                                           ...previousActivities,
+                                           items: previousActivities.items.concat(activities),
+                                           moreItems: hasMoreItems,
+                                       };
+                                   });
 
-                    callback(hasMoreItems);
+                                   callback(hasMoreItems);
 
-                    // preload next page if it has more items
-                    if (hasMoreItems) {
-                        // preload next page activities
-                        preloadedActivities.current = preloadActivities(options, filters.current.scope);
-                    }
-                });
+                                   // preload next page if it has more items
+                                   if (hasMoreItems) {
+                                       // preload next page activities
+                                       preloadedActivities.current = preloadActivities(options, filters.current.scope);
+                                   }
+                               });
         }
     };
 
@@ -330,20 +307,16 @@ function ActivityFilterableList(props) {
 
         if (data.uploadable_media) {
             const component = itemID === 0 ? 'member' : 'group',
-                componentID = component === 'member' ? loggedUser.id : itemID,
-                files = [];
+                componentID = component === 'member' ? loggedUser.id : itemID, files = [];
 
             for (const media of data.uploadable_media) {
                 files.push(media.file);
             }
 
             uploadable_media = {
-                files: files,
-                component: {
-                    type: component,
-                    id: componentID,
-                    uploader_id: loggedUser.id
-                }
+                files: files, component: {
+                    type: component, id: componentID, uploader_id: loggedUser.id,
+                },
             };
         }
 
@@ -377,11 +350,11 @@ function ActivityFilterableList(props) {
                 content: activityContent,
                 tags: tags || false,
                 hide_sitewide: hideSitewide,
-                label: (data.label ? data.label.value : null)
+                label: (data.label ? data.label.value : null),
             },
             attached_media: data.attached_media,
             uploadable_media: uploadable_media,
-            uploadable_media_type: data.uploadable_media_type
+            uploadable_media_type: data.uploadable_media_type,
         };
 
 
@@ -400,8 +373,7 @@ function ActivityFilterableList(props) {
     const onCreatedActivity = (activityID, itemID, callback) => {
         createCount.current += 1;
 
-        const postedInMyProfile = loggedUser.id === props.userID,
-            postedInMyGroup = itemID === props.groupID,
+        const postedInMyProfile = loggedUser.id === props.userID, postedInMyGroup = itemID === props.groupID,
             postedInNewsfeed = !props.userID;
 
         // if activity created and logged user is viewing newsfeed, its own profile or the group where he is posting
@@ -426,8 +398,7 @@ function ActivityFilterableList(props) {
                         newActivities.unshift(createdActivity);
 
                         return {
-                            ...previousActivities,
-                            items: newActivities
+                            ...previousActivities, items: newActivities,
                         };
                     });
                 }
@@ -450,7 +421,7 @@ function ActivityFilterableList(props) {
                 if (response) {
                     // fetch the updated activity
                     const getUpdatedActivityFilters = {
-                        in: data.id
+                        in: data.id,
                     };
 
                     activityRouter.getActivities(getUpdatedActivityFilters, (updatedActivityResponse) => {
@@ -487,8 +458,7 @@ function ActivityFilterableList(props) {
                     });
 
                     return {
-                        ...previousActivities,
-                        items: newActivities
+                        ...previousActivities, items: newActivities,
                     };
                 });
             }
@@ -499,8 +469,7 @@ function ActivityFilterableList(props) {
 
 
         const config = {
-            userID: loggedUser.id,
-            activityID: activityID
+            userID: loggedUser.id, activityID: activityID,
         };
 
         activityRouter.pinActivity(config, (response) => {
@@ -518,7 +487,7 @@ function ActivityFilterableList(props) {
 
 
         const config = {
-            userID: loggedUser.id
+            userID: loggedUser.id,
         };
 
         activityRouter.unpinActivity(config, (response) => {
@@ -532,7 +501,8 @@ function ActivityFilterableList(props) {
         });
     };
 
-    const getLoggedUser = (callback = () => {}) => {
+    const getLoggedUser = (callback = () => {
+    }) => {
         // Get current user groups
         getMemberGroups(yipnyap_constants.currentUser?.id).then(r => {
             setLoggedUser(yipnyap_constants.currentUser);
@@ -561,8 +531,7 @@ function ActivityFilterableList(props) {
 
 
             return {
-                ...previousActivities,
-                items: activities
+                ...previousActivities, items: activities,
             };
         });
     };
@@ -570,11 +539,11 @@ function ActivityFilterableList(props) {
     const getReactions = () => {
         if (yipnyap_constants.plugin_active.vkreact && yipnyap_constants.plugin_active['vkreact-buddypress']) {
             reactionRouter.getReactions()
-                .done((response) => {
+                          .done((response) => {
 
 
-                    setReactions(response);
-                });
+                              setReactions(response);
+                          });
         }
     };
 
@@ -583,8 +552,7 @@ function ActivityFilterableList(props) {
 
         setActivities(previousActivities => {
             return {
-                ...previousActivities,
-                items: updateActivities(previousActivities.items, newActivityData)
+                ...previousActivities, items: updateActivities(previousActivities.items, newActivityData),
             };
         });
     };
@@ -607,10 +575,9 @@ function ActivityFilterableList(props) {
 
     const prevGroupID = usePrevious(props.groupID);
     useEffect(() => {
-        if(props.groupID !== prevGroupID) {
+        if (props.groupID !== prevGroupID) {
             onFiltersChange({
-                scope: false,
-                filter: {}
+                scope: false, filter: {},
             })
         }
     }, [props]);
@@ -630,75 +597,56 @@ function ActivityFilterableList(props) {
     }
 
     const onNewsfeed = loggedUser && !props.userID && !props.groupID && !props.activityID,
-        ownProfile = loggedUser && (loggedUser.id === props.userID),
-        onGroupNewsfeed = loggedUser && props.groupID,
+        ownProfile = loggedUser && (loggedUser.id === props.userID), onGroupNewsfeed = loggedUser && props.groupID,
         ownGroup = onGroupNewsfeed && loggedUser.groups.some((group) => !group.is_banned && (group.id === props.groupID));
 
-    return (
-        <div className={`grid-legacy ${props.className}`}>
-            {
-                fetchingUser &&
-                <Loader/>
-            }
-            {
-                !fetchingUser &&
-                <React.Fragment>
-                    {
-                        (onNewsfeed || ownProfile || ownGroup) &&
-                        <ActivityForm user={loggedUser}
-                                      postIn={postInDefault}
-                                      onSubmit={createActivity}
-                        />
-                    }
-                    {
-                        !props.activityID &&
-                        <ActivityFilterBar onFiltersChange={onFiltersChange}
-                                           hideGroupsFilter={Boolean(props.groupID)}
-                                           hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
-                                           hideFollowing={props.userID || props.groupID || !loggedUser}
-                        />
-                    }
+    return (<div className={`grid-legacy ${props.className}`}>
+        {fetchingUser && <Loader/>}
+        {!fetchingUser && <React.Fragment>
+            {(onNewsfeed || ownProfile || ownGroup) && <ActivityForm user={loggedUser}
+                                                                     postIn={postInDefault}
+                                                                     onSubmit={createActivity}
+            />}
+            {!props.activityID && <ActivityFilterBar onFiltersChange={onFiltersChange}
+                                                     hideGroupsFilter={Boolean(props.groupID)}
+                                                     hideSecondaryFilters={!loggedUser && !props.userID && !props.groupID}
+                                                     hideFollowing={props.userID || props.groupID || !loggedUser}
+            />}
 
-                    <ScrollPager modifiers="grid-legacy gap-4" loadMoreItems={getActivitiesPage}
-                                 moreItems={activities.moreItems}
-                                 initialFetch={activities.initialFetch} element={props.element || null}>
-                        {
-                            (activities.items.length === 0) && !activities.moreItems &&
-                            <Notification title={`o((⊙﹏⊙))o we couldn't discover any content`}
-                                          text={`New to Yipnyap? Go hit "Everything" and follow those you like!`}
-                            />
-                            // <>
-                            //     <h3 class="text-lg leading-6 font-medium">
-                            //         o((⊙﹏⊙))o we couldn't discover content you'd like
-                            //     </h3>
-                            //     <div class="mt-2 text-sm leading-5 text-gray-500">
-                            //         <p>New to Yipnyap? Go explore and follow those you love!</p>
-                            //         <p>For now, we'll keep checking in the background.</p>
-                            //     </div>
-                            // </>
+            <ScrollPager modifiers="grid-legacy gap-4" loadMoreItems={getActivitiesPage}
+                         moreItems={activities.moreItems}
+                         initialFetch={activities.initialFetch} element={props.element || null}>
+                {(activities.items.length === 0) && !activities.moreItems &&
+                    <Notification title={`o((⊙﹏⊙))o we couldn't discover any content`}
+                                  text={`New to Yipnyap? Go hit "Everything" and follow those you like!`}
+                    />
+                    // <>
+                    //     <h3 class="text-lg leading-6 font-medium">
+                    //         o((⊙﹏⊙))o we couldn't discover content you'd like
+                    //     </h3>
+                    //     <div class="mt-2 text-sm leading-5 text-gray-500">
+                    //         <p>New to Yipnyap? Go explore and follow those you love!</p>
+                    //         <p>For now, we'll keep checking in the background.</p>
+                    //     </div>
+                    // </>
 
-                        }
-                        {
-                            (activities.items.length > 0) &&
-                            <ActivityList data={activities.items}
-                                          user={loggedUser}
-                                          reactions={reactions}
-                                          profileUserID={props.userID}
-                                          pinnedActivityID={pinnedActivityID}
-                                          pinActivity={pinActivity}
-                                          unpinActivity={unpinActivity}
-                                          updateActivity={updateActivity}
-                                          deleteActivity={deleteActivity}
-                                          onShare={onCreatedActivity}
-                                          onPlay={onPlay}
-                                          onActivityUpdate={onActivityUpdate}
-                            />
-                        }
-                    </ScrollPager>
-                </React.Fragment>
-            }
-        </div>
-    );
+                }
+                {(activities.items.length > 0) && <ActivityList data={activities.items}
+                                                                user={loggedUser}
+                                                                reactions={reactions}
+                                                                profileUserID={props.userID}
+                                                                pinnedActivityID={pinnedActivityID}
+                                                                pinActivity={pinActivity}
+                                                                unpinActivity={unpinActivity}
+                                                                updateActivity={updateActivity}
+                                                                deleteActivity={deleteActivity}
+                                                                onShare={onCreatedActivity}
+                                                                onPlay={onPlay}
+                                                                onActivityUpdate={onActivityUpdate}
+                />}
+            </ScrollPager>
+        </React.Fragment>}
+    </div>);
 }
 
-export { ActivityFilterableList as default };
+export {ActivityFilterableList as default};

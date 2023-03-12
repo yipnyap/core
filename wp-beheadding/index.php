@@ -95,8 +95,7 @@ remove_action('wp_head', 'wp_generator');
  * @package Yipnyap WP Beheadding
  * @since hk15
  */
-add_filter('admin_title', function(string $admin_title, string $title): string
-{
+add_filter('admin_title', function (string $admin_title, string $title): string {
     return 'Houndboard &bull; ' . $title;
 }, 10, 2);
 
@@ -109,8 +108,7 @@ add_filter('admin_title', function(string $admin_title, string $title): string
  * @param $extra_classes
  * @return array New classes.
  */
-add_filter('body_class', function($wp_classes, $extra_classes): array
-{
+add_filter('body_class', function ($wp_classes, $extra_classes): array {
     // List of the only WP generated classes allowed
     $whitelist = ['portfolio', 'home', 'error404'];
 
@@ -118,7 +116,7 @@ add_filter('body_class', function($wp_classes, $extra_classes): array
     $wp_classes = array_intersect($wp_classes, $whitelist);
 
     // Add the extra classes back untouched
-    return array_merge($wp_classes, (array)$extra_classes);
+    return array_merge($wp_classes, (array) $extra_classes);
 }, 10, 2);
 
 /**
@@ -139,16 +137,14 @@ add_filter('login_title', function ($login_title) {
  * @package Yipnyap WP Beheadding
  * @since hk15
  */
-add_filter(
-    'wp_php_error_message',
-    function ($message, $error) {
-        global $wp_filter;
+add_filter('wp_php_error_message', function ($message, $error) {
+    global $wp_filter;
 
-        $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-        $date = date('c', strtotime('now'));
-        $YIPNYAP_VERSION = YIPNYAP_VERSION;
-        $new_error = substr($error['message'], 0, 100) . '...';
-        // . '<br><br>' . $error["message"]
+    $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+    $date = date('c', strtotime('now'));
+    $YIPNYAP_VERSION = YIPNYAP_VERSION;
+    $new_error = substr($error['message'], 0, 100) . '...';
+    // . '<br><br>' . $error["message"]
 
 //        postDiscordWebhookAsError([
 //            'content' => 'Houndkit crashed.',
@@ -161,11 +157,8 @@ add_filter(
 //            ],
 //        ]);
 
-        return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
-    },
-    10,
-    2
-);
+    return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+}, 10, 2);
 
 /**
  * Change ajax & rest urls to more standard ones.
@@ -214,11 +207,11 @@ add_filter('rest_url_prefix', function () {
  *
  * ^Rek(t)
  */
-add_action('after_setup_theme', function() {
+add_action('after_setup_theme', function () {
     // remove SVG and global styles
     remove_action('wp_enqueue_scripts', 'wp_enqueue_global_styles');
-    remove_action( 'wp_body_open', 'wp_global_styles_render_svg_filters' );
-    remove_action( 'wp_body_open', 'gutenberg_global_styles_render_svg_filters' );
+    remove_action('wp_body_open', 'wp_global_styles_render_svg_filters');
+    remove_action('wp_body_open', 'gutenberg_global_styles_render_svg_filters');
 
     // remove wp_footer actions which add's global inline styles
     remove_action('wp_footer', 'wp_enqueue_global_styles', 1);
@@ -227,4 +220,7 @@ add_action('after_setup_theme', function() {
     remove_filter('render_block', 'wp_render_duotone_support');
     remove_filter('render_block', 'wp_restore_group_inner_container');
     remove_filter('render_block', 'wp_render_layout_support_flag');
+
+    // Just remove the whole thing
+    remove_action('enqueue_block_editor_assets', 'gutenberg_editor_scripts_and_styles');
 });

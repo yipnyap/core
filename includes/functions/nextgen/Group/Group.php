@@ -115,6 +115,14 @@ class Group {
             $BPGroup->meta['members']['data'][] = $memberBuild;
         }
 
+        // Sort members by date joined, and by role alphabetically.
+        usort($BPGroup->meta['members']['data'], function ($a, $b) {
+            if ($a['date_joined'] === $b['date_joined']) {
+                return $a['role'] <=> $b['role'];
+            }
+            return $a['date_joined'] <=> $b['date_joined'];
+        });
+
         // Check if current user is mod or admin
         $BPGroup->meta['members']['is_mod'] = groups_is_user_mod(get_current_user_id(), $BPGroup->id);
         $BPGroup->meta['members']['is_admin'] = groups_is_user_admin(get_current_user_id(), $BPGroup->id);

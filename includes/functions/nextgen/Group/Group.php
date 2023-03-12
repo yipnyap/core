@@ -104,7 +104,13 @@ class Group {
             'exclude_admins_mods' => false,
         ])['members'] as $member) {
             $memberBuild = YipnyapGetMember($member->id);
-            $memberBuild['role'] = $member->is_admin ? 'Admin' : ($member->is_mod ? 'Mod' : null);
+
+            if ($memberBuild['id'] === $BPGroup->creator_id) {
+                $memberBuild['role'] = 'Leader';
+            } else {
+                $memberBuild['role'] = $member->is_admin ? 'Admin' : ($member->is_mod ? 'Mod' : null);
+            }
+            $memberBuild['date_joined'] = strtotime($member->date_modified);
 
             $BPGroup->meta['members']['data'][] = $memberBuild;
         }

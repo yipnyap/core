@@ -1,7 +1,7 @@
 import React from 'react';
-import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
-import {NavLink} from "react-router-dom";
-import {HomeIcon} from "@heroicons/react/24/solid";
+import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
+import {NavLink} from 'react-router-dom';
+import {HomeIcon} from '@heroicons/react/24/solid';
 
 export declare interface NGContentNavigatorItemType {
     name: string | JSX.Element;
@@ -34,21 +34,21 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
 
     const slimNavClass = props.slimContentNavigator ? 'w-20' : 'w-96';
 
-    props.items.length === 0 && (props.items = [{
-        name: 'Home',
-        description: '',
-        href: '/',
-        icon: HomeIcon,
-        current: location.pathname === '/',
-    }]);
+    props.items.length === 0 && (
+        props.items = [{
+            name: 'Home',
+            description: '',
+            href: '/',
+            icon: HomeIcon,
+            current: location.pathname === '/',
+        }]
+    );
 
     return (
         <>
             <nav
                 aria-label="Sections"
-                className={`hidden lg:flex lg:flex-col ${slimNavClass} flex-shrink-0 bg-sidebar dark:bg-sidebar-dark border-r border-blue-gray-200 overflow-y-auto`
-                    // Dark mode
-                    + ` dark:border-neutral-600`}>
+                className={`hidden lg:flex lg:flex-col ${slimNavClass} flex-shrink-0 bg-sidebar dark:bg-sidebar-dark border-0 border-r border-solid border-default overflow-y-auto`}>
                 {!props.slimContentNavigator && (
                     <div
                         className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">
@@ -61,10 +61,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                             key={i}
                             to={item.href}
                             target={item.target}
-                            className={classNames(
-                                item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-800' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-800',
-                                'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'
-                            )}
+                            className={classNames(item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-800' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-800', 'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer')}
                             aria-current={item.current ? 'page' : undefined}
                         >
                             {typeof item.icon !== 'string' && (
@@ -107,10 +104,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                         key={i}
                         to={item.href}
                         target={item.target}
-                        className={classNames(
-                            item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700',
-                            'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'
-                        )}
+                        className={classNames(item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700', 'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer')}
                         aria-current={item.current ? 'page' : undefined}
                     >
                         {typeof item.icon !== 'string' && (

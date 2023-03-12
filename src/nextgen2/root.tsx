@@ -1,14 +1,13 @@
-import React, {useEffect, useState} from "react";
-import ContextProvider from "./ContextProvider";
-import {PageHeadingProvider, useHeading} from "@nextgen2/providers/PageHeading.provider";
-import {NGBody, NGContent, NGSideNav} from "./components";
-import {Outlet} from "react-router-dom";
-import {BellIcon, HomeIcon, UserIcon} from "@heroicons/react/24/solid";
-import {ThemeContextProvider, useTheme} from "@nextgen2/providers/Theme.provider";
+import React, {useEffect, useState} from 'react';
+import ContextProvider from './ContextProvider';
+import {PageHeadingProvider, useHeading} from '@nextgen2/providers/PageHeading.provider';
+import {NGBody, NGContent, NGSideNav} from './components';
+import {Outlet} from 'react-router-dom';
+import {BellIcon, HomeIcon, UserIcon} from '@heroicons/react/24/solid';
+import {ThemeContextProvider, useTheme} from '@nextgen2/providers/Theme.provider';
 import NotificationContextProvider, {
-    NotificationContainer,
-    useNotification
-} from "@nextgen2/providers/Notification.provider";
+    NotificationContainer, useNotification,
+} from '@nextgen2/providers/Notification.provider';
 
 export default function Root() {
     return (
@@ -30,17 +29,21 @@ function RootWithinProvider() {
 
     document.body.style.overflow = 'hidden';
 
-    const navigation = [
-        {name: 'Home', href: '/', icon: HomeIcon},
-        // {name: 'Trending', href: '#', icon: FireIcon},
+    const navigation = [{
+        name: 'Home',
+        href: '/',
+        icon: HomeIcon,
+    }, // {name: 'Trending', href: '#', icon: FireIcon},
         // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
-        {name: 'Notifications', href: '/notifications/', icon: BellIcon},
         {
+            name: 'Notifications',
+            href: '/notifications/',
+            icon: BellIcon,
+        }, {
             name: 'Profile',
             href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',
-            icon: UserIcon
-        },
-    ];
+            icon: UserIcon,
+        }];
 
     // run this useEffect only once
     useEffect(() => {
@@ -96,7 +99,7 @@ function RootWithinProvider() {
                 addNotification({
                     title: 'Running in development mode',
                     message: 'Connected to hot reloading server',
-                    type: 'success'
+                    type: 'success',
                 });
             }
         }
@@ -106,7 +109,9 @@ function RootWithinProvider() {
         console.log('[🌇 Theme] Change: ', theme)
         const systemIsDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
         console.log('[🌇 Theme] System dark: ', systemIsDark)
-        if (theme.variant === 'dark' || (theme.variant === 'system' && systemIsDark)) {
+        if (theme.variant === 'dark' || (
+            theme.variant === 'system' && systemIsDark
+        )) {
             if (!document.body.classList.contains('dark')) document.body.classList.add('dark');
         } else {
             if (document.body.classList.contains('dark')) document.body.classList.remove('dark');
@@ -123,6 +128,13 @@ function RootWithinProvider() {
                 <NGContent srHeading={'Unknown'} heading={heading || {heading: null}}>
                     <Outlet/>
                 </NGContent>
+
+                <div
+                    className="hidden lg:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar border-0 border-l border-solid border-default dark:bg-sidebar-dark">
+                    {/* Top header text */}
+                    <h4 className="font-regular">Yipnyap is communicating...</h4>
+                    <div className="flex flex-col space-y-8"></div>
+                </div>
             </NGSideNav>
         </div>
     );

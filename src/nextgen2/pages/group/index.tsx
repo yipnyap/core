@@ -5,23 +5,24 @@
  * @version: ui2
  */
 
-import {HomeIcon, InformationCircleIcon, MegaphoneIcon, UserGroupIcon} from '@heroicons/react/24/solid';
+import {HomeIcon, MegaphoneIcon, UserGroupIcon} from '@heroicons/react/24/solid';
+import {InformationCircleIcon} from '@heroicons/react/20/solid';
 // @ts-ignore
 import ActivityFilterableList from '@legacy/component/activity/ActivityFilterableList';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
-import {NGBody, NGCard, NGSkeleton} from '@nextgen2/components';
+import {NGBody, NGSkeleton} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {useLocation} from 'react-router-dom';
+import {NavLink, useLocation} from 'react-router-dom';
 
 export default function GroupsIndex() {
     const location = useLocation();
     const [, setHeading] = useHeading();
     const [, addNotification] = useNotification();
     const [group, setGroup] = useState<any>({});
-    const [groupID, setGroupID] = useState(location.pathname.split('/')[2]);
+    const [groupID] = useState(location.pathname.split('/')[2]);
     const [current, setCurrent] = useState(location.pathname.split('/')[3]);
     const [ready, setReady] = useState(false);
 
@@ -53,7 +54,7 @@ export default function GroupsIndex() {
             })
             .then((data) => {
                 setGroup(data);
-                getMemberGroups(yipnyap_constants.currentUser?.id).then((groups) => {
+                getMemberGroups(yipnyap_constants.currentUser?.id).then(() => {
                     setReady(true);
                 });
             });
@@ -74,15 +75,15 @@ export default function GroupsIndex() {
                 }, {
                     name: 'Members',
                     description: '',
-                    href: `/groups/${groupID}/members`,
+                    href: `/groups/${groupID}/members/`,
                     icon: UserGroupIcon,
-                    current: location.pathname === `/groups/${groupID}/members`,
+                    current: location.pathname === `/groups/${groupID}/members/`,
                 }, {
                     name: 'Announcements',
                     description: '',
-                    href: `/groups/${groupID}/announcements`,
+                    href: `/groups/${groupID}/announcements/`,
                     icon: MegaphoneIcon,
-                    current: location.pathname === `/groups/${groupID}/announcements`,
+                    current: location.pathname === `/groups/${groupID}/announcements/`,
                 }],
             },
         });
@@ -98,8 +99,8 @@ export default function GroupsIndex() {
                         <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
                             <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
                                 <div
-                                    className="bg-box shadow overflow-hidden border-b border-default rounded-default highlight-white/5">
-                                    <table className="min-w-full divide-y divide-default">
+                                    className="bg-box shadow overflow-hidden border-b border-default rounded-default">
+                                    <table className="min-w-full divide-y divide-default highlight-white/5">
                                         <thead>
                                         <tr>
                                             <th scope="col"
@@ -128,33 +129,35 @@ export default function GroupsIndex() {
                                             display_name: string;
                                             username: string;
                                             role: string;
-                                            created_at: moment.MomentInput;
+                                            date_joined: number;
                                         }) => (
                                             <tr key={member.id} className="hover:bg-box-alt">
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="flex items-center">
-                                                        <div className="flex-shrink-0 h-10 w-10">
-                                                            <img className="h-10 w-10 rounded-full"
-                                                                 src={member.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
-                                                                 alt=""/>
-                                                        </div>
-                                                        <div className="ml-4">
-                                                            <div className="text-sm font-medium text-default">
-                                                                {member.display_name}
+                                                <NavLink to={`/${member.username}/`}>
+                                                    <td className="px-6 py-4 whitespace-nowrap">
+                                                        <div className="flex items-center">
+                                                            <div className="flex-shrink-0 h-10 w-10">
+                                                                <img className="h-10 w-10 rounded-full"
+                                                                     src={member.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                                                     alt=""/>
                                                             </div>
-                                                            <div className="text-sm text-alt-2">
-                                                                @{member.username}
+                                                            <div className="ml-4">
+                                                                <div className="text-sm font-medium text-default">
+                                                                    {member.display_name}
+                                                                </div>
+                                                                <div className="text-sm text-alt-2">
+                                                                    @{member.username}
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                </td>
+                                                    </td>
+                                                </NavLink>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-alt-2">
                                                         {member.role || 'Guest'}
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4 whitespace-nowrap text-sm text-alt-2">
-                                                    {member.created_at ? moment(member.created_at).format('MMMM Do YYYY') : 'Legacy'}
+                                                    {member.date_joined ? moment(member.date_joined * 1000).format('MMMM Do YYYY @ HH:mm') : 'Legacy'}
                                                 </td>
                                                 {group.meta.members.is_mod || group.meta.members.is_admin && (
                                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
@@ -177,14 +180,15 @@ export default function GroupsIndex() {
 
             case 'announcements': {
                 return (
-                    <div className="bg-box border border-default rounded-default p-4 highlight-white/5">
-                        <div className="flex">
+                    <div
+                        className="bg-box shadow border-b border-default rounded-default">
+                        <div className="flex p-4 highlight-white/5 rounded-default">
                             <div className="flex-shrink-0">
                                 <InformationCircleIcon className="h-5 w-5 text-alt-2" aria-hidden="true"/>
                             </div>
                             <div className="ml-3">
                                 <h3 className="text-sm font-medium text-alt-2">
-                                    Announcements
+                                    Eager, are we?
                                 </h3>
                                 <div className="mt-2 text-sm text-alt-2">
                                     <p>
@@ -204,7 +208,7 @@ export default function GroupsIndex() {
                         groupID={groupID}
                         perPage={5}
                         element="NGContent"
-                        className="w-full"/>
+                        className="m-auto p-8 max-w-3xl space-y-4"/>
                 )
             }
         }
@@ -245,7 +249,9 @@ export default function GroupsIndex() {
                                  </div>
                              </div>
                              <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
-                                 <h1 className="text-2xl font-bold text-default truncate">Some Group Name</h1>
+                                 <h1 className="text-2xl font-bold text-default truncate">
+                                     {group.name}
+                                 </h1>
                              </div>
                              <div className="block mt-6 min-w-0 flex-1 text-default">
                                  {/* Bio */}

@@ -7,7 +7,7 @@ import NGCtaCard from './NGCtaCard';
 describe('<NGCtaCard />', () => {
     // @ts-ignore
     test('it should mount', () => {
-        render(<NGCtaCard/>);
+        render(<NGCtaCard description="test" title="test"/>);
 
         const test = screen.getByTestId('Test');
 

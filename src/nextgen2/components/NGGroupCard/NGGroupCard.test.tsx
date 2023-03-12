@@ -7,7 +7,7 @@ import NGGroupCard from './NGGroupCard';
 describe('<NGGroupCard />', () => {
     // @ts-ignore
     test('it should mount', () => {
-        render(<NGGroupCard groupID="0"/>);
+        render(<NGGroupCard group={{}}/>);
 
         const test = screen.getByTestId('Test');
 

@@ -1,19 +1,25 @@
 import React, {useEffect, useState} from 'react';
 // @ts-ignore
-import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
-import {PlusIcon} from "@heroicons/react/20/solid";
+import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
+import {PlusIcon} from '@heroicons/react/20/solid';
 
 interface Group {
-    name?: string;
-    description?: string;
-    banner?: string;
-    avatar?: string;
-    member_count?: number;
-    posts?: number;
+    id: number;
+    name: string;
+    description: string;
+    avatar: string;
+    banner: string;
+    is_member: boolean;
+    is_admin: boolean;
+    meta?: {
+        members?: {
+            count: number; active: number; term: string;
+        }
+    }
 }
 
 export declare interface NGGroupCardType {
-    group: string | Group;
+    group: Group;
 
     theme?: any;
     children?: React.ReactNode;
@@ -29,7 +35,7 @@ function classNames(...classes: any[]) {
 
 export default function NGGroupCard({...props}: NGGroupCardType) {
     let theme = buildClassObject(NGGroupCardTheming, props.theme || undefined);
-    const [group, setGroup] = useState<Group>(typeof props.group !== 'string' ? props.group : {});
+    const [group, setGroup] = useState<Group>(props.group);
 
     return (
         <div className="flex flex-col rounded-default bg-box highlight-white/5">
@@ -53,7 +59,7 @@ export default function NGGroupCard({...props}: NGGroupCardType) {
                     <div className="flex flex-row flex-grow items-center space-x-2">
                         <div className="flex flex-col">
                             <p className="text-sm text-neutral-500">Members</p>
-                            <p className="text-sm">{group.member_count}</p>
+                            <p className="text-sm">{group.meta?.members?.count}</p>
                         </div>
                     </div>
                     {/* Join button icon */}

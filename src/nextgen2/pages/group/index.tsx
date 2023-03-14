@@ -15,7 +15,7 @@ import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {NavLink, useLocation} from 'react-router-dom';
+import {Link, useLocation} from 'react-router-dom';
 
 export default function GroupsIndex() {
     const location = useLocation();
@@ -34,31 +34,43 @@ export default function GroupsIndex() {
             },
         })
             .then((response) => {
+                console.log(response);
                 if (response.status === 404) {
                     addNotification({
                         type: 'error',
                         title: 'Pack not found',
                         description: 'The pack you are trying to access does not exist.',
-                        persist: true,
+                        persistent: true,
                     });
+
+                    return {name: 'Pack not found'};
                 } else if (response.status === 403) {
                     addNotification({
                         type: 'error',
                         title: 'Pack is private',
                         description: 'You are not a member of this pack.',
-                        persist: true,
+                        persistent: true,
                     });
+
+                    return {name: 'Pack is private'};
                 } else {
                     return response.json();
                 }
             })
             .then((data) => {
                 setGroup(data);
-                getMemberGroups(yipnyap_constants.currentUser?.id).then(() => {
-                    setReady(true);
-                });
+
+                if (data.meta) {
+                    getMemberGroups(yipnyap_constants.currentUser?.id).then(() => {
+                        setReady(true);
+                    });
+                }
             });
     }, [groupID])
+
+    useEffect(() => {
+        setCurrent(location.pathname.split('/')[3]);
+    }, [location.pathname])
 
     useEffect(() => {
         setHeading({
@@ -69,27 +81,22 @@ export default function GroupsIndex() {
                 subNavigation: [{
                     name: 'Pack Home',
                     description: '',
-                    href: `/groups/${groupID}/`,
+                    href: `groups/${groupID}/`,
                     icon: HomeIcon,
-                    current: location.pathname === `/groups/${groupID}/`,
                 }, {
                     name: 'Members',
                     description: '',
-                    href: `/groups/${groupID}/members/`,
+                    href: `groups/${groupID}/members/`,
                     icon: UserGroupIcon,
-                    current: location.pathname === `/groups/${groupID}/members/`,
                 }, {
                     name: 'Announcements',
                     description: '',
-                    href: `/groups/${groupID}/announcements/`,
+                    href: `groups/${groupID}/announcements/`,
                     icon: MegaphoneIcon,
-                    current: location.pathname === `/groups/${groupID}/announcements/`,
                 }],
             },
         });
-
-        setCurrent(location.pathname.split('/')[3]);
-    }, [group, location.pathname])
+    }, [groupID, group]);
 
     function render() {
         switch (current) {
@@ -132,7 +139,7 @@ export default function GroupsIndex() {
                                             date_joined: number;
                                         }) => (
                                             <tr key={member.id} className="hover:bg-box-alt">
-                                                <NavLink to={`/${member.username}/`}>
+                                                <Link to={`/${member.username}/`}>
                                                     <td className="px-6 py-4 whitespace-nowrap">
                                                         <div className="flex items-center">
                                                             <div className="flex-shrink-0 h-10 w-10">
@@ -150,7 +157,7 @@ export default function GroupsIndex() {
                                                             </div>
                                                         </div>
                                                     </td>
-                                                </NavLink>
+                                                </Link>
                                                 <td className="px-6 py-4 whitespace-nowrap">
                                                     <div className="text-sm text-alt-2">
                                                         {member.role || 'Guest'}
@@ -161,10 +168,10 @@ export default function GroupsIndex() {
                                                 </td>
                                                 {group.meta.members.is_mod || group.meta.members.is_admin && (
                                                     <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <a href="#"
-                                                           className="text-default hover:text-primary">
+                                                        <Link to={`/groups/${groupID}/moderate/members/${member.id}/`}
+                                                              className="text-default hover:text-primary">
                                                             Edit
-                                                        </a>
+                                                        </Link>
                                                     </td>
                                                 )}
                                             </tr>

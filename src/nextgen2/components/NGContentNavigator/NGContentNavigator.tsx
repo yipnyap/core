@@ -1,3 +1,4 @@
+import {SparklesIcon} from '@heroicons/react/20/solid';
 import React from 'react';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {NavLink} from 'react-router-dom';
@@ -9,6 +10,7 @@ export declare interface NGContentNavigatorItemType {
     href: string;
     target?: string;
     current?: boolean;
+    new?: boolean;
     icon: ((props: React.SVGProps<SVGSVGElement>) => JSX.Element) | string;
 }
 
@@ -79,7 +81,19 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                             )}
                             {!props.slimContentNavigator && (
                                 <div className="ml-3 text-sm">
-                                    <p className="font-medium text-blue-gray-900 dark:text-neutral-50">{item.name}</p>
+                                    <div className="flex items-center">
+                                        <p className="font-medium text-blue-gray-900 dark:text-neutral-50">{item.name}</p>
+                                        {item.new && (
+                                            <div
+                                                className="ml-2 inline-flex items-center space-x-1 px-2.5 py-0.5 rounded-full bg-blue-100">
+                                                <SparklesIcon className="h-4 w-4 text-blue-400"
+                                                              aria-hidden="true"/>
+                                                <span className="text-xs font-medium text-blue-800">
+                                                    New!
+                                                </span>
+                                            </div>
+                                        )}
+                                    </div>
                                     <p className="mt-1 text-blue-gray-500 dark:text-neutral-500">{item.description}</p>
                                 </div>
                             )}

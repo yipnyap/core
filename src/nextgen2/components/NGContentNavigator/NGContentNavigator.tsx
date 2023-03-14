@@ -40,7 +40,6 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             description: '',
             href: '/',
             icon: HomeIcon,
-            current: location.pathname === '/',
         }]
     );
 
@@ -61,8 +60,10 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                             key={i}
                             to={item.href}
                             target={item.target}
-                            className={classNames(item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-800' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-800', 'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer')}
-                            aria-current={item.current ? 'page' : undefined}
+                            className={({isActive}) => (
+                                isActive ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700'
+                            ) + ' flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'}
+                            end
                         >
                             {typeof item.icon !== 'string' && (
                                 <item.icon className="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400"
@@ -104,8 +105,10 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                         key={i}
                         to={item.href}
                         target={item.target}
-                        className={classNames(item.current ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700', 'flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer')}
-                        aria-current={item.current ? 'page' : undefined}
+                        className={({isActive}) => (
+                            isActive ? 'bg-blue-50 bg-opacity-50 dark:bg-neutral-700' : 'hover:bg-blue-50 hover:bg-opacity-50 dark:hover:bg-neutral-700'
+                        ) + ' flex p-6 border-b border-blue-gray-200 dark:border-neutral-600 cursor-pointer'}
+                        end
                     >
                         {typeof item.icon !== 'string' && (
                             <item.icon className="flex-shrink-0 -mt-0.5 h-6 w-6 text-blue-gray-400" aria-hidden="true"/>

@@ -10,7 +10,7 @@ import {InformationCircleIcon} from '@heroicons/react/20/solid';
 // @ts-ignore
 import ActivityFilterableList from '@legacy/component/activity/ActivityFilterableList';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
-import {NGBody, NGSkeleton} from '@nextgen2/components';
+import {NGBody, NGSkeleton, NGTable} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import moment from 'moment';
@@ -102,86 +102,28 @@ export default function GroupsIndex() {
         switch (current) {
             case 'members': {
                 return (
-                    <div className="flex flex-col">
-                        <div className="-my-2 overflow-x-auto sm:-mx-6 lg:-mx-8">
-                            <div className="py-2 align-middle inline-block min-w-full sm:px-6 lg:px-8">
-                                <div
-                                    className="bg-box shadow overflow-hidden border-b border-default rounded-default">
-                                    <table className="min-w-full divide-y divide-default highlight-white/5">
-                                        <thead>
-                                        <tr>
-                                            <th scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-alt-2 uppercase tracking-wider">
-                                                Name
-                                            </th>
-                                            <th scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-alt-2 uppercase tracking-wider">
-                                                Role
-                                            </th>
-                                            <th scope="col"
-                                                className="px-6 py-3 text-left text-xs font-medium text-alt-2 uppercase tracking-wider">
-                                                Joined
-                                            </th>
-                                            {group.meta.members.is_mod || group.meta.members.is_admin && (
-                                                <th scope="col" className="relative px-6 py-3">
-                                                    <span className="sr-only">Edit</span>
-                                                </th>
-                                            )}
-                                        </tr>
-                                        </thead>
-                                        <tbody className="divide-y divide-default">
-                                        {group.meta.members.data.map((member: {
-                                            id: React.Key | null | undefined;
-                                            avatar: string;
-                                            display_name: string;
-                                            username: string;
-                                            role: string;
-                                            date_joined: number;
-                                        }) => (
-                                            <tr key={member.id} className="hover:bg-box-alt">
-                                                <Link to={`/${member.username}/`}>
-                                                    <td className="px-6 py-4 whitespace-nowrap">
-                                                        <div className="flex items-center">
-                                                            <div className="flex-shrink-0 h-10 w-10">
-                                                                <img className="h-10 w-10 rounded-full"
-                                                                     src={member.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
-                                                                     alt=""/>
-                                                            </div>
-                                                            <div className="ml-4">
-                                                                <div className="text-sm font-medium text-default">
-                                                                    {member.display_name}
-                                                                </div>
-                                                                <div className="text-sm text-alt-2">
-                                                                    @{member.username}
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </td>
-                                                </Link>
-                                                <td className="px-6 py-4 whitespace-nowrap">
-                                                    <div className="text-sm text-alt-2">
-                                                        {member.role || 'Guest'}
-                                                    </div>
-                                                </td>
-                                                <td className="px-6 py-4 whitespace-nowrap text-sm text-alt-2">
-                                                    {member.date_joined ? moment(member.date_joined * 1000).format('MMMM Do YYYY @ HH:mm') : 'Legacy'}
-                                                </td>
-                                                {group.meta.members.is_mod || group.meta.members.is_admin && (
-                                                    <td className="px-6 py-4 whitespace-nowrap text-right text-sm font-medium">
-                                                        <Link to={`/groups/${groupID}/moderate/members/${member.id}/`}
-                                                              className="text-default hover:text-primary">
-                                                            Edit
-                                                        </Link>
-                                                    </td>
-                                                )}
-                                            </tr>
-                                        ))}
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    <NGTable headers={['Name', 'Role', 'Joined', 'Actions']}
+                             data={[...group.meta.members.data.map((member: any) => {
+                                 return {
+                                     user: member,
+                                     role: member.role,
+                                     date: member.date_joined * 1000,
+                                     edit: () => {
+                                         if (group.meta.members.is_admin || group.meta.members.is_mod) {
+                                             return (
+                                                 <Link to={`moderate/members/${member.id}`}>
+                                                     Edit
+                                                 </Link>
+                                             )
+                                         } else {
+                                             return (
+                                                 <></>
+                                             )
+                                         }
+                                     },
+                                 }
+                             })]}
+                    />
                 )
             }
 

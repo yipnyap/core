@@ -139,10 +139,10 @@ class Group {
      * @type string $parent_id The parent group ID.
      * @type string $type The group type.
      * }
-     * @return bool
+     * @return int
      * @throws Exception
      */
-    public function CreateGroup(array $group): bool {
+    public function CreateGroup(array $group): int {
         $type = $group['type'] ?? 'group';
         $this->GroupCreatorID = get_current_user_id();
         $this->GroupType = $type;
@@ -171,7 +171,7 @@ class Group {
         $this->GroupID = groups_create_group($groupBuild);
         if ($this->GroupID) {
             $this->GetGroupMeta();
-            return true;
+            return $this->GroupMeta->id;
         } else {
             return false;
         }

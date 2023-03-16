@@ -1,1 +1,1 @@
-export {default as NGCTACard} from './NGCtaCard';
+export {default as NGCTACard} from './NGCTACard';

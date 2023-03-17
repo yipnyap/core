@@ -1,31 +1,19 @@
 import React, {Fragment, useEffect, useState} from 'react';
-import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
-import {Menu, Transition} from "@headlessui/react";
+import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
+import {Menu, Transition} from '@headlessui/react';
 import {
-    follow,
-    isFollowing,
-    unfollow,
-    friendRequest,
-    getFriendRequests,
-    getRelationship
-} from "@legacy/router/v2/relationships/post";
+    follow, isFollowing, unfollow, friendRequest, getFriendRequests, getRelationship,
+} from '@legacy/router/v2/relationships/post';
 import {
-    ChevronDownIcon,
-    UserPlusIcon,
-    UserMinusIcon,
-    CheckBadgeIcon,
-    ChatBubbleLeftIcon,
-    LinkIcon,
-    UserGroupIcon
-} from "@heroicons/react/20/solid";
+    ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon, ChatBubbleLeftIcon, LinkIcon, UserGroupIcon,
+} from '@heroicons/react/20/solid';
 
 export declare interface NGProfileHeaderType {
     user: any;
     self?: boolean;
     loggedIn?: boolean;
     defaults?: {
-        header?: string;
-        profile?: string;
+        header?: string; profile?: string;
     }
     theme?: any;
     children?: React.ReactNode;
@@ -33,18 +21,14 @@ export declare interface NGProfileHeaderType {
 
 export const NGProfileHeaderTheming = {
     main: [],
-    button: ['w-full', 'inline-flex', 'justify-center', 'py-2', 'px-4', 'border', 'border-neutral-300 dark:border-neutral-500',
-        'rounded-lg', 'shadow-sm', 'bg-default', 'text-sm', 'font-medium', 'text-default',
-        'hover:bg-neutral-50 dark:hover:bg-neutral-700']
+    button: ['w-full', 'inline-flex', 'justify-center', 'py-2', 'px-4', 'border', 'border-neutral-300 dark:border-neutral-500', 'rounded-lg', 'shadow-sm', 'bg-default', 'text-sm', 'font-medium', 'text-default', 'hover:bg-neutral-50 dark:hover:bg-neutral-700'],
 }
 
-const items = [
-    {
-        id: 'new_friend_request',
-        name: 'Send Friend Request',
-        description: 'Being friend\'s with a user will still count a follow.',
-    },
-    /* "There is a genuine danger to it too. Stalkers. You can't block a stalker when you don't know their account."
+const items = [{
+    id: 'new_friend_request',
+    name: 'Send Friend Request',
+    description: 'Being friend\'s with a user will still count a follow.',
+}, /* "There is a genuine danger to it too. Stalkers. You can't block a stalker when you don't know their account."
      * -Tap
      *
      * "That being said It will happen regardless of if it's not there"
@@ -55,13 +39,8 @@ const items = [
      */
     // {
     //     name: 'Follow silently',
-    //     description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you follow.',
-    //     href: '#'
-    // },
-    // {
-    //     name: 'Block',
-    //     href: '#'
-    // },
+    //     description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you
+    // follow.', href: '#' }, { name: 'Block', href: '#' },
 ]
 
 function classNames(...classes: any[]) {
@@ -70,7 +49,7 @@ function classNames(...classes: any[]) {
 
 function NGFollowButton({...props}: any) {
     const [following, setFollowing] = useState<boolean>(false);
-    const { user } = props;
+    const {user} = props;
 
     async function toggleFollow() {
         if (user) {
@@ -114,8 +93,8 @@ function NGFollowButton({...props}: any) {
         })
 
         getRelationship(user.id).then((res) => {
-            const { relationship } = res;
-            const { status } = relationship;
+            const {relationship} = res;
+            const {status} = relationship;
             console.log(relationship);
             if (status.indexOf('is_friend') > -1) {
                 // Replace Item ID 'new_friend_request'
@@ -152,22 +131,18 @@ function NGFollowButton({...props}: any) {
           className={`${props.theme.button} relative items-center rounded-none rounded-l-md`}
           onClick={toggleFollow}
       >
-          {
-              !following
-                  ? <>
-                      <UserPlusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
-                      Follow
-                  </>
-                  : <>
-                      <UserMinusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
-                      Unfollow
-                  </>
-          }
+          {!following ? <>
+              <UserPlusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true"/>
+              Follow
+          </> : <>
+               <UserMinusIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true"/>
+               Unfollow
+           </>}
       </button>
       <Menu as="span" className="-ml-px relative block">
         <Menu.Button className={`${props.theme.button} relative rounded-none px-2 rounded-r-md`}>
           <span className="sr-only">Open options</span>
-          <ChevronDownIcon className="h-5 w-5" aria-hidden="true" />
+          <ChevronDownIcon className="h-5 w-5" aria-hidden="true"/>
         </Menu.Button>
         <Transition
             as={Fragment}
@@ -178,17 +153,16 @@ function NGFollowButton({...props}: any) {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
         >
-          <Menu.Items className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-lg shadow-lg bg-default ring-1 ring-black ring-opacity-5 focus:outline-none">
+          <Menu.Items
+              className="origin-top-right absolute right-0 mt-2 -mr-1 w-56 rounded-lg shadow-lg bg-default ring-1 ring-black ring-opacity-5 focus:outline-none">
             <div className="py-1">
               {items.map((item) => (
                   <Menu.Item key={item.name}>
-                      {({ active }) => (
+                      {({active}) => (
                           <div
-                              onClick={item.id === 'new_friend_request' ? sendFriendRequest : () => {}}
-                              className={classNames(
-                                  active ? 'bg-default-alt text-default-alt' : 'text-default',
-                                  'block px-4 py-2 text-sm'
-                              )}
+                              onClick={item.id === 'new_friend_request' ? sendFriendRequest : () => {
+                              }}
+                              className={classNames(active ? 'bg-default-alt text-default-alt' : 'text-default', 'block px-4 py-2 text-sm')}
                           >
                               {item.name}
                               {item.description && (
@@ -209,38 +183,38 @@ function NGFollowButton({...props}: any) {
 export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     let theme = buildClassObject(NGProfileHeaderTheming, props.theme || undefined);
     const profile = props.user;
-    const header = profile.header || props.defaults?.header;
+    const header = profile.header || profile.banner || props.defaults?.header;
 
     const URL_REGEX = /(http|ftp|https):\/\/([\w_-]+(?:\.[\w_-]+)+)([\w.,@?^=%&:\/~+#-]*[\w@?^=%&\/~+#-])/;
     const renderBio = (bio: string) => {
         return bio
             .split(/([ \n])+/)
-            .map(part =>
-                URL_REGEX.test(part) ? <a href={part}>{part} </a> : part + " "
-            );
+            .map(part => URL_REGEX.test(part) ? <a href={part}>{part} </a> : part + ' ');
     }
 
     return (
         <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-default bg-box`}>
             <div className={!header ? 'h-0' : ''}>
-                {
-                    header
-                        ? <img className="rounded-default aspect-banner object-cover" src={header} alt="Profile cover"/>
-                        : <div className='h-4'></div>
-                }
+                {header ? <img className="rounded-default aspect-banner object-cover" src={header}
+                               alt="Profile cover"/> : <div className="h-4"></div>}
             </div>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                     <div className="flex">
-                        <img className="bg-default h-24 w-24 rounded-full ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32" src={profile.avatar || props.defaults?.profile || '/img/default-avatar.png'} alt="" />
+                        <img
+                            className="bg-default h-24 w-24 rounded-full ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32"
+                            src={profile.avatar || props.defaults?.profile || '/img/default-avatar.png'} alt=""/>
                     </div>
-                    <div className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                    <div
+                        className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
                             <h1 className="text-2xl font-bold text-default truncate">
                                 {profile.display_name}
-                                {profile.verified && <CheckBadgeIcon className="h-5 inline ml-1 text-primary" style={(profile.ui_skin?.primary) ? {
+                                {profile.verified && <CheckBadgeIcon className="h-5 inline ml-1 text-primary" style={(
+                                                                                                                         profile.ui_skin?.primary
+                                                                                                                     ) ? {
                                     color: profile.ui_skin.primary,
-                                } : {}} />}
+                                } : {}}/>}
                             </h1>
                             {/* Small @username */}
                             <div className="flex items-center">
@@ -250,7 +224,8 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             </div>
                         </div>
                         {props.loggedIn && !props.self && (
-                            <div className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                            <div
+                                className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
                                 {/*<button
                                     type="button"
                                     className={`${theme.button}`}
@@ -258,7 +233,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                                     <EnvelopeIcon className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white" aria-hidden="true" />
                                     <span>Message</span>
                                 </button>*/}
-                                <NGFollowButton theme={theme} user={profile} />
+                                <NGFollowButton theme={theme} user={profile}/>
                             </div>
                         )}
                     </div>
@@ -279,7 +254,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             {/* Follower count */}
                             {profile.followers !== undefined && (
                                 <>
-                                    <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true"/>
                                     <span>
                                         {profile.followers} followers
                                     </span>
@@ -301,7 +276,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             {/* Post count */}
                             {profile.posts !== undefined && (
                                 <>
-                                    <ChatBubbleLeftIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <ChatBubbleLeftIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true"/>
                                     <span>
                                         {profile.posts} posts
                                     </span>
@@ -313,7 +288,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                             {/* Post count */}
                             {profile.exturl !== undefined && (
                                 <>
-                                    <LinkIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true" />
+                                    <LinkIcon className="flex-shrink-0 mr-1.5 h-5 w-5" aria-hidden="true"/>
                                     <a href={profile.exturl} target="_blank" rel="noreferrer">
                                         {profile.exturl}
                                     </a>

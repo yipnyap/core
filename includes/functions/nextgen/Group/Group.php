@@ -130,6 +130,9 @@ class Group {
             return $a['date_joined'] <=> $b['date_joined'];
         });
 
+        // Add 'is_member' property to group
+        $BPGroup->meta['members']['is_member'] = groups_is_user_member(get_current_user_id(), $BPGroup->id);
+
         // Check if current user is mod or admin
         $BPGroup->meta['members']['is_mod'] = groups_is_user_mod(get_current_user_id(), $BPGroup->id);
         $BPGroup->meta['members']['is_admin'] = groups_is_user_admin(get_current_user_id(), $BPGroup->id);

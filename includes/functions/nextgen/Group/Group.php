@@ -94,7 +94,12 @@ class Group {
         $BPGroup->meta = [
             'members' => [
                 'count' => groups_get_total_member_count($BPGroup->id),
-                'active' => groups_get_total_member_count($BPGroup->id, 'last_activity'),
+                'active' => groups_get_group_members([
+                    'group_id' => $BPGroup->id,
+                    'exclude_admins_mods' => false,
+                    'count_total' => true,
+                    'type' => 'online',
+                ])['count'],
                 // Get group's terminology via meta.
                 'term' => $BPGroup->meta['member_terminology'] ?? 'member',
             ],

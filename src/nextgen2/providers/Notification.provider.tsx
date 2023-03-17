@@ -1,7 +1,7 @@
 import React, {createContext, Fragment, useCallback, useContext, useEffect, useState} from 'react';
-import {Transition} from "@headlessui/react";
-import {CheckCircleIcon, EllipsisHorizontalIcon, XMarkIcon} from "@heroicons/react/24/solid";
-import {ExclamationTriangleIcon} from "@heroicons/react/20/solid";
+import {Transition} from '@headlessui/react';
+import {CheckCircleIcon, EllipsisHorizontalIcon, XMarkIcon} from '@heroicons/react/24/solid';
+import {ExclamationTriangleIcon} from '@heroicons/react/20/solid';
 
 // some reason the state doesn't update within the context. So we have to use a global variable
 let notificationsCache: any[] = [];
@@ -18,8 +18,10 @@ export default function NotificationContextProvider({children}: { children: Reac
     };
 
     const addNotification = (n: any): string | boolean => {
-        // play donk.ogg
-        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/donk.ogg`);
+        console.log('addNotification', n);
+        // play donk.ogg, or fart.ogg, depending on localStorage.
+        const whichSound = localStorage.getItem('yipnyap_sound') || 'donk';
+        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
 
         // Check if title and description match an existing notification
         const existingNotification = notificationsCache.find((notification) => {
@@ -28,7 +30,7 @@ export default function NotificationContextProvider({children}: { children: Reac
 
         // If it does, update the existing notification's title
         if (existingNotification) {
-            if (!n.doNotStack) {
+            if (n.stack) {
                 existingNotification.title = existingNotification.title.replace(/\s\(\d+\)$/, '')
                 existingNotification.count = existingNotification.count ? existingNotification.count + 1 : 2;
                 existingNotification.title = existingNotification.title + ` (${existingNotification.count})`;
@@ -36,18 +38,63 @@ export default function NotificationContextProvider({children}: { children: Reac
                 audio.play().then(() => {
                     audio.remove();
                 });
-            }
 
-            return existingNotification.id;
+                return existingNotification.id;
+            } else {
+                remove(existingNotification.id);
+            }
         }
 
         audio.play().then(() => {
             audio.remove();
         });
 
+
+        setTimeout(() => {
+            if (n.type === 'error') {
+                // Play audio 2 more times, pitch shifted
+                const audio2 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                audio2.preservesPitch = false;
+                audio2.playbackRate = 1.2;
+                audio2.play().then(() => {
+                    audio2.remove();
+
+                    setTimeout(() => {
+                        const audio3 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                        audio3.preservesPitch = false;
+                        audio3.playbackRate = 0.8;
+                        audio3.play().then(() => {
+                            audio3.remove();
+                        });
+                    }, 150);
+                });
+            }
+
+            if (n.type === 'warning') {
+                // Play audio 1 more time, pitch shifted
+                const audio2 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                audio2.preservesPitch = false;
+                audio2.playbackRate = 1.1;
+                audio2.play().then(() => {
+                    audio2.remove();
+                });
+            }
+        }, 150);
+
         n.id = n.id || Math.random().toString(36).slice(2, 9);
         n.expire = n.expire || 5000;
         n.type = n.type || 'default';
+
+        setTimeout(() => {
+            // Remove the notification
+            const existingNotification = notificationsCache.find((notification) => {
+                return notification.id === n.id;
+            });
+
+            if (existingNotification) {
+                remove(existingNotification.id);
+            }
+        }, n.expire + 100);
 
         if (!n.icon) {
             switch (n.type) {
@@ -89,14 +136,18 @@ export default function NotificationContextProvider({children}: { children: Reac
 
 export function NotificationContainer() {
     const [notifications] = useNotification();
-    const [, setRerender] = useState(0);
-    const [dontRerender] = useState(0);
+    const [notifications2, setNotifications2] = useState<any[]>([]);
+    const [rerender, setRerender] = useState(0);
+
+    useEffect(() => {
+        setNotifications2(notifications);
+    }, [rerender])
 
     useEffect(() => {
         setInterval(() => {
             setRerender((prev) => prev + 1);
         }, 100);
-    }, [dontRerender]);
+    }, []);
 
     return (
         <div
@@ -104,15 +155,8 @@ export function NotificationContainer() {
             className="fixed z-50 inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
         >
             <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
-                {notifications.map((n: {
-                    id: any;
-                    title: any;
-                    message: any;
-                    type: any;
-                    icon: any;
-                    color: any;
-                    expire: any;
-                    persistent: any;
+                {notifications2.map((n: {
+                    id: any; title: any; message: any; type: any; icon: any; color: any; expire: any; persistent: any;
                 }, i: React.Key | null | undefined) => {
                     return (
                         <Notification
@@ -143,10 +187,6 @@ function Notification({...props}) {
         if (!props.persistent) {
             timeout = setTimeout(() => {
                 setShow(false);
-
-                setTimeout(() => {
-                    removeNotification(props.id);
-                }, 100);
             }, props.expire);
         }
 

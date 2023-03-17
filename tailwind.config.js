@@ -47,18 +47,24 @@ module.exports = {
                 default: '0.75rem',
             },
             transitionTimingFunction: {
-                snapper: 'cubic-bezier(0,1.25,0,1)'
-            }
+                snapper: 'cubic-bezier(0,1.25,0,1)',
+            },
         },
     },
     plugins: [
         require('@tailwindcss/forms'),
-        function ({matchUtilities, theme}) {
+        function ({
+                      matchUtilities,
+                      theme,
+                  }) {
             matchUtilities(
                 {
                     highlight: (value) => ({boxShadow: `inset 0 1px 0 0 ${value}`}),
                 },
-                {values: flattenColorPalette(theme('backgroundColor')), type: 'color'}
+                {
+                    values: flattenColorPalette(theme('backgroundColor')),
+                    type: 'color',
+                },
             )
         },
     ],

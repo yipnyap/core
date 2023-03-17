@@ -15,7 +15,7 @@ use Exception;
  * @access     public
  */
 class Group {
-    public string $GroupID;
+    public int $GroupID;
     public string $GroupType;
     public string $GroupStatus = 'active';
     public string $GroupPrivacy = 'public';
@@ -27,11 +27,15 @@ class Group {
      *
      * @param int|string $group_id The group ID.
      *                             Default is 0 (create new group).
+     * @throws Exception
      */
-    public function __construct(int|string $group_id = 0) {
+    public function __construct(int|string $group_id = 0, bool $dontGetMeta = false) {
         if ($group_id) {
-            $this->GroupID = $group_id;
-            $this->GetGroupMeta();
+            $this->GroupID = (int) $group_id;
+
+            if (!$dontGetMeta) {
+                $this->GetGroupMeta();
+            }
         }
     }
 

@@ -21,6 +21,7 @@ class Group {
     public string $GroupPrivacy = 'public';
     public string $GroupCreatorID;
     public object $GroupMeta;
+    public array $CurrentUserRoles = [];
 
     /**
      * Check the constructor for a provided group.
@@ -138,6 +139,45 @@ class Group {
         $BPGroup->meta['members']['is_admin'] = groups_is_user_admin(get_current_user_id(), $BPGroup->id);
 
         $this->GroupMeta = $BPGroup;
+    }
+
+    /**
+     * Get user's roles in the group.
+     *
+     * @param int|null $user_id
+     * @return array
+     * @since ui2
+     */
+    public function GetUserRoles(int|null $user_id = null): array {
+        $roles = [];
+        $user_id = $user_id ?? get_current_user_id();
+
+        // If the current user isn't in the group, return an empty array.
+        if (!groups_is_user_member($user_id, $this->GroupID)) {
+            return $roles;
+        }
+
+        $IsUserMember = groups_is_user_member($user_id, $this->GroupID);
+        $IsUserAdmin = groups_is_user_admin($user_id, $this->GroupID);
+        $IsUserMod = groups_is_user_mod($user_id, $this->GroupID);
+        $IsUserCreator = groups_is_user_creator($user_id, $this->GroupID);
+        $IsUserBanned = groups_is_user_banned($user_id, $this->GroupID);
+        $IsUserPending = groups_is_user_pending($user_id, $this->GroupID);
+        $IsUserInvited = groups_check_user_has_invite($user_id, $this->GroupID);
+
+        if ($IsUserMember) $roles[] = 'member';
+        if ($IsUserAdmin) $roles[] = 'admin';
+        if ($IsUserMod) $roles[] = 'mod';
+        if ($IsUserCreator) $roles[] = 'owner';
+        if ($IsUserBanned) $roles[] = 'banned';
+        if ($IsUserPending) $roles[] = 'pending';
+        if ($IsUserInvited) $roles[] = 'invited';
+
+        if ($user_id === get_current_user_id()) {
+            $this->CurrentUserRoles = $roles;
+        }
+
+        return $roles;
     }
 
     /**

@@ -11,3 +11,5 @@ export {NGSwitch} from './NGSwitch';
 export {NGTabList} from './NGTabList';
 export {NGSkeleton} from './NGSkeleton';
 export {NGTable} from './NGTable';
+export {NGStatsGrid} from './NGStatsGrid';
+export {NGButton} from './NGButton';

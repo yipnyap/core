@@ -1,3 +1,4 @@
+import {getMemberFriends} from '@legacy/router/v2/members/get';
 import React, {useEffect, useState} from 'react';
 import ContextProvider from './ContextProvider';
 import {PageHeadingProvider, useHeading} from '@nextgen2/providers/PageHeading.provider';
@@ -24,8 +25,8 @@ function RootWithinProvider() {
     const [heading] = useHeading();
     const [theme] = useTheme();
     const [, addNotification, removeNotification] = useNotification();
-
-    const [dontRerender] = useState(0);
+    const [friends, setFriends] = useState<any>(null);
+    const [ready, setReady] = useState(false);
 
     document.body.style.overflow = 'hidden';
 
@@ -49,7 +50,7 @@ function RootWithinProvider() {
     useEffect(() => {
         const allowConnection = sessionStorage.getItem('alreadyOnWS') !== 'true';
         window.onbeforeunload = function () {
-            sessionStorage.clear();
+            sessionStorage.removeItem('alreadyOnWS');
         };
         // @ts-ignore
         if (module.hot && allowConnection) {
@@ -103,7 +104,17 @@ function RootWithinProvider() {
                 });
             }
         }
-    }, [dontRerender]);
+
+        // Even though its super early, we should already be able to access the current user.
+        // Get the user's friends and store them in the state
+        if (yipnyap_constants.currentUser) {
+            getMemberFriends(yipnyap_constants.currentUser.id).then((data) => {
+                setFriends(data);
+                setReady(true);
+            })
+        }
+
+    }, []);
 
     useEffect(() => {
         console.log('[🌇 Theme] Change: ', theme)
@@ -130,10 +141,65 @@ function RootWithinProvider() {
                 </NGContent>
 
                 <div
-                    className="hidden lg:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar border-0 border-l border-solid border-default dark:bg-sidebar-dark">
+                    className="hidden xl:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar border-0 border-l border-solid border-default dark:bg-sidebar-dark">
                     {/* Top header text */}
-                    <h4 className="font-regular">Yipnyap is communicating...</h4>
-                    <div className="flex flex-col space-y-8"></div>
+                    <h4 className="font-regular">
+                        {!friends ? 'Yipnyap is communicating...' : 'Happening Now'}
+                    </h4>
+                    <div className="flex flex-col space-y-8 bg-box-solid rounded-default p-8">
+                        <h4 className="font-regular">
+                            Active Friends
+                        </h4>
+                        {/* Friends list */}
+                        {!friends && (
+                            <div className="flex flex-col space-y-4">
+                                <div className="flex space-x-4">
+                                    <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"/>
+                                    <div className="flex-1 space-y-4 py-1">
+                                        <div className="h-4 bg-gray-300 rounded w-3/4 animate-pulse"/>
+                                        <div className="space-y-2">
+                                            <div className="h-4 bg-gray-300 rounded w-5/6 animate-pulse"/>
+                                            <div className="h-4 bg-gray-300 rounded w-4/6 animate-pulse"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex space-x-4">
+                                    <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"/>
+                                    <div className="flex-1 space-y-4 py-1">
+                                        <div className="h-4 bg-gray-300 rounded w-3/4 animate-pulse"/>
+                                        <div className="space-y-2">
+                                            <div className="h-4 bg-gray-300 rounded w-5/6 animate-pulse"/>
+                                            <div className="h-4 bg-gray-300 rounded w-4/6 animate-pulse"/>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="flex space-x-4">
+                                    <div className="w-10 h-10 rounded-full bg-gray-300 animate-pulse"/>
+                                    <div className="flex-1 space-y-4 py-1">
+                                        <div className="h-4 bg-gray-300 rounded w-3/4 animate-pulse"/>
+                                        <div className="space-y-2">
+                                            <div className="h-4 bg-gray-300 rounded w-5/6 animate-pulse"/>
+                                            <div className="h-4 bg-gray-300 rounded w-4/6 animate-pulse"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                        {friends && friends.map((friend: {
+                            avatar: string; display_name: string; username: string;
+                        }) => (
+                            <div className="flex flex-row items-center space-x-2">
+                                <div className="w-10 h-10 rounded-full bg-box" style={{
+                                    background: `url(${friend.avatar}) no-repeat center center/cover`,
+                                }}></div>
+                                <div className="flex flex-col">
+                                    <p>{friend.display_name}</p>
+                                    <p className="text-sm text-alt-2">{friend.username}</p>
+                                </div>
+                            </div>
+                        ))}
+
+                    </div>
                 </div>
             </NGSideNav>
         </div>

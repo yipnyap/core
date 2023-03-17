@@ -30,14 +30,15 @@ export default function NGTable({...props}: NGTableType) {
                     <div
                         className="bg-box shadow overflow-hidden border-b border-default rounded-default">
                         <table className="min-w-full divide-y divide-default highlight-white/5">
-                            <thead>
+                            <thead className="bg-box-alt">
                             <tr>
                                 {props.headers.map((header: string) => (
                                     <th scope="col"
-                                        className="px-6 py-3 text-left text-xs font-medium text-default-alt uppercase tracking-wider">
+                                        className="text-default-alt px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
                                         {header}
                                     </th>
                                 ))}
+                                <th scope="col" className="px-6 py-3"></th>
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-default">

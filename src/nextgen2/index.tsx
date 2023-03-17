@@ -54,14 +54,15 @@ export const router = createBrowserRouter([{
         path: '/notifications/',
         element: <Index/>,
     }, {
-        path: '/groups/:groupId/',
+        path: '/groups/:groupId',
+        element: <GroupsIndex/>,
         children: [{
-            path: 'moderate/*',
-            element: <PageModerateIndex/>,
-        }, {
             path: '*',
             element: <GroupsIndex/>,
         }],
+    }, {
+        path: '/groups/:groupId/moderate/*',
+        element: <PageModerateIndex/>,
     }, {
         path: '/settings/*',
         element: <SettingsGeneral/>,

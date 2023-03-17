@@ -2,6 +2,7 @@ import React, {useEffect, useState} from 'react';
 // @ts-ignore
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {PlusIcon} from '@heroicons/react/20/solid';
+import {Link} from 'react-router-dom';
 
 interface Group {
     id: number;
@@ -45,7 +46,7 @@ export default function NGGroupCard({...props}: NGGroupCardType) {
             }}></div>
 
             <div className="space-y-4 justify-between items-center px-4 py-2">
-                <div className="flex flex-row items-center space-x-2">
+                <Link to={`/groups/${group.id}/`} className="flex flex-row items-center space-x-2">
                     <div className="w-8 h-8 rounded-full bg-box" style={{
                         background: `url(${group.avatar}) no-repeat center center/cover`,
                     }}></div>
@@ -53,7 +54,7 @@ export default function NGGroupCard({...props}: NGGroupCardType) {
                         <h3 className="text-lg">{group.name}</h3>
                         <p className="text-sm text-neutral-500">{group.description}</p>
                     </div>
-                </div>
+                </Link>
 
                 <div className="flex flex-row">
                     <div className="flex flex-row flex-grow items-center space-x-2">
@@ -62,11 +63,6 @@ export default function NGGroupCard({...props}: NGGroupCardType) {
                             <p className="text-sm">{group.meta?.members?.count}</p>
                         </div>
                     </div>
-                    {/* Join button icon */}
-                    <button
-                        className="flex flex-row items-center justify-center w-8 h-8 rounded-full bg-blue-600 hover:bg-blue-700">
-                        <PlusIcon className="w-4 h-4 text-white"/>
-                    </button>
                 </div>
             </div>
         </div>

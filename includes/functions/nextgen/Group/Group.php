@@ -226,4 +226,51 @@ class Group {
             return false;
         }
     }
+
+    /**
+     * Join a group.
+     *
+     * @param int|null $user_id The user ID.
+     * @return bool|string
+     */
+    public function JoinGroup(int|null $user_id = null): bool|string {
+        $user_id = $user_id ?? get_current_user_id();
+
+        if ($this->GroupPrivacy !== 'public') {
+            $alreadyPending = groups_check_for_membership_request($user_id, $this->GroupID);
+
+            if ($alreadyPending) {
+                $success = 'pending';
+            } else {
+                $success = groups_send_membership_request([
+                    'user_id' => $user_id,
+                    'group_id' => $this->GroupID,
+                ]);
+            }
+
+            return $success ? 'pending' : false;
+        }
+
+        return groups_join_group($this->GroupID, $user_id);
+    }
+
+    /**
+     * Kick a member from a group.
+     *
+     * @param int $user_id The user ID.
+     * @return bool
+     */
+    public function KickMember(int $user_id): bool {
+        return groups_remove_member($user_id, $this->GroupID);
+    }
+
+    /**
+     * Ban a member from a group.
+     *
+     * @param int $user_id The user ID.
+     * @return bool
+     */
+    public function BanMember(int $user_id): bool {
+        return groups_ban_member($user_id, $this->GroupID);
+    }
 }

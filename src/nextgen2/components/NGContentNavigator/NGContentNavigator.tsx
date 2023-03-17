@@ -56,7 +56,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
                         <p className="text-lg font-medium text-blue-gray-900 dark:text-white">{props.heading || location.pathname.split('/')[1] || 'Home'}</p>
                     </div>
                 )}
-                <div className="flex-1 min-h-0 overflow-y-auto">
+                <div className="flex-1 min-h-0 overflow-y-auto no-scrollbar">
                     {props.items.map((item, i) => (
                         <NavLink
                             key={i}
@@ -111,7 +111,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
             {/* Bottom horizontal navigator */}
             <nav
                 aria-label="Sections"
-                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full z-10 bottom-0 left-0 border-t border-x-0 border-b-0 border-solid border-default rounded-tl-xl rounded-tr-xl overflow-x-auto`
+                className={`fixed lg:hidden flex flex-row flex-shrink-0 bg-box w-full z-10 bottom-0 left-0 border-t border-x-0 border-b-0 border-solid border-default rounded-tl-xl rounded-tr-xl overflow-x-auto no-scrollbar`
                     // Dark mode
                     + ` dark:border-neutral-600`}>
                 {props.items.map((item, i) => (

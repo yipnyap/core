@@ -1,6 +1,17 @@
 @import 'color';
 @import 'font';
 
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
 // TODO: Bloody move these into their own stuff
 
 // Devel uses different header backgrounds

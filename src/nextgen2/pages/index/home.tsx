@@ -26,7 +26,6 @@ interface Group {
 
 export default function Home({...props}: Props) {
     const [recommendedGroups, setRecommendedGroups] = useState([]);
-    const [groups, setGroups] = useState<Group[]>([]);
     const [randomGroup, setRandomGroup] = useState<Group>();
     const [ready, setReady] = useState(false);
     const location = useLocation();
@@ -44,13 +43,12 @@ export default function Home({...props}: Props) {
             }).then(async (res) => {
                 if (res.status === 200) {
                     const json = await res.json();
-                    setGroups(json);
+                    setRecommendedGroups(json);
                 }
             });
 
             if (yipnyap_constants.currentUser && !yipnyap_constants.currentUser.groups) {
                 getMemberGroups(yipnyap_constants.currentUser.id).then((groups) => {
-                    setGroups(groups);
                     setReady(true);
 
                     // set a random group
@@ -64,20 +62,12 @@ export default function Home({...props}: Props) {
                     // set a random group
                     const randomGroup = yipnyap_constants.currentUser.groups[Math.floor(Math.random() * yipnyap_constants.currentUser.groups.length)];
                     setRandomGroup(randomGroup);
-                    setGroups(yipnyap_constants.currentUser.groups);
                 }
             }
         }, 1500);
 
         return () => clearTimeout(timeout);
     }, [location.pathname]);
-
-    function testNotif() {
-        addNotification({
-            title: 'Test Notification',
-            message: 'This is a test notification',
-        });
-    }
 
     return (
         <NGBody>

@@ -143,7 +143,7 @@ add_filter('wp_php_error_message', function ($message, $error) {
     $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     $date = date('c', strtotime('now'));
     $YIPNYAP_VERSION = YIPNYAP_VERSION;
-    $new_error = substr($error['message'], 0, 100) . '...';
+    $new_error = substr($error['message'], 0, 200) . '...';
     // . '<br><br>' . $error["message"]
 
 //        postDiscordWebhookAsError([
@@ -157,7 +157,7 @@ add_filter('wp_php_error_message', function ($message, $error) {
 //            ],
 //        ]);
 
-    return 'Houndkit crashed.<br><br>ERRT-' . $error['type'] . ' @ ' . $date . ' : ' . $actual_link . '<br><br>current hooks in session: ' . count($wp_filter);
+    return 'Houndkit crashed. Please contact the developer. <br><br>' . $new_error;
 }, 10, 2);
 
 /**

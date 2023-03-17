@@ -56,9 +56,7 @@ class Group {
         $BPGroup->privacy = $BPGroup->status;
         unset($BPGroup->status);
 
-        if ($BPGroup->privacy === 'hidden') {
-            $this->GroupStatus = 'hidden';
-        }
+        $this->GroupPrivacy = $BPGroup->privacy;
 
         // Convert date strings to unix timestamps.
         $BPGroup->date_created = strtotime($BPGroup->date_created);

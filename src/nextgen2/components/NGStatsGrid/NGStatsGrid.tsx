@@ -3,7 +3,7 @@ import React, {useEffect, useState} from 'react';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 
 export declare interface NGStatsGridType {
-    stats: {
+    stats?: {
         name: string; stat: string;
     }[];
 
@@ -29,7 +29,10 @@ export default function NGStatsGrid({...props}: NGStatsGridType) {
     }]);
 
     useEffect(() => {
-        setStats(props.stats);
+        setStats(props.stats || [{
+            name: 'Cummies',
+            stat: '69',
+        }]);
     }, [props.stats]);
 
     return (

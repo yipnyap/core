@@ -138,7 +138,7 @@ export default function Home({...props}: Props) {
                                 button={{
                                     text: 'Link Telegram',
                                     icon: Cog6ToothIcon,
-                                    to: '/settings/telegram',
+                                    to: '/settings/telegram/',
                                 }}
                             />
                         )}

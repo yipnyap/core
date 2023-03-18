@@ -38,11 +38,9 @@ export default function NotificationContextProvider({children}: { children: Reac
                 audio.play().then(() => {
                     audio.remove();
                 });
-
-                return existingNotification.id;
-            } else {
-                remove(existingNotification.id);
             }
+
+            return existingNotification.id;
         }
 
         audio.play().then(() => {

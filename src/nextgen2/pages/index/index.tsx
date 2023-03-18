@@ -86,8 +86,7 @@ export function Index({...props}) {
     useEffect(() => {
         setHeading({
             heading: null,
-            padding: false,
-            slimContentNavigator: location.pathname === `/`,
+            padding: false, // slimContentNavigator: location.pathname === `/`,
             navigator: {
                 heading: `Hey, ${yipnyap_constants.currentUser?.display_name || 'Stranger'}!`,
                 subNavigation: [{

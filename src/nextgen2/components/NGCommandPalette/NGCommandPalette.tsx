@@ -273,10 +273,9 @@ export default function NGCommandPalette({...props}: {
                                                         aria-hidden="true"/>
                                 <p className="mt-4 font-semibold text-default">Help with searching</p>
                                 <p className="mt-2 text-default-alt">
-                                    Use this tool to quickly search for users and projects across our entire platform.
-                                    You can also use
-                                    the search modifiers found in the footer below to limit the results to just users or
-                                    projects. To search explicitly for settings, use <code>~</code>.
+                                    Use this tool to quickly search for anything across Yipnyap. You can also use
+                                    the search modifiers found in the footer below to limit the results to just users,
+                                    packs, and more. Settings: <code>~</code>, Pages: <code>!</code>.
                                 </p>
                             </div>
                         )}

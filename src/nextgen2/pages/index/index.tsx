@@ -102,14 +102,14 @@ export function Index({...props}) {
                     href: `/feed/`,
                     icon: NewspaperIcon,
                     current: location.pathname === `/feed/`,
-                }, {
-                    name: 'Notifications',
-                    description: '',
-                    href: `/notifications/`,
-                    icon: BellIcon,
-                    current: location.pathname === `/notifications/`,
                 }, ...(
                     yipnyap_constants.currentUser ? [{
+                        name: 'Notifications',
+                        description: '',
+                        href: `/notifications/`,
+                        icon: BellIcon,
+                        current: location.pathname === `/notifications/`,
+                    }, {
                         name: 'Join a group',
                         description: 'Groups you\'re a member of and your friends will appear here!',
                         href: `/groups/`,

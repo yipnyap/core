@@ -36,11 +36,13 @@ function RootWithinProvider() {
         icon: HomeIcon,
     }, // {name: 'Trending', href: '#', icon: FireIcon},
         // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
-        {
-            name: 'Notifications',
-            href: '/notifications/',
-            icon: BellIcon,
-        }, {
+        ...(
+            yipnyap_constants.currentUser ? [{
+                name: 'Notifications',
+                href: '/notifications/',
+                icon: BellIcon,
+            }] : []
+        ), {
             name: 'Profile',
             href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',
             icon: UserIcon,

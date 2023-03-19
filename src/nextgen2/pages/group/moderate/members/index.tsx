@@ -242,7 +242,9 @@ export default function PageModerateMembers({...props}: { group: Group }) {
                             </h3>
                         </div>
                         <div className="mt-4">
-                            <NGTable headers={['Name', 'Role', 'Joined']}
+                            <NGTable headers={['Name', 'Role', 'Joined', ...(
+                                group.meta.members.is_admin || group.meta.members.is_mod ? 'Blank' : ''
+                            )]}
                                      data={[...group.meta?.members?.data?.map((member: any) => {
                                          return {
                                              user: member,

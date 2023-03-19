@@ -32,13 +32,20 @@ export default function NGTable({...props}: NGTableType) {
                         <table className="min-w-full divide-y divide-default highlight-white/5">
                             <thead className="bg-box-alt">
                             <tr>
-                                {props.headers.map((header: string) => (
-                                    <th scope="col"
-                                        className="text-default-alt px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
-                                        {header}
-                                    </th>
-                                ))}
-                                <th scope="col" className="px-6 py-3"></th>
+                                {props.headers.map((header: string) => {
+                                    if (header === 'Blank') {
+                                        return (
+                                            <th scope="col" className="px-6 py-3"></th>
+                                        )
+                                    } else if (header.length > 0) {
+                                        return (
+                                            <th scope="col"
+                                                className="text-default-alt px-6 py-3 text-left text-xs leading-4 font-medium uppercase tracking-wider">
+                                                {header}
+                                            </th>
+                                        )
+                                    }
+                                })}
                             </tr>
                             </thead>
                             <tbody className="divide-y divide-default">

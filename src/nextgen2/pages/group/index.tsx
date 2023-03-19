@@ -102,7 +102,7 @@ export default function GroupsIndex() {
         switch (current) {
             case 'members': {
                 return (
-                    <NGTable headers={['Name', 'Role', 'Joined', 'Actions']}
+                    <NGTable headers={['Name', 'Role', 'Joined', 'Blank']}
                              data={[...group.meta.members.data.map((member: any) => {
                                  return {
                                      user: member,
@@ -190,79 +190,79 @@ export default function GroupsIndex() {
             ) : (
                  <>
                      {/* TODO: Move this as it's own component */}
-                         <div className="shadow relative z-10 pb-8 rounded-default bg-box">
-                             <img className="rounded-default aspect-banner object-cover"
-                                  src={group.banner || `${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp`}
-                                  alt="Profile cover"/>
-                             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-                                 <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
-                                     <div className="flex">
-                                         <img
-                                             className="bg-default h-24 w-24 rounded-default ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32"
-                                             src={group.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
-                                             alt=""/>
+                     <div className="shadow relative z-10 pb-8 rounded-default bg-box">
+                         <img className="rounded-default aspect-banner object-cover"
+                              src={group.banner || `${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp`}
+                              alt="Profile cover"/>
+                         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+                             <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
+                                 <div className="flex">
+                                     <img
+                                         className="bg-default h-24 w-24 rounded-default ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32"
+                                         src={group.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                         alt=""/>
+                                 </div>
+                                 <div
+                                     className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
+                                     <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
+                                         <h1 className="text-2xl font-bold text-default truncate">
+                                             {group.name}
+                                         </h1>
+                                         {/* Small @username */}
+                                         <div className="flex items-center">
+                                             <p className="text-sm font-medium text-alt-2 truncate">
+                                                 @{group.slug || group.name}
+                                             </p>
+                                         </div>
                                      </div>
+
                                      <div
-                                         className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
-                                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
-                                             <h1 className="text-2xl font-bold text-default truncate">
-                                                 {group.name}
-                                             </h1>
-                                             {/* Small @username */}
-                                             <div className="flex items-center">
-                                                 <p className="text-sm font-medium text-alt-2 truncate">
-                                                     @{group.slug || group.name}
-                                                 </p>
-                                             </div>
-                                         </div>
-
-                                         <div
-                                             className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                             {group.meta.members.is_member ? (
-                                                 <NGButton>
-                                                     <UserPlusIcon
-                                                         className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
-                                                         aria-hidden="true"/>
-                                                     <span>Leave Group</span>
-                                                 </NGButton>
-                                             ) : (
-                                                  <NGButton onClick={joinGroup}>
-                                                      <UserPlusIcon
-                                                          className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
-                                                          aria-hidden="true"/>
-                                                      <span>Join Group</span>
-                                                  </NGButton>
-                                              )}
-                                         </div>
+                                         className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
+                                         {group.meta.members.is_member ? (
+                                             <NGButton>
+                                                 <UserPlusIcon
+                                                     className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
+                                                     aria-hidden="true"/>
+                                                 <span>Leave Group</span>
+                                             </NGButton>
+                                         ) : (
+                                              <NGButton onClick={joinGroup}>
+                                                  <UserPlusIcon
+                                                      className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
+                                                      aria-hidden="true"/>
+                                                  <span>Join Group</span>
+                                              </NGButton>
+                                          )}
                                      </div>
                                  </div>
-                                 <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
-                                     <h1 className="text-2xl font-bold text-default truncate">
-                                         {group.name}
-                                     </h1>
-                                 </div>
-                                 <div className="block mt-6 min-w-0 flex-1 text-default">
-                                     {/* Bio */}
-                                     {group.description && (
-                                         <p className="text-sm whitespace-pre-line">
-                                             {group.description}
-                                         </p>
-                                     )}
+                             </div>
+                             <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
+                                 <h1 className="text-2xl font-bold text-default truncate">
+                                     {group.name}
+                                 </h1>
+                             </div>
+                             <div className="block mt-6 min-w-0 flex-1 text-default">
+                                 {/* Bio */}
+                                 {group.description && (
+                                     <p className="text-sm whitespace-pre-line">
+                                         {group.description}
+                                     </p>
+                                 )}
 
-                                     <div className="mt-2 flex flex-col text-sm text-alt-2">
-                                         <div className="flex">
-                                             <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5"
-                                                            aria-hidden="true"/>
-                                             <span>
+                                 <div className="mt-2 flex flex-col text-sm text-alt-2">
+                                     <div className="flex">
+                                         <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5"
+                                                        aria-hidden="true"/>
+                                         <span>
                                              {group.meta.members.count} {group.meta.members.term || 'members'}
                                          </span>
-                                         </div>
                                      </div>
                                  </div>
                              </div>
                          </div>
+                     </div>
 
-                         {render()}
+                     {render()}
                  </>
              )}
         </NGBody>

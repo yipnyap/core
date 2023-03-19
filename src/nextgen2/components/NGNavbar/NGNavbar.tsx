@@ -6,17 +6,6 @@ import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {BellIcon, Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
 import {useNavigate} from 'react-router-dom';
 
-const userNavigation = [{
-    name: 'Your Profile',
-    href: '#',
-}, {
-    name: 'Settings',
-    href: '#',
-}, {
-    name: 'Sign out',
-    href: '#',
-}]
-
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
 }
@@ -24,6 +13,17 @@ function classNames(...classes: string[]) {
 export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
     const navigate = useNavigate();
     const [paletteOpen, setPaletteOpen] = useState(false);
+
+    const userNavigation = [{
+        name: 'Your Profile',
+        href: `/${props.user?.username || 'id/create'}/`,
+    }, {
+        name: 'Settings',
+        href: '/settings/',
+    }, {
+        name: 'Sign out',
+        href: yipnyap_constants.logout_url,
+    }]
 
     return (
         <>
@@ -116,13 +116,13 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                                     leaveTo="transform opacity-0 scale-95"
                                                 >
                                                     <Menu.Items
-                                                        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
+                                                        className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg bg-box ring-1 ring-black ring-opacity-5 py-1 focus:outline-none">
                                                         {userNavigation.map((item) => (
                                                             <Menu.Item key={item.name}>
                                                                 {({active}) => (
                                                                     <a
                                                                         href={item.href}
-                                                                        className={classNames(active ? 'bg-neutral-100' : '', 'block py-2 px-4 text-sm text-neutral-700')}
+                                                                        className={classNames(active ? 'bg-box-alt' : '', 'block py-2 px-4 text-sm text-default')}
                                                                     >
                                                                         {item.name}
                                                                     </a>

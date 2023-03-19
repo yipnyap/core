@@ -56,7 +56,7 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                                                      aria-hidden="true"/>
                                             </div>
                                             <span
-                                                className="block w-full bg-box-alt border border-neutral-300 rounded-default py-2 pl-10 pr-3 text-sm text-neutral-500">
+                                                className="block w-full bg-box-solid border border-neutral-300 rounded-default py-2 pl-10 pr-3 text-sm text-neutral-500">
                                                 Search
                                             </span>
                                             {/* Ctrl + K button */}

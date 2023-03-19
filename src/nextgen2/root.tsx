@@ -44,6 +44,7 @@ function RootWithinProvider() {
             }] : []
         ), {
             name: 'Profile',
+            tags: 'login register logout account settings profile user, identity',
             href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',
             icon: UserIcon,
         }];

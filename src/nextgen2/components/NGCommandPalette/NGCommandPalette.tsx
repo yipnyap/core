@@ -1,63 +1,21 @@
 // @todo: maybe OpenAI this?
 
+import {NGButton} from '@nextgen2/components';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import React, {Fragment, useEffect, useState} from 'react'
 import {Combobox, Dialog, Transition} from '@headlessui/react'
-import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
+import {GlobeAsiaAustraliaIcon, LockClosedIcon, MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {
-    BellIcon, ExclamationCircleIcon, QuestionMarkCircleIcon, PaintBrushIcon, ShareIcon, ShieldCheckIcon, UserIcon,
+    BellIcon,
+    ExclamationCircleIcon,
+    QuestionMarkCircleIcon,
+    PaintBrushIcon,
+    ShareIcon,
+    ShieldCheckIcon,
+    UserIcon,
+    TrashIcon,
 } from '@heroicons/react/24/solid'
 import {useNavigate} from 'react-router-dom';
-
-const settings = [{
-    id: 1,
-    name: 'Account',
-    description: 'Manage your account settings',
-    tags: `email password profile avatar picture username nickname handle name surname family name given name first name last name display name bio description about location`,
-    icon: QuestionMarkCircleIcon,
-    href: '/settings/',
-}, {
-    id: 2,
-    name: 'Appearance',
-    description: 'Customize your account & UI appearance',
-    tags: 'theme color light dark mode theme',
-    icon: PaintBrushIcon,
-    href: '/settings/skin/',
-}, {
-    id: 3,
-    name: 'Social accounts',
-    description: 'Boast your social media presence',
-    tags: `twitter facebook instagram reddit youtube twitch github linkedin discord telegram tiktok`,
-    icon: ShareIcon,
-    href: '/settings/social/',
-}, {
-    id: 4,
-    name: 'Notifications',
-    description: 'Manage your mobile notifications',
-    icon: BellIcon,
-    href: '/settings/telegram/',
-}, {
-    id: 5,
-    name: 'Security',
-    description: 'Configure two-factor authentication, telegram, and reset your password',
-    tags: `2fa two-factor authentication telegram password reset change update forgot lost recover`,
-    icon: ShieldCheckIcon,
-    href: '/settings/telegram/',
-}, {
-    id: 6,
-    name: 'Profile bio',
-    description: 'Add a bio to your profile',
-    tags: `bio description about location`,
-    icon: QuestionMarkCircleIcon,
-    href: '/settings/',
-}, {
-    id: 7,
-    name: 'Display Name',
-    description: 'Change your display name',
-    tags: 'username nickname handle',
-    icon: UserIcon,
-    href: '/settings/',
-}]
 
 function classNames(...classes: (string | boolean)[]) {
     return classes.filter(Boolean).join(' ')
@@ -72,18 +30,77 @@ export default function NGCommandPalette({...props}: {
     const [heading] = useHeading()
     const navigate = useNavigate()
     const [open, setOpen] = props.states
+    const [loading, setLoading] = useState(false)
     const [rawQuery, setRawQuery] = useState('')
     const [users, setUsers] = useState(props.friends)
     const [groups, setGroups] = useState(props.groups)
 
-    const query = rawQuery.toLowerCase().replace(/^[#@~]/, '')
+    const query = rawQuery.toLowerCase().replace(/^[#@~!]/, '')
 
-    const filteredGroups = rawQuery === '#' ? groups : query === '' || rawQuery.startsWith('@') ? [] : groups.filter((group) => group.name.toLowerCase().includes(query) || group.description.toLowerCase().includes(query) || group.tags?.toLowerCase().split(', ').some((tag: string) => query.includes(tag)))
+    let settings: any[] = []
+    if (yipnyap_constants?.currentUser) {
+        settings = [{
+            id: 1,
+            name: 'Account',
+            description: 'Manage your account settings',
+            tags: `email password profile avatar picture username nickname handle name surname family name given name first name last name display name bio description about location`,
+            icon: QuestionMarkCircleIcon,
+            href: '/settings/',
+        }, {
+            id: 2,
+            name: 'Appearance',
+            description: 'Customize your account & UI appearance',
+            tags: 'theme color light dark mode theme',
+            icon: PaintBrushIcon,
+            href: '/settings/skin/',
+        }, {
+            id: 3,
+            name: 'Social accounts',
+            description: 'Boast your social media presence',
+            tags: `twitter facebook instagram reddit youtube twitch github linkedin discord telegram tiktok`,
+            icon: ShareIcon,
+            href: '/settings/social/',
+        }, {
+            id: 4,
+            name: 'Notifications',
+            description: 'Manage your mobile notifications',
+            icon: BellIcon,
+            href: '/settings/telegram/',
+        }, {
+            id: 5,
+            name: 'Security',
+            description: 'Configure two-factor authentication, telegram, and reset your password',
+            tags: `2fa two-factor authentication telegram password reset change update forgot lost recover`,
+            icon: ShieldCheckIcon,
+            href: '/settings/telegram/',
+        }, {
+            id: 6,
+            name: 'Profile bio',
+            description: 'Add a bio to your profile',
+            tags: `bio description about location`,
+            icon: QuestionMarkCircleIcon,
+            href: '/settings/',
+        }, {
+            id: 7,
+            name: 'Display Name',
+            description: 'Change your display name',
+            tags: 'username nickname handle',
+            icon: UserIcon,
+            href: '/settings/',
+        }, {
+            id: 8,
+            name: 'Create & manage groups',
+            description: 'Create and mange your groups',
+            tags: 'group create manage',
+            icon: GlobeAsiaAustraliaIcon,
+            href: `/${yipnyap_constants.currentUser.username}/settings/manage-groups/`,
+            target: '_blank',
+        }]
+    }
 
-    const filteredUsers = rawQuery === '@' ? users : query === '' || rawQuery.startsWith('#') ? [] : users.filter((user) => user.username.toLowerCase().includes(query) || user.display_name.toLowerCase().includes(query) || user.bio?.toLowerCase().includes(query))
-
-    // Match settings by name, description, or tags regardless of order
-    const filteredSettings = rawQuery === '~' ? settings : query === '' || rawQuery.startsWith('~') ? [] : settings.filter((setting) => setting.name.toLowerCase().includes(query) || setting.description.toLowerCase().includes(query) || setting.tags?.toLowerCase().split(' ').some((tag) => query.includes(tag)) || setting.tags?.toLowerCase().includes(query))
+    let filteredGroups = []
+    let filteredUsers = []
+    let filteredSettings = []
 
     let pages = [...(
         heading?.navigator?.subNavigation || []
@@ -92,12 +109,54 @@ export default function NGCommandPalette({...props}: {
     // remove duplicates
     pages = pages.filter((page, index) => pages.findIndex((p) => p.name === page.name) === index)
 
-    const filteredPages = rawQuery === '!' ? pages : query === '' || rawQuery.startsWith('!') ? [] : pages.filter((page: any) => page.name.toLowerCase().includes(query))
+    let filteredPages = []
 
     // Poll `yipnyap_constants`
     // Needs to be removed once UI is split.
     if (yipnyap_constants?.currentUser?.groups) {
         if (yipnyap_constants.currentUser.groups.length !== groups.length) setGroups(yipnyap_constants.currentUser.groups)
+    }
+
+    // Check what the rawQuery starts with, and only show the relevant results. I.e., if it starts with @, only show
+    // users and blank the others.
+    const queryGroups = rawQuery === '#' ? groups : query === '' ? [] : groups.filter((group) => group.name.toLowerCase().includes(query) || group.description.toLowerCase().includes(query) || group.tags?.toLowerCase().split(', ').some((tag: string) => query.includes(tag)))
+    const queryUsers = rawQuery === '@' ? users : query === '' ? [] : users.filter((user) => user.username.toLowerCase().includes(query) || user.display_name.toLowerCase().includes(query) || user.bio?.toLowerCase().includes(query))
+    const querySettings = rawQuery === '~' ? settings : query === '' ? [] : settings.filter((setting) => setting.name.toLowerCase().includes(query) || setting.description.toLowerCase().includes(query) || setting.tags?.toLowerCase().split(' ').some((tag: string) => query.includes(tag)) || setting.tags?.toLowerCase().includes(query))
+    const queryPages = rawQuery === '!' ? pages : query === '' ? [] : pages.filter((page) => page.name.toLowerCase().includes(query) || page.description?.toLowerCase().includes(query) || page.tags?.toLowerCase().split(' ').some((tag: string) => query.includes(tag)) || page.tags?.toLowerCase().includes(query))
+    switch (rawQuery[0]) {
+        case '#': {
+            filteredGroups = queryGroups
+            break;
+        }
+
+        case '@': {
+            filteredUsers = queryUsers
+            break;
+        }
+
+        case '~': {
+            filteredSettings = querySettings
+            break;
+        }
+
+        case '!': {
+            filteredPages = queryPages
+            break;
+        }
+
+        default: {
+            filteredGroups = queryGroups
+            filteredUsers = queryUsers
+            filteredSettings = querySettings
+            filteredPages = queryPages
+        }
+    }
+
+    let showDelete = false
+    if (yipnyap_constants.currentUser && (
+        rawQuery === 'delete' || rawQuery === 'delete account' || rawQuery === 'deactivate' || rawQuery === 'deactivate account' || rawQuery === 'delete my account' || rawQuery === 'deactivate my account' || rawQuery === 'delete my profile' || rawQuery === 'deactivate my profile'
+    )) {
+        showDelete = true
     }
 
     useEffect(() => {
@@ -108,6 +167,7 @@ export default function NGCommandPalette({...props}: {
         if (e.ctrlKey && e.key === 'k') {
             e.preventDefault()
             setOpen(true)
+            setLoading(false)
         }
     };
 
@@ -118,6 +178,14 @@ export default function NGCommandPalette({...props}: {
             document.removeEventListener('keydown', keydownHandler);
         }
     }, []);
+
+    // Set loading state, then off after 1s of no input
+    useEffect(() => {
+        if (showDelete || rawQuery === '' || rawQuery.startsWith('~') || rawQuery.startsWith('!') || rawQuery.startsWith('?')) return setLoading(false)
+        setLoading(true)
+        const timeout = setTimeout(() => setLoading(false), 1000)
+        return () => clearTimeout(timeout)
+    }, [rawQuery])
 
     return (
         <Transition.Root show={open} as={Fragment} afterLeave={() => setRawQuery('')}>
@@ -152,6 +220,8 @@ export default function NGCommandPalette({...props}: {
                                 navigate(`/groups/${item.id}/`)
                             } else if (item.username) {
                                 navigate(`/${item.username}/`)
+                            } else if (item.target) {
+                                window.open(item.href, item.target)
                             } else {
                                 navigate(item.href)
                             }
@@ -167,12 +237,12 @@ export default function NGCommandPalette({...props}: {
                             <Combobox.Input
                                 className="h-12 w-full border-0 bg-transparent pl-11 pr-4 text-neutral-800 placeholder-neutral-400 focus:ring-0 sm:text-sm"
                                 placeholder="Search..."
-                                onChange={(event) => setRawQuery(event.target.value)}
+                                onChange={(event) => setRawQuery(event.target.value.trim())}
                             />
                         </div>
 
                         {(
-                            filteredGroups.length > 0 || filteredUsers.length > 0 || filteredSettings.length > 0 || filteredPages.length > 0
+                            filteredGroups.length > 0 || filteredUsers.length > 0 || filteredSettings.length > 0 || filteredPages.length > 0 || showDelete
                         ) && (
                             <Combobox.Options
                                 static
@@ -264,7 +334,59 @@ export default function NGCommandPalette({...props}: {
                                         </ul>
                                     </li>
                                 )}
+
+                                {/* Delete account state */}
+                                {showDelete && (
+                                    <li>
+                                        <div className="py-14 px-6 text-center text-sm sm:px-14">
+                                            <ExclamationCircleIcon className="mx-auto h-6 w-6 text-default-alt"/>
+                                            <p className="mt-4 font-semibold text-default">Delete account</p>
+                                            <p className="mt-2 text-default-alt">
+                                                We get it, sometimes you just want to start fresh, or maybe you just
+                                                want to
+                                                get out from it all. If you're sure you want to delete your account, you
+                                                can
+                                                do so by clicking the button below. This will take you to a page where
+                                                you
+                                                can
+                                                confirm your decision.
+                                            </p>
+                                        </div>
+                                        <ul className="-mx-4 mt-2 text-sm text-default-alt">
+                                            <Combobox.Option
+                                                value={{
+                                                    href: `/${yipnyap_constants.currentUser.username}/settings/account-settings`,
+                                                    target: '_blank',
+                                                }}
+                                                className={({active}) => classNames('flex cursor-default select-none items-center px-4 py-2', active && 'bg-indigo-600 text-white')}
+                                            >
+                                                {({active}) => (
+                                                    <>
+                                                        <TrashIcon
+                                                            className={classNames('h-6 w-6 flex-none', active ? 'text-default' : 'text-default-alt')}
+                                                            aria-hidden="true"
+                                                        />
+                                                        <span
+                                                            className="ml-3 flex-auto truncate">Begin...</span>
+                                                    </>
+                                                )}
+                                            </Combobox.Option>
+                                        </ul>
+                                    </li>
+                                )}
                             </Combobox.Options>
+                        )}
+
+                        {/* Search loading state */}
+                        {loading && (
+                            <div className="py-14 px-6 text-center text-sm sm:px-14">
+                                <img src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                     alt="Process spinner" className="mx-auto h-6 w-6 animate-spin dark:invert"/>
+                                <p className="mt-4 font-semibold text-default">Searching...</p>
+                                <p className="mt-2 text-default-alt">
+                                    We're searching for <code>{query}</code> across Yipnyap.
+                                </p>
+                            </div>
                         )}
 
                         {rawQuery === '?' && (
@@ -280,12 +402,12 @@ export default function NGCommandPalette({...props}: {
                             </div>
                         )}
 
-                        {query !== '' && rawQuery !== '?' && rawQuery !== '🐈' && filteredGroups.length === 0 && filteredUsers.length === 0 && filteredSettings.length === 0 && filteredPages.length === 0 && (
+                        {!loading && !showDelete && query !== '' && rawQuery !== '?' && rawQuery !== '🐈' && filteredGroups.length === 0 && filteredUsers.length === 0 && filteredSettings.length === 0 && filteredPages.length === 0 && (
                             <div className="py-14 px-6 text-center text-sm sm:px-14">
                                 <ExclamationCircleIcon className="mx-auto h-6 w-6 text-default-alt" aria-hidden="true"/>
                                 <p className="mt-4 font-semibold text-default">No results found</p>
                                 <p className="mt-2 text-default-alt">
-                                    We couldn’t find anything with that term. Please try again.
+                                    {query.startsWith('a life') ? `Hey now, don't be so hard on yourself. You're doing the best you can! 🤗` : `We couldn't find any results for ${query}.`}
                                 </p>
                             </div>
                         )}
@@ -322,6 +444,17 @@ export default function NGCommandPalette({...props}: {
                                 ?
                             </kbd>{' '}
                             for more.
+                        </div>
+
+                        {/* Privacy notice, everything stays on device */}
+                        <div className="flex flex-wrap items-center bg-box-solid py-2.5 px-4 text-xs text-default">
+                            <span className="flex items-center">
+                                <LockClosedIcon className="text-blue-500 h-4 w-4 mr-1.5" aria-hidden="true"/>
+                                <p>
+                                    <span className="text-blue-500 font-semibold">Privacy:{' '}</span>
+                                    Your query gets simplified and sent to the server, but never stored.
+                                </p>
+                            </span>
                         </div>
                     </Combobox>
                 </Transition.Child>

@@ -1,3 +1,4 @@
+import SettingsStorage from '@nextgen2/pages/settings/storage';
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import {
@@ -90,10 +91,7 @@ export default function SettingsGeneral() {
 
             {location.pathname === '/settings/social/' && <SocialSettingsScreen/>}
 
-            {location.pathname === '/settings/kukiko-id/' &&
-                <div className="flex flex-col items-center justify-center h-full"><h1
-                    className="text-2xl font-bold">Kukiko ID</h1> <p className="text-gray-500">Snap-in Unavailable. Go
-                    to Legacy Settings.</p></div>}
+            {location.pathname === '/settings/kukiko-id/' && <SettingsStorage/>}
         </>
     )
 }

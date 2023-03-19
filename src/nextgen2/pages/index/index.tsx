@@ -147,7 +147,7 @@ export function Index({...props}) {
                             )}
                             <div
                                 id="onboarding-create_post"
-                                className="flex flex-row justify-center space-x-4 mx-auto py-8 max-w-4xl"
+                                className="flex flex-row justify-center space-x-4 sm:mx-auto py-8 max-w-4xl"
                             >
                                 {readyToRender ? (
                                     <ActivityFilterableList order="DESC"
@@ -160,7 +160,7 @@ export function Index({...props}) {
 
                                 {readyToRender && (
                                     <div
-                                        className="w-72 hidden 2xl:block space-y-4 overflow-y-auto overflow-x-visible">
+                                        className="w-72 hidden xl:block space-y-4 overflow-y-auto overflow-x-visible">
                                         {yipnyap_constants.currentUser?.username && (
                                             <NGCard
                                                 title={<p className="text-sm leading-5 text-neutral-500">

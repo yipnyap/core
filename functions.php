@@ -284,7 +284,7 @@ add_action('wp_enqueue_scripts', function () {
         'yipnyap_url' => YIPNYAP_URL,
         'home_url' => esc_url(home_url('/')),
         'ajax_url' => home_url('/sdk/'),
-        'logout_url' => wp_logout_url('/'),
+        'logout_url' => str_replace('&amp;', '&', wp_logout_url('/')), // bro... why?
         'logo_url' => YIPNYAP_WPOPTIONS['yipnyap_logo_url'],
         'wp_rest_nonce' => wp_create_nonce('wp_rest'),
         'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),

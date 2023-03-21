@@ -22,12 +22,11 @@ export interface Group {
     description?: string;
     avatar?: string;
     banner?: string;
-    members?: number;
-    is_member?: boolean;
-    is_admin?: boolean;
     meta: {
-        members: {
-            is_mod?: Boolean; is_admin?: Boolean; count: number; active: number; term: string; data: any[];
+        pivot: {
+            current: 'Leader' | 'Admin' | 'Mod' | null;
+        }; members: {
+            count: number; active: number; term: string; data: any[];
         }
     }
 }
@@ -71,10 +70,10 @@ export default function PageModerateIndex() {
         avatar: '',
         banner: '',
         description: '',
-        is_admin: false,
-        is_member: false,
-        members: 0,
         meta: {
+            pivot: {
+                current: null,
+            },
             members: {
                 active: 0,
                 count: 0,
@@ -139,7 +138,7 @@ export default function PageModerateIndex() {
         })
             .then(res => res.json())
             .then(data => {
-                if (group.meta.members.is_admin === false && group.meta.members.is_mod === false) {
+                if (!data.meta.pivot.current) {
                     // Redirect user to group
                     window.location.href = `/groups/${group.id}/`;
                 } else {

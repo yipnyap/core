@@ -45,6 +45,8 @@ class Group {
      *
      * @param int|string|null $id
      * @throws Exception
+     *
+     * @todo: Pivot is (hopefully) going to be an open source user role manager. Need to uh, make that.
      */
     public function GetGroupMeta(int|string $id = null): void {
         if (empty($id)) $id = $this->GroupID;
@@ -112,31 +114,31 @@ class Group {
             'exclude_admins_mods' => false,
         ])['members'] as $member) {
             $memberBuild = YipnyapGetMember($member->id);
+            $memberBuild['pivot'] = [];
 
             if ($memberBuild['id'] === $BPGroup->creator_id) {
-                $memberBuild['role'] = 'Leader';
+                $memberBuild['pivot']['current'] = 'Leader';
             } else {
-                $memberBuild['role'] = $member->is_admin ? 'Admin' : ($member->is_mod ? 'Mod' : null);
+                $memberBuild['pivot']['current'] = $member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : null);
             }
             $memberBuild['date_joined'] = strtotime($member->date_modified);
 
             $BPGroup->meta['members']['data'][] = $memberBuild;
+
+            if ($memberBuild['id'] === get_current_user_id()) {
+                $BPGroup->meta['pivot'] = [
+                    'current' => $memberBuild['id'] === $BPGroup->creator_id ? 'Leader' : ($member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : null)),
+                ];
+            }
         }
 
         // Sort members by date joined, and by role alphabetically.
         usort($BPGroup->meta['members']['data'], function ($a, $b) {
             if ($a['date_joined'] === $b['date_joined']) {
-                return $a['role'] <=> $b['role'];
+                return $a['pivot']['current'] <=> $b['pivot']['current'];
             }
             return $a['date_joined'] <=> $b['date_joined'];
         });
-
-        // Add 'is_member' property to group
-        $BPGroup->meta['members']['is_member'] = groups_is_user_member(get_current_user_id(), $BPGroup->id);
-
-        // Check if current user is mod or admin
-        $BPGroup->meta['members']['is_mod'] = groups_is_user_mod(get_current_user_id(), $BPGroup->id);
-        $BPGroup->meta['members']['is_admin'] = groups_is_user_admin(get_current_user_id(), $BPGroup->id);
 
         $this->GroupMeta = $BPGroup;
     }

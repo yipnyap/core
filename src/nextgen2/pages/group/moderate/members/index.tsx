@@ -243,15 +243,15 @@ export default function PageModerateMembers({...props}: { group: Group }) {
                         </div>
                         <div className="mt-4">
                             <NGTable headers={['Name', 'Role', 'Joined', ...(
-                                group.meta.members.is_admin || group.meta.members.is_mod ? 'Blank' : ''
+                                group.meta.pivot.current ? ['Blank'] : []
                             )]}
                                      data={[...group.meta?.members?.data?.map((member: any) => {
                                          return {
                                              user: member,
-                                             role: member.role,
+                                             role: member.pivot.current,
                                              date: member.date_joined * 1000,
                                              edit: () => {
-                                                 if (group.meta.members.is_admin || group.meta.members.is_mod) {
+                                                 if (group.meta.pivot.current) {
                                                      return (
                                                          <Link
                                                              className="text-blue-600 hover:text-blue-900"

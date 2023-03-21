@@ -5,8 +5,8 @@
  * @version: ui2
  */
 
-import {HomeIcon, MegaphoneIcon, UserGroupIcon} from '@heroicons/react/24/solid';
-import {InformationCircleIcon, UserPlusIcon} from '@heroicons/react/20/solid';
+import {HomeIcon, MegaphoneIcon, ShieldCheckIcon, UserGroupIcon} from '@heroicons/react/24/solid';
+import {ArrowUpRightIcon, InformationCircleIcon, UserPlusIcon} from '@heroicons/react/20/solid';
 // @ts-ignore
 import ActivityFilterableList from '@legacy/component/activity/ActivityFilterableList';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
@@ -93,7 +93,14 @@ export default function GroupsIndex() {
                     description: '',
                     href: `groups/${groupID}/announcements/`,
                     icon: MegaphoneIcon,
-                }],
+                }, ...(
+                    group.meta?.pivot.current ? [{
+                        name: <span className="inline-flex">Moderate <ArrowUpRightIcon className="w-4"/></span>,
+                        description: '',
+                        href: `groups/${groupID}/moderate/`,
+                        icon: ShieldCheckIcon,
+                    }] : []
+                )],
             },
         });
     }, [groupID, group]);
@@ -109,7 +116,7 @@ export default function GroupsIndex() {
                                      role: member.role,
                                      date: member.date_joined * 1000,
                                      edit: () => {
-                                         if (group.meta.members.is_admin || group.meta.members.is_mod) {
+                                         if (group.meta.pivot.current) {
                                              return (
                                                  <Link to={`moderate/members/${member.id}`}>
                                                      Edit

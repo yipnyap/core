@@ -10,11 +10,11 @@ interface Group {
     description: string;
     avatar: string;
     banner: string;
-    is_member: boolean;
-    is_admin: boolean;
-    meta?: {
-        members?: {
-            count: number; active: number; term: string;
+    meta: {
+        pivot: {
+            current: 'Leader' | 'Admin' | 'Mod' | null;
+        }; members: {
+            count: number; active: number; term: string; data: any[];
         }
     }
 }

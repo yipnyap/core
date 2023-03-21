@@ -14,3 +14,4 @@ export {NGTable} from './NGTable';
 export {NGStatsGrid} from './NGStatsGrid';
 export {NGButton} from './NGButton';
 export {NGNavbar} from './NGNavbar';
+export {NGSelectMenu} from './NGSelectMenu';

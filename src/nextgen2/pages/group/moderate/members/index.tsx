@@ -1,6 +1,6 @@
 import {Dialog, Transition} from '@headlessui/react';
 import {ExclamationTriangleIcon} from '@heroicons/react/20/solid';
-import {NGButton, NGTable} from '@nextgen2/components';
+import {NGButton, NGSelectMenu, NGTable} from '@nextgen2/components';
 import {NGProfileHeader} from '@nextgen2/components/NGProfileHeader';
 import {Group} from '@nextgen2/pages/group/moderate';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
@@ -92,9 +92,12 @@ function ModDialog({...props}: {
     )
 }
 
-export default function PageModerateMembers({...props}: { group: Group }) {
+export default function PageModerateMembers({...props}: {
+    group: Group; communicatingState: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
+}) {
     const location = useLocation();
     const [, addNotification] = useNotification();
+    const [communicating, setCommunicating] = props.communicatingState;
     const [group, setGroup] = useState<Group>(props.group);
     const [memberID, setMemberID] = useState<string | null>(location.pathname.split('/')[5] || null);
     const [member, setMember] = useState<any>();
@@ -107,6 +110,10 @@ export default function PageModerateMembers({...props}: { group: Group }) {
     const [dialogActionOnClick, setDialogActionOnClick] = useState(() => () => {
     });
 
+    const [selectedRole, setSelectedRole] = useState<{ name: string; }>({
+        name: 'Unknown',
+    });
+
     useEffect(() => {
         setGroup(props.group);
     }, [props.group]);
@@ -114,8 +121,15 @@ export default function PageModerateMembers({...props}: { group: Group }) {
     useEffect(() => {
         const ID = location.pathname.split('/')[5];
         if (ID && ID !== '') {
+            const memberFind = group.meta?.members?.data?.find((member: any) => member.id === parseInt(ID));
             setMemberID(ID);
-            setMember(group.meta?.members?.data?.find((member: any) => member.id === parseInt(ID)));
+
+            if (group.meta?.members?.count > 0) {
+                setMember(memberFind);
+                setSelectedRole({
+                    name: memberFind.pivot.current || 'Member',
+                });
+            }
         } else {
             setMemberID(null);
             setMember(null);
@@ -138,6 +152,7 @@ export default function PageModerateMembers({...props}: { group: Group }) {
         setDialogAction('Ban');
         setDialogActionColor('danger');
         setDialogActionOnClick(() => () => {
+            setCommunicating(true);
             fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
                 method: 'DELETE',
                 headers: {
@@ -149,6 +164,7 @@ export default function PageModerateMembers({...props}: { group: Group }) {
                 }),
             }).then(async (response) => {
                 const data = await response.json();
+                setCommunicating(false);
                 if (response.ok) {
                     // dirty filter the member out of the group. hacky, but works.
                     if (typeof memberID === 'string') {
@@ -189,6 +205,7 @@ export default function PageModerateMembers({...props}: { group: Group }) {
         setDialogAction('Kick');
         setDialogActionColor('danger');
         setDialogActionOnClick(() => () => {
+            setCommunicating(true);
             fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
                 method: 'DELETE',
                 headers: {
@@ -197,6 +214,7 @@ export default function PageModerateMembers({...props}: { group: Group }) {
                 },
             }).then(async (response) => {
                 const data = await response.json();
+                setCommunicating(false);
                 if (response.ok) {
                     // dirty filter the member out of the group. hacky, but works.
                     if (typeof memberID === 'string') {
@@ -283,15 +301,6 @@ export default function PageModerateMembers({...props}: { group: Group }) {
 
                         {member && (
                             <div className="flex flex-col space-y-8">
-                                <ModDialog
-                                    state={[open, setOpen]}
-                                    title={dialogTitle}
-                                    action={dialogAction}
-                                    actionColor={dialogActionColor}
-                                    actionOnClick={dialogActionOnClick}>
-                                    {dialogDescription}
-                                </ModDialog>
-
                                 <NGProfileHeader user={member}/>
                                 {/* Kick, ban, promote/demote */}
                                 <div className="flex flex-col gap-8 md:flex-row">
@@ -318,17 +327,29 @@ export default function PageModerateMembers({...props}: { group: Group }) {
                                         <h3 className="text-lg leading-6 font-medium text-default">
                                             Manage role
                                         </h3>
-                                        <div className="flex flex-row gap-4 w-min">
-                                            <NGButton
-                                                onClick={() => setOpen(true)}
-                                            >
-                                                Promote
-                                            </NGButton>
-                                        </div>
+                                        <NGSelectMenu title="Selected Role"
+                                                      selectedStates={[selectedRole, setSelectedRole]} options={[{
+                                            name: 'Member',
+                                        }, {
+                                            name: 'Moderator',
+                                        }, {
+                                            name: 'Administrator',
+                                        }, {
+                                            name: 'Leader',
+                                        }]}/>
                                     </div>
                                 </div>
                             </div>
                         )}
+
+                        <ModDialog
+                            state={[open, setOpen]}
+                            title={dialogTitle}
+                            action={dialogAction}
+                            actionColor={dialogActionColor}
+                            actionOnClick={dialogActionOnClick}>
+                            {dialogDescription}
+                        </ModDialog>
                     </>
                 )
             }

@@ -275,4 +275,19 @@ class Group {
     public function BanMember(int $user_id): bool {
         return groups_ban_member($user_id, $this->GroupID);
     }
+
+    /**
+     * Promote a member to a new role.
+     *
+     * @param int $user_id The user ID.
+     * @param string $role The role to promote the user to.
+     */
+    public function PromoteMember(int $user_id, string $role): bool {
+        return match ($role) {
+            'mod' => groups_promote_member($user_id, $this->GroupID, 'mod'),
+            'admin' => groups_promote_member($user_id, $this->GroupID, 'admin'),
+            'member' => groups_demote_member($user_id, $this->GroupID),
+            default => false,
+        };
+    }
 }

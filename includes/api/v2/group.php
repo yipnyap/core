@@ -124,6 +124,11 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
                 'callback' => [$this, 'delete_group_member'],
                 'permission_callback' => [$this, 'user_mod_permissions_check'],
             ],
+            [
+                'methods' => WP_REST_Server::EDITABLE,
+                'callback' => [$this, 'update_group_member'],
+                'permission_callback' => [$this, 'user_mod_permissions_check'],
+            ],
         ]);
     }
 
@@ -209,7 +214,7 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
         }
 
         // Check if the user is a member of the group
-        if ($victimUserRoles == 'member') {
+        if (empty($victimUserRoles)) {
             return new WP_REST_Response(['message' => 'User is not a member of this pack. Banning users who aren\'t members is not supported yet.'], 404);
         }
 
@@ -226,6 +231,51 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
             // It is already assumed that the user can kick, per the above checks.
             $group->KickMember($request['uid']);
             return rest_ensure_response(['message' => 'User kicked.']);
+        }
+    }
+
+    /**
+     * Handle a request to change a member's role in a group.
+     *
+     * @param WP_REST_Request $request
+     * @return WP_REST_Response
+     * @throws Exception
+     * @since ui2
+     */
+    public function update_group_member(WP_REST_Request $request): WP_REST_Response {
+        $group = new Group($request['id'], true);
+        $currentUserRoles = $group->GetUserRoles();
+        $victimUserRoles = $group->GetUserRoles($request['uid']);
+
+        $currentUserCanPromote = in_array_any($currentUserRoles, ['admin', 'mod', 'owner']);
+        $currentUserCanDemote = in_array_any($currentUserRoles, ['admin', 'owner']);
+        $currentUserIsOwner = in_array('owner', $currentUserRoles);
+
+        $victimUserIsHigherUp = in_array_any($victimUserRoles, ['admin', 'owner']);
+
+        // Check if the user is a group admin, mod, or owner, but allow the owner to demote
+        if (($victimUserIsHigherUp || !$currentUserCanPromote) && !$currentUserIsOwner) {
+            return new WP_REST_Response(['message' => 'The hierarchy forbids you from doing that.'], 403);
+        }
+
+        // Check if the user is a member of the group
+        if (empty($victimUserRoles)) {
+            return new WP_REST_Response(['message' => 'User is not a member of this pack.'], 404);
+        }
+
+        // Check if the user is trying to demote themselves
+        if ($request['uid'] == get_current_user_id()) {
+            return new WP_REST_Response(['message' => 'You can\'t manage yourself.'], 403);
+        }
+
+        // Check if the request is `role: member`
+        if ($request['role'] == 'member' && $currentUserCanDemote) {
+            $group->PromoteMember($request['uid'], 'member');
+            return rest_ensure_response(['message' => 'User demoted.']);
+        } else {
+            // It is already assumed that the user can promote, per the above checks.
+            $group->PromoteMember($request['uid'], $request['role']);
+            return rest_ensure_response(['message' => 'User promoted.']);
         }
     }
 

@@ -135,9 +135,10 @@ export default function SettingsStorage() {
             {/* Over storage quota notice */}
             {userStorageOverbleed > 0 && (
                 <div className="flex flex-col space-y-4">
-                    <h1 className="text-2xl font-bold text-red-500">{userStorageOverbleed}% Over Storage Quota</h1>
+                    <h1 className="text-2xl font-bold text-red-500">{userStorageOverbleedState}% Over Storage Quota</h1>
                     <p className="text-default-alt">
-                        You are currently {userStorageOverbleed}% over your storage quota. Deleting some posts or files
+                        You are currently {userStorageOverbleedState}% over your storage quota. Deleting some posts or
+                        files
                         will free up space. If you don't delete anything, you may soon lose access to features that
                         require storage.
                     </p>

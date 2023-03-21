@@ -79,7 +79,7 @@ export default function Home({...props}: Props) {
                     }}
                 >
                     <div
-                        className="rounded-default p-8 bg-neutral-800/75 backdrop-blur flex flex-col lg:w-1/2 space-y-4">
+                        className="rounded-default p-8 bg-neutral-800/75 backdrop-blur flex flex-col xl:w-1/2 space-y-4">
                         <h2 className="text-2xl text-white">Yipnyap is changing.</h2>
                         <p className="leading-normal text-white font-light">
                             Yipnyap is a place for furries to connect with each other, a place

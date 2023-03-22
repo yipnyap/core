@@ -24,7 +24,6 @@ export default function Root() {
 function RootWithinProvider() {
     const [heading] = useHeading();
     const [theme] = useTheme();
-    const [, addNotification, removeNotification] = useNotification();
     const [friends, setFriends] = useState<any>(null);
     const [ready, setReady] = useState(false);
 
@@ -51,63 +50,6 @@ function RootWithinProvider() {
 
     // run this useEffect only once
     useEffect(() => {
-        const allowConnection = sessionStorage.getItem('alreadyOnWS') !== 'true';
-        window.onbeforeunload = function () {
-            sessionStorage.removeItem('alreadyOnWS');
-        };
-        // @ts-ignore
-        if (module.hot && allowConnection) {
-            sessionStorage.setItem('alreadyOnWS', 'true');
-            // Connect to webpack-dev-server socket
-            let connection = new WebSocket('ws://localhost:9000/ws');
-
-            // Listen for messages
-            connection.onmessage = (e) => {
-                const data = JSON.parse(e.data);
-                console.log('[🔥 Hot] Message: ', data);
-
-                switch (data.type) {
-                    case 'invalid':
-                        // Invalid gets sent on rebuild
-                        addNotification({
-                            id: 'hot-reloading',
-                            title: 'Wait',
-                            message: 'Rebuild in progress',
-                            type: 'warning',
-                            persistent: true,
-                        });
-                        break;
-                    case 'hash':
-                        removeNotification('hot-reloading');
-                        addNotification({
-                            title: 'HMR Done',
-                            message: 'Rebuild complete',
-                            type: 'success',
-                        });
-                        break;
-                    case 'warnings':
-                        addNotification({
-                            title: 'Rebuilt with warnings',
-                            message: `${data.data.length} warnings`,
-                            type: 'warning',
-                        });
-                        break;
-                    default:
-                        break;
-                }
-            }
-
-            // On connect, submit to notification
-            connection.onopen = () => {
-                console.log('[🔥 Hot] Connected');
-                addNotification({
-                    title: 'Running in development mode',
-                    message: 'Connected to hot reloading server',
-                    type: 'success',
-                });
-            }
-        }
-
         // Even though its super early, we should already be able to access the current user.
         // Get the user's friends and store them in the state
         if (yipnyap_constants.currentUser) {
@@ -212,7 +154,7 @@ function RootWithinProvider() {
                             {friends && friends.map((friend: {
                                 avatar: string; display_name: string; username: string;
                             }) => (
-                                <div className="flex flex-row items-center space-x-2">
+                                <div key={friend.username} className="flex flex-row items-center space-x-2">
                                     <div className="w-10 h-10 rounded-full bg-box" style={{
                                         background: `url(${friend.avatar}) no-repeat center center/cover`,
                                     }}></div>

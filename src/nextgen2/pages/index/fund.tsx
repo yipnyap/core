@@ -45,11 +45,10 @@ export default function Fund() {
                                 $7.50 (<span className="text-red-500">Full Loss</span>)
                             </h1>
                             <p className="text-default-alt">
-                                Per month. Ramen Profitable needs AUD$250/month to
+                                Per month. Ramen Profitable needs AUD$400/month to
                                 cover hosting (~USD$30 + AUD$115), plus other expenses
                                 of the dev, like food and rent. These prices fluctuate
-                                a lot, so we're not sure exactly how much we'll need
-                                to cover everything, so it's averaged out to AUD$250/month.
+                                a lot.
                             </p>
                             <p className="text-default-alt">
                                 The monthly income can change dramatically, based

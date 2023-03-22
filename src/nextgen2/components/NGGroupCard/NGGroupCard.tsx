@@ -12,7 +12,7 @@ interface Group {
     banner: string;
     meta: {
         pivot: {
-            current: 'Leader' | 'Admin' | 'Mod' | null;
+            current: 'Leader' | 'Admin' | 'Mod' | 'Member';
         }; members: {
             count: number; active: number; term: string; data: any[];
         }

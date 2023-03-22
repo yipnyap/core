@@ -24,7 +24,7 @@ export interface Group {
     banner?: string;
     meta: {
         pivot: {
-            current: 'Leader' | 'Admin' | 'Mod' | null;
+            current: 'Leader' | 'Administrator' | 'Moderator' | 'Member';
         }; members: {
             count: number; active: number; term: string; data: any[];
         }
@@ -75,7 +75,7 @@ export default function PageModerateIndex() {
         description: '',
         meta: {
             pivot: {
-                current: null,
+                current: 'Member',
             },
             members: {
                 active: 0,
@@ -141,7 +141,7 @@ export default function PageModerateIndex() {
         })
             .then(res => res.json())
             .then(data => {
-                if (!data.meta.pivot.current) {
+                if (!data.meta.pivot?.current || data.meta.pivot?.current === 'Member') {
                     // Redirect user to group
                     window.location.href = `/groups/${group.id}/`;
                 } else {

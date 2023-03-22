@@ -124,17 +124,60 @@ export default function PageModerateMembers({...props}: {
             const memberFind = group.meta?.members?.data?.find((member: any) => member.id === parseInt(ID));
             setMemberID(ID);
 
-            if (group.meta?.members?.count > 0) {
+            if (group.meta?.members?.count > 0 && memberFind) {
                 setMember(memberFind);
                 setSelectedRole({
-                    name: memberFind.pivot.current || 'Member',
-                });
+                    name: memberFind.pivot.current,
+                })
+            } else {
+                setMemberID(null);
+                setMember(null);
             }
         } else {
             setMemberID(null);
             setMember(null);
         }
-    }, [location.pathname, group])
+    }, [location.pathname, group]);
+
+    // When the selected role changes, update the member's role via API
+    useEffect(() => {
+        if (group.meta?.members?.count > 0 && memberID && member && selectedRole.name !== member.pivot.current && selectedRole.name !== 'Unknown') {
+            const previousRole = member.pivot.current;
+            setCommunicating(true);
+            fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+                },
+                body: JSON.stringify({
+                    role: selectedRole.name,
+                }),
+            }).then(async (response) => {
+                const data = await response.json();
+                setCommunicating(false);
+                if (response.ok) {
+                    addNotification({
+                        type: 'success',
+                        title: 'Role updated successfully.',
+                    });
+
+                    // Update the member's role in the group's member list
+                    const memberIndex = group.meta.members.data.findIndex((member: any) => member.id === parseInt(memberID));
+                    group.meta.members.data[memberIndex].pivot.current = selectedRole.name;
+                    setGroup(group);
+                } else {
+                    addNotification({
+                        type: 'error',
+                        title: data.message || 'An unknown error occurred while updating the role.',
+                    });
+                    setSelectedRole({
+                        name: previousRole,
+                    });
+                }
+            });
+        }
+    }, [selectedRole]);
 
     function banDialog() {
         setDialogTitle('Ban Member');
@@ -261,15 +304,15 @@ export default function PageModerateMembers({...props}: {
                         </div>
                         <div className="mt-4">
                             <NGTable headers={['Name', 'Role', 'Joined', ...(
-                                group.meta.pivot.current ? ['Blank'] : []
+                                group.meta.pivot.current !== 'Member' ? ['Blank'] : []
                             )]}
                                      data={[...group.meta?.members?.data?.map((member: any) => {
                                          return {
                                              user: member,
-                                             role: member.pivot.current,
+                                             role: member.pivot.current !== 'Member',
                                              date: member.date_joined * 1000,
                                              edit: () => {
-                                                 if (group.meta.pivot.current) {
+                                                 if (group.meta.pivot.current !== 'Member') {
                                                      return (
                                                          <Link
                                                              className="text-blue-600 hover:text-blue-900"
@@ -300,7 +343,7 @@ export default function PageModerateMembers({...props}: {
                         )}
 
                         {member && (
-                            <div className="flex flex-col space-y-8">
+                            <div className="flex flex-col space-y-8 w-full">
                                 <NGProfileHeader user={member}/>
                                 {/* Kick, ban, promote/demote */}
                                 <div className="flex flex-col gap-8 md:flex-row">
@@ -328,15 +371,20 @@ export default function PageModerateMembers({...props}: {
                                             Manage role
                                         </h3>
                                         <NGSelectMenu title="Selected Role"
-                                                      selectedStates={[selectedRole, setSelectedRole]} options={[{
-                                            name: 'Member',
-                                        }, {
-                                            name: 'Moderator',
-                                        }, {
-                                            name: 'Administrator',
-                                        }, {
-                                            name: 'Leader',
-                                        }]}/>
+                                                      selected={selectedRole}
+                                                      onChange={(value: any) => {
+                                                          setSelectedRole(value);
+                                                      }}
+                                                      options={[{
+                                                          name: 'Member',
+                                                      }, {
+                                                          name: 'Moderator',
+                                                      }, /*{
+                                                          name: 'Administrator',
+                                                      },*/ {
+                                                          name: 'Leader',
+                                                          disabled: true,
+                                                      }]}/>
                                     </div>
                                 </div>
                             </div>

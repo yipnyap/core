@@ -270,12 +270,22 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
 
         // Check if the request is `role: member`
         if ($request['role'] == 'member' && $currentUserCanDemote) {
-            $group->PromoteMember($request['uid'], 'member');
-            return rest_ensure_response(['message' => 'User demoted.']);
+            $success = $group->PromoteMember($request['uid'], 'member');
+
+            if ($success) {
+                return rest_ensure_response(['message' => 'User demoted.']);
+            } else {
+                return new WP_REST_Response(['message' => 'Yipnyap couldn\'t do that.'], 400);
+            }
         } else {
             // It is already assumed that the user can promote, per the above checks.
-            $group->PromoteMember($request['uid'], $request['role']);
-            return rest_ensure_response(['message' => 'User promoted.']);
+            $success = $group->PromoteMember($request['uid'], $request['role']);
+
+            if ($success) {
+                return rest_ensure_response(['message' => 'User promoted.']);
+            } else {
+                return new WP_REST_Response(['message' => 'Yipnyap couldn\'t do that.'], 400);
+            }
         }
     }
 

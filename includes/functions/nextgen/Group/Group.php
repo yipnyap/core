@@ -114,12 +114,11 @@ class Group {
             'exclude_admins_mods' => false,
         ])['members'] as $member) {
             $memberBuild = YipnyapGetMember($member->id);
-            $memberBuild['pivot'] = [];
 
             if ($memberBuild['id'] === $BPGroup->creator_id) {
                 $memberBuild['pivot']['current'] = 'Leader';
             } else {
-                $memberBuild['pivot']['current'] = $member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : null);
+                $memberBuild['pivot']['current'] = $member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : 'Member');
             }
             $memberBuild['date_joined'] = strtotime($member->date_modified);
 
@@ -127,7 +126,7 @@ class Group {
 
             if ($memberBuild['id'] === get_current_user_id()) {
                 $BPGroup->meta['pivot'] = [
-                    'current' => $memberBuild['id'] === $BPGroup->creator_id ? 'Leader' : ($member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : null)),
+                    'current' => $memberBuild['id'] === $BPGroup->creator_id ? 'Leader' : ($member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : 'Member')),
                 ];
             }
         }
@@ -284,9 +283,9 @@ class Group {
      */
     public function PromoteMember(int $user_id, string $role): bool {
         return match ($role) {
-            'mod' => groups_promote_member($user_id, $this->GroupID, 'mod'),
-            'admin' => groups_promote_member($user_id, $this->GroupID, 'admin'),
-            'member' => groups_demote_member($user_id, $this->GroupID),
+            'Moderator' => groups_promote_member($user_id, $this->GroupID, 'mod'),
+            'Administrator' => groups_promote_member($user_id, $this->GroupID, 'admin'),
+            'Member' => groups_demote_member($user_id, $this->GroupID),
             default => false,
         };
     }

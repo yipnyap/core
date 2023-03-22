@@ -54,6 +54,9 @@ export const router = createBrowserRouter([{
         path: '/notifications/',
         element: <Index/>,
     }, {
+        path: '/fund/',
+        element: <Index/>,
+    }, {
         path: '/groups/:groupId',
         element: <GroupsIndex/>,
         children: [{

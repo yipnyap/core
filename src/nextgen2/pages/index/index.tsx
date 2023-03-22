@@ -18,6 +18,7 @@ import {getMemberFriends, getMemberGroups} from '@legacy/router/v2/members/get';
 import {Void} from '@nextgen2';
 import {NGCard, NGSkeleton} from '@nextgen2/components';
 import {NGContentNavigatorItemType} from '@nextgen2/components/NGContentNavigator/NGContentNavigator';
+import Fund from '@nextgen2/pages/index/fund';
 import Home from '@nextgen2/pages/index/home';
 import Notifications from '@nextgen2/pages/index/notifications';
 import SettingsTelegram from '@nextgen2/pages/settings/telegram';
@@ -133,6 +134,9 @@ export function Index({...props}) {
             )}
             {location.pathname === '/notifications/' && (
                 <Notifications/>
+            )}
+            {location.pathname === '/fund/' && (
+                <Fund/>
             )}
             {location.pathname === '/feed/' && (
                 <div className="flex flex-col mx-auto px-4">

@@ -8,8 +8,14 @@ $YipnyapPageTemplates = [
         'slug' => 'notifications',
         'title' => 'Notifications',
         'nextgen' => true,
-        'children' => []
-    ]
+        'children' => [],
+    ],
+    [
+        'slug' => 'fund',
+        'title' => 'Fund',
+        'nextgen' => true,
+        'children' => [],
+    ],
 ];
 
 // Loop through each page template
@@ -32,7 +38,7 @@ foreach ($YipnyapPageTemplates as $YipnyapPageTemplate) {
     update_post_meta($YipnyapPageId, '_wp_page_template', 'page-templates/' . ($YipnyapPageTemplate['nextgen'] ? 'nextgen' : 'page_' . $YipnyapPageTemplate['slug']) . '.php');
 }
 
-add_filter('template_include', function($template) {
+add_filter('template_include', function ($template) {
     $prefix = '/settings'; // Your prefix
     $prefixExist = str_starts_with($_SERVER['REQUEST_URI'], $prefix);
 
@@ -100,6 +106,6 @@ add_filter('bp_setup_nav', function () {
             bp_core_load_template(apply_filters('bp_core_template_plugin', 'members/single/plugins'));
         },
         'position' => 200,
-        'default_subnav_slug' => 'arcana'
+        'default_subnav_slug' => 'arcana',
     ]);
 }, 100);

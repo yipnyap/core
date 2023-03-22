@@ -2,13 +2,11 @@ import {getMemberFriends} from '@legacy/router/v2/members/get';
 import React, {useEffect, useState} from 'react';
 import ContextProvider from './ContextProvider';
 import {PageHeadingProvider, useHeading} from '@nextgen2/providers/PageHeading.provider';
-import {NGBody, NGContent, NGSideNav} from './components';
+import {NGContent, NGSideNav} from './components';
 import {Link, Outlet} from 'react-router-dom';
-import {BellIcon, HomeIcon, UserIcon} from '@heroicons/react/24/solid';
-import {ThemeContextProvider, useTheme} from '@nextgen2/providers/Theme.provider';
-import NotificationContextProvider, {
-    NotificationContainer, useNotification,
-} from '@nextgen2/providers/Notification.provider';
+import {BellIcon, HeartIcon, HomeIcon, UserIcon} from '@heroicons/react/24/solid';
+import {useTheme} from '@nextgen2/providers/Theme.provider';
+import {NotificationContainer} from '@nextgen2/providers/Notification.provider';
 
 export default function Root() {
     return (
@@ -33,20 +31,22 @@ function RootWithinProvider() {
         name: 'Home',
         href: '/',
         icon: HomeIcon,
-    }, // {name: 'Trending', href: '#', icon: FireIcon},
-        // {name: 'Bookmarks', href: '#', icon: BookmarkIcon},
-        ...(
-            yipnyap_constants.currentUser ? [{
-                name: 'Notifications',
-                href: '/notifications/',
-                icon: BellIcon,
-            }] : []
-        ), {
-            name: 'Profile',
-            tags: 'login register logout account settings profile user, identity',
-            href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',
-            icon: UserIcon,
-        }];
+    }, ...(
+        yipnyap_constants.currentUser ? [{
+            name: 'Notifications',
+            href: '/notifications/',
+            icon: BellIcon,
+        }] : []
+    ), {
+        name: 'Profile',
+        tags: 'login register logout account settings profile user, identity',
+        href: yipnyap_constants.currentUser ? `/${yipnyap_constants.currentUser.username}/` : '/id/create',
+        icon: UserIcon,
+    }, {
+        name: 'Donate',
+        href: '/fund/',
+        icon: HeartIcon,
+    }];
 
     // run this useEffect only once
     useEffect(() => {

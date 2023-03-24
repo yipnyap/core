@@ -466,19 +466,6 @@ add_filter('bp_before_members_cover_image_settings_parse_args', 'yipnyap_cover_i
 add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_image_setup');
 
 /**
- * Setup group cover preferred image size
- */
-function yipnyap_group_cover_image_setup($settings = []) {
-    // dimension settings
-    $settings['width'] = 1184;
-    $settings['height'] = 300;
-
-    return $settings;
-}
-
-add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_group_cover_image_setup');
-
-/**
  * Disable Gravatar
  */
 add_filter('bp_core_fetch_avatar_no_grav', '__return_true');

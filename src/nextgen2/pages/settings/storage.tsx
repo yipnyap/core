@@ -1,14 +1,43 @@
 /**
- * Page that shows a Progress Bar that shows how much storage is used in either MB, or GB. Caps at 15GB.
+ * Page that shows a Progress Bar that shows how much storage is used in either MB, or GB.
  */
 import {NGTable} from '@nextgen2/components';
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 
 export default function SettingsStorage() {
-    const userStorageUsedBytes = 1010000000; // 10GB
-    const userStorageMaxBytes = 15000000000; // 15GB
+    const [usedBytes, setUsedBytes] = useState(0);
+    const [maxBytes, setMaxBytes] = useState(0);
+    const [culpritFiles, setCulpritFiles] = useState<{
+        name: string; path: string; size: {
+            bytes: number; human: string;
+        }
+    }[]>([]);
+
+    // Get the user's storage usage
+    useEffect(() => {
+        // Get the user's storage usage
+        fetch('/api/v2/storage/', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+            },
+        }).then(async (response) => {
+            const data = await response.json();
+            if (response.status === 200) {
+                setUsedBytes(data.usage.bytes);
+                setMaxBytes(data.max.bytes);
+                setCulpritFiles(data.files);
+            } else {
+                console.error(data);
+            }
+        }).catch((error) => {
+            console.error(error);
+        });
+    }, []);
+
     let userStorageUsedPercentage = (
-        userStorageUsedBytes / userStorageMaxBytes
+        usedBytes / maxBytes
     ) * 100;
     let userStorageOverbleed = 0;
 
@@ -30,22 +59,6 @@ export default function SettingsStorage() {
             setUserStorageOverbleedState(userStorageOverbleedState + 1);
         }, 1);
     }
-
-
-    const culpritFiles = [// Random shit, go!
-        {
-            name: 'image.png',
-            size: 1000000,
-        }, {
-            name: 'image.png',
-            size: 10000000,
-        }, {
-            name: 'sus.exe',
-            size: 1000000000,
-        }]
-
-    // Sort the files by size
-    culpritFiles.sort((a, b) => b.size - a.size);
 
     function makeHumanReadable(bytes: number) {
         if (bytes >= 1000000000) {
@@ -99,19 +112,23 @@ export default function SettingsStorage() {
                             )}
                             <div className="flex-grow z-10 static md:absolute" style={{
                                 ...(
-                                    userStorageUsedPercentageState <= 95 ? {left: `${userStorageUsedPercentageState - 5}%`} : {right: '-5px'}
+                                    userStorageUsedPercentageState <= 95 ? {
+                                        left: `${userStorageUsedPercentageState - (
+                                            userStorageUsedPercentageState > 15 ? 5 : userStorageUsedPercentageState
+                                        )}%`,
+                                    } : {right: '-5px'}
                                 ), ...(
                                     userStorageOverbleedState >= 90 ? {left: '0'} : {}
                                 ),
                             }}>
                                 <span
                                     className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 dark:bg-blue-500 dark:text-blue-50">
-                                    {makeHumanReadable(userStorageUsedBytes)}
+                                    {makeHumanReadable(usedBytes)}
                                 </span>
                             </div>
                             <div className="static md:absolute right-0 text-right">
                                 <span className="text-xs font-semibold inline-block text-blue-600 dark:text-blue-50">
-                                    {makeHumanReadable(userStorageMaxBytes)}
+                                    {makeHumanReadable(maxBytes)}
                                 </span>
                             </div>
                         </div>
@@ -148,14 +165,19 @@ export default function SettingsStorage() {
             {/* List of files that are taking up the most space */}
             <div className="flex flex-col space-y-4">
                 <h1 className="text-2xl font-bold">Culprit Files</h1>
-                <div className="space-y-2">
-                    <p className="text-default-alt">
-                        These are the files that are taking up the most space. You can delete them to free up space.
-                    </p>
-                </div>
-
                 <NGTable headers={['Name', 'Size']} data={culpritFiles.map((file) => {
-                    return [file.name, makeHumanReadable(file.size)];
+                    return [() => (
+                        <div className="flex flex-col space-y-2">
+                            <span className="text-default-alt">
+                                {file.name}
+                            </span>
+                            {file.path && (
+                                <span className="text-default-alt text-xs">
+                                    {file.path}
+                                </span>
+                            )}
+                        </div>
+                    ), makeHumanReadable(file.size.bytes)];
                 })}/>
             </div>
         </div>

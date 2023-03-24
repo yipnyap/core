@@ -1,4 +1,6 @@
 <?php
+/** @noinspection PhpMultipleClassDeclarationsInspection */
+
 namespace Yipnyap;
 
 // TODO: Convert this into a custom interface. Lot of code that'd be reused over and over.

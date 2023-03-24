@@ -137,10 +137,28 @@ export default function Fund() {
                                 Excess to exceeding organisations
                             </h1>
                             <p className="text-default-alt">
-                                When Yipnyap makes a successful profit, we'll use
-                                it to improve Yipnyap, and any unusable excess after
-                                splitting will be donated to a charity selected
-                                by the community.
+                                When Yipnyap makes a successful profit, 25% will
+                                go to a charity or organisation that the
+                                community votes on.
+                            </p>
+                        </div>
+                    </div>
+
+                    {/* Ads are first party */}
+                    <div className="flex flex-row space-x-2">
+                        <div className="flex flex-col space-y-2">
+                            <h1 className="text-2xl font-bold">
+                                Sponsors are the community, not companies
+                            </h1>
+                            <p className="text-default-alt">
+                                We will never use third party ads or accept
+                                third party sponsorships. Any sponsored card
+                                will always be from a creator in the community.
+                                Every sponsored card will be clearly marked as
+                                sponsored, and will never be mixed in with
+                                your feed. They will also never be based on
+                                your data or interests, and will be randomly
+                                shuffled.
                             </p>
                         </div>
                     </div>
@@ -170,7 +188,7 @@ export default function Fund() {
                             Checkout instead.
                         </p>
                         <a href="https://climate.stripe.com/8YciFq" target="_blank" className="text-blue-500 text-sm">
-                            We will contribute 1% of your purchase to removing CO₂
+                            We will contribute 5% of your purchase to removing CO₂
                             from the atmosphere.
                         </a>
                         <div className="flex flex-row space-x-2">

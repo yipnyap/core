@@ -304,12 +304,12 @@ export default function PageModerateMembers({...props}: {
                         </div>
                         <div className="mt-4">
                             <NGTable headers={['Name', 'Role', 'Joined', ...(
-                                group.meta.pivot.current !== 'Member' ? ['Blank'] : []
+                                group.meta.pivot?.current && group.meta.pivot.current !== 'Member' ? ['Blank'] : []
                             )]}
-                                     data={[...group.meta?.members?.data?.map((member: any) => {
+                                     data={[...group.meta.members?.data?.map((member: any) => {
                                          return {
                                              user: member,
-                                             role: member.pivot.current !== 'Member',
+                                             role: member.pivot.current,
                                              date: member.date_joined * 1000,
                                              edit: () => {
                                                  if (group.meta.pivot.current !== 'Member') {

@@ -94,7 +94,7 @@ export default function GroupsIndex() {
                     href: `groups/${groupID}/announcements/`,
                     icon: MegaphoneIcon,
                 }, ...(
-                    group.meta?.pivot?.current !== 'Member' ? [{
+                    group.meta?.pivot?.current && group.meta.pivot.current !== 'Member' ? [{
                         name: <span className="inline-flex">Moderate <ArrowUpRightIcon className="w-4"/></span>,
                         description: '',
                         href: `groups/${groupID}/moderate/`,
@@ -113,10 +113,10 @@ export default function GroupsIndex() {
                              data={[...group.meta.members.data.map((member: any) => {
                                  return {
                                      user: member,
-                                     role: member.pivot.current || 'Member',
+                                     role: member.pivot.current,
                                      date: member.date_joined * 1000,
                                      edit: () => {
-                                         if (group.meta.pivot?.current !== 'Member') {
+                                         if (group.meta.pivot?.current && group.meta.pivot.current !== 'Member') {
                                              return (
                                                  <Link to={`moderate/members/${member.id}`}>
                                                      Edit

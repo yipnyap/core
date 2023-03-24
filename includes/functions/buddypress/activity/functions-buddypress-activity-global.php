@@ -17,11 +17,10 @@ if (!function_exists('yipnyap_get_activities')) {
      * @param array $args Filter activities using args data.
      * @return array
      */
-    function yipnyap_get_activities(array $args = [])
-    {
+    function yipnyap_get_activities(array $args = []) {
         $activities_args = [
             'display_comments' => 'threaded',
-            'show_hidden' => true
+            'show_hidden' => true,
         ];
 
         $pinned_activity = false;
@@ -43,7 +42,7 @@ if (!function_exists('yipnyap_get_activities')) {
             $following_ids = $current_user_id . ',' . bp_get_following_ids('user_id=' . $current_user_id);
 
             $activities_args['filter'] = [
-                'user_id' => $following_ids
+                'user_id' => $following_ids,
             ];
         }
 
@@ -62,7 +61,7 @@ if (!function_exists('yipnyap_get_activities')) {
 
         $activities = [
             'activities' => $pinned_activity ? [$pinned_activity] : [],
-            'has_more_items' => $bp_activities['has_more_items']
+            'has_more_items' => $bp_activities['has_more_items'],
         ];
 
         $logged_in_user_id = bp_loggedin_user_id();
@@ -76,14 +75,9 @@ if (!function_exists('yipnyap_get_activities')) {
             $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($loggedUserProfileDataFormatted, 'Account_Info_UI Privacy and Security'));
         }
 
-        $isViewingPostDirectly = isset($args['filter']['user_id']) ||
-            isset($args['filter']['secondary_id']) ||
-            isset($args['filter']['primary_id']) ||
-            isset($args['in']);
+        $isViewingPostDirectly = isset($args['filter']['user_id']) || isset($args['filter']['secondary_id']) || isset($args['filter']['primary_id']) || isset($args['in']);
 
-        $hide_mature =
-            (!isset($args['scope']) || $args['scope'] === 'false') &&
-            !$isViewingPostDirectly;
+        $hide_mature = (!isset($args['scope']) || $args['scope'] === 'false') && !$isViewingPostDirectly;
         $loggedUserAllowsExplicit = str_contains($uiPrivacy ?? '', 'show explicit content everywhere');
 
         if ($loggedUserAllowsExplicit) $hide_mature = false;
@@ -91,6 +85,7 @@ if (!function_exists('yipnyap_get_activities')) {
 
         foreach ($bp_activities['activities'] as $bp_activity) {
             $activity_data = yipnyap_activity_data_get($bp_activity, $logged_in_user_favorites, $hide_mature);
+
             $activities['activities'][] = $activity_data;
         }
 
@@ -115,13 +110,22 @@ if (!function_exists('yipnyap_activity_data_get')) {
      * @param array|string $logged_in_user_favorites Logged in user favorites.
      * @return array  $activity_data                Activity data.
      */
-    function yipnyap_activity_data_get(object $bp_activity, array | string $logged_in_user_favorites, bool $hide_mature): array
-    {
+    function yipnyap_activity_data_get(object $bp_activity, array|string $logged_in_user_favorites, bool $hide_mature): array {
         $comments = property_exists($bp_activity, 'children') ? $bp_activity->children : false;
         $my_comments = [];
 
         $author = yipnyap_members_get_fallback($bp_activity->user_id);
-        $filterOutMature = $hide_mature && isset($author['mature']);
+
+        // Check if the post meta has the tag "nsfw"
+        $tags = bp_activity_get_meta($bp_activity->id, 'tags');
+        $tags = explode(',', $tags);
+        $tags = array_map('trim', $tags);
+
+        if (in_array('nsfw', $tags)) {
+            $author['mature'] = true;
+        }
+
+        $filterOutMature = $hide_mature && isset($author['mature']) && $author['id'] !== get_current_user_id();
 
         if ($comments && !$filterOutMature) {
             yipnyap_get_activity_comments_with_children_recursive($comments, $my_comments);
@@ -137,13 +141,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
             'content' => convert_smilies(stripslashes($bp_activity->content)),
             'date' => $bp_activity->date_recorded,
             'last_edited' => yipnyap_activity_last_edited_by_get($bp_activity->id),
-            'timestamp' => sprintf(
-                esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'),
-                human_time_diff(
-                    mysql2date('U', get_date_from_gmt($bp_activity->date_recorded)),
-                    current_time('timestamp')
-                )
-            ),
+            'timestamp' => sprintf(esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'), human_time_diff(mysql2date('U', get_date_from_gmt($bp_activity->date_recorded)), current_time('timestamp'))),
             'parent' => $bp_activity->item_id === $bp_activity->secondary_item_id ? 0 : $bp_activity->secondary_item_id,
             'comments' => $my_comments,
             'comment_count' => bp_activity_recurse_comment_count($bp_activity),
@@ -152,7 +150,7 @@ if (!function_exists('yipnyap_activity_data_get')) {
             'favorite' => $logged_in_user_favorites && in_array($bp_activity->id, $logged_in_user_favorites),
             'reactions' => [],
             'permalink' => bp_activity_get_permalink($bp_activity->id),
-            'hide_sitewide' => $bp_activity->hide_sitewide
+            'hide_sitewide' => $bp_activity->hide_sitewide,
         ];
 
         // Halt if user is marked as mature and hide mature is true.
@@ -174,11 +172,16 @@ if (!function_exists('yipnyap_activity_data_get')) {
                 foreach ($uploaded_media_ids as $uploaded_media_id) {
                     if (($activity_data['type'] === 'activity_media_update') || ($activity_data['type'] === 'activity_media_upload')) {
                         $activity_media_type = 'activity_media';
-                    } else if (($activity_data['type'] === 'activity_video_update') || ($activity_data['type'] === 'activity_video_upload')) {
+                    } elseif (($activity_data['type'] === 'activity_video_update') || ($activity_data['type'] === 'activity_video_upload')) {
                         $activity_media_type = 'activity_video';
                     }
 
-                    $media_activity = yipnyap_get_activities(['filter' => ['secondary_id' => $uploaded_media_id, 'action' => $activity_media_type]])['activities'];
+                    $media_activity = yipnyap_get_activities([
+                        'filter' => [
+                            'secondary_id' => $uploaded_media_id,
+                            'action' => $activity_media_type,
+                        ],
+                    ])['activities'];
 
                     if ((count($media_activity) > 0) && !is_null($media_activity[0]['media'])) {
                         $uploaded_media[] = $media_activity[0];
@@ -201,8 +204,8 @@ if (!function_exists('yipnyap_activity_data_get')) {
                     'data' => array_slice($uploaded_media, 0, $uploaded_media_fetch_count),
                     'metadata' => [
                         'more' => abs($display_max - $uploaded_media_count),
-                        'more_link' => $more_link
-                    ]
+                        'more_link' => $more_link,
+                    ],
                 ];
             }
         }
@@ -216,7 +219,10 @@ if (!function_exists('yipnyap_activity_data_get')) {
 
         // add group information
         if ($activity_data['component'] === 'groups') {
-            $activity_data['group'] = yipnyap_groups_get(['include' => [$bp_activity->item_id], 'data_scope' => 'group-activity'])[0];
+            $activity_data['group'] = yipnyap_groups_get([
+                'include' => [$bp_activity->item_id],
+                'data_scope' => 'group-activity',
+            ])[0];
         }
 
         // add friend information
@@ -226,7 +232,10 @@ if (!function_exists('yipnyap_activity_data_get')) {
 
         // add share information
         if ($activity_data['type'] === 'activity_share') {
-            $shared_item = yipnyap_get_activities(['in' => $bp_activity->secondary_item_id, 'display_comments' => false])['activities'];
+            $shared_item = yipnyap_get_activities([
+                'in' => $bp_activity->secondary_item_id,
+                'display_comments' => false,
+            ])['activities'];
 
             $activity_data['shared_item'] = count($shared_item) === 1 ? $shared_item[0] : false;
         }
@@ -258,12 +267,11 @@ if (!function_exists('yipnyap_activities_get_count')) {
      * @param array $args Activity filters.
      * @return array  $activities_count   Filtered activities count.
      */
-    function yipnyap_activities_get_count($args = [])
-    {
+    function yipnyap_activities_get_count($args = []) {
         $request = new WP_REST_Request('GET', '/buddypress/v1/activity');
 
         $defaults = [
-            'per_page' => 1
+            'per_page' => 1,
         ];
 
         $args = array_merge($defaults, $args);
@@ -301,8 +309,7 @@ if (!function_exists('yipnyap_get_activity_comments_with_children_recursive')) {
     /**
      * Recursively re-format comment info
      */
-    function yipnyap_get_activity_comments_with_children_recursive($comments, &$my_comments)
-    {
+    function yipnyap_get_activity_comments_with_children_recursive($comments, &$my_comments) {
         foreach ($comments as $comment) {
             // only send required data
             $com = [
@@ -315,15 +322,9 @@ if (!function_exists('yipnyap_get_activity_comments_with_children_recursive')) {
                 'author' => yipnyap_members_get_fallback($comment->user_id),
                 'date' => $comment->date_recorded,
                 'content' => convert_smilies(stripslashes($comment->content)),
-                'timestamp' => sprintf(
-                    esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'),
-                    human_time_diff(
-                        mysql2date('U', get_date_from_gmt($comment->date_recorded)),
-                        current_time('timestamp')
-                    )
-                ),
+                'timestamp' => sprintf(esc_html_x('%s ago', 'Activity Comment Timestamp', 'yipnyap'), human_time_diff(mysql2date('U', get_date_from_gmt($comment->date_recorded)), current_time('timestamp'))),
                 'last_edited' => yipnyap_activity_last_edited_by_get($comment->id),
-                'reactions' => []
+                'reactions' => [],
             ];
 
             $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_bp_get_activity_reactions($comment->id));
@@ -345,8 +346,7 @@ if (!function_exists('yipnyap_create_activity')) {
      * @param array $args Filter activities using args data
      * @return int|boolean
      */
-    function yipnyap_create_activity(array $args): bool|int
-    {
+    function yipnyap_create_activity(array $args): bool|int {
         // return false;
         $result = bp_activity_add($args);
 
@@ -360,7 +360,7 @@ if (!function_exists('yipnyap_create_activity')) {
             if (array_key_exists('component', $args) && ($args['component'] === 'groups')) {
                 do_action('bp_groups_posted_update', $args['content'], $logged_in_user_id, $args['item_id'], $activity_id);
                 // if created a comment
-            } else if (array_key_exists('action', $args) && ($args['action'] === 'activity_comment')) {
+            } elseif (array_key_exists('action', $args) && ($args['action'] === 'activity_comment')) {
                 do_action('bp_activity_comment_posted', $activity_id, $args);
             } else {
                 do_action('bp_activity_posted_update', $args['content'], $logged_in_user_id, $activity_id);
@@ -381,15 +381,14 @@ if (!function_exists('yipnyap_activity_update')) {
      * }
      * @return bool $result      True if successfull update, false otherwise.
      */
-    function yipnyap_activity_update($args)
-    {
+    function yipnyap_activity_update($args) {
         // on successfull update, $result equals the activity id
         $result = bp_activity_add($args);
 
-        $activity_id = (int)$args['id'];
+        $activity_id = (int) $args['id'];
 
         // save edited by information on successfull update
-        if (is_numeric($result) && (((int)$result) === $activity_id)) {
+        if (is_numeric($result) && (((int) $result) === $activity_id)) {
             yipnyap_activity_last_edited_by_update($activity_id, get_current_user_id());
         }
 
@@ -405,8 +404,7 @@ if (!function_exists('yipnyap_delete_activity')) {
      * @param int $activity_id ID of the activity to delete
      * @return boolean
      */
-    function yipnyap_delete_activity($activity_id)
-    {
+    function yipnyap_delete_activity($activity_id) {
         yipnyap_activity_associated_media_delete($activity_id);
 
         $result = bp_activity_delete_by_activity_id($activity_id);
@@ -423,8 +421,7 @@ if (!function_exists('yipnyap_activity_associated_media_activities_get')) {
      * @param int $activity_id ID of the activity to get associated media activities of.
      * @return bool|array         Associated media activities, false if there aren't any.
      */
-    function yipnyap_activity_associated_media_activities_get($activity_id)
-    {
+    function yipnyap_activity_associated_media_activities_get($activity_id) {
         $activity_meta = bp_activity_get_meta($activity_id);
 
         if (!array_key_exists('uploaded_media_id', $activity_meta)) {
@@ -438,10 +435,10 @@ if (!function_exists('yipnyap_activity_associated_media_activities_get')) {
                 'filter' => [
                     'action' => [
                         'activity_media',
-                        'activity_video'
+                        'activity_video',
                     ],
-                    'secondary_id' => $uploaded_media_id
-                ]
+                    'secondary_id' => $uploaded_media_id,
+                ],
             ]);
         }
 
@@ -456,8 +453,7 @@ if (!function_exists('yipnyap_activity_associated_media_delete')) {
      * @param int $activity_id ID of the activity to delete associated media of.
      * @return bool
      */
-    function yipnyap_activity_associated_media_delete($activity_id)
-    {
+    function yipnyap_activity_associated_media_delete($activity_id) {
         $activity_meta = bp_activity_get_meta($activity_id);
 
         if (!array_key_exists('uploaded_media_id', $activity_meta)) {
@@ -469,10 +465,10 @@ if (!function_exists('yipnyap_activity_associated_media_delete')) {
                 'filter' => [
                     'action' => [
                         'activity_media',
-                        'activity_video'
+                        'activity_video',
                     ],
-                    'secondary_id' => $uploaded_media_id
-                ]
+                    'secondary_id' => $uploaded_media_id,
+                ],
             ])['activities'];
 
             if (count($bp_media_activities) > 0) {
@@ -482,9 +478,9 @@ if (!function_exists('yipnyap_activity_associated_media_delete')) {
                     'id' => $bp_media_activity->id,
                     'component' => [
                         'id' => $bp_media_activity->item_id,
-                        'type' => $bp_media_activity->component === 'activity' ? 'member' : 'group'
+                        'type' => $bp_media_activity->component === 'activity' ? 'member' : 'group',
                     ],
-                    'media' => (array)vkmedia_get_media($uploaded_media_id)
+                    'media' => (array) vkmedia_get_media($uploaded_media_id),
                 ];
 
                 // remove activity media
@@ -492,7 +488,7 @@ if (!function_exists('yipnyap_activity_associated_media_delete')) {
 
                 if ($activity_delete_result) {
                     // remove media file entry from vkmedia table
-                    $vkmedia_entry_delete_result = vkmedia_delete_media((int)$media_activity['media']['id']);
+                    $vkmedia_entry_delete_result = vkmedia_delete_media((int) $media_activity['media']['id']);
 
                     // remove media file from server
                     $file_path = yipnyap_get_component_upload_path($media_activity['component']) . '/' . $media_activity['media']['name'] . '.' . $media_activity['media']['type'];
@@ -513,8 +509,7 @@ if (!function_exists('yipnyap_activity_comment_delete')) {
      * @param int $comment_id ID of the activity comment to delete.
      * @return bool $result           True if successful delete, false otherwise.
      */
-    function yipnyap_activity_comment_delete($activity_id, $comment_id)
-    {
+    function yipnyap_activity_comment_delete($activity_id, $comment_id) {
         $result = bp_activity_delete_comment($activity_id, $comment_id);
 
         return $result;
@@ -528,8 +523,7 @@ if (!function_exists('yipnyap_update_activity_meta')) {
      * @param array $args Filter activities using args data
      * @return int|boolean
      */
-    function yipnyap_update_activity_meta($args)
-    {
+    function yipnyap_update_activity_meta($args) {
         $result = bp_activity_update_meta($args['activity_id'], $args['meta_key'], $args['meta_value']);
 
         // metadata ID on new meta created, true on meta update, false on error
@@ -544,8 +538,7 @@ if (!function_exists('yipnyap_add_activity_meta')) {
      * @param array $args Filter activities using args data
      * @return int|boolean
      */
-    function yipnyap_add_activity_meta($args)
-    {
+    function yipnyap_add_activity_meta($args) {
         $result = bp_activity_add_meta($args['activity_id'], $args['meta_key'], $args['meta_value']);
 
         // metadata ID on new meta created, false on error
@@ -561,8 +554,7 @@ if (!function_exists('yipnyap_add_favorite_activity')) {
      * @param int $userID ID of the user to add the activity to favorites
      * @return boolean
      */
-    function yipnyap_add_favorite_activity($activityID, $userID)
-    {
+    function yipnyap_add_favorite_activity($activityID, $userID) {
         $result = bp_activity_add_user_favorite($activityID, $userID);
 
         // true on success, false on error
@@ -578,8 +570,7 @@ if (!function_exists('yipnyap_remove_favorite_activity')) {
      * @param int $userID ID of the user to remove the activity from favorites
      * @return boolean
      */
-    function yipnyap_remove_favorite_activity($activityID, $userID)
-    {
+    function yipnyap_remove_favorite_activity($activityID, $userID) {
         $result = bp_activity_remove_user_favorite($activityID, $userID);
 
         // true on success, false on error
@@ -595,8 +586,7 @@ if (!function_exists('yipnyap_pin_activity')) {
      * @param int $userID ID of the user that pins the activity
      * @return int|boolean
      */
-    function yipnyap_pin_activity($activityID, $userID)
-    {
+    function yipnyap_pin_activity($activityID, $userID) {
         $result = bp_update_user_meta($userID, 'yipnyap_pinned_activity', $activityID);
 
         // metaID if it didn't exist, true on success, false on error
@@ -611,8 +601,7 @@ if (!function_exists('yipnyap_unpin_activity')) {
      * @param int $userID ID of the user that unpins the activity
      * @return int|boolean
      */
-    function yipnyap_unpin_activity($userID)
-    {
+    function yipnyap_unpin_activity($userID) {
         $result = bp_update_user_meta($userID, 'yipnyap_pinned_activity', '');
 
         // metaID if it didn't exist, true on success, false on error
@@ -630,8 +619,7 @@ if (!function_exists('yipnyap_activity_last_edited_by_update')) {
      *                  metadata, returns true. On successful creation of new metadata,
      *                  returns the integer ID of the new metadata row.
      */
-    function yipnyap_activity_last_edited_by_update($activity_id, $user_id)
-    {
+    function yipnyap_activity_last_edited_by_update($activity_id, $user_id) {
         $result = bp_activity_update_meta($activity_id, 'last_edited_by_user', $user_id);
 
         return $result;
@@ -645,15 +633,14 @@ if (!function_exists('yipnyap_activity_last_edited_by_get')) {
      * @param int $activity_id ID of the activity.
      * @return bool|array $last_edited_by_data     Last edited by data if activity was edited, false otherwise.
      */
-    function yipnyap_activity_last_edited_by_get($activity_id)
-    {
+    function yipnyap_activity_last_edited_by_get($activity_id) {
         $last_edited_by_data = false;
 
         $last_edited_by_user = bp_activity_get_meta($activity_id, 'last_edited_by_user');
 
         if ($last_edited_by_user) {
             $last_edited_by_data = [
-                'user' => yipnyap_members_get_fallback((int)$last_edited_by_user)
+                'user' => yipnyap_members_get_fallback((int) $last_edited_by_user),
             ];
         }
 
@@ -668,17 +655,16 @@ if (!function_exists('yipnyap_get_pinned_activity')) {
      * @param int $user_id ID of the user to get pinned activity from.
      * @return bool|array
      */
-    function yipnyap_get_pinned_activity($user_id)
-    {
+    function yipnyap_get_pinned_activity($user_id) {
         // meta value if key exists, empty string if not
-        $pinned_activity_id = (int)bp_get_user_meta($user_id, 'yipnyap_pinned_activity', true);
+        $pinned_activity_id = (int) bp_get_user_meta($user_id, 'yipnyap_pinned_activity', true);
 
         $pinned_activity = false;
 
         if ($pinned_activity_id) {
             $pinned_activity_args = [
                 'in' => $pinned_activity_id,
-                'show_hidden' => true
+                'show_hidden' => true,
             ];
 
             $pinned_activity = yipnyap_get_activities($pinned_activity_args)['activities'];
@@ -696,8 +682,7 @@ if (!function_exists('yipnyap_activity_meta_activity_id_get')) {
     /**
      * Get id of the activity that corresponds to the meta value provided
      */
-    function yipnyap_activity_meta_activity_id_get($meta_value)
-    {
+    function yipnyap_activity_meta_activity_id_get($meta_value) {
         global $wpdb;
 
         $prefix = $wpdb->base_prefix;
@@ -710,7 +695,7 @@ if (!function_exists('yipnyap_activity_meta_activity_id_get')) {
         $result = $wpdb->get_row($wpdb->prepare($sql, [$meta_value]));
 
         if (!is_null($result)) {
-            return (int)$result->activity_id;
+            return (int) $result->activity_id;
         }
 
         return false;
@@ -721,8 +706,7 @@ if (!function_exists('yipnyap_activity_meta_media_count_get')) {
     /**
      * Get count of media associated to the provided activity id
      */
-    function yipnyap_activity_meta_media_count_get($activity_id)
-    {
+    function yipnyap_activity_meta_media_count_get($activity_id) {
         global $wpdb;
 
         $prefix = $wpdb->base_prefix;
@@ -735,7 +719,7 @@ if (!function_exists('yipnyap_activity_meta_media_count_get')) {
         $result = $wpdb->get_row($wpdb->prepare($sql, [$activity_id]));
 
         if (!is_null($result)) {
-            return (int)$result->activity_media_count;
+            return (int) $result->activity_media_count;
         }
 
         return false;

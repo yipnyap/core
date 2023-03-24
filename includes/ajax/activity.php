@@ -116,6 +116,11 @@ add_action('wp_ajax_yipnyap_create_activity_comment', 'yipnyap_create_activity_c
         $args['creation_config']['hide_sitewide'] = $args['creation_config']['hide_sitewide'] === 'true';
     }
 
+    // Check if the activity's content is empty, if so, fill it with whitespace
+    if (empty($args['creation_config']['content'])) {
+        $args['creation_config']['content'] = ' ';
+    }
+
     // create activity, $activity_id is activity id on success, or false on error
     $activity_id = yipnyap_create_activity($args['creation_config']);
 

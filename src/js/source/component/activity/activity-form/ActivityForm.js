@@ -9,8 +9,8 @@ import ExpandableTextarea from '../../form/ExpandableTextarea';
 import VideoPreview from '../../video/VideoPreview';
 import {extractAttachedMedia} from '@legacy/utils/core';
 import {getActivityTemplate} from '@legacy/component/utils/activity/activity-template';
-import {VideoCameraIcon, PhotoIcon} from "@heroicons/react/24/solid";
-import {getMemberGroups} from "../../../router/v2/members/get";
+import {VideoCameraIcon, PhotoIcon} from '@heroicons/react/24/solid';
+import {getMemberGroups} from '../../../router/v2/members/get';
 
 function classNames(...classes) {
     return classes.filter(Boolean).join(' ');
@@ -27,7 +27,7 @@ function ActivityForm(props) {
         uploadable_media_type: false,
         uploadable_media: false,
         submitting: false,
-        errors: []
+        errors: [],
     };
 
     const [formData, setFormData] = useState(initialFormData);
@@ -71,7 +71,7 @@ function ActivityForm(props) {
                     ...previousFormData,
                     uploadable_media: false,
                     uploadable_media_type: false,
-                    errors: []
+                    errors: [],
                 };
             }
 
@@ -79,7 +79,7 @@ function ActivityForm(props) {
                 ...previousFormData,
                 uploadable_media: [],
                 uploadable_media_type: 'image',
-                errors: []
+                errors: [],
             };
         });
     };
@@ -92,9 +92,9 @@ function ActivityForm(props) {
                     ...previousFormData,
                     errors: [
                         {
-                            text: yipnyap_translation.activity_form_empty_error
-                        }
-                    ]
+                            text: yipnyap_translation.activity_form_empty_error,
+                        },
+                    ],
                 };
             });
 
@@ -107,9 +107,9 @@ function ActivityForm(props) {
                     ...previousFormData,
                     errors: [
                         {
-                            text: 'your mother'
-                        }
-                    ]
+                            text: 'your mother',
+                        },
+                    ],
                 };
             });
 
@@ -126,14 +126,13 @@ function ActivityForm(props) {
                 ...previousFormData,
                 hashtags: false,
                 submitting: true,
-                errors: []
+                errors: [],
             };
         });
 
-        
 
         props.onSubmit(formData, (response) => {
-            
+
 
             if (response) {
                 discardContent();
@@ -142,14 +141,14 @@ function ActivityForm(props) {
                     props.popup.hide();
                 }
             } else {
-                
+
             }
 
             setFormData(previousFormData => {
                 return {
                     ...previousFormData,
                     hashtags: false,
-                    submitting: false
+                    submitting: false,
                 };
             });
         });
@@ -159,7 +158,7 @@ function ActivityForm(props) {
         setFormData(previousFormData => {
             return {
                 ...previousFormData,
-                attached_media: false
+                attached_media: false,
             };
         });
     };
@@ -170,7 +169,7 @@ function ActivityForm(props) {
         setFormData(previousFormData => {
             return {
                 ...previousFormData,
-                postIn: e.target.value
+                postIn: e.target.value,
             };
         });
     };
@@ -184,14 +183,13 @@ function ActivityForm(props) {
             e.persist();
         }
 
-        
 
         setFormData(previousFormData => {
             return {
                 ...previousFormData,
                 text: e.target.value,
                 attached_media: attached_media,
-                hashtags: e.target.value.match(/#\S+/g) ?? false
+                hashtags: e.target.value.match(/#\S+/g) ?? false,
             };
         });
     };
@@ -199,7 +197,6 @@ function ActivityForm(props) {
     const uploadVideo = () => {
         const files = fileInputRef.current.files;
 
-        
 
         const fileData = [];
 
@@ -210,13 +207,12 @@ function ActivityForm(props) {
                 id: fileID.current,
                 file: new File([file], file.name),
                 url: URL.createObjectURL(file),
-                extension: fileExtension
+                extension: fileExtension,
             });
 
             fileID.current += 1;
         }
 
-        
 
         addUploadableVideo(fileData);
     };
@@ -238,9 +234,9 @@ function ActivityForm(props) {
                         ...previousFormData,
                         errors: [
                             {
-                                text: `"${videoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`
-                            }
-                        ]
+                                text: `"${videoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`,
+                            },
+                        ],
                     };
                 });
                 // if video size is higher than allowed, show error
@@ -250,12 +246,12 @@ function ActivityForm(props) {
                         ...previousFormData,
                         errors: [
                             {
-                                text: `"${videoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(videoSizeInMB).toFixed(2)}MB).`
+                                text: `"${videoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(videoSizeInMB).toFixed(2)}MB).`,
                             },
                             {
-                                text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_video_upload_maximum_size}MB.`
-                            }
-                        ]
+                                text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_video_upload_maximum_size}MB.`,
+                            },
+                        ],
                     };
                 });
             } else {
@@ -264,7 +260,7 @@ function ActivityForm(props) {
                         ...previousFormData,
                         uploadable_media: data,
                         uploadable_media_type: 'video',
-                        errors: []
+                        errors: [],
                     };
                 });
             }
@@ -272,7 +268,7 @@ function ActivityForm(props) {
     };
 
     const addUploadableMedia = (data) => {
-        
+
 
         // only add photos data if user didn't cancel
         if (data.length > 0) {
@@ -291,14 +287,14 @@ function ActivityForm(props) {
                 // if photo extension is not allowed, add error
                 if (!extensionAllowed) {
                     errors.push({
-                        text: `"${photoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`
+                        text: `"${photoData.file.name}" ${yipnyap_translation.file_extension_is_not_allowed}.`,
                     });
                     // if photo size is higher than allowed, add error
                 } else if (photoSizeInMB > yipnyap_constants.settings.media_photo_upload_maximum_size) {
                     fileSizeError = true;
 
                     errors.push({
-                        text: `"${photoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(photoSizeInMB).toFixed(2)}MB).`
+                        text: `"${photoData.file.name}" ${yipnyap_translation.size_is_too_big} (${Number.parseFloat(photoSizeInMB).toFixed(2)}MB).`,
                     });
                 } else {
                     photosData.push(photoData);
@@ -307,26 +303,25 @@ function ActivityForm(props) {
 
             if ((errors.length > 0) && fileSizeError) {
                 errors.push({
-                    text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_photo_upload_maximum_size}MB.`
+                    text: `${yipnyap_translation.maximum_size_accepted_is} ${yipnyap_constants.settings.media_photo_upload_maximum_size}MB.`,
                 });
             }
 
             setFormData(previousFormData => {
                 const newUploadableMedia = previousFormData.uploadable_media.concat(photosData);
 
-                
 
                 return {
                     ...previousFormData,
                     uploadable_media: newUploadableMedia,
-                    errors: errors
+                    errors: errors,
                 };
             });
         }
     };
 
     const removeUploadableMedia = (id) => {
-        
+
 
         setFormData(previousFormData => {
             const uploadableMedia = previousFormData.uploadable_media.filter((media, i) => {
@@ -338,11 +333,10 @@ function ActivityForm(props) {
                 return media.id !== id;
             });
 
-            
 
             return {
                 ...previousFormData,
-                uploadable_media: uploadableMedia
+                uploadable_media: uploadableMedia,
             };
         });
     };
@@ -359,7 +353,7 @@ function ActivityForm(props) {
         data: props.shareData,
         simpleActivity: true,
         sharePopupActivity: true,
-        user: props.user
+        user: props.user,
     }) : '';
 
     const displayVerifiedMemberBadge = yipnyap_constants.plugin_active['bp-verified-member'] && yipnyap_constants.settings.bp_verified_member_display_badge_in_activity_stream && props.user.verified;
@@ -439,7 +433,6 @@ function ActivityForm(props) {
                                                 disabled={formData.submitting}
                             />
                             <div className="absolute bottom-0 inset-x-px">
-                                {/* Actions: These are just examples to demonstrate the concept, replace/wire these up however makes sense for your project. */}
                                 <div className="flex flex-wrap justify-end py-2 px-2 space-x-2 sm:px-3">
                                     {
                                         formData.hashtags && formData.hashtags.map((hashtag, i) => (
@@ -462,7 +455,7 @@ function ActivityForm(props) {
                                                 onClick={toggleUploadablePhotosBar}
                                             >
                                                 <PhotoIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-neutral-500"
-                                                               aria-hidden="true"/>
+                                                           aria-hidden="true"/>
                                                 <span
                                                     className="text-sm text-neutral-500 group-hover:text-neutral-600 italic">Photo</span>
                                             </button>
@@ -479,9 +472,10 @@ function ActivityForm(props) {
                                                 onClick={() => {
                                                     fileInputRef.current.click();
                                                 }}
-                                                >
-                                                <VideoCameraIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-neutral-500"
-                                                                    aria-hidden="true"/>
+                                            >
+                                                <VideoCameraIcon
+                                                    className="-ml-1 h-5 w-5 mr-2 group-hover:text-neutral-500"
+                                                    aria-hidden="true"/>
                                                 <span
                                                     className="text-sm text-neutral-500 group-hover:text-neutral-600 italic">Video</span>
                                             </button>

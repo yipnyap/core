@@ -42,7 +42,12 @@ function ActivityStatusBody(props) {
                             {
                                 props.data.meta.tags[0].split(',').map((tag, index) => {
                                     return (
-                                        <span key={index} className="p-2 bg-box-over rounded-xl mr-1">{tag}</span>
+                                        <span
+                                            key={index}
+                                            className={`inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium ${tag === 'nsfw' ? 'bg-red-100 text-red-800 dark:bg-red-700 dark:text-red-50' : 'bg-blue-100 text-blue-800 dark:bg-blue-700 dark:text-blue-50'}`}
+                                        >
+                                            {tag}
+                                        </span>
                                     );
                                 })
                             }

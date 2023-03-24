@@ -1,13 +1,13 @@
 import {Cog6ToothIcon} from '@heroicons/react/20/solid';
 import {UserPlusIcon} from '@heroicons/react/24/solid';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
-import {NGBody, NGNewUserOnboarding, NGSkeleton} from '@nextgen2/components';
+import {NGBody, NGButton, NGNewUserOnboarding, NGSkeleton} from '@nextgen2/components';
 import {NGCTACard} from '@nextgen2/components/NGCTACard';
 import {NGGroupCard} from '@nextgen2/components/NGGroupCard';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {LocalThemeContext} from '@nextgen2/providers/Theme.provider';
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 interface Props {
     theme: LocalThemeContext;
@@ -25,6 +25,7 @@ interface Group {
 }
 
 export default function Home({...props}: Props) {
+    const navigate = useNavigate();
     const [recommendedGroups, setRecommendedGroups] = useState([]);
     const [randomGroup, setRandomGroup] = useState<Group>();
     const [ready, setReady] = useState(false);
@@ -80,13 +81,18 @@ export default function Home({...props}: Props) {
                 >
                     <div
                         className="rounded-default p-8 bg-neutral-800/75 backdrop-blur flex flex-col xl:w-1/2 space-y-4">
-                        <h2 className="text-2xl text-white">Yipnyap is changing.</h2>
+                        <h2 className="text-2xl text-white">
+                            Fund the future of Yipnyap
+                        </h2>
                         <p className="leading-normal text-white font-light">
                             Yipnyap is a place for furries to connect with each other, a place
-                            that's built for furries, by furries. To achieve that, we need a
-                            UI that's uncomplicated, easy, and fun to use. We're working hard
-                            to make that happen!
+                            that's built for furries, by furries. We've been developing Yipnyap
+                            for around 4 years, all at a loss. We're asking for your help to
+                            keep Yipnyap running.
                         </p>
+                        <NGButton onClick={() => navigate('/fund/')}>
+                            Donate
+                        </NGButton>
                     </div>
                 </div>
 

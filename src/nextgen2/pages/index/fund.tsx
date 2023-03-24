@@ -3,15 +3,35 @@ import React from 'react';
 
 export default function Fund() {
     return (
-        <NGBody>
+        <NGBody className="relative">
+            <div
+                className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-25rem]">
+                <svg
+                    className="relative left-[calc(50%-11rem)] -z-10 h-[21.1875rem] max-w-none -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:h-[42.375rem]"
+                    viewBox="0 0 1155 678" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)" fillOpacity=".3"
+                          d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"/>
+                    <defs>
+                        <linearGradient id="45de2b6b-92d5-4d68-a6a0-9b9b2abad533" x1="1155.49"
+                                        x2="-78.208" y1=".177" y2="474.645"
+                                        gradientUnits="userSpaceOnUse">
+                            <stop stopColor="#9089FC" offset="0"></stop>
+                            <stop offset="1" stopColor="#FF80B5"></stop>
+                        </linearGradient>
+                    </defs>
+                </svg>
+            </div>
+
             <div className="flex flex-col space-y-8">
                 <div className="flex flex-col space-y-4">
-                    <h1 className="text-2xl font-bold">
-                        Help us pay for upkeep<br/>
-                        <span className="text-sm text-default-alt">
+                    <div className="space-y-1">
+                        <h1 className="text-2xl font-bold">
+                            Help fund a safe place for everyone
+                        </h1>
+                        <span className="font-bold text-sm text-default-alt">
                             ...and feed the dev.
                         </span>
-                    </h1>
+                    </div>
                     <p className="text-default-alt">
                         Yipnyap is a free service, but we still need to pay for
                         hosting and other expenses, which adds up to <i>a lot</i>.
@@ -39,23 +59,26 @@ export default function Fund() {
 
                 {/* Ramen Profitable progress. Either "Nothing", "Barely", etc. */}
                 <div className="flex flex-col space-y-4">
-                    <div className="flex flex-row space-x-2">
-                        <div className="flex flex-col space-y-2">
-                            <h1 className="text-2xl font-bold underline underline-offset-4 decoration-wavy">
-                                $7.50 (<span className="text-red-500">Full Loss</span>)
+                    <div className="flex flex-col space-y-2">
+                        <div className="space-y-1">
+                            <h1 className="text-2xl font-bold">
+                                Current: <span className="text-red-500">$7.50/m</span>
                             </h1>
-                            <p className="text-default-alt">
-                                Per month. Ramen Profitable needs AUD$400/month to
-                                cover hosting (~USD$30 + AUD$115), plus other expenses
-                                of the dev, like food and rent. These prices fluctuate
-                                a lot.
-                            </p>
-                            <p className="text-default-alt">
-                                The monthly income can change dramatically, based
-                                on how many people donate, how much they donate,
-                                and if they cancel their donations.
-                            </p>
+                            <span className="font-bold text-sm text-default-alt">
+                                Ramen Profitable &mdash; Updated Monthly
+                            </span>
                         </div>
+                        <p className="text-default-alt">
+                            ~AUD$300/month to
+                            fully cover Yipnyap (~AUD$200), plus other expenses
+                            of the dev, like food and rent. These prices fluctuate
+                            a lot.
+                        </p>
+                        <p className="text-default-alt">
+                            The monthly income can change dramatically, based
+                            on how many people donate, how much they donate,
+                            and if they cancel their donations.
+                        </p>
                     </div>
                 </div>
 
@@ -74,7 +97,8 @@ export default function Fund() {
                                 Yipnyap will always be free, and we will never
                                 charge for any features, sell your data, use
                                 your data for anything other than the service,
-                                and we will never, ever ever use your data for
+                                and we will <span className="font-bold underline text-red-500">never</span> use your
+                                data for
                                 advertising, marketing, or professional or
                                 personal gain.
                             </p>
@@ -237,6 +261,16 @@ export default function Fund() {
                         </div>
                     </div>
                 </div>
+            </div>
+
+            <div
+                className="absolute inset-x-0 top-[calc(100%-24rem)] -z-10 transform-gpu overflow-hidden blur-3xl">
+                <svg
+                    className="relative left-[calc(50%+3rem)] h-[21.1875rem] max-w-none -translate-x-1/2 sm:left-[calc(50%+36rem)] sm:h-[42.375rem]"
+                    viewBox="0 0 1155 678" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path fill="url(#45de2b6b-92d5-4d68-a6a0-9b9b2abad533)" fillOpacity=".3"
+                          d="M317.219 518.975L203.852 678 0 438.341l317.219 80.634 204.172-286.402c1.307 132.337 45.083 346.658 209.733 145.248C936.936 126.058 882.053-94.234 1031.02 41.331c119.18 108.451 130.68 295.337 121.53 375.223L855 299l21.173 362.054-558.954-142.079z"/>
+                </svg>
             </div>
 
             {/* Footer */}

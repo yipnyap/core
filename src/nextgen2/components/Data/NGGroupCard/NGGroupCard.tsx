@@ -30,8 +30,8 @@ export default function NGGroupCard({...props}: NGGroupCardType) {
             }}></div>
 
             <div className="space-y-4 justify-between items-center px-4 py-2">
-                <Link to={`/groups/${group.id}/`} className="flex flex-row items-center space-x-2">
-                    <div className="w-8 h-8 rounded-full bg-box" style={{
+                <Link to={`/groups/${group.id}/`} className="flex flex-row space-x-2">
+                    <div className="flex-none w-8 h-8 rounded-full bg-box" style={{
                         background: `url(${group.avatar}) no-repeat center center/cover`,
                     }}></div>
                     <div className="flex flex-col">

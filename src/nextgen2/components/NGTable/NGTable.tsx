@@ -61,7 +61,7 @@ export default function NGTable({...props}: NGTableType) {
                                                             <img className="h-10 w-10 rounded-full"
                                                                  src={item[key].avatar} alt=""/>
                                                         </div>
-                                                        <div className="ml-4">
+                                                        <div className="ml-4 space-y-1">
                                                             <div
                                                                 className="font-medium text-default">{item[key].display_name}</div>
                                                             <div

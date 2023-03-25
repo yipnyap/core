@@ -39,7 +39,7 @@ function YipnyapGetDirectorySize($path): int {
 // I don't fucking know maths dude, I'm a high school drop out.
 // Why do you think I'm a web developer? To go "hehe numbers go brrrrr"?
 // If you think that then you are wrong and stupid.
-// Anyway @todo: fix 5GB in bytes becoming 4.66GB.
+// Anyway @todo: fix 5GB in bytes becoming 4.66GB. (not urgent)
 function YipnyapFSHumanReadable($bytes, $dec = 2): string {
     $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     $factor = floor((strlen($bytes) - 1) / 3);

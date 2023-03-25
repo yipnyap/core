@@ -98,7 +98,7 @@ export default function PageModerateMembers({...props}: {
 }) {
     const location = useLocation();
     const [, addNotification] = useNotification();
-    const [communicating, setCommunicating] = props.communicatingState;
+    const [, setCommunicating] = props.communicatingState;
     const [group, setGroup] = useState<Group>(props.group);
     const [memberID, setMemberID] = useState<string | null>(location.pathname.split('/')[5] || null);
     const [member, setMember] = useState<any>();

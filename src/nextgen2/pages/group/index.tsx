@@ -6,26 +6,31 @@
  */
 
 import {HomeIcon, MegaphoneIcon, ShieldCheckIcon, UserGroupIcon} from '@heroicons/react/24/solid';
-import {ArrowUpRightIcon, InformationCircleIcon, UserPlusIcon} from '@heroicons/react/20/solid';
+import {
+    ArrowPathIcon, ArrowUpRightIcon, InformationCircleIcon, UserMinusIcon, UserPlusIcon,
+} from '@heroicons/react/20/solid';
 // @ts-ignore
 import ActivityFilterableList from '@legacy/component/activity/ActivityFilterableList';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
-import {getGroup, joinGroup} from '@nextgen2/api/groups';
+import {getGroup, joinGroup, leaveGroup} from '@nextgen2/api/groups';
+import {Group} from '@nextgen2/api/groups/types';
 import {NGBody, NGButton, NGSkeleton, NGTable} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import moment from 'moment';
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 export default function GroupsIndex() {
     const location = useLocation();
+    const navigate = useNavigate();
     const [, setHeading] = useHeading();
     const [, addNotification] = useNotification();
-    const [group, setGroup] = useState<any>({});
+    const [group, setGroup] = useState<Group>();
     const [groupID] = useState(location.pathname.split('/')[2]);
     const [current, setCurrent] = useState(location.pathname.split('/')[3]);
     const [ready, setReady] = useState(false);
+    const [communicating, setCommunicating] = useState(false);
 
     useEffect(() => {
         // Fetch the group data
@@ -57,7 +62,7 @@ export default function GroupsIndex() {
             heading: null,
             padding: false,
             navigator: {
-                heading: group.name,
+                heading: group?.name,
                 subNavigation: [{
                     name: 'Pack Home',
                     description: '',
@@ -74,7 +79,7 @@ export default function GroupsIndex() {
                     href: `groups/${groupID}/announcements/`,
                     icon: MegaphoneIcon,
                 }, ...(
-                    group.meta?.pivot?.current && group.meta.pivot.current !== 'Member' ? [{
+                    group?.meta.pivot?.current && group.meta.pivot.current !== 'Member' ? [{
                         name: <span className="inline-flex">Moderate <ArrowUpRightIcon className="w-4"/></span>,
                         description: '',
                         href: `groups/${groupID}/moderate/`,
@@ -90,7 +95,7 @@ export default function GroupsIndex() {
             case 'members': {
                 return (
                     <NGTable headers={['Name', 'Role', 'Joined', 'Blank']}
-                             data={[...group.meta.members.data.map((member: any) => {
+                             data={[...group?.meta.members.data.map((member: any) => {
                                  return {
                                      user: member,
                                      role: member.pivot.current,
@@ -109,7 +114,7 @@ export default function GroupsIndex() {
                                          }
                                      },
                                  }
-                             })]}
+                             }) || []]}
                     />
                 )
             }
@@ -151,9 +156,29 @@ export default function GroupsIndex() {
     }
 
     function joinGroupHandler() {
-        joinGroup(groupID).then((data) => {
+        setCommunicating(true);
+        joinGroup(groupID).then(() => {
             window.location.reload();
         }).catch((error) => {
+            setCommunicating(false);
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: error.message,
+            });
+        });
+    }
+
+    function leaveGroupHandler() {
+        if (group?.meta.pivot.current === 'Leader') {
+            return navigate(`/groups/${groupID}/moderate/delete/`);
+        }
+
+        setCommunicating(true);
+        leaveGroup(groupID).then(() => {
+            window.location.reload();
+        }).catch((error) => {
+            setCommunicating(false);
             addNotification({
                 type: 'error',
                 title: 'Error',
@@ -169,7 +194,7 @@ export default function GroupsIndex() {
             ) : (
                  <>
                      {/* "Group is missing its Leader" jumbo warning if 'orphan' is true */}
-                     {group.meta.orphan && (
+                     {group?.meta.orphan && (
                          <div className="bg-red-600 shadow border-b border-default rounded-default">
                              <div className="flex p-4 highlight-white/5 rounded-default">
                                  <div className="flex-shrink-0">
@@ -193,45 +218,55 @@ export default function GroupsIndex() {
                      {/* TODO: Move this as it's own component */}
                      <div className="shadow relative z-10 pb-8 rounded-default bg-box">
                          <img className="rounded-default aspect-banner object-cover"
-                              src={group.banner || `${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp`}
+                              src={group?.banner || `${yipnyap_constants.yipnyap_url}/img/illustrations/home/fox-in-snowy-oasis.webp`}
                               alt="Profile cover"/>
                          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
                              <div className="-mt-12 sm:-mt-16 sm:flex sm:items-end sm:space-x-5">
                                  <div className="flex">
                                      <img
                                          className="bg-default h-24 w-24 rounded-default ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32"
-                                         src={group.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                         src={group?.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
                                          alt=""/>
                                  </div>
                                  <div
                                      className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                                      <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
                                          <h1 className="text-2xl font-bold text-default truncate">
-                                             {group.name}
+                                             {group?.name}
                                          </h1>
                                          {/* Small @username */}
                                          <div className="flex items-center">
                                              <p className="text-sm font-medium text-default-alt truncate">
-                                                 @{group.slug || group.name}
+                                                 @{group?.slug || group?.name}
                                              </p>
                                          </div>
                                      </div>
 
                                      <div
                                          className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                         {group.meta.pivot?.current ? (
-                                             <NGButton>
-                                                 <UserPlusIcon
-                                                     className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
-                                                     aria-hidden="true"/>
-                                                 <span>Leave Group</span>
+                                         {group?.meta.pivot?.current ? (
+                                             <NGButton variant="danger" onClick={leaveGroupHandler}>
+                                                 {communicating ? (
+                                                     <ArrowPathIcon
+                                                         className="-ml-1 mr-2 animate-spin h-5 w-5 text-white"/>
+                                                 ) : (
+                                                      <UserMinusIcon
+                                                          className="-ml-1 mr-2 h-5 w-5 text-white"
+                                                          aria-hidden="true"/>
+                                                  )}
+                                                 <span>Leave Pack</span>
                                              </NGButton>
                                          ) : (
                                               <NGButton onClick={joinGroupHandler}>
-                                                  <UserPlusIcon
-                                                      className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
-                                                      aria-hidden="true"/>
-                                                  <span>Join Group</span>
+                                                  {communicating ? (
+                                                      <ArrowPathIcon
+                                                          className="-ml-1 mr-2 animate-spin h-5 w-5"/>
+                                                  ) : (
+                                                       <UserPlusIcon
+                                                           className="-ml-1 mr-2 h-5 w-5"
+                                                           aria-hidden="true"/>
+                                                   )}
+                                                  <span>Join Pack</span>
                                               </NGButton>
                                           )}
                                      </div>
@@ -239,12 +274,12 @@ export default function GroupsIndex() {
                              </div>
                              <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
                                  <h1 className="text-2xl font-bold text-default truncate">
-                                     {group.name}
+                                     {group?.name}
                                  </h1>
                              </div>
                              <div className="block mt-6 min-w-0 flex-1 text-default">
                                  {/* Bio */}
-                                 {group.description && (
+                                 {group?.description && (
                                      <p className="text-sm whitespace-pre-line">
                                          {group.description}
                                      </p>
@@ -255,7 +290,7 @@ export default function GroupsIndex() {
                                          <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5"
                                                         aria-hidden="true"/>
                                          <span>
-                                             {group.meta.members.count} {group.meta.members.term || 'members'}
+                                             {group?.meta.members.count} {group?.meta.members.term || 'members'}
                                          </span>
                                      </div>
                                  </div>

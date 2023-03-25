@@ -117,7 +117,7 @@ class AllocatedStorage_Rest_Endpoint extends WP_REST_Controller {
                 'name' => $file->getFilename(),
                 'size' => [
                     'bytes' => $file->getSize(),
-                    'human' => YipnyapFSHumanReadable($file->getSize()),
+                    'human' => YipnyapFSHumanReadable(round($file->getSize())),
                 ],
             ];
 

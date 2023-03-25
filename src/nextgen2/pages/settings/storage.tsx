@@ -7,6 +7,8 @@ import React, {useEffect, useState} from 'react';
 export default function SettingsStorage() {
     const [usedBytes, setUsedBytes] = useState(0);
     const [maxBytes, setMaxBytes] = useState(0);
+    const [usedHumanReadable, setUsedHumanReadable] = useState('0B');
+    const [maxHumanReadable, setMaxHumanReadable] = useState('0B');
     const [culpritFiles, setCulpritFiles] = useState<{
         name: string; path: string; size: {
             bytes: number; human: string;
@@ -26,7 +28,11 @@ export default function SettingsStorage() {
             const data = await response.json();
             if (response.status === 200) {
                 setUsedBytes(data.usage.bytes);
+                setUsedHumanReadable(data.usage.human);
+
                 setMaxBytes(data.max.bytes);
+                setMaxHumanReadable(data.max.human);
+
                 setCulpritFiles(data.files);
             } else {
                 console.error(data);
@@ -123,12 +129,12 @@ export default function SettingsStorage() {
                             }}>
                                 <span
                                     className="text-xs font-semibold inline-block py-1 px-2 uppercase rounded-full text-blue-600 bg-blue-200 dark:bg-blue-500 dark:text-blue-50">
-                                    {makeHumanReadable(usedBytes)}
+                                    {usedHumanReadable}
                                 </span>
                             </div>
                             <div className="static md:absolute right-0 text-right">
                                 <span className="text-xs font-semibold inline-block text-blue-600 dark:text-blue-50">
-                                    {makeHumanReadable(maxBytes)}
+                                    {maxHumanReadable}
                                 </span>
                             </div>
                         </div>
@@ -177,7 +183,7 @@ export default function SettingsStorage() {
                                 </span>
                             )}
                         </div>
-                    ), makeHumanReadable(file.size.bytes)];
+                    ), file.size.human];
                 })}/>
             </div>
         </div>

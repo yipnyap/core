@@ -2,11 +2,11 @@
 
 /**
  * Get bytes of directory by user id
+ *
  * @param $user_id
  * @return int
  */
-function YipnyapGetStorageUsage($user_id): int
-{
+function YipnyapGetStorageUsage($user_id): int {
     $user_dir = YIPNYAP_UPLOADS_PATH . '/member/' . $user_id;
     $user_meta_dir = wp_get_upload_dir()['basedir'] . '/members/' . $user_id;
     $bytes = 0;
@@ -25,23 +25,25 @@ function YipnyapGetStorageUsage($user_id): int
  * @param $path
  * @return int
  */
-function YipnyapGetDirectorySize($path): int
-{
+function YipnyapGetDirectorySize($path): int {
     $bytestotal = 0;
     $path = realpath($path);
-    if($path!==false && $path!='' && file_exists($path)){
-        foreach(new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object){
+    if ($path !== false && $path != '' && file_exists($path)) {
+        foreach (new RecursiveIteratorIterator(new RecursiveDirectoryIterator($path, FilesystemIterator::SKIP_DOTS)) as $object) {
             $bytestotal += $object->getSize();
         }
     }
     return $bytestotal;
 }
 
-function YipnyapFSHumanReadable($bytes, $dec = 2): string
-{
+// I don't fucking know maths dude, I'm a high school drop out.
+// Why do you think I'm a web developer? To go "hehe numbers go brrrrr"?
+// If you think that then you are wrong and stupid.
+// Anyway @todo: fix 5GB in bytes becoming 4.66GB.
+function YipnyapFSHumanReadable($bytes, $dec = 2): string {
     $size = ['B', 'kB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
     $factor = floor((strlen($bytes) - 1) / 3);
 
-    return sprintf("%.{$dec}f %s", $bytes / (1024 ** $factor), $size[$factor]);
+    return sprintf("%.{$dec}f", $bytes / pow(1024, $factor)) . @$size[$factor];
 }
 

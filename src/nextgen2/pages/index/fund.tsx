@@ -279,6 +279,46 @@ export default function Fund() {
                         </div>
                     </div>
                 </div>
+
+                {/* Horizontal Split */}
+                <hr className="border border-solid border-default w-full"/>
+
+                {/* Donor Benefits */}
+                <div className="flex flex-col space-y-2">
+                    <h1 className="text-2xl font-bold">
+                        Donor Benefits
+                    </h1>
+                    <p className="text-default-alt">
+                        Donating to Yipnyap gives you access to a bunch of
+                        benefits, including:
+                    </p>
+                    <ul className="list-disc list-inside text-default-alt">
+                        <li>
+                            Vote on features & changes
+                        </li>
+                        <li>
+                            Work-in-progress updates
+                        </li>
+                        <li>
+                            Early access to new features
+                        </li>
+                        <li>
+                            Role on our Discord server
+                        </li>
+                        <li>
+                            Maxwell the Cat on your profile 🐱
+                        </li>
+                        <li>
+                            Sponsored card slot for a 30 days ({'>'}$25)
+                        </li>
+                        <li>
+                            Rainbow nameplate for a 30 days ({'>'}$50)
+                        </li>
+                    </ul>
+                    <p className="text-default-alt">
+                        You will need to contact us to claim your benefits.
+                    </p>
+                </div>
             </div>
 
             <div

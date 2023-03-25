@@ -209,9 +209,10 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
         $currentUserCanBan = $currentUserCanKick;
 
         $victimUserIsStaff = in_array_any($victimUserRoles, ['admin', 'mod', 'owner']);
+        $currentUserIsOwner = in_array('owner', $currentUserRoles);
 
         // Check if the user is a group admin, mod, or owner
-        if ($victimUserIsStaff || !$currentUserCanKick) {
+        if (($victimUserIsStaff || !$currentUserCanKick) && !$currentUserIsOwner) {
             return new WP_REST_Response(['message' => 'The hierarchy forbids you from doing that.'], 403);
         }
 
@@ -220,9 +221,9 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
             return new WP_REST_Response(['message' => 'User is not a member of this pack. Banning users who aren\'t members is not supported yet.'], 404);
         }
 
-        // Check if the user is trying to ban themselves, but allow them to kick themselves
-        if ($request['uid'] == get_current_user_id() && $request['ban'] ?? false) {
-            return new WP_REST_Response(['message' => 'You can\'t ban yourself.'], 403);
+        // Check if the user is trying to manage themselves
+        if ($request['uid'] == get_current_user_id()) {
+            return new WP_REST_Response(['message' => 'You can\'t manage yourself.'], 403);
         }
 
         // Check if the request is `ban: true`

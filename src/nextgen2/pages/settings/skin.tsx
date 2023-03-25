@@ -1,23 +1,19 @@
 import React, {FormEventHandler, useEffect, useState} from 'react';
-import {useHeading} from "@nextgen2/providers/PageHeading.provider";
-import {useLocation} from "react-router-dom";
-import {NGAlertCard} from "../../components/NGAlertCard";
-import {RadioGroup} from "@headlessui/react";
-import {CheckIcon, QuestionMarkCircleIcon} from "@heroicons/react/24/solid";
-import {NGCard} from "@nextgen2/components";
-import {useTheme} from "@nextgen2/providers/Theme.provider";
+import {useHeading} from '@nextgen2/providers/PageHeading.provider';
+import {useLocation} from 'react-router-dom';
+import {NGAlertCard} from '../../components/Feedback/NGAlertCard';
+import {RadioGroup} from '@headlessui/react';
+import {CheckIcon, QuestionMarkCircleIcon} from '@heroicons/react/24/solid';
+import {NGCard} from '@nextgen2/components';
+import {useTheme} from '@nextgen2/providers/Theme.provider';
 
-const globalVariants = [
-    {
-        name: 'Light',
-    },
-    {
-        name: 'Dark',
-    },
-    {
-        name: 'System',
-    }
-]
+const globalVariants = [{
+    name: 'Light',
+}, {
+    name: 'Dark',
+}, {
+    name: 'System',
+}]
 
 export default function SettingsSkin({...props}) {
     const [heading, setHeading] = useHeading();
@@ -30,7 +26,7 @@ export default function SettingsSkin({...props}) {
         setHeading({
             heading: null,
             padding: false,
-            navigator: heading?.navigator
+            navigator: heading?.navigator,
         })
     }, [location.pathname])
 
@@ -109,24 +105,24 @@ export default function SettingsSkin({...props}) {
                                             <RadioGroup.Option
                                                 key={option.name}
                                                 value={option}
-                                                className={({active, checked}) =>
-                                                    `${active
-                                                        ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300'
-                                                        : ''}
+                                                className={({
+                                                    active,
+                                                    checked,
+                                                }) => `${active ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300' : ''}
                                                      ${checked ? 'bg-default-alt bg-opacity-75 text-default' : 'bg-default dark:bg-transparent'}
-                                                     relative flex cursor-pointer rounded-lg px-5 py-4 border border-default focus:outline-none hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:bg-opacity-75`
-                                                }
+                                                     relative flex cursor-pointer rounded-lg px-5 py-4 border border-default focus:outline-none hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:bg-opacity-75`}
                                             >
-                                                {({active, checked}) => (
+                                                {({
+                                                    active,
+                                                    checked,
+                                                }) => (
                                                     <>
                                                         <div className="flex w-full items-center justify-between">
                                                             <div className="flex items-center">
                                                                 <div className="text-sm">
                                                                     <RadioGroup.Label
                                                                         as="p"
-                                                                        className={`font-medium  ${
-                                                                            checked ? 'text-default' : 'text-default-alt'
-                                                                        }`}
+                                                                        className={`font-medium  ${checked ? 'text-default' : 'text-default-alt'}`}
                                                                     >
                                                                         {option.name}
                                                                     </RadioGroup.Label>

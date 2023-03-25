@@ -17,7 +17,7 @@ import NoUserCTAActivity from '@legacy/component/onboarding/NoUserCTAActivity';
 import {getMemberFriends, getMemberGroups} from '@legacy/router/v2/members/get';
 import {Void} from '@nextgen2';
 import {NGCard, NGSkeleton} from '@nextgen2/components';
-import {NGContentNavigatorItemType} from '@nextgen2/components/NGContentNavigator/NGContentNavigator';
+import {NGContentNavigatorItemType} from '@nextgen2/components/Navigation/NGContentNavigator/NGContentNavigator';
 import Fund from '@nextgen2/pages/index/fund';
 import Home from '@nextgen2/pages/index/home';
 import Notifications from '@nextgen2/pages/index/notifications';

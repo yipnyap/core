@@ -4,7 +4,7 @@ import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {
     BookOpenIcon, CalendarIcon, ChatBubbleBottomCenterIcon, ClockIcon, PhotoIcon, UserIcon, UsersIcon, ViewColumnsIcon,
 } from '@heroicons/react/20/solid';
-import {NGCard} from '../NGCard';
+import {NGCard} from '../../Layout/NGCard';
 // @ts-ignore
 import GroupManagePopup from '@legacy/component/group/GroupManagePopup.js';
 

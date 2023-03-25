@@ -16,8 +16,8 @@ export default async function getMember(id: string, bits: number = 0) {
 export async function getCurrentMember() {
     const res = await fetch(`/api/v2/member/@me/8`, {
         headers: {
-            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
-        }
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+        },
     });
     return await res.json();
 }
@@ -33,7 +33,9 @@ export async function getMemberGroups(id: string) {
     }
 
     // Check yipnyap_constants.currentUser for groups, if not, populate it.
-    if (!Array.isArray(yipnyap_constants.currentUser.groups)) {
+    if (!Array.isArray(yipnyap_constants.currentUser.groups) || (
+        Date.now() - yipnyap_constants.currentUser.groupsCacheTime
+    ) > 600000) {
         const res = await fetch(`/api/v2/member/${id}/groups`);
         const json = await res.json();
 
@@ -44,6 +46,8 @@ export async function getMemberGroups(id: string) {
             console.log(`[🗄️ Cache] Member groups is non-existent or not an array for ${id}`);
             yipnyap_constants.currentUser.groups = [];
         }
+
+        yipnyap_constants.currentUser.groupsCacheTime = Date.now();
     } else {
         console.log(`[🗄️ Cache] Member groups for ${id} already cached.`);
     }
@@ -62,7 +66,10 @@ export async function getMemberFriends(id: string) {
     }
 
     // Check yipnyap_constants.currentUser for friends, if not, populate it.
-    if (!Array.isArray(yipnyap_constants.currentUser.friends)) {
+    // Also check if it's been 10 minutes since last cache
+    if (!Array.isArray(yipnyap_constants.currentUser.friends) || (
+        Date.now() - yipnyap_constants.currentUser.friendsCacheTime
+    ) > 600000) {
         const res = await fetch(`/api/v2/member/${id}/friends`);
         const json = await res.json();
 
@@ -71,6 +78,8 @@ export async function getMemberFriends(id: string) {
         } else {
             yipnyap_constants.currentUser.friends = [];
         }
+
+        yipnyap_constants.currentUser.friendsCacheTime = Date.now();
     } else {
         console.log(`[🗄️ Cache] Member friends for ${id} already cached.`);
     }

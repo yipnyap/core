@@ -1,7 +1,7 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import NGCtaCard from './NGCtaCard';
+import NGCtaCard from './NGCTACard';
 
 // @ts-ignore
 describe('<NGCtaCard />', () => {

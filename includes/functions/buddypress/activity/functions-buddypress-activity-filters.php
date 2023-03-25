@@ -19,10 +19,13 @@ if (!function_exists('yipnyap_filter_add_tags_to_activity')) {
      * @param $activity_id
      * @since hk12
      */
-    function yipnyap_filter_add_tags_to_activity(string $content, $user_id, $activity_id): void
-    {
+    function yipnyap_filter_add_tags_to_activity(string $content, $user_id, $activity_id): void {
         $tags = $_POST['creation_config']['tags'];
         if (isset($tags) && $tags !== 'false') {
+            // Add comma to the end of the string, if it doesn't have one
+            if (!str_ends_with($tags, ',')) {
+                $tags .= ',';
+            }
             bp_activity_update_meta($activity_id, 'tags', $tags);
         }
     }
@@ -36,8 +39,7 @@ if (!function_exists('yipnyap_filter_activity_activity_update_action')) {
      *
      * @return string
      */
-    function yipnyap_filter_activity_activity_update_action(): string
-    {
+    function yipnyap_filter_activity_activity_update_action(): string {
         //esc_html_x('posted an update', 'Activity Update Action - Text', 'yipnyap');
 
         return '';
@@ -54,8 +56,7 @@ if (!function_exists('yipnyap_filter_activity_update_action_group')) {
      * @param Object $activity Activity item object
      * @return string
      */
-    function yipnyap_filter_activity_update_action_group($action, $activity)
-    {
+    function yipnyap_filter_activity_update_action_group($action, $activity) {
         $action = esc_html_x('in', 'Activity Update Group Action - Text', 'yipnyap');
 
         return $action;
@@ -73,8 +74,7 @@ if (!function_exists('yipnyap_filter_activity_action_friendship_created')) {
      * @param Object $activity Activity item object
      * @return string
      */
-    function yipnyap_filter_activity_action_friendship_created($action, $activity)
-    {
+    function yipnyap_filter_activity_action_friendship_created($action, $activity) {
         $action = esc_html_x('are now friends', 'Activity Friendship Created Action - Text', 'yipnyap');
 
         return $action;
@@ -92,8 +92,7 @@ if (!function_exists('yipnyap_filter_activity_action_joined_group')) {
      * @param Object $activity Activity item object
      * @return string
      */
-    function yipnyap_filter_activity_action_joined_group($action, $activity)
-    {
+    function yipnyap_filter_activity_action_joined_group($action, $activity) {
         $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
         // remove first anchor, which contains user fullname
@@ -111,8 +110,7 @@ if (!function_exists('yipnyap_filter_activity_action_created_group')) {
      * @param Object $activity Activity item object
      * @return string
      */
-    function yipnyap_filter_activity_action_created_group($action, $activity)
-    {
+    function yipnyap_filter_activity_action_created_group($action, $activity) {
         $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
         // remove first anchor, which contains user fullname
@@ -126,8 +124,7 @@ if (!function_exists('yipnyap_gamipress_filter_activity_action_earned_achievemen
     /**
      * Action string format for GamiPress activity_update activities
      */
-    function yipnyap_gamipress_filter_activity_action_earned_achievement($activity, $user_id, $post_id, $trigger_type, $site_id, $args)
-    {
+    function yipnyap_gamipress_filter_activity_action_earned_achievement($activity, $user_id, $post_id, $trigger_type, $site_id, $args) {
         if (!array_key_exists('action', $activity)) {
             return $activity;
         }
@@ -147,8 +144,7 @@ if (!function_exists('yipnyap_filter_activity_action_new_avatar')) {
     /**
      * Action string format for new_avatar type
      */
-    function yipnyap_filter_activity_action_new_avatar($action, $activity)
-    {
+    function yipnyap_filter_activity_action_new_avatar($action, $activity) {
         $pattern = '/<\s*a[^>]*>[^<]*<\s*\/a\s*>\s*/';
 
         // remove first anchor, which contains user fullname

@@ -8,6 +8,8 @@
 /*----------------------
     1. CONTENT GRID
 ----------------------*/
+@use "sass:math";
+
 .content-grid {
   margin: 0 auto 0;
 
@@ -165,17 +167,17 @@ $col-6-px: $col-6-width * 1px;
 $col-8-px: $col-8-width * 1px;
 $col-9-px: $col-9-width * 1px;
 
-$col-2: ($col-2-width / $grid-width) * 100%;
-$col-3: ($col-3-width / $grid-width) * 100%;
-$col-4: ($col-4-width / $grid-width) * 100%;
-$col-6: ($col-6-width / $grid-width) * 100%;
-$col-8: ($col-8-width / $grid-width) * 100%;
-$col-9: ($col-9-width / $grid-width) * 100%;
+$col-2: math.div($col-2-width, $grid-width) * 100%;
+$col-3: math.div($col-3-width, $grid-width) * 100%;
+$col-4: math.div($col-4-width, $grid-width) * 100%;
+$col-6: math.div($col-6-width, $grid-width) * 100%;
+$col-8: math.div($col-8-width, $grid-width) * 100%;
+$col-9: math.div($col-9-width, $grid-width) * 100%;
 
-$col-3_9: ($col-3-width / $grid-width_9) * 100%;
-$col-6_9: ($col-6-width / $grid-width_9) * 100%;
+$col-3_9: math.div($col-3-width, $grid-width_9) * 100%;
+$col-6_9: math.div($col-6-width, $grid-width_9) * 100%;
 
-.grid {
+.grid-legacy {
   display: grid;
   grid-template-columns: 100%;
   grid-gap: 16px;

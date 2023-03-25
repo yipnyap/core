@@ -1,4 +1,4 @@
-import { querySelector } from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('.header-actions.search-bar', (searchBarElements) => {
   const searchBarElement = searchBarElements[0];

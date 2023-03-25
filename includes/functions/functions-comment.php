@@ -128,19 +128,11 @@ if (!function_exists('yipnyap_get_comments_with_children_recursive')) {
         'reactions'   => []
       ];
 
-      // add vkreact reactions data if plugin is active
-      if (yipnyap_plugin_vkreact_is_active()) {
-        $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_postcomment_reactions($comment->comment_ID));
-      }
+      $com['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_postcomment_reactions($comment->comment_ID));
 
       // not guest
       if (((int)$comment->user_id) !== 0) {
-        // add BuddyPress member data if plugin is active
-        if (yipnyap_plugin_buddypress_is_active()) {
-          $com['author'] = yipnyap_members_get_fallback($comment->user_id);
-        } else {
-          $com['author'] = yipnyap_user_get_data($comment->user_id);
-        }
+        $com['author'] = yipnyap_members_get_fallback($comment->user_id);
       } else {
       // guest
         $com['author'] = [

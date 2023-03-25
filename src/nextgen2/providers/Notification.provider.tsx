@@ -1,0 +1,240 @@
+import React, {createContext, Fragment, useCallback, useContext, useEffect, useState} from 'react';
+import {Transition} from '@headlessui/react';
+import {CheckCircleIcon, EllipsisHorizontalIcon, XMarkIcon} from '@heroicons/react/24/solid';
+import {ExclamationTriangleIcon} from '@heroicons/react/20/solid';
+
+// some reason the state doesn't update within the context. So we have to use a global variable
+let notificationsCache: any[] = [];
+export const NotificationContext = createContext([] as any[]);
+
+export default function NotificationContextProvider({children}: { children: React.ReactNode }) {
+    const [notifications, setNotifications] = useState<any[]>([]);
+
+    const remove = (id: string): string | boolean => {
+        console.log('removeNotification', id);
+        notificationsCache = notificationsCache.filter((n) => n.id !== id);
+        setNotifications(notificationsCache);
+        return id;
+    };
+
+    const addNotification = (n: any): string | boolean => {
+        console.log('addNotification', n);
+        // play donk.ogg, or fart.ogg, depending on localStorage.
+        const whichSound = localStorage.getItem('yipnyap_sound') || 'donk';
+        const audio = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+
+        // Check if title and description match an existing notification
+        const existingNotification = notificationsCache.find((notification) => {
+            return notification.title.replace(/\s\(\d+\)$/, '') === n.title && notification.message === n.message;
+        });
+
+        // If it does, update the existing notification's title
+        if (existingNotification) {
+            if (n.stack) {
+                existingNotification.title = existingNotification.title.replace(/\s\(\d+\)$/, '')
+                existingNotification.count = existingNotification.count ? existingNotification.count + 1 : 2;
+                existingNotification.title = existingNotification.title + ` (${existingNotification.count})`;
+
+                audio.play().then(() => {
+                    audio.remove();
+                });
+            }
+
+            return existingNotification.id;
+        }
+
+        audio.play().then(() => {
+            audio.remove();
+        });
+
+
+        setTimeout(() => {
+            if (n.type === 'error') {
+                // Play audio 2 more times, pitch shifted
+                const audio2 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                audio2.preservesPitch = false;
+                audio2.playbackRate = 1.2;
+                audio2.play().then(() => {
+                    audio2.remove();
+
+                    setTimeout(() => {
+                        const audio3 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                        audio3.preservesPitch = false;
+                        audio3.playbackRate = 0.8;
+                        audio3.play().then(() => {
+                            audio3.remove();
+                        });
+                    }, 150);
+                });
+            }
+
+            if (n.type === 'warning') {
+                // Play audio 1 more time, pitch shifted
+                const audio2 = new Audio(`${yipnyap_constants.yipnyap_url}/src/sound/${whichSound}.ogg`);
+                audio2.preservesPitch = false;
+                audio2.playbackRate = 1.1;
+                audio2.play().then(() => {
+                    audio2.remove();
+                });
+            }
+        }, 150);
+
+        n.id = n.id || Math.random().toString(36).slice(2, 9);
+        n.expire = n.expire || 5000;
+        n.type = n.type || 'default';
+
+        setTimeout(() => {
+            // Remove the notification
+            const existingNotification = notificationsCache.find((notification) => {
+                return notification.id === n.id;
+            });
+
+            if (existingNotification) {
+                remove(existingNotification.id);
+            }
+        }, n.expire + 100);
+
+        if (!n.icon) {
+            switch (n.type) {
+                case 'success':
+                    n.icon = CheckCircleIcon;
+                    n.color = 'green-400';
+                    break;
+                case 'error':
+                    n.icon = XMarkIcon;
+                    n.color = 'red-400';
+                    break;
+                case 'warning':
+                    n.icon = ExclamationTriangleIcon;
+                    n.color = 'yellow-400';
+                    break;
+                default:
+                    n.icon = EllipsisHorizontalIcon;
+                    n.color = 'default';
+                    break;
+            }
+        }
+
+        notificationsCache.push(n);
+        setNotifications(notificationsCache);
+        return n.id;
+    };
+
+    const update = () => {
+    };
+    // const addNotification = useCallback(add, []);
+    const removeNotification = useCallback(remove, []);
+
+    return (
+        <NotificationContext.Provider value={[notifications, addNotification, removeNotification]}>
+            {children}
+        </NotificationContext.Provider>
+    );
+}
+
+export function NotificationContainer() {
+    const [notifications] = useNotification();
+    const [notifications2, setNotifications2] = useState<any[]>([]);
+    const [rerender, setRerender] = useState(0);
+
+    useEffect(() => {
+        setNotifications2(notifications);
+    }, [rerender])
+
+    useEffect(() => {
+        setInterval(() => {
+            setRerender((prev) => prev + 1);
+        }, 100);
+    }, []);
+
+    return (
+        <div
+            aria-live="assertive"
+            className="fixed z-50 inset-0 flex items-end px-4 py-6 pointer-events-none sm:p-6 sm:items-start"
+        >
+            <div className="w-full flex flex-col items-center space-y-4 sm:items-end">
+                {notifications2.map((n: {
+                    id: any; title: any; message: any; type: any; icon: any; color: any; expire: any; persistent: any;
+                }, i: React.Key | null | undefined) => {
+                    return (
+                        <Notification
+                            key={i}
+                            id={n.id}
+                            title={n.title}
+                            message={n.message}
+                            type={n.type}
+                            icon={n.icon}
+                            color={n.color}
+                            expire={n.expire}
+                            persistent={n.persistent}
+                        />
+                    );
+                })}
+            </div>
+        </div>
+    );
+}
+
+function Notification({...props}) {
+    const [, , removeNotification] = useNotification();
+    const [show, setShow] = useState(true);
+    const [dontRerender] = useState(0);
+
+    useEffect(() => {
+        let timeout: any;
+        if (!props.persistent) {
+            timeout = setTimeout(() => {
+                setShow(false);
+            }, props.expire);
+        }
+
+        return () => clearTimeout(timeout);
+    }, [dontRerender]);
+
+    return (
+        <Transition
+            show={show}
+            as={Fragment}
+            enter="transform ease-out duration-300 transition"
+            enterFrom="translate-y-2 opacity-0 sm:translate-y-0 sm:translate-x-2"
+            enterTo="translate-y-0 opacity-100 sm:translate-x-0"
+            leave="transition ease-in duration-100"
+            leaveFrom="opacity-100"
+            leaveTo="opacity-0"
+        >
+            <div
+                className="max-w-sm w-full bg-box shadow-lg rounded-default pointer-events-auto ring-1 ring-black ring-opacity-5 overflow-hidden">
+                <div className="p-4">
+                    <div className="flex items-start">
+                        <div className="flex-shrink-0">
+                            <props.icon className={`h-6 w-6 text-${props.color}`} aria-hidden="true"/>
+                        </div>
+                        <div className="ml-3 w-0 flex-1 pt-0.5">
+                            <p className="text-sm font-medium">{props.title}</p>
+                            {props.message && <p className="mt-1 text-sm text-gray-500">{props.message}</p>}
+                        </div>
+                        <div className="ml-4 flex-shrink-0 flex">
+                            <button
+                                className="rounded-md inline-flex text-gray-400 hover:text-gray-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                onClick={() => {
+                                    removeNotification(props.id);
+                                }}
+                            >
+                                <span className="sr-only">Close</span>
+                                <XMarkIcon className="h-5 w-5" aria-hidden="true"/>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </Transition>
+    )
+}
+
+export function useNotification() {
+    const context = useContext(NotificationContext);
+    if (context === undefined) {
+        throw new Error('useNotification must be used within a NotificationContextProvider');
+    }
+    return context;
+}

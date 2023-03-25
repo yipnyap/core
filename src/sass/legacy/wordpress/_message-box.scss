@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .vk-content {
   /*-----------------
       MESSAGE BOX
@@ -48,7 +50,7 @@
     .message-box-text {
       margin-top: 6px;
       font-size: 16px;
-      line-height: (24 / 16) * 1em;
+      line-height: math.div(24, 16) * 1em;
     }
   }
 }

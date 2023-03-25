@@ -270,11 +270,6 @@ if (!function_exists('yipnyap_member_get_user_base_data')) {
             $user_base_data['mention_name'] = $user->user_nicename;
         }
 
-        // add membership data if the plugin is active
-        if (yipnyap_plugin_pmpro_is_active()) {
-            $user_base_data['membership'] = yipnyap_pmpro_user_membership_level_get($bp_member['id']);
-        }
-
         return $user_base_data;
     }
 }
@@ -413,12 +408,9 @@ if (!function_exists('yipnyap_member_get_user_friends_data')) {
             }
         }
 
-        // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_friends_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
-            $user_friends_data['friend_requests_received'] = yipnyap_get_friend_requests_received($bp_member['id']);
-            $user_friends_data['friend_requests_sent'] = yipnyap_get_friend_requests_sent($bp_member['id']);
-        }
+        $user_friends_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
+        $user_friends_data['friend_requests_received'] = yipnyap_get_friend_requests_received($bp_member['id']);
+        $user_friends_data['friend_requests_sent'] = yipnyap_get_friend_requests_sent($bp_member['id']);
 
         return $user_friends_data;
     }
@@ -447,13 +439,8 @@ if (!function_exists('yipnyap_member_get_user_status_groups_data')) {
 
         // add user base data
         $user_status_groups_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_status_groups_data);
-
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_status_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
-
-            $user_status_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
-        }
+        $user_status_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
+        $user_status_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
 
         return $user_status_groups_data;
     }
@@ -476,12 +463,8 @@ if (!function_exists('yipnyap_member_get_user_groups_data')) {
         // add user base data
         $user_groups_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_data);
 
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
-
-            $user_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
-        }
+        $user_groups_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
+        $user_groups_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
 
         return $user_groups_data;
     }
@@ -502,11 +485,7 @@ if (!function_exists('yipnyap_member_get_user_groups_preview_data')) {
 
         // add user base data
         $user_groups_preview_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_preview_data);
-
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_preview_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-preview');
-        }
+        $user_groups_preview_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-preview');
 
         return $user_groups_preview_data;
     }
@@ -536,20 +515,9 @@ if (!function_exists('yipnyap_member_get_user_activity_data')) {
             }
         }
 
-        // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_activity_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
-        }
-
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_activity_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
-        }
-
-        // add Verified Member for BuddyPress data if plugin is active
-        if (yipnyap_plugin_bpverifiedmember_is_active()) {
-            $user_activity_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_data['id']);
-        }
+        $user_activity_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
+        $user_activity_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
+        $user_activity_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_data['id']);
 
         return $user_activity_data;
     }
@@ -572,22 +540,14 @@ if (!function_exists('yipnyap_member_get_user_groups_invitations_data')) {
 
         // add user base data
         $user_groups_invitations_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_invitations_data);
+        $user_groups_invitations_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
+        $user_groups_invitations_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-members');
 
-        // add BuddyPress friend data if BuddyPress and the friends component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('friends')) {
-            $user_groups_invitations_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
-        }
+        $group_invitations_sent_args = [
+            'inviter_id' => $bp_member['id']
+        ];
 
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_invitations_data['groups'] = yipnyap_get_user_groups($bp_member['id'], 'user-groups-members');
-
-            $group_invitations_sent_args = [
-                'inviter_id' => $bp_member['id']
-            ];
-
-            $user_groups_invitations_data['group_invitations_sent'] = yipnyap_group_get_invitations($group_invitations_sent_args);
-        }
+        $user_groups_invitations_data['group_invitations_sent'] = yipnyap_group_get_invitations($group_invitations_sent_args);
 
         return $user_groups_invitations_data;
     }
@@ -608,15 +568,11 @@ if (!function_exists('yipnyap_member_get_user_groups_received_invitations_data')
 
         // add user base data
         $user_groups_received_invitations_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_received_invitations_data);
+        $group_invitations_received_args = [
+            'user_id' => $bp_member['id']
+        ];
 
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $group_invitations_received_args = [
-                'user_id' => $bp_member['id']
-            ];
-
-            $user_groups_received_invitations_data['group_invitations_received'] = yipnyap_group_get_invitations($group_invitations_received_args);
-        }
+        $user_groups_received_invitations_data['group_invitations_received'] = yipnyap_group_get_invitations($group_invitations_received_args);
 
         return $user_groups_received_invitations_data;
     }
@@ -639,16 +595,11 @@ if (!function_exists('yipnyap_member_get_user_groups_memberships_data')) {
 
         // add user base data
         $user_groups_memberships_data = array_merge(yipnyap_member_get_user_base_data($bp_member), $user_groups_memberships_data);
+        $user_groups_memberships_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
+        $user_groups_memberships_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
 
-        // add BuddyPress group data if BuddyPress and the groups component are active
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('groups')) {
-            $user_groups_memberships_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
-
-            $user_groups_memberships_data['group_membership_requests_sent'] = yipnyap_group_membership_requests_get(['user_id' => $bp_member['id']]);
-
-            foreach ($user_groups_memberships_data['groups'] as $user_group) {
-                $user_groups_memberships_data['group_membership_requests_received'] = array_merge(yipnyap_group_membership_requests_get(['group_id' => $user_group['id']]), $user_groups_memberships_data['group_membership_requests_received']);
-            }
+        foreach ($user_groups_memberships_data['groups'] as $user_group) {
+            $user_groups_memberships_data['group_membership_requests_received'] = array_merge(yipnyap_group_membership_requests_get(['group_id' => $user_group['id']]), $user_groups_memberships_data['group_membership_requests_received']);
         }
 
         return $user_groups_memberships_data;
@@ -1425,75 +1376,48 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
     {
         $menu_sections = [];
 
-        if (yipnyap_plugin_buddypress_is_active() && bp_is_active('settings')) {
-            // profile sections
-            $profile_sections = [
-                'title' => esc_html_x('My Profile', 'Profile Settings Menu - Title', 'yipnyap'),
-                'description' => esc_html_x('Change your avatar &amp; cover, accept friends, read messages and more!', 'Profile Settings Menu - Description', 'yipnyap'),
-                'icon' => 'user',
-                'menu_items' => [
-                    [
-                        'name' => esc_html_x('Profile Info', 'Profile Settings Menu - Profile Info Link', 'yipnyap'),
-                        'slug' => 'general',
-                        'link' => $member['link'] . 'settings/general',
-                        'active' => bp_is_current_action('general')
-                    ]
+        // profile sections
+        $profile_sections = [
+            'title' => esc_html_x('My Profile', 'Profile Settings Menu - Title', 'yipnyap'),
+            'description' => esc_html_x('Change your avatar &amp; cover, accept friends, read messages and more!', 'Profile Settings Menu - Description', 'yipnyap'),
+            'icon' => 'user',
+            'menu_items' => [
+                [
+                    'name' => esc_html_x('Profile Info', 'Profile Settings Menu - Profile Info Link', 'yipnyap'),
+                    'slug' => 'general',
+                    'link' => $member['link'] . 'settings/general',
+                    'active' => bp_is_current_action('general')
                 ]
-            ];
+            ]
+        ];
 
-            if (bp_is_active('xprofile')) {
-                $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Social', 'Profile Settings Menu - Social Link', 'yipnyap'),
-                    'slug' => 'social',
-                    'link' => $member['link'] . 'settings/social',
-                    'active' => bp_is_current_action('social')
-                ];
-            }
+        $profile_sections['menu_items'][] = [
+            'name' => esc_html_x('Social', 'Profile Settings Menu - Social Link', 'yipnyap'),
+            'slug' => 'social',
+            'link' => $member['link'] . 'settings/social',
+            'active' => bp_is_current_action('social')
+        ];
 
-            if (yipnyap_settings_stream_profile_is_enabled()) {
-                $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Stream', 'Profile Settings Menu - Stream Link', 'yipnyap'),
-                    'slug' => 'stream',
-                    'link' => $member['link'] . 'settings/stream',
-                    'active' => bp_is_current_action('stream')
-                ];
-            }
+        $profile_sections['menu_items'][] = [
+            'name' => esc_html_x('Notifications', 'Profile Settings Menu - Notifications Link', 'yipnyap'),
+            'slug' => 'notifications',
+            'link' => $member['link'] . 'settings/notifications',
+            'active' => bp_is_current_action('notifications')
+        ];
 
-            if (bp_is_active('notifications')) {
-                $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Notifications', 'Profile Settings Menu - Notifications Link', 'yipnyap'),
-                    'slug' => 'notifications',
-                    'link' => $member['link'] . 'settings/notifications',
-                    'active' => bp_is_current_action('notifications')
-                ];
-            }
+        $profile_sections['menu_items'][] = [
+            'name' => esc_html_x('Friend Requests', 'Profile Settings Menu - Friend Requests Link', 'yipnyap'),
+            'slug' => 'friend-requests',
+            'link' => $member['link'] . 'settings/friend-requests',
+            'active' => bp_is_current_action('friend-requests')
+        ];
 
-            // if BuddyPress messages component is active, add message related pages
-            if (bp_is_active('messages') && bp_is_active('friends')) {
-                $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Messages', 'Profile Settings Menu - Messages Link', 'yipnyap'),
-                    'slug' => 'messages',
-                    'link' => $member['link'] . 'settings/messages',
-                    'active' => bp_is_current_action('messages')
-                ];
-            }
-
-            // if BuddyPress friends component is active, add friend related pages
-            if (bp_is_active('friends')) {
-                $profile_sections['menu_items'][] = [
-                    'name' => esc_html_x('Friend Requests', 'Profile Settings Menu - Friend Requests Link', 'yipnyap'),
-                    'slug' => 'friend-requests',
-                    'link' => $member['link'] . 'settings/friend-requests',
-                    'active' => bp_is_current_action('friend-requests')
-                ];
-            }
-
-            $account_sections = [
-                'title' => esc_html_x('Kukiko ID', 'Account Settings Menu - Title', 'yipnyap'),
-                'description' => esc_html_x('Change your account information, password and settings!', 'Account Settings Menu - Description', 'yipnyap'),
-                'icon' => 'cog-6-teeth',
-                'menu_items' => []
-            ];
+        $account_sections = [
+            'title' => esc_html_x('Kukiko ID', 'Account Settings Menu - Title', 'yipnyap'),
+            'description' => esc_html_x('Change your account information, password and settings!', 'Account Settings Menu - Description', 'yipnyap'),
+            'icon' => 'cog-6-teeth',
+            'menu_items' => []
+        ];
 
 //            if (bp_is_active('xprofile')) {
 //                $account_sections['menu_items'][] = [
@@ -1504,131 +1428,63 @@ if (!function_exists('yipnyap_members_get_settings_navigation_sections')) {
 //                ];
 //            }
 
-            $account_sections['menu_items'] = array_merge($account_sections['menu_items'], [
+        $account_sections['menu_items'] = array_merge($account_sections['menu_items'], [
+            [
+                'name' => esc_html_x('Account Settings', 'Account Settings Menu - Account Settings Link', 'yipnyap'),
+                'slug' => 'account-settings',
+                'link' => $member['link'] . 'settings/account-settings',
+                'active' => bp_is_current_action('account-settings')
+            ],
+            [
+                'name' => esc_html_x('Change Password', 'Account Settings Menu - Change Password Link', 'yipnyap'),
+                'slug' => 'password',
+                'link' => $member['link'] . 'settings/password',
+                'active' => bp_is_current_action('password')
+            ],
+            [
+                'name' => esc_html_x('Email Settings', 'Account Settings Menu - Email Settings Link', 'yipnyap'),
+                'slug' => 'email-settings',
+                'link' => $member['link'] . 'settings/email-settings',
+                'active' => bp_is_current_action('email-settings')
+            ]
+        ]);
+
+        $menu_sections[] = $profile_sections;
+        $menu_sections[] = $account_sections;
+
+        $manage_groups_sections = [
+            'title' => esc_html_x('Groups', 'Group Settings Menu - Title', 'yipnyap'),
+            'description' => esc_html_x('Create new groups, manage the ones you created or accept invites!', 'Group Settings Menu - Description', 'yipnyap'),
+            'icon' => 'user-group',
+            'menu_items' => [
                 [
-                    'name' => esc_html_x('Account Settings', 'Account Settings Menu - Account Settings Link', 'yipnyap'),
-                    'slug' => 'account-settings',
-                    'link' => $member['link'] . 'settings/account-settings',
-                    'active' => bp_is_current_action('account-settings')
+                    'name' => esc_html_x('Manage Groups', 'Group Settings Menu - Manage Groups Link', 'yipnyap'),
+                    'slug' => 'manage-groups',
+                    'link' => $member['link'] . 'settings/manage-groups',
+                    'active' => bp_is_current_action('manage-groups')
                 ],
                 [
-                    'name' => esc_html_x('Change Password', 'Account Settings Menu - Change Password Link', 'yipnyap'),
-                    'slug' => 'password',
-                    'link' => $member['link'] . 'settings/password',
-                    'active' => bp_is_current_action('password')
+                    'name' => esc_html_x('Send Invitations', 'Group Settings Menu - Send Invitations Link', 'yipnyap'),
+                    'slug' => 'send-group-invitations',
+                    'link' => $member['link'] . 'settings/send-group-invitations',
+                    'active' => bp_is_current_action('send-group-invitations')
                 ],
                 [
-                    'name' => esc_html_x('Email Settings', 'Account Settings Menu - Email Settings Link', 'yipnyap'),
-                    'slug' => 'email-settings',
-                    'link' => $member['link'] . 'settings/email-settings',
-                    'active' => bp_is_current_action('email-settings')
+                    'name' => esc_html_x('Received Invitations', 'Group Settings Menu - Received Invitations Link', 'yipnyap'),
+                    'slug' => 'received-group-invitations',
+                    'link' => $member['link'] . 'settings/received-group-invitations',
+                    'active' => bp_is_current_action('received-group-invitations')
+                ],
+                [
+                    'name' => esc_html_x('Membership Requests', 'Group Settings Menu - Membership Requests Link', 'yipnyap'),
+                    'slug' => 'membership-requests',
+                    'link' => $member['link'] . 'settings/membership-requests',
+                    'active' => bp_is_current_action('membership-requests')
                 ]
-            ]);
+            ]
+        ];
 
-            $menu_sections[] = $profile_sections;
-            $menu_sections[] = $account_sections;
-
-            // if BuddyPress groups component is active, add group manage related pages
-            if (bp_is_active('groups')) {
-                $manage_groups_sections = [
-                    'title' => esc_html_x('Groups', 'Group Settings Menu - Title', 'yipnyap'),
-                    'description' => esc_html_x('Create new groups, manage the ones you created or accept invites!', 'Group Settings Menu - Description', 'yipnyap'),
-                    'icon' => 'user-group',
-                    'menu_items' => [
-                        [
-                            'name' => esc_html_x('Manage Groups', 'Group Settings Menu - Manage Groups Link', 'yipnyap'),
-                            'slug' => 'manage-groups',
-                            'link' => $member['link'] . 'settings/manage-groups',
-                            'active' => bp_is_current_action('manage-groups')
-                        ],
-                        [
-                            'name' => esc_html_x('Send Invitations', 'Group Settings Menu - Send Invitations Link', 'yipnyap'),
-                            'slug' => 'send-group-invitations',
-                            'link' => $member['link'] . 'settings/send-group-invitations',
-                            'active' => bp_is_current_action('send-group-invitations')
-                        ],
-                        [
-                            'name' => esc_html_x('Received Invitations', 'Group Settings Menu - Received Invitations Link', 'yipnyap'),
-                            'slug' => 'received-group-invitations',
-                            'link' => $member['link'] . 'settings/received-group-invitations',
-                            'active' => bp_is_current_action('received-group-invitations')
-                        ],
-                        [
-                            'name' => esc_html_x('Membership Requests', 'Group Settings Menu - Membership Requests Link', 'yipnyap'),
-                            'slug' => 'membership-requests',
-                            'link' => $member['link'] . 'settings/membership-requests',
-                            'active' => bp_is_current_action('membership-requests')
-                        ]
-                    ]
-                ];
-
-                $menu_sections[] = $manage_groups_sections;
-            }
-        }
-
-        if (yipnyap_plugin_woocommerce_is_active()) {
-            $wc_myaccount_menu_items = [];
-
-            $wc_account_menu_items = wc_get_account_menu_items();
-
-            global $wp;
-
-            $current_page_url = trailingslashit(home_url($wp->request));
-
-            foreach ($wc_account_menu_items as $endpoint => $label) {
-                $wc_account_menu_item_url = wc_get_account_endpoint_url($endpoint);
-
-                $wc_myaccount_menu_items[] = [
-                    'name' => $label,
-                    'slug' => $label,
-                    'link' => $wc_account_menu_item_url,
-                    'active' => $current_page_url === trailingslashit($wc_account_menu_item_url)
-                ];
-            }
-
-            $wc_myaccount_sections = [
-                'title' => esc_html_x('Shop', 'Shop Settings Menu - Title', 'yipnyap'),
-                'description' => esc_html_x('Review your account, manage orders and more!', 'Shop Settings Menu - Description', 'yipnyap'),
-                'icon' => 'marketplace',
-                'menu_items' => $wc_myaccount_menu_items
-            ];
-
-            $menu_sections[] = $wc_myaccount_sections;
-        }
-
-        if (yipnyap_plugin_pmpro_is_active()) {
-            global $wp;
-
-            $current_page_url = trailingslashit(home_url($wp->request));
-
-            $pmpro_sections = [
-                'title' => esc_html_x('Membership', 'Membership Settings Menu - Title', 'yipnyap'),
-                'description' => esc_html_x('Manage your membership level, update your billing information and more!', 'Membership Settings Menu - Description', 'yipnyap'),
-                'icon' => 'memberships',
-                'menu_items' => [
-                    [
-                        'name' => esc_html_x('Account', 'Membership Settings Menu - Account Link', 'yipnyap'),
-                        'slug' => 'membership-account',
-                        'link' => pmpro_url('account'),
-                        'active' => $current_page_url === trailingslashit(pmpro_url('account'))
-                    ],
-                    [
-                        'name' => esc_html_x('Invoices', 'Membership Settings Menu - Invoices Link', 'yipnyap'),
-                        'slug' => 'membership-invoice',
-                        'link' => pmpro_url('invoice'),
-                        'active' => $current_page_url === trailingslashit(pmpro_url('invoice'))
-                    ],
-                    [
-                        'name' => esc_html_x('Billing', 'Membership Settings Menu - Billing Link', 'yipnyap'),
-                        'slug' => 'membership-billing',
-                        'link' => pmpro_url('billing'),
-                        'active' => $current_page_url === trailingslashit(pmpro_url('billing'))
-                    ]
-                ]
-            ];
-
-            $menu_sections[] = $pmpro_sections;
-        }
+        $menu_sections[] = $manage_groups_sections;
 
         /**
          * Filter member settings navigation sections.

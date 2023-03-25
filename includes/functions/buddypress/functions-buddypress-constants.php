@@ -14,35 +14,33 @@
  * Avatar Thumbnail - Width
  */
 if (!defined('BP_AVATAR_THUMB_WIDTH')) {
-    define('BP_AVATAR_THUMB_WIDTH', 50);
+    define('BP_AVATAR_THUMB_WIDTH', 100);
 }
 
 /**
  * Avatar Thumbnail - Height
  */
 if (!defined('BP_AVATAR_THUMB_HEIGHT')) {
-    define('BP_AVATAR_THUMB_HEIGHT', 50);
+    define('BP_AVATAR_THUMB_HEIGHT', 100);
 }
 
 /**
  * Avatar Full - Width
  */
 if (!defined('BP_AVATAR_FULL_WIDTH')) {
-    define('BP_AVATAR_FULL_WIDTH', 100);
+    define('BP_AVATAR_FULL_WIDTH', 512);
 }
 
 /**
  * Avatar Full - Height
  */
 if (!defined('BP_AVATAR_FULL_HEIGHT')) {
-    define('BP_AVATAR_FULL_HEIGHT', 100);
+    define('BP_AVATAR_FULL_HEIGHT', 512);
 }
 
 /**
  * Avatar Original - Maximum Width
  */
 if (!defined('BP_AVATAR_ORIGINAL_MAX_WIDTH')) {
-    define('BP_AVATAR_ORIGINAL_MAX_WIDTH', 640);
+    define('BP_AVATAR_ORIGINAL_MAX_WIDTH', 1048);
 }
-
-?>

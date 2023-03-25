@@ -68,7 +68,7 @@ $verified_user = $args['post']['author']['verified'];
                     get_template_part('template-part/author/author-preview', null, [
                         'user' => $args['post']['author'],
                         'modifiers' => 'author-preview-landscape',
-                        'linked' => yipnyap_plugin_buddypress_is_active(),
+                        'linked' => true,
                         'display_verified_in_fullname' => $display_verified_in_fullname && $verified_user,
                         'display_verified_in_username' => $display_verified_in_username && $verified_user
                     ]);

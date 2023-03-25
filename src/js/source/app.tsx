@@ -4,11 +4,14 @@ const ConsoleLogBackup = console.log;
 ConsoleLogBackup(`%cYipnyap ${yipnyap_constants.yipnyap_server_version}`, 'color: #00ff00;');
 
 if (localStorage.getItem('debug') !== 'true') {
-    console.log = () => {};
+    console.log = () => {
+    };
 } else {
     console.log('Howdy!');
 }
 
+// SCSS
+import '../../sass/main.scss';
 /*-------------
     SIDEBAR
 -------------*/
@@ -127,7 +130,6 @@ import './component-dom/legacy/settings/settings-profile';
 import './component-dom/legacy/settings/settings-social';
 import './component-dom/legacy/settings/settings-stream';
 import './component-dom/legacy/settings/settings-notifications';
-import './component-dom/legacy/settings/settings-messages';
 import './component-dom/legacy/settings/settings-friend-requests';
 
 import './component-dom/legacy/settings/settings-account-info';
@@ -143,3 +145,11 @@ import './component-dom/legacy/settings/settings-group-membership-requests';
     PAGE LOADER
 -----------------*/
 import './global/page-loader';
+
+// Check if HMR interface is enabled
+// @ts-ignore
+if (module.hot) {
+    // Accept hot update
+    // @ts-ignore
+    module.hot.accept();
+}

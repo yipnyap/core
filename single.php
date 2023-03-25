@@ -32,7 +32,7 @@ if (have_posts()) {
         <!-- CONTENT GRID -->
         <div class="content-grid">
             <!-- GRID -->
-            <div class="grid grid-6-6 centered">
+            <div class="grid-legacy grid-6-6 centered">
                 <?php
 
                 $user_points = yipnyap_gamipress_get_logged_user_points();

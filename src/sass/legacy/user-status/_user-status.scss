@@ -7,6 +7,8 @@
 /*-------------------------
     1. USER STATUS LIST
 -------------------------*/
+@use "sass:math";
+
 .user-status-list {
   .user-status {
     margin-bottom: 22px;
@@ -55,7 +57,7 @@
   &.request-small {
     .user-status-title {
       margin-top: 2px;
-      line-height: (16 / 14) * 1em;
+      line-height: math.div(16, 14) * 1em;
     }
 
     .user-status-text {
@@ -164,7 +166,7 @@
     color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
-    line-height: (20 / 14) * 1em;
+    line-height: math.div(20, 14) * 1em;
     word-break: break-word;
 
     &.medium {

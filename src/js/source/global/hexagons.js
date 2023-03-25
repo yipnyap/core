@@ -1,4 +1,4 @@
-import {createHexagon} from '../utils/plugins';
+import {createHexagon} from '@legacy/utils/plugins';
 
 /**
  * USER AVATAR BIG

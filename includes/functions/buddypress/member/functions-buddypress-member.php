@@ -15,12 +15,10 @@
  */
 require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-filters.php';
 
-if (yipnyap_plugin_buddypress_is_active()) {
-    /**
-     * Actions
-     */
-    require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-actions.php';
-}
+/**
+ * Actions
+ */
+require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-actions.php';
 
 /**
  * Global

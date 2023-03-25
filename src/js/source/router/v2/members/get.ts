@@ -16,8 +16,8 @@ export default async function getMember(id: string, bits: number = 0) {
 export async function getCurrentMember() {
     const res = await fetch(`/api/v2/member/@me/8`, {
         headers: {
-            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
-        }
+            'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+        },
     });
     return await res.json();
 }
@@ -26,14 +26,63 @@ export async function getCurrentMember() {
  * Get member groups
  */
 export async function getMemberGroups(id: string) {
-    const res = await fetch(`/api/v2/member/${id}/groups`);
-    return await res.json();
+    // Check yipnyap_constants.currentUser exists
+    if (!yipnyap_constants.currentUser) {
+        console.log(`[🗄️ Cache] Member groups for ${id} cannot be cached.`);
+        return [];
+    }
+
+    // Check yipnyap_constants.currentUser for groups, if not, populate it.
+    if (!Array.isArray(yipnyap_constants.currentUser.groups) || (
+        Date.now() - yipnyap_constants.currentUser.groupsCacheTime
+    ) > 600000) {
+        const res = await fetch(`/api/v2/member/${id}/groups`);
+        const json = await res.json();
+
+        if (Array.isArray(json)) {
+            console.log(`[🗄️ Cache] Member groups for ${id} cached.`);
+            yipnyap_constants.currentUser.groups = json;
+        } else {
+            console.log(`[🗄️ Cache] Member groups is non-existent or not an array for ${id}`);
+            yipnyap_constants.currentUser.groups = [];
+        }
+
+        yipnyap_constants.currentUser.groupsCacheTime = Date.now();
+    } else {
+        console.log(`[🗄️ Cache] Member groups for ${id} already cached.`);
+    }
+
+    return yipnyap_constants.currentUser.groups;
 }
 
 /**
  * Get member friends
  */
 export async function getMemberFriends(id: string) {
-    const res = await fetch(`/api/v2/member/${id}/friends`);
-    return await res.json();
+    // Check yipnyap_constants.currentUser exists
+    if (!yipnyap_constants.currentUser) {
+        console.log(`[🗄️ Cache] Member friends for ${id} cannot be cached.`);
+        return [];
+    }
+
+    // Check yipnyap_constants.currentUser for friends, if not, populate it.
+    // Also check if it's been 10 minutes since last cache
+    if (!Array.isArray(yipnyap_constants.currentUser.friends) || (
+        Date.now() - yipnyap_constants.currentUser.friendsCacheTime
+    ) > 600000) {
+        const res = await fetch(`/api/v2/member/${id}/friends`);
+        const json = await res.json();
+
+        if (Array.isArray(json)) {
+            yipnyap_constants.currentUser.friends = json;
+        } else {
+            yipnyap_constants.currentUser.friends = [];
+        }
+
+        yipnyap_constants.currentUser.friendsCacheTime = Date.now();
+    } else {
+        console.log(`[🗄️ Cache] Member friends for ${id} already cached.`);
+    }
+
+    return yipnyap_constants.currentUser.friends;
 }

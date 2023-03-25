@@ -1,4 +1,4 @@
-import { createSlider } from '../utils/plugins';
+import {createSlider} from '@legacy/utils/plugins';
 
 createSlider('.member-preview-big-social-links-slides', {
   navigation: {

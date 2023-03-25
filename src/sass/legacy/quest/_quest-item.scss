@@ -6,6 +6,8 @@
 /*---------------------
     1. QUEST ITEM
 ---------------------*/
+@use "sass:math";
+
 .quest-item {
   @apply rounded-default;
   background-color: var(--color-box-background);
@@ -48,7 +50,7 @@
     color: var(--color-text) !important;
     font-size: $fs-14;
     font-weight: $weight-medium;
-    line-height: (20 / 14) * 1em;
+    line-height: math.div(20, 14) * 1em;
   }
 
   .progress-stat {

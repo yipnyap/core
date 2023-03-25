@@ -79,16 +79,6 @@ require_once YIPNYAP_PATH . '/includes/functions/bpbettermessages/functions-bpbe
 require_once YIPNYAP_PATH . '/includes/functions/bpverifiedmember/functions-bpverifiedmember.php';
 
 /**
- * WOOCOMMERCE functions
- */
-//require_once YIPNYAP_PATH . '/includes/functions/woocommerce/functions-woocommerce.php';
-
-/**
- * Paid Memberships Pro
- */
-//require_once YIPNYAP_PATH . '/includes/functions/pmpro/functions-pmpro.php';
-
-/**
  * Stream
  */
 require_once YIPNYAP_PATH . '/includes/functions/functions-stream.php';

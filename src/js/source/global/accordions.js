@@ -1,4 +1,4 @@
-import { createAccordion } from '../utils/plugins';
+import {createAccordion} from '@legacy/utils/plugins';
 
 createAccordion({
   triggerSelector: '.accordion-trigger-linked',

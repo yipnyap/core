@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ActivityFilterableList from '../../../component/legacy/activity/ActivityFilterableList';
+import ActivityFilterableList from '../../../component//activity/ActivityFilterableList';
 
 const activityFilterableListElement = document.querySelector('#activity-filterable-list');
 

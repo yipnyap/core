@@ -35,23 +35,13 @@ if (!function_exists('yipnyap_bbpress_forum_last_activity_get')) {
       $active_data['link'] = bbp_get_forum_last_topic_permalink($forum_id);
       $author_id = bbp_get_forum_last_topic_author_id($forum_id);
 
-      // add BuddyPress member data if plugin is active
-      if (yipnyap_plugin_buddypress_is_active()) {
-        $active_data['author'] = yipnyap_members_get_fallback($author_id);
-      } else {
-        $active_data['author'] = yipnyap_user_get_data($author_id);
-      }
+      $active_data['author'] = yipnyap_user_get_data($author_id);
     } else if (bbp_is_reply($active_id)) {
       $active_data['title'] = bbp_get_forum_last_reply_title($forum_id);
       $active_data['link'] = bbp_get_forum_last_reply_url($forum_id);
       $author_id = bbp_get_forum_last_reply_author_id($forum_id);
 
-      // add BuddyPress member data if plugin is active
-      if (yipnyap_plugin_buddypress_is_active()) {
-        $active_data['author'] = yipnyap_members_get_fallback($author_id);
-      } else {
-        $active_data['author'] = yipnyap_user_get_data($author_id);
-      }
+      $active_data['author'] = yipnyap_members_get_fallback($author_id);
     }
 
     $active_data['time_since'] = bbp_get_forum_last_active_time($forum_id);
@@ -92,13 +82,7 @@ if (!function_exists('yipnyap_bbpress_forum_last_activity_description_get')) {
       $topic_text = bbp_get_forum_topics_link($forum_id);
       $time_since = bbp_get_forum_freshness_link($forum_id);
       $author_id = get_post_field('post_author', $active_id);
-
-      // add BuddyPress member data if plugin is active
-      if (yipnyap_plugin_buddypress_is_active()) {
-        $description_data['author'] = yipnyap_members_get_fallback($author_id);
-      } else {
-        $description_data['author'] = yipnyap_user_get_data($author_id);
-      }
+      $description_data['author'] = yipnyap_members_get_fallback($author_id);
     } else {
       // forum has no last active data
       $topic_text = sprintf(_n('%s topic', '%s topics', $tc_int, 'yipnyap'), $topic_count);
@@ -205,12 +189,7 @@ if (!function_exists('yipnyap_bbpress_topic_author_get')) {
   function yipnyap_bbpress_topic_author_get($topic_id) {
     $author_id = bbp_get_topic_author_id($topic_id);
 
-    // add BuddyPress member data if plugin is active
-    if (yipnyap_plugin_buddypress_is_active()) {
-      $author = yipnyap_members_get_fallback($author_id);
-    } else {
-      $author = yipnyap_user_get_data($author_id);
-    }
+    $author = yipnyap_members_get_fallback($author_id);
 
     return $author;
   }
@@ -226,12 +205,7 @@ if (!function_exists('yipnyap_bbpress_reply_author_get')) {
   function yipnyap_bbpress_reply_author_get($reply_id) {
     $author_id = bbp_get_reply_author_id($reply_id);
 
-    // add BuddyPress member data if plugin is active
-    if (yipnyap_plugin_buddypress_is_active()) {
-      $author = yipnyap_members_get_fallback($author_id);
-    } else {
-      $author = yipnyap_user_get_data($author_id);
-    }
+    $author = yipnyap_members_get_fallback($author_id);
 
     return $author;
   }

@@ -1,3 +1,5 @@
+@use "sass:math";
+
 .vk-content {
   /*---------------------
       SECTION BANNER
@@ -153,7 +155,7 @@
     .section-text {
       color: var(--vk-color-text);
       font-size: 18px;
-      line-height: (28 / 18) * 1em;
+      line-height: math.div(28, 18) * 1em;
 
       .bold {
         font-weight: 700;
@@ -262,7 +264,7 @@
 
     .vk-docs-section-sidebar {
       float: left;
-      width: (484 / 1420) * 100%;
+      width: math.div(484, 1420) * 100%;
       padding-bottom: 80px;
       overflow: auto;
 
@@ -276,7 +278,7 @@
 
     .vk-docs-section-body {
       float: right;
-      width: (916 / 1420) * 100%;
+      width: math.div(916, 1420) * 100%;
     }
   }
 
@@ -377,7 +379,7 @@
   .vk-docs-section-description {
     font-size: 18px;
     font-weight: var(--vk-weight-medium);
-    line-height: (28 / 18) * 1em;
+    line-height: math.div(28, 18) * 1em;
   }
 
   /**
@@ -411,7 +413,7 @@
   .vk-docs-subsection-description {
     font-size: 18px;
     font-weight: var(--vk-weight-medium);
-    line-height: (28 / 18) * 1em;
+    line-height: math.div(28, 18) * 1em;
 
     .bold {
       font-weight: var(--vk-weight-bold);

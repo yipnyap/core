@@ -151,44 +151,32 @@ $postFormatIcon = in_array($format, $supportedFormats) ? $supportedFormatsIcons[
                 <!-- /META LINE LINK -->
             </div>
             <!-- /META LINE -->
+            <!-- META LINE -->
+            <div class="meta-line">
+                <!-- META LINE TEXT -->
+                <p class="meta-line-text">
+                    <?php
 
-            <?php
+                    $share_count = $args['post']['share_count'];
 
-            // add BuddyPress share count data if plugin is active
-            if (yipnyap_plugin_buddypress_is_active()) :
+                    echo esc_html(
+                        sprintf(
+                            _nx(
+                                '%s Share',
+                                '%s Shares',
+                                $share_count,
+                                'Share Count',
+                                'yipnyap'
+                            ),
+                            number_format_i18n($share_count)
+                        )
+                    );
 
-                ?>
-                <!-- META LINE -->
-                <div class="meta-line">
-                    <!-- META LINE TEXT -->
-                    <p class="meta-line-text">
-                        <?php
-
-                        $share_count = $args['post']['share_count'];
-
-                        echo esc_html(
-                            sprintf(
-                                _nx(
-                                    '%s Share',
-                                    '%s Shares',
-                                    $share_count,
-                                    'Share Count',
-                                    'yipnyap'
-                                ),
-                                number_format_i18n($share_count)
-                            )
-                        );
-
-                        ?>
-                    </p>
-                    <!-- /META LINE TEXT -->
-                </div>
-                <!-- /META LINE -->
-            <?php
-
-            endif;
-
-            ?>
+                    ?>
+                </p>
+                <!-- /META LINE TEXT -->
+            </div>
+            <!-- /META LINE -->
         </div>
         <!-- /CONTENT ACTION -->
     </div>

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import AccountInfoSettingsScreen from '../../../component/legacy/settings/AccountInfoSettingsScreen';
+import AccountInfoSettingsScreen from '../../../component/settings/AccountInfoSettingsScreen';
 
 const accountInfoSettingsElement = document.querySelector('#account-info-settings-screen');
 

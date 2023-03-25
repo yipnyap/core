@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import ActivityNotice from '../../../component/legacy/activity-notice/activity-notice';
+import ActivityNotice from '../../../component//activity-notice/activity-notice';
 
 const activityNoticeElement = document.querySelector('#activity-notice');
 

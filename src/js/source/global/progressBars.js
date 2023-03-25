@@ -1,4 +1,4 @@
-import {createProgressBar} from '../utils/plugins';
+import {createProgressBar} from '@legacy/utils/plugins';
 
 /**
  * ACHIEVEMENT PROGRESS

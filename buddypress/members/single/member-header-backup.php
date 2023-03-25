@@ -43,10 +43,10 @@
   ?>
 
   <!-- GRID -->
-  <div class="grid grid-3-9 medium-space">
+  <div class="grid-legacy grid-3-9 medium-space">
     <!-- GRID COLUMN -->
     <div class="grid-column">
-    <?php
+      <?php
 
       $sidebar_menu_sections = [
         [

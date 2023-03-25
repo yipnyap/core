@@ -1,4 +1,4 @@
-import {querySelector} from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('#bbpress-forums .hentry .bbp-reply-content > p', (elements) => {
     for (const p of elements) {

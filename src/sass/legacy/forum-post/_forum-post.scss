@@ -8,6 +8,8 @@
 /*---------------------------
     1. FORUM POST HEADER
 ---------------------------*/
+@use "sass:math";
+
 .forum-post-header {
   display: flex;
   align-items: center;
@@ -25,7 +27,7 @@
     }
 
     &:last-child {
-      width: (700 / 884) * 100%;
+      width: math.div(700, 884) * 100%;
     }
   }
 }
@@ -118,7 +120,7 @@
     }
 
     .forum-post-info {
-      width: (700 / 884) * 100%;
+      width: math.div(700, 884) * 100%;
     }
   }
 

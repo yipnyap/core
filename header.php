@@ -22,7 +22,7 @@
     <script src='https://telegram.org/js/telegram-widget.js?21'></script>
     <?php wp_head(); ?>
 </head>
-<body <?php body_class(yipnyap_logged_user_color_theme_get()); ?> style="-webkit-font-smoothing: antialiased;">
+<body class="dark h-screen" style="-webkit-font-smoothing: antialiased;">
 <?php
 wp_body_open();
 
@@ -92,16 +92,9 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
 
     endif;
 
-    $buddypress_plugin_is_active = yipnyap_plugin_buddypress_is_active();
+    if (!bp_is_register_page() && !bp_is_activation_page()) {
 
-    if (($buddypress_plugin_is_active && !bp_is_register_page() && !bp_is_activation_page()) || !$buddypress_plugin_is_active) {
-
-        // add BuddyPress member data if plugin is active
-        if ($buddypress_plugin_is_active) {
-            $user = yipnyap_get_logged_user_member_data('user-sidebar', true);
-        } else {
-            $user = yipnyap_get_logged_user_data();
-        }
+        $user = yipnyap_get_logged_user_member_data('user-sidebar', true);
 
         // get header menu data, they display whether the user is logged in or not
         $header_menu_items = yipnyap_menu_get_items('header_menu')['threaded'];
@@ -116,21 +109,11 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
 
         // if a user is logged in, show logged in header
         if ($user) {
-            $points = false;
-
-            // if gamipress is active, get user points
-            if (yipnyap_plugin_gamipress_is_active()) {
-                // get logged user points data
-                $points = yipnyap_gamipress_get_user_points($user['id']);
-            }
+            $points = yipnyap_gamipress_get_user_points($user['id']);
 
             // get logged user header menu and navigation data
-            $settings_navigation_sections = [];
+            $settings_navigation_sections = yipnyap_members_get_settings_navigation_sections($user);
 
-            // if buddypress plugin is active, add settings navigation sections
-            if ($buddypress_plugin_is_active) {
-                $settings_navigation_sections = yipnyap_members_get_settings_navigation_sections($user);
-            }
 
             /**
              * Header Logged In

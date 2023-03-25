@@ -52,29 +52,36 @@ get_template_part('template-part/common/header/header', '', [
         <div class="px-4 py-6 sm:px-0">
             <div>
                 <?php if (isset($userEarnings['gold-credit'])) { ?>
-                <dl class="grid grid-cols-1 gap-5 sm:grid-cols-2">
-                    <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
-                        <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
-                        <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold-credit']['points'] ?></dd>
-                    </div>
+                    <dl class="grid-legacy grid-cols-1 gap-5 sm:grid-cols-2">
+                        <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
+                            <dt class="text-sm font-medium text-alt truncate">Your Credits</dt>
+                            <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo $userEarnings['gold-credit']['points'] ?></dd>
+                        </div>
 
-                    <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
-                        <dt class="text-sm font-medium text-alt truncate">Items Available</dt>
-                        <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo count($marketItems) ?></dd>
-                    </div>
-                </dl>
+                        <div class="px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6">
+                            <dt class="text-sm font-medium text-alt truncate">Items Available</dt>
+                            <dd class="mt-1 text-3xl font-semibold text-primary"><?php echo count($marketItems) ?></dd>
+                        </div>
+                    </dl>
                 <?php } ?>
 
                 <div class="mt-5 px-4 py-5 bg-box shadow rounded-xl overflow-hidden sm:p-6" style="min-height: 106px;">
-                    <dt class="text-sm font-medium text-alt truncate mb-2"><img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/heavy-exclamation-mark-symbol.gif' ?>" alt="Heavy exclamation mark emoji"> Note about Yipnyap Market</dt>
+                    <dt class="text-sm font-medium text-alt truncate mb-2"><img class="pixelmoji w-6 h-6"
+                                                                                src="<?php echo YIPNYAP_URL . '/img/emoji/heavy-exclamation-mark-symbol.gif' ?>"
+                                                                                alt="Heavy exclamation mark emoji"> Note
+                        about Yipnyap Market
+                    </dt>
                     <dd class="mt-1 text-primary">
-                        Yipnyap Market is a place where you can spend you credits <img class="pixelmoji w-6 h-6" src="<?php echo YIPNYAP_URL . '/img/emoji/sparkles.gif' ?>" alt="Sparkles animated emoji"><br>
-                        it's using experimental UI & features, so please be patient if something doesn't work or look as expected!
+                        Yipnyap Market is a place where you can spend you credits <img class="pixelmoji w-6 h-6"
+                                                                                       src="<?php echo YIPNYAP_URL . '/img/emoji/sparkles.gif' ?>"
+                                                                                       alt="Sparkles animated emoji"><br>
+                        it's using experimental UI & features, so please be patient if something doesn't work or look as
+                        expected!
                     </dd>
                 </div>
             </div>
 
-            <div class="mt-12 grid grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+            <div class="mt-12 grid-legacy grid-cols-1 gap-5 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
                 <?php
 
                 $achievement_args = [

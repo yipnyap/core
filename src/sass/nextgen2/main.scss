@@ -1,4 +1,25 @@
+@import 'color';
 @import 'font';
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .no-scrollbar {
+    -ms-overflow-style: none; /* IE and Edge */
+    scrollbar-width: none; /* Firefox */
+  }
+}
+
+// TODO: Bloody move these into their own stuff
+
+// Devel uses different header backgrounds
+.devel {
+  background-image: cross-fade(5% url("assets/devel-symbolic.svg"),
+          image(transparent));
+  background-repeat: repeat-x;
+}
 
 .container {
   padding: 0 2rem;
@@ -65,14 +86,6 @@
   font-size: 1.1rem;
   font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono,
   Bitstream Vera Sans Mono, Courier New, monospace;
-}
-
-.grid {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  //max-width: 800px;
 }
 
 .card {

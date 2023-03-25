@@ -1,9 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import PostFilterableList from '../../../component/legacy/filter/PostFilterableList';
+import PostFilterableList from '../../../component//filter/PostFilterableList';
 
-import {querySelector} from '../../../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('.post-preview-filterable-list', (postFilterableListElements) => {
     for (const postFilterableListElement of postFilterableListElements) {

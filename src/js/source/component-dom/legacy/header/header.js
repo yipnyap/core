@@ -1,14 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-
-import Header from '../../../component/legacy/header/Header';
+import Header from "@legacy/component/header/Header";
 
 const headerElement = document.querySelector('#cmui-header');
 
 if (headerElement) {
     ReactDOM.render(
         <>
-            <Header />
+            <Header/>
             {/*{window.location.hostname === 'yipnyap.local' && (*/}
             {/*<div style={{*/}
             {/*    height: '30px',*/}

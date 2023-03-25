@@ -17,10 +17,10 @@
 ?>
 
 <!-- GRID -->
-<div class="grid grid-3-6-3">
+<div class="grid-legacy grid-3-6-3">
   <!-- GRID COLUMN -->
   <div class="grid-column">
-  <?php
+    <?php
 
     /**
      * Widget Info About
@@ -90,19 +90,6 @@
         'points'        => yipnyap_gamipress_get_user_points($member['id'])
       ]);
     }
-
-    // add vkmedia photos widget if plugin is active
-    if (yipnyap_plugin_vkmedia_is_active() && yipnyap_settings_media_file_upload_is_enabled('image')) :
-
-  ?>
-
-    <!-- PHOTOS WIDGET -->
-    <div id="photos-widget" data-userid="<?php echo esc_attr($member['id']); ?>"></div>
-    <!-- /PHOTOS WIDGET -->
-
-  <?php
-
-    endif;
 
     // if the groups component is active, show groups widget
     if (bp_is_active('groups')) {

@@ -10,10 +10,16 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "sourceMap": true,
-    "baseUrl": ".",
+    "baseUrl": "./src",
     "paths": {
-      "@/*": [
-        "src/*"
+      "@nextgen2/*": [
+        "nextgen2/*"
+      ],
+      "@nextgen2": [
+        "nextgen2"
+      ],
+      "@legacy/*": [
+        "js/source/*"
       ]
     },
     "lib": [

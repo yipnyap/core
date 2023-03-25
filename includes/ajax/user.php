@@ -14,11 +14,7 @@ function yipnyap_get_logged_user_member_data_ajax() {
   
   $data_scope = $_POST['data_scope'] ?? 'user-status';
 
-  if (yipnyap_plugin_buddypress_is_active()) {
-    $user = yipnyap_get_logged_user_member_data($data_scope);
-  } else {
-    $user = yipnyap_get_logged_user_data();
-  }
+  $user = yipnyap_get_logged_user_member_data($data_scope);
 
   header('Content-Type: application/json');
   echo json_encode($user);

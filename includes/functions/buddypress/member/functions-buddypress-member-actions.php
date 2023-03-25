@@ -55,7 +55,7 @@ if (yipnyap_settings_members_profile_page_is_enabled('about')) {
 
             ?>
             <!-- GRID -->
-            <div class="grid grid-3-6-3">
+            <div class="grid-legacy grid-3-6-3">
                 <!-- GRID COLUMN -->
                 <div class="grid-column">
                     <?php
@@ -152,14 +152,6 @@ if (yipnyap_settings_members_profile_page_is_enabled('posts')) {
             $post_args = [
                 'author' => $member['id']
             ];
-
-            if (yipnyap_plugin_pmpro_is_active() && yipnyap_pmpro_search_archives_limit_enabled()) {
-                $restricted_categories = yipnyap_pmpro_logged_user_restricted_categories_get();
-                $restricted_posts = yipnyap_pmpro_logged_user_restricted_posts_get();
-
-                $post_args['category__not_in'] = $restricted_categories;
-                $post_args['post__not_in'] = $restricted_posts;
-            }
 
             $post_count = yipnyap_get_post_count($post_args);
 
@@ -406,64 +398,6 @@ if (bp_is_active('settings')) {
             }
         }
 
-        if (!function_exists('yipnyap_members_settings_messages_page_screen_content')) {
-            /**
-             * Members messages page HTML content
-             */
-            function yipnyap_members_settings_messages_page_screen_content()
-            {
-                ?>
-                <div class="account-hub-content">
-                <?php
-                // if BP Better Messages plugin is active, show its messages screen
-                if (yipnyap_plugin_bpbettermessages_is_active()) {
-                    /**
-                     * Section Header
-                     */
-                    get_template_part('template-part/section/section', 'header', [
-                        'section_pretitle' => esc_html__('My Profile', 'yipnyap'),
-                        'section_title' => esc_html__('Messages', 'yipnyap')
-                    ]);
-
-                    echo BP_Better_Messages()->functions->get_page();
-
-                } else {
-                    $user_id = isset($_GET['user_id']) && is_numeric($_GET['user_id']) ? (int)$_GET['user_id'] : false;
-                    $message_id = isset($_GET['message_id']) && is_numeric($_GET['message_id']) ? (int)$_GET['message_id'] : false;
-
-                    get_template_part('template-part/alert/alert', 'line', [
-                        'type' => 'info',
-                        'class' => 'mb-4',
-                        'text' => '<span class="bold block">🔬 Friend DMs are experimental</span>This feature might not work well, if at all, and may be removed later.'
-                    ]);
-
-                    if ($user_id) :
-
-                        ?>
-                        <div id="messages-settings-screen" data-userid="<?php echo esc_attr($user_id); ?>"></div>
-                    <?php
-
-                    elseif ($message_id) :
-
-                        ?>
-                        <div id="messages-settings-screen" data-messageid="<?php echo esc_attr($message_id); ?>"></div>
-                    <?php
-
-                    else :
-
-                        ?>
-                        <div id="messages-settings-screen"></div>
-                    <?php
-
-                    endif;
-                }
-                ?>
-                </div>
-                </div>
-                <!-- /GRID -->
-                <?php
-            }
-        }
     }
 
     /**

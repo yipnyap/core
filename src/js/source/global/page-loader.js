@@ -1,4 +1,4 @@
-import { querySelector } from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 querySelector('.page-loader', function (el) {
   const pageLoader = el[0];

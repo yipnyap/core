@@ -1,6 +1,6 @@
-import {querySelector} from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
-import * as memberRouter from '../router/member/member-router';
+import * as memberRouter from '@legacy/router/member/member-router';
 
 querySelector('#vk-user-account-delete', (els) => {
     const userDeleteButton = els[0],

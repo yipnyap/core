@@ -72,7 +72,7 @@ get_template_part('template-part/common/header/header', '', [
     Yeah, yeah. It's dirty way of making that footer stay below but whatever, man! I'll fix next version
     TODO: Remove this stupid thing.
     -->
-    <div class="grid grid-3-9 medium-space">
+    <div class="grid-legacy grid-3-9 medium-space">
         <?php
 
         /**

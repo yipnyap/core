@@ -6,6 +6,8 @@
 /*-----------------------
     1. ERROR SECTION
 -----------------------*/
+@use "sass:math";
+
 .error-section {
   margin-top: 32px;
   padding-bottom: 60px;
@@ -35,7 +37,7 @@
     max-width: 570px;
     margin-top: 32px;
     font-size: $fs-18;
-    line-height: (32 / 18) * 1em;
+    line-height: math.div(32, 18) * 1em;
     font-weight: $weight-medium;
     text-align: center;
   }

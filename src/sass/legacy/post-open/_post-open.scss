@@ -6,6 +6,8 @@
 /*--------------------
     1. POST OPEN
 --------------------*/
+@use "sass:math";
+
 .post-open {
   margin-bottom: 80px;
 
@@ -62,7 +64,7 @@
       text-align: center;
 
       .post-open-title {
-        width: (550 / 884) * 100%;
+        width: math.div(550, 884) * 100%;
         margin: 22px auto 0;
       }
 
@@ -109,11 +111,11 @@
         padding: 0 84px;
 
         .post-open-content-sidebar {
-          width: (100 / 716) * 100%;
+          width: math.div(100, 716) * 100%;
         }
 
         .post-open-content-body {
-          width: (616 / 716) * 100%;
+          width: math.div(616, 716) * 100%;
         }
       }
     }
@@ -128,12 +130,12 @@
 
         .post-open-content {
           .post-open-content-sidebar {
-            width: (84 / 584) * 100%;
+            width: math.div(84, 584) * 100%;
             max-width: 84px;
           }
 
           .post-open-content-body {
-            width: (500 / 584) * 100%;
+            width: math.div(500, 584) * 100%;
           }
         }
       }
@@ -200,7 +202,7 @@
     }
 
     .post-open-body {
-      width: (784 / 884) * 100%;
+      width: math.div(784, 884) * 100%;
       max-width: 784px;
       padding-top: 80px;
       margin: -100px 0 0;
@@ -304,14 +306,14 @@
         .post-open-excerpt {
           font-size: $fs-22;
           font-weight: $weight-medium;
-          line-height: (34 / 22) * 1em;
+          line-height: math.div(34, 22) * 1em;
         }
 
         .post-open-paragraph {
           margin-top: 36px;
           font-size: $fs-16;
           font-weight: $weight-medium;
-          line-height: (32 / 16) * 1em;
+          line-height: math.div(32, 16) * 1em;
 
           &:first-child {
             margin-top: 0;

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import OpenPostFooter from '../../../component/legacy/post/OpenPostFooter';
+import OpenPostFooter from '../../../component/post/OpenPostFooter';
 
 const commentListElement = document.querySelector('#comment-list');
 

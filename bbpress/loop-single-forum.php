@@ -43,22 +43,20 @@ defined('ABSPATH') || exit;
 
             $forum_id = bbp_get_forum_id();
 
-            if (yipnyap_plugin_buddypress_is_active()) {
-                $forum_group_id = bbp_get_forum_group_ids($forum_id);
+            $forum_group_id = bbp_get_forum_group_ids($forum_id);
 
-                if (count($forum_group_id) > 0) {
-                    $forum_group = yipnyap_groups_get(['include' => [$forum_group_id[0]]])[0];
-                    $forum_group['link'] = bbp_get_forum_permalink($forum_id);
+            if (count($forum_group_id) > 0) {
+                $forum_group = yipnyap_groups_get(['include' => [$forum_group_id[0]]])[0];
+                $forum_group['link'] = bbp_get_forum_permalink($forum_id);
 
-                    /**
-                     *
-                     */
-                    get_template_part('template-part/avatar/avatar', 'forum', [
-                        'user' => $forum_group,
-                        'no_border' => true,
-                        'linked' => true
-                    ]);
-                }
+                /**
+                 *
+                 */
+                get_template_part('template-part/avatar/avatar', 'forum', [
+                    'user' => $forum_group,
+                    'no_border' => true,
+                    'linked' => true
+                ]);
             }
 
             ?>

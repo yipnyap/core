@@ -1,6 +1,6 @@
 import ProgressBar from 'progressbar.js';
 
-import {querySelector} from '../utils/core';
+import {querySelector} from '@legacy/utils/core';
 
 const avatarGradientDef = `
 <svg xmlns="http://www.w3.org/2000/svg" version="1.1" width="0" height="0" style="display: block;">

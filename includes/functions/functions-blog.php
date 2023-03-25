@@ -61,12 +61,7 @@ if (!function_exists('yipnyap_get_posts')) {
                 'password_required' => post_password_required($wp_post->ID)
             ];
 
-            // add BuddyPress member data if plugin is active
-            if (yipnyap_plugin_buddypress_is_active()) {
-                $post['author'] = yipnyap_members_get(['include' => [$wp_post->post_author]])[0];
-            } else {
-                $post['author'] = yipnyap_user_get_data($wp_post->post_author);
-            }
+            $post['author'] = yipnyap_members_get(['include' => [$wp_post->post_author]])[0];
 
             // if no author data available, show as deleted
             if (count($post['author']) === 0) {
@@ -86,10 +81,7 @@ if (!function_exists('yipnyap_get_posts')) {
                 ];
             }
 
-            // add vkreact reactions data if plugin is active
-            if (yipnyap_plugin_vkreact_is_active()) {
-                $post['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_post_reactions($wp_post->ID));
-            }
+            $post['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_post_reactions($wp_post->ID));
 
             // add post format information
             if ($post['format'] === 'video') {
@@ -273,12 +265,7 @@ if (!function_exists('yipnyap_post_get_loop_data')) {
             'share_count' => yipnyap_post_get_share_count($post_id)
         ];
 
-        // add BuddyPress member data if plugin is active
-        if (yipnyap_plugin_buddypress_is_active()) {
-            $post_data['author'] = yipnyap_members_get(['include' => [$author_id]])[0];
-        } else {
-            $post_data['author'] = yipnyap_user_get_data($author_id);
-        }
+        $post_data['author'] = yipnyap_members_get(['include' => [$author_id]])[0];
 
         // if no author data available, show as deleted
         if (count($post_data['author']) === 0) {
@@ -357,10 +344,7 @@ if (!function_exists('yipnyap_get_pages')) {
                 $page['cover_url_thumb'] = get_the_post_thumbnail_url($wp_page->ID, 'yipnyap-postlist-thumb');
             }
 
-            // add vkreact reactions data if plugin is active
-            if (yipnyap_plugin_vkreact_is_active()) {
-                $page['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_post_reactions($wp_page->ID));
-            }
+            $page['reactions'] = yipnyap_reactions_insert_user_data(vkreact_get_post_reactions($wp_page->ID));
 
             $pages[] = $page;
         }

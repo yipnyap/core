@@ -15,8 +15,7 @@ $GetMemberBit = [
  * @return array Bitwise values
  * @since hk15
  */
-function YipnyapGetBitwiseValues(): array
-{
+function YipnyapGetBitwiseValues(): array {
     global $GetMemberBit;
 
     return [
@@ -26,12 +25,12 @@ function YipnyapGetBitwiseValues(): array
 
 /**
  * Get member ID if username is provided, otherwise return ID
+ *
  * @param int|string $member_id Member ID or username.
  * @return int Member ID.
  * @since hk16-2
  */
-function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = false): int
-{
+function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = false): int {
     if (!preg_match('/^[0-9]*$/', $member_id)) {
         $member_id = str_replace('@', '', $member_id);
 
@@ -71,8 +70,7 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  *
  * @see yipnyap_members_get
  */
-function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false): array
-{
+function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
     global $GetMemberBit;
 
     /**
@@ -94,6 +92,11 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $memberOld = $memberOld[0];
     }
 
+    $onlineRequest = new WP_REST_Request('GET', '/buddypress/v1/members');
+    $onlineRequest->set_param('type', 'online');
+    $onlineRequest->set_param('populate_extras', 0);
+    $onlineResponse = rest_do_request($onlineRequest);
+
     // TODO: Deperecate "mention_name" in the future.
     $member = [
         'id' => $memberOld['id'],
@@ -102,14 +105,27 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         'avatar' => $memberOld['avatar_url'],
         'header' => yipnyap_member_get_cover_url($member_id),
         'followers' => count(bp_follow_get_followers([
-            'user_id' => $member_id
+            'user_id' => $member_id,
         ])),
         'following' => count(bp_follow_get_following([
-            'user_id' => $member_id
+            'user_id' => $member_id,
         ])),
-        'posts' => YipnyapGetMemberActivityCount($member_id)
+        'posts' => YipnyapGetMemberActivityCount($member_id),
     ];
     $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
+
+    /**
+     * Check if member is online, then add "online" to the member array.
+     */
+    if ($getOnline) {
+        $member['online'] = false;
+        foreach ($onlineResponse->data as $onlineMember) {
+            if ($onlineMember['id'] === $member_id) {
+                $member['online'] = true;
+                break;
+            }
+        }
+    }
 
     /**
      * Check if member is verified, then add "verified" to the member array.
@@ -166,12 +182,20 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
      * Check if bitwise has "online_count", add currently online count
      */
     if ($bitwise & $GetMemberBit['online_count']) {
-        $request = new WP_REST_Request('GET', '/buddypress/v1/members');
-        $request->set_param('type', 'online');
-        $request->set_param('populate_extras', 0);
-        $response = rest_do_request($request);
+        $onlineCount = count($onlineResponse->data);
 
-        $member['online_count'] = count($response->data);
+        // If the count is less than or equal to 3, generate a random online count based on the current time.
+        if ($onlineCount <= 3) {
+            $originalOnlineCount = $onlineCount;
+            // Add up current date, hour, and minute, then divide by 10.
+            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 20;
+            // Round the number to the nearest 10.
+            $onlineCount = round($onlineCount);
+            // Add the original online count to the new online count.
+            $onlineCount += $originalOnlineCount;
+        }
+
+        $member['online_count'] = $onlineCount;
     }
 
     /**
@@ -194,8 +218,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
  * @return int Activity count.
  * @since hk15
  */
-function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
-{
+function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int {
     global $wpdb;
 
     $table = buddypress()->activity->table_name;
@@ -222,8 +245,7 @@ function YipnyapGetMemberActivityCount(int $member_id, string $type = ''): int
  * @see wp_authenticate, YipnyapGetMember
  * @since hk15
  */
-function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp = null, bool|null $remember = null): array
-{
+function YipnyapLoginMember(string|null $username, string|null $password, string|null $otp = null, bool|null $remember = null): array {
     if (empty($username) || empty($password)) {
         return [
             'success' => false,
@@ -266,13 +288,13 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
 
 /**
  * Check OTP, send one if not exists.
+ *
  * @param $YipnyapUser
  * @param string|null $otp
  * @return array ['success' => bool, 'message' => string] - success is true only if OTP is correct.
  * @throws Exception
  */
-function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
-{
+function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array {
     // Check if OTP is required
     if (empty($YipnyapUser['tgid'])) {
         return [
@@ -331,12 +353,12 @@ function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array
 
 /**
  * Get member's badges
+ *
  * @param string|int $member_id Member ID
  * @return array Member's badges
  * @since hk16-2
  */
-function YipnyapGetMemberBadges(string|int $member_id): array
-{
+function YipnyapGetMemberBadges(string|int $member_id): array {
     $member_id = YipnyapFetchMemberID($member_id);
     $badges = [];
 
@@ -369,7 +391,7 @@ function YipnyapGetMemberBadges(string|int $member_id): array
 
             if (str_starts_with($gp_achievement->post_title, '🙈')) {
                 $badgeBuild['secret'] = true;
-            } else if(str_starts_with($gp_achievement->post_title, '✨')) {
+            } elseif (str_starts_with($gp_achievement->post_title, '✨')) {
                 $badgeBuild['deluxe'] = true;
                 $badgeBuild = array_merge($badgeBuild, $badgeMeta);
             } else {
@@ -390,8 +412,7 @@ function YipnyapGetMemberBadges(string|int $member_id): array
  * @return array Member's groups
  * @since ui1
  */
-function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array
-{
+function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array {
     $member_id = YipnyapFetchMemberID($member_id);
     $groups = [];
 
@@ -411,12 +432,16 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
             $groups[] = [
                 'id' => $gp_group->id,
                 'name' => $gp_group->name,
-                'description' => $gp_group->description,
+                'description' => html_entity_decode($gp_group->description),
                 'avatar' => bp_core_fetch_avatar([
                     'item_id' => $gp_group->id,
                     'object' => 'group',
                     'type' => 'full',
                     'html' => false,
+                ]),
+                'banner' => bp_attachments_get_attachment('url', [
+                    'item_id' => $gp_group->id,
+                    'object_dir' => 'groups',
                 ]),
                 'member_count' => $gp_group->total_member_count,
                 'is_admin' => $is_admin,
@@ -436,15 +461,14 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
  * @return array Member's friends
  * @since ui1
  */
-function YipnyapGetMemberFriends(string|int $member_id): array
-{
+function YipnyapGetMemberFriends(string|int $member_id): array {
     $member_id = YipnyapFetchMemberID($member_id);
     $friends = [];
 
     $gp_friends = friends_get_friend_user_ids($member_id);
 
     foreach ($gp_friends as $gp_friend) {
-        $friends[] = YipnyapGetMember($gp_friend);
+        $friends[] = YipnyapGetMember($gp_friend, null, false, true);
     }
 
     return $friends;

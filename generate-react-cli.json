@@ -4,8 +4,14 @@
   "cssPreprocessor": "less",
   "testLibrary": "Testing Library",
   "component": {
+    "provider": {
+      "path": "src/nextgen2/providers",
+      "customTemplates": {
+        "component": "src/templates/provider/TemplateName.provider.tsx"
+      }
+    },
     "default": {
-      "path": "src/js/source/component/nextgen2/components",
+      "path": "src/nextgen2/components",
       "withStyle": false,
       "withTest": true,
       "withStory": true,

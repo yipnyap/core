@@ -70,7 +70,7 @@ if (count($navigation_section) > 0) {
             get_template_part('template-part/avatar/avatar', 'small', [
                 'user' => $args['user'],
                 'modifiers' => 'user-status-avatar',
-                'linked' => yipnyap_plugin_buddypress_is_active(),
+                'linked' => true,
                 'no_border' => true
             ]);
 

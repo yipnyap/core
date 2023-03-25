@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import GroupHeaderActions from '../../../component/legacy/profile/GroupHeaderActions';
+import GroupHeaderActions from '../../../component/profile/GroupHeaderActions';
 
 const groupHeaderActionsElement = document.querySelector('#group-header-actions');
 

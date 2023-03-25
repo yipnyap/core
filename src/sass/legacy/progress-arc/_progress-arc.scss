@@ -8,6 +8,8 @@
 /*----------------------------
     1. PROGRESS ARC WRAP
 ----------------------------*/
+@use "sass:math";
+
 .progress-arc-wrap {
   width: 140px;
   height: 140px;
@@ -125,7 +127,7 @@
       margin-top: 22px;
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (20 / 14) * 1em;
+      line-height: math.div(20, 14) * 1em;
     }
   }
 }

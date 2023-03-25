@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import PasswordSettingsScreen from '../../../component/legacy/settings/PasswordSettingsScreen';
+import PasswordSettingsScreen from '../../../component/settings/PasswordSettingsScreen';
 
 const passwordSettingsElement = document.querySelector('#password-settings-screen');
 

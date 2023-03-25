@@ -5,6 +5,7 @@
 add_action('rest_api_init', function () {
     /**
      * POST /dipswitch/
+     *
      * @param int $key Dipswitch key.
      * @param int $value Dipswitch value.
      * @since ui1.3
@@ -38,6 +39,7 @@ add_action('rest_api_init', function () {
 
                 $allowedKeys = [
                     'hide_onboarding' => 'boolean',
+                    'accent' => 'string',
                 ];
 
                 if (!empty($allowedKeys[$key]) && gettype($value) === $allowedKeys[$key]) {

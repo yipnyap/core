@@ -1,0 +1,126 @@
+{
+  "openapi": "3.0.3",
+  "info": {
+    "title": "Yipnyap",
+    "description": "Title",
+    "version": "2.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost/api/v2",
+      "description": "Local development"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "Group": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number",
+            "format": "IncrementalID"
+          },
+          "creator_id": {
+            "type": "number",
+            "format": "IncrementalID"
+          },
+          "name": {
+            "type": "string"
+          },
+          "description": {
+            "type": "string"
+          },
+          "date_created": {
+            "type": "integer",
+            "format": "int64",
+            "pattern": "^[0-9]{10}$"
+          },
+          "privacy": {
+            "type": "string",
+            "enum": [
+              "public",
+              "private",
+              "hidden"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "paths": {
+    "/groups": {
+      "get": {
+        "description": "Get all groups",
+        "operationId": "getGroups",
+        "tags": [
+          "groups"
+        ],
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Page number",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "per_page",
+            "in": "query",
+            "description": "Number of items per page",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "sort",
+            "in": "query",
+            "description": "Sort by field",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "order",
+            "in": "query",
+            "description": "Sort order",
+            "required": false,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user_id",
+            "in": "query",
+            "description": "User ID to filter by",
+            "required": false,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Group"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

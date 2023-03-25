@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import GroupMemberFilterableList from '../../../component/legacy/filter/GroupMemberFilterableList';
+import GroupMemberFilterableList from '../../../component//filter/GroupMemberFilterableList';
 
 const groupMemberFilterableListElement = document.querySelector('#group-members-filterable-list');
 

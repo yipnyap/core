@@ -95,11 +95,7 @@ if (!function_exists('yipnyap_gamipress_get_achievement_completed_users')) {
         $achievement_users = gamipress_get_achievement_earners($achievement_id, $args);
 
         foreach ($achievement_users as $achievement_user) {
-            if (yipnyap_plugin_buddypress_is_active()) {
-                $users[] = yipnyap_members_get_fallback($achievement_user->ID);
-            } else {
-                $users[] = yipnyap_user_get_data($achievement_user->ID);
-            }
+            $users[] = yipnyap_members_get_fallback($achievement_user->ID);
         }
 
         return $users;

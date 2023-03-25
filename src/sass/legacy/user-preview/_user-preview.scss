@@ -6,6 +6,8 @@
 /*----------------------
     1. USER PREVIEW
 ----------------------*/
+@use "sass:math";
+
 .user-preview {
   @apply rounded-default;
   background-color: var(--color-box-background);
@@ -278,7 +280,7 @@
       margin: -5px auto 0;
       font-size: $fs-14;
       font-weight: $weight-medium;
-      line-height: (20 / 14) * 1em;
+      line-height: math.div(20, 14) * 1em;
       text-align: center;
     }
 

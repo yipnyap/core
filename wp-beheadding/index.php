@@ -96,7 +96,7 @@ remove_action('wp_head', 'wp_generator');
  * @since hk15
  */
 add_filter('admin_title', function (string $admin_title, string $title): string {
-    return 'Houndboard &bull; ' . $title;
+    return 'Houndboard • ' . $title;
 }, 10, 2);
 
 /**

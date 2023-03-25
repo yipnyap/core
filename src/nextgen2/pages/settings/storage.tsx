@@ -95,7 +95,7 @@ export default function SettingsStorage() {
                         own personal storage.
                     </p>
                     <p className="text-default-alt">
-                        If you need personal storage, and you need it on our
+                        If you need private storage, and you need it on our
                         servers for whatever reason (whether it be for easy
                         archival, management, or whatever), we can provide
                         cheap storage, but{' '}

@@ -55,10 +55,6 @@ module.exports = {
                     900: '#171717',
                 },
                 neutral: defaultColors.zinc,
-                sidebar: {
-                    default: '#ffffff',
-                    dark: '#1b1b1c',
-                },
             },
             aspectRatio: {
                 'banner': '3 / 1',

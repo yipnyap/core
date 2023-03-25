@@ -29,7 +29,7 @@ export default function SettingsGeneral() {
     useEffect(() => {
         setHeading({
             heading: location.pathname === '/settings/' ? 'Settings' : null,
-            padding: location.pathname !== '/settings/skin/',
+            padding: true,
             navigator: {
                 subNavigation: [{
                     name: 'General',

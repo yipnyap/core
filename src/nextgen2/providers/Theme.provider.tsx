@@ -1,15 +1,19 @@
-import { createContext, useContext, useState } from 'react';
-import type { Dispatch, ReactNode, SetStateAction } from 'react';
+import {createContext, useContext, useState} from 'react';
+import type {Dispatch, ReactNode, SetStateAction} from 'react';
 
 export interface LocalThemeContext {
     variant: string;
+    accent: string;
 }
 
 // @ts-ignore
 const ThemeContext = createContext<[LocalThemeContext, Dispatch<SetStateAction<LocalThemeContext>>]>(null);
 
 function ThemeContextProvider({children}: { children: ReactNode }) {
-    const [theme, useTheme] = useState<LocalThemeContext>({variant: localStorage.getItem('theme')?.toLowerCase() || 'system'});
+    const [theme, useTheme] = useState<LocalThemeContext>({
+        variant: localStorage.getItem('theme')?.toLowerCase() || 'system',
+        accent: yipnyap_constants.currentUser?.dipswitch?.accent?.toLowerCase() || 'blue',
+    });
 
     console.log('[🌇 Theme] Initial: ', theme);
     return <ThemeContext.Provider value={[theme, useTheme]}>{children}</ThemeContext.Provider>;

@@ -1,4 +1,5 @@
 import {NGNavbar} from '@nextgen2/components';
+import {useTheme} from '@nextgen2/providers/Theme.provider';
 import React from 'react';
 import {NGContentNavigator} from '../NGContentNavigator';
 import {NGContentNavigatorItemType} from '../NGContentNavigator/NGContentNavigator';
@@ -22,7 +23,10 @@ export declare interface NGSideNavType {
 }
 
 export default function NGSideNav({...props}: NGSideNavType) {
-    const logoURL = props.logoURL || yipnyap_constants.logo_url || 'https://yipnyap.me/vault/@server/uploads/2022/04/cropped-yipnyap-logo.png'
+    const [theme] = useTheme();
+    const logoURL = props.logoURL || yipnyap_constants.logo_url || 'https://yipnyap.me/vault/@server/uploads/2022/04/cropped-yipnyap-logo.png';
+
+    const themeAccent = theme.accent === 'neutral' ? 'neutralOld' : theme.accent;
 
     return (
         <>
@@ -32,10 +36,10 @@ export default function NGSideNav({...props}: NGSideNavType) {
                     <div className="hidden lg:flex lg:flex-shrink-0">
                         <div className="flex flex-col w-20">
                             <div
-                                className="flex-1 flex flex-col min-h-0 overflow-y-auto bg-blue-600 dark:bg-blue-700">
+                                className={`flex-1 flex flex-col min-h-0 overflow-y-auto bg-${themeAccent}-600 dark:bg-${themeAccent}-700`}>
                                 <div className="flex-1">
                                     <div
-                                        className="bg-blue-700 py-4 flex items-center justify-center dark:bg-blue-800">
+                                        className={`bg-${themeAccent}-700 py-4 flex items-center justify-center dark:bg-${themeAccent}-800`}>
                                         <img
                                             className="h-8 w-auto rounded-lg"
                                             src={logoURL}
@@ -47,7 +51,7 @@ export default function NGSideNav({...props}: NGSideNavType) {
                                             <NavLink
                                                 key={item.name}
                                                 to={item.href}
-                                                className="flex cursor-pointer items-center p-4 rounded-lg text-blue-200 hover:bg-blue-700 hover:!text-blue-200"
+                                                className={`flex cursor-pointer items-center p-4 rounded-lg text-${themeAccent}-200 hover:bg-${themeAccent}-700 hover:text-${themeAccent}-200`}
                                             >
                                                 {typeof item.icon !== 'string' && (
                                                     <item.icon className="h-6 w-6" aria-hidden="true"/>

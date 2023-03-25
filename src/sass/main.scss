@@ -15,7 +15,7 @@
 
 /* Colours */
 .text-default {
-  @apply text-neutral-900 dark:text-white;
+  @apply text-neutral-700 dark:text-white;
 }
 
 .text-default-alt {
@@ -39,7 +39,7 @@
 }
 
 .dark\:border-gradient-red-dark {
-  background: linear-gradient(#3d1d1d, #3d1d1d) padding-box, linear-gradient(to top,#f43f5e,#fb7185,#ef4444) border-box
+  background: linear-gradient(#3d1d1d, #3d1d1d) padding-box, linear-gradient(to top, #f43f5e, #fb7185, #ef4444) border-box
 }
 
 @import 'nextgen2/main';

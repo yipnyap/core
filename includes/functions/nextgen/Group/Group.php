@@ -108,6 +108,11 @@ class Group {
             ],
         ];
 
+        // Check if the creator is a member of the group.
+        if (!groups_is_user_member($BPGroup->creator_id, $BPGroup->id)) {
+            $BPGroup->meta['orphan'] = true;
+        }
+
         // Use MemberData to get group members
         foreach (groups_get_group_members([
             'group_id' => $BPGroup->id,
@@ -132,12 +137,14 @@ class Group {
         }
 
         // Sort members by date joined, and by role alphabetically.
-        usort($BPGroup->meta['members']['data'], function ($a, $b) {
-            if ($a['date_joined'] === $b['date_joined']) {
-                return $a['pivot']['current'] <=> $b['pivot']['current'];
-            }
-            return $a['date_joined'] <=> $b['date_joined'];
-        });
+        if (!empty($BPGroup->meta['members']['data'])) {
+            usort($BPGroup->meta['members']['data'], function ($a, $b) {
+                if ($a['date_joined'] === $b['date_joined']) {
+                    return $a['pivot']['current'] <=> $b['pivot']['current'];
+                }
+                return $a['date_joined'] <=> $b['date_joined'];
+            });
+        }
 
         $this->GroupMeta = $BPGroup;
     }

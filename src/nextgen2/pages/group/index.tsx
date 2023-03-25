@@ -140,13 +140,13 @@ export default function GroupsIndex() {
                         className="bg-box shadow border-b border-default rounded-default">
                         <div className="flex p-4 highlight-white/5 rounded-default">
                             <div className="flex-shrink-0">
-                                <InformationCircleIcon className="h-5 w-5 text-alt-2" aria-hidden="true"/>
+                                <InformationCircleIcon className="h-5 w-5 text-default-alt" aria-hidden="true"/>
                             </div>
                             <div className="ml-3">
-                                <h3 className="text-sm font-medium text-alt-2">
+                                <h3 className="text-sm font-medium text-default-alt">
                                     Eager, are we?
                                 </h3>
-                                <div className="mt-2 text-sm text-alt-2">
+                                <div className="mt-2 text-sm text-default-alt">
                                     <p>
                                         Announcements are only available to a society.
                                     </p>
@@ -196,6 +196,28 @@ export default function GroupsIndex() {
                 <NGSkeleton/>
             ) : (
                  <>
+                     {/* "Group is missing its Leader" jumbo warning if 'orphan' is true */}
+                     {group.meta.orphan && (
+                         <div className="bg-red-600 shadow border-b border-default rounded-default">
+                             <div className="flex p-4 highlight-white/5 rounded-default">
+                                 <div className="flex-shrink-0">
+                                     <InformationCircleIcon className="h-5 w-5 text-white" aria-hidden="true"/>
+                                 </div>
+                                 <div className="ml-3">
+                                     <h3 className="text-sm font-medium text-white">
+                                         This pack is missing a leader
+                                     </h3>
+                                     <p className="mt-2 text-sm text-red-50">
+                                         This pack's leader left the pack, and
+                                         no one has been appointed to take their
+                                         place. This pack is currently in a
+                                         state of limbo, and will be deleted if
+                                         the leader does not return.
+                                     </p>
+                                 </div>
+                             </div>
+                         </div>
+                     )}
                      {/* TODO: Move this as it's own component */}
                      <div className="shadow relative z-10 pb-8 rounded-default bg-box">
                          <img className="rounded-default aspect-banner object-cover"
@@ -217,7 +239,7 @@ export default function GroupsIndex() {
                                          </h1>
                                          {/* Small @username */}
                                          <div className="flex items-center">
-                                             <p className="text-sm font-medium text-alt-2 truncate">
+                                             <p className="text-sm font-medium text-default-alt truncate">
                                                  @{group.slug || group.name}
                                              </p>
                                          </div>
@@ -225,7 +247,7 @@ export default function GroupsIndex() {
 
                                      <div
                                          className="mt-6 flex flex-col justify-stretch space-y-3 sm:flex-row sm:space-y-0 sm:space-x-4">
-                                         {group.meta.members.is_member ? (
+                                         {group.meta.pivot?.current ? (
                                              <NGButton>
                                                  <UserPlusIcon
                                                      className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
@@ -256,7 +278,7 @@ export default function GroupsIndex() {
                                      </p>
                                  )}
 
-                                 <div className="mt-2 flex flex-col text-sm text-alt-2">
+                                 <div className="mt-2 flex flex-col text-sm text-default-alt">
                                      <div className="flex">
                                          <UserGroupIcon className="flex-shrink-0 mr-1.5 h-5 w-5"
                                                         aria-hidden="true"/>

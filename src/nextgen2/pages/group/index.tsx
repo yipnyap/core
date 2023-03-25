@@ -152,15 +152,7 @@ export default function GroupsIndex() {
 
     function joinGroupHandler() {
         joinGroup(groupID).then((data) => {
-            if (data.message) {
-                addNotification({
-                    type: 'error',
-                    title: 'Error',
-                    message: data.message,
-                });
-            } else {
-                window.location.reload();
-            }
+            window.location.reload();
         }).catch((error) => {
             addNotification({
                 type: 'error',

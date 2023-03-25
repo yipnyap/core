@@ -2,7 +2,9 @@ import {Cog6ToothIcon} from '@heroicons/react/20/solid';
 import {UserPlusIcon} from '@heroicons/react/24/solid';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
 import {Group} from '@nextgen2/api/groups/types';
-import {NGBody, NGButton, NGNewUserOnboarding, NGSkeleton, NGCTACard, NGGroupCard} from '@nextgen2/components';
+import {
+    NGBody, NGButton, NGNewUserOnboarding, NGSkeleton, NGCTACard, NGGroupCard, NGHeading,
+} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {LocalThemeContext} from '@nextgen2/providers/Theme.provider';
 import React, {useEffect, useState} from 'react';
@@ -75,7 +77,7 @@ export default function Home({...props}: Props) {
                         <p className="leading-normal text-white font-light">
                             Yipnyap is a place for furries to connect with each other, a place
                             that's built for furries, by furries. We've been developing Yipnyap
-                            for around 4 years, all at a loss. We're asking for your help to
+                            for around 3 years, all at a loss. We're asking for your help to
                             keep Yipnyap running.
                         </p>
                         <NGButton onClick={() => navigate('/fund/')}>
@@ -148,7 +150,7 @@ export default function Home({...props}: Props) {
 
             {/* Grid of recommended groups */}
             <div className="flex flex-col space-y-4">
-                <h2 className="text-2xl">Recommended Packs</h2>
+                <NGHeading>Recommended Packs</NGHeading>
                 {recommendedGroups.length > 0 && (
                     <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
                         {recommendedGroups.map((group, i) => (

@@ -45,3 +45,9 @@ export {NGNavbar} from './Navigation/NGNavbar';
  * Overlays
  */
 export {NGWizard} from './Overlays/NGWizard';
+
+/**
+ * Typography
+ */
+// export {NGText} from './Typography/NGText';
+export {NGHeading} from './Typography/NGHeading';

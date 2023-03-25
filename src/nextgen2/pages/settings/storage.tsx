@@ -1,7 +1,7 @@
 /**
  * Page that shows a Progress Bar that shows how much storage is used in either MB, or GB.
  */
-import {NGTable} from '@nextgen2/components';
+import {NGHeading, NGTable} from '@nextgen2/components';
 import React, {useEffect, useState} from 'react';
 
 export default function SettingsStorage() {
@@ -81,7 +81,7 @@ export default function SettingsStorage() {
     return (
         <div className="flex flex-col space-y-8">
             <div className="flex flex-col space-y-4">
-                <h1 className="text-2xl font-bold">Allocated Storage</h1>
+                <NGHeading>Allocated Storage</NGHeading>
                 <div className="space-y-2">
                     <p className="text-default-alt">
                         This is the amount of storage you have allocated to your account. Some users
@@ -167,7 +167,7 @@ export default function SettingsStorage() {
             {/* Over storage quota notice */}
             {userStorageOverbleed > 0 && (
                 <div className="flex flex-col space-y-4">
-                    <h1 className="text-2xl font-bold text-red-500">{userStorageOverbleedState}% Over Storage Quota</h1>
+                    <NGHeading theme="red">{userStorageOverbleedState}% Over Storage Quota</NGHeading>
                     <p className="text-default-alt">
                         You are currently {userStorageOverbleedState}% over your storage quota. Deleting some posts or
                         files
@@ -179,7 +179,7 @@ export default function SettingsStorage() {
 
             {/* List of files that are taking up the most space */}
             <div className="flex flex-col space-y-4">
-                <h1 className="text-2xl font-bold">Culprit Files</h1>
+                <NGHeading>Culprit Files</NGHeading>
                 <NGTable headers={['Name', 'Size']} data={culpritFiles.map((file) => {
                     return [() => (
                         <div className="flex flex-col space-y-2">

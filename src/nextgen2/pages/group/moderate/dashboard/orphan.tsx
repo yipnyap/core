@@ -1,6 +1,6 @@
 import {ArrowPathIcon, UserMinusIcon} from '@heroicons/react/20/solid';
 import {leaveGroup} from '@nextgen2/api/groups';
-import {NGButton} from '@nextgen2/components';
+import {NGButton, NGHeading} from '@nextgen2/components';
 import React, {useState} from 'react';
 
 export default function PageModerateOrphan({...props}: { group: any }) {
@@ -19,9 +19,9 @@ export default function PageModerateOrphan({...props}: { group: any }) {
     return (
         <div className="flex flex-col space-y-8">
             <div className="flex flex-col space-y-4">
-                <h1 className="text-2xl font-bold">
+                <NGHeading>
                     You're about to ditch what you've created
-                </h1>
+                </NGHeading>
                 <div className="space-y-2">
                     <p className="text-default-alt">
                         You can always come back to this pack later, but if you

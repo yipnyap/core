@@ -14,7 +14,7 @@ import ActivityFilterableList from '@legacy/component/activity/ActivityFilterabl
 import {getMemberGroups} from '@legacy/router/v2/members/get';
 import {getGroup, joinGroup, leaveGroup} from '@nextgen2/api/groups';
 import {Group} from '@nextgen2/api/groups/types';
-import {NGBody, NGButton, NGSkeleton, NGTable} from '@nextgen2/components';
+import {NGBody, NGButton, NGHeading, NGSkeleton, NGTable} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import moment from 'moment';
@@ -231,9 +231,9 @@ export default function GroupsIndex() {
                                  <div
                                      className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                                      <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
-                                         <h1 className="text-2xl font-bold text-default truncate">
+                                         <NGHeading>
                                              {group?.name}
-                                         </h1>
+                                         </NGHeading>
                                          {/* Small @username */}
                                          <div className="flex items-center">
                                              <p className="text-sm font-medium text-default-alt truncate">
@@ -273,9 +273,9 @@ export default function GroupsIndex() {
                                  </div>
                              </div>
                              <div className="hidden sm:block md:hidden mt-6 min-w-0 flex-1">
-                                 <h1 className="text-2xl font-bold text-default truncate">
+                                 <NGHeading>
                                      {group?.name}
-                                 </h1>
+                                 </NGHeading>
                              </div>
                              <div className="block mt-6 min-w-0 flex-1 text-default">
                                  {/* Bio */}

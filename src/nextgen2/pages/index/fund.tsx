@@ -1,4 +1,4 @@
-import {NGBody, NGButton} from '@nextgen2/components';
+import {NGBody, NGButton, NGHeading} from '@nextgen2/components';
 import React from 'react';
 
 export default function Fund() {
@@ -25,9 +25,9 @@ export default function Fund() {
             <div className="flex flex-col space-y-8">
                 <div className="flex flex-col space-y-4">
                     <div className="space-y-1">
-                        <h1 className="text-2xl font-bold">
+                        <NGHeading>
                             Help fund a safe place for everyone
-                        </h1>
+                        </NGHeading>
                         <span className="font-bold text-sm text-default-alt">
                             ...and feed the dev.
                         </span>
@@ -61,9 +61,9 @@ export default function Fund() {
                 <div className="flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
                         <div className="space-y-1">
-                            <h1 className="text-2xl font-bold">
+                            <NGHeading>
                                 Current: <span className="text-red-500">$7.50/m</span>
-                            </h1>
+                            </NGHeading>
                             <span className="font-bold text-sm text-default-alt">
                                 Ramen Profitable &mdash; Updated Monthly
                             </span>
@@ -90,9 +90,9 @@ export default function Fund() {
                     {/* Yipnyap will be free, forever and always. */}
                     <div className="flex flex-row space-x-2">
                         <div className="flex flex-col space-y-2">
-                            <h1 className="text-2xl font-bold">
+                            <NGHeading>
                                 F*#k paying for a service
-                            </h1>
+                            </NGHeading>
                             <p className="text-default-alt">
                                 Yipnyap will always be free, and we will never
                                 charge for any features, sell your data, use
@@ -116,9 +116,9 @@ export default function Fund() {
                     {/* Yipnyap stays up, even at a loss */}
                     <div className="flex flex-row space-x-2">
                         <div className="flex flex-col space-y-2">
-                            <h1 className="text-2xl font-bold">
+                            <NGHeading>
                                 We'll keep Yipnyap up, even if it's a loss
-                            </h1>
+                            </NGHeading>
                             <p className="text-default-alt">
                                 We're not in this for the money, and we're not
                                 going to stop Yipnyap if we're losing money.
@@ -133,9 +133,9 @@ export default function Fund() {
                     {/* Excess */}
                     <div className="flex flex-row space-x-2">
                         <div className="flex flex-col space-y-2">
-                            <h1 className="text-2xl font-bold">
+                            <NGHeading>
                                 Excess to exceeding organisations
-                            </h1>
+                            </NGHeading>
                             <p className="text-default-alt">
                                 When Yipnyap makes a successful profit, 25% will
                                 go to a charity or organisation that the
@@ -147,9 +147,9 @@ export default function Fund() {
                     {/* Ads are first party */}
                     <div className="flex flex-row space-x-2">
                         <div className="flex flex-col space-y-2">
-                            <h1 className="text-2xl font-bold">
+                            <NGHeading>
                                 Sponsors are the community, not companies
-                            </h1>
+                            </NGHeading>
                             <p className="text-default-alt">
                                 We will never use third party ads or accept
                                 third party sponsorships. Any sponsored card
@@ -170,9 +170,9 @@ export default function Fund() {
                 <div className="grid md:grid-cols-2 gap-8">
                     {/* Stripe/Workspace */}
                     <div className="flex flex-col space-y-2">
-                        <h1 className="text-2xl font-bold">
+                        <NGHeading>
                             Donate via Stripe
-                        </h1>
+                        </NGHeading>
                         <p className="text-default-alt">
                             Donating via Stripe is the easiest way to help us out,
                             as we don't have to pay as much in fees. You can donate
@@ -209,9 +209,9 @@ export default function Fund() {
 
                     {/* Paypal */}
                     <div className="flex flex-col space-y-2">
-                        <h1 className="text-2xl font-bold">
+                        <NGHeading>
                             Donate via PayPal
-                        </h1>
+                        </NGHeading>
                         <p className="text-default-alt">
                             Donating via PayPal is a bit more expensive for us,
                             but it's still a good way to help us out. You can donate
@@ -230,9 +230,9 @@ export default function Fund() {
 
                     {/* Patreon */}
                     <div className="flex flex-col space-y-2">
-                        <h1 className="text-2xl font-bold">
+                        <NGHeading>
                             Donate via Patreon
-                        </h1>
+                        </NGHeading>
                         <p className="text-default-alt">
                             Donating via Patreon gives you the same benefits as
                             donating via Stripe, but you have to create an account
@@ -258,9 +258,9 @@ export default function Fund() {
 
                     {/* Ko-fi */}
                     <div className="flex flex-col space-y-2">
-                        <h1 className="text-2xl font-bold">
+                        <NGHeading>
                             Donate via Ko-fi
-                        </h1>
+                        </NGHeading>
                         <p className="text-default-alt">
                             Donating via Ko-fi uses Stripe and PayPal, however
                             you'll be donating to a different account. You can
@@ -285,9 +285,9 @@ export default function Fund() {
 
                 {/* Donor Benefits */}
                 <div className="flex flex-col space-y-2">
-                    <h1 className="text-2xl font-bold">
+                    <NGHeading>
                         Donor Benefits
-                    </h1>
+                    </NGHeading>
                     <p className="text-default-alt">
                         Donating to Yipnyap gives you access to a bunch of
                         benefits, including:
@@ -312,7 +312,7 @@ export default function Fund() {
                             Sponsored card slot for a 30 days ({'>'}$25)
                         </li>
                         <li>
-                            Rainbow nameplate for a 30 days ({'>'}$50)
+                            Rainbow nameplate for a 30 days (Gimmick &mdash; {'>'}$50)
                         </li>
                     </ul>
                     <p className="text-default-alt">

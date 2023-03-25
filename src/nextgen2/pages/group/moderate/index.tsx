@@ -8,28 +8,16 @@ import {
     Square3Stack3DIcon,
     UserGroupIcon,
 } from '@heroicons/react/24/solid';
-import {NGBody, NGTable} from '@nextgen2/components';
+import {getGroup} from '@nextgen2/api/groups';
+import {Group} from '@nextgen2/api/groups/types';
+import {NGBody} from '@nextgen2/components';
 import PageModerateDashboard from '@nextgen2/pages/group/moderate/dashboard';
+import PageModerateOrphan from '@nextgen2/pages/group/moderate/dashboard/orphan';
 import PageModerateMembers from '@nextgen2/pages/group/moderate/members';
 import PageModerateRoles from '@nextgen2/pages/group/moderate/roles';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import React, {useEffect, useState} from 'react';
-import {Link, useLocation} from 'react-router-dom';
-
-export interface Group {
-    id: number;
-    name: string;
-    description?: string;
-    avatar?: string;
-    banner?: string;
-    meta: {
-        pivot: {
-            current: 'Leader' | 'Administrator' | 'Moderator' | 'Member';
-        }; members: {
-            count: number; active: number; term: string; data: any[];
-        }
-    }
-}
+import {useLocation} from 'react-router-dom';
 
 function Render({...props}: {
     group: Group; communicatingState: [boolean, React.Dispatch<React.SetStateAction<boolean>>]
@@ -46,16 +34,25 @@ function Render({...props}: {
                 <PageModerateDashboard group={group}/>
             )
         }
+
         case 'roles': {
             return (
                 <PageModerateRoles group={group}/>
             )
         }
+
         case 'members': {
             return (
                 <PageModerateMembers group={group} communicatingState={props.communicatingState}/>
             )
         }
+
+        case 'delete': {
+            return (
+                <PageModerateOrphan group={group}/>
+            )
+        }
+
         default: {
             return (
                 <span className="text-alt-2"><code>CientRouter::404</code> Not Found</span>
@@ -103,43 +100,43 @@ export default function PageModerateIndex() {
                 }, {
                     name: 'Members',
                     description: 'Manage any members of the group.',
-                    href: `${hrefPrefix}/members`,
+                    href: `${hrefPrefix}/members/`,
                     icon: UserGroupIcon,
                 }, {
                     name: 'Complaints',
                     description: 'View and act on any complaints made against the group.',
-                    href: `${hrefPrefix}/complaints`,
+                    href: `${hrefPrefix}/complaints/`,
                     icon: MegaphoneIcon,
                 }, {
                     name: 'Path to Society',
                     new: true,
                     description: 'See how far the group is to becoming a society.',
-                    href: `${hrefPrefix}/society`,
+                    href: `${hrefPrefix}/society/`,
                     icon: BuildingOffice2Icon,
                 }, {
                     name: 'Roles',
                     new: true,
                     description: 'Manage the roles of the group.',
-                    href: `${hrefPrefix}/roles`,
+                    href: `${hrefPrefix}/roles/`,
                     icon: FlagIcon,
                 }, {
                     name: 'Child Groups',
                     new: true,
                     description: 'Manage any child groups linked to this group.',
-                    href: `${hrefPrefix}/child-groups`,
+                    href: `${hrefPrefix}/child-groups/`,
                     icon: Square3Stack3DIcon,
-                }],
+                }, ...group.meta.pivot.current === 'Leader' ? [{
+                    name: 'Delete Group',
+                    description: 'Delete the group and all of its data.',
+                    href: `${hrefPrefix}/delete/`,
+                    icon: BuildingStorefrontIcon,
+                }] : []],
             },
         });
     }, [group.name])
 
     useEffect(() => {
-        fetch(`/api/v2/groups/${groupID}`, {
-            headers: {
-                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-            },
-        })
-            .then(res => res.json())
+        getGroup(groupID)
             .then(data => {
                 if (!data.meta.pivot?.current || data.meta.pivot?.current === 'Member') {
                     // Redirect user to group

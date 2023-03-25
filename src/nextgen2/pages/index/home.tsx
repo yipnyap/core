@@ -1,6 +1,7 @@
 import {Cog6ToothIcon} from '@heroicons/react/20/solid';
 import {UserPlusIcon} from '@heroicons/react/24/solid';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
+import {Group} from '@nextgen2/api/groups/types';
 import {NGBody, NGButton, NGNewUserOnboarding, NGSkeleton} from '@nextgen2/components';
 import {NGCTACard} from '@nextgen2/components/NGCTACard';
 import {NGGroupCard} from '@nextgen2/components/NGGroupCard';
@@ -11,17 +12,6 @@ import {Link, useLocation, useNavigate} from 'react-router-dom';
 
 interface Props {
     theme: LocalThemeContext;
-}
-
-interface Group {
-    id: number;
-    name: string;
-    description: string;
-    avatar: string;
-    banner: string;
-    members: number;
-    is_member: boolean;
-    is_admin: boolean;
 }
 
 export default function Home({...props}: Props) {

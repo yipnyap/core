@@ -1,23 +1,7 @@
-import React, {useEffect, useState} from 'react';
-// @ts-ignore
+import {Group} from '@nextgen2/api/groups/types';
+import React, {useState} from 'react';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
-import {PlusIcon} from '@heroicons/react/20/solid';
 import {Link} from 'react-router-dom';
-
-interface Group {
-    id: number;
-    name: string;
-    description: string;
-    avatar: string;
-    banner: string;
-    meta: {
-        pivot: {
-            current: 'Leader' | 'Admin' | 'Mod' | 'Member';
-        }; members: {
-            count: number; active: number; term: string; data: any[];
-        }
-    }
-}
 
 export declare interface NGGroupCardType {
     group: Group;

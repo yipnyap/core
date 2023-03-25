@@ -143,7 +143,7 @@ add_filter('wp_php_error_message', function ($message, $error) {
     $actual_link = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https' : 'http') . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     $date = date('c', strtotime('now'));
     $YIPNYAP_VERSION = YIPNYAP_VERSION;
-    $new_error = substr($error['message'], 0, 200) . '...';
+    $new_error = substr($error['message'], 0, 500) . '...';
     // . '<br><br>' . $error["message"]
 
 //        postDiscordWebhookAsError([

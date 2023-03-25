@@ -110,7 +110,7 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
             ],
         ]);
 
-        register_rest_route($this->namespace, $this->rest_base . '/(?P<id>[\d]+)/members/(?P<uid>[\d]+)', [
+        register_rest_route($this->namespace, $this->rest_base . '/(?P<id>[\d]+)/members/(\@?)(?P<uid>\S+)', [
             'args' => [
                 'id' => [
                     'description' => 'A unique integer ID for the group.',
@@ -118,7 +118,7 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
                 ],
                 'uid' => [
                     'description' => 'A unique integer ID for the user.',
-                    'type' => 'integer',
+                    'type' => ['integer', 'string'],
                 ],
             ],
             [
@@ -201,29 +201,39 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
      */
     public function delete_group_member(WP_REST_Request $request): WP_REST_Response {
         $group = new Group($request['id'], true);
-        $currentUserRoles = $group->GetUserRoles();
-        $victimUserRoles = $group->GetUserRoles($request['uid']);
+        $currentUserCanBan = false;
 
-        $currentUserCanKick = in_array_any($currentUserRoles, ['admin', 'mod', 'owner']);
-        // @todo Custom permissions for banning
-        $currentUserCanBan = $currentUserCanKick;
-
-        $victimUserIsStaff = in_array_any($victimUserRoles, ['admin', 'mod', 'owner']);
-        $currentUserIsOwner = in_array('owner', $currentUserRoles);
-
-        // Check if the user is a group admin, mod, or owner
-        if (($victimUserIsStaff || !$currentUserCanKick) && !$currentUserIsOwner) {
-            return new WP_REST_Response(['message' => 'The hierarchy forbids you from doing that.'], 403);
+        // Check if UID is @me, if so, use the current user ID
+        if ($request['uid'] === 'me') {
+            $request['uid'] = get_current_user_id();
         }
 
-        // Check if the user is a member of the group
-        if (empty($victimUserRoles)) {
-            return new WP_REST_Response(['message' => 'User is not a member of this pack. Banning users who aren\'t members is not supported yet.'], 404);
-        }
+        // Check if the user is trying to kick themselves, if so, immediately skip any checks
+        if ($request['uid'] !== get_current_user_id()) {
+            $currentUserRoles = $group->GetUserRoles();
+            $victimUserRoles = $group->GetUserRoles($request['uid']);
 
-        // Check if the user is trying to manage themselves
-        if ($request['uid'] == get_current_user_id()) {
-            return new WP_REST_Response(['message' => 'You can\'t manage yourself.'], 403);
+            $currentUserCanKick = in_array_any($currentUserRoles, ['admin', 'mod', 'owner']);
+            // @todo Custom permissions for banning
+            $currentUserCanBan = $currentUserCanKick;
+
+            $victimUserIsStaff = in_array_any($victimUserRoles, ['admin', 'mod', 'owner']);
+            $currentUserIsOwner = in_array('owner', $currentUserRoles);
+
+            // Check if the user is a group admin, mod, or owner
+            if (($victimUserIsStaff || !$currentUserCanKick) && !$currentUserIsOwner) {
+                return new WP_REST_Response(['message' => 'The hierarchy forbids you from doing that.'], 403);
+            }
+
+            // Check if the user is a member of the group
+            if (empty($victimUserRoles)) {
+                return new WP_REST_Response(['message' => 'User is not a member of this pack. Banning users who aren\'t members is not supported yet.'], 404);
+            }
+
+            // Check if the user is trying to manage themselves
+            if ($request['uid'] == get_current_user_id()) {
+                return new WP_REST_Response(['message' => 'You can\'t manage yourself.'], 403);
+            }
         }
 
         // Check if the request is `ban: true`
@@ -246,6 +256,10 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
      * @since ui2
      */
     public function update_group_member(WP_REST_Request $request): WP_REST_Response {
+        if ($request['uid'] === 'me') {
+            return new WP_REST_Response(['message' => 'You can\'t manage yourself.'], 403);
+        }
+
         $group = new Group($request['id'], true);
         $currentUserRoles = $group->GetUserRoles();
         $victimUserRoles = $group->GetUserRoles($request['uid']);
@@ -327,11 +341,16 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
      * @throws Exception
      */
     public function user_mod_permissions_check(WP_REST_Request $request): bool {
-        $group = new Group($request['id'], true);
-        $roles = $group->GetUserRoles();
+        // check if user is managing themselves
+        if ($request['uid'] == 'me') {
+            return true;
+        } else {
+            $group = new Group($request['id'], true);
+            $roles = $group->GetUserRoles();
 
-        // check if the user is a group admin, mod, or owner based on current roles array
-        return in_array_any($roles, ['admin', 'mod', 'owner']);
+            // check if the user is a group admin, mod, or owner based on current roles array
+            return in_array_any($roles, ['admin', 'mod', 'owner']);
+        }
     }
 }
 

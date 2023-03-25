@@ -1,8 +1,9 @@
 import {Dialog, Transition} from '@headlessui/react';
 import {ExclamationTriangleIcon} from '@heroicons/react/20/solid';
+import {banGroupMember, changeGroupMemberRole, kickGroupMember} from '@nextgen2/api/groups';
+import {Group} from '@nextgen2/api/groups/types';
 import {NGButton, NGSelectMenu, NGTable} from '@nextgen2/components';
 import {NGProfileHeader} from '@nextgen2/components/NGProfileHeader';
-import {Group} from '@nextgen2/pages/group/moderate';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import React, {Fragment, useEffect, useRef, useState} from 'react';
 import {Link, useLocation} from 'react-router-dom';
@@ -144,42 +145,34 @@ export default function PageModerateMembers({...props}: {
         if (group.meta?.members?.count > 0 && memberID && member && selectedRole.name !== member.pivot.current && selectedRole.name !== 'Unknown') {
             const previousRole = member.pivot.current;
             setCommunicating(true);
-            fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
-                method: 'PATCH',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-                },
-                body: JSON.stringify({
-                    role: selectedRole.name,
-                }),
-            }).then(async (response) => {
-                const data = await response.json();
+            changeGroupMemberRole(group.id, memberID, selectedRole.name).then(() => {
                 setCommunicating(false);
-                if (response.ok) {
-                    addNotification({
-                        type: 'success',
-                        title: 'Role updated successfully.',
-                    });
+                addNotification({
+                    type: 'success',
+                    title: 'Role updated successfully.',
+                });
 
-                    // Update the member's role in the group's member list
-                    const memberIndex = group.meta.members.data.findIndex((member: any) => member.id === parseInt(memberID));
-                    group.meta.members.data[memberIndex].pivot.current = selectedRole.name;
-                    setGroup(group);
-                } else {
-                    addNotification({
-                        type: 'error',
-                        title: data.message || 'An unknown error occurred while updating the role.',
-                    });
-                    setSelectedRole({
-                        name: previousRole,
-                    });
-                }
+                // Update the member's role in the group's member list
+                const memberIndex = group.meta.members.data.findIndex((member: any) => member.id === parseInt(memberID));
+                // @ts-ignore
+                group.meta.members.data[memberIndex].pivot.current = selectedRole.name;
+                setGroup(group);
+            }).catch((error) => {
+                setCommunicating(false);
+                addNotification({
+                    type: 'error',
+                    title: error.message || 'An unknown error occurred while updating the role.',
+                });
+                setSelectedRole({
+                    name: previousRole,
+                });
             });
         }
     }, [selectedRole]);
 
     function banDialog() {
+        if (!memberID) return;
+
         setDialogTitle('Ban Member');
         setDialogDescription(<>
             <p className="text-sm text-default-alt">
@@ -196,44 +189,33 @@ export default function PageModerateMembers({...props}: {
         setDialogActionColor('danger');
         setDialogActionOnClick(() => () => {
             setCommunicating(true);
-            fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-                },
-                body: JSON.stringify({
-                    ban: true,
-                }),
-            }).then(async (response) => {
-                const data = await response.json();
+            banGroupMember(group.id, memberID).then(() => {
                 setCommunicating(false);
-                if (response.ok) {
-                    // dirty filter the member out of the group. hacky, but works.
-                    if (typeof memberID === 'string') {
-                        setGroup({
-                            ...group,
-                            meta: {
-                                ...group.meta,
-                                members: {
-                                    ...group.meta.members,
-                                    data: group.meta.members.data.filter((member: any) => member.id !== parseInt(memberID)),
-                                },
+                // dirty filter the member out of the group. hacky, but works.
+                if (typeof memberID === 'string') {
+                    setGroup({
+                        ...group,
+                        meta: {
+                            ...group.meta,
+                            members: {
+                                ...group.meta.members,
+                                data: group.meta.members.data.filter((member: any) => member.id !== parseInt(memberID)),
                             },
-                        });
-                    }
-
-                    addNotification({
-                        type: 'success',
-                        title: 'Member Banned',
-                    });
-                } else {
-                    addNotification({
-                        type: 'error',
-                        title: 'Error',
-                        message: data.message || response.statusText,
+                        },
                     });
                 }
+
+                addNotification({
+                    type: 'success',
+                    title: 'Member Kicked',
+                });
+            }).catch((error) => {
+                setCommunicating(false);
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: error.message,
+                });
             });
 
             setOpen(false);
@@ -243,47 +225,41 @@ export default function PageModerateMembers({...props}: {
     }
 
     function kickDialog() {
+        if (!memberID) return;
+
         setDialogTitle('Kick Member');
         setDialogDescription('Are you sure you want to kick this member? They can rejoin at any time, and their content will remain. If you want to prevent them from rejoining, and delete their content within the group, you should ban them instead.');
         setDialogAction('Kick');
         setDialogActionColor('danger');
         setDialogActionOnClick(() => () => {
             setCommunicating(true);
-            fetch(`/api/v2/groups/${group.id}/members/${memberID}`, {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-                },
-            }).then(async (response) => {
-                const data = await response.json();
+            kickGroupMember(group.id, memberID).then(() => {
                 setCommunicating(false);
-                if (response.ok) {
-                    // dirty filter the member out of the group. hacky, but works.
-                    if (typeof memberID === 'string') {
-                        setGroup({
-                            ...group,
-                            meta: {
-                                ...group.meta,
-                                members: {
-                                    ...group.meta.members,
-                                    data: group.meta.members.data.filter((member: any) => member.id !== parseInt(memberID)),
-                                },
+                // dirty filter the member out of the group. hacky, but works.
+                if (typeof memberID === 'string') {
+                    setGroup({
+                        ...group,
+                        meta: {
+                            ...group.meta,
+                            members: {
+                                ...group.meta.members,
+                                data: group.meta.members.data.filter((member: any) => member.id !== parseInt(memberID)),
                             },
-                        });
-                    }
-
-                    addNotification({
-                        type: 'success',
-                        title: 'Member Kicked',
-                    });
-                } else {
-                    addNotification({
-                        type: 'error',
-                        title: 'Error',
-                        message: data.message || response.statusText,
+                        },
                     });
                 }
+
+                addNotification({
+                    type: 'success',
+                    title: 'Member Kicked',
+                });
+            }).catch((error) => {
+                setCommunicating(false);
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: error.message,
+                });
             });
 
             setOpen(false);

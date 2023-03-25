@@ -10,6 +10,7 @@ import {ArrowUpRightIcon, InformationCircleIcon, UserPlusIcon} from '@heroicons/
 // @ts-ignore
 import ActivityFilterableList from '@legacy/component/activity/ActivityFilterableList';
 import {getMemberGroups} from '@legacy/router/v2/members/get';
+import {getGroup, joinGroup} from '@nextgen2/api/groups';
 import {NGBody, NGButton, NGSkeleton, NGTable} from '@nextgen2/components';
 import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
@@ -28,35 +29,7 @@ export default function GroupsIndex() {
 
     useEffect(() => {
         // Fetch the group data
-        fetch(`/api/v2/groups/${groupID}`, {
-            headers: {
-                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-            },
-        })
-            .then((response) => {
-                console.log(response);
-                if (response.status === 404) {
-                    addNotification({
-                        type: 'error',
-                        title: 'Pack not found',
-                        description: 'The pack you are trying to access does not exist.',
-                        persistent: true,
-                    });
-
-                    return {name: 'Pack not found'};
-                } else if (response.status === 403) {
-                    addNotification({
-                        type: 'error',
-                        title: 'Pack is private',
-                        description: 'You are not a member of this pack.',
-                        persistent: true,
-                    });
-
-                    return {name: 'Pack is private'};
-                } else {
-                    return response.json();
-                }
-            })
+        getGroup(groupID)
             .then((data) => {
                 setGroup(data);
 
@@ -65,7 +38,14 @@ export default function GroupsIndex() {
                         setReady(true);
                     });
                 }
+            }).catch((error) => {
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: error.message,
+                persistent: true,
             });
+        });
     }, [groupID])
 
     useEffect(() => {
@@ -170,24 +150,24 @@ export default function GroupsIndex() {
         }
     }
 
-    function joinGroup() {
-        fetch(`/api/v2/groups/${groupID}/members`, {
-            method: 'POST',
-            headers: {
-                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
-            },
-        }).then(async (response) => {
-            const data = await response.json();
-            if (response.status === 200) {
-                window.location.reload();
-            } else {
+    function joinGroupHandler() {
+        joinGroup(groupID).then((data) => {
+            if (data.message) {
                 addNotification({
                     type: 'error',
                     title: 'Error',
-                    message: data.message || response.statusText,
+                    message: data.message,
                 });
+            } else {
+                window.location.reload();
             }
-        })
+        }).catch((error) => {
+            addNotification({
+                type: 'error',
+                title: 'Error',
+                message: error.message,
+            });
+        });
     }
 
     return (
@@ -255,7 +235,7 @@ export default function GroupsIndex() {
                                                  <span>Leave Group</span>
                                              </NGButton>
                                          ) : (
-                                              <NGButton onClick={joinGroup}>
+                                              <NGButton onClick={joinGroupHandler}>
                                                   <UserPlusIcon
                                                       className="-ml-1 mr-2 h-5 w-5 text-neutral-400 dark:text-white"
                                                       aria-hidden="true"/>

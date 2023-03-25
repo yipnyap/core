@@ -152,9 +152,9 @@ function RootWithinProvider() {
                                 </div>
                             )}
                             {friends && friends.map((friend: {
-                                avatar: string; display_name: string; username: string;
-                            }) => (
-                                <div key={friend.username} className="flex flex-row items-center space-x-2">
+                                online: boolean; avatar: string; display_name: string; username: string;
+                            }, friendIdx: number) => friend.online ? (
+                                <div key={friendIdx} className="flex flex-row items-center space-x-2">
                                     <div className="w-10 h-10 rounded-full bg-box" style={{
                                         background: `url(${friend.avatar}) no-repeat center center/cover`,
                                     }}></div>
@@ -163,8 +163,9 @@ function RootWithinProvider() {
                                         <p className="text-sm text-alt-2">{friend.username}</p>
                                     </div>
                                 </div>
+                            ) : friendIdx === friends.length - 1 && (
+                                <p className="text-sm text-alt-2">No friends online</p>
                             ))}
-
                         </div>
                     )}
                 </div>

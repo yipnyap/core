@@ -90,9 +90,18 @@ export default function SettingsStorage() {
                         create a task</a>.
                     </p>
                     <p className="text-default-alt">
-                        This storage is used for your images, videos, certain profile data, and other files. It is not
-                        used for
+                        This storage is used for your images, videos, certain
+                        profile data, and other files. It is not used for
                         own personal storage.
+                    </p>
+                    <p className="text-default-alt">
+                        If you need personal storage, and you need it on our
+                        servers for whatever reason (whether it be for easy
+                        archival, management, or whatever), we can provide
+                        cheap storage, but{' '}
+                        <span className="font-bold">you need to be a creator</span>,
+                        and agree to some conditions. Contact us via the link above,
+                        and assign @rekkisomo to the task.
                     </p>
                 </div>
             </div>

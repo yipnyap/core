@@ -88,7 +88,7 @@ function RootWithinProvider() {
                 </NGContent>
 
                 <div
-                    className="hidden 2xl:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar-default border-0 border-l border-solid border-default dark:bg-sidebar-dark">
+                    className="hidden 2xl:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar-default/80 border-0 border-l border-solid border-default dark:bg-sidebar-dark/80">
                     {/* Top header text */}
                     <h4 className="font-regular">
                         {!ready && 'Yipnyap is communicating...'}

@@ -49,7 +49,7 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
         <>
             <nav
                 aria-label="Sections"
-                className={`hidden lg:flex lg:flex-col ${slimNavClass} flex-shrink-0 bg-sidebar dark:bg-sidebar-dark border-0 border-r border-solid border-default overflow-y-auto`}>
+                className={`hidden lg:flex lg:flex-col ${slimNavClass} flex-shrink-0 bg-sidebar-default/85 dark:bg-sidebar-dark/85 backdrop-blur-lg border-0 border-r border-solid border-default overflow-y-auto`}>
                 {!props.slimContentNavigator && (
                     <div
                         className="flex-shrink-0 h-16 px-6 border-b border-blue-gray-200 flex items-center dark:border-neutral-600">

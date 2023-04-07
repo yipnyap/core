@@ -1,3 +1,4 @@
+import {useTheme} from '@nextgen2/providers/Theme.provider';
 import React, {Fragment, useEffect, useState} from 'react';
 
 import getMember from '@legacy/router/v2/members/get';
@@ -125,6 +126,7 @@ export default function Profile({...props}) {
     const [user, setUser] = useState<NGProfileType | null>(null);
     const [userSubNav, setUserSubNav] = useState<NGContentNavigatorItemType[]>([]);
     const [, setHeading] = useHeading();
+    const [theme, setTheme] = useTheme();
     const location = useLocation();
     let {userID} = props;
 
@@ -137,6 +139,7 @@ export default function Profile({...props}) {
     const selfIsGabe = yipnyap_constants.currentUser?.username === 'voidhound_';
 
     useEffect(() => {
+        let userBackgroundProcessingTimeout: string | number | NodeJS.Timeout | undefined;
         // If voidhound_, show "Arcana" tab
         if (pageIsGabe) {
             setUserSubNav([{
@@ -154,13 +157,28 @@ export default function Profile({...props}) {
         userPromise?.then((user) => {
             console.log(user);
             setUser(user);
-            if (user.ui_skin) {
-                const cmuiContent = document.getElementById('cmui-entire-content');
-                if (user.ui_skin.background) cmuiContent?.style.setProperty('background', user.ui_skin.background.replace('&amp;', '&'));
-                if (user.ui_skin.primary) document.body.style.setProperty('--color-primary', user.ui_skin.primary);
-            }
+
+            userBackgroundProcessingTimeout = setTimeout(() => {
+                const themeBackup = {...theme};
+                if (user.ui_skin) {
+                    if (user.ui_skin.background) themeBackup.background = user.ui_skin.background;
+                    if (user.ui_skin.accent) themeBackup.accent = user.ui_skin.primary;
+
+                    setTheme(themeBackup);
+                }
+
+                setTheme(themeBackup)
+            }, 1000)
         });
-    }, [userID, location.pathname]);
+
+        return () => {
+            const themeBackup = {...theme};
+            delete themeBackup.background;
+
+            setTheme(themeBackup);
+            clearTimeout(userBackgroundProcessingTimeout);
+        }
+    }, [userID]);
 
     useEffect(() => {
         setHeading({
@@ -206,7 +224,7 @@ export default function Profile({...props}) {
                 }] : []],
             },
         })
-    }, [location.pathname, userSubNav])
+    }, [location.pathname, userSubNav]);
 
     return (
         <NGBody>

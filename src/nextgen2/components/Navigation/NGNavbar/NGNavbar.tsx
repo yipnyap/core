@@ -34,7 +34,7 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
             />
 
             <Disclosure as="header"
-                        className="relative z-40 bg-sidebar-default/80 backdrop-blur-lg border-0 border-b border-default border-solid dark:bg-sidebar-dark/80">
+                        className="relative z-40 bg-sidebar-default/75 backdrop-blur-lg border-0 border-b border-default border-solid dark:bg-sidebar-dark/75">
                 {({open}) => (
                     <>
                         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-neutral-200 lg:px-8">

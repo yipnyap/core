@@ -4,6 +4,7 @@ import type {Dispatch, ReactNode, SetStateAction} from 'react';
 export interface LocalThemeContext {
     variant: string;
     accent: string;
+    background?: string;
 }
 
 // @ts-ignore

@@ -25,6 +25,8 @@ function RootWithinProvider() {
     const [friends, setFriends] = useState<any>(null);
     const [ready, setReady] = useState(false);
 
+    const [themeBackground, setThemeBackground] = useState<string | null>();
+
     document.body.style.overflow = 'hidden';
 
     const navigation = [{
@@ -74,10 +76,15 @@ function RootWithinProvider() {
         } else {
             if (document.body.classList.contains('dark')) document.body.classList.remove('dark');
         }
+
+        setThemeBackground(theme.background)
     }, [theme]);
 
     return (
         <div className="h-full flex overflow-none">
+            <div className="absolute w-full h-full -z-10" style={{
+                background: themeBackground || 'var(--bg-body)',
+            }}></div>
             <NGSideNav items={navigation}
                        slimContentNavigator={heading?.slimContentNavigator}
                        showContentNavigator={true}
@@ -88,7 +95,7 @@ function RootWithinProvider() {
                 </NGContent>
 
                 <div
-                    className="hidden 2xl:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar-default/80 border-0 border-l border-solid border-default dark:bg-sidebar-dark/80">
+                    className="hidden 2xl:flex flex-col sticky w-80 top-0 p-8 space-y-16 col-span-2 bg-sidebar-default/75 backdrop-blur-lg border-0 border-l border-solid border-default dark:bg-sidebar-dark/75">
                     {/* Top header text */}
                     <h4 className="font-regular">
                         {!ready && 'Yipnyap is communicating...'}
@@ -112,7 +119,7 @@ function RootWithinProvider() {
                         )}
                     </h4>
                     {yipnyap_constants.currentUser && (
-                        <div className="flex flex-col space-y-8 bg-box-solid rounded-default p-8">
+                        <div className="flex flex-col space-y-8 bg-box-alt rounded-default p-8">
                             <h4 className="font-regular">
                                 Active Friends
                             </h4>

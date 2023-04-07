@@ -46,10 +46,6 @@ export function NextgenProfilesWelcomeModal() {
         localStorage.setItem('nextgen-profile-welcome-modal', '1');
     }
 
-    function openModal() {
-        setIsOpen(true)
-    }
-
     return (
         <Transition appear show={isOpen} as={Fragment}>
             <Dialog as="div" className="relative z-10" onClose={closeModal}>

@@ -1,6 +1,5 @@
 import {SparklesIcon} from '@heroicons/react/20/solid';
 import React from 'react';
-import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {NavLink} from 'react-router-dom';
 import {HomeIcon} from '@heroicons/react/24/solid';
 
@@ -27,13 +26,7 @@ export const NGContentNavigatorTheming = {
     main: [],
 }
 
-function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function NGContentNavigator({...props}: NGContentNavigatorType) {
-    let theme = buildClassObject(NGContentNavigatorTheming, props.theme || undefined);
-
     const slimNavClass = props.slimContentNavigator ? 'w-20' : 'w-96';
 
     props.items.length === 0 && (

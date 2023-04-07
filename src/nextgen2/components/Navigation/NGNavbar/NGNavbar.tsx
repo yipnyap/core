@@ -4,7 +4,7 @@ import {Fragment, useState} from 'react'
 import {Disclosure, Menu, Transition} from '@headlessui/react'
 import {MagnifyingGlassIcon} from '@heroicons/react/20/solid'
 import {BellIcon, Bars3Icon, XMarkIcon} from '@heroicons/react/24/outline'
-import {useNavigate} from 'react-router-dom';
+import {Link, useNavigate} from 'react-router-dom';
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -76,7 +76,7 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                 <div className="relative z-10 flex items-center lg:hidden">
                                     {/* Mobile menu button */}
                                     <Disclosure.Button
-                                        className="rounded-md p-2 inline-flex items-center justify-center text-neutral-400 hover:bg-neutral-100 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
+                                        className="rounded-md p-2 inline-flex items-center justify-center text-neutral-400 hover:bg-box-alt focus:outline-none focus:ring-2 focus:ring-inset focus:ring-indigo-500">
                                         <span className="sr-only">Open menu</span>
                                         {open ? (
                                             <XMarkIcon className="block h-6 w-6" aria-hidden="true"/>
@@ -88,13 +88,15 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                 <div className="hidden lg:relative lg:z-10 lg:ml-4 lg:flex lg:items-center">
                                     {props.user && (
                                         <>
-                                            <button
-                                                type="button"
-                                                className="flex-shrink-0 w-auto rounded-full p-1 text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                            >
-                                                <span className="sr-only">View notifications</span>
-                                                <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                                            </button>
+                                            <Link to="/notifications/">
+                                                <button
+                                                    type="button"
+                                                    className="flex-shrink-0 w-auto rounded-full p-1 text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                                >
+                                                    <span className="sr-only">View notifications</span>
+                                                    <BellIcon className="h-6 w-6" aria-hidden="true"/>
+                                                </button>
+                                            </Link>
 
                                             {/* Profile dropdown */}
                                             <Menu as="div" className="flex-shrink-0 relative ml-4">
@@ -161,7 +163,7 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                         key={item.name}
                                         as="a"
                                         href={item.href}
-                                        className={classNames(item.current ? 'bg-neutral-100 text-neutral-900' : 'text-neutral-900 hover:bg-neutral-50 hover:text-neutral-900', 'block rounded-md py-2 px-3 text-base font-medium')}
+                                        className={classNames(item.current ? 'text-default bg-default-alt' : `text-default hover:bg-box-alt`, 'block rounded-md py-2 px-3 text-base font-medium')}
                                         aria-current={item.current ? 'page' : undefined}
                                     >
                                         {item.name}
@@ -170,37 +172,42 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                             </div>
                             <div className="border-t border-neutral-200 pt-4 pb-3">
                                 {props.user && (
-                                    <div className="px-4 flex items-center">
-                                        <div className="flex-shrink-0">
-                                            <img className="h-10 w-10 rounded-full" src={props.user.avatar} alt=""/>
+                                    <>
+                                        <div className="px-4 flex items-center">
+                                            <div className="flex-shrink-0">
+                                                <img className="h-10 w-10 rounded-full" src={props.user.avatar} alt=""/>
+                                            </div>
+                                            <div className="ml-3">
+                                                <div
+                                                    className="text-base font-medium text-default">{props.user.display_name}</div>
+                                                <div
+                                                    className="text-sm font-medium text-neutral-500">{props.user.username}</div>
+                                            </div>
+                                            <button
+                                                type="button"
+                                                className="ml-auto w-auto flex-shrink-0 rounded-full p-1 text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                                            >
+                                                <span className="sr-only">View notifications</span>
+                                                <Link to="/notifications/">
+                                                    <BellIcon className="h-6 w-6" aria-hidden="true"/>
+                                                </Link>
+                                            </button>
                                         </div>
-                                        <div className="ml-3">
-                                            <div
-                                                className="text-base font-medium text-neutral-800">{props.user.display_name}</div>
-                                            <div
-                                                className="text-sm font-medium text-neutral-500">{props.user.username}</div>
+
+                                        <div className="mt-3 px-2 space-y-1">
+                                            {userNavigation.map((item) => (
+                                                <Disclosure.Button
+                                                    key={item.name}
+                                                    as="a"
+                                                    href={item.href}
+                                                    className="block rounded-md py-2 px-3 text-base font-medium text-default-alt hover:bg-box-alt"
+                                                >
+                                                    {item.name}
+                                                </Disclosure.Button>
+                                            ))}
                                         </div>
-                                        <button
-                                            type="button"
-                                            className="ml-auto w-auto flex-shrink-0 bg-white rounded-full p-1 text-neutral-400 hover:text-neutral-500 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
-                                        >
-                                            <span className="sr-only">View notifications</span>
-                                            <BellIcon className="h-6 w-6" aria-hidden="true"/>
-                                        </button>
-                                    </div>
+                                    </>
                                 )}
-                                <div className="mt-3 px-2 space-y-1">
-                                    {userNavigation.map((item) => (
-                                        <Disclosure.Button
-                                            key={item.name}
-                                            as="a"
-                                            href={item.href}
-                                            className="block rounded-md py-2 px-3 text-base font-medium text-neutral-500 hover:bg-neutral-50 hover:text-neutral-900"
-                                        >
-                                            {item.name}
-                                        </Disclosure.Button>
-                                    ))}
-                                </div>
                             </div>
                         </Disclosure.Panel>
                     </>

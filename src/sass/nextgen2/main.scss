@@ -1,5 +1,6 @@
 @import 'color';
 @import 'font';
+@import 'snapper-engine/main';
 
 @layer utilities {
   .no-scrollbar::-webkit-scrollbar {

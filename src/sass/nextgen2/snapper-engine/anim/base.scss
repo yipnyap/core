@@ -2,6 +2,11 @@ $anim-cubic-bezier: 0.25s cubic-bezier(0,1.25,0,1);
 
 @import "crawl-text";
 
+.snapanim-hue-blur {
+  filter: blur(64px) hue-rotate(0);
+  animation: logoHueBlur 1s ease-out, logoHueBlur 120s linear 1s infinite;
+}
+
 .snapanim-elastic {
   // Transform to zoom in
   &.snapanim-in {
@@ -39,6 +44,16 @@ $anim-cubic-bezier: 0.25s cubic-bezier(0,1.25,0,1);
   }
   to {
     transform: scale(1);
+  }
+}
+
+@keyframes logoHueBlur {
+  0% {
+    filter: blur(64px) hue-rotate(0);
+  }
+
+  100% {
+    filter: blur(64px) hue-rotate(360deg);
   }
 }
 

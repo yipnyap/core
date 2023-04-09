@@ -1,6 +1,4 @@
-import React, {useState} from 'react';
-import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
-import {useHeading} from '@nextgen2/providers/PageHeading.provider';
+import React from 'react';
 
 export declare interface NGBodyType {
     theme?: any;
@@ -12,14 +10,7 @@ export const NGBodyTheming = {
     main: [],
 }
 
-function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ')
-}
-
 export default function NGBody({...props}: NGBodyType) {
-    let theme = buildClassObject(NGBodyTheming, props.theme || undefined);
-    const [heading] = useHeading();
-
     return (
         <div
             className="justify-center m-auto h-full">

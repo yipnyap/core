@@ -3,7 +3,7 @@ import React, {Fragment, useEffect, useState} from 'react';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {Menu, Transition} from '@headlessui/react';
 import {
-    follow, isFollowing, unfollow, friendRequest, getFriendRequests, getRelationship,
+    follow, isFollowing, unfollow, friendRequest, getRelationship,
 } from '@legacy/router/v2/relationships/post';
 import {
     ChevronDownIcon, UserPlusIcon, UserMinusIcon, CheckBadgeIcon, ChatBubbleLeftIcon, LinkIcon, UserGroupIcon,

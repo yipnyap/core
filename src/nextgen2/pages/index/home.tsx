@@ -5,7 +5,6 @@ import {Group} from '@nextgen2/api/groups/types';
 import {
     NGBody, NGButton, NGNewUserOnboarding, NGSkeleton, NGCTACard, NGGroupCard, NGHeading,
 } from '@nextgen2/components';
-import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {LocalThemeContext} from '@nextgen2/providers/Theme.provider';
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
@@ -21,7 +20,6 @@ export default function Home({...props}: Props) {
     const [randomGroup, setRandomGroup] = useState<Group>();
     const [ready, setReady] = useState(false);
     const location = useLocation();
-    const [, addNotification] = useNotification();
 
     useEffect(() => {
         let timeout: string | number | NodeJS.Timeout | undefined;

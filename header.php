@@ -20,6 +20,8 @@
         <link rel="icon" href="<?php site_icon_url(); ?>">
     <?php endif; ?>
     <script src='https://telegram.org/js/telegram-widget.js?21'></script>
+    <script src='https://betteruptime.com/widgets/announcement.js' data-id='159526' async='async'
+            type='text/javascript'></script>
     <?php wp_head(); ?>
 </head>
 <body class="dark h-screen" style="-webkit-font-smoothing: antialiased;">

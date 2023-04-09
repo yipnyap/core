@@ -7,6 +7,11 @@ $anim-cubic-bezier: 0.25s cubic-bezier(0,1.25,0,1);
   animation: logoHueBlur 1s ease-out, logoHueBlur 120s linear 1s infinite;
 }
 
+.snapanim-hue-blur-reverse {
+  filter: blur(64px) hue-rotate(0);
+  animation: logoHueBlur 1s ease-out reverse, logoHueBlur 120s linear 1s infinite reverse;
+}
+
 .snapanim-elastic {
   // Transform to zoom in
   &.snapanim-in {

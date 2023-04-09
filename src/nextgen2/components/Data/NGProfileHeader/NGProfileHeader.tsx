@@ -196,7 +196,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
     return (
         <div className={`${!header ? 'mt-12' : ''} relative z-10 pb-8 rounded-default bg-box`}>
             <div className={!header ? 'h-0' : ''}>
-                {header ? <img className="rounded-default aspect-banner object-cover" src={header}
+                {header ? <img className="rounded-default aspect-banner object-cover w-full" src={header}
                                alt="Profile cover"/> : <div className="h-4"></div>}
             </div>
             <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -204,7 +204,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                     <div className="flex">
                         <img
                             className="bg-default h-24 w-24 rounded-full ring-4 ring-white dark:ring-neutral-800 sm:h-32 sm:w-32"
-                            src={profile.avatar || props.defaults?.profile || '/img/default-avatar.png'} alt=""/>
+                            src={profile.avatar || props.defaults?.profile || yipnyap_constants.yipnyap_url + '/img/avatar/default-avatar.png'} alt=""/>
                     </div>
                     <div
                         className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
@@ -244,10 +244,10 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                         {profile.username}
                     </NGHeading>
                 </div>
-                <div className="block mt-6 min-w-0 flex-1 text-default">
+                <div className="block min-w-0 flex-1 text-default">
                     {/* Bio */}
                     {profile.bio && (
-                        <p className="text-sm whitespace-pre-line">
+                        <p className="mt-6 text-sm whitespace-pre-line">
                             {renderBio(profile.bio)}
                         </p>
                     )}

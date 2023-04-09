@@ -24,7 +24,7 @@ export default function NGBody({...props}: NGBodyType) {
         <div
             className="justify-center m-auto h-full">
             <div
-                className={`flex flex-col p-8 pt-10 pb-48 md:px-20 space-y-12 h-full overflow-y-auto ${props.className}`}>
+                className={`flex flex-col p-8 pt-10 pb-48 md:px-20 space-y-12 h-full overflow-y-auto overflow-x-hidden ${props.className}`}>
                 {props.children}
             </div>
 

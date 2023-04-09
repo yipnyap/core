@@ -9,6 +9,7 @@ import {useNotification} from '@nextgen2/providers/Notification.provider';
 import {LocalThemeContext} from '@nextgen2/providers/Theme.provider';
 import React, {useEffect, useState} from 'react';
 import {Link, useLocation, useNavigate} from 'react-router-dom';
+import GuestOnboarding from "@nextgen2/pages/index/onboarding";
 
 interface Props {
     theme: LocalThemeContext;
@@ -62,6 +63,10 @@ export default function Home({...props}: Props) {
 
     return (
         <NGBody>
+            {!yipnyap_constants.currentUser?.username && (
+                <GuestOnboarding />
+            )}
+
             <div className="space-y-6">
                 <div
                     className="hidden sm:block px-20 pt-10 pb-64 rounded-xl highlight-white/5"

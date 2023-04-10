@@ -9,18 +9,18 @@ const links = [
 
 const usersOne = [
     { username: 'strappleberri', displayName: 'Strappleberri' },
-    { username: 'bernie_burr', displayName: 'Bernie' },
+    { username: 'bernie_burr', displayName: 'Bernie', verified: true },
     { username: 'erice', displayName: 'Eric Enderson' },
     { username: 'LuniFoxo', displayName: 'LuniFoxo' },
-    { username: 'rekkisomo', displayName: 'Rek!' },
+    { username: 'rekkisomo', displayName: 'Rek!', verified: true },
 ].sort(() => Math.random() - 0.5);
 
 const usersTwo = [
     { username: 'hubert', displayName: 'Hubert 😺' },
     { username: 'flatlinero', displayName: 'Flatlinero' },
-    { username: 'theluckynas', displayName: 'Lucky' },
+    { username: 'theluckynas', displayName: 'Lucky', verified: true },
     { username: 'uchuuken', displayName: 'uchu!', },
-    { username: 'EnderHoodie_', displayName: 'Hoodie' },
+    { username: 'EnderHoodie_', displayName: 'Hoodie', verified: true },
 ].sort(() => Math.random() - 0.5);
 
 const teamPeople = [
@@ -28,36 +28,43 @@ const teamPeople = [
         name: 'Rekkisomo',
         role: 'Team Lead',
         imageUrl: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/rekkisomo.png`,
+        username: 'rekkisomo',
     },
     {
         name: 'Canned Meow',
         role: 'Back-end Dev',
         imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/3/avatars/1676264063-bpfull.png',
+        username: 'puppercino',
     },
     {
         name: 'Relms',
         role: 'Back-end Dev',
         imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/687/avatars/1675426737-bpfull.jpg',
+        username: 'relmswah',
     },
     {
         name: 'Mestre',
         role: 'Cybersec, PR',
         imageUrl: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/mestre.png`,
+        username: 'pintora',
     },
     {
         name: 'Winston',
         role: 'Moderator',
         imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/758/avatars/1675096287-bpfull.jpg',
+        username: 'desertcryptid',
     },
     {
         name: 'Viia',
         role: 'Moderator',
         imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/630/avatars/1675059865-bpfull.png',
+        username: 'ferret',
     },
     {
         name: 'Hydeenazz',
         role: 'Moderator',
         imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/723/avatars/1675421747-bpfull.jpg',
+        username: 'hydeenazz',
     }
     // More people...
 ]
@@ -294,26 +301,28 @@ export default function GuestOnboarding() {
 
                     {/* Askewed 2-row marquee wall of profile cards */}
                     <div className="-translate-x-1/4 -rotate-3 overflow-visible space-y-12">
-                        <div className="relative flex space-x-12 sm:-left-3/4">
+                        <div className="relative flex space-x-12 -left-3/4">
                             {usersOne.map((user, i) => (
-                                <div key={i} className={`min-w-full sm:min-w-[50%] ${i > 2 ? 'hidden sm:block' : ''}`}>
+                                <div key={i} className={`min-w-[412px] ${i > 3 ? 'hidden sm:block' : ''}`}>
                                     <NGProfileHeader user={{
                                         username: user.username,
                                         display_name: user.displayName,
                                         header: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/banner/${user.username}.png`,
                                         avatar: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/${user.username}.png`,
+                                        verified: user.verified,
                                     }} />
                                 </div>
                             ))}
                         </div>
                         <div className="relative flex space-x-8">
                             {usersTwo.map((user, i) => (
-                                <div key={i} className={`min-w-full sm:min-w-[50%] ${i > 2 ? 'hidden sm:block' : ''}`}>
+                                <div key={i} className={`min-w-[412px] ${i > 3 ? 'hidden sm:block' : ''}`}>
                                     <NGProfileHeader user={{
                                         username: user.username,
                                         display_name: user.displayName,
                                         header: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/banner/${user.username}.png`,
                                         avatar: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/${user.username}.png`,
+                                        verified: user.verified,
                                     }} />
                                 </div>
                             ))}
@@ -342,8 +351,8 @@ export default function GuestOnboarding() {
                     <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
                         <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
                             Made w/ 💖
+                            <span className="sr-only">Made with love</span>
                         </h2>
-                        <span className="sr-only">Made with love</span>
                         <p className="text-xl text-default-alt">
                             Yipnyap is made by a very small team of people, lead
                             by Rek, who's been working on it since 2019 (and
@@ -364,7 +373,9 @@ export default function GuestOnboarding() {
                                 <div className="space-y-4">
                                     <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={person.imageUrl} alt="" />
                                     <div className="text-xs text-center font-medium lg:text-sm">
-                                        <h3>{person.name}</h3>
+                                        <a href={`https://yipnyap.me/${person.username}`}>
+                                            <h3>{person.name}</h3>
+                                        </a>
                                         <p className="mt-1 font-light text-default-alt">{person.role}</p>
                                     </div>
                                 </div>

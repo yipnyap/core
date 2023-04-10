@@ -5,7 +5,6 @@ const links = [
     { name: 'Join Yipnyap', href: '/id/create/' },
     { name: 'Volunteer', href: 'https://yipnyap.atlassian.net/servicedesk/customer/portal/3/group/11/create/43' },
     { name: 'Donate', href: '/fund/' },
-    { name: 'Yipnyap Foundation', href: '#' },
 ]
 
 const usersOne = [
@@ -23,6 +22,45 @@ const usersTwo = [
     { username: 'uchuuken', displayName: 'uchu!', },
     { username: 'EnderHoodie_', displayName: 'Hoodie' },
 ].sort(() => Math.random() - 0.5);
+
+const teamPeople = [
+    {
+        name: 'Rekkisomo',
+        role: 'Team Lead',
+        imageUrl: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/rekkisomo.png`,
+    },
+    {
+        name: 'Canned Meow',
+        role: 'Back-end Dev',
+        imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/3/avatars/1676264063-bpfull.png',
+    },
+    {
+        name: 'Relms',
+        role: 'Back-end Dev',
+        imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/687/avatars/1675426737-bpfull.jpg',
+    },
+    {
+        name: 'Mestre',
+        role: 'Cybersec, PR',
+        imageUrl: `${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/pfp/mestre.png`,
+    },
+    {
+        name: 'Winston',
+        role: 'Moderator',
+        imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/758/avatars/1675096287-bpfull.jpg',
+    },
+    {
+        name: 'Viia',
+        role: 'Moderator',
+        imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/630/avatars/1675059865-bpfull.png',
+    },
+    {
+        name: 'Hydeenazz',
+        role: 'Moderator',
+        imageUrl: 'https://yipnyap.me/vault/@server/uploads/members/723/avatars/1675421747-bpfull.jpg',
+    }
+    // More people...
+]
 
 export default function GuestOnboarding() {
     return (
@@ -63,8 +101,10 @@ export default function GuestOnboarding() {
                             Yipnyap is a furry-centric site
                         </h2>
                         <p className="mt-6 text-lg leading-8 text-default-alt">
-                            Anim aute id magna aliqua ad ad non deserunt sunt. Qui irure qui lorem cupidatat commodo. Elit sunt amet
-                            fugiat veniam occaecat fugiat aliqua.
+                            Furries are stuck with a <i>lot</i> of bad sites,
+                            and others that die next time you blink.
+                            <br />
+                            Here you go, a good one, that's not going anywhere.
                         </p>
                     </div>
                     <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
@@ -80,7 +120,7 @@ export default function GuestOnboarding() {
             </div>
 
             {/* Groups */}
-            <div className="overflow-hidden py-24 sm:py-32">
+            <div className="overflow-hidden px-4 sm:px-6 lg:px-8 lg:py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
                         <div className="lg:pr-8 lg:pt-4">
@@ -101,7 +141,7 @@ export default function GuestOnboarding() {
                                 <div className="border border-solid border-default rounded-default shadow-md flex-1 w-full h-full transition-transform -rotate-3 hover:-rotate-2" />
                             </div>
                             <div className="absolute inset-0 flex flex-col">
-                                <div className="bg-neutral-100 border border-solid border-default rounded-default shadow-lg flex-1 w-full h-full transition-transform rotate-6 hover:rotate-[5deg] dark:bg-neutral-600" />
+                                <div className="bg-neutral-100 border border-solid border-default rounded-default shadow-lg flex-1 w-full h-full transition-transform rotate-6 hover:rotate-[5deg] dark:bg-sidebar-dark" />
                             </div>
 
                             <div className="relative bg-default border border-solid border-default rounded-default shadow-xl p-6 transition-transform rotate-2 hover:rotate-1">
@@ -146,7 +186,7 @@ export default function GuestOnboarding() {
             </div>
 
             {/* Profile upsell with skewed grid-like layout */}
-            <div className="relative py-24 sm:py-32">
+            <div className="relative px-4 sm:px-6 lg:px-8 lg:py-24">
                 <div className="relative flex flex-col justify-center mx-auto space-y-12 px-4 sm:px-6">
                     <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
                         <div
@@ -254,9 +294,9 @@ export default function GuestOnboarding() {
 
                     {/* Askewed 2-row marquee wall of profile cards */}
                     <div className="-translate-x-1/4 -rotate-3 overflow-visible space-y-12">
-                        <div className="relative flex space-x-12 -left-3/4">
-                            {usersOne.map((user) => (
-                                <div className="min-w-[50%]">
+                        <div className="relative flex space-x-12 sm:-left-3/4">
+                            {usersOne.map((user, i) => (
+                                <div key={i} className={`min-w-full sm:min-w-[50%] ${i > 2 ? 'hidden sm:block' : ''}`}>
                                     <NGProfileHeader user={{
                                         username: user.username,
                                         display_name: user.displayName,
@@ -267,8 +307,8 @@ export default function GuestOnboarding() {
                             ))}
                         </div>
                         <div className="relative flex space-x-8">
-                            {usersTwo.map((user) => (
-                                <div className="min-w-[50%]">
+                            {usersTwo.map((user, i) => (
+                                <div key={i} className={`min-w-full sm:min-w-[50%] ${i > 2 ? 'hidden sm:block' : ''}`}>
                                     <NGProfileHeader user={{
                                         username: user.username,
                                         display_name: user.displayName,
@@ -295,6 +335,63 @@ export default function GuestOnboarding() {
                     </div>
                 </div>
             </div>
+
+            {/* Made with love */}
+            <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
+                <div className="space-y-8 sm:space-y-12">
+                    <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
+                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
+                            Made w/ 💖
+                        </h2>
+                        <span className="sr-only">Made with love</span>
+                        <p className="text-xl text-default-alt">
+                            Yipnyap is made by a very small team of people, lead
+                            by Rek, who's been working on it since 2019 (and
+                            has been the sole dev until recently 〒▽〒). Unlike
+                            other social media platforms, we don't have a
+                            multi-million dollar company backing us, so we rely
+                            on the support of our users to keep the lights on,
+                            and volunteer work from our team to keep the site
+                            running.
+                        </p>
+                    </div>
+                    <ul
+                        role="list"
+                        className="mx-auto grid grid-cols-2 gap-x-4 gap-y-8 sm:grid-cols-4 md:gap-x-6 lg:max-w-5xl lg:gap-x-8 lg:gap-y-12 xl:grid-cols-6"
+                    >
+                        {teamPeople.map((person) => (
+                            <li key={person.name}>
+                                <div className="space-y-4">
+                                    <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={person.imageUrl} alt="" />
+                                    <div className="text-xs text-center font-medium lg:text-sm">
+                                        <h3>{person.name}</h3>
+                                        <p className="mt-1 font-light text-default-alt">{person.role}</p>
+                                    </div>
+                                </div>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+            </div>
+
+            {/* Footer */}
+            <p className="mt-12 text-sm font-medium text-default-alt">
+                Done is better than perfect.
+                <br/><br/>
+                Thank you to the community for helping us get this far. We hope
+                you enjoy Yipnyap as much as we do.
+            </p>
+            <p className="mt-12 text-sm font-medium text-default-alt">
+                Images on this landing page may be of their own work,
+                created by someone else through commissioning, or
+                otherwise granted permission to use. All rights are
+                reserved to their respective owners and is unrelated to
+                Yipnyap. While these images are used with permission
+                from the community, If one of these are of your
+                copyrighted work and is being used without your
+                permission, please contact us with the @Handle or URL
+                of the image.
+            </p>
         </div>
     )
 }

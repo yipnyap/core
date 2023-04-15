@@ -160,7 +160,7 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
      */
     public function get_groups(WP_REST_Request $request): WP_REST_Response {
         $args = [
-            'sort' => $request['sort'] ?? 'last_activity',
+            'orderby' => $request['sort'] ?? 'last_activity',
             'per_page' => $request['per_page'],
             'page' => $request['page'],
             'fields' => 'ids',

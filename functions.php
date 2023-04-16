@@ -295,7 +295,7 @@ add_action('wp_enqueue_scripts', function () {
         'settings' => $yipnyap_settings,
         'yipnyap_server_version' => YIPNYAP_VERSION,
         'upload_url' => wp_upload_dir()['baseurl'],
-        'telegram_bot' => explode(':', get_option('tg_col')['bot_token'])[0],
+        'telegram_bot' => !empty(get_option('tg_col')) ? explode(':', get_option('tg_col')['bot_token'])[0] : '',
         'notices' => [
             'tgLink' => "@rekkisomo: Due to an issue with Telegram's Login Widget, you can't link Telegram right now. We're working to fix this issue, conversing with Telegram Support. Sorry for the inconvenience 😔",
         ],

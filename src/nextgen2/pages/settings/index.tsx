@@ -2,6 +2,7 @@ import SettingsStorage from '@nextgen2/pages/settings/storage';
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
 import {
+    BeakerIcon,
     Cog6ToothIcon,
     CursorArrowRaysIcon,
     PaintBrushIcon,
@@ -21,6 +22,7 @@ import AccountInfoSettingsScreen from '@legacy/component/settings/AccountInfoSet
 import SettingsSkin from '@nextgen2/pages/settings/skin';
 import SettingsAccessibility from '@nextgen2/pages/settings/accessibility';
 import SettingsTelegram from '@nextgen2/pages/settings/telegram';
+import SettingsLabs from "@nextgen2/pages/settings/labs";
 
 export default function SettingsGeneral() {
     const [, setHeading] = useHeading();
@@ -64,9 +66,14 @@ export default function SettingsGeneral() {
                 }, {
                     name: 'Storage',
                     description: '',
-                    href: '/settings/kukiko-id/',
+                    href: '/settings/storage/',
                     icon: ServerStackIcon,
-                    current: location.pathname === '/settings/kukiko-id/',
+                    current: location.pathname === '/settings/storage/',
+                }, {
+                    name: 'Labs',
+                    description: '',
+                    href: '/settings/labs/',
+                    icon: BeakerIcon,
                 }, {
                     name: <span className="inline-flex">More <ArrowUpRightIcon className="w-4"/></span>,
                     description: 'Go to Legacy Settings',
@@ -91,7 +98,9 @@ export default function SettingsGeneral() {
 
             {location.pathname === '/settings/social/' && <SocialSettingsScreen/>}
 
-            {location.pathname === '/settings/kukiko-id/' && <SettingsStorage/>}
+            {location.pathname === '/settings/storage/' && <SettingsStorage/>}
+
+            {location.pathname === '/settings/labs/' && <SettingsLabs/>}
         </>
     )
 }

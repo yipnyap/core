@@ -1,11 +1,14 @@
-import React, {FormEventHandler, useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
 import {useLocation} from 'react-router-dom';
-import {NGAlertCard} from '../../components/Feedback/NGAlertCard';
 import {RadioGroup} from '@headlessui/react';
-import {CheckIcon, QuestionMarkCircleIcon} from '@heroicons/react/24/solid';
-import {NGBody, NGCard, NGSelectMenu} from '@nextgen2/components';
+import {CheckIcon} from '@heroicons/react/24/solid';
+import {NGCard, NGSelectMenu} from '@nextgen2/components';
 import {useTheme} from '@nextgen2/providers/Theme.provider';
+// @ts-ignore
+import { Flags } from 'react-feature-flags';
+import {Alert, Typography} from '@mui/joy';
+import {ExclamationTriangleIcon} from "@heroicons/react/20/solid";
 
 const globalVariants = [{
     name: 'Light',
@@ -61,7 +64,7 @@ const accentColours = [{
     name: 'Slate',
 }]
 
-export default function SettingsSkin({...props}) {
+export default function SettingsSkin() {
     const [heading, setHeading] = useHeading();
     const location = useLocation();
     const [theme, setTheme] = useTheme();
@@ -130,75 +133,87 @@ export default function SettingsSkin({...props}) {
                 </div>
             </div>
 
-            {/* Body content with padding */}
-            <div className="flex flex-col space-y-8">
-                {/* Skin selector */}
-                <NGCard title="Local UI Skin" className="overflow-visible">
-                    <div
-                        className="flex flex-col">
-                        <p className="text-default-alt mb-2">
-                            This modifies the theme shown to you everywhere,
-                            not to anyone else.
-                        </p>
+            <Flags authorizedFlags={['JoyUINavigation']}
+                   renderOn={() => (
+                       <Alert
+                           startDecorator={<ExclamationTriangleIcon className="w-6 mx-0.5" />}
+                           variant="solid"
+                           color="danger"
+                       >
+                           <Typography sx={{ color: 'white' }} fontWeight="md">
+                               The UI is standardised. As this UI works way different than before, you will have to unenroll in Labs.
+                           </Typography>
+                       </Alert>
+                   )}
+                   renderOff={() => (
+                       <div className="flex flex-col space-y-8">
+                           {/* Skin selector */}
+                           <NGCard title="Local UI Skin" className="overflow-visible">
+                               <div
+                                   className="flex flex-col">
+                                   <p className="text-default-alt mb-2">
+                                       This modifies the theme shown to you everywhere,
+                                       not to anyone else.
+                                   </p>
 
-                        {/* Light/Dark/System */}
-                        <fieldset>
-                            <legend className="text-sm font-medium text-default">Variant</legend>
-                            <div className="mt-2 space-y-5">
-                                <RadioGroup value={selectedGlobalVariant} onChange={doGlobalVariantChange}>
-                                    <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
-                                    <div className="space-y-2">
-                                        {globalVariants.map((option) => (
-                                            <RadioGroup.Option
-                                                key={option.name}
-                                                value={option}
-                                                className={({
-                                                    active,
-                                                    checked,
-                                                }) => `${active ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300' : ''}
+                                   {/* Light/Dark/System */}
+                                   <fieldset>
+                                       <legend className="text-sm font-medium text-default">Variant</legend>
+                                       <div className="mt-2 space-y-5">
+                                           <RadioGroup value={selectedGlobalVariant} onChange={doGlobalVariantChange}>
+                                               <RadioGroup.Label className="sr-only">Server size</RadioGroup.Label>
+                                               <div className="space-y-2">
+                                                   {globalVariants.map((option) => (
+                                                       <RadioGroup.Option
+                                                           key={option.name}
+                                                           value={option}
+                                                           className={({
+                                                                           active,
+                                                                           checked,
+                                                                       }) => `${active ? 'ring-2 ring-white ring-opacity-60 ring-offset-2 ring-offset-sky-300' : ''}
                                                      ${checked ? 'bg-default-alt bg-opacity-75 text-default' : 'bg-default dark:bg-transparent'}
                                                      relative flex cursor-pointer rounded-lg px-5 py-4 border border-default focus:outline-none hover:bg-neutral-200 dark:hover:bg-neutral-700 hover:bg-opacity-75`}
-                                            >
-                                                {({
-                                                    active,
-                                                    checked,
-                                                }) => (
-                                                    <>
-                                                        <div className="flex w-full items-center justify-between">
-                                                            <div className="flex items-center">
-                                                                <div className="text-sm">
-                                                                    <RadioGroup.Label
-                                                                        as="p"
-                                                                        className={`font-medium  ${checked ? 'text-default' : 'text-default-alt'}`}
-                                                                    >
-                                                                        {option.name}
-                                                                    </RadioGroup.Label>
-                                                                </div>
-                                                            </div>
-                                                            {checked && (
-                                                                <div className="shrink-0 text-default">
-                                                                    <CheckIcon className="h-6 w-6"/>
-                                                                </div>
-                                                            )}
-                                                        </div>
-                                                    </>
-                                                )}
-                                            </RadioGroup.Option>
-                                        ))}
-                                    </div>
-                                </RadioGroup>
-                            </div>
-                        </fieldset>
+                                                       >
+                                                           {({
+                                                                 checked,
+                                                             }) => (
+                                                               <>
+                                                                   <div className="flex w-full items-center justify-between">
+                                                                       <div className="flex items-center">
+                                                                           <div className="text-sm">
+                                                                               <RadioGroup.Label
+                                                                                   as="p"
+                                                                                   className={`font-medium  ${checked ? 'text-default' : 'text-default-alt'}`}
+                                                                               >
+                                                                                   {option.name}
+                                                                               </RadioGroup.Label>
+                                                                           </div>
+                                                                       </div>
+                                                                       {checked && (
+                                                                           <div className="shrink-0 text-default">
+                                                                               <CheckIcon className="h-6 w-6"/>
+                                                                           </div>
+                                                                       )}
+                                                                   </div>
+                                                               </>
+                                                           )}
+                                                       </RadioGroup.Option>
+                                                   ))}
+                                               </div>
+                                           </RadioGroup>
+                                       </div>
+                                   </fieldset>
 
-                        {/* Accent Dropdown */}
-                        <div className="mt-4">
-                            <NGSelectMenu title="Accent Colour" selected={selectedAccentColour}
-                                          onChange={setSelectedAccentColour} options={accentColours}
-                                          displayAbove={true}/>
-                        </div>
-                    </div>
-                </NGCard>
-            </div>
+                                   {/* Accent Dropdown */}
+                                   <div className="mt-4">
+                                       <NGSelectMenu title="Accent Colour" selected={selectedAccentColour}
+                                                     onChange={setSelectedAccentColour} options={accentColours}
+                                                     displayAbove={true}/>
+                                   </div>
+                               </div>
+                           </NGCard>
+                       </div>
+                   )} />
         </>
     )
 }

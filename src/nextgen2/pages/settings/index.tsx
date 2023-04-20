@@ -1,7 +1,12 @@
 import SettingsStorage from '@nextgen2/pages/settings/storage';
 import React, {useEffect} from 'react';
 import {useLocation} from 'react-router-dom';
+
+// @ts-ignore
+import {Flags} from 'react-feature-flags';
+
 import {
+    ArrowDownOnSquareStackIcon,
     BeakerIcon,
     Cog6ToothIcon,
     CursorArrowRaysIcon,
@@ -13,16 +18,19 @@ import {
 } from '@heroicons/react/24/solid';
 import {ArrowUpRightIcon} from '@heroicons/react/20/solid';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
+
 // @ts-ignore
 import ProfileSettingsScreen from '@legacy/component/settings/ProfileSettingsScreen.js';
 // @ts-ignore
 import SocialSettingsScreen from '@legacy/component/settings/SocialSettingsScreen.js';
 // @ts-ignore
 import AccountInfoSettingsScreen from '@legacy/component/settings/AccountInfoSettingsScreen.js';
+
 import SettingsSkin from '@nextgen2/pages/settings/skin';
 import SettingsAccessibility from '@nextgen2/pages/settings/accessibility';
 import SettingsTelegram from '@nextgen2/pages/settings/telegram';
 import SettingsLabs from "@nextgen2/pages/settings/labs";
+import SettingsImport from "@nextgen2/pages/settings/import";
 
 export default function SettingsGeneral() {
     const [, setHeading] = useHeading();
@@ -39,6 +47,12 @@ export default function SettingsGeneral() {
                     href: '/settings/',
                     icon: Cog6ToothIcon,
                     current: location.pathname === '/settings/',
+                }, {
+                    name: 'Import to Yipnyap',
+                    description: 'Import all your submissions from a supported service.',
+                    href: '/settings/import/',
+                    icon: ArrowDownOnSquareStackIcon,
+                    new: true,
                 }, {
                     name: 'Telegram',
                     description: 'Claim this account and configure Telegram notifcations, OTP, and more.',
@@ -74,6 +88,7 @@ export default function SettingsGeneral() {
                     description: '',
                     href: '/settings/labs/',
                     icon: BeakerIcon,
+                    new: true,
                 }, {
                     name: <span className="inline-flex">More <ArrowUpRightIcon className="w-4"/></span>,
                     description: 'Go to Legacy Settings',
@@ -88,7 +103,14 @@ export default function SettingsGeneral() {
 
     return (
         <>
-            {location.pathname === '/settings/' && <ProfileSettingsScreen/>}
+            {location.pathname === '/settings/' && (
+                <Flags
+                    authorizedFlags={['NewProfileManagement']}
+                    renderOff={() => <ProfileSettingsScreen/>}
+                />
+            )}
+
+            {location.pathname === '/settings/import/' && <SettingsImport/>}
 
             {location.pathname === '/settings/telegram/' && <SettingsTelegram/>}
 

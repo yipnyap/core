@@ -16,6 +16,12 @@ $YipnyapPageTemplates = [
         'nextgen' => true,
         'children' => [],
     ],
+    [
+        'slug' => 'terms',
+        'title' => 'Terms',
+        'nextgen' => true,
+        'children' => [],
+    ]
 ];
 
 // Loop through each page template

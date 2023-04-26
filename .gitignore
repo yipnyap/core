@@ -126,3 +126,7 @@ dist
 /src/js/bundle/
 /src/js/app.bundle.min.js
 *.css.map
+
+# Composer
+/vendor
+composer.lock

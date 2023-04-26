@@ -7,7 +7,7 @@ import {Checkbox, FormControl, FormHelperText} from "@mui/joy";
 export default function SettingsLabs() {
     const [useJoyNavigation, setUseJoyNavigation] = useState<boolean>(localStorage.getItem('JoyUINavigation') === 'true');
     const [allowWominjekaUsage, setAllowWominjekaUsage] = useState<boolean>(localStorage.getItem('AllowWominjekaUsage') === 'true');
-    const [useJoyHomefeed, setUseJoyHomefeed] = useState<boolean>(localStorage.getItem('JoyUIHomefeed') === 'true');
+    const [useNextgenHomefeed, setUseNextgenHomefeed] = useState<boolean>(localStorage.getItem('NextgenHomefeed') === 'true');
 
     function toggleUseJoyNavigation() {
         setUseJoyNavigation(!useJoyNavigation);
@@ -21,10 +21,10 @@ export default function SettingsLabs() {
         localStorage.setItem('AllowWominjekaUsage', (!allowWominjekaUsage).toString());
     }
 
-    function toggleUseJoyHomefeed() {
-        setUseJoyHomefeed(!useJoyHomefeed);
+    function toggleUseNextgenHomefeed() {
+        setUseNextgenHomefeed(!useNextgenHomefeed);
 
-        localStorage.setItem('JoyUIHomefeed', (!useJoyHomefeed).toString());
+        localStorage.setItem('NextgenHomefeed', (!useNextgenHomefeed).toString());
     }
 
     return (
@@ -86,7 +86,7 @@ export default function SettingsLabs() {
                         </p>
 
                         <FormControl>
-                            <Checkbox checked={useJoyHomefeed} onChange={toggleUseJoyHomefeed} label="Use Experimental Homefeed" />
+                            <Checkbox checked={useNextgenHomefeed} onChange={toggleUseNextgenHomefeed} label="Use Experimental Homefeed" />
                         </FormControl>
                     </div>
                 </NGCard>

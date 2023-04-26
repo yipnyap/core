@@ -1,5 +1,5 @@
 const {default: flattenColorPalette} = require('tailwindcss/lib/util/flattenColorPalette');
-const defaultColors = require('tailwindcss/colors');
+// const defaultColors = require('tailwindcss/colors');
 
 module.exports = {
     preflight: true,
@@ -54,7 +54,7 @@ module.exports = {
                     800: '#262626',
                     900: '#171717',
                 },
-                neutral: defaultColors.zinc,
+                // neutral: defaultColors.zinc,
                 sidebar: {
                     default: '#ffffff',
                     dark: '#1b1b1c',

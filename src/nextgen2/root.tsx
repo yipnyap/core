@@ -15,7 +15,8 @@ import { Flags, FlagsProvider } from 'react-feature-flags';
 export default function Root() {
     return (
         <FlagsProvider value={[
-            { name: 'JoyUINavigation', isActive: localStorage.getItem('JoyUINavigation') === 'true' }
+            { name: 'JoyUINavigation', isActive: localStorage.getItem('JoyUINavigation') === 'true' },
+            { name: 'NextgenFeed', isActive: localStorage.getItem('NextgenFeed') === 'true' },
         ]}>
             <StyledEngineProvider injectFirst>
                 <CssVarsProvider defaultMode="system" theme={theme}>

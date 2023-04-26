@@ -89,7 +89,7 @@ module.exports = {
         },
         open: false,
         allowedHosts: 'all',
-        port: 9000,
+        port: 9080,
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',

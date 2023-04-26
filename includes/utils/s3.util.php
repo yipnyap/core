@@ -1,18 +1,17 @@
 <?php
 // S3 functions
+require_once YIPNYAP_PATH . '/vendor/autoload.php';
 use Aws\S3\S3Client;
 
-$s3 = new S3Client([
-    'region'  => DO_SPACES_REGION,
-    'version' => 'latest',
-    'credentials' => [
-        'key'    => DO_SPACES_KEY,
-        'secret' => DO_SPACES_SECRET,
-    ]
-]);
-
 function S3UserContentUpload(string $userID, string $file, string $E2Parent): string {
-    global $s3;
+    $s3 = new S3Client([
+        'region'  => DO_SPACES_REGION,
+        'version' => 'latest',
+        'credentials' => [
+            'key'    => DO_SPACES_KEY,
+            'secret' => DO_SPACES_SECRET,
+        ]
+    ]);
 
     // Key should be something like: <user_id>/<E2Object>/<E2ID>.<extension>
     $E2ID = E2IDCreate('Post', 'CONTENT_IMAGE', $E2Parent);

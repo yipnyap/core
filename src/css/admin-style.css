@@ -767,16 +767,6 @@
 .vk-content input[type=text],
 .vk-content input[type=password],
 .vk-content textarea,
-.vk-content select,
-.vk-content button {
-  width: 100%;
-  @apply rounded-default;
-  font-size: 18px;
-  font-weight: var(--vk-weight-bold);
-}
-.vk-content input[type=text],
-.vk-content input[type=password],
-.vk-content textarea,
 .vk-content select {
   background-color: transparent;
   border: 1px solid var(--vk-color-border);

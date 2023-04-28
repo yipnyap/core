@@ -13,12 +13,11 @@ export const NGBodyTheming = {
 export default function NGBody({...props}: NGBodyType) {
     return (
         <div
-            className="justify-center m-auto h-full">
+            className="justify-center m-auto px-8 pt-10 pb-48 md:px-20 h-full overflow-y-auto overflow-x-hidden">
             <div
-                className={`flex flex-col p-8 pt-10 pb-48 md:px-20 space-y-12 h-full overflow-y-auto overflow-x-hidden ${props.className}`}>
+                className={`flex flex-col max-w-4xl mx-auto space-y-12 ${props.className}`}>
                 {props.children}
             </div>
-
         </div>
     );
 }

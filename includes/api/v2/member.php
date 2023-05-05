@@ -161,6 +161,9 @@ add_action('rest_api_init', function () {
                             'message' => $user->get_error_message(),
                         ]);
                     } else {
+                        // Create a unique E2 ID
+                        $E2ID = E2IDCreate('User');
+                        update_user_meta($user, 'E2ID', $E2ID);
                         wp_send_json(YipnyapLoginMember($request['username'], $request['password']));
                     }
                 }

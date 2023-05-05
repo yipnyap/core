@@ -31,7 +31,7 @@ $E2IDTypes = [
         'ID' => '00',
         // Core is inherited by all other types, unless otherwise defined.
         'variants' => [
-            'COMMON' => 'A1',
+            'PARENT' => 'A1',
             'LEGACY_CONVERTED' => 'A9',
 
             // Importing - Suffixed with a User ID, as a user can only have 1 import job
@@ -41,6 +41,7 @@ $E2IDTypes = [
     'User' => [
         'ID' => '01',
         'variants' => [
+            'PARENT' => 'A1',
             'ALTERNATIVE_IDENTITY' => 'A2',
             'AUTOMATED' => 'A3',
         ]
@@ -51,7 +52,7 @@ $E2IDTypes = [
     'Post' => [
         'ID' => '03',
         'variants' => [
-            // A1: Parent
+            'PARENT' => 'A1',
             'PARENT_IS_OFFICIAL' => 'A2', // Official announcement from Yipnyap or the Yipnyap Foundation
             'PARENT_IS_SECRET' => 'A3', // Drafted post, not yet published
             'PARENT_RELIES_ON_FOLDER' => 'A4', // Post is bundled inside a folder, i.e. some sort of portfolio/gallery
@@ -78,7 +79,7 @@ $E2IDTypes = [
             'CONTENT_IMAGE' => 'C1',
             'CONTENT_VIDEO' => 'C2',
             'CONTENT_AUDIO' => 'C3',
-            'CONTENT_WYSIWYG' => 'C4',
+            'CONTENT_RICH' => 'C4',
         ]
     ]
 ];
@@ -93,14 +94,23 @@ function E2IDTypeIDToName(string $type_id): string {
     return '';
 }
 
-function LegacyIDToE2ID(string $legacy_id, string $type, string $variant): string {
+function LegacyIDToE2ID(string $legacy_id, string $type, string $variant = 'PARENT'): string {
     global $E2IDTypes;
     $type_id = $E2IDTypes[$type]['ID'];
-    $variant_id = $E2IDTypes[$type]['variants'][$variant];
+
+    if ($variant !== 'PARENT') {
+        $variant_id = $E2IDTypes[$type]['variants'][$variant];
+    } else {
+        $variant_id = 'A1';
+    }
+
     return $type_id . $variant_id . $legacy_id;
 }
 
-function E2IDCreate(string $type, string $variant, string $suffix = ''): string {
+/**
+ * @throws Exception
+ */
+function E2IDCreate(string $type, string $variant = 'PARENT', string $suffix = ''): string {
     global $E2IDTypes;
     $type_id = $E2IDTypes[$type]['ID'];
     $variant_id = $E2IDTypes[$type]['variants'][$variant];
@@ -117,17 +127,12 @@ function E2IDCreate(string $type, string $variant, string $suffix = ''): string 
     return $base_id;
 }
 
+/**
+ * @throws Exception
+ */
 function E2IDRandomID(): string {
     // Should match the regex: ^([A-Za-z1-9]{12,24})$
-    $characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890';
-    $characters_length = strlen($characters);
-    $random_id = '';
-
-    // Random ID is between 12 and 24 characters long.
+    // Random ID is between 12 and 24 characters long. Generate using $seed
     $random_id_length = rand(12, 24);
-    for ($i = 0; $i < $random_id_length; $i++) {
-        $random_id .= $characters[rand(0, $characters_length - 1)];
-    }
-
-    return $random_id;
+    return bin2hex(random_bytes($random_id_length));
 }

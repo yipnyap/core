@@ -136,7 +136,7 @@ module.exports = {
                 },
             }],
         }, {
-            include: path.resolve(__dirname, 'src'),
+            include: path.resolve(__dirname, 'src', 'sass'),
             test: /\.(sa|sc|c)ss$/,
             exclude: /\.module\.(sa|sc|c)ss$/,
             use: [styleLoader, CSSLoader, PostCSSLoader, 'sass-loader'],

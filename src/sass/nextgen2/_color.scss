@@ -83,3 +83,97 @@ body.dark {
   --color-tertiary-hover: #dd343f;
   --color-loading-screen-background: #1d2333;
 }
+
+/* Colours */
+.text-default {
+  @apply text-neutral-700 dark:text-white;
+}
+
+.text-default-alt {
+  @apply text-neutral-500;
+}
+
+.bg-default {
+  @apply bg-white dark:bg-neutral-800;
+}
+
+.bg-default-alt {
+  @apply bg-neutral-100 dark:bg-neutral-700;
+}
+
+.bg-default-alt-dark {
+  @apply bg-white dark:bg-neutral-700;
+}
+
+.border-default {
+  @apply border-neutral-300 dark:border-neutral-800;
+}
+
+.dark\:border-gradient-red-dark {
+  background: linear-gradient(#3d1d1d, #3d1d1d) padding-box, linear-gradient(to top, #f43f5e, #fb7185, #ef4444) border-box
+}
+
+.bg-primary {
+  background-color: var(--color-primary);
+}
+
+.bg-secondary {
+  background-color: var(--color-secondary);
+}
+
+.bg-box {
+  @apply backdrop-blur-lg;
+  background-color: var(--color-box-background);
+}
+
+.bg-box-solid {
+  background-color: var(--color-box-background-solid);
+}
+
+.hover\:bg-box:hover {
+  background-color: var(--color-box-background)
+}
+
+.bg-box-alt {
+  background-color: var(--color-box-background-alt)
+}
+
+.hover\:bg-box-alt:hover {
+  background-color: var(--color-box-background-alt)
+}
+
+.bg-box-over {
+  background-color: var(--color-box-over-box-background)
+}
+
+.bg-box-over-light {
+  background-color: var(--color-box-over-box-light-background)
+}
+
+.text-primary {
+  color: var(--color-text);
+}
+
+.text-alt {
+  color: var(--color-text-alt);
+}
+
+.text-alt-2 {
+  @apply text-neutral-400;
+}
+
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+.text-tertiary {
+  color: var(--color-tertiary);
+}
+
+.border-divider {
+  border-color: var(--color-divider);
+}
+
+.border-dark {
+  border-color: var(--color-border-dark);
+}

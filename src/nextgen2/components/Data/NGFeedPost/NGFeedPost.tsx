@@ -1,4 +1,4 @@
-import React, {Fragment} from 'react';
+import React, {Fragment, useRef, useState} from 'react';
 import moment from 'moment';
 import {Menu, Transition} from '@headlessui/react';
 import {
@@ -46,26 +46,51 @@ function classNames(...classes: any[]) {
 }
 
 export default function NGFeedPost({...props}: NGFeedPostType) {
+    const [postContent, setPostContent] = useState(props.post);
+    const [commentSubmitting, setCommentSubmitting] = useState(false);
+    const commentRef = useRef<HTMLInputElement>(null);
+
+    const createComment = (e?: { preventDefault: () => void; }) => {
+        if (e) e.preventDefault();
+
+        setCommentSubmitting(true);
+
+        fetch(`/api/v2/feed/post/${postContent.id}/comment`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
+            },
+            body: JSON.stringify({
+                content: commentRef.current?.value,
+            })
+        }).then(res => res.json()).then(res => {
+            // just shove it in there
+            setPostContent(res);
+            setCommentSubmitting(false);
+        });
+    }
+
     // @ts-ignore
     return (
-        <NGCard noPadding>
+        <NGCard key={postContent.id} noPadding>
             <div className="relative">
                 <div className="px-4 py-5 sm:px-6">
                     <div className="flex space-x-3">
                         <div className="flex-shrink-0">
                             <img className="h-10 w-10 rounded-full"
-                                 src={props.post.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                 src={postContent.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
                                  alt=""/>
                         </div>
                         <div className="min-w-0 flex-1 flex flex-col justify-center">
-                            <a href={`/${props.post.user.username}`} className="font-medium text-default cursor-pointer hover:underline">
-                                {props.post.user.display_name || props.post.user.username}
+                            <a href={`/${postContent.user.username}`} className="font-medium text-default cursor-pointer hover:underline">
+                                {postContent.user.display_name || postContent.user.username}
                             </a>
-                            {props.post.timestamp && (
-                                <a href={`/@!${props.post.id}`} className="text-sm text-default-alt cursor-pointer hover:underline">
+                            {postContent.timestamp && (
+                                <a href={`/@!${postContent.id}`} className="text-sm text-default-alt cursor-pointer hover:underline">
                                     <time
-                                        dateTime={(props.post.timestamp * 1000).toString()}>
-                                        {moment(props.post.timestamp * 1000).fromNow()}
+                                        dateTime={(postContent.timestamp * 1000).toString()}>
+                                        {moment(postContent.timestamp * 1000).fromNow()}
                                     </time>
                                 </a>
                             )}
@@ -134,31 +159,31 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     </div>
 
                     {/* Post Objects (Images) */}
-                    {props.post?.objects && props.post.objects.length > 0 && (
+                    {postContent?.objects && postContent.objects.length > 0 && (
                         <div className="mt-4">
-                            <div className={props.post.objects.length > 1 ? 'flex flex-col' : ''}>
+                            <div className={postContent.objects.length > 1 ? 'flex flex-col' : ''}>
                                 <div className="aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-default">
                                     {/* @todo: CLEANNNN */}
-                                    {props.post?.objects[0].id.split(':')[1].substring(2, 4) === 'C1' && (
+                                    {postContent?.objects[0].id.split(':')[1].substring(2, 4) === 'C1' && (
                                         <img
-                                            src={props.post.objects[0].url}
+                                            src={postContent.objects[0].url}
                                             alt=""
                                             className="aspect-w-10 aspect-h-7 w-full object-cover"
                                         />
                                     )}
 
-                                    {props.post?.objects[0].id.split(':')[1].substring(2, 4) === 'C2' && (
+                                    {postContent?.objects[0].id.split(':')[1].substring(2, 4) === 'C2' && (
                                         <video
-                                            src={props.post.objects[0].url}
+                                            src={postContent.objects[0].url}
                                             className="aspect-w-10 aspect-h-7 object-cover"
                                             controls
                                         />
                                     )}
                                 </div>
 
-                                {props.post.objects.length >= 2 && (
-                                    <div className={`mt-2 grid ${props.post.objects.length >= 2 ? 'grid-cols-3' : ''} gap-2`}>
-                                        {props.post.objects.slice(1).map((object, objectIndex) => {
+                                {postContent.objects.length >= 2 && (
+                                    <div className={`mt-2 grid ${postContent.objects.length >= 2 ? 'grid-cols-3' : ''} gap-2`}>
+                                        {postContent.objects.slice(1).map((object, objectIndex) => {
                                             if (objectIndex === 2) return (
                                                 <div key={objectIndex} className="w-full overflow-hidden rounded-default">
                                                     <div className="relative aspect-square">
@@ -168,12 +193,12 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                                                             className="aspect-square object-cover w-full h-full"
                                                         />
 
-                                                        {/* @ts-ignore - props.post.objects is very obviously defined :| */}
-                                                        {props.post.objects.length > 4 && (
+                                                        {/* @ts-ignore - postContent.objects is very obviously defined :| */}
+                                                        {postContent.objects.length > 4 && (
                                                             <div className="absolute mt-2 mr-2 top-0 right-0 flex items-center justify-center">
                                                                 <div className="bg-box rounded-default p-2">
                                                                     {/* @ts-ignore - for fuck sake. */}
-                                                                    <span className="text-defualt-alt text-sm">+{props.post.objects.length - 4}</span>
+                                                                    <span className="text-defualt-alt text-sm">+{postContent.objects.length - 4}</span>
                                                                 </div>
                                                             </div>
                                                         )}
@@ -208,12 +233,12 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                 {/*    <div className="flex items-center space-x-2 px-4 py-2">*/}
                 {/*        <div className="flex-shrink-0">*/}
                 {/*            <img className="h-4 w-4 rounded-full"*/}
-                {/*                    src={props.post.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}*/}
+                {/*                    src={postContent.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}*/}
                 {/*                    alt=""/>*/}
                 {/*        </div>*/}
                 {/*        <div className="min-w-0 flex-1">*/}
                 {/*            <p className="text-sm font-medium text-default cursor-pointer hover:underline">*/}
-                {/*                {props.post.user.username} is typing...*/}
+                {/*                {postContent.user.username} is typing...*/}
                 {/*            </p>*/}
                 {/*        </div>*/}
                 {/*    </div>*/}
@@ -231,41 +256,55 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     >
                         <HandThumbUpIcon className="h-5 w-5 text-neutral-400"
                                          aria-hidden="true"/>
-                        <span className="ml-2">{props.post.likes || 'Like'}</span>
+                        <span className="ml-2">{postContent.likes || 'Like'}</span>
                     </span>
-                    <span
-                        className="inline-flex items-center text-sm cursor-pointer hover:underline"
-                        onClick={() => {
-                            console.log('like')
-                        }}
+                    {yipnyap_constants.currentUser && (
+                        <span
+                            className="inline-flex items-center text-sm cursor-pointer hover:underline"
+                            onClick={() => {
+                                console.log('like')
+                            }}
                         >
                         <ChatBubbleBottomCenterTextIcon className="h-5 w-5 text-neutral-400" />
                     </span>
+                    )}
                 </div>
 
                 {/* Textbox */}
-                <div className="flex-1 relative flex items-center rounded-default">
-                    <input
-                        type="text"
-                        name="comment"
-                        id="comment"
-                        className="block w-full pr-12 placeholder-neutral-100 dark:placeholder-neutral-500 sm:text-sm focus:ring-primary focus:border-primary"
-                        placeholder="Comment"
-                    />
-                    <div className="absolute items-center inset-y-0 right-0 flex py-2 pr-2 cursor-pointer">
-                        <PaperAirplaneIcon className="h-5 w-5 text-white" />
+                {yipnyap_constants.currentUser && (
+                    <div className={classNames(
+                        commentSubmitting ? 'isolate relative overflow-hidden before:absolute before:inset-0 before:border before:border-solid before:border-x-0 before:border-b-0 before:border-t before:border-neutral-100/10 before:-translate-x-full before:animate-[shimmer_2s_infinite] before:bg-gradient-to-r before:from-transparent before:via-neutral-500/5 before:to-transparent' : '',
+                        "flex-1 relative flex items-center rounded-default"
+                    )}>
+                        <input
+                            type="text"
+                            name="comment"
+                            id="comment"
+                            className="block w-full pr-12 placeholder-neutral-100 dark:placeholder-neutral-500 sm:text-sm focus:ring-primary focus:border-primary"
+                            placeholder="Comment"
+                            ref={commentRef}
+                        />
+                        <div className="absolute items-center inset-y-0 right-0 flex py-2 pr-2 cursor-pointer">
+                            {commentSubmitting ? (
+                                <img className="h-5 w-5 animate-spin dark:invert"
+                                     src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                     alt="Process working spinner"/>
+                            ) : (
+                                <PaperAirplaneIcon className="h-5 w-5 text-white" onClick={createComment} />
+                            )}
+                        </div>
                     </div>
-                </div>
+                )}
             </div>
 
             {/* Replies */}
-            {props.post?.replies && props.post.replies.length > 0 && (
+            {postContent?.replies && postContent.replies.length > 0 && (
                 <div className="px-4 py-4 sm:px-6 bg-box-alt">
                     <div className="flow-root">
                         <ul role="list" className="-mb-8">
-                            {props.post.replies.map((reply) => (
+                            {postContent.replies.map((reply) => (
                                 <>
-                                    {/* @ts-ignore - props.post.replies isn't fucking undefined. */}
+                                    {/* @ts-ignore - postContent.replies isn't fucking undefined. */}
                                     <FeedListItem key={reply.id} reply={reply} showLine={reply.replies && reply.replies.length > 0} />
                                     {reply.replies && reply.replies.length > 0 && reply.replies.map((replyInside, replyInsideIdx) => (
                                         <>
@@ -285,6 +324,10 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
 
 function FeedListItem({...props}: any) {
     const {reply, showLine} = props;
+
+    if (reply.id.indexOf(':') > -1) {
+        reply.id = reply.id.split(':')[1]
+    }
 
     return (
         <li>
@@ -313,7 +356,7 @@ function FeedListItem({...props}: any) {
                             <div className="min-w-0 flex-1">
                                 <div>
                                     <div className="text-sm">
-                                        <a href={`/@${reply.user.username}`} className="font-medium text-default">
+                                        <a href={`/${reply.user.username}`} className="font-medium text-default">
                                             {reply.user.display_name || reply.user.username}
                                         </a>
                                     </div>

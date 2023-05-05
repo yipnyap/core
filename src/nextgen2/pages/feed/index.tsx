@@ -99,7 +99,7 @@ export default function Feed() {
     useEffect(() => {
         fetchPosts();
 
-        if (ejInstance.current === null) {
+        if (ejInstance.current === null && yipnyap_constants.currentUser) {
             initEditor();
         }
 
@@ -131,120 +131,122 @@ export default function Feed() {
         <NGBody>
             <div className="max-w-3xl lg:max-w-7xl mx-auto sm:grid sm:grid-cols-12 sm:gap-8">
                 <main className="space-y-8 sm:col-span-8">
-                    <NGCard className="relative z-10 overflow-visible">
-                        <div className="flex space-x-3">
-                            <div className="flex-shrink-0">
-                                <img className="h-10 w-10 rounded-full"
-                                     src={yipnyap_constants.currentUser?.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
-                                     alt=""/>
-                            </div>
-                            <div className="min-w-0 flex-1 flex flex-col justify-center">
-                                <a href={`/${yipnyap_constants.currentUser?.username}`}
-                                   className="font-medium text-default cursor-pointer hover:underline">
-                                    {yipnyap_constants.currentUser?.displayName || yipnyap_constants.currentUser?.username}
-                                </a>
-                                <span className="text-sm text-default-alt cursor-pointer hover:underline">
+                    {yipnyap_constants.currentUser && (
+                        <NGCard className="relative z-10 overflow-visible">
+                            <div className="flex space-x-3">
+                                <div className="flex-shrink-0">
+                                    <img className="h-10 w-10 rounded-full"
+                                         src={yipnyap_constants.currentUser?.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                         alt=""/>
+                                </div>
+                                <div className="min-w-0 flex-1 flex flex-col justify-center">
+                                    <a href={`/${yipnyap_constants.currentUser?.username}`}
+                                       className="font-medium text-default cursor-pointer hover:underline">
+                                        {yipnyap_constants.currentUser?.displayName || yipnyap_constants.currentUser?.username}
+                                    </a>
+                                    <span className="text-sm text-default-alt cursor-pointer hover:underline">
                                     @{yipnyap_constants.currentUser?.username}
                                 </span>
+                                </div>
                             </div>
-                        </div>
 
-                        <div id="UserPostEditor" className="mt-4 mb-12 text-sm text-neutral-700 dark:text-neutral-50"/>
+                            <div id="UserPostEditor" className="mt-4 mb-12 text-sm text-neutral-700 dark:text-neutral-50"/>
 
-                        <div className="inset-x-px">
-                            <div className="flex flex-nowrap justify-end pb-2">
-                                <Listbox as="div" value={target} onChange={setTarget} className="flex-shrink-0">
-                                    {({open}) => (
-                                        <>
-                                            <Listbox.Label className="sr-only">Assign</Listbox.Label>
-                                            <div className="relative">
-                                                <Listbox.Button
-                                                    className="relative inline-flex items-center rounded-default py-2 px-2 bg-box-alt text-sm font-medium text-default-alt whitespace-nowrap sm:px-3">
-                                                    {target === null ? (
-                                                        <UserCircleIcon
-                                                            className="flex-shrink-0 h-5 w-5 text-default-alt sm:-ml-1"
-                                                            aria-hidden="true"/>
-                                                    ) : (
-                                                        <img src={target.avatar} alt=""
-                                                             className="flex-shrink-0 h-5 w-5 rounded-full"/>
-                                                    )}
-
-                                                    <span
-                                                        className={classNames(
-                                                            target === null ? '' : 'text-gray-900',
-                                                            'hidden truncate sm:ml-2 sm:block'
+                            <div className="inset-x-px">
+                                <div className="flex flex-nowrap justify-end pb-2">
+                                    <Listbox as="div" value={target} onChange={setTarget} className="flex-shrink-0">
+                                        {({open}) => (
+                                            <>
+                                                <Listbox.Label className="sr-only">Assign</Listbox.Label>
+                                                <div className="relative">
+                                                    <Listbox.Button
+                                                        className="relative inline-flex items-center rounded-default py-2 px-2 bg-box-alt text-sm font-medium text-default-alt whitespace-nowrap sm:px-3">
+                                                        {target === null ? (
+                                                            <UserCircleIcon
+                                                                className="flex-shrink-0 h-5 w-5 text-default-alt sm:-ml-1"
+                                                                aria-hidden="true"/>
+                                                        ) : (
+                                                            <img src={target.avatar} alt=""
+                                                                 className="flex-shrink-0 h-5 w-5 rounded-full"/>
                                                         )}
-                                                    >
+
+                                                        <span
+                                                            className={classNames(
+                                                                target === null ? '' : 'text-gray-900',
+                                                                'hidden truncate sm:ml-2 sm:block'
+                                                            )}
+                                                        >
                                                             {target === null ? 'Send to...' : target.name}
                                                         </span>
-                                                </Listbox.Button>
+                                                    </Listbox.Button>
 
-                                                <Transition
-                                                    show={open}
-                                                    as={Fragment}
-                                                    leave="transition ease-in duration-100"
-                                                    leaveFrom="opacity-100"
-                                                    leaveTo="opacity-0"
-                                                >
-                                                    <Listbox.Options
-                                                        className="absolute right-0 z-10 mt-1 w-52 bg-box shadow max-h-56 rounded-lg py-3 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
-                                                        {yipnyap_constants.currentUser?.groups?.map((group: any) => (
-                                                            <Listbox.Option
-                                                                key={group.id}
-                                                                className={({active}) =>
-                                                                    classNames(
-                                                                        active ? 'bg-box-alt' : '',
-                                                                        'cursor-default select-none relative py-2 px-3'
-                                                                    )
-                                                                }
-                                                                value={group}
-                                                            >
-                                                                <div className="flex items-center">
-                                                                    {group.avatar ? (
-                                                                        <img src={group.avatar} alt=""
-                                                                             className="flex-shrink-0 h-5 w-5 rounded-full"/>
-                                                                    ) : (
-                                                                        <UserCircleIcon
-                                                                            className="flex-shrink-0 h-5 w-5 text-default-alt"
-                                                                            aria-hidden="true"/>
-                                                                    )}
+                                                    <Transition
+                                                        show={open}
+                                                        as={Fragment}
+                                                        leave="transition ease-in duration-100"
+                                                        leaveFrom="opacity-100"
+                                                        leaveTo="opacity-0"
+                                                    >
+                                                        <Listbox.Options
+                                                            className="absolute right-0 z-10 mt-1 w-52 bg-box shadow max-h-56 rounded-lg py-3 text-base ring-1 ring-black ring-opacity-5 overflow-auto focus:outline-none sm:text-sm">
+                                                            {yipnyap_constants.currentUser?.groups?.map((group: any) => (
+                                                                <Listbox.Option
+                                                                    key={group.id}
+                                                                    className={({active}) =>
+                                                                        classNames(
+                                                                            active ? 'bg-box-alt' : '',
+                                                                            'cursor-default select-none relative py-2 px-3'
+                                                                        )
+                                                                    }
+                                                                    value={group}
+                                                                >
+                                                                    <div className="flex items-center">
+                                                                        {group.avatar ? (
+                                                                            <img src={group.avatar} alt=""
+                                                                                 className="flex-shrink-0 h-5 w-5 rounded-full"/>
+                                                                        ) : (
+                                                                            <UserCircleIcon
+                                                                                className="flex-shrink-0 h-5 w-5 text-default-alt"
+                                                                                aria-hidden="true"/>
+                                                                        )}
 
-                                                                    <span
-                                                                        className="ml-3 block font-medium truncate">{group.name}</span>
-                                                                </div>
-                                                            </Listbox.Option>
-                                                        ))}
-                                                    </Listbox.Options>
-                                                </Transition>
-                                            </div>
-                                        </>
-                                    )}
-                                </Listbox>
-                            </div>
-                            <div
-                                className="border border-x-0 border-b-0 border-t border-solid border-neutral-300 pt-2 flex justify-between items-center space-x-3 dark:border-neutral-700">
-                                <div className="flex">
-                                    <button
-                                        type="button"
-                                        className="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
-                                    >
-                                        <PaperClipIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
-                                                       aria-hidden="true"/>
-                                        <span className="text-sm text-gray-500 group-hover:text-gray-600 italic">Attach a file</span>
-                                    </button>
+                                                                        <span
+                                                                            className="ml-3 block font-medium truncate">{group.name}</span>
+                                                                    </div>
+                                                                </Listbox.Option>
+                                                            ))}
+                                                        </Listbox.Options>
+                                                    </Transition>
+                                                </div>
+                                            </>
+                                        )}
+                                    </Listbox>
                                 </div>
-                                <div className="flex-shrink-0">
-                                    <NGButton
-                                        variant="primary"
-                                        className="inline-flex"
-                                        onClick={createPost}
-                                    >
-                                        Create
-                                    </NGButton>
+                                <div
+                                    className="border border-x-0 border-b-0 border-t border-solid border-neutral-300 pt-2 flex justify-between items-center space-x-3 dark:border-neutral-700">
+                                    <div className="flex">
+                                        <button
+                                            type="button"
+                                            className="-ml-2 -my-2 rounded-full px-3 py-2 inline-flex items-center text-left text-gray-400 group"
+                                        >
+                                            <PaperClipIcon className="-ml-1 h-5 w-5 mr-2 group-hover:text-gray-500"
+                                                           aria-hidden="true"/>
+                                            <span className="text-sm text-gray-500 group-hover:text-gray-600 italic">Attach a file</span>
+                                        </button>
+                                    </div>
+                                    <div className="flex-shrink-0">
+                                        <NGButton
+                                            variant="primary"
+                                            className="inline-flex"
+                                            onClick={createPost}
+                                        >
+                                            Create
+                                        </NGButton>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </NGCard>
+                        </NGCard>
+                    )}
 
                     {!postsReady && (
                         <NGSkeleton />

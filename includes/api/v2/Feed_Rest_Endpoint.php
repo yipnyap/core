@@ -62,6 +62,20 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
             ],
             'schema' => [$this, 'edit_public_item_schema'],
         ]);
+
+        register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)/comment', [
+            [
+                'methods' => WP_REST_Server::EDITABLE,
+                'callback' => [$this, 'edit_comment_item'],
+                'args' => [
+                    'content' => [
+                        'type' => 'string',
+                        'required' => true,
+                    ],
+                ]
+            ],
+            'schema' => [$this, 'edit_public_item_schema'],
+        ]);
     }
 
     /**
@@ -114,6 +128,25 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
         ]);
 
         $response = new WP_REST_Response($post);
+        $response->set_status(200);
+        $response->header('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * Create or edit a comment
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_REST_Response
+     * @throws Exception
+     * @since ui3
+     * @access public
+     */
+    public function edit_comment_item(WP_REST_Request $request): WP_REST_Response {
+        $comment = FeedMixer::CreateComment($request->get_param('id'), $request->get_param('content'));
+
+        $response = new WP_REST_Response($comment);
         $response->set_status(200);
         $response->header('Content-Type', 'application/json');
 

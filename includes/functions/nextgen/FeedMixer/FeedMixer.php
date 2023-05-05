@@ -5,8 +5,6 @@ require_once YIPNYAP_PATH . '/includes/utils/e2.util.php';
 require_once YIPNYAP_PATH . '/includes/utils/s3.util.php';
 
 use Exception;
-use GuzzleHttp\Exception\GuzzleException;
-use SupabaseControl;
 
 /**
  * Feed Mixer. Creates a feed from multiple sources, including groups, users, and
@@ -44,6 +42,7 @@ class FeedMixer
     /**
      * Build the global guest feed.
      * It sorts by date and reaction count.
+     * @throws Exception
      */
     public static function MixGuestFeed(int $page = 1): array {
         global $wpdb;
@@ -135,11 +134,28 @@ class FeedMixer
      * Get a (single or list) of activities, formatted for Nextgen
      *
      * @param array $ids
+     * @param bool $returnLegacyIDOnly
      * @return array
      * @throws Exception
      * @todo: STRIP BUDDYPRESS' STUPID FUCKERY, MOTHERFLUFFER! (oh and also move this to a class uwu~)
      */
-    public static function GetPosts(array $ids = []): array {
+    public static function GetPosts(array $ids = [], bool $returnLegacyIDOnly = false): array {
+        // Check each ID, if it can't be converted to a number, get the activity_id from meta
+        $ids = array_map(function($id) {
+            global $wpdb;
+
+            if (!is_numeric($id)) {
+                $sql = "SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key = 'E2ID' AND meta_value = '$id'";
+                return $wpdb->get_results($sql)[0]->activity_id;
+            } else {
+                return $id;
+            }
+        }, $ids);
+
+        if ($returnLegacyIDOnly) {
+            return $ids;
+        }
+
         $bp_posts = bp_activity_get([
             'in' => $ids,
             'display_comments' => 'threaded'
@@ -464,9 +480,19 @@ class FeedMixer
      */
     public function CreatePost(array $post): array
     {
+        // Check if the user is logged in
+        if (!is_user_logged_in()) {
+            return [
+                'status' => 'error',
+                'message' => 'You must be logged in to create a post.',
+            ];
+        }
         // Check if the post is valid
         if (!empty($post['tags']) && count($post['tags']) > 10) {
-            throw new Exception('Too many tags.');
+            return [
+                'status' => 'error',
+                'message' => 'You can only have up to 10 tags.',
+            ];
         }
 
         $UserE2ID = get_user_meta(get_current_user_id(), 'E2ID', true);
@@ -477,7 +503,7 @@ class FeedMixer
         }
 
         // Create the post
-        $E2ID = E2IDCreate('Post', 'PARENT', $UserE2ID . ':');
+        $E2ID = E2IDCreate('Post');
         $post_id = bp_activity_add([
             'content' => ' ',
             'component' => 'activity',
@@ -485,7 +511,10 @@ class FeedMixer
         ]);
 
         if (empty($post_id)) {
-            throw new Exception('Failed to create post.');
+            return [
+                'status' => 'error',
+                'message' => 'Failed to create post.',
+            ];
         }
 
         // Set the E2ID
@@ -502,37 +531,64 @@ class FeedMixer
         // - check all the blocks are valid EditorJS blocks
         $contentAsJSON = json_encode($content);
         if (json_last_error() !== JSON_ERROR_NONE) {
-            throw new Exception('Invalid JSON.');
+            return [
+                'status' => 'error',
+                'message' => 'Invalid JSON.',
+            ];
         }
         if (!isset($content['time'])
             || !isset($content['version'])
             || !isset($content['blocks'])) {
-            throw new Exception('Invalid JSON.');
+            return [
+                'status' => 'error',
+                'message' => 'Invalid JSON.',
+            ];
         }
         if (!is_numeric($content['time'])) {
-            throw new Exception('Invalid JSON.');
+            return [
+                'status' => 'error',
+                'message' => 'Invalid JSON.',
+            ];
         }
         if (!is_string($content['version'])) {
-            throw new Exception('Invalid JSON.');
+            return [
+                'status' => 'error',
+                'message' => 'Invalid JSON.',
+            ];
         }
         if (!is_array($content['blocks'])) {
-            throw new Exception('Invalid JSON.');
+            return [
+                'status' => 'error',
+                'message' => 'Invalid JSON.',
+            ];
         }
         foreach ($content['blocks'] as $block) {
             if (!isset($block['type'])
                 || !isset($block['data'])) {
-                throw new Exception('Invalid JSON.');
+                return [
+                    'status' => 'error',
+                    'message' => 'Invalid JSON.',
+                ];
             }
             if (!is_string($block['type'])) {
-                throw new Exception('Invalid JSON.');
+                return [
+                    'status' => 'error',
+                    'message' => 'Invalid JSON.',
+                ];
             }
             if (!is_array($block['data'])) {
-                throw new Exception('Invalid JSON.');
+                return [
+                    'status' => 'error',
+                    'message' => 'Invalid JSON.',
+                ];
             }
 
             // - check the block type is valid
             if (!in_array($block['type'], ['header', 'paragraph', 'list', 'quote', 'code', 'table', 'link'])) {
-                throw new Exception('Invalid JSON.');
+                return [
+                    'status' => 'error',
+                    'message' => 'Invalid JSON.',
+                ];
             }
         }
 
@@ -556,9 +612,71 @@ class FeedMixer
                 'id' => $post_id,
             ]);
 
-            throw new Exception('Failed to upload content.');
+            return [
+                'status' => 'error',
+                'message' => 'Failed to upload post content.',
+            ];
         }
 
         return $this->GetPosts([$post_id]);
+    }
+
+    /**
+     * Create a comment
+     *
+     * @param string $PostE2
+     * @param string $content
+     * @return array
+     * @throws Exception
+     */
+    public static function CreateComment(string $PostE2, string $content): array {
+        if (!is_user_logged_in()) {
+            return [
+                'success' => false,
+                'message' => 'You must be logged in to comment.',
+            ];
+        }
+
+        // Check if the post exists
+        $post = FeedMixer::GetPosts([$PostE2], true);
+        if (empty($post)) {
+            return [
+                'success' => false,
+                'message' => 'Post not found.',
+            ];
+        }
+
+        // Check if content is valid - less than 512 characters, and not empty
+        if (strlen($content) > 512) {
+            return [
+                'success' => false,
+                'message' => 'Comment too long.',
+            ];
+        }
+        if (empty($content)) {
+            return [
+                'success' => false,
+                'message' => 'Comment cannot be empty.',
+            ];
+        }
+
+        // Create the comment
+        $E2ID = E2IDCreate('Post', 'INTERACTION_HOWLING_ALONGSIDE');
+        $comment_id = bp_activity_new_comment([
+            'content' => $content,
+            'activity_id' => $post[0],
+        ]);
+
+        if ($comment_id === false) {
+            return [
+                'success' => false,
+                'message' => 'Failed to create comment.',
+            ];
+        }
+
+        // Set the E2ID
+        bp_activity_update_meta($comment_id, 'E2ID', $E2ID);
+
+        return FeedMixer::GetPosts([$post[0]])[0];
     }
 }

@@ -43,15 +43,13 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
             $member_by_login = get_user_by('login', $member_id);
             if ($member_by_login) {
                 $member_id = $member_by_login->ID;
+            } elseif (!$skipErrorReturn) {
+                wp_send_json([
+                    'code' => 404,
+                    'error' => 'Member not found.',
+                ]);
             } else {
-                if (!$skipErrorReturn) {
-                    wp_send_json([
-                        'code' => 404,
-                        'error' => 'Member not found.',
-                    ]);
-                } else {
-                    return 0;
-                }
+                return 0;
             }
         }
     }
@@ -65,10 +63,12 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  * @param int|string $member_id Member ID.
  * @param int|null $bitwise
  * @param bool $isSelf
+ * @param bool $getOnline
  * @return array Member data.
+ * @throws Exception
+ * @see yipnyap_members_get
  * @since hk15
  *
- * @see yipnyap_members_get
  */
 function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
     global $GetMemberBit;
@@ -97,9 +97,12 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     $onlineRequest->set_param('populate_extras', 0);
     $onlineResponse = rest_do_request($onlineRequest);
 
+    $UserE2ID = YipnyapGetMemberE2ID($member_id);
+
     // TODO: Deperecate "mention_name" in the future.
     $member = [
         'id' => $memberOld['id'],
+        'E2ID' => $UserE2ID,
         'display_name' => $memberOld['name'],
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
@@ -268,6 +271,13 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
                 // If OTP is not correct, return the error message.
                 return $OTPResult;
             }
+        }
+
+        // Everything should be correct - check for E2, if it's not set, then set it.
+        $CurrentE2ID = get_user_meta($user->ID, 'E2ID', true);
+        if (empty($CurrentE2ID)) {
+            $E2ID = E2IDCreate('User');
+            update_user_meta($user, 'E2ID', $E2ID);
         }
 
         // Login user to WordPress
@@ -472,4 +482,29 @@ function YipnyapGetMemberFriends(string|int $member_id): array {
     }
 
     return $friends;
+}
+
+/**
+ * Get member's E2ID
+ *
+ * @param string|int $member_id Member ID
+ * @return string Member's E2ID
+ * @throws Exception
+ */
+function YipnyapGetMemberE2ID(string|int $member_id): string
+{
+    // Check if it's already an E2ID
+    if (str_starts_with($member_id, '01')) {
+        return $member_id;
+    }
+
+    $member_id = YipnyapFetchMemberID($member_id);
+    $UserE2ID = get_user_meta($member_id, 'E2ID', true);
+
+    if (empty($UserE2ID)) {
+        $UserE2ID = E2IDCreate('User');
+        update_user_meta($member_id, 'E2ID', $UserE2ID);
+    }
+
+    return $UserE2ID;
 }

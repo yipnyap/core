@@ -11,11 +11,24 @@ export declare interface NGFeedPostDataType {
     id: string;
     likes?: number;
     user: {
-        imageUrl?: string; username: string; displayName?: string;
+        id: number,
+        display_name: string,
+        username: string,
+        avatar: string,
+        header: string,
+        followers: number,
+        following: number,
+        posts: number,
+        online: boolean,
     };
+    content?: object | string;
     timestamp: number;
+    likedParent?: boolean;
     replies?: NGFeedPostDataType[];
-    children?: React.ReactNode; // for comments
+    objects?: {
+        id: string,
+        url: string,
+    }[]
 }
 
 export declare interface NGFeedPostType {
@@ -41,19 +54,21 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     <div className="flex space-x-3">
                         <div className="flex-shrink-0">
                             <img className="h-10 w-10 rounded-full"
-                                 src={props.post.user.imageUrl || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                 src={props.post.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
                                  alt=""/>
                         </div>
                         <div className="min-w-0 flex-1 flex flex-col justify-center">
-                            <a href={`/@${props.post.user.username}`} className="font-medium text-default cursor-pointer hover:underline">
-                                {props.post.user.displayName || props.post.user.username}
+                            <a href={`/${props.post.user.username}`} className="font-medium text-default cursor-pointer hover:underline">
+                                {props.post.user.display_name || props.post.user.username}
                             </a>
-                            <a href={`/@!${props.post.id}`} className="text-sm text-default-alt cursor-pointer hover:underline">
-                                <time
-                                    dateTime={props.post.timestamp.toString()}>
-                                    {moment(props.post.timestamp).fromNow()}
-                                </time>
-                            </a>
+                            {props.post.timestamp && (
+                                <a href={`/@!${props.post.id}`} className="text-sm text-default-alt cursor-pointer hover:underline">
+                                    <time
+                                        dateTime={(props.post.timestamp * 1000).toString()}>
+                                        {moment(props.post.timestamp * 1000).fromNow()}
+                                    </time>
+                                </a>
+                            )}
                         </div>
                         <div className="flex-shrink-0 self-center flex">
                             <Menu as="div" className="relative inline-block text-left">
@@ -117,23 +132,92 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                         className="mb-6 mt-4 text-sm text-neutral-700 space-y-4 dark:text-neutral-50">
                         {props.children}
                     </div>
+
+                    {/* Post Objects (Images) */}
+                    {props.post?.objects && props.post.objects.length > 0 && (
+                        <div className="mt-4">
+                            <div className={props.post.objects.length > 1 ? 'flex flex-col' : ''}>
+                                <div className="aspect-w-10 aspect-h-7 block w-full overflow-hidden rounded-default">
+                                    {/* @todo: CLEANNNN */}
+                                    {props.post?.objects[0].id.split(':')[1].substring(2, 4) === 'C1' && (
+                                        <img
+                                            src={props.post.objects[0].url}
+                                            alt=""
+                                            className="aspect-w-10 aspect-h-7 w-full object-cover"
+                                        />
+                                    )}
+
+                                    {props.post?.objects[0].id.split(':')[1].substring(2, 4) === 'C2' && (
+                                        <video
+                                            src={props.post.objects[0].url}
+                                            className="aspect-w-10 aspect-h-7 object-cover"
+                                            controls
+                                        />
+                                    )}
+                                </div>
+
+                                {props.post.objects.length >= 2 && (
+                                    <div className={`mt-2 grid ${props.post.objects.length >= 2 ? 'grid-cols-3' : ''} gap-2`}>
+                                        {props.post.objects.slice(1).map((object, objectIndex) => {
+                                            if (objectIndex === 2) return (
+                                                <div key={objectIndex} className="w-full overflow-hidden rounded-default">
+                                                    <div className="relative aspect-square">
+                                                        <img
+                                                            src={object.url}
+                                                            alt=""
+                                                            className="aspect-square object-cover w-full h-full"
+                                                        />
+
+                                                        {/* @ts-ignore - props.post.objects is very obviously defined :| */}
+                                                        {props.post.objects.length > 4 && (
+                                                            <div className="absolute mt-2 mr-2 top-0 right-0 flex items-center justify-center">
+                                                                <div className="bg-box rounded-default p-2">
+                                                                    {/* @ts-ignore - for fuck sake. */}
+                                                                    <span className="text-defualt-alt text-sm">+{props.post.objects.length - 4}</span>
+                                                                </div>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                </div>
+                                            )
+
+                                            if (objectIndex > 3) return null;
+                                            // Check E2 for object variant
+                                            switch (object.id.split(':')[1].substring(2, 4)) {
+                                                case 'C1':
+                                                    return (
+                                                        <div key={objectIndex} className={`aspect-square w-full overflow-hidden rounded-default`}>
+                                                            <img
+                                                                src={object.url}
+                                                                alt=""
+                                                                className="aspect-square object-cover w-full h-full"
+                                                            />
+                                                        </div>
+                                                    )
+                                            }
+                                        })}
+                                    </div>
+                                )}
+                            </div>
+                        </div>
+                    )}
                 </div>
 
                 {/* Floating "User is typing..." card */}
-                <div className="absolute bottom-0 left-0 ml-4 sm:ml-6 bg-box-alt border-x border-t border-b-0 border-solid border-neutral-300 dark:border-neutral-700 rounded-tl-xl rounded-tr-xl">
-                    <div className="flex items-center space-x-2 px-4 py-2">
-                        <div className="flex-shrink-0">
-                            <img className="h-4 w-4 rounded-full"
-                                    src={props.post.user.imageUrl || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
-                                    alt=""/>
-                        </div>
-                        <div className="min-w-0 flex-1">
-                            <p className="text-sm font-medium text-default cursor-pointer hover:underline">
-                                {props.post.user.username} is typing...
-                            </p>
-                        </div>
-                    </div>
-                </div>
+                {/*<div className="absolute bottom-0 left-0 ml-4 sm:ml-6 bg-box-alt border-x border-t border-b-0 border-solid border-neutral-300 dark:border-neutral-700 rounded-tl-xl rounded-tr-xl">*/}
+                {/*    <div className="flex items-center space-x-2 px-4 py-2">*/}
+                {/*        <div className="flex-shrink-0">*/}
+                {/*            <img className="h-4 w-4 rounded-full"*/}
+                {/*                    src={props.post.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}*/}
+                {/*                    alt=""/>*/}
+                {/*        </div>*/}
+                {/*        <div className="min-w-0 flex-1">*/}
+                {/*            <p className="text-sm font-medium text-default cursor-pointer hover:underline">*/}
+                {/*                {props.post.user.username} is typing...*/}
+                {/*            </p>*/}
+                {/*        </div>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
             </div>
 
             {/* Footer - Like & Share on left, rest of space taken up by a reply textbox with send icon on right */}
@@ -147,7 +231,7 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     >
                         <HandThumbUpIcon className="h-5 w-5 text-neutral-400"
                                          aria-hidden="true"/>
-                        <span className="ml-2">Like</span>
+                        <span className="ml-2">{props.post.likes || 'Like'}</span>
                     </span>
                     <span
                         className="inline-flex items-center text-sm cursor-pointer hover:underline"
@@ -179,10 +263,10 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                 <div className="px-4 py-4 sm:px-6 bg-box-alt">
                     <div className="flow-root">
                         <ul role="list" className="-mb-8">
-                            {props.post.replies.map((reply, idx) => (
+                            {props.post.replies.map((reply) => (
                                 <>
                                     {/* @ts-ignore - props.post.replies isn't fucking undefined. */}
-                                    <FeedListItem key={reply.id} reply={reply} showLine={idx !== props.post.replies.length - 1} />
+                                    <FeedListItem key={reply.id} reply={reply} showLine={reply.replies && reply.replies.length > 0} />
                                     {reply.replies && reply.replies.length > 0 && reply.replies.map((replyInside, replyInsideIdx) => (
                                         <>
                                             {/* @ts-ignore - fuck sake. */}
@@ -214,25 +298,38 @@ function FeedListItem({...props}: any) {
                             <div className="relative">
                                 <img
                                     className="h-10 w-10 rounded-full bg-box-alt flex items-center justify-center ring-8 ring-[#fafafa] dark:ring-[#2d2d2d]"
-                                    src={reply.user.imageUrl || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
+                                    src={reply.user.avatar || `${yipnyap_constants.yipnyap_url}/img/avatar/default-avatar.png`}
                                     alt=""
                                 />
 
                                 <span className="absolute -bottom-0.5 -right-1 bg-box-alt rounded-tl px-0.5 py-px">
-                                                                <ChatBubbleLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                                            </span>
+                                    {reply.likedParent ? (
+                                        <HandThumbUpIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    ) : (
+                                        <ChatBubbleLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
+                                    )}
+                                </span>
                             </div>
                             <div className="min-w-0 flex-1">
                                 <div>
                                     <div className="text-sm">
                                         <a href={`/@${reply.user.username}`} className="font-medium text-default">
-                                            {reply.user.username}
+                                            {reply.user.display_name || reply.user.username}
                                         </a>
                                     </div>
-                                    <p className="text-sm text-default-alt">{moment(reply.timestamp).fromNow()}</p>
+                                    <p className="text-sm text-default-alt">
+                                        {reply.timestamp ? (
+                                            <time
+                                                dateTime={(reply.timestamp * 1000).toString()}>
+                                                {moment(reply.timestamp * 1000).fromNow()}
+                                            </time>
+                                        ) : (
+                                            reply.user.username
+                                        )}
+                                    </p>
                                 </div>
-                                <div className="mt-2 text-sm text-gray-700">
-                                    {reply.children}
+                                <div className="mt-2 text-sm text-default break-words">
+                                    {reply.content}
                                 </div>
                             </div>
                         </>

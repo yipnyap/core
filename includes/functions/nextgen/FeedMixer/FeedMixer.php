@@ -47,14 +47,20 @@ class FeedMixer
     public static function MixGuestFeed(int $page = 1): array {
         global $wpdb;
 
+        $offset = ($page - 1) * 10;
+
         $tableName = $wpdb->prefix . 'bp_activity_meta';
-        $reactionSQL = "SELECT activity_id, COUNT(meta_value) AS like_count FROM $tableName
-              AS likes
-              GROUP BY activity_id
-              ORDER BY like_count DESC
-              LIMIT 10";
+        $reactionSQL = "SELECT activity_id, COUNT(meta_value)
+                            AS like_count
+                        FROM $tableName
+                            AS likes
+                        WHERE meta_key = 'liked_by'
+                        GROUP BY activity_id
+                        ORDER BY like_count DESC
+                        LIMIT 100";
 
         $reactions = $wpdb->get_results($reactionSQL);
+
         $activityIDs = array_map(function($reaction) {
             return $reaction->activity_id;
         }, $reactions);
@@ -73,6 +79,7 @@ class FeedMixer
 //            'time' => $supabaseRequest['time'],
             'posts' => $posts,
             'total' => $bp_posts['total'],
+            'hasMore' => $bp_posts['total'] > ($page * 10),
         ];
     }
 
@@ -332,6 +339,13 @@ class FeedMixer
 //            }
 
             $build[] = $buildReply;
+        }
+
+        // Sort by timestamp (newest first)
+        if (is_user_logged_in()) {
+            usort($build, function ($a, $b) {
+                return $b['timestamp'] <=> $a['timestamp'];
+            });
         }
 
         return $build;
@@ -629,7 +643,7 @@ class FeedMixer
      * @return array
      * @throws Exception
      */
-    public static function CreateComment(string $PostE2, string $content): array {
+    public static function CreateComment(string $PostE2, string $content, string|null $ParentCommentE2 = null): array {
         if (!is_user_logged_in()) {
             return [
                 'success' => false,
@@ -665,6 +679,7 @@ class FeedMixer
         $comment_id = bp_activity_new_comment([
             'content' => $content,
             'activity_id' => $post[0],
+            'parent_id' => $ParentCommentE2 ? FeedMixer::GetPosts([$ParentCommentE2], true)[0] : false,
         ]);
 
         if ($comment_id === false) {

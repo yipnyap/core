@@ -134,7 +134,11 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
      * Check if member is verified, then add "verified" to the member array.
      */
     if ($memberOld['verified']) {
-        $member['verified'] = true;
+        // Check if dipswitch "PendingVerifiedDeprecationAck" is enabled.
+        $switch = YipnyapCheckDipswitch('PendingVerifiedDeprecationAck');
+        if ($switch['success'] === false) {
+            YipnyapCheckDipswitch('PendingVerifiedDeprecationAck', true);
+        }
     }
 
     $profile_data = [
@@ -469,6 +473,7 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
  *
  * @param string|int $member_id Member ID
  * @return array Member's friends
+ * @throws Exception
  * @since ui1
  */
 function YipnyapGetMemberFriends(string|int $member_id): array {

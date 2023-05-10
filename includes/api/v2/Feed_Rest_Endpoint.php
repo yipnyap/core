@@ -94,10 +94,10 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
         $FeedTarget = $request->get_param('user');
         if (!empty($FeedTarget) && $FeedTarget == YipnyapGetMemberE2ID($FeedTarget) /* @todo: feed sharing? */) {
             $FeedMix = new FeedMixer($FeedTarget);
-            $feed = $FeedMix->MixFeed();
+            $feed = $FeedMix->MixFeed($request->get_param('page'));
         } else {
             // Guest
-            $feed = FeedMixer::MixGuestFeed();
+            $feed = FeedMixer::MixGuestFeed($request->get_param('page'));
         }
 
         // just testing

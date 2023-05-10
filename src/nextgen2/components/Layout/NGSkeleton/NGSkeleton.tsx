@@ -5,16 +5,13 @@ import styles from './NGSkeleton.module.scss';
 import {useLocation} from "react-router-dom";
 
 export declare interface NGSkeletonType {
+    dontAlternate?: boolean;
     theme?: any;
     children?: React.ReactNode;
 }
 
 export const NGSkeletonTheming = {
     main: [styles.item, 'p-8', 'dark:bg-neutral-800/50'],
-}
-
-function classNames(...classes: any[]) {
-    return classes.filter(Boolean).join(' ')
 }
 
 export default function NGSkeleton({...props}: NGSkeletonType) {
@@ -30,8 +27,11 @@ export default function NGSkeleton({...props}: NGSkeletonType) {
         const animation = () => {
             setClasses(styles.itemOut);
             setTimeout(() => {
-                orderArray = shuffle(order);
-                setOrder(orderArray);
+                if (!props.dontAlternate) {
+                    orderArray = shuffle(order);
+                    setOrder(orderArray);
+                }
+
                 setClasses(styles.itemIn);
 
                 if (i === 4) {
@@ -73,7 +73,7 @@ export default function NGSkeleton({...props}: NGSkeletonType) {
         <div className="flex flex-col space-y-6 overflow-hidden">
             <div className={`h-${order[0]} ${theme.main} ${classes}`}></div>
             <div className={`h-${order[1]} ${theme.main} ${classes}`}>
-                {loopCount === 4 && (
+                {!props.dontAlternate && loopCount === 4 && (
                     <div className="h-full relative space-y-4">
                         <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/onboarding/gray-cat.png`}
                              alt="Gray Cat" className="h-full w-auto"/>

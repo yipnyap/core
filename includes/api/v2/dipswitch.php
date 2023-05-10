@@ -28,34 +28,74 @@ add_action('rest_api_init', function () {
                     'message' => 'You are not logged in.',
                 ], 401);
             } else {
-                $key = $arguments['key'];
-                $value = $arguments['value'];
-                $currentDipswitch = get_user_meta(get_current_user_id(), 'dipswitch', true);
-                if ($currentDipswitch === '') {
-                    $currentDipswitch = [];
-                } else {
-                    $currentDipswitch = json_decode($currentDipswitch, true);
-                }
-
-                $allowedKeys = [
-                    'hide_onboarding' => 'boolean',
-                    'accent' => 'string',
-                ];
-
-                if (!empty($allowedKeys[$key]) && gettype($value) === $allowedKeys[$key]) {
-                    $currentDipswitch[$key] = $value;
-                    update_user_meta(get_current_user_id(), 'dipswitch', json_encode($currentDipswitch));
+                $result = YipnyapCheckDipswitch($arguments['key'], $arguments['value']);
+                if ($result['success']) {
                     wp_send_json([
                         'success' => true,
-                        'message' => 'Dipswitch updated.',
+                        'message' => $result['message'],
                     ]);
                 } else {
                     wp_send_json([
                         'success' => false,
-                        'message' => 'Invalid dipswitch key.',
+                        'message' => $result['message'],
                     ], 400);
                 }
             }
         },
     ]);
 });
+
+// @todo move this with Pivot
+function YipnyapCheckDipswitch($key, mixed $value = null): array
+{
+    $currentDipswitch = get_user_meta(get_current_user_id(), 'dipswitch', true);
+    if ($currentDipswitch === '') {
+        $currentDipswitch = [];
+    } else {
+        $currentDipswitch = json_decode($currentDipswitch, true);
+    }
+
+    // if $value is false, we're just checking the dipswitch value
+    if (empty($value)) {
+        if (isset($currentDipswitch[$key])) {
+            return [
+                'success' => true,
+                'message' => 'Dipswitch value found.',
+                'value' => $currentDipswitch[$key],
+            ];
+        } else {
+            return [
+                'success' => false,
+                'message' => 'Dipswitch value not found.',
+            ];
+        }
+    }
+
+    $allowedKeys = [
+        'hide_onboarding' => 'boolean',
+        'accent' => 'string',
+        'PendingVerifiedDeprecationAck' => 'boolean',
+    ];
+
+    if (!empty($allowedKeys[$key]) && gettype($value) === $allowedKeys[$key]) {
+        if ($value === false) {
+            // Just delete the dipswitch
+            unset($currentDipswitch[$key]);
+        } else {
+            // Update the dipswitch
+            $currentDipswitch[$key] = $value;
+        }
+
+        update_user_meta(get_current_user_id(), 'dipswitch', json_encode($currentDipswitch));
+
+        return [
+            'success' => true,
+            'message' => 'Dipswitch updated.',
+        ];
+    } else {
+        return [
+            'success' => false,
+            'message' => 'Invalid dipswitch key.',
+        ];
+    }
+}

@@ -5,12 +5,14 @@ export {NGFeedPost} from './Data/NGFeedPost';
 export {NGTable} from './Data/NGTable';
 export {NGStatsGrid} from './Data/NGStatsGrid';
 export {NGProfileHeader} from './Data/NGProfileHeader';
+export {NGSlideover} from './Data/NGSlideover';
 export {NGCTACard} from './Data/NGCTACard';
 export {NGGroupCard} from './Data/NGGroupCard';
 
 /**
  * Elements
  */
+export {NGAvatar} from './Elements/NGAvatar';
 export {NGButton} from './Elements/NGButton';
 
 /**

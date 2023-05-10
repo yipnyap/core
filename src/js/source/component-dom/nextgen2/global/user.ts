@@ -13,10 +13,7 @@ export async function populateCurrentUser() {
 
     yipnyap_constants.setDipswitch = function (key: string, value: any) {
         if (yipnyap_constants.currentUser) {
-            const dipswitch = yipnyap_constants.currentUser?.dipswitches?.find((dipswitch: { id: any; }) => dipswitch.id === this.id);
-            if (dipswitch) {
-                dipswitch[key] = value;
-            }
+            yipnyap_constants.currentUser.dipswitch[key] = value;
 
             fetch('/api/v2/dipswitch/', {
                 method: 'POST',

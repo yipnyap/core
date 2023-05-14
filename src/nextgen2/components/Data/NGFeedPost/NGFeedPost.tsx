@@ -7,6 +7,7 @@ import {
 import {NGCard} from '../../Layout/NGCard';
 import {ArrowsPointingOutIcon, ChatBubbleLeftIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {NGAvatar, NGSlideover } from '@nextgen2/components';
+import {useNotification} from "@nextgen2/providers/Notification.provider";
 
 export declare interface NGFeedPostDataType {
     id: string;
@@ -48,10 +49,12 @@ function classNames(...classes: any[]) {
 }
 
 export default function NGFeedPost({...props}: NGFeedPostType) {
+    const [, addNotification] = useNotification();
     const [postContent, setPostContent] = useState(props.post);
     const [selectedMedia, setSelectedMedia] = useState<any | null>(null);
     const [slideoverMediaOpen, setSlideoverMediaOpen] = useState(false);
     const [slideoverOpen, setSlideoverOpen] = useState(false);
+    const [likeProcessing, setLikeProcessing] = useState(false);
 
     useEffect(() => {
         setSlideoverMediaOpen(!!selectedMedia);
@@ -64,7 +67,6 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
     // @todo: move media slideover to its own component
     // Get the aspect ratio of the loaded media
     const [aspectRatio, setAspectRatio] = useState(1);
-
     useEffect(() => {
         if (slideoverOpen && postContent.objects && postContent.objects.length > 0) {
             const img = new Image();
@@ -76,6 +78,35 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
             }
         }
     }, [slideoverOpen]);
+
+    const likePost = (type: string) => {
+        if (likeProcessing) return;
+        setLikeProcessing(true);
+
+        fetch(`/api/v2/feed/post/${postContent.id}/like`, {
+            method: type,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+            }
+        }).then((res) => res.json()).then((res) => {
+            if (res.success) {
+                setPostContent({
+                    ...postContent,
+                    likes: res.data.likes,
+                    likedParent: type === 'PUT',
+                });
+            } else {
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: res.message,
+                });
+            }
+
+            setLikeProcessing(false);
+        });
+    }
 
     // @ts-ignore
     return (
@@ -284,12 +315,16 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                     <div className="flex space-x-6">
                     <span
                         className="inline-flex items-center text-sm cursor-pointer hover:underline"
-                        onClick={() => {
-                            console.log('like')
-                        }}
+                        onClick={() => likePost(postContent.likedParent ? 'DELETE' : 'PUT')}
                     >
-                        <HandThumbUpIcon className="h-5 w-5 text-neutral-400"
-                                         aria-hidden="true"/>
+                        {likeProcessing ? (
+                            <img className="h-5 w-5 animate-spin dark:invert"
+                                 src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
+                                 alt="Process working spinner"/>
+                        ) : (
+                            <HandThumbUpIcon className="h-5 w-5 text-neutral-400"
+                                             aria-hidden="true"/>
+                        )}
                         <span className="ml-2">{postContent.likes || 'Like'}</span>
                     </span>
                         {yipnyap_constants.currentUser && (
@@ -299,8 +334,8 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                                     console.log('like')
                                 }}
                             >
-                        <ChatBubbleBottomCenterTextIcon className="h-5 w-5 text-neutral-400" />
-                    </span>
+                                <ChatBubbleBottomCenterTextIcon className="h-5 w-5 text-neutral-400" />
+                            </span>
                         )}
                     </div>
 
@@ -319,12 +354,22 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                                     <>
                                         {/* @ts-ignore - postContent.replies isn't fucking undefined. */}
                                         <FeedListItem key={reply.id} reply={reply} showLine={reply.replies && reply.replies.length > 0} post={[postContent, setPostContent]} />
-                                        {reply.replies && reply.replies.length > 0 && reply.replies.map((replyInside, replyInsideIdx) => (
+                                        {reply.replies && reply.replies.length > 0 && (
                                             <>
                                                 {/* @ts-ignore - fuck sake. */}
-                                                <FeedListItem key={replyInside.id} reply={replyInside} showLine={replyInsideIdx !== reply.replies.length - 1} post={[postContent, setPostContent]} />
+                                                <FeedListItem key={reply.replies[0].id} reply={reply.replies[0]} showLine={reply.replies[0].forceRender} post={[postContent, setPostContent]} />
+
+                                                {/* almost there: check if any replies from here have 'forceRender', then, well, force render it */}
+                                                {reply.replies[0].replies?.map((replyInsideAgain) => {
+                                                    {/* @ts-ignore - hey, its right this time! but it's a one-off thing. */}
+                                                    if (replyInsideAgain.forceRender) {
+                                                        return (
+                                                            <FeedListItem key={replyInsideAgain.id} reply={replyInsideAgain} showLineReverse post={[postContent, setPostContent]} />
+                                                        )
+                                                    }
+                                                })}
                                             </>
-                                        ))}
+                                        )}
                                     </>
                                 ))}
                             </ul>
@@ -337,14 +382,19 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
 }
 
 function CommentBox({...props}: any) {
+    const [, addNotification] = useNotification();
     const [postContent, setPostContent] = props.post;
     const [commentSubmitting, setCommentSubmitting] = useState(false);
     const commentRef = useRef<HTMLInputElement>(null);
 
     const createComment = (e?: { preventDefault: () => void; }) => {
         if (e) e.preventDefault();
-
         setCommentSubmitting(true);
+
+        const commentBody = {
+            content: commentRef.current?.value,
+            ...(props.parent && { parent: props.parent })
+        };
 
         fetch(`/api/v2/feed/post/${postContent.id}/comment`, {
             method: 'POST',
@@ -352,13 +402,19 @@ function CommentBox({...props}: any) {
                 'Content-Type': 'application/json',
                 'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
             },
-            body: JSON.stringify({
-                content: commentRef.current?.value,
-            })
+            body: JSON.stringify(commentBody)
         }).then(res => res.json()).then(res => {
             // just shove it in there
-            setPostContent(res);
+            setPostContent(res.data);
             setCommentSubmitting(false);
+
+            addNotification({
+                title: 'Comment posted',
+                type: 'success',
+                persistent: true,
+            });
+
+            if (props.onSubmit) props.onSubmit(commentBody, res.data, res.commentID);
         });
     }
 
@@ -413,31 +469,67 @@ function CommentBox({...props}: any) {
 
 function FeedListItem({...props}: any) {
     const {reply, showLine, post} = props;
+    const [, addNotification] = useNotification();
     const [likes, setLikes] = useState(reply.likes || 0);
+    const [showReplyBox, setShowReplyBox] = useState(false);
     const [postContent, setPostContent] = post;
 
     if (reply.id.indexOf(':') > -1) {
         reply.id = reply.id.split(':')[1]
     }
 
-    function handleLike(id: string) {
-        const newLikeCount = likes + 1;
-        setLikes(newLikeCount);
-
+    const handleLike = (id: string, type: string) => {
         // Update it in props
         let newPostContent = postContent;
-        // check if reply
-        if (id.startsWith('03I4')) {
-            // reply
-            newPostContent.replies.forEach((reply: any) => {
-                if (reply.id === id) {
-                    reply.likes = newLikeCount;
-                }
-            });
-        } else if (id.startsWith('03A1')) {
-            // post
-            newPostContent.likes = newLikeCount;
-        }
+        fetch(`/api/v2/feed/post/${id}/like`, {
+            method: type,
+            headers: {
+                'Content-Type': 'application/json',
+                'X-WP-Nonce': yipnyap_constants.wp_rest_nonce
+            }
+        }).then((res) => res.json()).then((res) => {
+            if (res.success) {
+                newPostContent.replies.forEach((reply: any) => {
+                    if (reply.id === id) {
+                        reply.likes = res.data.likes;
+                        reply.liked = !reply.liked;
+                    }
+                });
+
+                setLikes(res.data.likes);
+                setPostContent(newPostContent);
+            } else {
+                addNotification({
+                    type: 'error',
+                    title: 'Error',
+                    message: res.message,
+                });
+            }
+        });
+    }
+
+    const handleReplySubmit = (commentBody: any, newPostContent: any, commentID: string) => {
+        setShowReplyBox(false);
+
+        // we need to append the comment to the replies to the reply
+        newPostContent.replies.forEach((reply: any) => {
+            // if we're replying to a reply, we need to find the reply we're replying to inside the replies of the reply
+            if (reply.replies) {
+                reply.replies.forEach((replyReply: any) => {
+                    // just one more
+                    if (replyReply.replies && replyReply.id === commentBody.parent) {
+                        replyReply.replies.forEach((replyReplyReply: any) => {
+                            console.log(replyReplyReply.id, commentID);
+                            if (replyReplyReply.id === commentID) {
+                                // we just need to change forceRender to true.
+                                replyReplyReply.forceRender = true;
+                                replyReply.forceRender = true;
+                            }
+                        });
+                    }
+                });
+            }
+        });
 
         setPostContent(newPostContent);
     }
@@ -455,11 +547,11 @@ function FeedListItem({...props}: any) {
                                 <div className="relative">
                                     <NGAvatar image={reply.user.avatar} online={reply.user.online} className="bg-box-alt flex items-center justify-center rounded-full ring-8 ring-[#fafafa] dark:ring-[#2d2d2d]" />
 
-                                    <span className="absolute -bottom-0.5 -right-1 bg-box-alt rounded-default px-0.5 py-px">
-                                        {reply.likedParent && (
+                                    {reply.likedParent && (
+                                        <span className="absolute -bottom-0.5 -right-1 bg-box-alt rounded-default px-0.5 py-px">
                                             <HandThumbUpIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
-                                        )}
-                                    </span>
+                                        </span>
+                                    )}
                                 </div>
                                 <div className="relative min-w-0 flex-1">
                                     <div>
@@ -497,14 +589,17 @@ function FeedListItem({...props}: any) {
                                         <div className="flex flex-row items-center">
                                             <div
                                                 className="flex flex-row items-center space-x-2 p-2 rounded-default hover:bg-box"
-                                                onClick={() => handleLike(reply.id)}
+                                                onClick={() => handleLike(reply.id, reply.liked ? 'DELETE' : 'PUT')}
                                             >
                                                 <HandThumbUpIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                                 {likes > 0 && (
                                                     <span className="text-sm text-default-alt">{likes}</span>
                                                 )}
                                             </div>
-                                            <div className="flex flex-row items-center space-x-2 p-2 rounded-default hover:bg-box">
+                                            <div
+                                                className="flex flex-row items-center space-x-2 p-2 rounded-default hover:bg-box"
+                                                onClick={() => setShowReplyBox(!showReplyBox)}
+                                            >
                                                 <ChatBubbleLeftIcon className="h-5 w-5 text-gray-400" aria-hidden="true" />
                                             </div>
                                         </div>
@@ -521,6 +616,13 @@ function FeedListItem({...props}: any) {
                                     </button>
                                 </div>
                             </div>
+
+                            {/* Comment box to reply */}
+                            {showReplyBox && (
+                                <div className="flex flex-row items-center mt-2">
+                                    <CommentBox post={post} parent={reply.id} onSubmit={handleReplySubmit} />
+                                </div>
+                            )}
                         </>
                     ) : null}
                 </div>

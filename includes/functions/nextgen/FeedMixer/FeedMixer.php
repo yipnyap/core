@@ -152,8 +152,15 @@ class FeedMixer
             global $wpdb;
 
             if (!is_numeric($id)) {
-                $sql = "SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key = 'E2ID' AND meta_value = '$id'";
-                return $wpdb->get_results($sql)[0]->activity_id;
+                // Check if stripping the first 4 characters is numeric
+                $strippedID = substr($id, 4);
+
+                if (is_numeric($strippedID)) {
+                    return $strippedID;
+                } else {
+                    $sql = "SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key = 'E2ID' AND meta_value = '$id'";
+                    return $wpdb->get_results($sql)[0]->activity_id;
+                }
             } else {
                 return $id;
             }
@@ -188,7 +195,7 @@ class FeedMixer
                 'timestamp' => strtotime($post->date_recorded),
                 'user' => YipnyapGetMember($post->user_id, null, false, true),
                 'replies' => [],
-                'likes' => count(bp_activity_get_meta($post->id, 'liked_by', false)),
+                'likes' => count(bp_activity_get_meta($post->id, 'liked_by', false))
             ];
 
             $EditorBlocksLocation = bp_activity_get_meta($post->id, 'blocks_url');
@@ -246,6 +253,14 @@ class FeedMixer
                 }
             }
 
+            // Get media - New
+            $mediaObjects = bp_activity_get_meta($post->id, 'media_objects', false);
+            if (!empty($mediaObjects)) {
+                foreach ($mediaObjects as $mediaObject) {
+                    $build['objects'][] = unserialize($mediaObject);
+                }
+            }
+
             // Get legacy reactions & add them to the likes integer
             $legacyReactions = vkreact_bp_get_activity_reactions($post->id);
             foreach ($legacyReactions as $legacyReaction) {
@@ -282,6 +297,15 @@ class FeedMixer
             // If the user is signed out, remove the timestamp
             if (!is_user_logged_in()) {
                 unset($build['timestamp']);
+            } else {
+                // Check if the user has liked the post
+                $build['likedParent'] = false;
+                $likedBy = bp_activity_get_meta($post->id, 'liked_by', false);
+                if (!empty($likedBy)) {
+                    if (in_array(YipnyapGetMemberE2ID(get_current_user_id()), $likedBy)) {
+                        $build['likedParent'] = true;
+                    }
+                }
             }
 
             $activities[] = $build;
@@ -318,14 +342,30 @@ class FeedMixer
             ];
 
             // Check if they liked the parent
-            $liked = in_array(YipnyapGetMemberE2ID($comment->user_id), bp_activity_get_meta($parentID, 'liked_by', false));
-            if ($liked) {
-                $buildReply['likedParent'] = true;
+            if (!empty($parentID)) {
+                $liked = in_array(YipnyapGetMemberE2ID($comment->user_id), bp_activity_get_meta($parentID, 'liked_by', false));
+                if ($liked) {
+                    $buildReply['likedParent'] = true;
+                }
             }
 
             // If logged in, add timestamp
             if (is_user_logged_in()) {
                 $buildReply['timestamp'] = strtotime($comment->date_recorded);
+            }
+
+            // Get like count
+            $buildReply['likes'] = count(bp_activity_get_meta($comment->id, 'liked_by', false));
+
+            // Check if the user has liked the comment
+            if (is_user_logged_in()) {
+                $buildReply['liked'] = false;
+                $likedBy = bp_activity_get_meta($comment->id, 'liked_by', false);
+                if (!empty($likedBy)) {
+                    if (in_array(YipnyapGetMemberE2ID(get_current_user_id()), $likedBy)) {
+                        $buildReply['liked'] = true;
+                    }
+                }
             }
 
             // Now do it ~recursively~ (ﾉ◕ヮ◕)ﾉ*:･ﾟ✧
@@ -692,6 +732,98 @@ class FeedMixer
         // Set the E2ID
         bp_activity_update_meta($comment_id, 'E2ID', $E2ID);
 
-        return FeedMixer::GetPosts([$post[0]])[0];
+        return [
+            'success' => true,
+            'message' => 'Comment created.',
+            'data' => FeedMixer::GetPosts([$post[0]])[0],
+            'commentID' => $E2ID,
+        ];
+    }
+
+    /**
+     * Add a like to a post
+     *
+     * @param string $PostE2
+     * @param string $type
+     * @return array
+     * @throws Exception
+     */
+    public static function EditLike(string $PostE2, string $type = 'ADDITION'): array
+    {
+        if (!is_user_logged_in()) {
+            return [
+                'success' => false,
+                'message' => 'You must be logged in to like a post.',
+            ];
+        }
+
+        // Check if the post exists
+        $post = self::GetPosts([$PostE2], true);
+        if (empty($post)) {
+            return [
+                'success' => false,
+                'message' => 'Post not found.',
+            ];
+        }
+
+        // Check if the user has already liked the post
+        $UserE2 = YipnyapGetMemberE2ID(get_current_user_id());
+        if (empty($UserE2)) {
+            return [
+                'success' => false,
+                'message' => 'Failed to get user E2ID.',
+            ];
+        }
+
+        $liked = bp_activity_get_meta($post[0], 'liked_by', false);
+        if ($type === 'ADDITION') {
+            if (!empty($liked)) {
+                if (in_array($UserE2, $liked)) {
+                    return [
+                        'success' => false,
+                        'message' => 'You have already liked this post.',
+                    ];
+                }
+            }
+
+            // Add the like
+            bp_activity_add_meta($post[0], 'liked_by', $UserE2);
+        } elseif ($type === 'DELETION') {
+            if (!empty($liked)) {
+                if (!in_array($UserE2, $liked)) {
+                    return [
+                        'success' => false,
+                        'message' => 'You haven\'t liked this post.',
+                    ];
+                }
+
+                // Remove the like
+                bp_activity_delete_meta($post[0], 'liked_by', $UserE2);
+            } else {
+                return [
+                    'success' => false,
+                    'message' => 'You haven\'t liked this post.',
+                ];
+            }
+        } else {
+            return [
+                'success' => false,
+                'message' => 'Invalid type.',
+            ];
+        }
+
+        $likes = bp_activity_get_meta($post[0], 'liked_by', false);
+        if (empty($likes)) {
+            $likes = [];
+        }
+
+        return [
+            'success' => true,
+            'data' => [
+                'likes' => count($likes),
+            ],
+            'type' => $type,
+            'id' => $post[0],
+        ];
     }
 }

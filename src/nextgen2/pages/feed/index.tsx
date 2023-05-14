@@ -201,12 +201,23 @@ export default function Feed() {
                                 </p>
 
                                 {/* Acknowledge button */}
-                                <div className="flex justify-end">
+                                <div className="flex items-center">
                                     <NGButton onClick={() => {
                                         yipnyap_constants.setDipswitch('PendingVerifiedDeprecationAck', false);
                                     }}>
                                         Acknowledge
                                     </NGButton>
+
+                                    <span className="text-sm text-default-alt mx-2">
+                                        &mdash;
+                                    </span>
+
+                                    <span className="text-sm text-default-alt mr-2">
+                                        'til next time, <span className="font-bold">{yipnyap_constants.currentUser?.username}</span>!
+                                    </span>
+                                    <img className="h-10 w-10"
+                                         src={`${yipnyap_constants.yipnyap_url}/img/illustrations/happy-dog.png`}
+                                         alt=""/>
                                 </div>
                             </div>
                         </div>

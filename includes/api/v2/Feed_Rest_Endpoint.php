@@ -76,6 +76,20 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
             ],
             'schema' => [$this, 'edit_public_item_schema'],
         ]);
+
+        register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)/like', [
+            [
+                'methods' => ['PUT', 'DELETE'],
+                'callback' => [$this, 'edit_like_item'],
+                'args' => [
+                    'id' => [
+                        'type' => 'string',
+                        'required' => true,
+                    ],
+                ]
+            ],
+            'schema' => [$this, 'edit_public_item_schema'],
+        ]);
     }
 
     /**
@@ -121,6 +135,13 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
      * @access public
      */
     public function edit_item(WP_REST_Request $request): WP_REST_Response {
+        if (!is_user_logged_in()) {
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => 'You must be logged in to post.',
+            ], 401);
+        }
+
         $FeedMix = new FeedMixer();
         $post = $FeedMix->CreatePost([
             'content' => $request->get_param('content'),
@@ -144,10 +165,50 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
      * @access public
      */
     public function edit_comment_item(WP_REST_Request $request): WP_REST_Response {
-        $comment = FeedMixer::CreateComment($request->get_param('id'), $request->get_param('content'));
+        if (!is_user_logged_in()) {
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => 'You must be logged in to comment.',
+            ], 401);
+        }
+
+        $comment = FeedMixer::CreateComment($request->get_param('id'), $request->get_param('content'), $request->get_param('parent'));
 
         $response = new WP_REST_Response($comment);
-        $response->set_status(200);
+
+        if ($comment['success']) {
+            $response->set_status(200);
+        } else {
+            $response->set_status(400);
+        }
+
+        $response->header('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * Add/remove a like
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_REST_Response
+     * @throws Exception
+     * @since ui3
+     * @access public
+     */
+    public function edit_like_item(WP_REST_Request $request): WP_REST_Response
+    {
+        // check if 'PUT' or 'DELETE'
+        $like = FeedMixer::EditLike($request->get_param('id'), $request->get_method() == 'PUT' ? 'ADDITION' : 'DELETION');
+
+        $response = new WP_REST_Response($like);
+
+        if ($like['success']) {
+            $response->set_status(200);
+        } else {
+            $response->set_status(400);
+        }
+
         $response->header('Content-Type', 'application/json');
 
         return $response;

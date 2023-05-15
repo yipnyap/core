@@ -10,6 +10,7 @@
 
 // Load Nextgen 2 Debugger
 require_once __DIR__ . '/global/nextgen2/debug.php';
+require_once __DIR__ . '/vendor/autoload.php';
 
 // Load plugins bundled with theme
 require_once __DIR__ . '/plugins/plugins.php';
@@ -55,7 +56,7 @@ define('YIPNYAP_URL', get_template_directory_uri());
 define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
 define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
-require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
+require_once YIPNYAP_PATH . '/includes/utils/monolog.php';
 require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 
 /**
@@ -145,9 +146,6 @@ define('YIPNYAP_WPOPTIONS', [
         'secondary' => 'Lexend',
     ],
 ]);
-const YIPNYAP_OPTIONS = [
-    'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
-];
 
 foreach (get_object_vars((object) YIPNYAP_WPOPTIONS) as $key => $option) {
     $change_required = get_option($key) !== $option;

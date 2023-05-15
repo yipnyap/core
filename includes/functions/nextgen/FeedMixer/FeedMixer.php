@@ -2,7 +2,7 @@
 namespace Yipnyap;
 
 require_once YIPNYAP_PATH . '/includes/utils/e2.util.php';
-require_once YIPNYAP_PATH . '/includes/utils/s3.util.php';
+//require_once YIPNYAP_PATH . '/includes/utils/s3.util.php';
 
 use Exception;
 
@@ -680,6 +680,7 @@ class FeedMixer
      *
      * @param string $PostE2
      * @param string $content
+     * @param string|null $ParentCommentE2
      * @return array
      * @throws Exception
      */
@@ -750,6 +751,8 @@ class FeedMixer
      */
     public static function EditLike(string $PostE2, string $type = 'ADDITION'): array
     {
+        global $LogtailServiceLogger;
+
         if (!is_user_logged_in()) {
             return [
                 'success' => false,
@@ -759,10 +762,10 @@ class FeedMixer
 
         // Check if the post exists
         $post = self::GetPosts([$PostE2], true);
-        if (empty($post)) {
+        if (!is_numeric($post[0])) {
             return [
                 'success' => false,
-                'message' => 'Post not found.',
+                'message' => 'Post not found, or the post doesn\'t support likes.',
             ];
         }
 
@@ -799,6 +802,31 @@ class FeedMixer
 
                 // Remove the like
                 bp_activity_delete_meta($post[0], 'liked_by', $UserE2);
+
+                // Check if the likes suddenly lost more than 1 like
+                $likedNew = bp_activity_get_meta($post[0], 'liked_by', false);
+                if (count($likedNew) === 0 && count($liked) > 1) {
+                    // if it did, recover and debug
+                    foreach ($liked as $like) {
+                        bp_activity_add_meta($post[0], 'liked_by', $like);
+                    }
+
+                    // report it
+                    $likeCount = count($liked);
+                    $LogtailServiceLogger->alert("Post like {$type} on {$post[0]}: the post suddenly lost all likes. recovered {$likeCount} likes.", [
+                        'userE2' => $UserE2,
+                        'userIID' => get_current_user_id(),
+                        'post' => $post[0],
+                        'likes' => $liked,
+                        'likesNew' => $likedNew,
+                    ]);
+
+                    return [
+                        'success' => false,
+                        'message' => 'Deletion succeeded briefly, but the post suddenly lost all likes. Post and likes were recovered and the incident was reported.',
+                    ];
+                }
+
             } else {
                 return [
                     'success' => false,
@@ -817,7 +845,7 @@ class FeedMixer
             $likes = [];
         }
 
-        return [
+        $response = [
             'success' => true,
             'data' => [
                 'likes' => count($likes),
@@ -825,5 +853,9 @@ class FeedMixer
             'type' => $type,
             'id' => $post[0],
         ];
+
+        $LogtailServiceLogger->info("Post like {$response['type']} on {$response['id']}: new count {$response['data']['likes']}", $response);
+
+        return $response;
     }
 }

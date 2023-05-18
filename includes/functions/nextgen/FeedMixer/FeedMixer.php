@@ -757,6 +757,7 @@ class FeedMixer
             return [
                 'success' => false,
                 'message' => 'You must be logged in to like a post.',
+                'code' => 'E_ACCOUNT_01A101',
             ];
         }
 
@@ -766,6 +767,7 @@ class FeedMixer
             return [
                 'success' => false,
                 'message' => 'Post not found, or the post doesn\'t support likes.',
+                'code' => 'E_HOWLING_03I100',
             ];
         }
 
@@ -775,6 +777,7 @@ class FeedMixer
             return [
                 'success' => false,
                 'message' => 'Failed to get user E2ID.',
+                'code' => 'E_ACCOUNT_01A102',
             ];
         }
 
@@ -785,6 +788,7 @@ class FeedMixer
                     return [
                         'success' => false,
                         'message' => 'You have already liked this post.',
+                        'code' => 'E_HOWLING_03I110',
                     ];
                 }
             }
@@ -797,6 +801,7 @@ class FeedMixer
                     return [
                         'success' => false,
                         'message' => 'You haven\'t liked this post.',
+                        'code' => 'E_HOWLING_03I120',
                     ];
                 }
 
@@ -813,7 +818,7 @@ class FeedMixer
 
                     // report it
                     $likeCount = count($liked);
-                    $LogtailServiceLogger->alert("Post like {$type} on {$post[0]}: the post suddenly lost all likes. recovered {$likeCount} likes.", [
+                    $LogtailServiceLogger->alert("Post like {$type} on {$post[0]}: FAIL: Removal caused sudden loss of {$likeCount} likes. Recovered; Inherently failed.", [
                         'userE2' => $UserE2,
                         'userIID' => get_current_user_id(),
                         'post' => $post[0],
@@ -823,7 +828,8 @@ class FeedMixer
 
                     return [
                         'success' => false,
-                        'message' => 'Deletion succeeded briefly, but the post suddenly lost all likes. Post and likes were recovered and the incident was reported.',
+                        'message' => 'Deletion technically succeeded, but the post suddenly lost all likes. Likes were recovered and the incident was reported.',
+                        'code' => 'E_HOWLING_03I121',
                     ];
                 }
 
@@ -831,12 +837,14 @@ class FeedMixer
                 return [
                     'success' => false,
                     'message' => 'You haven\'t liked this post.',
+                    'code' => 'E_HOWLING_03I120',
                 ];
             }
         } else {
             return [
                 'success' => false,
                 'message' => 'Invalid type.',
+                'code' => 'E_HOWLING_03I101',
             ];
         }
 

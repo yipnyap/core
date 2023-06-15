@@ -85,7 +85,7 @@ export default function Feed() {
     };
 
     const fetchPosts = () => {
-        fetch(`/api/v2/feed/?user=${''}&page=${postsCurrentPage}`, {
+        fetch(`/api/v2/feed/?user=${yipnyap_constants.currentUser?.E2ID || ''}&page=${postsCurrentPage}`, {
             headers: {
                 'X-WP-Nonce': yipnyap_constants.wp_rest_nonce,
             }
@@ -181,11 +181,11 @@ export default function Feed() {
                                     </h1>
                                 </div>
                                 <p className="text-sm text-default-alt">
-                                    You are seeing this as you are currently verified. This feature has been merged with
-                                    the Partner program. Your current badge will be removed, and all application methods
-                                    have been removed. You will be invited to the Partner program if you are eligible.
-                                    Just keep doing what you're doing, and keep using Yipnyap, and you'll be invited in
-                                    due time.
+                                    You are seeing this as you are currently verified, <b>and were deemed ineligible</b>.
+                                    This feature has been merged with the Partner program, meaning that you cannot
+                                    "apply" for this anymore. You will be reinvited to the Partner program if you are
+                                    eligible. Just keep doing what you're doing, and keep using Yipnyap, and you'll be
+                                    invited in due time.
                                 </p>
                                 <p className="text-sm text-default-alt">
                                     😸📣🎉 If you want to help spread the word about Yipnyap, we have a brand new referral
@@ -240,8 +240,8 @@ export default function Feed() {
                                             {yipnyap_constants.currentUser?.displayName || yipnyap_constants.currentUser?.username}
                                         </a>
                                         <span className="text-sm text-default-alt cursor-pointer hover:underline">
-                                    @{yipnyap_constants.currentUser?.username}
-                                </span>
+                                            @{yipnyap_constants.currentUser?.username}
+                                        </span>
                                     </div>
                                 </div>
 
@@ -439,7 +439,7 @@ export default function Feed() {
                             )}
 
                             <NGCard
-                                title={<h3 className="text-primary font-extrabold">
+                                title={<h3 className="text-default font-extrabold">
                                     Help us make Yipnyap more comfy
                                 </h3>}
                                 wellBody={true}>

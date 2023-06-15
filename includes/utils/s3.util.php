@@ -13,7 +13,7 @@ use Supabase\Storage\StorageFile;
  */
 function SupabaseUserContentUpload(string $userID, string $file, string|null $E2Parent = null): array {
     $api_key = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJleHAiOjE4NDA2NDQwNzMsImlhdCI6MTY4Mjg1OTY3MywiaXNzIjoic3VwYWJhc2UiLCJyb2xlIjoic2VydmljZV9yb2xlIn0.gkE8UszdjI3z2Nz9j5qXczGM7HV5xl6SfbEOVuphQU0';
-    $StorageFile = new StorageFile($api_key, 'supabase', 'users', 'yipnyap.me');
+    $StorageFile = new StorageFile($api_key, 'supabase', YIPNYAP_IS_LOCAL_DEV ? 'dev-users' : 'users', 'yipnyap.me');
 
     // Key should be something like: <user_id>/<E2Object>/<E2ID>/<E2IDOfContent>.<extension>
     $E2ID = $E2Parent ?? E2IDCreate('Post', 'PARENT');

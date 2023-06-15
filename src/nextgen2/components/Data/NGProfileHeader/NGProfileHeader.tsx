@@ -42,6 +42,11 @@ const items = [{
     //     name: 'Follow silently',
     //     description: 'They will still see that you follow them, but no one else can. Yipnyap can still see who you
     // follow.', href: '#' }, { name: 'Block', href: '#' },
+    // {
+    //     name: 'Poke',
+    //     description: 'This sends a push-notification in chat that you want to talk to them.',
+    //     href: '#'
+    // },
 ]
 
 function classNames(...classes: any[]) {

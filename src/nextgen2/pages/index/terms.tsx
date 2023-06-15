@@ -25,9 +25,10 @@ export default function Terms() {
                     <NGCard
                         title="Preface"
                     >
-                        Welcome to Yipnyap, where we strive to create a safe and positive environment for all users. By
-                        using our site, you agree to abide by the following terms and conditions as laid out on this
-                        page. If you do not agree to these terms, please do not use our site.
+                        Welcome to Yipnyap ("Yipnyap", "we", "us", "our"). Yipnyap is a social media platform where we
+                        strive to create a safe and positive environment for all users. By using our site, you agree to
+                        abide by the following terms and conditions as laid out on this page. If you do not agree to
+                        these terms, please do not use our site.
                     </NGCard>
 
                     {/* Definitions */}

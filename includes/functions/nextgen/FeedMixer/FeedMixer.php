@@ -102,6 +102,10 @@ class FeedMixer
             'user_id' => $legacyID,
         ]);
 
+        // - get the user's friends and append them to the following array
+        $friends = friends_get_friend_user_ids($legacyID);
+        $following = array_merge($following, $friends);
+
         // Append the user's ID to the following array
         $following[] = $legacyID;
 
@@ -109,7 +113,8 @@ class FeedMixer
         $userPosts = bp_activity_get([
             'filter' => [
                 'user_id' => $following,
-                'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                'action' => ['activity_share'],
+//                'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
             ],
             'per_page' => 10,
             'page' => $page,
@@ -117,9 +122,16 @@ class FeedMixer
             'count_total' => true,
         ]);
 
-        // Get all posts from groups & friends
+        // Get all posts from groups
+        /*
+         * So, this causes a bit of a weird thing: groups aren't utilised all the time, so it gets old posts and mixes
+         * them in with the new ones. This is a bit of a problem, but it's not a huge one. It's just a bit weird.
+         *
+         * FUCK IT. its now a feature. pls use groups :(
+         * ^ rek
+         */
         $groupPosts = bp_activity_get([
-            'scope' => ['groups', 'friends'],
+            'scope' => ['groups'],
             'per_page' => 10,
             'page' => $page,
             'fields' => 'ids',
@@ -127,13 +139,14 @@ class FeedMixer
         ]);
 
         // Merge the two arrays
-        $allPosts = array_merge($userPosts['activities'], $groupPosts['activities']);
+        $allPosts = array_unique(array_merge($userPosts['activities'], $groupPosts['activities']));
         $allPosts = self::GetPosts($allPosts);
 
         return [
             'posts' => $allPosts,
             'page' => $page,
             'total' => $userPosts['total'] + $groupPosts['total'],
+            'hasMore' => $userPosts['total'] + $groupPosts['total'] > ($page * 10),
         ];
     }
 
@@ -146,7 +159,7 @@ class FeedMixer
      * @throws Exception
      * @todo: STRIP BUDDYPRESS' STUPID FUCKERY, MOTHERFLUFFER! (oh and also move this to a class uwu~)
      */
-    public static function GetPosts(array $ids = [], bool $returnLegacyIDOnly = false): array {
+    public static function GetPosts(array $ids = [], bool $returnLegacyIDOnly = false, bool $dontRecursiveSubContent = false): array {
         // Check each ID, if it can't be converted to a number, get the activity_id from meta
         $ids = array_map(function($id) {
             global $wpdb;
@@ -305,6 +318,22 @@ class FeedMixer
                     if (in_array(YipnyapGetMemberE2ID(get_current_user_id()), $likedBy)) {
                         $build['likedParent'] = true;
                     }
+                }
+            }
+
+            // Check if the post is a share (just check if `_share` exists lol)
+            $postIsShare = str_contains($post->type, '_share');
+            if ($postIsShare) {
+                // Append to `subcontent`
+                $build['subcontent'] = self::GetPosts([$post->secondary_item_id], false)[0];
+                if (!empty($build['subcontent']['subcontent'])) {
+                    // Fuck you legacy - Find the last post in the chain.
+                    // this probably adds a lot of latency overhead, but whatever.
+                    $lastPost = $build['subcontent'];
+                    while (!empty($lastPost['subcontent'])) {
+                        $lastPost = $lastPost['subcontent'];
+                    }
+                    $build['subcontent'] = $lastPost;
                 }
             }
 
@@ -541,6 +570,7 @@ class FeedMixer
                 'message' => 'You must be logged in to create a post.',
             ];
         }
+
         // Check if the post is valid
         if (!empty($post['tags']) && count($post['tags']) > 10) {
             return [
@@ -584,61 +614,27 @@ class FeedMixer
 
         // - check all the blocks are valid EditorJS blocks
         $contentAsJSON = json_encode($content);
-        if (json_last_error() !== JSON_ERROR_NONE) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid JSON.',
-            ];
-        }
-        if (!isset($content['time'])
+        if (json_last_error() !== JSON_ERROR_NONE
+            || !isset($content['time'])
             || !isset($content['version'])
-            || !isset($content['blocks'])) {
+            || !isset($content['blocks'])
+            || !is_numeric($content['time'])
+            || !is_string($content['version'])
+            || !is_array($content['blocks'])
+        ) {
             return [
                 'status' => 'error',
                 'message' => 'Invalid JSON.',
             ];
         }
-        if (!is_numeric($content['time'])) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid JSON.',
-            ];
-        }
-        if (!is_string($content['version'])) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid JSON.',
-            ];
-        }
-        if (!is_array($content['blocks'])) {
-            return [
-                'status' => 'error',
-                'message' => 'Invalid JSON.',
-            ];
-        }
+
         foreach ($content['blocks'] as $block) {
             if (!isset($block['type'])
-                || !isset($block['data'])) {
-                return [
-                    'status' => 'error',
-                    'message' => 'Invalid JSON.',
-                ];
-            }
-            if (!is_string($block['type'])) {
-                return [
-                    'status' => 'error',
-                    'message' => 'Invalid JSON.',
-                ];
-            }
-            if (!is_array($block['data'])) {
-                return [
-                    'status' => 'error',
-                    'message' => 'Invalid JSON.',
-                ];
-            }
-
-            // - check the block type is valid
-            if (!in_array($block['type'], ['header', 'paragraph', 'list', 'quote', 'code', 'table', 'link'])) {
+                || !isset($block['data'])
+                || !is_string($block['type'])
+                || !is_array($block['data'])
+                || !in_array($block['type'], ['header', 'paragraph', 'list', 'quote', 'code', 'table', 'link'])
+            ) {
                 return [
                     'status' => 'error',
                     'message' => 'Invalid JSON.',

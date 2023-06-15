@@ -45,7 +45,8 @@ add_action('init', function () {
         !$isLoginPage &&
         !is_user_logged_in() &&
         !is_admin() &&
-        !current_user_can('update_plugins')
+        !current_user_can('update_plugins') &&
+        $_SERVER['SERVER_NAME'] != 'localhost'
     ) {
         get_template_part('plugins/maintenance/page');
         exit();

@@ -1,7 +1,7 @@
 import React from 'react';
 
 export function NGAvatar({...props}: {
-    size?: 'xs' | 'sm' | 'md' | 'lg' | 'xl';
+    size?: 'xxs' | 'xs' | 'sm' | 'md' | 'lg' | 'xl';
     statusPosition?: 'top' | 'bottom';
     online?: boolean;
     image: string;
@@ -10,6 +10,9 @@ export function NGAvatar({...props}: {
 }) {
     const size = (() => {
         switch (props.size) {
+            case 'xxs':
+                // a grower not a shower
+                return 'w-5 h-5';
             case 'xs':
                 return 'w-6 h-6';
             case 'sm':

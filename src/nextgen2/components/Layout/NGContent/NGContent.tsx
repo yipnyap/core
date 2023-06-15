@@ -35,6 +35,7 @@ export default function NGContent({...props}: NGContentType) {
     )
     typeof props.heading?.fullHeight === 'undefined' && (
         props.heading.fullHeight = true
+        // props.heading.fullHeight = false
     )
 
     return (
@@ -44,7 +45,7 @@ export default function NGContent({...props}: NGContentType) {
             <div aria-labelledby="primary-heading" className={(
                 props.heading?.padding ? 'max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8' : ''
             ) + (
-                props.heading?.fullHeight ? 'h-full' : ''
+                props.heading?.fullHeight ? ' h-full' : ''
             )}>
                 <h1 id="primary-heading" className="sr-only">
                     {props.srHeading}

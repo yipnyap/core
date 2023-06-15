@@ -38,6 +38,13 @@ module.exports = {
     ],
     theme: {
         extend: {
+            keyframes: {
+                shimmer: {
+                    '100%': {
+                        transform: 'translateX(100%)',
+                    },
+                },
+            },
             colors: {
                 code: {
                     highlight: 'rgb(125 211 252 / 0.1)',

@@ -5,9 +5,10 @@ import {
     ChatBubbleBottomCenterTextIcon, EllipsisHorizontalIcon, FlagIcon, HandThumbUpIcon, StarIcon,
 } from '@heroicons/react/24/solid';
 import {NGCard} from '../../Layout/NGCard';
-import {ArrowsPointingOutIcon, ChatBubbleLeftIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
+import {ArrowsPointingOutIcon, ArrowUpOnSquareIcon, ChatBubbleLeftIcon, PaperAirplaneIcon} from "@heroicons/react/20/solid";
 import {NGAvatar, NGSlideover } from '@nextgen2/components';
 import {useNotification} from "@nextgen2/providers/Notification.provider";
+import { Link } from 'react-router-dom';
 
 export declare interface NGFeedPostDataType {
     id: string;
@@ -31,7 +32,22 @@ export declare interface NGFeedPostDataType {
     objects?: {
         id: string,
         url: string,
-    }[]
+    }[];
+    subcontent?: NGFeedPostDataType;
+
+    // only appears here, not API
+    isShare?: boolean;
+    sharingUser?: {
+        id: number,
+        display_name: string,
+        username: string,
+        avatar: string,
+        header: string,
+        followers: number,
+        following: number,
+        posts: number,
+        online: boolean,
+    };
 }
 
 export declare interface NGFeedPostType {
@@ -55,6 +71,15 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
     const [slideoverMediaOpen, setSlideoverMediaOpen] = useState(false);
     const [slideoverOpen, setSlideoverOpen] = useState(false);
     const [likeProcessing, setLikeProcessing] = useState(false);
+
+    useEffect(() => {
+        if (postContent?.subcontent) {
+            const newContent = postContent.subcontent;
+            newContent.isShare = true;
+            newContent.sharingUser = postContent.user;
+            setPostContent(postContent.subcontent);
+        }
+    }, []);
 
     useEffect(() => {
         setSlideoverMediaOpen(!!selectedMedia);
@@ -202,6 +227,16 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
             <NGCard noPadding>
                 <div className="relative">
                     <div className="px-4 py-5 sm:px-6">
+                        {/* "___ Rehowled" */}
+                        {postContent?.isShare && (
+                            <div className="flex items-center text-sm mb-6">
+                                <ArrowUpOnSquareIcon className="w-4 h-4 mr-1" />
+                                <Link to={`/${postContent?.sharingUser?.username}/`} className="flex items-center text-default-alt">
+                                    <NGAvatar size="xxs" image={postContent?.sharingUser?.avatar || ''} online={postContent?.sharingUser?.online} className="mr-1" />
+                                    {postContent?.sharingUser?.username} rehowled
+                                </Link>
+                            </div>
+                        )}
                         <div className="flex space-x-3">
                             <div className="flex-shrink-0">
                                 <NGAvatar image={postContent.user.avatar} online={postContent.user.online} />

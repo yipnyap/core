@@ -431,14 +431,14 @@ export default function SettingsImport() {
 
     return (
        <>
-           <div className="flex flex-col space-y-8">
+           {/* Header - Text on left, image on right */}
+           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8 justify-center items-center">
                <div className="flex flex-col space-y-4">
-                   <NGHeading>Import to Yipnyap</NGHeading>
+                   <NGHeading>✨ Furaffinity -{'>'} Yipnyap</NGHeading>
                    <div className="space-y-2">
                        <p className="text-sm text-default-alt">
-                           You can import all your submissions from a supported service,
-                           like FurAffinity, to Yipnyap. You will need to be logged in to
-                           the service you are importing from within this browser.
+                           Import your submissions from another service, like FurAffinity,
+                           to Yipnyap.
                        </p>
                        <p className="text-sm text-tertiary">
                            Yipnyap is not affiliated with any of these services. We are not
@@ -447,20 +447,20 @@ export default function SettingsImport() {
                        </p>
                    </div>
                </div>
+               <div className="flex items-center">
+                   <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/settings/import-begin.png`} alt="LITTLE BABY BOY" className="w-auto" />
+               </div>
+           </div>
 
+           <div className="flex flex-col space-y-8 max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8">
+               <NGProgressStep />
                <div className="flex flex-col space-y-4">
-                   <NGHeading>FurAffinity Importing</NGHeading>
                    <p className="text-sm text-amber-500">
                        You need to download an open-source tool to export
                        your .faxp file. We can't do this here due to how
                        web browsers work. If you would like to see what
                        we'll get, you can open the .faxp file in any text
                        editor.
-                   </p>
-                   <p className="text-sm text-default-alt">
-                       <strong>All files will be uploaded in 1 post!</strong>{' '}
-                       You can edit the post to say what you want after the
-                       import is complete!
                    </p>
 
                    {/* File upload field */}
@@ -518,7 +518,7 @@ export default function SettingsImport() {
                              {faxpIsMature && (
                                  <p className="text-sm text-amber-500">
                                      <strong>Warning:</strong> Some of the files you are importing are marked as mature.{' '}
-                                     Your post will be marked as such.
+                                     They'll receive a non-removable #nsfw tag.
                                  </p>
                              )}
 
@@ -606,4 +606,24 @@ export default function SettingsImport() {
            )}
        </>
     );
+}
+
+function NGProgressStep() {
+    return (
+        <div>
+            <h4 className="sr-only">Status</h4>
+            <p className="text-sm font-medium text-default">Yipnyap is ready!</p>
+            <div className="mt-6" aria-hidden="true">
+                <div className="bg-neutral-200 rounded-full overflow-hidden dark:bg-neutral-800 text-default-alt">
+                    <div className="h-2 bg-primary rounded-full" style={{ width: '15%' }} />
+                </div>
+                <div className="hidden sm:grid grid-cols-4 text-sm font-medium text-default-alt mt-6">
+                    <div className="text-primary">Upload File</div>
+                    <div className="text-center">Downloading Assets</div>
+                    <div className="text-center">Importing</div>
+                    <div className="text-right">Done</div>
+                </div>
+            </div>
+        </div>
+    )
 }

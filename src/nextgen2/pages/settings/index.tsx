@@ -39,14 +39,13 @@ export default function SettingsGeneral() {
     useEffect(() => {
         setHeading({
             heading: location.pathname === '/settings/' ? 'Settings' : null,
-            padding: true,
+            padding: location.pathname !== '/settings/import/',
             navigator: {
                 subNavigation: [{
                     name: 'General',
                     description: '',
                     href: '/settings/',
                     icon: Cog6ToothIcon,
-                    current: location.pathname === '/settings/',
                 }, {
                     name: 'Import to Yipnyap',
                     description: 'Import all your submissions from a supported service.',
@@ -58,31 +57,26 @@ export default function SettingsGeneral() {
                     description: 'Claim this account and configure Telegram notifcations, OTP, and more.',
                     href: '/settings/telegram/',
                     icon: PaperAirplaneIcon,
-                    current: location.pathname === '/settings/telegram/',
                 }, {
                     name: 'Profile Skin',
                     description: '',
                     href: '/settings/skin/',
                     icon: PaintBrushIcon,
-                    current: location.pathname === '/settings/skin/',
                 }, {
                     name: 'Accessibility',
                     description: 'Change font size, etc.',
                     href: '/settings/accessibility/',
                     icon: CursorArrowRaysIcon,
-                    current: location.pathname === '/settings/accessibility/',
                 }, {
                     name: 'Social',
                     description: '',
                     href: '/settings/social/',
                     icon: ShareIcon,
-                    current: location.pathname === '/settings/social/',
                 }, {
                     name: 'Storage',
                     description: '',
                     href: '/settings/storage/',
                     icon: ServerStackIcon,
-                    current: location.pathname === '/settings/storage/',
                 }, {
                     name: 'Labs',
                     description: '',

@@ -151,7 +151,11 @@ body.dark {
 }
 
 .text-primary {
-  color: var(--color-text);
+  color: var(--color-primary);
+}
+
+.text-secondary {
+  color: var(--color-secondary);
 }
 
 .text-alt {
@@ -160,10 +164,6 @@ body.dark {
 
 .text-alt-2 {
   @apply text-neutral-400;
-}
-
-.text-secondary {
-  color: var(--color-secondary);
 }
 
 .text-tertiary {

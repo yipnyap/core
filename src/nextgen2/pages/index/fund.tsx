@@ -62,15 +62,15 @@ export default function Fund() {
                     <div className="flex flex-col space-y-2">
                         <div className="space-y-1">
                             <NGHeading>
-                                Current: <span className="text-red-500">$7.50/m</span>
+                                Current: <span className="text-green-500">$212.50 (Apr - May)</span>
                             </NGHeading>
                             <span className="font-bold text-sm text-default-alt">
-                                Ramen Profitable &mdash; Updated Monthly
+                                Includes one-off donations, updated monthly &mdash; Stable Current ~$12.50/month
                             </span>
                         </div>
                         <p className="text-default-alt">
-                            ~AUD$300/month to
-                            fully cover Yipnyap (~AUD$200), plus other expenses
+                            ~AUD$200/month to
+                            fully cover Yipnyap, plus other expenses
                             of the dev, like food and rent. These prices fluctuate
                             a lot.
                         </p>

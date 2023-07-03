@@ -12,6 +12,15 @@
 require_once __DIR__ . '/global/nextgen2/debug.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
+add_action('init', function () {
+    if (empty($_ENV['YIPNYAP_SUPADB_SECRET'])) {
+        get_template_part('plugins/maintenance/page', null, [
+            'message' => 'Yipnyap is installed incorrectly: Supabase isn\'t configured.',
+        ]);
+        exit();
+    }
+}, 30);
+
 // Load plugins bundled with theme
 require_once __DIR__ . '/plugins/plugins.php';
 
@@ -105,7 +114,7 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * THEME CONSTANTS
  */
-define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') || str_contains($_SERVER['SERVER_NAME'], 'ngrok'));
+define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') || str_contains($_SERVER['SERVER_NAME'], 'ngrok') || str_contains($_SERVER['SERVER_NAME'], '0.0.0.0'));
 
 /**
  * Versioning

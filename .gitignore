@@ -130,3 +130,8 @@ dist
 # Composer
 /vendor
 composer.lock
+# IntelliJ installs this locally
+composer.phar
+
+# Supabase Local
+/supabase

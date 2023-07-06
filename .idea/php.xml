@@ -30,6 +30,8 @@
       <path value="$PROJECT_DIR$/vendor/logtail/monolog-logtail" />
       <path value="$PROJECT_DIR$/vendor/monolog/monolog" />
       <path value="/var/lib/docker/volumes/a6e08c89527358e578fa7c9808d28f754af7c4400528f43d92336dd9fea4687e/_data" />
+      <path value="$USER_HOME$/Local Sites/yipnyap/app/public" />
+      <path value="$USER_HOME$/Documents/YipnyapDocker" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2">

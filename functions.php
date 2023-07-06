@@ -13,9 +13,19 @@ require_once __DIR__ . '/global/nextgen2/debug.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
 add_action('init', function () {
-    if (empty($_ENV['YIPNYAP_SUPADB_SECRET'])) {
+    if ($_ENV['YIPNYAP_WIZARD_NEEDS_COMPLETION'] !== 'NO') {
+        // If admin page or an admin user (to setup), dont do anything
+        if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
+            if (!is_admin()) {
+                get_template_part('plugins/wizard/initial');
+                exit();
+            }
+
+            return;
+        }
+
         get_template_part('plugins/maintenance/page', null, [
-            'message' => 'Yipnyap is installed incorrectly: Supabase isn\'t configured.',
+            'message' => 'Yipnyap is installed incorrectly: The wizard needs to be completed.',
         ]);
         exit();
     }
@@ -262,7 +272,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_DEV_WATCH_URL'];
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_WEBPACK_DEV_SERVER'];
         wp_enqueue_script($file, $domain . $file, [], YIPNYAP_VERSION, true);
     }
 
@@ -271,7 +281,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_DEV_WATCH_URL'];
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_WEBPACK_DEV_SERVER'];
         wp_enqueue_style($file, $domain . $file, [], YIPNYAP_VERSION);
     }
 

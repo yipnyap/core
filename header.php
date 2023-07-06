@@ -111,18 +111,14 @@ if (current_user_can('administrator') || current_user_can('moderator')) { ?>
 
         // if a user is logged in, show logged in header
         if ($user) {
-            $points = yipnyap_gamipress_get_user_points($user['id']);
-
             // get logged user header menu and navigation data
             $settings_navigation_sections = yipnyap_members_get_settings_navigation_sections($user);
-
 
             /**
              * Header Logged In
              */
             get_template_part('template-part/header/header', 'cmui', [
                 'user' => $user,
-                'points' => $points,
                 'side_menu_items' => $side_menu_items_threaded,
                 'side_menu_items_flat' => $side_menu_items_flat,
                 'header_menu_items' => $header_menu_items,

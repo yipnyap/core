@@ -43,7 +43,7 @@ class SupabaseControl
 
     public function __construct()
     {
-        $this->api_key = $_ENV['SUPABASE_API_KEY'];
+        $this->api_key = $_ENV['YIPNYAP_SUPABASE_API_KEY'];
     }
 
     /**

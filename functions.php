@@ -8,26 +8,52 @@
  *
  */
 
+// Check if composer is installed
+if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
+    echo '<h1>read the docs next time</h1>';
+    echo '<p>Yipnyap is babysitting you.</p>';
+    echo '<p>Run <code>composer install</code> in the theme directory. For more information, visit <a href="https://getcomposer.org/">https://getcomposer.org/</a></p>';
+    exit();
+}
+
 // Load Nextgen 2 Debugger
 require_once __DIR__ . '/global/nextgen2/debug.php';
 require_once __DIR__ . '/vendor/autoload.php';
 
+// Check for /etc/yipnyap/conf file
+const YIPNYAP_ENV_PATH = '/etc/yipnyap/conf';
+if (file_exists(YIPNYAP_ENV_PATH)) {
+    $env = parse_ini_file(YIPNYAP_ENV_PATH);
+    foreach ($env as $key => $value) {
+        $status = putenv("$key=$value");
+        if (!$status) {
+            throw new Exception("Failed to set environment variable $key");
+        }
+    }
+}
+
 add_action('init', function () {
-    if ($_ENV['YIPNYAP_WIZARD_NEEDS_COMPLETION'] !== 'NO') {
+    $wizard_status = $_ENV['YIPNYAP_WIZARD_STATUS'];
+    if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
         // If admin page or an admin user (to setup), dont do anything
         if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
             if (!is_admin()) {
                 get_template_part('plugins/wizard/initial');
                 exit();
+            } else {
+                // show admin notice
+                add_action('admin_notices', function () {
+                    echo '<div class="notice notice-warning is-dismissible">
+                        <p>Yipnyap needs to complete installation. Go to your site\'s homepage.</p>
+                    </div>';
+                });
             }
-
-            return;
+        } else {
+            get_template_part('plugins/maintenance/page', null, [
+                'message' => 'Yipnyap is updating, please come back in a few minutes!',
+            ]);
+            exit();
         }
-
-        get_template_part('plugins/maintenance/page', null, [
-            'message' => 'Yipnyap is installed incorrectly: The wizard needs to be completed.',
-        ]);
-        exit();
     }
 }, 30);
 
@@ -124,7 +150,7 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * THEME CONSTANTS
  */
-define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') || str_contains($_SERVER['SERVER_NAME'], 'ngrok') || str_contains($_SERVER['SERVER_NAME'], '0.0.0.0'));
+define("YIPNYAP_IS_LOCAL_DEV", empty($_ENV['YIPNYAP_SETUP_AS_PRODUCTION']) || $_ENV['YIPNYAP_SETUP_AS_PRODUCTION'] !== 'true');
 
 /**
  * Versioning

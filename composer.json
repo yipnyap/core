@@ -2,8 +2,9 @@
     "require": {
       "vlucas/phpdotenv": "^5.3",
       "aws/aws-sdk-php": "^3.268",
-      "supabase/supabase-php": "^0.0.1",
+      "supabase/supabase-php": "^0.0.3",
       "ext-curl": "*",
+      "ext-sodium": "*",
       "logtail/monolog-logtail": "^3.0"
     }
 }

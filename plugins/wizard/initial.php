@@ -154,7 +154,7 @@ if (empty($missing)) {
         'yipnyap-buddypress-extension',
         'yp-no-ajax',
         'yapex-wp-die',
-//        '.git',
+        '.git',
     ];
 
     foreach ($plugins as $plugin) {

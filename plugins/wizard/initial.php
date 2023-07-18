@@ -6,11 +6,9 @@ if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
     $protocol = 'HTTP/1.0';
 }
 
-$errors = [
-    // dummy test - something about gpt saying no to the server when requested to scrape yipnyap.me
-    'GPT Rejected: I can\'t scrape yipnyap.me for some reason. I\'m not sure why. I\'m not sure why I\'m not sure why. I\'m not sure why I\'m not sure why I\'m not sure why. I\'m not sure why I\'m not sure why I\'m not sure why I\'m not sure why. I\'',
-    'Server pinged SOS: ' . $_SERVER['HTTP_USER_AGENT'] . ' - ' . $_SERVER['REMOTE_ADDR'] . ' - ' . $_SERVER['HTTP_REFERER'] . ' - ' . $_SERVER['HTTP_HOST'] . ' - ' . $_SERVER['REQUEST_URI'] . ' - ' . $_SERVER['REQUEST_METHOD'] . ' - ' . $_SERVER['SERVER_PROTOCOL'] . ' - ' . $_SERVER['SERVER_SOFTWARE'] . ' - ' . $_SERVER['SERVER_NAME'] . ' - ' . $_SERVER['SERVER_ADDR'] . ' - ' . $_SERVER['SERVER_PORT'] . ' - ' . $_SERVER['REMOTE_HOST'] . ' - ' . $_SERVER['REMOTE_PORT'] . ' - ' . $_SERVER['GATEWAY_INTERFACE'] . ' - ' . $_SERVER['REQUEST_TIME_FLOAT'] . ' - ' . $_SERVER['REQUEST_TIME'],
-];
+$errors = [];
+$warnings = [];
+$successes = [];
 
 if (!is_writeable(YIPNYAP_ENV_PATH)) $errors[] = YIPNYAP_ENV_PATH . ' is not writeable by web server.';
 
@@ -104,6 +102,91 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
+if (empty($missing)) {
+    // Check if the required plugins are installed, checking the plugin directory
+    $plugin_dir = YIPNYAP_PATH . '/plugins';
+    $plugins = scandir($plugin_dir);
+    $plugins = array_diff($plugins, ['.', '..']);
+
+    foreach ($plugins as $plugin) {
+        $plugin = $plugin_dir . '/' . $plugin;
+        if (is_dir($plugin)) {
+            $plugin_conf = $plugin . '/plugin.conf';
+            if (file_exists($plugin_conf)) {
+                $plugin_conf = file_get_contents($plugin_conf);
+                if ($plugin_conf === false) {
+                    echo 'Error: Could not read plugin configuration file for ' . $plugin . '<br>';
+                    exit();
+                }
+
+                $plugin_conf = json_decode($plugin_conf, true);
+                if ($plugin_conf === false) {
+                    echo 'Error: Could not parse plugin configuration file for ' . $plugin . '<br>';
+                    exit();
+                }
+
+                if (!isset($plugin_conf['required_plugins'])) continue;
+
+                foreach ($plugin_conf['required_plugins'] as $required_plugin) {
+                    if (!in_array($required_plugin, $plugins)) {
+                        echo 'Error: The plugin ' . $plugin . ' requires the plugin ' . $required_plugin . ' to be installed.<br>';
+                        exit();
+                    }
+                }
+            }
+        }
+    }
+
+    // Check if the required plugins are installed, checking the database
+    $plugin_dir = WP_PLUGIN_DIR;
+    $plugins = scandir($plugin_dir);
+    $plugins = array_diff($plugins, ['.', '..']);
+
+    $required_plugins = [
+        'ex-social',
+        'ex-social-followers',
+        'ex-verified',
+        'ex-economy',
+        'ex-economy-social-integration',
+        'vkmedia',
+        'vkreact',
+        'vkreact-buddypress',
+        'yipnyap-buddypress-extension',
+        'yp-no-ajax',
+        'yapex-wp-die',
+//        '.git',
+    ];
+
+    foreach ($plugins as $plugin) {
+        // Just check the folder name
+        if (is_dir($plugin_dir . '/' . $plugin)) {
+            if (in_array($plugin, $required_plugins)) {
+                unset($required_plugins[array_search($plugin, $required_plugins)]);
+
+                if ($plugin === '.git') {
+                    $successes[] = 'Plugins are synced with git';
+                } else {
+                    $successes[] = "$plugin queued for activation";
+                }
+            } else {
+                // optional
+                if ($plugin === '.git') {
+                    $errors[] = 'Plugins are not synced with git';
+                } else {
+                    $warnings[] = "$plugin is not queued";
+                }
+            }
+        }
+    }
+
+    foreach ($required_plugins as $plugin) {
+        $errors[] = "$plugin is required";
+    }
+
+    // If we're here, this worked
+    $successes[] = 'Supabase connection is working';
+}
+
 header('Content-Type: text/html; charset=utf-8');
 ?>
     <html lang="en" class="antialiased">
@@ -146,7 +229,7 @@ header('Content-Type: text/html; charset=utf-8');
 
                 <div class="pt-8 text-base space-y-4 divide-y divide-gray-300/50 text-neutral-500 dark:text-neutral-400">
                     <?php if (!empty($errors)) { ?>
-                        <div class="pb-4">
+                        <div>
                             <?php foreach ($errors as $error) { ?>
                                 <div class="pt-4 text-sm flex items-start space-x-3">
                                     <div class="flex-shrink-0">
@@ -157,6 +240,25 @@ header('Content-Type: text/html; charset=utf-8');
                                     <div class="min-w-0 flex-1">
                                         <p class="text-red-500">
                                             <strong class="font-medium">Error:</strong> <?php echo $error ?>
+                                        </p>
+                                    </div>
+                                </div>
+                            <?php } ?>
+                        </div>
+                    <?php } ?>
+
+                    <?php if (!empty($warnings)) { ?>
+                        <div>
+                            <?php foreach ($warnings as $warning) { ?>
+                                <div class="pt-4 text-sm flex items-start space-x-3">
+                                    <div class="flex-shrink-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 24 24" class="w-6 h-6 text-yellow-500">
+                                            <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zM12 8.25a.75.75 0 01.75.75v3.75a.75.75 0 01-1.5 0V9a.75.75 0 01.75-.75zm0 8.25a.75.75 0 100-1.5.75.75 0 000 1.5z" clip-rule="evenodd" />
+                                        </svg>
+                                    </div>
+                                    <div class="min-w-0 flex-1">
+                                        <p class="text-yellow-500">
+                                            <strong class="font-medium">Notice:</strong> <?php echo $warning ?>
                                         </p>
                                     </div>
                                 </div>
@@ -295,17 +397,24 @@ header('Content-Type: text/html; charset=utf-8');
                             </div>
                         </form>
                     <?php } else { ?>
-                        <div class="pt-4 flex flex-col space-y-4">
-                            <div class="flex items-center space-x-2">
-                                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-green-500">
-                                    <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
-                                </svg>
-
-                                <p class="text-green-500">
-                                    Supabase connected!
-                                </p>
+                        <?php if (!empty($successes)) { ?>
+                            <div>
+                                <?php foreach ($successes as $success) { ?>
+                                    <div class="pt-4 text-sm flex items-start space-x-3">
+                                        <div class="flex-shrink-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 text-green-500">
+                                                <path fill-rule="evenodd" d="M2.25 12c0-5.385 4.365-9.75 9.75-9.75s9.75 4.365 9.75 9.75-4.365 9.75-9.75 9.75S2.25 17.385 2.25 12zm13.36-1.814a.75.75 0 10-1.22-.872l-3.236 4.53L9.53 12.22a.75.75 0 00-1.06 1.06l2.25 2.25a.75.75 0 001.14-.094l3.75-5.25z" clip-rule="evenodd" />
+                                            </svg>
+                                        </div>
+                                        <div class="min-w-0 flex-1">
+                                            <p class="text-green-500">
+                                                <?php echo $success ?>
+                                            </p>
+                                        </div>
+                                    </div>
+                                <?php } ?>
                             </div>
-                        </div>
+                        <?php } ?>
 
                         <!-- Yipnyap is installing notif -->
                         <div class="flex pt-4 items-center space-x-2">
@@ -313,28 +422,7 @@ header('Content-Type: text/html; charset=utf-8');
                                  alt="Progress spinner" class="w-5 h-5 opacity-75 animate-spin dark:invert"/>
 
                             <p>
-                                <?php switch (getenv('YIPNYAP_WIZARD_STATUS')) {
-                                    case 'PREP':
-                                        echo 'Hold on...';
-                                        echo "
-                                            <script>
-//                                                setTimeout(function() {
-//                                                    // POST request to current page
-//                                                    fetch(window.location.href, {
-//                                                        method: 'POST',
-//                                                        headers: {
-//                                                            'Content-Type': 'application/x-www-form-urlencoded',
-//                                                        },
-//                                                        body: 'action=testsupabase',
-//                                                    })
-//                                                }, 5000);
-                                            </script>
-                                       ";
-                                        break;
-                                    default:
-                                        echo 'Waiting...';
-                                        break;
-                                } ?>
+                                Finishing...
                             </p>
                         </div>
                     <?php } ?>

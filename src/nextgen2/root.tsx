@@ -10,8 +10,10 @@ import {CssVarsProvider, StyledEngineProvider} from '@mui/joy';
 import theme from './theme';
 // @ts-ignore
 import { Flags, FlagsProvider } from 'react-feature-flags';
-
 export default function Root() {
+    // If `NextgenFeed` is undefined, it will be set to `true`
+    if (localStorage.getItem('NextgenFeed') === null) localStorage.setItem('NextgenFeed', 'true');
+
     return (
         <FlagsProvider value={[
             { name: 'JoyUINavigation', isActive: localStorage.getItem('JoyUINavigation') === 'true' },

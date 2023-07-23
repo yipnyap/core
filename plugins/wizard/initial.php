@@ -6,11 +6,20 @@ if ( 'HTTP/1.1' != $protocol && 'HTTP/1.0' != $protocol) {
     $protocol = 'HTTP/1.0';
 }
 
+// Check if `resetInstall` is set - if so, delete the config file and reload the page.
+if (isset($_GET['resetInstall'])) {
+    if (file_exists(YIPNYAP_ENV_PATH)) {
+        unlink(YIPNYAP_ENV_PATH);
+    }
+
+    header($protocol . ' 302 Found');
+    header('Location: ' . strtok($_SERVER['REQUEST_URI'], '?'));
+    exit();
+}
+
 $errors = [];
 $warnings = [];
 $successes = [];
-
-if (!is_writeable(YIPNYAP_ENV_PATH)) $errors[] = YIPNYAP_ENV_PATH . ' is not writeable by web server.';
 
 $conf_keys = [
     'supabase_url' => 'YIPNYAP_SUPABASE_URL',
@@ -31,6 +40,11 @@ if ($conf === false) {
     // Change the permissions of the config file so no one but the current user can read/write
     chmod(YIPNYAP_ENV_PATH, 0600);
 }
+
+if (!is_writeable(YIPNYAP_ENV_PATH)) $errors[] = YIPNYAP_ENV_PATH . ' is not writeable by web server.';
+
+// Get current wizard status
+$wizard_status = getenv('YIPNYAP_WIZARD_STATUS');
 
 // Check config for any missing values, if so, add them to a list
 $missing = [];
@@ -102,60 +116,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 
-if (empty($missing)) {
-    // Check if the required plugins are installed, checking the plugin directory
-    $plugin_dir = YIPNYAP_PATH . '/plugins';
-    $plugins = scandir($plugin_dir);
-    $plugins = array_diff($plugins, ['.', '..']);
+$required_plugins = [
+    'ex-social',
+    'ex-social-followers',
+    'ex-verified',
+    'ex-economy',
+    'ex-economy-social-integration',
+    'vkmedia',
+    'vkreact',
+    'vkreact-buddypress',
+    'yipnyap-buddypress-extension',
+    'yp-no-ajax',
+    'yapex-wp-die',
+    '.git',
+];
 
-    foreach ($plugins as $plugin) {
-        $plugin = $plugin_dir . '/' . $plugin;
-        if (is_dir($plugin)) {
-            $plugin_conf = $plugin . '/plugin.conf';
-            if (file_exists($plugin_conf)) {
-                $plugin_conf = file_get_contents($plugin_conf);
-                if ($plugin_conf === false) {
-                    echo 'Error: Could not read plugin configuration file for ' . $plugin . '<br>';
-                    exit();
-                }
+$plugin_dir = WP_PLUGIN_DIR;
+$plugins = scandir($plugin_dir);
+$plugins = array_diff($plugins, ['.', '..']);
 
-                $plugin_conf = json_decode($plugin_conf, true);
-                if ($plugin_conf === false) {
-                    echo 'Error: Could not parse plugin configuration file for ' . $plugin . '<br>';
-                    exit();
-                }
-
-                if (!isset($plugin_conf['required_plugins'])) continue;
-
-                foreach ($plugin_conf['required_plugins'] as $required_plugin) {
-                    if (!in_array($required_plugin, $plugins)) {
-                        echo 'Error: The plugin ' . $plugin . ' requires the plugin ' . $required_plugin . ' to be installed.<br>';
-                        exit();
-                    }
-                }
-            }
-        }
-    }
-
-    // Check if the required plugins are installed, checking the database
-    $plugin_dir = WP_PLUGIN_DIR;
-    $plugins = scandir($plugin_dir);
-    $plugins = array_diff($plugins, ['.', '..']);
-
-    $required_plugins = [
-        'ex-social',
-        'ex-social-followers',
-        'ex-verified',
-        'ex-economy',
-        'ex-economy-social-integration',
-        'vkmedia',
-        'vkreact',
-        'vkreact-buddypress',
-        'yipnyap-buddypress-extension',
-        'yp-no-ajax',
-        'yapex-wp-die',
-        '.git',
-    ];
+if ($wizard_status === 'PREP') {
+    // If we're here, this worked
+    $successes[] = 'Supabase connection is working';
 
     foreach ($plugins as $plugin) {
         // Just check the folder name
@@ -168,13 +150,10 @@ if (empty($missing)) {
                 } else {
                     $successes[] = "$plugin queued for activation";
                 }
+            } elseif ($plugin === '.git') {
+                $errors[] = 'Plugins are not synced with git';
             } else {
-                // optional
-                if ($plugin === '.git') {
-                    $errors[] = 'Plugins are not synced with git';
-                } else {
-                    $warnings[] = "$plugin is not queued";
-                }
+                $warnings[] = "$plugin is not queued";
             }
         }
     }
@@ -183,8 +162,62 @@ if (empty($missing)) {
         $errors[] = "$plugin is required";
     }
 
-    // If we're here, this worked
-    $successes[] = 'Supabase connection is working';
+    if (empty($errors)) {
+        $conf = preg_replace('/^YIPNYAP_WIZARD_STATUS=(.*)$/m', 'YIPNYAP_WIZARD_STATUS=INSTALL', $conf);
+        $file_create = file_put_contents(YIPNYAP_ENV_PATH, $conf);
+    }
+}
+
+if ($wizard_status === 'INSTALL') {
+    require_once ABSPATH . 'wp-admin/includes/plugin.php';
+    foreach ($plugins as $plugin) {
+        // Just check the folder name
+        if (is_dir($plugin_dir . '/' . $plugin)) {
+            if (in_array($plugin, $required_plugins)) {
+                if ($plugin === '.git') continue;
+
+                // Search each file for the plugin's header without get_plugin_data()
+                $plugin_files = scandir($plugin_dir . '/' . $plugin);
+                $plugin_files = array_diff($plugin_files, ['.', '..']);
+
+                // Only get php files in the root
+                $plugin_files = array_filter($plugin_files, function ($file) {
+                    return preg_match('/\.php$/', $file);
+                });
+
+                foreach ($plugin_files as $plugin_file) {
+                    $plugin_data = file_get_contents($plugin_dir . '/' . $plugin . '/' . $plugin_file);
+                    if ($plugin_data === false) {
+                        $errors[] = 'Error: Could not read plugin ' . $plugin;
+                        continue;
+                    }
+
+                    if (preg_match('/[Pp]lugin [Nn]ame:(.*)$/m', $plugin_data, $matches) === 0) continue;
+
+                    $plugin_name = trim($matches[1]);
+
+                    $activate = activate_plugin($plugin_dir . '/' . $plugin . '/' . $plugin_file, '', false, true);
+                    if ($activate !== null) {
+                        $errors[] = 'Error: Could not activate plugin ' . $plugin_name . ' - ' . str_replace('The plugin does not have a valid header.', 'Filesystem cannot read it.', $activate->get_error_message());
+                    } else {
+                        $successes[] = 'Activated plugin ' . $plugin_name;
+
+                        unset($required_plugins[array_search($plugin, $required_plugins)]);
+                    }
+                }
+
+                if (in_array($plugin, $required_plugins)) {
+                    $errors[] = 'Error: Could not find plugin header for ' . $plugin;
+                }
+            }
+        }
+    }
+
+    if (empty($errors)) {
+        // Find YIPNYAP_WIZARD_STATUS and set it to 'DONE'
+        $conf = preg_replace('/^YIPNYAP_WIZARD_STATUS=(.*)$/m', 'YIPNYAP_WIZARD_STATUS=DONE', $conf);
+        $file_create = file_put_contents(YIPNYAP_ENV_PATH, $conf);
+    }
 }
 
 header('Content-Type: text/html; charset=utf-8');
@@ -424,6 +457,12 @@ header('Content-Type: text/html; charset=utf-8');
                             <p>
                                 Finishing...
                             </p>
+
+                            <script>
+                                setTimeout(function () {
+                                    window.location.reload();
+                                }, 15000);
+                            </script>
                         </div>
                     <?php } ?>
                 </div>

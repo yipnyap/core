@@ -17,7 +17,7 @@ function SupabaseUserContentUpload(string $userID, string $file, string|null $E2
     $scheme = explode('://', $raw_domain)[0];
     $reference_id = preg_replace('/https?:\/\//', '', explode('.', $raw_domain)[0]);
     $domain = explode('.', $raw_domain)[1] . '.' . explode('.', $raw_domain)[2];
-    $StorageFile = new StorageFile($api_key, $reference_id, YIPNYAP_IS_LOCAL_DEV ? 'dev-users' : 'users', $domain, $scheme);
+    $StorageFile = new StorageFile($api_key, $reference_id, 'users', $domain, $scheme);
 
     // Key should be something like: <user_id>/<E2Object>/<E2ID>/<E2IDOfContent>.<extension>
     $E2ID = $E2Parent ?? E2IDCreate('Post');

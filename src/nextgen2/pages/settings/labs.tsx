@@ -7,7 +7,7 @@ import {Checkbox, FormControl, FormHelperText} from "@mui/joy";
 export default function SettingsLabs() {
     const [useJoyNavigation, setUseJoyNavigation] = useState<boolean>(localStorage.getItem('JoyUINavigation') === 'true');
     const [allowWominjekaUsage, setAllowWominjekaUsage] = useState<boolean>(localStorage.getItem('AllowWominjekaUsage') === 'true');
-    const [useNextgenHomefeed, setUseNextgenHomefeed] = useState<boolean>(localStorage.getItem('NextgenHomefeed') === 'true');
+    const [useNextgenHomefeed, setUseNextgenHomefeed] = useState<boolean>(localStorage.getItem('NextgenFeed') === 'true');
 
     function toggleUseJoyNavigation() {
         setUseJoyNavigation(!useJoyNavigation);

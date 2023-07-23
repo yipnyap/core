@@ -2,7 +2,7 @@
 namespace Yipnyap;
 
 require_once YIPNYAP_PATH . '/includes/utils/e2.util.php';
-//require_once YIPNYAP_PATH . '/includes/utils/s3.util.php';
+require_once YIPNYAP_PATH . '/includes/utils/s3.util.php';
 
 use Exception;
 
@@ -213,7 +213,7 @@ class FeedMixer
 
             $EditorBlocksLocation = bp_activity_get_meta($post->id, 'blocks_url');
             if (!empty($EditorBlocksLocation)) {
-                $BlocksURL = 'https://supabase.yipnyap.me/storage/v1/object/public/users/' . $EditorBlocksLocation;
+                $BlocksURL = getenv('YIPNYAP_SUPABASE_URL') . '/storage/v1/object/public/users/' . $EditorBlocksLocation;
                 $JSONDecoded = @json_decode(file_get_contents($BlocksURL));
                 // Check for HTTP 200
                 if (!empty($JSONDecoded)) {
@@ -643,9 +643,33 @@ class FeedMixer
         }
 
         // - save to a file locally
-        $filename = 'post-' . explode(':', $E2ID)[1] . '-' . time() . '.json';
-        $filepath = wp_upload_dir()['basedir'] . '/vault_cache/' . $filename;
-        file_put_contents($filepath, $contentAsJSON);
+        $filename = time() . '.json';
+        $filepath = WP_CONTENT_DIR . '/cache/' . $filename;
+
+        try {
+            $fileputresult = file_put_contents($filepath, $contentAsJSON);
+        } catch (Exception $e) {
+            bp_activity_delete([
+                'id' => $post_id,
+            ]);
+
+            return [
+                'status' => 'error',
+                'message' => 'Failed to upload post content. This is an issue on our end. - ' . $e->getMessage(),
+            ];
+        }
+
+        if ($fileputresult === false) {
+            // Undo everything
+            bp_activity_delete([
+                'id' => $post_id,
+            ]);
+
+            return [
+                'status' => 'error',
+                'message' => 'Failed to upload post content. This is an issue on our end. - ' . $filepath,
+            ];
+        }
 
         // - upload to Supabase
         $supabaseObject = SupabaseUserContentUpload($UserE2ID, $filepath);

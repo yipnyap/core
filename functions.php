@@ -33,7 +33,7 @@ if (file_exists(YIPNYAP_ENV_PATH)) {
 }
 
 add_action('init', function () {
-    $wizard_status = $_ENV['YIPNYAP_WIZARD_STATUS'];
+    $wizard_status = getenv('YIPNYAP_WIZARD_STATUS');
     if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
         // If admin page or an admin user (to setup), dont do anything
         if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
@@ -150,7 +150,7 @@ function ntwb_bbpress_custom_role_names(): array {
 /**
  * THEME CONSTANTS
  */
-define("YIPNYAP_IS_LOCAL_DEV", empty($_ENV['YIPNYAP_SETUP_AS_PRODUCTION']) || $_ENV['YIPNYAP_SETUP_AS_PRODUCTION'] !== 'true');
+define("YIPNYAP_IS_LOCAL_DEV", empty(getenv('YIPNYAP_SETUP_AS_PRODUCTION')) || getenv('YIPNYAP_SETUP_AS_PRODUCTION') !== 'true');
 
 /**
  * Versioning
@@ -170,9 +170,6 @@ define('YIPNYAP_WPOPTIONS', [
     'blogdescription' => 'A furry safespace',
     'users_can_register' => true,
 
-    /*
-     * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
-     */ 'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
     'yipnyap_logo_url' => YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png',
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
@@ -298,7 +295,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_WEBPACK_DEV_SERVER'];
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = getenv('YIPNYAP_WEBPACK_DEV_SERVER');
         wp_enqueue_script($file, $domain . $file, [], YIPNYAP_VERSION, true);
     }
 
@@ -307,7 +304,7 @@ add_action('wp_enqueue_scripts', function () {
         $file = basename($file);
 
         $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_WEBPACK_DEV_SERVER'];
+        if (YIPNYAP_IS_LOCAL_DEV) $domain = getenv('YIPNYAP_WEBPACK_DEV_SERVER');
         wp_enqueue_style($file, $domain . $file, [], YIPNYAP_VERSION);
     }
 

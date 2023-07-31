@@ -61,13 +61,13 @@ export default function SettingsAccessibility({...props}: any) {
     const [font, setFont] = useState(fontSpacings[currentFontSpacing]);
 
     useEffect(() => {
-        if (heading?.heading !== 'Accessibility') {
-            setHeading({
-                heading: 'Accessibility',
+        setHeading({
+            bold: false, padding: false, slimContentNavigator: false, heading: null,
+            ...(!props.DONTFUCKINGPADTHEUI && {
                 padding: true,
-                navigator: heading?.navigator,
-            })
-        }
+            }),
+            navigator: heading?.navigator
+        })
 
         if (monoFont === 'Mono') {
             setMonoFontCSS(true);
@@ -75,7 +75,7 @@ export default function SettingsAccessibility({...props}: any) {
             setMonoFontCSS(false);
             setFontSpacing(fontSpacings.indexOf(font));
         }
-    }, [font, monoFont, heading, location.pathname])
+    }, [font, monoFont, location.pathname])
 
     return (
         <>

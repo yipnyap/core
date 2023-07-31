@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
+import {NGNavbar} from "@nextgen2/components";
 
 export declare interface NGContentType {
     heading: {
@@ -40,7 +41,7 @@ export default function NGContent({...props}: NGContentType) {
 
     return (
         <div id="NGContent"
-             className="mb-12 lg:mb-0 flex-1 overflow-y-auto overflow-x-hidden"
+             className="lg:mb-0 flex-1 overflow-y-auto overflow-x-hidden"
         >
             <div aria-labelledby="primary-heading" className={(
                 props.heading?.padding ? 'max-w-3xl mx-auto py-10 px-4 sm:px-6 lg:py-12 lg:px-8' : ''

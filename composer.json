@@ -5,6 +5,7 @@
       "supabase/supabase-php": "^0.0.3",
       "ext-curl": "*",
       "ext-sodium": "*",
-      "logtail/monolog-logtail": "^3.0"
+      "logtail/monolog-logtail": "^3.0",
+      "ext-fileinfo": "*"
     }
 }

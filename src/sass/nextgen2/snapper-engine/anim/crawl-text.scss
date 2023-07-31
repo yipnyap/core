@@ -9,6 +9,7 @@ $snapper-crawl-text-cubic-bezier: cubic-bezier(0.87, 0, 0.04, 1);
     display: inline-block;
     transform: translateY(30%);
     opacity: 0;
+    filter: blur(0.5px);
   }
 
   &.u-rise.risen {
@@ -54,12 +55,14 @@ $snapper-crawl-text-cubic-bezier: cubic-bezier(0.87, 0, 0.04, 1);
 
 @keyframes rise {
   0% {
-    opacity: 1;
+    opacity: 0.65;
     transform: translateY(30%);
+    filter: blur(0.5px);
   }
   100% {
     opacity: 1;
     transform: translateY(0%);
+    filter: blur(0px);
   }
 }
 
@@ -67,9 +70,11 @@ $snapper-crawl-text-cubic-bezier: cubic-bezier(0.87, 0, 0.04, 1);
   0% {
     opacity: 1;
     transform: translateY(0%);
+    filter: blur(0px);
   }
   100% {
     opacity: 0;
     transform: translateY(30%);
+    filter: blur(2px);
   }
 }

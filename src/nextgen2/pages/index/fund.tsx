@@ -41,12 +41,6 @@ export default function Fund() {
                     <div className="flex flex-row space-x-2">
                         <NGButton
                             onClick={() => {
-                                window.open('https://work.yipnyap.me/I2', '_blank')
-                            }}>
-                            Donate via Workspace
-                        </NGButton>
-                        <NGButton
-                            onClick={() => {
                                 window.open('https://donate.stripe.com/6oE8zk5Omciy7D26oo', '_blank')
                             }}>
                             Donate via Stripe Checkout
@@ -62,7 +56,7 @@ export default function Fund() {
                     <div className="flex flex-col space-y-2">
                         <div className="space-y-1">
                             <NGHeading>
-                                Current: <span className="text-green-500">$212.50 (Apr - May)</span>
+                                Current: <span className="text-green-500">$212.50 (FY'24)</span>
                             </NGHeading>
                             <span className="font-bold text-sm text-default-alt">
                                 Includes one-off donations, updated monthly &mdash; Stable Current ~$12.50/month
@@ -70,7 +64,7 @@ export default function Fund() {
                         </div>
                         <p className="text-default-alt">
                             ~AUD$200/month to
-                            fully cover Yipnyap, plus other expenses
+                            fully cover Yipnyap and other expenses
                             of the dev, like food and rent. These prices fluctuate
                             a lot.
                         </p>
@@ -179,14 +173,6 @@ export default function Fund() {
                             any amount you want, and you can even set up a recurring
                             donation.
                         </p>
-                        <p className="text-default-alt">
-                            Donating via our Phorge instance, usually referred to
-                            as "Workspace", is processed the same as Stripe, but
-                            requires you to create an account on Workspace. This
-                            is needed if you want to claim donor benefits. If you
-                            don't want to create an account, you can use Stripe
-                            Checkout instead.
-                        </p>
                         <a href="https://climate.stripe.com/8YciFq" target="_blank" className="text-blue-500 text-sm">
                             We will contribute 5% of your purchase to removing CO₂
                             from the atmosphere.
@@ -194,36 +180,9 @@ export default function Fund() {
                         <div className="flex flex-row space-x-2">
                             <NGButton
                                 onClick={() => {
-                                    window.open('https://work.yipnyap.me/I2', '_blank')
-                                }}>
-                                Donate via Workspace
-                            </NGButton>
-                            <NGButton
-                                onClick={() => {
                                     window.open('https://donate.stripe.com/6oE8zk5Omciy7D26oo', '_blank')
                                 }}>
                                 Donate via Stripe Checkout
-                            </NGButton>
-                        </div>
-                    </div>
-
-                    {/* Paypal */}
-                    <div className="flex flex-col space-y-2">
-                        <NGHeading>
-                            Donate via PayPal
-                        </NGHeading>
-                        <p className="text-default-alt">
-                            Donating via PayPal is a bit more expensive for us,
-                            but it's still a good way to help us out. You can donate
-                            any amount you want, and you can even set up a recurring
-                            donation.
-                        </p>
-                        <div className="flex flex-row space-x-2">
-                            <NGButton
-                                onClick={() => {
-                                    window.open('https://paypal.me/wychefur', '_blank')
-                                }}>
-                                Donate via PayPal
                             </NGButton>
                         </div>
                     </div>

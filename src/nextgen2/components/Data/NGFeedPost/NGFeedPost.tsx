@@ -224,7 +224,7 @@ export default function NGFeedPost({...props}: NGFeedPostType) {
                 )}
             </NGSlideover>
 
-            <NGCard noPadding>
+            <NGCard noPadding className="border border-solid border-default">
                 <div className="relative">
                     <div className="px-4 py-5 sm:px-6">
                         {/* "___ Rehowled" */}
@@ -465,7 +465,7 @@ function CommentBox({...props}: any) {
                     </div>
                     <div className="min-w-0 flex-1">
                         <p className="text-sm font-medium text-default cursor-pointer hover:underline">
-                            Replying to your fucking ass
+                            Replying to {postContent.user.display_name || postContent.user.username}
                         </p>
                     </div>
                 </div>
@@ -479,7 +479,7 @@ function CommentBox({...props}: any) {
                     type="text"
                     name="comment"
                     id="comment"
-                    className="block w-full px-10 placeholder-neutral-100 dark:placeholder-neutral-500 sm:text-sm focus:ring-primary focus:border-primary"
+                    className="no-legacy block w-full bg-default px-10 rounded-default placeholder:text-neutral-400 sm:text-sm focus:ring-primary focus:border-primary"
                     placeholder="Comment"
                     ref={commentRef}
                 />
@@ -494,7 +494,7 @@ function CommentBox({...props}: any) {
                              src={`${yipnyap_constants.yipnyap_url}/img/symbolic/process-working.symbolic.png`}
                              alt="Process working spinner"/>
                     ) : (
-                        <PaperAirplaneIcon className="h-5 w-5 text-white" onClick={createComment} />
+                        <PaperAirplaneIcon className="h-5 w-5 text-default" onClick={createComment} />
                     )}
                 </div>
             </div>

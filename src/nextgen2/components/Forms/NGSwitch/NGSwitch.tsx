@@ -6,6 +6,7 @@ import {Switch} from "@headlessui/react";
 export declare interface NGSwitchType {
     enabled?: boolean;
     disabled?: boolean;
+    reverse?: boolean;
     title?: string;
     description?: string;
     onChange?: Function;
@@ -34,7 +35,7 @@ export default function NGSwitch({...props}: NGSwitchType) {
     }, [props.enabled])
 
     return (
-        <Switch.Group as="div" className="flex items-center justify-between">
+        <Switch.Group as="div" className={`flex items-center justify-between ${props.reverse ? 'flex-row-reverse' : ''}`}>
             {(props.title || props.description) && (
                 <span className="flex-grow flex flex-col">
                     {props.title && (
@@ -43,7 +44,7 @@ export default function NGSwitch({...props}: NGSwitchType) {
                         </Switch.Label>
                     )}
                     {props.description && (
-                        <Switch.Description as="p" className="text-sm text-alt-2">
+                        <Switch.Description as="p" className="text-sm text-default-alt">
                             {props.description}
                         </Switch.Description>
                     )}
@@ -54,7 +55,7 @@ export default function NGSwitch({...props}: NGSwitchType) {
                 onChange={setEnabled}
                 className={classNames(
                     enabled ? 'bg-indigo-600' : 'bg-gray-200',
-                    'relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+                    `${props.reverse ? 'mr-4' : ''} ${props.disabled ? 'opacity-75 cursor-not-allowed' : ''} relative inline-flex flex-shrink-0 h-6 w-11 border-2 border-transparent rounded-full cursor-pointer transition-colors ease-in-out duration-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500`
                 )}
                 disabled={props.disabled}
             >

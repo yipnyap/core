@@ -80,6 +80,11 @@ $E2IDTypes = [
             'CONTENT_VIDEO' => 'C2',
             'CONTENT_AUDIO' => 'C3',
             'CONTENT_RICH' => 'C4',
+
+            // Settings - Profile avatars, banners, etc.
+            'SETTING_AVATAR' => 'S1',
+            'SETTING_HEADER' => 'S2',
+            'SETTING_BACKGROUND' => 'S3',
         ]
     ]
 ];

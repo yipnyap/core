@@ -56,7 +56,7 @@ function YipnyapCheckDipswitch($key, mixed $value = null): array
     }
 
     // if $value is false, we're just checking the dipswitch value
-    if (empty($value)) {
+    if (empty($value) && $value !== 0) {
         if (isset($currentDipswitch[$key])) {
             return [
                 'success' => true,
@@ -75,9 +75,10 @@ function YipnyapCheckDipswitch($key, mixed $value = null): array
         'hide_onboarding' => 'boolean',
         'accent' => 'string',
         'PendingVerifiedDeprecationAck' => 'boolean',
+        'NewUserOnboardingStep' => 'integer',
     ];
 
-    if (!empty($allowedKeys[$key]) && gettype($value) === $allowedKeys[$key]) {
+    if (!empty($allowedKeys[$key]) && (gettype($value) === $allowedKeys[$key] || $value === 0)) {
         if ($value === false) {
             // Just delete the dipswitch
             unset($currentDipswitch[$key]);

@@ -43,13 +43,24 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
             $member_by_login = get_user_by('login', $member_id);
             if ($member_by_login) {
                 $member_id = $member_by_login->ID;
-            } elseif (!$skipErrorReturn) {
-                wp_send_json([
-                    'code' => 404,
-                    'error' => 'Member not found.',
-                ]);
             } else {
-                return 0;
+                // Search user meta
+                $member_by_meta = get_users([
+                    'meta_key' => 'athandle',
+                    'meta_value' => $member_id,
+                    'fields' => 'ID',
+                ]);
+
+                if (count($member_by_meta) > 0) {
+                    $member_id = $member_by_meta[0];
+                } elseif ($skipErrorReturn) {
+                    return 0;
+                } else {
+                    wp_send_json([
+                        'code' => 404,
+                        'error' => 'Member not found.',
+                    ]);
+                }
             }
         }
     }
@@ -106,7 +117,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         'display_name' => $memberOld['name'],
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
-        'header' => yipnyap_member_get_cover_url($member_id),
         'followers' => count(bp_follow_get_followers([
             'user_id' => $member_id,
         ])),
@@ -115,7 +125,31 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         ])),
         'posts' => YipnyapGetMemberActivityCount($member_id),
     ];
-    $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
+
+    $avatar = get_user_meta($member_id, 'avatar', true);
+    $header = get_user_meta($member_id, 'header', true);
+    if ($header) {
+        $member['header'] = str_replace('supalocal.yipnyap.me:8000', 'localhost:54321', getenv('YIPNYAP_SUPABASE_URL')) . '/storage/v1/object/public/users/' . $header;
+
+        // Remove the old one
+        bp_attachments_delete_file([
+            'item_id' => $member_id,
+            'object_dir' => 'members',
+        ]);
+    } else {
+        $member['header'] = bp_attachments_get_attachment('url', [
+            'item_id' => $member_id,
+            'object_dir' => 'members',
+        ]);
+    }
+
+    if (!empty($avatar)) $member['avatar'] = str_replace('supalocal.yipnyap.me:8000', 'localhost:54321', getenv('YIPNYAP_SUPABASE_URL')) . '/storage/v1/object/public/users/' . $avatar;
+
+    $athandle = get_user_meta($member_id, 'athandle', true);
+    if (!empty($athandle)) {
+        $member['permaname'] = $member['username'];
+        $member['username'] = $athandle;
+    }
 
     /**
      * Check if member is online, then add "online" to the member array.
@@ -148,9 +182,12 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     /**
      * Check if Bio exists, and if so, add it to the array.
      */
-    $memberBio = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
+    $memberBio = get_user_meta($member_id, 'bio', true);
+    $memberBioOld = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
     if ($memberBio) {
         $member['bio'] = $memberBio;
+    } elseif ($memberBioOld) {
+        $member['bio'] = $memberBioOld;
     }
 
     $memberExtURL = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Web');
@@ -162,14 +199,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
      * Check if member is "me", then add UI Privacy & Security to the member array.
      */
     if ($isSelf) {
-        $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
-        $unicornEngine = get_option('unicorn_engine');
-        $member['ui_privacy'] = [
-            'hide_custom_ui_notice' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['hide_customised_ui_str']),
-            'disallow_bg_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str']),
-            'disallow_palette_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str']),
-        ];
-
         $member['tgid'] = get_user_meta($member_id, 'tgid', true);
         $member['secureIDLevel'] = get_user_meta($member_id, 'SecureID:Level', true);
         $member['dipswitch'] = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
@@ -216,6 +245,102 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     }
 
     return $member;
+}
+
+/**
+ * Update member data
+ *
+ * @param int|string $member_id Member ID.
+ * @param array $data Member data.
+ * @return array Member data.
+ * @throws Exception
+ */
+function YipnyapUpdateMember(int|string $member_id, array $data): array
+{
+    $member_id = YipnyapFetchMemberID($member_id);
+
+    // @TODO: Dupe code, refactor. Could be a function for Base64 uploads?
+    // Check for base64 encoded avatar, upload it to cache, then to supabase.
+    if (!empty($data['avatar'])) {
+        $avatar = $data['avatar'];
+        // supports png, jpg, jpeg, gif, upper or lowercase.
+        // save the file type to a variable
+        $fileType = explode('/', mime_content_type($avatar))[1];
+        // check if the file type is supported
+        if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
+            return [
+                'success' => false,
+                'message' => 'Invalid file type.',
+            ];
+        }
+
+        // check if the file is base64 encoded
+        if (preg_match('/^data:image\/(\w+);base64,/', $avatar)) {
+            // remove the base64 encoding from the file
+            $avatar = preg_replace('/^data:image\/(\w+);base64,/', '', $avatar);
+            // decode the file
+            $avatar = base64_decode($avatar);
+        }
+
+        $avatarPath = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
+        file_put_contents($avatarPath, $avatar);
+
+        $avatarURL = SupabaseUserContentUpload(YipnyapGetMemberE2ID($member_id), $avatarPath, null, [
+            'type' => 'Post',
+            'variant' => 'SETTING_AVATAR',
+        ]);
+
+        update_user_meta($member_id, 'avatar', $avatarURL['response']['key']);
+
+        // Delete the file from the cache
+        unlink($avatarPath);
+    }
+
+    // Check for base64 encoded header, upload it to cache, then to supabase.
+    if (!empty($data['header'])) {
+        $header = $data['header'];
+        // supports png, jpg, jpeg, gif, upper or lowercase.
+        // save the file type to a variable
+        $fileType = explode('/', mime_content_type($header))[1];
+        // check if the file type is supported
+        if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
+            return [
+                'success' => false,
+                'message' => 'Invalid file type.',
+            ];
+        }
+
+        // check if the file is base64 encoded
+        if (preg_match('/^data:image\/(\w+);base64,/', $header)) {
+            // remove the base64 encoding from the file
+            $header = preg_replace('/^data:image\/(\w+);base64,/', '', $header);
+            // decode the file
+            $header = base64_decode($header);
+        }
+
+        $headerPath = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
+        file_put_contents($headerPath, $header);
+
+        $headerURL = SupabaseUserContentUpload(YipnyapGetMemberE2ID($member_id), $headerPath, null, [
+            'type' => 'Post',
+            'variant' => 'SETTING_HEADER',
+        ]);
+
+        update_user_meta($member_id, 'header', $headerURL['response']['key']);
+
+        // Delete the file from the cache
+        unlink($headerPath);
+    }
+
+    // Save it all
+    if (!empty($data['bio'])) update_user_meta($member_id, 'bio', $data['bio']);
+    if (!empty($data['display_name'])) wp_update_user([
+        'ID' => $member_id,
+        'display_name' => $data['display_name'],
+    ]);
+    if (!empty($data['athandle'])) update_user_meta($member_id, 'athandle', $data['athandle']);
+
+    return YipnyapGetMember($member_id);
 }
 
 /**
@@ -291,6 +416,7 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             'remember' => $remember,
         ], true);
         wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID, $remember);
 
         return [
             'success' => true,

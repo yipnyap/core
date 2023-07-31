@@ -8,21 +8,45 @@ use GuzzleHttp\Exception\RequestException;
 use Psr\Http\Message\ResponseInterface;
 use Supabase\Storage\StorageFile;
 
-/**
- * @throws Exception
- */
-function SupabaseUserContentUpload(string $userID, string $file, string|null $E2Parent = null): array {
+function SupabaseGetURL() {
     $api_key = getenv('YIPNYAP_SUPABASE_SERVICE_KEY');
     $raw_domain = getenv('YIPNYAP_SUPABASE_URL');
     $scheme = explode('://', $raw_domain)[0];
     $reference_id = preg_replace('/https?:\/\//', '', explode('.', $raw_domain)[0]);
     $domain = explode('.', $raw_domain)[1] . '.' . explode('.', $raw_domain)[2];
+
+    return [
+        'api_key' => $api_key,
+        'reference_id' => $reference_id,
+        'domain' => $domain,
+        'scheme' => $scheme,
+    ];
+}
+
+/**
+ * @throws Exception
+ */
+function SupabaseUserContentUpload(string $userID, string $file, string|null $E2Parent = null, array $ContentSettings = [
+    'type' => 'Post',
+    'variant' => 'CONTENT_IMAGE',
+]): array {
+    $url = SupabaseGetURL();
+    $api_key = $url['api_key'];
+    $reference_id = $url['reference_id'];
+    $domain = $url['domain'];
+    $scheme = $url['scheme'];
     $StorageFile = new StorageFile($api_key, $reference_id, 'users', $domain, $scheme);
 
+    $TypeToFolder = [
+        'Post' => 'posts',
+    ];
+
+    $ContentSettings['folder'] = $TypeToFolder[$ContentSettings['type']];
+
     // Key should be something like: <user_id>/<E2Object>/<E2ID>/<E2IDOfContent>.<extension>
-    $E2ID = $E2Parent ?? E2IDCreate('Post');
-    $E2IDOfContent = E2IDCreate('Post', 'CONTENT_IMAGE', $E2ID . ':');
-    $key = $userID . '/posts/' . $E2ID . '/' . $E2IDOfContent . '.' . pathinfo($file, PATHINFO_EXTENSION);
+    $E2ID = $E2Parent ?? E2IDCreate($ContentSettings['type']);
+    $E2IDOfContent = E2IDCreate($ContentSettings['type'], $ContentSettings['variant'], $E2ID . ':');
+    $key = $userID . '/' . $ContentSettings['folder'] . '/' . $E2ID . '/' . $E2IDOfContent . '.' . pathinfo($file, PATHINFO_EXTENSION);
 
     $response = $StorageFile->upload($key, $file, ['public' => true]);
     if ($response->getStatusCode() == 200) {

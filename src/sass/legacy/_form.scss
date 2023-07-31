@@ -55,10 +55,10 @@ label {
 }
 
 input[type="text"]:not(.no-legacy),
-input[type="password"],
-input[type="email"],
-input[type="tel"],
-input[type="number"],
+input[type="password"]:not(.no-legacy),
+input[type="email"]:not(.no-legacy),
+input[type="tel"]:not(.no-legacy),
+input[type="number"]:not(.no-legacy),
 textarea,
 select {
   background-color: var(--color-box-background);

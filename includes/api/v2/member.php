@@ -61,6 +61,28 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapGetMember($arguments['id']));
         },
     ]);
+    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)', [
+        'methods' => 'POST',
+        'callback' => function ($arguments) {
+            // Check if user is logged in
+            $user = wp_get_current_user();
+            if (empty($user) || $user->ID == 0) {
+                wp_send_json([
+                    'success' => false,
+                    'message' => 'You must be logged in to do that.',
+                ]);
+            } else {
+                // User is changing themselves
+                wp_send_json(YipnyapUpdateMember('me', [
+                    'avatar' => $arguments['avatar'],
+                    'header' => $arguments['header'],
+                    'display_name' => $arguments['display_name'],
+                    'athandle' => $arguments['athandle'],
+                    'bio' => $arguments['bio'],
+                ]));
+            }
+        },
+    ]);
 });
 
 /**
@@ -151,7 +173,7 @@ add_action('rest_api_init', function () {
                 if (!$usernameRegexCheck) {
                     wp_send_json([
                         'success' => false,
-                        'message' => 'Username is invalid - doesn\'t follow naming structure.',
+                        'message' => 'Username cannot be used.',
                     ]);
                 } else {
                     $user = wp_create_user($request['username'], $request['password']);

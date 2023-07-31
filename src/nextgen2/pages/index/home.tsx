@@ -14,7 +14,7 @@ interface Props {
     theme: LocalThemeContext;
 }
 
-export default function Home({...props}: Props) {
+export default function OldHome({...props}: Props) {
     const navigate = useNavigate();
     const [recommendedGroups, setRecommendedGroups] = useState([]);
     const [randomGroup, setRandomGroup] = useState<Group>();

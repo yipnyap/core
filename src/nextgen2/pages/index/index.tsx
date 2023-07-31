@@ -11,10 +11,11 @@ import {BellIcon, HomeIcon, NewspaperIcon, SquaresPlusIcon, UserPlusIcon} from '
 
 import {getMemberFriends, getMemberGroups} from '@legacy/router/v2/members/get';
 import {Void} from '@nextgen2';
-import {NGCard, NGSkeleton} from '@nextgen2/components';
+import {NGBody, NGCard, NGSkeleton} from '@nextgen2/components';
 import {NGContentNavigatorItemType} from '@nextgen2/components/Navigation/NGContentNavigator/NGContentNavigator';
 import Fund from '@nextgen2/pages/index/fund';
-import Home from '@nextgen2/pages/index/home';
+import OldHome from '@nextgen2/pages/index/home';
+import Home from '@nextgen2/pages/home';
 import Notifications from '@nextgen2/pages/index/notifications';
 import SettingsTelegram from '@nextgen2/pages/settings/telegram';
 import {useHeading} from '@nextgen2/providers/PageHeading.provider';
@@ -29,7 +30,9 @@ import ActivityFilterableList from '@legacy/component/activity/ActivityFilterabl
 import Loader from '@legacy/component/loader/Loader';
 // @ts-ignore
 import NoUserCTAActivity from '@legacy/component/onboarding/NoUserCTAActivity';
+
 import Feed from "@nextgen2/pages/feed";
+import GuestOnboarding from "@nextgen2/pages/index/onboarding";
 
 export function Index() {
     const [, setHeading] = useHeading();
@@ -94,10 +97,11 @@ export function Index() {
                 heading: `Hey, ${yipnyap_constants.currentUser?.display_name || 'Stranger'}!`,
                 subNavigation: [{
                     name: 'Home',
-                    description: '',
+                    description: yipnyap_constants.currentUser && yipnyap_constants.currentUser?.dipswitch?.NewUserOnboardingStep !== 99 ? 'We still need a few more details from you!' : '',
                     href: `/`,
                     icon: HomeIcon,
                     current: location.pathname === `/`,
+                    new: yipnyap_constants.currentUser && yipnyap_constants.currentUser?.dipswitch?.NewUserOnboardingStep !== 99,
                 }, {
                     name: 'Your Feed',
                     description: '',
@@ -135,7 +139,7 @@ export function Index() {
                    renderOff={() => (
                        <>
                            {location.pathname === '/' && (
-                               <Home theme={theme}/>
+                               <OldHome theme={theme}/>
                            )}
 
                            {location.pathname === '/feed/' && (
@@ -212,8 +216,21 @@ export function Index() {
                            )}
                        </>
                    )}
+
                    renderOn={() => (
                        <>
+                           {location.pathname === '/' && (
+                               <>
+                                   {!yipnyap_constants.currentUser ? (
+                                       <NGBody>
+                                           <GuestOnboarding />
+                                       </NGBody>
+                                   ) : (
+                                       <Home />
+                                   )}
+                               </>
+                           )}
+
                            {location.pathname === '/feed/' && (
                                <Feed />
                            )}

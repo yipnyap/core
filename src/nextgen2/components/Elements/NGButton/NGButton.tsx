@@ -5,6 +5,8 @@ import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 export declare interface NGButtonType {
     onClick?: MouseEventHandler<HTMLButtonElement>;
     variant?: 'lighter' | 'primary' | 'secondary' | 'tertiary' | 'danger' | 'success' | 'warning' | 'info';
+    type?: 'button' | 'submit' | 'reset';
+    disabled?: boolean;
 
     theme?: any;
     children?: React.ReactNode;
@@ -69,7 +71,8 @@ export const NGButton = React.forwardRef((props: NGButtonType, ref: LegacyRef<HT
 
     return (
         <button
-            type="button"
+            type={props.type || 'button'}
+            disabled={props.disabled || false}
             className={`${props.className} ${variant.light?.bg || 'bg-white'} ${variant.light?.hover || 'hover:bg-neutral-50'} ${variant.useSystemText ? 'text-default' : 'text-white'} ${variant.dark?.bg || 'dark:bg-neutral-800'} ${variant.dark?.hover || 'dark:hover:bg-neutral-800/75'} w-full inline-flex justify-center rounded-md border border-gray-300 px-4 py-2 text-base font-medium shadow-sm focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:w-auto sm:text-sm`}
             onClick={props.onClick || (
                 () => {

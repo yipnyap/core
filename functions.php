@@ -208,7 +208,7 @@ function yipnyap_disable_bp_registration(): void {
 add_action('bp_loaded', 'yipnyap_disable_bp_registration');
 
 function yipnyap_redirect_bp_signup_page(): string {
-    return bp_get_root_domain() . '/login/?action=register';
+    return bp_get_root_domain() . '/id/create/';
 }
 
 add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
@@ -221,7 +221,7 @@ add_action('login_headerurl', function () {
     $confirm = (isset($_GET['action']) && $_GET['action'] == 'resetpass');
 
     if ($confirm) {
-        wp_redirect('/login');
+        wp_redirect('/id/login/');
         exit;
     }
 });

@@ -2,7 +2,7 @@ import {useHeading} from "@nextgen2/providers/PageHeading.provider";
 import React, {useEffect, useRef, useState} from "react";
 import {buildClassObject} from "@nextgen2/utils/ColourScheme.utils";
 import {Navigate, NavLink} from "react-router-dom";
-import {NGWizard, NGAlertCard} from "../../components";
+import {NGWizard, NGAlertCard, NGButton} from "../../components";
 
 export const FormInputTheming = {
     main: ['appearance-none', 'bg-default', 'text-default', 'block', 'w-full', 'px-3', 'py-2', 'border border-solid', 'border-neutral-300 dark:border-neutral-500',
@@ -126,17 +126,17 @@ export default function Login() {
                     <h2 className="mt-6 text-center text-3xl font-extrabold text-default">👋 Welcome Back!</h2>
                     <p className="mt-2 text-center text-sm text-alt-2">
                         First time here?{' '}
-                        <NavLink to={'/id/create'} className="font-medium text-blue-600 hover:text-blue-500">
+                        <NavLink to={'/id/create/'} className="font-medium text-blue-600 hover:text-blue-500">
                             Create a Yipnyap profile
                         </NavLink>
                     </p>
                 </div>
 
-                <div className="mt-8 sm:mx-auto sm:w-full sm:max-w-md">
+                <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                     {error && (
                         <NGAlertCard body={error} className={'mb-8'}/>
                     )}
-                    <div ref={loginCard} className="relative bg-default py-8 px-4 shadow rounded-xl sm:px-10">
+                    <div ref={loginCard} className="relative">
                         {/* Loading spinner overlay */}
                         {isLoading && (
                             <div
@@ -146,95 +146,72 @@ export default function Login() {
                                      alt="Process working spinner"/>
                             </div>
                         )}
-                        {/* Login form */}
-                        <form ref={form} className="space-y-6" onSubmit={handleLogin}>
+                        {/* Register form */}
+                        <form className="space-y-6" onSubmit={handleLogin}>
                             <div>
-                                <label htmlFor="username" className="block text-sm font-medium text-alt-2">
-                                    Username
+                                <label htmlFor="username" className="block text-sm font-medium leading-6 text-default">
+                                    Login Username
+                                    <p className="mt-1 text-xs leading-5 text-default-alt">
+                                        This is your first username, not your display name or @handle.
+                                    </p>
                                 </label>
-                                <div className="mt-1">
-                                    <input
-                                        id="username"
-                                        name="username"
-                                        type="username"
-                                        autoComplete="username"
-                                        required
-                                        className={`${theme.main}`}
-                                    />
+                                <div className="mt-2">
+                                    <div className="flex rounded-md bg-white/5 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:max-w-md">
+                                        <span className="flex select-none items-center pl-3 text-neutral-500 sm:text-sm">yipnyap.me/</span>
+                                        <input
+                                            type="text"
+                                            name="username"
+                                            id="username"
+                                            autoComplete="username"
+                                            className="no-legacy block flex-1 border-0 bg-transparent py-1.5 pl-1 text-default placeholder:text-neutral-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
                             <div>
-                                <label htmlFor="password" className="block text-sm font-medium text-alt-2">
+                                <label htmlFor="password" className="block text-sm font-medium leading-6 text-default">
                                     Password
                                 </label>
-                                <div className="mt-1">
-                                    <input
-                                        id="password"
-                                        name="password"
-                                        type="password"
-                                        autoComplete="current-password"
-                                        required
-                                        className={`${theme.main}`}
-                                    />
-                                </div>
-                            </div>
-
-                            <div className="flex items-center justify-between">
-                                <div className="flex items-center">
-                                    <input
-                                        id="remember"
-                                        name="remember"
-                                        type="checkbox"
-                                        className="h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded"
-                                    />
-                                    <label htmlFor="remember" className="ml-2 block text-sm text-default">
-                                        Remember me
-                                    </label>
-                                </div>
-
-                                <div className="text-sm">
-                                    <NavLink to={'/id/recovery'}
-                                             className="font-medium text-blue-600 hover:text-blue-500">
-                                        Need help logging in?
-                                    </NavLink>
+                                <div className="mt-2">
+                                    <div className="flex rounded-md bg-white/5 shadow-sm ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus-within:ring-2 focus-within:ring-inset focus-within:!ring-indigo-600 sm:max-w-md">
+                                        <input
+                                            type="password"
+                                            name="password"
+                                            id="password"
+                                            autoComplete="password"
+                                            className="no-legacy block flex-1 border-0 bg-transparent py-1.5 px-3 text-default placeholder:text-neutral-400 focus:ring-0 sm:text-sm sm:leading-6"
+                                        />
+                                    </div>
                                 </div>
                             </div>
 
                             <div>
-                                <button
-                                    type="submit"
-                                    className="w-full flex justify-center py-2 px-4 border border-transparent rounded-default shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                                >
-                                    Sign in
-                                </button>
+                                {/* Remember Me checkbox & Forgot password */}
+                                <div className="flex items-center justify-between">
+                                    <div className="flex items-center">
+                                        <input
+                                            id="remember"
+                                            name="remember"
+                                            type="checkbox"
+                                            className="h-4 w-4 text-indigo-600 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus:ring-indigo-500 border-neutral-300 rounded"
+                                        />
+                                        <label htmlFor="remember" className="ml-2 block text-sm text-default">
+                                            Remember me
+                                        </label>
+                                    </div>
+
+                                    <div className="text-sm">
+                                        <NavLink to={'/id/recovery/'} className="font-medium text-blue-600 hover:text-blue-500">
+                                            Forgot your password?
+                                        </NavLink>
+                                    </div>
+                                </div>
+                                <NGButton type="submit" variant="primary" className="mt-4 !w-full" disabled={isLoading}>
+                                    Login
+                                </NGButton>
                             </div>
                         </form>
-
-                        {/* Other login options */}
-                        {/*<div className="mt-6">*/}
-                        {/*    <div className="relative">*/}
-                        {/*        <div className="absolute inset-0 flex items-center">*/}
-                        {/*            <div className="w-full border-t border-default" />*/}
-                        {/*        </div>*/}
-                        {/*        <div className="relative flex justify-center text-sm">*/}
-                        {/*            <span className="px-2 bg-default text-alt-2">Or continue with Passkeys</span>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-
-                        {/*    <div className="mt-6 grid grid-cols-3 gap-3">*/}
-                        {/*        <div>*/}
-                        {/*            <a*/}
-                        {/*                href="src/route/id/login#"*/}
-                        {/*                className={`${theme.button}`}*/}
-                        {/*            >*/}
-                        {/*                <span className="sr-only">Sign in with Passkey</span>*/}
-                        {/*                <KeyIcon className="w-5 h-5" />*/}
-                        {/*            </a>*/}
-                        {/*        </div>*/}
-                        {/*        <span className="col-span-2 text-sm text-neutral-500 dark:text-neutral-400">Passkeys are a secure, passwordless login made by the FIDO alliance. {canUsePasskey && 'This may require an update on your system to use.'}</span>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
                     </div>
                 </div>
             </div>

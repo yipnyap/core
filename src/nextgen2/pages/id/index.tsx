@@ -6,7 +6,7 @@ import {
     UserPlusIcon,
 } from "@heroicons/react/24/solid";
 import {useHeading} from "@nextgen2/providers/PageHeading.provider";
-import {Void} from "../../index";
+import {Void} from "@nextgen2";
 import Login from "./login";
 import Register from "./create";
 import Recovery from "./recovery";
@@ -25,23 +25,23 @@ export default function YipnyapID() {
                     {
                         name: 'Login',
                         description: '',
-                        href: '/id/login',
+                        href: '/id/login/',
                         icon: KeyIcon,
-                        current: location.pathname === '/id/login',
+                        current: location.pathname === '/id/login/',
                     },
                     {
                         name: 'Register',
                         description: '',
-                        href: '/id/create',
+                        href: '/id/create/',
                         icon: UserPlusIcon,
-                        current: location.pathname === '/id/create',
+                        current: location.pathname === '/id/create/',
                     },
                     {
                         name: 'Account Recovery',
                         description: '',
-                        href: '/id/recovery',
+                        href: '/id/recovery/',
                         icon: LifebuoyIcon,
-                        current: location.pathname === '/id/recovery',
+                        current: location.pathname === '/id/recovery/',
                     },
                     {
                         name: <span className='inline-flex'>Privacy <ArrowUpRightIcon className='w-4'/></span>,
@@ -67,9 +67,9 @@ export default function YipnyapID() {
     return (
         <>
             {!heading?.navigator?.subNavigation?.find((item) => item.current) && <Void/>}
-            {location.pathname === '/id/login' && <Login/>}
-            {location.pathname === '/id/create' && <Register/>}
-            {location.pathname === '/id/recovery' && <Recovery/>}
+            {location.pathname === '/id/login/' && <Login/>}
+            {location.pathname === '/id/create/' && <Register/>}
+            {location.pathname === '/id/recovery/' && <Recovery/>}
         </>
     )
 }

@@ -117,10 +117,6 @@ export default function NGSideNav({...props}: NGSideNavType) {
                         <div id="NGContentArea" className="flex-1 min-w-0 flex flex-col overflow-hidden">
                             <main className="flex-1 flex overflow-hidden">
                                 <div className="flex-1 flex flex-col overflow-hidden">
-
-                                    {/* New navbar */}
-                                    <NGNavbar pages={props.items || []} user={yipnyap_constants.currentUser}/>
-
                                     <div className="flex-1 flex overflow-hidden">
                                         {/* Content Navigator */}
                                         {props.showContentNavigator && (

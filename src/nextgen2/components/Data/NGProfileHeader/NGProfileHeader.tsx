@@ -1,5 +1,6 @@
-import {NGHeading} from '@nextgen2/components';
 import React, {Fragment, useEffect, useState} from 'react';
+import ReactMarkdown from 'react-markdown';
+import {NGHeading} from '@nextgen2/components';
 import {buildClassObject} from '@nextgen2/utils/ColourScheme.utils';
 import {Menu, Transition} from '@headlessui/react';
 import {
@@ -215,7 +216,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                         className="mt-6 sm:flex-1 sm:min-w-0 sm:flex sm:items-center sm:justify-end sm:space-x-6 sm:pb-1">
                         <div className="sm:hidden md:block mt-6 min-w-0 flex-1">
                             <NGHeading>
-                                {profile.display_name}
+                                {profile.display_name || profile.username}
                                 {profile.verified && <CheckBadgeIcon className="h-5 inline ml-1 text-primary" style={(
                                                                                                                          profile.ui_skin?.primary
                                                                                                                      ) ? {
@@ -253,7 +254,7 @@ export default function NGProfileHeader({...props}: NGProfileHeaderType) {
                     {/* Bio */}
                     {profile.bio && (
                         <p className="mt-6 text-sm whitespace-pre-line">
-                            {renderBio(profile.bio)}
+                            <ReactMarkdown>{profile.bio}</ReactMarkdown>
                         </p>
                     )}
 

@@ -1,5 +1,5 @@
 import React, {Fragment, useEffect, useRef, useState} from 'react';
-import {NGBody, NGButton, NGCard, NGFeedPost, NGSkeleton} from '@nextgen2/components';
+import {NGBody, NGButton, NGCard, NGFeedPost, NGHeading, NGSkeleton} from '@nextgen2/components';
 import EditorJS from '@editorjs/editorjs';
 import Blocks from 'editorjs-blocks-react-renderer';
 import InfiniteScroll from 'react-infinite-scroll-component';
@@ -20,8 +20,9 @@ import Underline from '@editorjs/underline';
 // @ts-ignore
 import Table from '@editorjs/table';
 
-import {PaperClipIcon, UserCircleIcon} from '@heroicons/react/20/solid';
+import {ArrowUpRightIcon, PaperClipIcon, UserCircleIcon} from '@heroicons/react/20/solid';
 import {Listbox, Transition} from '@headlessui/react';
+import { Link } from 'react-router-dom';
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -125,6 +126,9 @@ export default function Feed() {
             })
         }).then(res => res.json()).then(res => {
             setPosts([res[0], ...posts]);
+
+            // unset editor
+            ejInstance.current?.clear();
         });
     }
 
@@ -222,6 +226,33 @@ export default function Feed() {
                             </div>
                         </div>
                     </>
+                )}
+
+                {!yipnyap_constants.currentUser && (
+                    <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 max-w-6xl mb-12 mx-auto justify-center items-center">
+                        <div className="flex flex-col space-y-4">
+                            <NGHeading>
+                                Below would be better with you in it
+                            </NGHeading>
+                            <div className="space-y-2">
+                                <p className="text-sm text-default-alt">
+                                    An account is free, and you don't even need an invite code to join. Just sign up, and
+                                    you're good to go. We hope to see you soon!
+                                </p>
+                            </div>
+                            <div className="mt-10 flex items-center gap-x-6">
+                                <NGButton>
+                                    Sign up
+                                </NGButton>
+                                <Link to="/id/login/" className="text-sm font-semibold leading-6 text-default">
+                                    Jump back in <span aria-hidden="true">→</span>
+                                </Link>
+                            </div>
+                        </div>
+                        <div className="flex items-center">
+                            <img src={`${yipnyap_constants.yipnyap_url}/img/illustrations/settings/import-begin.png`} alt="LITTLE BABY BOY" className="w-auto" />
+                        </div>
+                    </div>
                 )}
 
                 <div className="lg:max-w-7xl sm:grid sm:grid-cols-12 sm:gap-8">

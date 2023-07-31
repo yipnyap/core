@@ -1,4 +1,4 @@
-import {NGProfileHeader} from '@nextgen2/components';
+import {NGCrawlText, NGProfileHeader} from '@nextgen2/components';
 import React from 'react';
 
 const links = [
@@ -73,11 +73,6 @@ export default function GuestOnboarding() {
     return (
         <div className="flex flex-col">
             <div className="relative isolate py-24 sm:py-32">
-                {/*<img*/}
-                {/*    src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&crop=focalpoint&fp-y=.8&w=2830&h=1500&q=80&blend=111827&sat=-100&exp=15&blend-mode=multiply"*/}
-                {/*    alt=""*/}
-                {/*    className="absolute inset-0 -z-10 h-full w-full object-cover object-right md:object-center"*/}
-                {/*/>*/}
                 <div
                     className="hidden snapanim-hue-blur sm:absolute sm:-top-32 sm:right-1/2 sm:-z-10 sm:mr-10 sm:block sm:transform-gpu"
                     aria-hidden="true"
@@ -104,14 +99,25 @@ export default function GuestOnboarding() {
                 </div>
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
                     <div className="mx-auto max-w-2xl lg:mx-0">
-                        <h2 className="text-4xl font-bold tracking-tight text-default sm:text-6xl">
-                            Yipnyap is a furry-centric site
+                        <h2 className="text-4xl font-bold tracking-tight text-default sm:text-6xl"
+                            style={{
+                                whiteSpace: 'break-spaces',
+                            }}
+                        >
+                            <NGCrawlText>
+                                ::c:blue-500: This is a place ::break: ::c:yellow-500 where people meet
+                            </NGCrawlText>
                         </h2>
-                        <p className="mt-6 text-lg leading-8 text-default-alt">
-                            Furries are stuck with a <i>lot</i> of bad sites,
-                            and others that die next time you blink.
-                            <br />
-                            Here you go, a good one, that's not going anywhere.
+                        <p className="mt-6 text-lg leading-8 text-default-alt"
+                           style={{
+                               whiteSpace: 'break-spaces',
+                           }}
+                        >
+                            <NGCrawlText delay={300 + 50 * 7} fast>
+                                There hasn't been a modern site that has ground work to make everyone safe,
+                                features that included every hobby, and isn't a dating app. ::bold: 17 years later, and
+                                that's finally a thing.
+                            </NGCrawlText>
                         </p>
                     </div>
                     <div className="mx-auto mt-10 max-w-2xl lg:mx-0 lg:max-w-none">
@@ -129,8 +135,8 @@ export default function GuestOnboarding() {
             {/* Groups */}
             <div className="overflow-hidden px-4 sm:px-6 lg:px-8 lg:py-24">
                 <div className="mx-auto max-w-7xl px-6 lg:px-8">
-                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none lg:grid-cols-2">
-                        <div className="lg:pr-8 lg:pt-4">
+                    <div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 sm:gap-y-20 lg:mx-0 lg:max-w-none xl:grid-cols-2">
+                        <div className="order-last xl:order-first lg:pr-8 lg:pt-4">
                             <div className="lg:max-w-lg">
                                 <p className="mt-2 text-3xl font-bold tracking-tight text-default sm:text-4xl">
                                     Groups are the heart of Yipnyap
@@ -173,7 +179,7 @@ export default function GuestOnboarding() {
                                     kind and keep all criticism constructive!
                                 </p>
 
-                                <div className="mt-6">
+                                <div className="hidden mt-6 lg:block">
                                     <a
                                         href="https://yipnyap.me/groups/13/"
                                         className="inline-flex items-center px-4 py-2 border border-transparent rounded-md shadow-sm text-sm font-medium text-default bg-default-alt hover:bg-default"
@@ -182,7 +188,7 @@ export default function GuestOnboarding() {
                                     </a>
                                 </div>
 
-                                <p className="mt-2 text-xs font-medium text-default-alt">
+                                <p className="hidden mt-2 text-xs font-medium text-default-alt lg:block">
                                     * Clicking this will take you to a real group, which is not affiliated
                                     to Yipnyap or Yipnyap Foundation staff.
                                 </p>
@@ -193,8 +199,8 @@ export default function GuestOnboarding() {
             </div>
 
             {/* Profile upsell with skewed grid-like layout */}
-            <div className="relative px-4 sm:px-6 lg:px-8 lg:py-24">
-                <div className="relative flex flex-col justify-center mx-auto space-y-12 px-4 sm:px-6">
+            <div className="relative max-w-7xl py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
+                <div className="relative flex flex-col justify-center">
                     <div className="hidden lg:block lg:absolute lg:inset-y-0 lg:h-full lg:w-full">
                         <div
                             className="relative h-full text-lg max-w-prose mx-auto"
@@ -330,12 +336,12 @@ export default function GuestOnboarding() {
                     </div>
 
                     {/* Profile customisation upsell text */}
-                    <div className="relative max-w-2xl mx-auto">
+                    <div className="relative mt-16 max-w-2xl mx-auto lg:mt-20">
                         <div className="text-center">
                             <h2 className="text-3xl tracking-tight font-extrabold text-default sm:text-4xl">
                                 Yours to paint
                             </h2>
-                            <p className="mt-4 text-lg text-default-alt">
+                            <p className="mt-4 text-lg leading-8 text-default-alt">
                                 You're not just limited to your avatar and header.
                                 You can customise your profile to your heart's
                                 content with background images, colours, and more.
@@ -345,15 +351,14 @@ export default function GuestOnboarding() {
                 </div>
             </div>
 
-            {/* Made with love */}
+            {/* Made by a community */}
             <div className="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:px-8 lg:py-24">
                 <div className="space-y-8 sm:space-y-12">
                     <div className="space-y-5 sm:mx-auto sm:max-w-xl sm:space-y-4 lg:max-w-5xl">
-                        <h2 className="text-3xl font-extrabold tracking-tight sm:text-4xl">
-                            Made w/ 💖
-                            <span className="sr-only">Made with love</span>
+                        <h2 className="text-3xl tracking-tight font-extrabold text-default sm:text-4xl">
+                            Made by a community, not a company
                         </h2>
-                        <p className="text-xl text-default-alt">
+                        <p className="text-lg leading-8 text-default-alt">
                             Yipnyap is made by a very small team of people, lead
                             by Rek, who's been working on it since 2019 (and
                             has been the sole dev until recently 〒▽〒). Unlike
@@ -372,11 +377,11 @@ export default function GuestOnboarding() {
                             <li key={person.name}>
                                 <div className="space-y-4">
                                     <img className="mx-auto h-20 w-20 rounded-full lg:w-24 lg:h-24" src={person.imageUrl} alt="" />
-                                    <div className="text-xs text-center font-medium lg:text-sm">
+                                    <div className="text-xs text-center lg:text-sm">
                                         <a href={`https://yipnyap.me/${person.username}`}>
                                             <h3>{person.name}</h3>
                                         </a>
-                                        <p className="mt-1 font-light text-default-alt">{person.role}</p>
+                                        <p className="mt-1 text-default-alt">{person.role}</p>
                                     </div>
                                 </div>
                             </li>
@@ -387,8 +392,6 @@ export default function GuestOnboarding() {
 
             {/* Footer */}
             <p className="mt-12 text-sm font-medium text-default-alt">
-                Done is better than perfect.
-                <br/><br/>
                 Thank you to the community for helping us get this far. We hope
                 you enjoy Yipnyap as much as we do.
             </p>
@@ -403,6 +406,13 @@ export default function GuestOnboarding() {
                 permission, please contact us with the @Handle or URL
                 of the image.
             </p>
+
+            {/* copyright */}
+            <div className="mt-12 border-t border-default-alt pt-8">
+                <p className="text-base text-default-alt xl:text-center">
+                    &copy; 2023 Wolfbite Labs. All rights reserved to their respective owners.
+                </p>
+            </div>
         </div>
     )
 }

@@ -52,4 +52,5 @@ export {NGWizard} from './Overlays/NGWizard';
  * Typography
  */
 // export {NGText} from './Typography/NGText';
+export {NGCrawlText} from './Typography/NGCrawlText';
 export {NGHeading} from './Typography/NGHeading';

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import ContextProvider from './ContextProvider';
 import {PageHeadingProvider, useHeading} from '@nextgen2/providers/PageHeading.provider';
-import {NGContent, NGSideNav} from './components';
+import {NGContent, NGNavbar, NGSideNav} from './components';
 import {Outlet} from 'react-router-dom';
 import {BellIcon, HeartIcon, HomeIcon, UserIcon} from '@heroicons/react/24/solid';
 import {useTheme} from '@nextgen2/providers/Theme.provider';
@@ -87,9 +87,14 @@ function RootWithinProvider() {
                        showContentNavigator={true}
                        contentNavigatorItems={heading?.navigator?.subNavigation}
                        contentNavigatorHeading={heading?.navigator?.heading}>
-                <NGContent srHeading={'Unknown'} heading={heading || {heading: null}}>
-                    <Outlet/>
-                </NGContent>
+                <div className="w-full overflow-y-auto">
+                    {/* New navbar */}
+                    <NGNavbar pages={navigation} user={yipnyap_constants.currentUser}/>
+
+                    <NGContent srHeading={'Unknown'} heading={heading || {heading: null}}>
+                        <Outlet/>
+                    </NGContent>
+                </div>
             </NGSideNav>
         </div>
     );

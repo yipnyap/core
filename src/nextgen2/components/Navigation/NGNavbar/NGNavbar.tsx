@@ -34,7 +34,7 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
             />
 
             <Disclosure as="header"
-                        className="relative z-40 bg-sidebar-default/75 backdrop-blur-lg border-0 border-b border-default border-solid dark:bg-sidebar-dark/75">
+                        className="sticky top-0 z-40 bg-sidebar-default/75 backdrop-blur-lg border-0 border-b border-default border-solid dark:bg-sidebar-dark/75">
                 {({open}) => (
                     <>
                         <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:divide-y lg:divide-neutral-200 lg:px-8">
@@ -45,31 +45,21 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                     <div onClick={(
                                         () => setPaletteOpen(true)
                                     )}
-                                         className="w-full cursor-pointer sm:max-w-xs hover:opacity-75 transition-opacity">
-                                        <label htmlFor="search" className="sr-only">
-                                            Search
-                                        </label>
-                                        <div className="relative">
-                                            <div
-                                                className="pointer-events-none absolute inset-y-0 left-0 pl-3 flex items-center">
-                                                <MagnifyingGlassIcon className="h-5 w-5 text-neutral-400"
-                                                                     aria-hidden="true"/>
-                                            </div>
-                                            <span
-                                                className="block w-full bg-box-solid border border-neutral-300 rounded-default py-2 pl-10 pr-3 text-sm text-neutral-500">
-                                                Search
-                                            </span>
-                                            {/* Ctrl + K button */}
-                                            <div
-                                                className="absolute inset-y-0 right-0 flex items-center pr-2 text-neutral-400/25">
-                                                <kbd
-                                                    className="mx-1 py-1 px-2 flex items-center justify-center text-xs rounded border bg-box font-semibold sm:mx-2 border-neutral-400 text-neutral-500"
-                                                >Ctrl</kbd>
-                                                <span> + </span>
-                                                <kbd
-                                                    className="mx-1 py-1 px-2 flex items-center justify-center text-xs rounded border bg-box font-semibold sm:mx-2 border-neutral-400 text-neutral-500"
-                                                >K</kbd>
-                                            </div>
+                                         className="relative flex rounded-md bg-black/5 dark:bg-white/5 w-full cursor-pointer sm:max-w-xs hover:opacity-75 transition-opacity">
+                                        <div className="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+                                            <MagnifyingGlassIcon className="h-5 w-5 text-default-alt" aria-hidden="true" />
+                                        </div>
+                                        <input
+                                            disabled
+                                            name="text"
+                                            className="no-legacy block flex-1 bg-transparent cursor-pointer border-0 py-1.5 pl-10 placeholder:text-neutral-400 sm:text-sm sm:leading-6"
+                                            placeholder="Search"
+                                        />
+                                        {/* Ctrl + K button */}
+                                        <div className="absolute inset-y-0 right-0 flex py-1.5 pr-1.5">
+                                            <kbd className="inline-flex items-center rounded border border-solid border-white/10 px-1 font-sans text-xs text-default-alt">
+                                                ⌘K
+                                            </kbd>
                                         </div>
                                     </div>
                                 </div>
@@ -140,13 +130,13 @@ export default function NGNavbar({...props}: { user: any; pages: any[]; }) {
                                     {!props.user && (
                                         <div className="flex items-center space-x-4">
                                             <NGButton onClick={() => (
-                                                navigate('/id/login')
+                                                navigate('/id/login/')
                                             )}>
                                                 Login
                                             </NGButton>
 
                                             <NGButton onClick={() => (
-                                                navigate('/id/create')
+                                                navigate('/id/create/')
                                             )}>
                                                 Register
                                             </NGButton>

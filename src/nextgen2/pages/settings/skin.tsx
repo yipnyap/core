@@ -7,8 +7,6 @@ import {NGCard, NGSelectMenu} from '@nextgen2/components';
 import {useTheme} from '@nextgen2/providers/Theme.provider';
 // @ts-ignore
 import { Flags } from 'react-feature-flags';
-import {Alert, Typography} from '@mui/joy';
-import {ExclamationTriangleIcon} from "@heroicons/react/20/solid";
 
 const globalVariants = [{
     name: 'Light',
@@ -136,17 +134,6 @@ export default function SettingsSkin({...props}: { inline?: boolean }) {
             )}
 
             <Flags authorizedFlags={['JoyUINavigation']}
-                   renderOn={() => (
-                       <Alert
-                           startDecorator={<ExclamationTriangleIcon className="w-6 mx-0.5" />}
-                           variant="solid"
-                           color="danger"
-                       >
-                           <Typography sx={{ color: 'white' }} fontWeight="md">
-                               The UI is standardised. As this UI works way different than before, you will have to unenroll in Labs.
-                           </Typography>
-                       </Alert>
-                   )}
                    renderOff={() => (
                        <div className="flex flex-col space-y-8">
                            {/* Skin selector */}

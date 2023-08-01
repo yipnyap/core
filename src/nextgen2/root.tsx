@@ -6,8 +6,7 @@ import {Outlet} from 'react-router-dom';
 import {BellIcon, HeartIcon, HomeIcon, UserIcon} from '@heroicons/react/24/solid';
 import {useTheme} from '@nextgen2/providers/Theme.provider';
 import {NotificationContainer} from '@nextgen2/providers/Notification.provider';
-import {CssVarsProvider, StyledEngineProvider} from '@mui/joy';
-import theme from './theme';
+
 // @ts-ignore
 import { Flags, FlagsProvider } from 'react-feature-flags';
 export default function Root() {
@@ -19,16 +18,12 @@ export default function Root() {
             { name: 'JoyUINavigation', isActive: localStorage.getItem('JoyUINavigation') === 'true' },
             { name: 'NextgenFeed', isActive: localStorage.getItem('NextgenFeed') === 'true' },
         ]}>
-            <StyledEngineProvider injectFirst>
-                <CssVarsProvider defaultMode="system" theme={theme}>
-                    <ContextProvider>
-                        <PageHeadingProvider>
-                            <NotificationContainer/>
-                            <RootWithinProvider/>
-                        </PageHeadingProvider>
-                    </ContextProvider>
-                </CssVarsProvider>
-            </StyledEngineProvider>
+            <ContextProvider>
+                <PageHeadingProvider>
+                    <NotificationContainer/>
+                    <RootWithinProvider/>
+                </PageHeadingProvider>
+            </ContextProvider>
         </FlagsProvider>
     )
 }

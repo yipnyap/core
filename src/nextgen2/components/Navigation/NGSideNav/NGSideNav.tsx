@@ -1,13 +1,10 @@
 import React from 'react';
-import {NGNavbar} from '@nextgen2/components';
 import {useTheme} from '@nextgen2/providers/Theme.provider';
 import {NGContentNavigator} from '../NGContentNavigator';
 import {NGContentNavigatorItemType} from '../NGContentNavigator/NGContentNavigator';
 import {NavLink} from 'react-router-dom';
 // @ts-ignore
 import { Flags } from 'react-feature-flags';
-import Header from "@nextgen2/components/Layout/JoyUI/Header";
-import Layout from "@nextgen2/components/Layout/JoyUI/Layout";
 
 interface NGSideNavItemType {
     name: string;
@@ -37,23 +34,6 @@ export default function NGSideNav({...props}: NGSideNavType) {
         <div className="flex flex-col w-full">
             <Flags
                 authorizedFlags={['JoyUINavigation']}
-                renderOn={() =>
-                    <>
-                        <div className="flex flex-row h-full overflow-y-auto">
-                            <div id="NGContentArea" className="flex-1 min-w-0 flex flex-col overflow-hidden">
-                                <Layout.Root>
-                                    <Header/>
-                                    <NGContentNavigator globalItems={items}
-                                                        slimContentNavigator={props.slimContentNavigator || false}
-                                                        items={props.contentNavigatorItems || []}
-                                                        heading={props.contentNavigatorHeading}/>
-
-                                    {props.children}
-                                </Layout.Root>
-                            </div>
-                        </div>
-                    </>
-                }
                 renderOff={() => (
                     <div className="flex flex-row h-full overflow-y-auto">
                         {/* Static sidebar for desktop */}

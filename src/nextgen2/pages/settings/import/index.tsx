@@ -4,7 +4,6 @@ import {Dialog, Transition} from '@headlessui/react';
 import {XMarkIcon} from '@heroicons/react/24/outline';
 
 import styles from './import.module.css';
-import {Checkbox, FormControl, FormHelperText} from "@mui/joy";
 
 function classNames(...classes: string[]) {
     return classes.filter(Boolean).join(' ')
@@ -491,14 +490,19 @@ export default function SettingsImport() {
                            </div>
                        </div>
 
-                       <FormControl>
-                           <Checkbox checked={doFilesizeCheck} onChange={() => setDoFilesizeCheck(!doFilesizeCheck)} label="Get File Metadata" />
-                           <FormHelperText>
-                               Gets filesize and resolution. Disabling might improve initial pre-check performance, but
-                               will hang your browser for a while if you have a lot of files compared to leaving
-                               this enabled.
-                           </FormHelperText>
-                       </FormControl>
+                       <div className="flex items-center">
+                           <input
+                               id="checkfilesize"
+                               name="checkfilesize"
+                               type="checkbox"
+                               className="h-4 w-4 text-indigo-600 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus:ring-indigo-500 border-neutral-300 rounded"
+                               checked={doFilesizeCheck}
+                               onChange={() => setDoFilesizeCheck(!doFilesizeCheck)}
+                           />
+                           <label htmlFor="checkfilesize" className="ml-2 block text-sm text-default">
+                               Check for metadata &amp; filesize
+                           </label>
+                       </div>
                    </div>
 
                    {faxpIsValidating && (
@@ -577,15 +581,18 @@ export default function SettingsImport() {
                                        </div>
                                        <p className={`flex flex-row mt-2 text-sm font-medium ${file.rating !== 'General' && file.rating !== 'Unknown' ? 'text-tertiary' : 'text-default'} truncate`}>
                                            {/* Select checkbox */}
-                                           <Checkbox className="inline-block w-4 h-4 mr-2"
-                                                     checked={file.selected}
-                                                     onChange={() => {
-                                                         const newPhotos = [...faxpPhotos];
-                                                         const index = newPhotos.findIndex((p) => p.id === file.id);
-                                                         newPhotos[index].selected = !newPhotos[index].selected;
-                                                         setFAXPPhotos(newPhotos);
-                                                     }} />
-
+                                             <input
+                                                    id={`selected-${file.id}`}
+                                                    name={`selected-${file.id}`}
+                                                    type="checkbox"
+                                                    className="h-4 w-4 text-indigo-600 focus:ring-indigo-500 border-neutral-300 rounded"
+                                                    checked={file.selected}
+                                                    onChange={() => {
+                                                        const newPhotos = [...faxpPhotos];
+                                                        const index = newPhotos.findIndex((p) => p.id === file.id);
+                                                        newPhotos[index].selected = !newPhotos[index].selected;
+                                                        setFAXPPhotos(newPhotos);
+                                                    }} />
                                            {file.title}
                                        </p>
                                        <p className="block text-sm font-medium text-default-alt pointer-events-none">

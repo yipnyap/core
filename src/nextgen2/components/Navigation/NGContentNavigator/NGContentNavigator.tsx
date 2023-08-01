@@ -4,7 +4,6 @@ import {NavLink} from 'react-router-dom';
 import {HomeIcon} from '@heroicons/react/24/solid';
 // @ts-ignore
 import { Flags } from 'react-feature-flags';
-import Sidebar from "@nextgen2/components/Layout/JoyUI/Sidebar";
 
 export declare interface NGContentNavigatorItemType {
     name: string | JSX.Element;
@@ -45,9 +44,6 @@ export default function NGContentNavigator({...props}: NGContentNavigatorType) {
     return (
         <>
             <Flags authorizedFlags={['JoyUINavigation']}
-                   renderOn={() => (
-                       <Sidebar items={props.globalItems} subItems={props.items} />
-                   )}
                    renderOff={() => (
                        <nav
                            aria-label="Sections"

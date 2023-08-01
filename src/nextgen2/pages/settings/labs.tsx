@@ -1,9 +1,6 @@
 import React, {useState} from 'react';
 import {NGCard, NGHeading} from '@nextgen2/components';
 
-// Ready for pain?
-import {Checkbox, FormControl, FormHelperText} from "@mui/joy";
-
 export default function SettingsLabs() {
     const [useJoyNavigation, setUseJoyNavigation] = useState<boolean>(localStorage.getItem('JoyUINavigation') === 'true');
     const [allowWominjekaUsage, setAllowWominjekaUsage] = useState<boolean>(localStorage.getItem('AllowWominjekaUsage') === 'true');
@@ -67,12 +64,19 @@ export default function SettingsLabs() {
                             large application (copium). We're trying out multiple
                             methods to keep things consistent.
                         </p>
-                        <FormControl>
-                            <Checkbox checked={useJoyNavigation} onChange={toggleUseJoyNavigation} label="Use Yipnyap Ecosystem Navigation" />
-                            <FormHelperText>
-                                Standardised navigation for everything. Unsure if we'll keep this.
-                            </FormHelperText>
-                        </FormControl>
+                        <div className="flex items-center">
+                            <input
+                                id="labs_joynav"
+                                name="labs_joynav"
+                                type="checkbox"
+                                className="h-4 w-4 text-indigo-600 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus:ring-indigo-500 border-neutral-300 rounded"
+                                checked={useJoyNavigation}
+                                onChange={toggleUseJoyNavigation}
+                            />
+                            <label htmlFor="labs_joynav" className="ml-2 block text-sm text-default">
+                                Use Joy Navigation
+                            </label>
+                        </div>
                     </div>
                 </NGCard>
 
@@ -85,9 +89,19 @@ export default function SettingsLabs() {
                             some components of UI3.</strong>
                         </p>
 
-                        <FormControl>
-                            <Checkbox checked={useNextgenHomefeed} onChange={toggleUseNextgenHomefeed} label="Use Experimental Homefeed" />
-                        </FormControl>
+                        <div className="flex items-center">
+                            <input
+                                id="labs_nghome"
+                                name="labs_nghome"
+                                type="checkbox"
+                                className="h-4 w-4 text-indigo-600 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus:ring-indigo-500 border-neutral-300 rounded"
+                                checked={useNextgenHomefeed}
+                                onChange={toggleUseNextgenHomefeed}
+                            />
+                            <label htmlFor="labs_nghome" className="ml-2 block text-sm text-default">
+                                Use Nextgen Homefeed
+                            </label>
+                        </div>
                     </div>
                 </NGCard>
 
@@ -107,9 +121,20 @@ export default function SettingsLabs() {
                             server, some new UI components, and some changes
                             to existing ones to support messaging.
                         </p>
-                        <FormControl>
-                            <Checkbox checked={allowWominjekaUsage} onChange={toggleAllowWominjekaUsage} label="Enter Waitlist for Chat API" />
-                        </FormControl>
+
+                        <div className="flex items-center">
+                            <input
+                                id="labs_wominjeka"
+                                name="labs_wominjeka"
+                                type="checkbox"
+                                className="h-4 w-4 text-indigo-600 ring-1 ring-inset ring-neutral-300 dark:ring-white/10 focus:ring-indigo-500 border-neutral-300 rounded"
+                                checked={allowWominjekaUsage}
+                                onChange={toggleAllowWominjekaUsage}
+                            />
+                            <label htmlFor="labs_wominjeka" className="ml-2 block text-sm text-default">
+                                Use Nextgen Homefeed
+                            </label>
+                        </div>
                     </div>
                 </NGCard>
             </div>

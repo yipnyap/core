@@ -26,7 +26,7 @@
  * Legacy IDs are converted to E2 with just having the type and variant being added to the front. Less than
  * 12 characters + numeric = legacy object.
  */
-$E2IDTypes = [
+const E2IDTypes = [
     'Core' => [
         'ID' => '00',
         // Core is inherited by all other types, unless otherwise defined.
@@ -90,8 +90,7 @@ $E2IDTypes = [
 ];
 
 function E2IDTypeIDToName(string $type_id): string {
-    global $E2IDTypes;
-    foreach ($E2IDTypes as $type_name => $type_data) {
+    foreach (E2IDTypes as $type_name => $type_data) {
         if ($type_data['ID'] == $type_id) {
             return $type_name;
         }
@@ -100,11 +99,10 @@ function E2IDTypeIDToName(string $type_id): string {
 }
 
 function LegacyIDToE2ID(string $legacy_id, string $type, string $variant = 'PARENT'): string {
-    global $E2IDTypes;
-    $type_id = $E2IDTypes[$type]['ID'];
+    $type_id = E2IDTypes[$type]['ID'];
 
     if ($variant !== 'PARENT') {
-        $variant_id = $E2IDTypes[$type]['variants'][$variant];
+        $variant_id = E2IDTypes[$type]['variants'][$variant];
     } else {
         $variant_id = 'A1';
     }
@@ -116,9 +114,12 @@ function LegacyIDToE2ID(string $legacy_id, string $type, string $variant = 'PARE
  * @throws Exception
  */
 function E2IDCreate(string $type, string $variant = 'PARENT', string $suffix = ''): string {
-    global $E2IDTypes;
-    $type_id = $E2IDTypes[$type]['ID'];
-    $variant_id = $E2IDTypes[$type]['variants'][$variant];
+    if (!isset(E2IDTypes[$type])) {
+        throw new Exception("Internal Fatal: Invalid E2 ID Type: $type");
+    }
+
+    $type_id = E2IDTypes[$type]['ID'];
+    $variant_id = E2IDTypes[$type]['variants'][$variant];
     $random_id = E2IDRandomID();
     $base_id = $type_id . $variant_id . $random_id;
 

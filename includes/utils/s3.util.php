@@ -1,6 +1,7 @@
 <?php
 // S3 functions
 require_once YIPNYAP_PATH . '/vendor/autoload.php';
+require_once YIPNYAP_PATH . '/includes/utils/e2.util.php';
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;

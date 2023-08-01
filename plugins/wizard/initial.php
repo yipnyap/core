@@ -31,14 +31,14 @@ $conf_keys = [
     'setup_as_production' => 'YIPNYAP_SETUP_AS_PRODUCTION',
 ];
 
-$conf = file_get_contents(YIPNYAP_ENV_PATH);
+$conf = @file_get_contents(YIPNYAP_ENV_PATH);
 if ($conf === false) {
     // Create an empty config file
     $conf = '';
-    file_put_contents(YIPNYAP_ENV_PATH, $conf);
+    @file_put_contents(YIPNYAP_ENV_PATH, $conf);
 
     // Change the permissions of the config file so no one but the current user can read/write
-    chmod(YIPNYAP_ENV_PATH, 0600);
+    @chmod(YIPNYAP_ENV_PATH, 0600);
 }
 
 if (!is_writeable(YIPNYAP_ENV_PATH)) $errors[] = YIPNYAP_ENV_PATH . ' is not writeable by web server.';
@@ -97,9 +97,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } catch (Exception $e) {
-        echo 'Error: Could not connect to Supabase as an internal error occurred.<br>';
-        echo '<br><br>';
-        echo $e->getMessage();
+        $error = $e->getMessage();
+        echo 'Error: Could not connect to Supabase as an internal error occurred:<br>';
+        echo '<br>';
+        echo $error;
+        if ($error === 'Bucket not found') {
+            echo '. Create a public bucket called "users" in your Supabase project and try again.<br>';
+        }
         exit();
     }
 

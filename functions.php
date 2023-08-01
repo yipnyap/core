@@ -16,12 +16,20 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     exit();
 }
 
-// Load Nextgen 2 Debugger
+// Dumb stupid requires
 require_once __DIR__ . '/global/nextgen2/debug.php';
 require_once __DIR__ . '/vendor/autoload.php';
+require_once __DIR__ . '/includes/utils/monolog.php';
+require_once __DIR__ . '/wp-beheadding/index.php';
 
-// Check for /etc/yipnyap/conf file
-const YIPNYAP_ENV_PATH = '/etc/yipnyap/conf';
+define('YIPNYAP_PATH', get_template_directory());
+define('YIPNYAP_URL', get_template_directory_uri());
+define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
+define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
+
+// Check if Windows or *nix
+define('YIPNYAP_IS_WINDOWS', strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
+const YIPNYAP_ENV_PATH = YIPNYAP_IS_WINDOWS ? 'C:\yipnyap\conf' : '/etc/yipnyap/conf';
 if (file_exists(YIPNYAP_ENV_PATH)) {
     $env = parse_ini_file(YIPNYAP_ENV_PATH);
     foreach ($env as $key => $value) {
@@ -32,7 +40,7 @@ if (file_exists(YIPNYAP_ENV_PATH)) {
     }
 }
 
-add_action('init', function () {
+//add_action('init', function () {
     $wizard_status = getenv('YIPNYAP_WIZARD_STATUS');
     if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
         // If admin page or an admin user (to setup), dont do anything
@@ -55,7 +63,7 @@ add_action('init', function () {
             exit();
         }
     }
-}, 30);
+//}, 30);
 
 // Load plugins bundled with theme
 require_once __DIR__ . '/plugins/plugins.php';
@@ -92,17 +100,6 @@ add_action('after_setup_theme', function () {
     // Load init.php
     require_once get_template_directory() . '/page-templates/init.php';
 });
-
-/**
- * Theme paths and urls
- */
-define('YIPNYAP_PATH', get_template_directory());
-define('YIPNYAP_URL', get_template_directory_uri());
-define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
-define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
-
-require_once YIPNYAP_PATH . '/includes/utils/monolog.php';
-require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
 
 /**
  * Rename "Keymaster" role

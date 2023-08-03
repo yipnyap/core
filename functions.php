@@ -16,6 +16,40 @@ if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
     exit();
 }
 
+require_once __DIR__ . '/vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+// Check the current 'Authorization' header
+// If it's set, then get the current user and set it on WordPress
+add_action('determine_current_user', function() {
+    $headers = getallheaders();
+    $auth = $headers['Authorization'] ?? $headers['authorization'] ?? null;
+
+    if ($auth) {
+        $token = str_replace('Bearer ', '', $auth);
+        // idk why i have to do this. maybe rest_pre_dispatch gets called too early?
+        $env = parse_ini_file(YIPNYAP_ENV_PATH);
+        $serviceKey = $env['YIPNYAP_SUPABASE_SERVICE_KEY'];
+        $decoded = JWT::decode($token, $serviceKey, ['HS256']);
+        if (empty($decoded)) {
+            wp_send_json([
+                'success' => false,
+                'message' => 'Invalid token.',
+            ]);
+
+            return null;
+        } else {
+            $user = get_user_by('id', $decoded->data->id);
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
+
+            return $user->ID;
+        }
+    }
+
+    return null;
+});
+
 // Dumb stupid requires
 require_once __DIR__ . '/global/nextgen2/debug.php';
 require_once __DIR__ . '/includes/utils/monolog.php';

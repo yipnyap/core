@@ -73,8 +73,8 @@ class SupabaseControl
 
     public function __construct($api_key = null, $domain = null)
     {
-        $this->domain = $domain ?? $_ENV['YIPNYAP_SUPABASE_URL'];
-        $this->api_key = $api_key ?? $_ENV['YIPNYAP_SUPABASE_SERVICE_KEY'];
+        $this->domain = $domain ?? getenv('YIPNYAP_SUPABASE_URL');
+        $this->api_key = $api_key ?? getenv('YIPNYAP_SUPABASE_SERVICE_KEY');
     }
 
     // get()

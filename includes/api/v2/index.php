@@ -1,4 +1,6 @@
 <?php
+use \Firebase\JWT\JWT;
+
 add_action('rest_api_init', function () {
     /**
      * GET /
@@ -18,6 +20,19 @@ add_action('rest_api_init', function () {
 
         return $response;
     });
+
+    /**
+     * GET /nonce
+     *
+     * @return object API nonce.
+     * @since ui3
+     */
+    register_rest_route('v2', '/nonce', [
+        'methods' => 'GET',
+        'callback' => function () {
+            return wp_create_nonce('wp_rest');
+        },
+    ]);
 });
 
 require_once __DIR__ . '/comic.php';

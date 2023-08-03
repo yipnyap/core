@@ -589,6 +589,7 @@ class FeedMixer
         // Create the post
         $E2ID = E2IDCreate('Post');
         $post_id = bp_activity_add([
+            'user_id' => get_current_user_id(),
             'content' => ' ',
             'component' => 'activity',
             'type' => 'activity_update',
@@ -645,6 +646,10 @@ class FeedMixer
         // - save to a file locally
         $filename = time() . '.json';
         $filepath = WP_CONTENT_DIR . '/cache/' . $filename;
+
+        // debug - turn on php error reporting
+//        ini_set('display_errors', 1);
+//        error_reporting(E_ALL);
 
         try {
             $fileputresult = file_put_contents($filepath, $contentAsJSON);

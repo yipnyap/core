@@ -1,1 +1,0 @@
-export {default as NGCrawlText} from './NGCrawlText';

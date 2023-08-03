@@ -1,4 +1,6 @@
 <?php
+use \Firebase\JWT\JWT;
+
 /**
  * Initialise bitwise arrays
  */
@@ -58,7 +60,7 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
                 } else {
                     wp_send_json([
                         'code' => 404,
-                        'error' => 'Member not found.',
+                        'error' => 'Member not found. - ' . $member_id,
                     ]);
                 }
             }
@@ -84,6 +86,13 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
 function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
     global $GetMemberBit;
 
+    $supabaseURL = getenv('YIPNYAP_SUPABASE_URL');
+    if (empty($supabaseURL)) {
+        // just wait a sec. I really don't know why this is necessary.
+        sleep(1);
+        $supabaseURL = getenv('YIPNYAP_SUPABASE_URL');
+    }
+
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
@@ -97,7 +106,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     if (empty($memberOld)) {
         return [
             'code' => 404,
-            'error' => 'Member not found.',
+            'error' => 'Member not found. - ' . $member_id,
         ];
     } else {
         $memberOld = $memberOld[0];
@@ -129,7 +138,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     $avatar = get_user_meta($member_id, 'avatar', true);
     $header = get_user_meta($member_id, 'header', true);
     if ($header) {
-        $member['header'] = str_replace('supalocal.yipnyap.me:8000', 'localhost:54321', getenv('YIPNYAP_SUPABASE_URL')) . '/storage/v1/object/public/users/' . $header;
+        $member['header'] = $supabaseURL . '/storage/v1/object/public/users/' . $header;
 
         // Remove the old one
         bp_attachments_delete_file([
@@ -143,7 +152,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         ]);
     }
 
-    if (!empty($avatar)) $member['avatar'] = str_replace('supalocal.yipnyap.me:8000', 'localhost:54321', getenv('YIPNYAP_SUPABASE_URL')) . '/storage/v1/object/public/users/' . $avatar;
+    if ($avatar) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;
 
     $athandle = get_user_meta($member_id, 'athandle', true);
     if (!empty($athandle)) {
@@ -417,6 +426,19 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
         ], true);
         wp_set_current_user($user->ID);
         wp_set_auth_cookie($user->ID, $remember);
+
+        // Make a JWT token
+        $token = JWT::encode([
+            'iss' => get_site_url(),
+            'aud' => get_site_url(),
+            'iat' => time(),
+            'exp' => time() + 60 * 60 * 24 * 7,
+            'data' => [
+                'id' => $user->ID,
+            ],
+        ], getenv('YIPNYAP_SUPABASE_SERVICE_KEY'));
+
+        $YipnyapUser['token'] = $token;
 
         return [
             'success' => true,

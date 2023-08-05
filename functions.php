@@ -29,19 +29,6 @@ define('YIPNYAP_URL', get_template_directory_uri());
 define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
 define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
-// Check if Windows or *nix
-define('YIPNYAP_IS_WINDOWS', strtoupper(substr(PHP_OS, 0, 3)) === 'WIN');
-const YIPNYAP_ENV_PATH = YIPNYAP_IS_WINDOWS ? 'C:\yipnyap\conf' : '/etc/yipnyap/conf';
-if (file_exists(YIPNYAP_ENV_PATH)) {
-    $env = parse_ini_file(YIPNYAP_ENV_PATH);
-    foreach ($env as $key => $value) {
-        $status = putenv("$key=$value");
-        if (!$status) {
-            throw new Exception("Failed to set environment variable $key");
-        }
-    }
-}
-
 // Check the current 'Authorization' header
 // If it's set, then get the current user and set it on WordPress
 add_action('determine_current_user', function() {
@@ -50,8 +37,8 @@ add_action('determine_current_user', function() {
 
     if ($auth) {
         $token = str_replace('Bearer ', '', $auth);
-        $serviceKey = getenv('YIPNYAP_SUPABASE_SERVICE_KEY');
-        $decoded = JWT::decode($token, $serviceKey, ['HS256']);
+        $serviceKey = YIPNYAP_SUPABASE_SERVICE_KEY;
+        $decoded = @JWT::decode($token, $serviceKey, ['HS256']);
         if (empty($decoded)) {
             wp_send_json([
                 'success' => false,
@@ -72,7 +59,7 @@ add_action('determine_current_user', function() {
 });
 
 //add_action('init', function () {
-    $wizard_status = getenv('YIPNYAP_WIZARD_STATUS');
+    $wizard_status = YIPNYAP_WIZARD_STATUS;
     if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
         // If admin page or an admin user (to setup), dont do anything
         if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
@@ -102,7 +89,7 @@ require_once __DIR__ . '/plugins/plugins.php';
 /**
  * THEME CONSTANTS
  */
-define("YIPNYAP_IS_LOCAL_DEV", empty(getenv('YIPNYAP_SETUP_AS_PRODUCTION')) || getenv('YIPNYAP_SETUP_AS_PRODUCTION') !== 'true');
+define("YIPNYAP_IS_LOCAL_DEV", empty(YIPNYAP_SETUP_AS_PRODUCTION) || YIPNYAP_SETUP_AS_PRODUCTION !== 'true');
 
 /**
  * Versioning
@@ -114,13 +101,13 @@ try {
 }
 
 const YIPNYAP_VERSION = 'core2';
-const YIPNYAP_UI_VERSION = 'ui2';
+const YIPNYAP_UI_VERSION = 'ui3-EarlyR';
 const YIPNYAP_API_VERSION = 'v2';
 
 // If the request isnt for /wp-admin, or /wp-login.php, then redirect to /api
 if (!str_contains($_SERVER['REQUEST_URI'], '/wp-admin') && !str_contains($_SERVER['REQUEST_URI'], '/wp-login.php') && !str_contains($_SERVER['REQUEST_URI'], '/api')) {
     add_action('init', function () {
-        if (!is_user_logged_in()) {
+        if (!str_starts_with($_SERVER['REQUEST_URI'], '/api')) {
             wp_redirect('/api');
             exit();
         }
@@ -173,7 +160,7 @@ if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
         $components[$component]['avg_ping'] = $ping;
     }
 
-    pingTest(getenv('YIPNYAP_SUPABASE_URL'), 'supabase');
+    pingTest(YIPNYAP_SUPABASE_URL, 'supabase');
     pingTest(get_option('siteurl'), 'wordpress');
 
     wp_send_json([
@@ -193,7 +180,6 @@ if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
 const YIPNYAP_WPOPTIONS = [
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
-    'users_can_register' => true,
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads',
@@ -234,7 +220,7 @@ add_action('login_headerurl', function () {
 /**
  * TRANSLATION functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
+//require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 
 /**
  * Yipnyap functions
@@ -249,18 +235,18 @@ require_once YIPNYAP_PATH . '/includes/filters/filters.php';
 /**
  * Yipnyap AJAX
  */
-require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
+//require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
 require_once YIPNYAP_PATH . '/includes/api/v2/index.php';
 
 /**
  * Yipnyap sidebars
  */
-require_once YIPNYAP_PATH . '/includes/sidebars/sidebars.php';
+//require_once YIPNYAP_PATH . '/includes/sidebars/sidebars.php';
 
 /**
  * Yipnyap customizer
  */
-require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
+//require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
 
 /**
  * PHP Autoloader
@@ -308,15 +294,6 @@ add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_im
  * Disable Gravatar
  */
 add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
-
-/**
- * Set default member avatar
- */
-function yipnyap_set_default_member_avatar(): string {
-    return yipnyap_get_default_member_avatar_url();
-}
-
-add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 
 /**
  * Set default group avatar

@@ -1,6 +1,4 @@
 <?php
-use \Firebase\JWT\JWT;
-
 add_action('rest_api_init', function () {
     /**
      * GET /

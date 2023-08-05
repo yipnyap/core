@@ -44,7 +44,7 @@ if ($conf === false) {
 if (!is_writeable(YIPNYAP_ENV_PATH)) $errors[] = YIPNYAP_ENV_PATH . ' is not writeable by web server.';
 
 // Get current wizard status
-$wizard_status = getenv('YIPNYAP_WIZARD_STATUS');
+$wizard_status = YIPNYAP_WIZARD_STATUS;
 
 // Check config for any missing values, if so, add them to a list
 $missing = [];
@@ -89,8 +89,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     // Test the supabase connection - using the subdomain from url
     try {
-        putenv("YIPNYAP_SUPABASE_URL={$_POST['supabase_url']}");
-        putenv("YIPNYAP_SUPABASE_SERVICE_KEY={$_POST['supabase_service_key']}");
+        define('YIPNYAP_SUPABASE_URL', $_POST['supabase_url']);
+        define('YIPNYAP_SUPABASE_SERVICE_KEY', $_POST['supabase_service_key']);
         $supabase = SupabaseUserContentUpload('01A1TESTINGSERVICE', YIPNYAP_PATH . '/style.css');
         if ($supabase['success'] !== true) {
             echo 'Error: Could not connect to Supabase. Please check your Supabase URL and Service Key.<br>';
@@ -306,7 +306,7 @@ header('Content-Type: text/html; charset=utf-8');
                     <?php if (!empty($missing)) { ?>
                         <div class="pb-4 space-y-4">
                             <p>
-                                <?php if (!empty(getenv('YIPNYAP_SUPABASE_URL'))) { ?>
+                                <?php if (!empty(YIPNYAP_SUPABASE_URL)) { ?>
                                     Yipnyap has updated and needs more information.
                                 <?php } else { ?>
                                     If you're reading this, then congratulations! Yipnyap is ready to be configured.
@@ -327,7 +327,7 @@ header('Content-Type: text/html; charset=utf-8');
                         <form class="pt-8 text-sm space-y-8 divide-y divide-gray-300/50" id="wizard" action="/" method="post">
                             <div class="space-y-4">
                                 <!-- "What is the Supabase URL?" input -->
-                                <?php if (empty(getenv('YIPNYAP_SUPABASE_URL'))) { ?>
+                                <?php if (empty(YIPNYAP_SUPABASE_URL)) { ?>
                                     <div class="flex flex-col">
                                         <label for="supabase_url" class="font-medium text-neutral-900 dark:text-white">
                                             Supabase API URL
@@ -341,7 +341,7 @@ header('Content-Type: text/html; charset=utf-8');
                                     </div>
                                 <?php } ?>
 
-                                <?php if (empty(getenv('YIPNYAP_SUPABASE_ANON_KEY'))) { ?>
+                                <?php if (empty(YIPNYAP_SUPABASE_ANON_KEY)) { ?>
                                     <div class="flex flex-col">
                                         <label for="supabase_anon_key" class="font-medium text-neutral-900 dark:text-white">
                                             Supabase Anonymous Key
@@ -351,7 +351,7 @@ header('Content-Type: text/html; charset=utf-8');
                                 <?php } ?>
 
                                 <!-- "What is the Supabase key?" input -->
-                                <?php if (empty(getenv('YIPNYAP_SUPABASE_SERVICE_KEY'))) { ?>
+                                <?php if (empty(YIPNYAP_SUPABASE_SERVICE_KEY)) { ?>
                                     <div class="flex flex-col">
                                         <label for="supabase_service_key" class="font-medium text-neutral-900 dark:text-white">
                                             Supabase Service Key
@@ -361,7 +361,7 @@ header('Content-Type: text/html; charset=utf-8');
                                 <?php } ?>
 
                                 <!-- "What is the Logtail source?" input -->
-                                <?php if (empty(getenv('YIPNYAP_LOGTAIL_SOURCE_ID'))) { ?>
+                                <?php if (empty(YIPNYAP_LOGTAIL_SOURCE_ID)) { ?>
                                     <div class="flex flex-col">
                                         <label for="logtail_source_id" class="font-medium text-neutral-900 dark:text-white">
                                             Logtail Source ID
@@ -373,7 +373,7 @@ header('Content-Type: text/html; charset=utf-8');
                                     </div>
                                 <?php } ?>
 
-                                <?php if (empty(getenv('YIPNYAP_TELEGRAM_BOT_TOKEN'))) { ?>
+                                <?php if (empty(YIPNYAP_TELEGRAM_BOT_TOKEN)) { ?>
                                     <div class="flex flex-col">
                                         <label for="telegram_bot_token" class="font-medium text-neutral-900 dark:text-white">
                                             Telegram Bot Token
@@ -387,7 +387,7 @@ header('Content-Type: text/html; charset=utf-8');
                                 <?php } ?>
                             </div>
 
-                            <?php if (empty(getenv('YIPNYAP_WEBPACK_DEV_SERVER'))) { ?>
+                            <?php if (empty(YIPNYAP_WEBPACK_DEV_SERVER)) { ?>
                                 <div>
                                     <div class="pt-8 flex flex-col">
                                         <label for="webpack_dev_server" class="font-medium text-neutral-900 dark:text-white">

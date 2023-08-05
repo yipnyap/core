@@ -13,12 +13,12 @@
 /**
  * Filters
  */
-require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-filters.php';
+//require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-filters.php';
 
 /**
  * Actions
  */
-require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-actions.php';
+//require_once YIPNYAP_PATH . '/includes/functions/buddypress/member/functions-buddypress-member-actions.php';
 
 /**
  * Global

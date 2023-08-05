@@ -10,8 +10,8 @@ use Psr\Http\Message\ResponseInterface;
 use Supabase\Storage\StorageFile;
 
 function SupabaseGetURL() {
-    $api_key = getenv('YIPNYAP_SUPABASE_SERVICE_KEY');
-    $raw_domain = getenv('YIPNYAP_SUPABASE_URL');
+    $api_key = YIPNYAP_SUPABASE_SERVICE_KEY;
+    $raw_domain = YIPNYAP_SUPABASE_URL;
     $scheme = explode('://', $raw_domain)[0];
     $reference_id = preg_replace('/https?:\/\//', '', explode('.', $raw_domain)[0]);
     $domain = explode('.', $raw_domain)[1] . '.' . explode('.', $raw_domain)[2];
@@ -73,8 +73,8 @@ class SupabaseControl
 
     public function __construct($api_key = null, $domain = null)
     {
-        $this->domain = $domain ?? getenv('YIPNYAP_SUPABASE_URL');
-        $this->api_key = $api_key ?? getenv('YIPNYAP_SUPABASE_SERVICE_KEY');
+        $this->domain = $domain ?? YIPNYAP_SUPABASE_URL;
+        $this->api_key = $api_key ?? YIPNYAP_SUPABASE_SERVICE_KEY;
     }
 
     // get()

@@ -13,6 +13,6 @@
 /**
  * Actions
  */
-require_once YIPNYAP_PATH . '/includes/functions/gamipress/gamipress-buddypress/functions-gamipress-buddypress-actions.php';
+//require_once YIPNYAP_PATH . '/includes/functions/gamipress/gamipress-buddypress/functions-gamipress-buddypress-actions.php';
 
 ?>

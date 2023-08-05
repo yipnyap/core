@@ -286,18 +286,6 @@ if (!function_exists('yipnyap_member_get_user_status_data')) {
         // add user base data
         $user_status_data = yipnyap_member_get_user_base_data($bp_member);
 
-        // add GamiPress rank data if plugin is active
-        if (yipnyap_plugin_gamipress_is_active()) {
-            if (yipnyap_gamipress_rank_type_exists('rank')) {
-                $user_status_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
-            }
-        }
-
-        // add Verified Member for BuddyPress data if plugin is active
-        if (yipnyap_plugin_bpverifiedmember_is_active()) {
-            $user_status_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_status_data['id']);
-        }
-
         return $user_status_data;
     }
 }
@@ -331,11 +319,6 @@ if (!function_exists('yipnyap_member_get_user_sidebar_data')) {
             if (yipnyap_gamipress_rank_type_exists('rank')) {
                 $user_sidebar_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
-        }
-
-        // add Verified Member for BuddyPress data if plugin is active
-        if (yipnyap_plugin_bpverifiedmember_is_active()) {
-            $user_sidebar_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_sidebar_data['id']);
         }
 
         return $user_sidebar_data;
@@ -372,11 +355,6 @@ if (!function_exists('yipnyap_member_get_user_preview_data')) {
             if (yipnyap_gamipress_rank_type_exists('rank')) {
                 $user_preview_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
-        }
-
-        // add Verified Member for BuddyPress data if plugin is active
-        if (yipnyap_plugin_bpverifiedmember_is_active()) {
-            $user_preview_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_preview_data['id']);
         }
 
         return $user_preview_data;
@@ -517,8 +495,6 @@ if (!function_exists('yipnyap_member_get_user_activity_data')) {
 
         $user_activity_data['friends'] = yipnyap_get_friends(['user_id' => $bp_member['id']]);
         $user_activity_data['groups'] = yipnyap_get_user_groups($bp_member['id']);
-        $user_activity_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_data['id']);
-
         return $user_activity_data;
     }
 }
@@ -627,11 +603,6 @@ if (!function_exists('yipnyap_member_get_user_activity_friend_data')) {
             if (yipnyap_gamipress_rank_type_exists('rank')) {
                 $user_activity_friend_data['rank'] = yipnyap_gamipress_get_user_rank_priority('rank', $bp_member['id'], 'simple');
             }
-        }
-
-        // add Verified Member for BuddyPress data if plugin is active
-        if (yipnyap_plugin_bpverifiedmember_is_active()) {
-            $user_activity_friend_data['verified'] = yipnyap_bpverifiedmember_user_is_verified($user_activity_friend_data['id']);
         }
 
         return $user_activity_friend_data;
@@ -749,66 +720,6 @@ if (!function_exists('yipnyap_member_get_data')) {
 
         if ($data_scope === 'user-status') {
             $member_data = yipnyap_member_get_user_status_data($bp_member);
-        }
-
-        if ($data_scope === 'user-preview') {
-            $member_data = yipnyap_member_get_user_preview_data($bp_member);
-        }
-
-        if ($data_scope === 'user-sidebar') {
-            $member_data = yipnyap_member_get_user_sidebar_data($bp_member);
-        }
-
-        if ($data_scope === 'user-friends') {
-            $member_data = yipnyap_member_get_user_friends_data($bp_member);
-        }
-
-        if ($data_scope === 'user-status-groups') {
-            $member_data = yipnyap_member_get_user_status_groups_data($bp_member);
-        }
-
-        if ($data_scope === 'user-groups') {
-            $member_data = yipnyap_member_get_user_groups_data($bp_member);
-        }
-
-        if ($data_scope === 'user-groups-preview') {
-            $member_data = yipnyap_member_get_user_groups_preview_data($bp_member);
-        }
-
-        if ($data_scope === 'user-groups-invitations') {
-            $member_data = yipnyap_member_get_user_groups_invitations_data($bp_member);
-        }
-
-        if ($data_scope === 'user-groups-received-invitations') {
-            $member_data = yipnyap_member_get_user_groups_received_invitations_data($bp_member);
-        }
-
-        if ($data_scope === 'user-groups-memberships') {
-            $member_data = yipnyap_member_get_user_groups_memberships_data($bp_member);
-        }
-
-        if ($data_scope === 'user-activity') {
-            $member_data = yipnyap_member_get_user_activity_data($bp_member);
-        }
-
-        if ($data_scope === 'user-activity-friend') {
-            $member_data = yipnyap_member_get_user_activity_friend_data($bp_member);
-        }
-
-        if ($data_scope === 'user-settings') {
-            $member_data = yipnyap_member_get_user_settings_data($bp_member);
-        }
-
-        if ($data_scope === 'user-settings-profile') {
-            $member_data = yipnyap_member_get_user_settings_profile_data($bp_member);
-        }
-
-        if ($data_scope === 'user-settings-password') {
-            $member_data = yipnyap_member_get_user_settings_password_data($bp_member);
-        }
-
-        if ($data_scope === 'user-settings-notification') {
-            $member_data = yipnyap_member_get_user_settings_notification_data($bp_member);
         }
 
         if (!$include_member_links) {

@@ -63,58 +63,11 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
             'schema' => [$this, 'get_public_item_schema'],
         ]);
 
-        register_rest_route($this->namespace, $this->rest_base . '/(?P<id>[\d]+)', [
+        register_rest_route($this->namespace, $this->rest_base . '/(\@?)(?P<id>\S+)/members/(\@?)(?P<uid>\S+)', [
             'args' => [
                 'id' => [
                     'description' => 'A unique integer ID for the group.',
-                    'type' => 'integer',
-                ],
-            ],
-            [
-                'methods' => WP_REST_Server::READABLE,
-                'callback' => [$this, 'get_group'],
-                'args' => [
-                    'context' => $this->get_context_param(['default' => 'view']),
-                ],
-            ],
-            [
-                'methods' => WP_REST_Server::EDITABLE,
-                'callback' => [$this, 'update_item'],
-                'permission_callback' => [$this, 'update_item_permissions_check'],
-                'args' => $this->get_endpoint_args_for_item_schema(WP_REST_Server::EDITABLE),
-            ],
-            [
-                'methods' => WP_REST_Server::DELETABLE,
-                'callback' => [$this, 'delete_item'],
-                'permission_callback' => [$this, 'delete_item_permissions_check'],
-                'args' => [
-                    'force' => [
-                        'default' => false,
-                        'description' => 'Skips trash and purges immediately.',
-                        'type' => 'boolean',
-                    ],
-                ],
-            ],
-        ]);
-
-        register_rest_route($this->namespace, $this->rest_base . '/(?P<id>[\d]+)/members', [
-            'args' => [
-                'id' => [
-                    'description' => 'A unique integer ID for the group.',
-                    'type' => 'integer',
-                ],
-            ],
-            [
-                'methods' => WP_REST_Server::CREATABLE,
-                'callback' => [$this, 'join_group'],
-            ],
-        ]);
-
-        register_rest_route($this->namespace, $this->rest_base . '/(?P<id>[\d]+)/members/(\@?)(?P<uid>\S+)', [
-            'args' => [
-                'id' => [
-                    'description' => 'A unique integer ID for the group.',
-                    'type' => 'integer',
+                    'type' => ['integer', 'string'],
                 ],
                 'uid' => [
                     'description' => 'A unique integer ID for the user.',
@@ -130,6 +83,52 @@ class Groups_Rest_Endpoint extends WP_REST_Controller {
                 'methods' => WP_REST_Server::EDITABLE,
                 'callback' => [$this, 'update_group_member'],
                 'permission_callback' => [$this, 'user_mod_permissions_check'],
+            ],
+        ]);
+
+        register_rest_route($this->namespace, $this->rest_base . '/(\@?)(?P<id>\S+)/members', [
+            'args' => [
+                'id' => [
+                    'description' => 'A unique integer ID for the group.',
+                    'type' => ['integer', 'string'],
+                ],
+            ],
+            [
+                'methods' => WP_REST_Server::CREATABLE,
+                'callback' => [$this, 'join_group'],
+            ],
+        ]);
+
+        register_rest_route($this->namespace, $this->rest_base . '/(\@?)(?P<id>\S+)', [
+            'args' => [
+                'id' => [
+                    'description' => 'A unique integer ID for the group.',
+                    'type' => ['integer', 'string'],
+                ],
+            ],
+            [
+                'methods' => WP_REST_Server::READABLE,
+                'callback' => [$this, 'get_group'],
+                'args' => [
+                    'context' => $this->get_context_param(['default' => 'view']),
+                ],
+            ],
+            [
+                'methods' => WP_REST_Server::EDITABLE,
+                'callback' => [$this, 'update_item'],
+                'args' => $this->get_endpoint_args_for_item_schema(WP_REST_Server::EDITABLE),
+            ],
+            [
+                'methods' => WP_REST_Server::DELETABLE,
+                'callback' => [$this, 'delete_item'],
+                'permission_callback' => [$this, 'delete_item_permissions_check'],
+                'args' => [
+                    'force' => [
+                        'default' => false,
+                        'description' => 'Skips trash and purges immediately.',
+                        'type' => 'boolean',
+                    ],
+                ],
             ],
         ]);
     }

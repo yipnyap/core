@@ -48,6 +48,11 @@ const E2IDTypes = [
     ],
     'Group' => [
         'ID' => '02',
+        'variants' => [
+            'PARENT' => 'A1',
+            'MEMBERSHIP' => 'A2',
+            'AUTOMATED' => 'A3',
+        ]
     ],
     'Post' => [
         'ID' => '03',
@@ -85,6 +90,12 @@ const E2IDTypes = [
             'SETTING_AVATAR' => 'S1',
             'SETTING_HEADER' => 'S2',
             'SETTING_BACKGROUND' => 'S3',
+        ]
+    ],
+    'Feed' => [
+        'ID' => '04',
+        'variants' => [
+            'PARENT' => 'A1'
         ]
     ]
 ];

@@ -105,9 +105,20 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
      */
     public function get_items($request): WP_REST_Response
     {
-        $FeedTarget = $request->get_param('user');
-        if (!empty($FeedTarget) && $FeedTarget == YipnyapGetMemberE2ID($FeedTarget) /* @todo: feed sharing? */) {
-            $FeedMix = new FeedMixer($FeedTarget);
+        $FeedTarget = $request->get_param('feed');
+        $UserTarget = $request->get_param('user');
+        $GroupTarget = $request->get_param('group');
+        if (!empty($FeedTarget) || !empty($UserTarget) || !empty($GroupTarget)) {
+            $Target = $FeedTarget ?? $UserTarget ?? $GroupTarget;
+            // If UserTarget or GroupTarget is set, its an override
+            $TargetOverride = false;
+            if (!empty($UserTarget)) {
+                $TargetOverride = 'User';
+            } elseif (!empty($GroupTarget)) {
+                $TargetOverride = 'Group';
+            }
+
+            $FeedMix = new FeedMixer($Target, false, $TargetOverride);
             $feed = $FeedMix->MixFeed($request->get_param('page'));
         } else {
             // Guest
@@ -146,6 +157,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
         $post = $FeedMix->CreatePost([
             'content' => $request->get_param('content'),
             'tags' => $request->get_param('tags'),
+            'objects' => $request->get_param('objects'),
         ]);
 
         $response = new WP_REST_Response($post);

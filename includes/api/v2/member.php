@@ -25,7 +25,9 @@ add_action('rest_api_init', function () {
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/groups', [
         'methods' => 'GET',
         'callback' => function ($arguments) {
-            wp_send_json(YipnyapGetMemberGroups($arguments['id']));
+            wp_send_json(YipnyapGetGroups([
+                'user_id' => $arguments['id']
+            ]));
         },
     ]);
 
@@ -52,7 +54,25 @@ add_action('rest_api_init', function () {
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)/(?P<bitwise>\d+)', [
         'methods' => 'GET',
         'callback' => function ($arguments) {
-            wp_send_json(YipnyapGetMember($arguments['id'], $arguments['bitwise']));
+            try {
+                $user = YipnyapGetMember($arguments['id'], $arguments['bitwise']);
+                wp_send_json([
+                    'success' => true,
+                    'data' => $user,
+                ]);
+            } catch (Exception $e) {
+                if ($e->getCode() == 404) {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Member not found.',
+                    ]);
+                } else {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => $e->getMessage(),
+                    ]);
+                }
+            }
         },
     ]);
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)', [
@@ -61,7 +81,7 @@ add_action('rest_api_init', function () {
             wp_send_json(YipnyapGetMember($arguments['id']));
         },
     ]);
-    register_rest_route('v2', '/member/(\@?)(?P<id>\S+)', [
+    register_rest_route('v2', '/member/(\@?)me', [
         'methods' => 'POST',
         'callback' => function ($arguments) {
             // Check if user is logged in
@@ -72,14 +92,9 @@ add_action('rest_api_init', function () {
                     'message' => 'You must be logged in to do that.',
                 ]);
             } else {
-                // User is changing themselves
-                wp_send_json(YipnyapUpdateMember('me', [
-                    'avatar' => $arguments['avatar'],
-                    'header' => $arguments['header'],
-                    'display_name' => $arguments['display_name'],
-                    'athandle' => $arguments['athandle'],
-                    'bio' => $arguments['bio'],
-                ]));
+//                $arguments = (array) $arguments;
+                $arguments = $arguments->get_params();
+                wp_send_json(YipnyapUpdateMember('me', $arguments));
             }
         },
     ]);
@@ -135,8 +150,13 @@ add_action('rest_api_init', function () {
             ],
         ],
         'callback' => function ($request) {
-            // Register member to WordPress.
-            $userExists = username_exists($request['username']);
+            // Check if it's taken by anyone's user meta as 'athandle'
+            $userExists = username_exists($request['username']) || count(get_users([
+                    'meta_key' => 'athandle',
+                    'meta_value' => $request['username'],
+                    'fields' => 'ID',
+                ])) > 0;
+
             if ($userExists) {
                 wp_send_json([
                     'success' => false,
@@ -157,7 +177,7 @@ add_action('rest_api_init', function () {
                 }
 
                 /*
-                 * ^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
+                 * ^(?=.{4,12}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
                  *  └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
                  *        │         │         │            │           no _ or . at the end
                  *        │         │         │            │
@@ -167,7 +187,7 @@ add_action('rest_api_init', function () {
                  *        │         │
                  *        │         no _ or . at the beginning
                  *        │
-                 *        username is 4-20 characters long ( ͡° ͜ʖ ͡°)
+                 *        username is 4-12 characters long
                  */
                 $usernameRegexCheck = preg_match('/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $request['username']);
                 if (!$usernameRegexCheck) {

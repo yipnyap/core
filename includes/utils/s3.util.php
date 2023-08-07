@@ -66,6 +66,45 @@ function SupabaseUserContentUpload(string $userID, string $file, string|null $E2
     }
 }
 
+/**
+ * @throws Exception
+ */
+function SupabaseUploadFromBase64(string $type, string $variant, int | string $member_id, string $Base64) {
+    // supports png, jpg, jpeg, gif, upper or lowercase.
+    // save the file type to a variable
+    $fileType = explode('/', mime_content_type($Base64))[1];
+    // check if the file type is supported
+    if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
+        return [
+            'success' => false,
+            'message' => 'Invalid file type.',
+        ];
+    }
+
+    // check if the file is base64 encoded
+    if (preg_match('/^data:image\/(\w+);base64,/', $Base64)) {
+        // remove the base64 encoding from the file
+        $Base64 = preg_replace('/^data:image\/(\w+);base64,/', '', $Base64);
+        // decode the file
+        $Base64 = base64_decode($Base64);
+    }
+
+    $path = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
+    file_put_contents($path, $Base64);
+
+    $member_id = is_string($member_id) ? $member_id : YipnyapGetMemberE2ID($member_id);
+
+    $URL = SupabaseUserContentUpload($member_id, $path, null, [
+        'type' => $type,
+        'variant' => $variant,
+    ]);
+
+    // Delete the file from the cache
+    unlink($path);
+
+    return $URL['response'];
+}
+
 class SupabaseControl
 {
     public string $domain;

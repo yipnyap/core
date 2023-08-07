@@ -1,5 +1,6 @@
 <?php
 use \Firebase\JWT\JWT;
+use Yipnyap\Group;
 
 /**
  * Initialise bitwise arrays
@@ -9,6 +10,8 @@ $GetMemberBit = [
     'rank' => 2,
     'ui_skin' => 4,
     'online_count' => 8,
+    'friends' => 16,
+    'groups' => 32,
 ];
 
 /**
@@ -59,9 +62,9 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
                     return 0;
                 } else {
                     wp_send_json([
-                        'code' => 404,
-                        'error' => 'Member not found. - ' . $member_id,
-                    ]);
+                        'success' => false,
+                        'message' => 'Member not found. - ' . $member_id,
+                    ], 404);
                 }
             }
         }
@@ -84,13 +87,12 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  *
  */
 function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
-    global $GetMemberBit;
+    global $GetMemberBit, $wpdb;
 
-    $supabaseURL = getenv('YIPNYAP_SUPABASE_URL');
-    if (empty($supabaseURL)) {
-        // just wait a sec. I really don't know why this is necessary.
-        sleep(1);
-        $supabaseURL = getenv('YIPNYAP_SUPABASE_URL');
+    $supabaseURL = YIPNYAP_SUPABASE_URL;
+
+    if ($member_id === 'me') {
+        $isSelf = true;
     }
 
     /**
@@ -98,16 +100,9 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
      */
     $member_id = YipnyapFetchMemberID($member_id, true);
 
-    if ($member_id === get_current_user_id()) {
-        $isSelf = true;
-    }
-
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {
-        return [
-            'code' => 404,
-            'error' => 'Member not found. - ' . $member_id,
-        ];
+        throw new Exception('ENOTFOUND', 404);
     } else {
         $memberOld = $memberOld[0];
     }
@@ -133,11 +128,14 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
             'user_id' => $member_id,
         ])),
         'posts' => YipnyapGetMemberActivityCount($member_id),
+        'privacy' => [
+            'isAD' => get_user_meta($member_id, 'privacy:isAD', true) === 'true',
+        ],
     ];
 
     $avatar = get_user_meta($member_id, 'avatar', true);
     $header = get_user_meta($member_id, 'header', true);
-    if ($header) {
+    if (!empty($header)) {
         $member['header'] = $supabaseURL . '/storage/v1/object/public/users/' . $header;
 
         // Remove the old one
@@ -152,11 +150,11 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         ]);
     }
 
-    if ($avatar) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;
+    if (!empty($avatar)) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;
 
+    $member['permaname'] = $member['username'];
     $athandle = get_user_meta($member_id, 'athandle', true);
     if (!empty($athandle)) {
-        $member['permaname'] = $member['username'];
         $member['username'] = $athandle;
     }
 
@@ -170,17 +168,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
                 $member['online'] = true;
                 break;
             }
-        }
-    }
-
-    /**
-     * Check if member is verified, then add "verified" to the member array.
-     */
-    if ($memberOld['verified']) {
-        // Check if dipswitch "PendingVerifiedDeprecationAck" is enabled.
-        $switch = YipnyapCheckDipswitch('PendingVerifiedDeprecationAck');
-        if ($switch['success'] === false) {
-            YipnyapCheckDipswitch('PendingVerifiedDeprecationAck', true);
         }
     }
 
@@ -199,11 +186,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $member['bio'] = $memberBioOld;
     }
 
-    $memberExtURL = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Web');
-    if ($memberExtURL) {
-        $member['exturl'] = $memberExtURL;
-    }
-
     /**
      * Check if member is "me", then add UI Privacy & Security to the member array.
      */
@@ -211,16 +193,78 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $member['tgid'] = get_user_meta($member_id, 'tgid', true);
         $member['secureIDLevel'] = get_user_meta($member_id, 'SecureID:Level', true);
         $member['dipswitch'] = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
+        $member['privacy']['showNSFW'] = get_user_meta($member_id, 'privacy:showNSFW', true) === 'true';
+
+        // Get the latest post of the @yipnyap account
+        $yipnyapAccountID = YipnyapFetchMemberID('yipnyap', true);
+        $latestPost = bp_activity_get([
+            'filter' => [
+                'user_id' => [$yipnyapAccountID],
+            ],
+            'per_page' => 1,
+        ])['activities'][0]->id;
+        $latestPost = Yipnyap\FeedMixer::GetPosts([$latestPost])[0];
+        $member['yipnyap_notice'] = $latestPost;
+
+        // Get events, based on `event` meta_key from database
+        $eventsActivity = $wpdb->get_var("SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key='event'");
+
+        $eventsActivity[] = 50; // test
+
+        foreach ($eventsActivity as $eventActivity) {
+            $event = bp_activity_get_meta($eventActivity, 'event');
+            $member['events'][] = [
+                'title' => $event ?: 'General Event',
+                'post' => Yipnyap\FeedMixer::GetPosts([$eventActivity], false, true)[0],
+            ];
+        }
+
+        // Find group with `featured` meta
+        $featuredGroups = $wpdb->get_var("SELECT group_id FROM wp_bp_groups_groupmeta WHERE meta_key='featured'");
+        $featuredGroups = [10,11,'yipnyap-feedback',13,14,15,16,17,18,19,20]; // test
+
+        foreach ($featuredGroups as $groupID) {
+            try {
+                $group = new Group($groupID, true);
+                $member['featured_groups'][] = $group->GroupMeta;
+            } catch (\Throwable $th) {
+                continue;
+            }
+        }
     }
 
     /**
      * Check if bitwise has "ui_skin", add Unicorn Engine
      */
     if ($bitwise & $GetMemberBit['ui_skin']) {
-        $member['ui_skin'] = [
-            'primary' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Primary Accent'),
-            'background' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Background'),
+        $member['theme'] = [
+            'background' => get_user_meta($member_id, 'theme:background', true),
         ];
+
+        // check if shareAccent is true, if so, get their accent from dipswitch
+        if (get_user_meta($member_id, 'theme:shareAccent', true)) {
+            $dipswitch = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
+            $member['theme']['accent'] = strtolower($dipswitch['accent']) ?? 'blue';
+        }
+    }
+
+    /**
+     * Check if bitwise has "friends"
+     */
+    if ($bitwise & $GetMemberBit['friends']) {
+        $member['friends'] = YipnyapGetMemberFriends($member_id);
+    }
+
+    /**
+     * Check if bitwise has "groups"
+     */
+    if ($bitwise & $GetMemberBit['groups']) {
+        $member['groups'] = [];
+        $groups = groups_get_user_groups($member_id);
+        foreach ($groups['groups'] as $group) {
+            $group = new Group($group, true);
+            $member['groups'][] = $group->GroupMeta;
+        }
     }
 
     /**
@@ -268,88 +312,70 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
 {
     $member_id = YipnyapFetchMemberID($member_id);
 
-    // @TODO: Dupe code, refactor. Could be a function for Base64 uploads?
-    // Check for base64 encoded avatar, upload it to cache, then to supabase.
     if (!empty($data['avatar'])) {
-        $avatar = $data['avatar'];
-        // supports png, jpg, jpeg, gif, upper or lowercase.
-        // save the file type to a variable
-        $fileType = explode('/', mime_content_type($avatar))[1];
-        // check if the file type is supported
-        if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
-            return [
-                'success' => false,
-                'message' => 'Invalid file type.',
-            ];
-        }
+        $key = SupabaseUploadFromBase64('Post', 'SETTING_AVATAR', $member_id, $data['avatar']);
 
-        // check if the file is base64 encoded
-        if (preg_match('/^data:image\/(\w+);base64,/', $avatar)) {
-            // remove the base64 encoding from the file
-            $avatar = preg_replace('/^data:image\/(\w+);base64,/', '', $avatar);
-            // decode the file
-            $avatar = base64_decode($avatar);
-        }
-
-        $avatarPath = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
-        file_put_contents($avatarPath, $avatar);
-
-        $avatarURL = SupabaseUserContentUpload(YipnyapGetMemberE2ID($member_id), $avatarPath, null, [
-            'type' => 'Post',
-            'variant' => 'SETTING_AVATAR',
-        ]);
-
-        update_user_meta($member_id, 'avatar', $avatarURL['response']['key']);
-
-        // Delete the file from the cache
-        unlink($avatarPath);
+        update_user_meta($member_id, 'avatar', $key['key']);
     }
 
-    // Check for base64 encoded header, upload it to cache, then to supabase.
     if (!empty($data['header'])) {
-        $header = $data['header'];
-        // supports png, jpg, jpeg, gif, upper or lowercase.
-        // save the file type to a variable
-        $fileType = explode('/', mime_content_type($header))[1];
-        // check if the file type is supported
-        if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
-            return [
-                'success' => false,
-                'message' => 'Invalid file type.',
-            ];
-        }
+        $key = SupabaseUploadFromBase64('Post', 'SETTING_HEADER', $member_id, $data['header']);
 
-        // check if the file is base64 encoded
-        if (preg_match('/^data:image\/(\w+);base64,/', $header)) {
-            // remove the base64 encoding from the file
-            $header = preg_replace('/^data:image\/(\w+);base64,/', '', $header);
-            // decode the file
-            $header = base64_decode($header);
-        }
-
-        $headerPath = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
-        file_put_contents($headerPath, $header);
-
-        $headerURL = SupabaseUserContentUpload(YipnyapGetMemberE2ID($member_id), $headerPath, null, [
-            'type' => 'Post',
-            'variant' => 'SETTING_HEADER',
-        ]);
-
-        update_user_meta($member_id, 'header', $headerURL['response']['key']);
-
-        // Delete the file from the cache
-        unlink($headerPath);
+        update_user_meta($member_id, 'header', $key['key']);
     }
 
     // Save it all
-    if (!empty($data['bio'])) update_user_meta($member_id, 'bio', $data['bio']);
     if (!empty($data['display_name'])) wp_update_user([
         'ID' => $member_id,
         'display_name' => $data['display_name'],
     ]);
-    if (!empty($data['athandle'])) update_user_meta($member_id, 'athandle', $data['athandle']);
 
-    return YipnyapGetMember($member_id);
+    // @TODO: There must be a better way.... right?
+    if (!empty($data['bio'])) update_user_meta($member_id, 'bio', $data['bio']);
+    if (!empty($data['athandle']) && $data['athandle'] !== get_user_meta($member_id, 'athandle', true)) {
+        // Check if it's taken by someone's username or athandle
+        $taken = YipnyapFetchMemberID($data['athandle'], true);
+        if ($taken) return [
+            'success' => false,
+            'error' => 'athandle_taken',
+            'message' => 'That handle is taken by someone else, or reserved as their permaname.',
+        ];
+
+        update_user_meta($member_id, 'athandle', $data['athandle']);
+    }
+    if (!empty($data['privacy'])) {
+        $privacy = $data['privacy'];
+        if (!empty($privacy['showNSFW'])) update_user_meta($member_id, 'privacy:showNSFW', $privacy['showNSFW']);
+        if (!empty($privacy['isAD'])) update_user_meta($member_id, 'privacy:isAD', $privacy['isAD']);
+    }
+
+    if (!empty($data['theme'])) {
+        $theme = $data['theme'];
+        if (!empty($theme['background'])) {
+            // Allows hex, rgb, rgba, hsl, hsla, url(), and linear-gradient().
+            // I'm sorry for this regex.
+            // Maybe there's a better way to do this?
+            if (!preg_match('/^(#([0-9a-f]{3}){1,2}|rgb\(\d{1,3},\s?\d{1,3},\s?\d{1,3}\)|rgba\(\d{1,3},\s?\d{1,3},\s?\d{1,3},\s?\d(\.\d)?\)|hsl\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%\)|hsla\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%,\s?\d(\.\d)?\)|url\(.+\)|linear-gradient\(.+\))$/i', $theme['background'])) return [
+                'success' => false,
+                'error' => 'invalid_background',
+                'message' => 'Background must be a valid CSS color or image.',
+            ];
+            update_user_meta($member_id, 'theme:background', $theme['background']);
+        }
+        // check if bool true/false, nothing else
+        if (isset($theme['shareAccent'])) {
+            if ($theme['shareAccent']) {
+                update_user_meta($member_id, 'theme:shareAccent', true);
+            } else {
+                delete_user_meta($member_id, 'theme:shareAccent');
+            }
+        }
+    }
+
+    return [
+        'success' => true,
+        'data' => YipnyapGetMember($member_id),
+    ];
 }
 
 /**
@@ -436,7 +462,7 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             'data' => [
                 'id' => $user->ID,
             ],
-        ], getenv('YIPNYAP_SUPABASE_SERVICE_KEY'));
+        ], YIPNYAP_SUPABASE_SERVICE_KEY);
 
         $YipnyapUser['token'] = $token;
 
@@ -569,31 +595,32 @@ function YipnyapGetMemberBadges(string|int $member_id): array {
 
 /**
  * Get member's groups
+ * @TODO This is now just a general group find function. Need to move this elsewhere
  *
- * @param string|int $member_id Member ID
+ * @param array $query Query to find groups
  * @return array Member's groups
  * @since ui1
  */
-function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array {
-    $member_id = YipnyapFetchMemberID($member_id);
+function YipnyapGetGroups(array $query = ['fields' => 'all']): array {
     $groups = [];
 
-    $gp_groups = groups_get_groups([
-        'user_id' => $member_id,
-    ]);
+    $query = array_merge([
+        'fields' => 'all',
+        'per_page' => 100,
+    ], $query);
+
+    if (!empty($query['user_id'])) $query['user_id'] = YipnyapFetchMemberID($query['user_id']);
+    $gp_groups = groups_get_groups($query);
 
     foreach ($gp_groups['groups'] as $gp_group) {
         // check if fields should only include IDs
         if ($query['fields'] === 'ids') {
             $groups[] = $gp_group->id;
         } else {
-            // check if int, if so, true.
-            $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
-            $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
-            $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
-            $groups[] = [
+            $groupBuild = [
                 'id' => $gp_group->id,
                 'name' => $gp_group->name,
+                'slug' => $gp_group->slug,
                 'description' => html_entity_decode($gp_group->description),
                 'avatar' => bp_core_fetch_avatar([
                     'item_id' => $gp_group->id,
@@ -606,10 +633,15 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
                     'object_dir' => 'groups',
                 ]),
                 'member_count' => $gp_group->total_member_count,
-                'is_admin' => $is_admin,
-                'is_mod' => $is_mod,
-                'is_member' => $is_member,
             ];
+
+            if (get_current_user_id()) {
+                $groupBuild['is_admin'] = is_int(groups_is_user_admin($query['user_id'], $gp_group->id));
+                $groupBuild['is_mod'] = is_int(groups_is_user_mod($query['user_id'], $gp_group->id));
+                $groupBuild['is_member'] = is_int(groups_is_user_member($query['user_id'], $gp_group->id));
+            }
+
+            $groups[] = $groupBuild;
         }
     }
 

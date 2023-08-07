@@ -22,8 +22,9 @@ class FeedMixer
     public string $FeedE2ID; // Yeah, bringing this mess back.
     public string $FeedType; // Type taken from E2.
     public string $FeedID; // The ID of the feed
+    public bool $OnlyParent = false; // Only get content from the parent
 
-    public function __construct(string $feed_e2_id = '01A10')
+    public function __construct(string $feed_e2_id = '01A10', bool $onlyParent = false, string|bool $TargetOverride = false)
     {
         if ($feed_e2_id) {
             // Check if the ID is just a number. If it is, it's legacy and needs to be converted.
@@ -33,9 +34,10 @@ class FeedMixer
             }
 
             $this->FeedE2ID = $feed_e2_id;
-            $this->FeedType = E2IDTypeIDToName(substr($feed_e2_id, 0, 2));
+            $this->FeedType = empty($TargetOverride) ? E2IDTypeIDToName(substr($feed_e2_id, 0, 2)) : $TargetOverride;
             // Variant is always A1
             $this->FeedID = $feed_e2_id;
+            $this->OnlyParent = $onlyParent;
         }
     }
 
@@ -94,49 +96,111 @@ class FeedMixer
     public function MixFeed(int $page = 1): array {
         global $wpdb;
 
-        // Convert the E2ID to a Legacy ID
-        $legacyID = $wpdb->get_var("SELECT user_id FROM wp_usermeta WHERE meta_key='E2ID' AND meta_value='$this->FeedID'");
+        $legacyUserID = $wpdb->get_var("SELECT user_id FROM wp_usermeta WHERE meta_key='E2ID' AND meta_value='$this->FeedID'");
+        if ($this->FeedType === 'Feed') {
+            // Feed of the user's home.
 
-        // Get the user's following as it works differently to others
-        $following = bp_follow_get_following([
-            'user_id' => $legacyID,
-        ]);
+            // - get the user's friends and append them to the following array
+            $friends = friends_get_friend_user_ids($legacyUserID);
+            $following = bp_follow_get_following([
+                'user_id' => $legacyUserID,
+            ]);
 
-        // - get the user's friends and append them to the following array
-        $friends = friends_get_friend_user_ids($legacyID);
-        $following = array_merge($following, $friends);
+            // Get all posts from the IDs
+            $userPosts = bp_activity_get([
+                'filter' => [
+                    'user_id' => array_unique([$legacyUserID, ...$friends, ...$following]),
+//                'action' => ['activity_update'],
+                    'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                ],
+                'per_page' => 10,
+                'page' => $page,
+                'fields' => 'ids',
+                'count_total' => true,
+            ]);
 
-        // Append the user's ID to the following array
-        $following[] = $legacyID;
+            $groupIDs = groups_get_user_groups($legacyUserID)['groups'];
+            /*
+             * So, this causes a bit of a weird thing: groups aren't utilised all the time, so it gets old posts and mixes
+             * them in with the new ones. This is a bit of a problem, but it's not a huge one. It's just a bit weird.
+             *
+             * FUCK IT. its now a feature. pls use groups :(
+             * ^ rek
+             */
+            $groupPosts = bp_activity_get([
+                'scope' => ['groups'],
+                'filter' => [
+                    'item_id' => $groupIDs,
+                    'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                ],
+                'per_page' => 10,
+                'page' => $page,
+                'fields' => 'ids',
+                'count_total' => true,
+            ]);
+        } elseif ($this->FeedType === 'User') {
+            // Feed of a user's profile.
+            $userPosts = bp_activity_get([
+                'filter' => [
+                    'user_id' => $legacyUserID,
+//                'action' => ['activity_update'],
+                    'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                ],
+                'per_page' => 10,
+                'page' => $page,
+                'fields' => 'ids',
+                'count_total' => true,
+            ]);
 
-        // Get all posts from the IDs
-        $userPosts = bp_activity_get([
-            'filter' => [
-                'user_id' => $following,
-                'action' => ['activity_share'],
-//                'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
-            ],
-            'per_page' => 10,
-            'page' => $page,
-            'fields' => 'ids',
-            'count_total' => true,
-        ]);
+            $groupPosts = [
+                'activities' => [],
+                'total' => 0,
+            ];
+        } elseif ($this->FeedType === 'Group') {
+            $legacyGroupID = $wpdb->get_var("SELECT group_id FROM wp_bp_groups_groupmeta WHERE meta_key='E2ID' AND meta_value='$this->FeedID'");
 
-        // Get all posts from groups
-        /*
-         * So, this causes a bit of a weird thing: groups aren't utilised all the time, so it gets old posts and mixes
-         * them in with the new ones. This is a bit of a problem, but it's not a huge one. It's just a bit weird.
-         *
-         * FUCK IT. its now a feature. pls use groups :(
-         * ^ rek
-         */
-        $groupPosts = bp_activity_get([
-            'scope' => ['groups'],
-            'per_page' => 10,
-            'page' => $page,
-            'fields' => 'ids',
-            'count_total' => true,
-        ]);
+            if (empty($legacyGroupID)) {
+                return [
+                    'posts' => [],
+                    'total' => 0,
+                    'hasMore' => false,
+                    'explain' => 'No feed found with that ID.',
+                    'explain_data' => [
+                        'FeedID' => $this->FeedID,
+                        'FeedType' => $this->FeedType,
+                    ]
+                ];
+            }
+
+            // just blank data it
+            $userPosts = [
+                'activities' => [],
+                'total' => 0,
+            ];
+
+            $groupPosts = bp_activity_get([
+                'filter' => [
+                    'object' => 'groups',
+                    'primary_id' => (int) $legacyGroupID,
+                    'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                ],
+                'per_page' => 10,
+                'page' => $page,
+                'fields' => 'ids',
+                'count_total' => true,
+            ]);
+        } else {
+            return [
+                'posts' => [],
+                'total' => 0,
+                'hasMore' => false,
+                'explain' => 'No feed found with that ID.',
+                'explain_data' => [
+                    'FeedID' => $this->FeedID,
+                    'FeedType' => $this->FeedType,
+                ]
+            ];
+        }
 
         // Merge the two arrays
         $allPosts = array_unique(array_merge($userPosts['activities'], $groupPosts['activities']));
@@ -183,6 +247,10 @@ class FeedMixer
             return $ids;
         }
 
+        if (empty($ids)) {
+            return [];
+        }
+
         $bp_posts = bp_activity_get([
             'in' => $ids,
             'display_comments' => 'threaded'
@@ -211,28 +279,23 @@ class FeedMixer
                 'likes' => count(bp_activity_get_meta($post->id, 'liked_by', false))
             ];
 
-            $EditorBlocksLocation = bp_activity_get_meta($post->id, 'blocks_url');
-            if (!empty($EditorBlocksLocation)) {
-                $BlocksURL = getenv('YIPNYAP_SUPABASE_URL') . '/storage/v1/object/public/users/' . $EditorBlocksLocation;
-                $JSONDecoded = @json_decode(file_get_contents($BlocksURL));
-                // Check for HTTP 200
-                if (!empty($JSONDecoded)) {
-                    $build['content'] = $JSONDecoded;
-                } else {
-                    $build['content'] = [
-                        'time' => $build['timestamp'],
-                        'version' => '2.22.2',
-                        'blocks' => [
-                            [
-                                'type' => 'paragraph',
-                                'data' => [
-                                    'text' => $post->content,
-                                ],
-                            ],
-                        ],
-                    ];
-                }
+            // Check if in group
+            if ($post->component === 'groups') {
+                $build['group'] = new Group($post->item_id, true);
+            }
+
+            $EditorBlocks = @json_decode(bp_activity_get_meta($post->id, 'blocks'));
+            if (!empty($EditorBlocks)) {
+                $build['content'] = $EditorBlocks;
             } else {
+                if (empty($post->content) || $post->content === ' ') {
+                    // Delete and continue
+                    bp_activity_delete([
+                        'id' => $post->id,
+                    ]);
+                    continue;
+                }
+
                 $build['content'] = [
                     'time' => $build['timestamp'],
                     'version' => '2.22.2',
@@ -267,10 +330,13 @@ class FeedMixer
             }
 
             // Get media - New
-            $mediaObjects = bp_activity_get_meta($post->id, 'media_objects', false);
+            $mediaObjects = bp_activity_get_meta($post->id, 'objects', false);
             if (!empty($mediaObjects)) {
                 foreach ($mediaObjects as $mediaObject) {
-                    $build['objects'][] = unserialize($mediaObject);
+                    $build['objects'][] = [
+                        'id' => $mediaObject['id'],
+                        'url' => YIPNYAP_SUPABASE_URL . '/storage/v1/object/public/users/' . $mediaObject['key'],
+                    ];
                 }
             }
 
@@ -325,7 +391,8 @@ class FeedMixer
             $postIsShare = str_contains($post->type, '_share');
             if ($postIsShare) {
                 // Append to `subcontent`
-                $build['subcontent'] = self::GetPosts([$post->secondary_item_id], false)[0];
+                $subcontent = self::GetPosts([$post->secondary_item_id]);
+                $build['subcontent'] = !empty($subcontent) ? $subcontent[0] : null;
                 if (!empty($build['subcontent']['subcontent'])) {
                     // Fuck you legacy - Find the last post in the chain.
                     // this probably adds a lot of latency overhead, but whatever.
@@ -566,7 +633,7 @@ class FeedMixer
         // Check if the user is logged in
         if (!is_user_logged_in()) {
             return [
-                'status' => 'error',
+                'success' => false,
                 'message' => 'You must be logged in to create a post.',
             ];
         }
@@ -574,16 +641,15 @@ class FeedMixer
         // Check if the post is valid
         if (!empty($post['tags']) && count($post['tags']) > 10) {
             return [
-                'status' => 'error',
+                'success' => false,
                 'message' => 'You can only have up to 10 tags.',
             ];
         }
 
         $UserE2ID = get_user_meta(get_current_user_id(), 'E2ID', true);
         if (empty($UserE2ID)) {
-            $NewID = LegacyIDToE2ID(get_current_user_id(), 'User');
-            update_user_meta(get_current_user_id(), 'E2ID', $NewID);
-            $UserE2ID = $NewID;
+            $UserE2ID = LegacyIDToE2ID(get_current_user_id(), 'User');
+            update_user_meta(get_current_user_id(), 'E2ID', $UserE2ID);
         }
 
         // Create the post
@@ -596,8 +662,9 @@ class FeedMixer
         ]);
 
         if (empty($post_id)) {
+            $this->abort($post_id);
             return [
-                'status' => 'error',
+                'success' => false,
                 'message' => 'Failed to create post.',
             ];
         }
@@ -610,7 +677,6 @@ class FeedMixer
             bp_activity_update_meta($post_id, 'tags', implode(',', $post['tags']));
         }
 
-        // Upload the 'content' as a JSON file to Supabase
         $content = $post['content'];
 
         // - check all the blocks are valid EditorJS blocks
@@ -623,8 +689,9 @@ class FeedMixer
             || !is_string($content['version'])
             || !is_array($content['blocks'])
         ) {
+            $this->abort($post_id);
             return [
-                'status' => 'error',
+                'success' => false,
                 'message' => 'Invalid JSON.',
             ];
         }
@@ -636,66 +703,43 @@ class FeedMixer
                 || !is_array($block['data'])
                 || !in_array($block['type'], ['header', 'paragraph', 'list', 'quote', 'code', 'table', 'link'])
             ) {
+                $this->abort($post_id);
                 return [
-                    'status' => 'error',
+                    'success' => false,
                     'message' => 'Invalid JSON.',
                 ];
             }
         }
 
-        // - save to a file locally
-        $filename = time() . '.json';
-        $filepath = WP_CONTENT_DIR . '/cache/' . $filename;
-
-        // debug - turn on php error reporting
-//        ini_set('display_errors', 1);
-//        error_reporting(E_ALL);
-
-        try {
-            $fileputresult = file_put_contents($filepath, $contentAsJSON);
-        } catch (Exception $e) {
-            bp_activity_delete([
-                'id' => $post_id,
-            ]);
-
-            return [
-                'status' => 'error',
-                'message' => 'Failed to upload post content. This is an issue on our end. - ' . $e->getMessage(),
-            ];
+        if (!empty($post['objects'])) {
+            foreach ($post['objects'] as $object) {
+                if (!isset($object['data'])
+                    || !is_string($object['data'])
+                ) {
+                    $this->abort($post_id);
+                    return [
+                        'success' => false,
+                        'message' => 'An object is invalid.',
+                    ];
+                } else {
+                    $key = SupabaseUploadFromBase64('Post', 'CONTENT_IMAGE', $UserE2ID, $object['data']);
+                    if (empty($key)) {
+                        $this->abort($post_id);
+                        return [
+                            'success' => false,
+                            'message' => 'Failed to upload an object.',
+                        ];
+                    } else {
+                        bp_activity_add_meta($post_id, 'objects', [
+                            'id' => $key['id'],
+                            'key' => $key['key'],
+                        ]);
+                    }
+                }
+            }
         }
 
-        if ($fileputresult === false) {
-            // Undo everything
-            bp_activity_delete([
-                'id' => $post_id,
-            ]);
-
-            return [
-                'status' => 'error',
-                'message' => 'Failed to upload post content. This is an issue on our end. - ' . $filepath,
-            ];
-        }
-
-        // - upload to Supabase
-        $supabaseObject = SupabaseUserContentUpload($UserE2ID, $filepath);
-
-        // - delete the local file
-        if ($supabaseObject['success']) {
-            unlink($filepath);
-
-            // - set the post blocks to the Supabase object key
-            bp_activity_update_meta($post_id, 'blocks_url', $supabaseObject['response']['key']);
-        } else {
-            // Undo everything
-            bp_activity_delete([
-                'id' => $post_id,
-            ]);
-
-            return [
-                'status' => 'error',
-                'message' => 'Failed to upload post content.',
-            ];
-        }
+        bp_activity_update_meta($post_id, 'blocks', $contentAsJSON);
 
         return $this->GetPosts([$post_id]);
     }
@@ -890,5 +934,13 @@ class FeedMixer
         $LogtailServiceLogger->info("Post like {$response['type']} on {$response['id']}: new count {$response['data']['likes']}", $response);
 
         return $response;
+    }
+
+    function abort($post_id): void
+    {
+        // delete the bp post
+        bp_activity_delete([
+            'id' => $post_id,
+        ]);
     }
 }

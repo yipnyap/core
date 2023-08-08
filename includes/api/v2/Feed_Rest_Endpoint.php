@@ -126,7 +126,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
         $FeedTarget = $request->get_param('feed');
         $UserTarget = $request->get_param('user');
         $GroupTarget = $request->get_param('group');
-        if (!empty($FeedTarget) || !empty($UserTarget) || !empty($GroupTarget)) {
+        if ((!empty($FeedTarget) && $FeedTarget !== 'guest') || !empty($UserTarget) || !empty($GroupTarget)) {
             $Target = $FeedTarget ?? $UserTarget ?? $GroupTarget;
 
             $TargetOverride = false;

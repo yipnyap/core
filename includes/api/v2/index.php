@@ -48,6 +48,8 @@ use Yipnyap\Groups_Rest_Endpoint;
 use Yipnyap\Feed_Rest_Endpoint;
 
 add_action('rest_api_init', function () {
+    remove_filter('rest_pre_serve_request', 'rest_send_cors_headers');
+
     $groups = new Groups_Rest_Endpoint();
     $groups->register();
 

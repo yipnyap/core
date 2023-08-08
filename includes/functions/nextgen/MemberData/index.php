@@ -598,6 +598,9 @@ function YipnyapGetGroups(array $query = ['fields' => 'all']): array {
                 'member_count' => $gp_group->total_member_count,
             ];
 
+            $groupBuild['avatar'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $groupBuild['avatar']);
+            $groupBuild['banner'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $groupBuild['banner']);
+
             if (get_current_user_id()) {
                 $groupBuild['is_admin'] = is_int(groups_is_user_admin($query['user_id'], $gp_group->id));
                 $groupBuild['is_mod'] = is_int(groups_is_user_mod($query['user_id'], $gp_group->id));

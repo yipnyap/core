@@ -110,6 +110,7 @@ class Group {
             'item_id' => $BPGroup->id,
             'object_dir' => 'groups',
         ]);
+        $BPGroup->banner = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $BPGroup->banner);
 
         $BPGroup->avatar = bp_core_fetch_avatar([
             'item_id' => $BPGroup->id,
@@ -117,6 +118,7 @@ class Group {
             'type' => 'full',
             'html' => false,
         ]);
+        $BPGroup->avatar = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $BPGroup->avatar);
 
         // Add group counts
         $BPGroup->meta = [

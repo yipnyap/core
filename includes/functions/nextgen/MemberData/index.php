@@ -297,6 +297,7 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
     if (!empty($data['athandle']) && $data['athandle'] !== get_user_meta($member_id, 'athandle', true)) {
         // Check if it's taken by someone's username or athandle
         $taken = YipnyapFetchMemberID($data['athandle'], true);
+        if ($taken === $member_id) $taken = false;
         if ($taken) return [
             'success' => false,
             'error' => 'athandle_taken',

@@ -59,28 +59,28 @@ add_action('determine_current_user', function() {
 });
 
 //add_action('init', function () {
-    $wizard_status = YIPNYAP_WIZARD_STATUS;
-    if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
-        // If admin page or an admin user (to setup), dont do anything
-        if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
-            if (!is_admin()) {
-                get_template_part('plugins/wizard/initial');
-                exit();
-            } else {
-                // show admin notice
-                add_action('admin_notices', function () {
-                    echo '<div class="notice notice-warning is-dismissible">
+$wizard_status = YIPNYAP_WIZARD_STATUS;
+if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
+    // If admin page or an admin user (to setup), dont do anything
+    if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
+        if (!is_admin()) {
+            get_template_part('plugins/wizard/initial');
+            exit();
+        } else {
+            // show admin notice
+            add_action('admin_notices', function () {
+                echo '<div class="notice notice-warning is-dismissible">
                         <p>Yipnyap needs to complete installation. Go to your site\'s homepage.</p>
                     </div>';
-                });
-            }
-        } else {
-            get_template_part('plugins/maintenance/page', null, [
-                'message' => 'Yipnyap is updating, please come back in a few minutes!',
-            ]);
-            exit();
+            });
         }
+    } else {
+        get_template_part('plugins/maintenance/page', null, [
+            'message' => 'Yipnyap is updating, please come back in a few minutes!',
+        ]);
+        exit();
     }
+}
 //}, 30);
 
 // Load plugins bundled with theme
@@ -105,14 +105,14 @@ const YIPNYAP_UI_VERSION = 'ui3-EarlyR';
 const YIPNYAP_API_VERSION = 'v2';
 
 // If the request isnt for /wp-admin, or /wp-login.php, then redirect to /api
-if (!str_contains($_SERVER['REQUEST_URI'], '/wp-admin') && !str_contains($_SERVER['REQUEST_URI'], '/wp-login.php') && !str_contains($_SERVER['REQUEST_URI'], '/api')) {
-    add_action('init', function () {
+add_action('init', function () {
+    if (!defined('WP_CLI') && !str_contains($_SERVER['REQUEST_URI'], '/wp-admin') && !str_contains($_SERVER['REQUEST_URI'], '/wp-login.php')) {
         if (!str_starts_with($_SERVER['REQUEST_URI'], '/api')) {
             wp_redirect('/api');
             exit();
         }
-    }, 1);
-}
+    }
+}, 1);
 
 if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
     /**
@@ -126,11 +126,11 @@ if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
         global $status, $components;
 
         // Replace HTTP(S) with TCP
-        $url = str_replace('https', 'tcp', $url);
-        $url = str_replace('http', 'tcp', $url);
+        $url = str_replace('https', 'ssl', $url);
+//        $url = str_replace('http', 'tls', $url);
 
         $starttime = microtime(true);
-        $file = @fsockopen($url, 80, $errno, $errstr, 10);
+        $file = @fsockopen($url, 443, $errno, $errstr, 10);
         $stoptime = microtime(true);
 
         if (!$file) $ping = -1;  // Site is down
@@ -154,6 +154,9 @@ if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
             $status = 'down';
             $components[$component] = [
                 'status' => 'down',
+                'url' => $url,
+                'errno' => $errno,
+                'errstr' => $errstr,
             ];
         }
 

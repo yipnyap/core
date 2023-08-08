@@ -107,14 +107,8 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $memberOld = $memberOld[0];
     }
 
-    $onlineRequest = new WP_REST_Request('GET', '/buddypress/v1/members');
-    $onlineRequest->set_param('type', 'online');
-    $onlineRequest->set_param('populate_extras', 0);
-    $onlineResponse = rest_do_request($onlineRequest);
-
     $UserE2ID = YipnyapGetMemberE2ID($member_id);
 
-    // TODO: Deperecate "mention_name" in the future.
     $member = [
         'id' => $memberOld['id'],
         'E2ID' => $UserE2ID,
@@ -158,19 +152,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         $member['username'] = $athandle;
     }
 
-    /**
-     * Check if member is online, then add "online" to the member array.
-     */
-    if ($getOnline) {
-        $member['online'] = false;
-        foreach ($onlineResponse->data as $onlineMember) {
-            if ($onlineMember['id'] === $member_id) {
-                $member['online'] = true;
-                break;
-            }
-        }
-    }
-
     $profile_data = [
         'profile_data' => yipnyap_member_get_xprofile_data($member_id),
     ];
@@ -209,8 +190,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         // Get events, based on `event` meta_key from database
         $eventsActivity = $wpdb->get_var("SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key='event'");
 
-        $eventsActivity[] = 50; // test
-
         foreach ($eventsActivity as $eventActivity) {
             $event = bp_activity_get_meta($eventActivity, 'event');
             $member['events'][] = [
@@ -221,7 +200,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
 
         // Find group with `featured` meta
         $featuredGroups = $wpdb->get_var("SELECT group_id FROM wp_bp_groups_groupmeta WHERE meta_key='featured'");
-        $featuredGroups = [10,11,'yipnyap-feedback',13,14,15,16,17,18,19,20]; // test
+        if (empty($featuredGroups)) $featuredGroups = [10,11,'yipnyap-feedback',13,15,16,17,18,19,20];
 
         foreach ($featuredGroups as $groupID) {
             try {
@@ -265,26 +244,6 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
             $group = new Group($group, true);
             $member['groups'][] = $group->GroupMeta;
         }
-    }
-
-    /**
-     * Check if bitwise has "online_count", add currently online count
-     */
-    if ($bitwise & $GetMemberBit['online_count']) {
-        $onlineCount = count($onlineResponse->data);
-
-        // If the count is less than or equal to 3, generate a random online count based on the current time.
-        if ($onlineCount <= 3) {
-            $originalOnlineCount = $onlineCount;
-            // Add up current date, hour, and minute, then divide by 10.
-            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 20;
-            // Round the number to the nearest 10.
-            $onlineCount = round($onlineCount);
-            // Add the original online count to the new online count.
-            $onlineCount += $originalOnlineCount;
-        }
-
-        $member['online_count'] = $onlineCount;
     }
 
     /**

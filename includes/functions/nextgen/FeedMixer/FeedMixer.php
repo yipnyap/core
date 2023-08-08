@@ -46,7 +46,8 @@ class FeedMixer
      * It sorts by date and reaction count.
      * @throws Exception
      */
-    public static function MixGuestFeed(int $page = 1): array {
+    public static function MixGuestFeed(int $page = 1): array
+    {
         global $wpdb;
 
         $offset = ($page - 1) * 10;
@@ -63,7 +64,7 @@ class FeedMixer
 
         $reactions = $wpdb->get_results($reactionSQL);
 
-        $activityIDs = array_map(function($reaction) {
+        $activityIDs = array_map(function ($reaction) {
             return $reaction->activity_id;
         }, $reactions);
 
@@ -93,7 +94,8 @@ class FeedMixer
      * @return array
      * @throws Exception
      */
-    public function MixFeed(int $page = 1): array {
+    public function MixFeed(int $page = 1): array
+    {
         global $wpdb;
 
         $legacyUserID = $wpdb->get_var("SELECT user_id FROM wp_usermeta WHERE meta_key='E2ID' AND meta_value='$this->FeedID'");
@@ -181,7 +183,7 @@ class FeedMixer
             $groupPosts = bp_activity_get([
                 'filter' => [
                     'object' => 'groups',
-                    'primary_id' => (int) $legacyGroupID,
+                    'primary_id' => (int)$legacyGroupID,
                     'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
                 ],
                 'per_page' => 10,
@@ -223,9 +225,10 @@ class FeedMixer
      * @throws Exception
      * @todo: STRIP BUDDYPRESS' STUPID FUCKERY, MOTHERFLUFFER! (oh and also move this to a class uwu~)
      */
-    public static function GetPosts(array $ids = [], bool $returnLegacyIDOnly = false, bool $dontRecursiveSubContent = false): array {
+    public static function GetPosts(array $ids = [], bool $returnLegacyIDOnly = false, bool $dontRecursiveSubContent = false): array
+    {
         // Check each ID, if it can't be converted to a number, get the activity_id from meta
-        $ids = array_map(function($id) {
+        $ids = array_map(function ($id) {
             global $wpdb;
 
             if (!is_numeric($id)) {
@@ -652,14 +655,32 @@ class FeedMixer
             update_user_meta(get_current_user_id(), 'E2ID', $UserE2ID);
         }
 
+        // Check if the target is a group
+        $goingToGroup = false;
+        if (!empty($post['target'])) {
+            try {
+                $goingToGroup = new Group($post['target'], true);
+            } catch (Exception $e) {
+                // Just skip
+            }
+        }
+
         // Create the post
         $E2ID = E2IDCreate('Post');
-        $post_id = bp_activity_add([
+        $args = [
             'user_id' => get_current_user_id(),
             'content' => ' ',
-            'component' => 'activity',
             'type' => 'activity_update',
-        ]);
+        ];
+
+        if ($goingToGroup !== false) {
+            $args['component'] = 'groups';
+            $args['item_id'] = $goingToGroup->GroupID;
+            $post_id = groups_record_activity($args);
+        } else {
+            $args['component'] = 'activity';
+            $post_id = bp_activity_add($args);
+        }
 
         if (empty($post_id)) {
             $this->abort($post_id);
@@ -741,7 +762,10 @@ class FeedMixer
 
         bp_activity_update_meta($post_id, 'blocks', $contentAsJSON);
 
-        return $this->GetPosts([$post_id]);
+        return [
+            'success' => true,
+            'data' => $this->GetPosts([$post_id])[0],
+        ];
     }
 
     /**
@@ -753,7 +777,8 @@ class FeedMixer
      * @return array
      * @throws Exception
      */
-    public static function CreateComment(string $PostE2, string $content, string|null $ParentCommentE2 = null): array {
+    public static function CreateComment(string $PostE2, string $content, string|null $ParentCommentE2 = null): array
+    {
         if (!is_user_logged_in()) {
             return [
                 'success' => false,
@@ -934,6 +959,50 @@ class FeedMixer
         $LogtailServiceLogger->info("Post like {$response['type']} on {$response['id']}: new count {$response['data']['likes']}", $response);
 
         return $response;
+    }
+
+    /**
+     * @throws Exception
+     */
+    public static function DeletePost($post_id)
+    {
+        $post = FeedMixer::GetPosts([$post_id], true);
+        $post = bp_activity_get([
+            'in' => $post[0]
+        ])['activities'][0];
+
+        if (empty($post)) {
+            return [
+                'success' => false,
+                'status' => 404,
+                'message' => 'Post not found.',
+            ];
+        }
+
+        if ($post->user_id !== get_current_user_id()) {
+            return [
+                'success' => false,
+                'status' => 403,
+                'message' => 'You don\'t have permission to delete this post, ' . $post->user_id
+            ];
+        }
+
+        // delete the bp post
+        $success = bp_activity_delete([
+            'id' => $post->id,
+        ]);
+
+        if ($success === false) {
+            return [
+                'success' => false,
+                'status' => 500,
+                'message' => 'Failed to delete post.',
+            ];
+        }
+
+        return [
+            'success' => true,
+        ];
     }
 
     function abort($post_id): void

@@ -74,6 +74,10 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
                     ],
                 ]
             ],
+            [
+                'methods' => WP_REST_Server::DELETABLE,
+                'callback' => [$this, 'delete_item'],
+            ],
             'schema' => [$this, 'edit_public_item_schema'],
         ]);
 
@@ -81,6 +85,20 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
             [
                 'methods' => ['PUT', 'DELETE'],
                 'callback' => [$this, 'edit_like_item'],
+                'args' => [
+                    'id' => [
+                        'type' => 'string',
+                        'required' => true,
+                    ],
+                ]
+            ],
+            'schema' => [$this, 'edit_public_item_schema'],
+        ]);
+
+        register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)', [
+            [
+                'methods' => WP_REST_Server::DELETABLE,
+                'callback' => [$this, 'delete_post'],
                 'args' => [
                     'id' => [
                         'type' => 'string',
@@ -110,9 +128,11 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
         $GroupTarget = $request->get_param('group');
         if (!empty($FeedTarget) || !empty($UserTarget) || !empty($GroupTarget)) {
             $Target = $FeedTarget ?? $UserTarget ?? $GroupTarget;
-            // If UserTarget or GroupTarget is set, its an override
+
             $TargetOverride = false;
-            if (!empty($UserTarget)) {
+            if (!empty($FeedTarget)) {
+                $TargetOverride = 'Feed';
+            } elseif (!empty($UserTarget)) {
                 $TargetOverride = 'User';
             } elseif (!empty($GroupTarget)) {
                 $TargetOverride = 'Group';
@@ -158,10 +178,15 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
             'content' => $request->get_param('content'),
             'tags' => $request->get_param('tags'),
             'objects' => $request->get_param('objects'),
+            'target' => $request->get_param('target'),
         ]);
 
         $response = new WP_REST_Response($post);
-        $response->set_status(200);
+        if ($post['success'] === true) {
+            $response->set_status(200);
+        } else {
+            $response->set_status(500);
+        }
         $response->header('Content-Type', 'application/json');
 
         return $response;
@@ -221,6 +246,35 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
             $response->set_status(400);
         }
 
+        $response->header('Content-Type', 'application/json');
+
+        return $response;
+    }
+
+    /**
+     * Delete a post
+     *
+     * @param WP_REST_Request $request Full details about the request.
+     * @return WP_REST_Response
+     * @throws Exception
+     */
+    public function delete_post(WP_REST_Request $request): WP_REST_Response
+    {
+        if (!is_user_logged_in()) {
+            return new WP_REST_Response([
+                'success' => false,
+                'message' => 'You must be logged in to delete a post.',
+            ], 401);
+        }
+
+        $post = FeedMixer::DeletePost($request->get_param('id'));
+
+        $response = new WP_REST_Response($post);
+        if ($post['success'] === true) {
+            $response->set_status(200);
+        } else {
+            $response->set_status($post['status'] ?? 500);
+        }
         $response->header('Content-Type', 'application/json');
 
         return $response;

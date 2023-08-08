@@ -18,6 +18,19 @@ add_action('rest_api_init', function () {
 
         return $response;
     });
+
+    /**
+     * GET /nonce
+     *
+     * @return object API nonce.
+     * @since ui3
+     */
+    register_rest_route('v2', '/nonce', [
+        'methods' => 'GET',
+        'callback' => function () {
+            return wp_create_nonce('wp_rest');
+        },
+    ]);
 });
 
 require_once __DIR__ . '/comic.php';
@@ -28,9 +41,11 @@ require_once __DIR__ . '/telegram.php';
 require_once __DIR__ . '/dipswitch.php';
 require_once __DIR__ . '/Groups_Rest_Endpoint.php';
 require_once __DIR__ . '/AllocatedStorage_Rest_Endpoint.php';
+require_once __DIR__ . '/Feed_Rest_Endpoint.php';
 
 use Yipnyap\AllocatedStorage_Rest_Endpoint;
 use Yipnyap\Groups_Rest_Endpoint;
+use Yipnyap\Feed_Rest_Endpoint;
 
 add_action('rest_api_init', function () {
     $groups = new Groups_Rest_Endpoint();
@@ -38,4 +53,7 @@ add_action('rest_api_init', function () {
 
     $storage = new AllocatedStorage_Rest_Endpoint();
     $storage->register();
+
+    $feed = new Feed_Rest_Endpoint();
+    $feed->register();
 });

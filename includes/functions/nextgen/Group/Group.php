@@ -22,6 +22,7 @@ class Group {
     public string $GroupCreatorID;
     public object $GroupMeta;
     public array $CurrentUserRoles = [];
+    public bool $DontGetMeta = false;
 
     /**
      * Check the constructor for a provided group.
@@ -32,11 +33,22 @@ class Group {
      */
     public function __construct(int|string $group_id = 0, bool $dontGetMeta = false) {
         if ($group_id) {
-            $this->GroupID = (int) $group_id;
-
-            if (!$dontGetMeta) {
-                $this->GetGroupMeta();
+            // Check if string can be a number
+            if (is_numeric($group_id)) {
+                $group_id = (int) $group_id;
             }
+
+            // Check if the group_id is a slug, if so, get the group ID.
+            if (is_string($group_id)) {
+                $group_id = str_replace(' ', '-', $group_id);
+                $group_id = str_replace('@', '', $group_id);
+                $group_id = groups_get_id($group_id);
+            }
+
+            $this->GroupID = (int) $group_id;
+            $this->DontGetMeta = $dontGetMeta;
+
+            $this->GetGroupMeta();
         }
     }
 
@@ -55,6 +67,14 @@ class Group {
         if (empty($BPGroup->id)) {
             throw new Exception('Group not found.');
         }
+
+        $GroupE2ID = groups_get_groupmeta($BPGroup->id, 'E2ID');
+        // Check for E2ID, if not found, create one.
+        if (empty($GroupE2ID)) {
+            $GroupE2ID = E2IDCreate('Group');
+            groups_update_groupmeta($BPGroup->id, 'E2ID', $GroupE2ID);
+        }
+        $BPGroup->E2ID = $GroupE2ID;
 
         $BPGroup->privacy = $BPGroup->status;
         unset($BPGroup->status);
@@ -78,6 +98,11 @@ class Group {
 
         if (empty($BPGroup->parent_id)) {
             unset($BPGroup->parent_id);
+        }
+
+        // Replace html codes with their actual characters.
+        if (!empty($BPGroup->description)) {
+            $BPGroup->description = html_entity_decode($BPGroup->description);
         }
 
         // Add group banner & avatar.
@@ -113,37 +138,37 @@ class Group {
             $BPGroup->meta['orphan'] = true;
         }
 
-        // Use MemberData to get group members
-        foreach (groups_get_group_members([
-            'group_id' => $BPGroup->id,
-            'exclude_admins_mods' => false,
-        ])['members'] as $member) {
-            $memberBuild = YipnyapGetMember($member->id);
+        if (!$this->DontGetMeta) {
+            // Use MemberData to get group members
+            foreach (groups_get_group_members([
+                'group_id' => $BPGroup->id,
+                'exclude_admins_mods' => false,
+            ])['members'] as $member) {
+                $memberBuild = YipnyapGetMember($member->id);
 
-            if ($memberBuild['id'] === $BPGroup->creator_id) {
-                $memberBuild['pivot']['current'] = 'Leader';
-            } else {
-                $memberBuild['pivot']['current'] = $member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : 'Member');
-            }
-            $memberBuild['date_joined'] = strtotime($member->date_modified);
-
-            $BPGroup->meta['members']['data'][] = $memberBuild;
-
-            if ($memberBuild['id'] === get_current_user_id()) {
-                $BPGroup->meta['pivot'] = [
-                    'current' => $memberBuild['id'] === $BPGroup->creator_id ? 'Leader' : ($member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : 'Member')),
-                ];
-            }
-        }
-
-        // Sort members by date joined, and by role alphabetically.
-        if (!empty($BPGroup->meta['members']['data'])) {
-            usort($BPGroup->meta['members']['data'], function ($a, $b) {
-                if ($a['date_joined'] === $b['date_joined']) {
-                    return $a['pivot']['current'] <=> $b['pivot']['current'];
+                if ($memberBuild['id'] === $BPGroup->creator_id) {
+                    $memberBuild['pivot']['current'] = 'Leader';
+                } else {
+                    $memberBuild['pivot']['current'] = $member->is_admin ? 'Administrator' : ($member->is_mod ? 'Moderator' : 'Member');
                 }
-                return $a['date_joined'] <=> $b['date_joined'];
-            });
+                $memberBuild['date_joined'] = strtotime($member->date_modified);
+
+                $BPGroup->meta['members']['data'][] = $memberBuild;
+
+                if ($memberBuild['id'] === get_current_user_id()) {
+                    $BPGroup->meta['pivot'] = $memberBuild['pivot'];
+                }
+            }
+
+            // Sort members by date joined, and by role alphabetically.
+            if (!empty($BPGroup->meta['members']['data'])) {
+                usort($BPGroup->meta['members']['data'], function ($a, $b) {
+                    if ($a['date_joined'] === $b['date_joined']) {
+                        return $a['pivot']['current'] <=> $b['pivot']['current'];
+                    }
+                    return $a['date_joined'] <=> $b['date_joined'];
+                });
+            }
         }
 
         $this->GroupMeta = $BPGroup;

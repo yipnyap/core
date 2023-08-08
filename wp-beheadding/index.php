@@ -9,10 +9,10 @@
 add_action('init', function () {
     $current = $_SERVER['REQUEST_URI'];
     if ((str_starts_with($current, '/login') || str_starts_with($current, '/wp-login')) && $_GET['action'] != 'logout') {
-        wp_redirect('/id/login');
+        wp_redirect('/id/login/');
         exit();
     } elseif (str_starts_with($current, '/register') || str_starts_with($current, '/wp-login')) {
-        wp_redirect('/id/create');
+        wp_redirect('/id/create/');
         exit();
     }
 });

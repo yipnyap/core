@@ -30,7 +30,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $result = [];
@@ -56,7 +56,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $success = false;
@@ -89,7 +89,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $success = false;
@@ -122,7 +122,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $success = false;
@@ -155,7 +155,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $success = false;
@@ -188,7 +188,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $success = false;
@@ -197,13 +197,18 @@ add_action('rest_api_init', function () {
                 if (get_current_user_id() === $request['target']) {
                     wp_send_json([
                         'success' => false,
-                        'error' => 'Cannot friend yourself.',
+                        'message' => 'Cannot friend yourself.',
                     ]);
                 }
 
                 $Relationship = new UserRelationship();
                 $Relationship->SetRelationshipInfo(get_current_user_id(), $request['target']);
                 $success = $Relationship->CreateFriendRequest();
+
+                if (!$success) {
+                    // Attempt to unfriend
+                    $Relationship->RemoveFriend();
+                }
 
                 $result['relationship'] = $Relationship->GetRelationshipInfo();
             } else {
@@ -225,7 +230,7 @@ add_action('rest_api_init', function () {
             if (empty(get_current_user_id())) {
                 wp_send_json([
                     'success' => false,
-                    'error' => 'Not logged in.',
+                    'message' => 'Not logged in.',
                 ]);
             }
             $result = [];

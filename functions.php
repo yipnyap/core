@@ -8,103 +8,88 @@
  *
  */
 
-// Load Nextgen 2 Debugger
+// Check if composer is installed
+if (!file_exists(__DIR__ . '/vendor/autoload.php')) {
+    echo '<h1>read the docs next time</h1>';
+    echo '<p>Yipnyap is babysitting you.</p>';
+    echo '<p>Run <code>composer install</code> in the theme directory. For more information, visit <a href="https://getcomposer.org/">https://getcomposer.org/</a></p>';
+    exit();
+}
+
+require_once __DIR__ . '/vendor/autoload.php';
+use Firebase\JWT\JWT;
+
+// Dumb stupid requires
 require_once __DIR__ . '/global/nextgen2/debug.php';
+require_once __DIR__ . '/includes/utils/monolog.php';
+require_once __DIR__ . '/wp-beheadding/index.php';
 
-// Load plugins bundled with theme
-require_once __DIR__ . '/plugins/plugins.php';
-
-/**
- * Count render time
- */
-// Start
-$AnalyticalRenderTime = [
-    'start' => microtime(true),
-    'end' => 0,
-    'total' => 0,
-    'human' => 0,
-];
-
-// Hook into the 'wp_footer' action
-add_action('wp_footer', function () {
-    global $AnalyticalRenderTime;
-    // End
-    $AnalyticalRenderTime['end'] = microtime(true);
-
-    // Calculate
-    $AnalyticalRenderTime['total'] = $AnalyticalRenderTime['end'] - $AnalyticalRenderTime['start'];
-    $AnalyticalRenderTime['human'] = number_format($AnalyticalRenderTime['total'], 2);
-
-    // Send render time to client
-    echo console_log($AnalyticalRenderTime);
-});
-
-/**
- * After theme loaded, load page templates
- */
-add_action('after_setup_theme', function () {
-    // Load init.php
-    require_once get_template_directory() . '/page-templates/init.php';
-});
-
-/**
- * Theme paths and urls
- */
 define('YIPNYAP_PATH', get_template_directory());
 define('YIPNYAP_URL', get_template_directory_uri());
 define('YIPNYAP_UPLOADS_PATH', wp_get_upload_dir()['basedir'] . '/yipnyap');
 define('YIPNYAP_UPLOADS_URL', wp_get_upload_dir()['baseurl'] . '/yipnyap');
 
-require_once YIPNYAP_PATH . '/includes/utils/discord_webhook.php';
-require_once YIPNYAP_PATH . '/wp-beheadding/index.php';
+// Check the current 'Authorization' header
+// If it's set, then get the current user and set it on WordPress
+add_action('determine_current_user', function() {
+    $headers = getallheaders();
+    $auth = $headers['Authorization'] ?? $headers['authorization'] ?? null;
 
-/**
- * Rename "Keymaster" role
- * Unfortunately, this is hard set by Wordpress, and I cannot change it from a plugin right now.
- * TODO: Replace this with a separate, configurable plugin later.
- */
-add_filter('bbp_get_dynamic_roles', 'ntwb_bbpress_custom_role_names');
+    if ($auth) {
+        $token = str_replace('Bearer ', '', $auth);
+        $serviceKey = YIPNYAP_SUPABASE_SERVICE_KEY;
+        $decoded = @JWT::decode($token, $serviceKey, ['HS256']);
+        if (empty($decoded)) {
+            wp_send_json([
+                'success' => false,
+                'message' => 'Invalid token.',
+            ]);
 
-/** @noinspection PhpUndefinedFunctionInspection */
-function ntwb_bbpress_custom_role_names(): array {
-    return [
+            return null;
+        } else {
+            $user = get_user_by('id', $decoded->data->id);
+            wp_set_current_user($user->ID);
+            wp_set_auth_cookie($user->ID);
 
-        // Keymaster
-        bbp_get_keymaster_role() => [
-            'name' => 'Staff',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_keymaster_role()),
-        ],
+            return $user->ID;
+        }
+    }
 
-        // Moderator
-        bbp_get_moderator_role() => [
-            'name' => 'Moderator',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_moderator_role()),
-        ],
+    return null;
+});
 
-        // Participant
-        bbp_get_participant_role() => [
-            'name' => 'Participant',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_participant_role()),
-        ],
+//add_action('init', function () {
+    $wizard_status = YIPNYAP_WIZARD_STATUS;
+    if (empty($wizard_status) || $wizard_status !== 'DONE' || !file_exists(YIPNYAP_ENV_PATH)) {
+        // If admin page or an admin user (to setup), dont do anything
+        if (current_user_can('administrator') || str_contains($_SERVER['SERVER_NAME'], 'local')) {
+            if (!is_admin()) {
+                get_template_part('plugins/wizard/initial');
+                exit();
+            } else {
+                // show admin notice
+                add_action('admin_notices', function () {
+                    echo '<div class="notice notice-warning is-dismissible">
+                        <p>Yipnyap needs to complete installation. Go to your site\'s homepage.</p>
+                    </div>';
+                });
+            }
+        } else {
+            get_template_part('plugins/maintenance/page', null, [
+                'message' => 'Yipnyap is updating, please come back in a few minutes!',
+            ]);
+            exit();
+        }
+    }
+//}, 30);
 
-        // Spectator
-        bbp_get_spectator_role() => [
-            'name' => 'Spectator',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_spectator_role()),
-        ],
-
-        // Blocked
-        bbp_get_blocked_role() => [
-            'name' => 'Blocked',
-            'capabilities' => bbp_get_caps_for_role(bbp_get_blocked_role()),
-        ],
-    ];
-}
+// Load plugins bundled with theme
+require_once __DIR__ . '/plugins/plugins.php';
 
 /**
  * THEME CONSTANTS
  */
-define('YIPNYAP_IS_LOCAL_DEV', str_contains($_SERVER['SERVER_NAME'], 'local') || str_contains($_SERVER['SERVER_NAME'], 'ngrok'));
+define("YIPNYAP_IS_LOCAL_DEV", empty(YIPNYAP_SETUP_AS_PRODUCTION) || YIPNYAP_SETUP_AS_PRODUCTION !== 'true');
 
 /**
  * Versioning
@@ -114,39 +99,91 @@ try {
 } catch (Exception $e) {
     define('YIPNYAP_DEVELOPER_VERSION', 'dev/unknown');
 }
-const YIPNYAP_VERSION = YIPNYAP_IS_LOCAL_DEV ? 'linkbleed/' . YIPNYAP_DEVELOPER_VERSION : 'ui1.3';
+
+const YIPNYAP_VERSION = 'core2';
+const YIPNYAP_UI_VERSION = 'ui3-EarlyR';
+const YIPNYAP_API_VERSION = 'v2';
+
+// If the request isnt for /wp-admin, or /wp-login.php, then redirect to /api
+if (!str_contains($_SERVER['REQUEST_URI'], '/wp-admin') && !str_contains($_SERVER['REQUEST_URI'], '/wp-login.php') && !str_contains($_SERVER['REQUEST_URI'], '/api')) {
+    add_action('init', function () {
+        if (!str_starts_with($_SERVER['REQUEST_URI'], '/api')) {
+            wp_redirect('/api');
+            exit();
+        }
+    }, 1);
+}
+
+if ($_SERVER['REQUEST_URI'] === '/api' || $_SERVER['REQUEST_URI'] === '/api/') {
+    /**
+     * Do health check
+     */
+    $status = '';
+    $components = [];
+
+    function pingTest($url, $component): void
+    {
+        global $status, $components;
+
+        // Replace HTTP(S) with TCP
+        $url = str_replace('https', 'tcp', $url);
+        $url = str_replace('http', 'tcp', $url);
+
+        $starttime = microtime(true);
+        $file = @fsockopen($url, 80, $errno, $errstr, 10);
+        $stoptime = microtime(true);
+
+        if (!$file) $ping = -1;  // Site is down
+        else {
+            fclose($file);
+            $ping = ($stoptime - $starttime) * 1000;
+            $ping = floor($ping);
+        }
+
+        if ($ping >= 0 && $ping < 1000) {
+            $status = 'ok';
+            $components[$component] = [
+                'status' => 'ok',
+            ];
+        } elseif ($ping >= 1000 && $ping < 2000) {
+            $status = 'unstable';
+            $components[$component] = [
+                'status' => 'unstable',
+            ];
+        } else {
+            $status = 'down';
+            $components[$component] = [
+                'status' => 'down',
+            ];
+        }
+
+        $components[$component]['avg_ping'] = $ping;
+    }
+
+    pingTest(YIPNYAP_SUPABASE_URL, 'supabase');
+    pingTest(get_option('siteurl'), 'wordpress');
+
+    wp_send_json([
+        'ui_version' => YIPNYAP_UI_VERSION,
+        'api_version' => YIPNYAP_API_VERSION,
+        'version' => YIPNYAP_VERSION,
+        'health' => [
+            'status' => $status,
+            'components' => $components,
+        ],
+    ]);
+}
 
 /**
  * Change Wordpress Settings
  */
-define('YIPNYAP_WPOPTIONS', [
+const YIPNYAP_WPOPTIONS = [
     'blogname' => 'Yipnyap',
     'blogdescription' => 'A furry safespace',
-    'users_can_register' => true,
-
-    /*
-     * WORDPRESS WHAT???? LMAO????? "true" and "false" don't work
-     */ 'cmui_use_profile_as_colour_palette' => isset($_GET['cmui_use_profile_as_colour_palette']) ? 'yes' : 'no',
-    'yipnyap_logo_url' => YIPNYAP_URL . '/img/logo/unicorn-' . rand(1, 15) . '-min.png',
     'buddypress' => [
         'basedir' => WP_CONTENT_DIR . '/uploads',
         'baseurl' => WP_CONTENT_URL . '/uploads',
-    ],
-    'unicorn_engine' => [
-        'settings_str' => [
-            'disallow_bg_render_str' => 'prevent others backgrounds from rendering',
-            'disallow_palette_render_str' => 'prevent others ui palette from rendering',
-            'hide_customised_ui_str' => 'hide customised ui notice on others profiles',
-        ],
-    ],
-    'google_font_url' => 'https://fonts.googleapis.com/css2?family=Lexend:wght@300..700',
-    'fonts' => [
-        'primary' => 'Lexend',
-        'secondary' => 'Lexend',
-    ],
-]);
-const YIPNYAP_OPTIONS = [
-    'discord_webhook_url' => 'https://canary.discord.com/api/webhooks/1010297665432584212/AfxYH1F_ORaCQu371Q-KQowg2tg8t9qZgFlP-Uxp4Sfh0KqlGxPC_qzMzwrdmmdhzIq_',
+    ]
 ];
 
 foreach (get_object_vars((object) YIPNYAP_WPOPTIONS) as $key => $option) {
@@ -167,12 +204,6 @@ function yipnyap_disable_bp_registration(): void {
 
 add_action('bp_loaded', 'yipnyap_disable_bp_registration');
 
-function yipnyap_redirect_bp_signup_page(): string {
-    return bp_get_root_domain() . '/login/?action=register';
-}
-
-add_filter('bp_get_signup_page', "yipnyap_redirect_bp_signup_page");
-
 /**
  * Redirect to login after reset password
  */
@@ -181,7 +212,7 @@ add_action('login_headerurl', function () {
     $confirm = (isset($_GET['action']) && $_GET['action'] == 'resetpass');
 
     if ($confirm) {
-        wp_redirect('/login');
+        wp_redirect('/id/login/');
         exit;
     }
 });
@@ -189,213 +220,7 @@ add_action('login_headerurl', function () {
 /**
  * TRANSLATION functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
-
-/**
- * Load admin styles and scripts
- */
-function yipnyap_admin_load_scripts(): void {
-    // load fonts
-    wp_enqueue_style('yipnyap-admin-fonts', 'https://fonts.googleapis.com/css?family=Poppins:400,500,600,700,800,900&display=swap');
-
-    // add custom stylesheets
-    wp_enqueue_style('yipnyap-admin-styles', YIPNYAP_URL . '/src/css/admin-style.min.css', [], '1.11.0');
-
-    // pass php variables to javascript file
-    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_constants', [
-        'yipnyap_admin_ajax_nonce' => wp_create_nonce('yipnyap_admin_ajax'),
-    ]);
-
-    // pass translation strings to javascript file
-    wp_localize_script('yipnyap-admin-scripts', 'yipnyap_translation', yipnyap_translation_get());
-}
-
-add_action('admin_enqueue_scripts', 'yipnyap_admin_load_scripts');
-
-/**
- * Load theme styles and scripts
- */
-
-add_action('wp_enqueue_scripts', function () {
-    // add EX script
-    wp_enqueue_script('yapex-main-scripts', YIPNYAP_URL . '/src/js/source/yapsdk/ex.js', ['jquery'], YIPNYAP_VERSION, true);
-
-    // load fonts
-    wp_enqueue_style('yipnyap-fonts', get_option('google_font_url'));
-
-    // add custom stylesheets
-//    wp_enqueue_style('yipnyap-simplebar-styles', get_template_directory_uri() . '/src/css/vendor/simplebar.css', [], '1.0.0');
-//    wp_enqueue_style('yipnyap-swiper-slider-styles', get_template_directory_uri() . '/src/css/vendor/swiper.min.css', [], '1.0.0');
-    wp_enqueue_style('yapex-shared-styles', get_template_directory_uri() . '/src/css/yapsdk/ex-shared.css', [], YIPNYAP_VERSION);
-
-    // add plugins
-    wp_enqueue_script('yipnyap-swiper-scripts', YIPNYAP_URL . '/src/js/source/vendor/swiper.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmaccordion-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_accordion.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmdropdown-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_dropdown.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmhexagon-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_hexagon.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmpopup-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_popup.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmprogressBar-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_progressBar.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmtab-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_tab.min.js', [], '1.0.0', true);
-    wp_enqueue_script('yipnyap-xmtooltip-scripts', YIPNYAP_URL . '/src/js/source/vendor/xm_tooltip.min.js', [], '1.0.0', true);
-
-    $yipnyap_main_scripts_dependencies = [
-        'jquery',
-        'yipnyap-swiper-scripts',
-        'yipnyap-xmaccordion-scripts',
-        'yipnyap-xmdropdown-scripts',
-        'yipnyap-xmhexagon-scripts',
-        'yipnyap-xmpopup-scripts',
-        'yipnyap-xmprogressBar-scripts',
-        'yipnyap-xmtab-scripts',
-        'yipnyap-xmtooltip-scripts',
-    ];
-
-    foreach (glob(get_template_directory() . '/dist/*.js') as $file) {
-        // remove the directory path from $file
-        $file = basename($file);
-
-        $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_DEV_WATCH_URL'];
-        wp_enqueue_script($file, $domain . $file, [], YIPNYAP_VERSION, true);
-    }
-
-    foreach (glob(get_template_directory() . '/dist/*.css') as $file) {
-        // remove the directory path from $file
-        $file = basename($file);
-
-        $domain = get_template_directory_uri() . '/dist/';
-        if (YIPNYAP_IS_LOCAL_DEV) $domain = $_ENV['YIPNYAP_DEV_WATCH_URL'];
-        wp_enqueue_style($file, $domain . $file, [], YIPNYAP_VERSION);
-    }
-
-    global $yipnyap_settings;
-
-    $yipnyap_settings = yipnyap_settings_get();
-
-//    if (has_custom_logo()) {
-//        $logo_id = get_theme_mod('custom_logo');
-//        $logo_url = wp_get_attachment_image_src($logo_id, 'full');
-//    } else {
-//        $logo_url = get_option('yipnyap_logo_url');
-//    }
-
-    // pass php variables to window object
-    $yipnyap_constants = [
-        'yipnyap_url' => YIPNYAP_URL,
-        'home_url' => esc_url(home_url('/')),
-        'ajax_url' => home_url('/sdk/'),
-        'logout_url' => str_replace('&amp;', '&', wp_logout_url('/')), // bro... why?
-        'logo_url' => YIPNYAP_WPOPTIONS['yipnyap_logo_url'],
-        'wp_rest_nonce' => wp_create_nonce('wp_rest'),
-        'yipnyap_ajax_nonce' => wp_create_nonce('yipnyap_ajax'),
-        'rest_root' => esc_url_raw(rest_url()),
-        'plugin_active' => yipnyap_plugin_get_required_plugins_activation_status(),
-        'gamipress_badge_type_exists' => yipnyap_plugin_gamipress_is_active() && yipnyap_gamipress_achievement_type_exists('badge'),
-        'colors' => yipnyap_customizer_theme_colors_get_array(),
-        'settings' => $yipnyap_settings,
-        'yipnyap_server_version' => YIPNYAP_VERSION,
-        'upload_url' => wp_upload_dir()['baseurl'],
-        'telegram_bot' => get_option('tg_col') ?? explode(':', get_option('tg_col')['bot_token'])[0],
-        'notices' => [
-            'tgLink' => "@rekkisomo: Due to an issue with Telegram's Login Widget, you can't link Telegram right now. We're working to fix this issue, conversing with Telegram Support. Sorry for the inconvenience 😔",
-        ],
-    ];
-    ?>
-    <script>
-        window.yipnyap_constants = <?php echo json_encode($yipnyap_constants); ?>;
-        window.yipnyap_translation = <?php echo json_encode(yipnyap_translation_get()); ?>;
-    </script>
-    <?php
-    // pass translation strings to javascript file
-    wp_localize_script('yipnyap-main-scripts', 'yipnyap_translation', yipnyap_translation_get());
-});
-
-add_filter('script_loader_tag', function ($tag, $handle) {
-    // if handle contains 'gami', 'bp-', don't add it
-    if (str_contains($handle, 'gamipress-') || str_contains($handle, 'bp-')) {
-        return '';
-    }
-
-    if ($handle !== 'bundle.js') {
-        return $tag;
-    }
-
-    return str_replace(' src', ' async defer src', $tag); // OR do both!
-}, 10, 2);
-
-add_filter('style_loader_tag', function ($tag, $handle) {
-    // if handle contains 'gamipress-', 'bp-', don't add it
-    if (str_contains($handle, 'gamipress-') || str_contains($handle, 'bp-')) {
-        return '';
-    }
-
-    return $tag;
-}, 10, 2);
-
-/**
- * Remove plugin styles that are not needed to reduce file queries
- */
-function yipnyap_dequeue_styles(): void {
-    // remove BuddyPress styles
-    wp_dequeue_style('bp-legacy-css');
-
-    // remove GamiPress styles
-    wp_dequeue_style('gamipress-css');
-}
-
-add_action('wp_enqueue_scripts', 'yipnyap_dequeue_styles', 20);
-
-/**
- * Add body class filters
- */
-function yipnyap_body_classes($classes) {
-    if (is_admin_bar_showing()) {
-        $classes[] = 'yipnyap-top-space';
-    }
-
-    if (!is_user_logged_in()) {
-        $classes[] = 'yipnyap-logged-out';
-    }
-
-    return $classes;
-}
-
-add_filter('body_class', 'yipnyap_body_classes');
-
-/**
- * Add support for features
- */
-function yipnyap_support_features(): void {
-    add_theme_support('post-formats', ['video', 'audio', 'gallery']);
-
-    add_theme_support('title-tag');
-    add_theme_support('custom-logo');
-    add_theme_support('automatic-feed-links');
-
-    // Set content width.
-    global $content_width;
-
-    if (!isset($content_width)) {
-        $content_width = 800;
-    }
-
-    // add post thumbnails support
-    add_theme_support('post-thumbnails');
-
-    // Set post thumbnail size.
-    set_post_thumbnail_size(584);
-
-    // Add custom image sizes used in post versions cover.
-    add_image_size('yipnyap-postlist-thumb', 40, 40, true);
-    add_image_size('yipnyap-postv1-fullscreen', 1980);
-    add_image_size('yipnyap-postv2-fullscreen', 1184);
-
-    // bbPress images
-    add_post_type_support('forum', 'thumbnail');
-    add_image_size('yipnyap-forum-thumb', 64, 64, true);
-}
-
-add_action('after_setup_theme', 'yipnyap_support_features');
+//require_once YIPNYAP_PATH . '/includes/functions/functions-translation.php';
 
 /**
  * Yipnyap functions
@@ -410,18 +235,18 @@ require_once YIPNYAP_PATH . '/includes/filters/filters.php';
 /**
  * Yipnyap AJAX
  */
-require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
+//require_once YIPNYAP_PATH . '/includes/ajax/ajax.php';
 require_once YIPNYAP_PATH . '/includes/api/v2/index.php';
 
 /**
  * Yipnyap sidebars
  */
-require_once YIPNYAP_PATH . '/includes/sidebars/sidebars.php';
+//require_once YIPNYAP_PATH . '/includes/sidebars/sidebars.php';
 
 /**
  * Yipnyap customizer
  */
-require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
+//require_once YIPNYAP_PATH . '/includes/customizer/customizer.php';
 
 /**
  * PHP Autoloader
@@ -469,15 +294,6 @@ add_filter('bp_before_groups_cover_image_settings_parse_args', 'yipnyap_cover_im
  * Disable Gravatar
  */
 add_filter('bp_core_fetch_avatar_no_grav', '__return_true');
-
-/**
- * Set default member avatar
- */
-function yipnyap_set_default_member_avatar(): string {
-    return yipnyap_get_default_member_avatar_url();
-}
-
-add_filter('bp_core_default_avatar_user', 'yipnyap_set_default_member_avatar');
 
 /**
  * Set default group avatar

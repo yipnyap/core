@@ -1,4 +1,7 @@
 <?php
+use \Firebase\JWT\JWT;
+use Yipnyap\Group;
+
 /**
  * Initialise bitwise arrays
  */
@@ -7,6 +10,8 @@ $GetMemberBit = [
     'rank' => 2,
     'ui_skin' => 4,
     'online_count' => 8,
+    'friends' => 16,
+    'groups' => 32,
 ];
 
 /**
@@ -44,13 +49,22 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
             if ($member_by_login) {
                 $member_id = $member_by_login->ID;
             } else {
-                if (!$skipErrorReturn) {
-                    wp_send_json([
-                        'code' => 404,
-                        'error' => 'Member not found.',
-                    ]);
-                } else {
+                // Search user meta
+                $member_by_meta = get_users([
+                    'meta_key' => 'athandle',
+                    'meta_value' => $member_id,
+                    'fields' => 'ID',
+                ]);
+
+                if (count($member_by_meta) > 0) {
+                    $member_id = $member_by_meta[0];
+                } elseif ($skipErrorReturn) {
                     return 0;
+                } else {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Member not found. - ' . $member_id,
+                    ], 404);
                 }
             }
         }
@@ -65,45 +79,42 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  * @param int|string $member_id Member ID.
  * @param int|null $bitwise
  * @param bool $isSelf
+ * @param bool $getOnline
  * @return array Member data.
+ * @throws Exception
+ * @see yipnyap_members_get
  * @since hk15
  *
- * @see yipnyap_members_get
  */
 function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
-    global $GetMemberBit;
+    global $GetMemberBit, $wpdb;
+
+    $supabaseURL = YIPNYAP_SUPABASE_URL;
+
+    if ($member_id === 'me') {
+        $isSelf = true;
+    }
 
     /**
      * Check if member_id is an ID, or a username. If it's a username, get the ID.
      */
     $member_id = YipnyapFetchMemberID($member_id, true);
 
-    if ($member_id === get_current_user_id()) {
-        $isSelf = true;
-    }
-
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {
-        return [
-            'code' => 404,
-            'error' => 'Member not found.',
-        ];
+        throw new Exception('ENOTFOUND', 404);
     } else {
         $memberOld = $memberOld[0];
     }
 
-    $onlineRequest = new WP_REST_Request('GET', '/buddypress/v1/members');
-    $onlineRequest->set_param('type', 'online');
-    $onlineRequest->set_param('populate_extras', 0);
-    $onlineResponse = rest_do_request($onlineRequest);
+    $UserE2ID = YipnyapGetMemberE2ID($member_id);
 
-    // TODO: Deperecate "mention_name" in the future.
     $member = [
         'id' => $memberOld['id'],
+        'E2ID' => $UserE2ID,
         'display_name' => $memberOld['name'],
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
-        'header' => yipnyap_member_get_cover_url($member_id),
         'followers' => count(bp_follow_get_followers([
             'user_id' => $member_id,
         ])),
@@ -111,27 +122,34 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
             'user_id' => $member_id,
         ])),
         'posts' => YipnyapGetMemberActivityCount($member_id),
+        'privacy' => [
+            'isAD' => get_user_meta($member_id, 'privacy:isAD', true) === 'true',
+        ],
     ];
-    $member['header'] = str_contains($member['header'], 'default-cover') ? '' : $member['header'];
 
-    /**
-     * Check if member is online, then add "online" to the member array.
-     */
-    if ($getOnline) {
-        $member['online'] = false;
-        foreach ($onlineResponse->data as $onlineMember) {
-            if ($onlineMember['id'] === $member_id) {
-                $member['online'] = true;
-                break;
-            }
-        }
+    $avatar = get_user_meta($member_id, 'avatar', true);
+    $header = get_user_meta($member_id, 'header', true);
+    if (!empty($header)) {
+        $member['header'] = $supabaseURL . '/storage/v1/object/public/users/' . $header;
+
+        // Remove the old one
+        bp_attachments_delete_file([
+            'item_id' => $member_id,
+            'object_dir' => 'members',
+        ]);
+    } else {
+        $member['header'] = bp_attachments_get_attachment('url', [
+            'item_id' => $member_id,
+            'object_dir' => 'members',
+        ]);
     }
 
-    /**
-     * Check if member is verified, then add "verified" to the member array.
-     */
-    if ($memberOld['verified']) {
-        $member['verified'] = true;
+    if (!empty($avatar)) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;
+
+    $member['permaname'] = $member['username'];
+    $athandle = get_user_meta($member_id, 'athandle', true);
+    if (!empty($athandle)) {
+        $member['username'] = $athandle;
     }
 
     $profile_data = [
@@ -141,61 +159,91 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     /**
      * Check if Bio exists, and if so, add it to the array.
      */
-    $memberBio = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
+    $memberBio = get_user_meta($member_id, 'bio', true);
+    $memberBioOld = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_About');
     if ($memberBio) {
         $member['bio'] = $memberBio;
-    }
-
-    $memberExtURL = yipnyap_members_xprofile_get_field_value($profile_data, 'Profile_Bio_Web');
-    if ($memberExtURL) {
-        $member['exturl'] = $memberExtURL;
+    } elseif ($memberBioOld) {
+        $member['bio'] = $memberBioOld;
     }
 
     /**
      * Check if member is "me", then add UI Privacy & Security to the member array.
      */
     if ($isSelf) {
-        $uiPrivacy = strtolower(yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_UI Privacy and Security'));
-        $unicornEngine = get_option('unicorn_engine');
-        $member['ui_privacy'] = [
-            'hide_custom_ui_notice' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['hide_customised_ui_str']),
-            'disallow_bg_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_bg_render_str']),
-            'disallow_palette_render' => str_contains($uiPrivacy ?? '', $unicornEngine['settings_str']['disallow_palette_render_str']),
-        ];
-
         $member['tgid'] = get_user_meta($member_id, 'tgid', true);
         $member['secureIDLevel'] = get_user_meta($member_id, 'SecureID:Level', true);
         $member['dipswitch'] = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
+        $member['privacy']['showNSFW'] = get_user_meta($member_id, 'privacy:showNSFW', true) === 'true';
+
+        // Get the latest post of the @yipnyap account
+        $yipnyapAccountID = YipnyapFetchMemberID('yipnyap', true);
+        $latestPost = bp_activity_get([
+            'filter' => [
+                'user_id' => [$yipnyapAccountID],
+            ],
+            'per_page' => 1,
+        ])['activities'][0]->id;
+        $latestPost = Yipnyap\FeedMixer::GetPosts([$latestPost])[0];
+        $member['yipnyap_notice'] = $latestPost;
+
+        // Get events, based on `event` meta_key from database
+        $eventsActivity = $wpdb->get_var("SELECT activity_id FROM wp_bp_activity_meta WHERE meta_key='event'");
+
+        foreach ($eventsActivity as $eventActivity) {
+            $event = bp_activity_get_meta($eventActivity, 'event');
+            $member['events'][] = [
+                'title' => $event ?: 'General Event',
+                'post' => Yipnyap\FeedMixer::GetPosts([$eventActivity], false, true)[0],
+            ];
+        }
+
+        // Find group with `featured` meta
+        $featuredGroups = $wpdb->get_var("SELECT group_id FROM wp_bp_groups_groupmeta WHERE meta_key='featured'");
+        if (empty($featuredGroups)) $featuredGroups = [10,11,'yipnyap-feedback',13,15,16,17,18,19,20];
+
+        foreach ($featuredGroups as $groupID) {
+            try {
+                $group = new Group($groupID, true);
+                $member['featured_groups'][] = $group->GroupMeta;
+            } catch (\Throwable $th) {
+                continue;
+            }
+        }
     }
 
     /**
      * Check if bitwise has "ui_skin", add Unicorn Engine
      */
     if ($bitwise & $GetMemberBit['ui_skin']) {
-        $member['ui_skin'] = [
-            'primary' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Primary Accent'),
-            'background' => yipnyap_members_xprofile_get_field_value($profile_data, 'Account_Info_Profile Background'),
+        $member['theme'] = [
+            'background' => get_user_meta($member_id, 'theme:background', true),
         ];
+
+        // check if shareAccent is true, if so, get their accent from dipswitch
+        if (get_user_meta($member_id, 'theme:shareAccent', true)) {
+            $dipswitch = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
+            $member['theme']['accent'] = strtolower($dipswitch['accent']) ?? 'blue';
+        }
     }
 
     /**
-     * Check if bitwise has "online_count", add currently online count
+     * Check if bitwise has "friends"
      */
-    if ($bitwise & $GetMemberBit['online_count']) {
-        $onlineCount = count($onlineResponse->data);
+    if ($bitwise & $GetMemberBit['friends']) {
+        $member['friends'] = YipnyapGetMemberFriends($member_id);
+    }
 
-        // If the count is less than or equal to 3, generate a random online count based on the current time.
-        if ($onlineCount <= 3) {
-            $originalOnlineCount = $onlineCount;
-            // Add up current date, hour, and minute, then divide by 10.
-            $onlineCount = (intval(date('d')) + intval(date('H')) + intval(date('i'))) / 20;
-            // Round the number to the nearest 10.
-            $onlineCount = round($onlineCount);
-            // Add the original online count to the new online count.
-            $onlineCount += $originalOnlineCount;
+    /**
+     * Check if bitwise has "groups"
+     */
+    if ($bitwise & $GetMemberBit['groups']) {
+        $member['groups'] = [];
+        $groups = groups_get_user_groups($member_id);
+        foreach ($groups['groups'] as $group) {
+            $group = new Group($group, true);
+            $member['groups'][] = $group->GroupMeta;
         }
-
-        $member['online_count'] = $onlineCount;
     }
 
     /**
@@ -209,6 +257,84 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
     }
 
     return $member;
+}
+
+/**
+ * Update member data
+ *
+ * @param int|string $member_id Member ID.
+ * @param array $data Member data.
+ * @return array Member data.
+ * @throws Exception
+ */
+function YipnyapUpdateMember(int|string $member_id, array $data): array
+{
+    $member_id = YipnyapFetchMemberID($member_id);
+
+    if (!empty($data['avatar'])) {
+        $key = SupabaseUploadFromBase64('Post', 'SETTING_AVATAR', $member_id, $data['avatar']);
+
+        update_user_meta($member_id, 'avatar', $key['key']);
+    }
+
+    if (!empty($data['header'])) {
+        $key = SupabaseUploadFromBase64('Post', 'SETTING_HEADER', $member_id, $data['header']);
+
+        update_user_meta($member_id, 'header', $key['key']);
+    }
+
+    // Save it all
+    if (!empty($data['display_name'])) wp_update_user([
+        'ID' => $member_id,
+        'display_name' => $data['display_name'],
+    ]);
+
+    // @TODO: There must be a better way.... right?
+    if (!empty($data['bio'])) update_user_meta($member_id, 'bio', $data['bio']);
+    if (!empty($data['athandle']) && $data['athandle'] !== get_user_meta($member_id, 'athandle', true)) {
+        // Check if it's taken by someone's username or athandle
+        $taken = YipnyapFetchMemberID($data['athandle'], true);
+        if ($taken) return [
+            'success' => false,
+            'error' => 'athandle_taken',
+            'message' => 'That handle is taken by someone else, or reserved as their permaname.',
+        ];
+
+        update_user_meta($member_id, 'athandle', $data['athandle']);
+    }
+    if (!empty($data['privacy'])) {
+        $privacy = $data['privacy'];
+        if (!empty($privacy['showNSFW'])) update_user_meta($member_id, 'privacy:showNSFW', $privacy['showNSFW']);
+        if (!empty($privacy['isAD'])) update_user_meta($member_id, 'privacy:isAD', $privacy['isAD']);
+    }
+
+    if (!empty($data['theme'])) {
+        $theme = $data['theme'];
+        if (!empty($theme['background'])) {
+            // Allows hex, rgb, rgba, hsl, hsla, url(), and linear-gradient().
+            // I'm sorry for this regex.
+            // Maybe there's a better way to do this?
+            if (!preg_match('/^(#([0-9a-f]{3}){1,2}|rgb\(\d{1,3},\s?\d{1,3},\s?\d{1,3}\)|rgba\(\d{1,3},\s?\d{1,3},\s?\d{1,3},\s?\d(\.\d)?\)|hsl\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%\)|hsla\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%,\s?\d(\.\d)?\)|url\(.+\)|linear-gradient\(.+\))$/i', $theme['background'])) return [
+                'success' => false,
+                'error' => 'invalid_background',
+                'message' => 'Background must be a valid CSS color or image.',
+            ];
+            update_user_meta($member_id, 'theme:background', $theme['background']);
+        }
+        // check if bool true/false, nothing else
+        if (isset($theme['shareAccent'])) {
+            if ($theme['shareAccent']) {
+                update_user_meta($member_id, 'theme:shareAccent', true);
+            } else {
+                delete_user_meta($member_id, 'theme:shareAccent');
+            }
+        }
+    }
+
+    return [
+        'success' => true,
+        'data' => YipnyapGetMember($member_id),
+    ];
 }
 
 /**
@@ -270,6 +396,13 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             }
         }
 
+        // Everything should be correct - check for E2, if it's not set, then set it.
+        $CurrentE2ID = get_user_meta($user->ID, 'E2ID', true);
+        if (empty($CurrentE2ID)) {
+            $E2ID = E2IDCreate('User');
+            update_user_meta($user, 'E2ID', $E2ID);
+        }
+
         // Login user to WordPress
         wp_signon([
             'user_login' => $username,
@@ -277,6 +410,20 @@ function YipnyapLoginMember(string|null $username, string|null $password, string
             'remember' => $remember,
         ], true);
         wp_set_current_user($user->ID);
+        wp_set_auth_cookie($user->ID, $remember);
+
+        // Make a JWT token
+        $token = JWT::encode([
+            'iss' => get_site_url(),
+            'aud' => get_site_url(),
+            'iat' => time(),
+            'exp' => time() + 60 * 60 * 24 * 7,
+            'data' => [
+                'id' => $user->ID,
+            ],
+        ], YIPNYAP_SUPABASE_SERVICE_KEY);
+
+        $YipnyapUser['token'] = $token;
 
         return [
             'success' => true,
@@ -407,31 +554,32 @@ function YipnyapGetMemberBadges(string|int $member_id): array {
 
 /**
  * Get member's groups
+ * @TODO This is now just a general group find function. Need to move this elsewhere
  *
- * @param string|int $member_id Member ID
+ * @param array $query Query to find groups
  * @return array Member's groups
  * @since ui1
  */
-function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' => 'all']): array {
-    $member_id = YipnyapFetchMemberID($member_id);
+function YipnyapGetGroups(array $query = ['fields' => 'all']): array {
     $groups = [];
 
-    $gp_groups = groups_get_groups([
-        'user_id' => $member_id,
-    ]);
+    $query = array_merge([
+        'fields' => 'all',
+        'per_page' => 100,
+    ], $query);
+
+    if (!empty($query['user_id'])) $query['user_id'] = YipnyapFetchMemberID($query['user_id']);
+    $gp_groups = groups_get_groups($query);
 
     foreach ($gp_groups['groups'] as $gp_group) {
         // check if fields should only include IDs
         if ($query['fields'] === 'ids') {
             $groups[] = $gp_group->id;
         } else {
-            // check if int, if so, true.
-            $is_admin = is_int(groups_is_user_admin($member_id, $gp_group->id));
-            $is_mod = is_int(groups_is_user_mod($member_id, $gp_group->id));
-            $is_member = is_int(groups_is_user_member($member_id, $gp_group->id));
-            $groups[] = [
+            $groupBuild = [
                 'id' => $gp_group->id,
                 'name' => $gp_group->name,
+                'slug' => $gp_group->slug,
                 'description' => html_entity_decode($gp_group->description),
                 'avatar' => bp_core_fetch_avatar([
                     'item_id' => $gp_group->id,
@@ -444,10 +592,15 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
                     'object_dir' => 'groups',
                 ]),
                 'member_count' => $gp_group->total_member_count,
-                'is_admin' => $is_admin,
-                'is_mod' => $is_mod,
-                'is_member' => $is_member,
             ];
+
+            if (get_current_user_id()) {
+                $groupBuild['is_admin'] = is_int(groups_is_user_admin($query['user_id'], $gp_group->id));
+                $groupBuild['is_mod'] = is_int(groups_is_user_mod($query['user_id'], $gp_group->id));
+                $groupBuild['is_member'] = is_int(groups_is_user_member($query['user_id'], $gp_group->id));
+            }
+
+            $groups[] = $groupBuild;
         }
     }
 
@@ -459,6 +612,7 @@ function YipnyapGetMemberGroups(string|int $member_id, array $query = ['fields' 
  *
  * @param string|int $member_id Member ID
  * @return array Member's friends
+ * @throws Exception
  * @since ui1
  */
 function YipnyapGetMemberFriends(string|int $member_id): array {
@@ -472,4 +626,29 @@ function YipnyapGetMemberFriends(string|int $member_id): array {
     }
 
     return $friends;
+}
+
+/**
+ * Get member's E2ID
+ *
+ * @param string|int $member_id Member ID
+ * @return string Member's E2ID
+ * @throws Exception
+ */
+function YipnyapGetMemberE2ID(string|int $member_id): string
+{
+    // Check if it's already an E2ID
+    if (str_starts_with($member_id, '01')) {
+        return $member_id;
+    }
+
+    $member_id = YipnyapFetchMemberID($member_id);
+    $UserE2ID = get_user_meta($member_id, 'E2ID', true);
+
+    if (empty($UserE2ID)) {
+        $UserE2ID = E2IDCreate('User');
+        update_user_meta($member_id, 'E2ID', $UserE2ID);
+    }
+
+    return $UserE2ID;
 }

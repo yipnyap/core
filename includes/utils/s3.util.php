@@ -1,0 +1,163 @@
+<?php
+// S3 functions
+require_once YIPNYAP_PATH . '/vendor/autoload.php';
+require_once YIPNYAP_PATH . '/includes/utils/e2.util.php';
+
+use GuzzleHttp\Client;
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
+use Psr\Http\Message\ResponseInterface;
+use Supabase\Storage\StorageFile;
+
+function SupabaseGetURL() {
+    $api_key = YIPNYAP_SUPABASE_SERVICE_KEY;
+    $raw_domain = YIPNYAP_SUPABASE_URL;
+    $scheme = explode('://', $raw_domain)[0];
+    $reference_id = preg_replace('/https?:\/\//', '', explode('.', $raw_domain)[0]);
+    $domain = explode('.', $raw_domain)[1] . '.' . explode('.', $raw_domain)[2];
+
+    return [
+        'api_key' => $api_key,
+        'reference_id' => $reference_id,
+        'domain' => $domain,
+        'scheme' => $scheme,
+    ];
+}
+
+/**
+ * @throws Exception
+ */
+function SupabaseUserContentUpload(string $userID, string $file, string|null $E2Parent = null, array $ContentSettings = [
+    'type' => 'Post',
+    'variant' => 'CONTENT_IMAGE',
+]): array {
+    $url = SupabaseGetURL();
+    $api_key = $url['api_key'];
+    $reference_id = $url['reference_id'];
+    $domain = $url['domain'];
+    $scheme = $url['scheme'];
+    $StorageFile = new StorageFile($api_key, $reference_id, 'users', $domain, $scheme);
+
+    $TypeToFolder = [
+        'Post' => 'posts',
+    ];
+
+    $ContentSettings['folder'] = $TypeToFolder[$ContentSettings['type']];
+
+    // Key should be something like: <user_id>/<E2Object>/<E2ID>/<E2IDOfContent>.<extension>
+    $E2ID = $E2Parent ?? E2IDCreate($ContentSettings['type']);
+    $E2IDOfContent = E2IDCreate($ContentSettings['type'], $ContentSettings['variant'], $E2ID . ':');
+    $key = $userID . '/' . $ContentSettings['folder'] . '/' . $E2ID . '/' . $E2IDOfContent . '.' . pathinfo($file, PATHINFO_EXTENSION);
+
+    $response = $StorageFile->upload($key, $file, ['public' => true]);
+    if ($response->getStatusCode() == 200) {
+        return [
+            'success' => true,
+            'response' => [
+                'id' => $E2IDOfContent,
+                'key' => $key,
+            ]
+        ];
+    } else {
+        return [
+            'success' => false,
+            'response' => 'Error uploading file to Storage'
+        ];
+    }
+}
+
+/**
+ * @throws Exception
+ */
+function SupabaseUploadFromBase64(string $type, string $variant, int | string $member_id, string $Base64) {
+    // supports png, jpg, jpeg, gif, upper or lowercase.
+    // save the file type to a variable
+    $fileType = explode('/', mime_content_type($Base64))[1];
+    // check if the file type is supported
+    if (!in_array($fileType, ['png', 'jpg', 'jpeg', 'gif'])) {
+        return [
+            'success' => false,
+            'message' => 'Invalid file type.',
+        ];
+    }
+
+    // check if the file is base64 encoded
+    if (preg_match('/^data:image\/(\w+);base64,/', $Base64)) {
+        // remove the base64 encoding from the file
+        $Base64 = preg_replace('/^data:image\/(\w+);base64,/', '', $Base64);
+        // decode the file
+        $Base64 = base64_decode($Base64);
+    }
+
+    $path = WP_CONTENT_DIR . '/cache/' . $member_id . '.' . $fileType;
+    file_put_contents($path, $Base64);
+
+    $member_id = is_string($member_id) ? $member_id : YipnyapGetMemberE2ID($member_id);
+
+    $URL = SupabaseUserContentUpload($member_id, $path, null, [
+        'type' => $type,
+        'variant' => $variant,
+    ]);
+
+    // Delete the file from the cache
+    unlink($path);
+
+    return $URL['response'];
+}
+
+class SupabaseControl
+{
+    public string $domain;
+    public string $api_key;
+
+    public function __construct($api_key = null, $domain = null)
+    {
+        $this->domain = $domain ?? YIPNYAP_SUPABASE_URL;
+        $this->api_key = $api_key ?? YIPNYAP_SUPABASE_SERVICE_KEY;
+    }
+
+    // get()
+
+    /**
+     * @throws GuzzleException
+     */
+    public function get(string $query = ''): ResponseInterface
+    {
+        return $this->__HttpGETRequest($query);
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public function __HttpGETRequest(string $query = ''): ResponseInterface
+    {
+        $client = new Client([
+            'headers' => [
+                'Authorization' => "Bearer $this->api_key",
+                'User-Agent' => 'Yipnyap/1.0.0',
+            ]
+        ]);
+
+        $domain = $this->domain;
+        return $client->request('GET', "$domain/rest/v1/$query");
+    }
+
+    /**
+     * @throws GuzzleException
+     */
+    public static function __HttpPOSTRequest(array $body): ResponseInterface
+    {
+        $Control = new SupabaseControl();
+        $client = new Client([
+            'headers' => [
+                'apikey' => $Control->api_key,
+                'Authorization' => "Bearer $Control->api_key",
+                'Content-Type' => 'application/json',
+                'Prefer' => 'return=minimal',
+            ]
+        ]);
+        return $client->request('POST', 'https://supabase.yipnyap.me/rest/v1/likes', [
+            'json' => $body
+        ]);
+    }
+}

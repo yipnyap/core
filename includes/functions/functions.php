@@ -33,7 +33,7 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-blog.php';
 /**
  * COMMENT functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/functions-comment.php';
+//require_once YIPNYAP_PATH . '/includes/functions/functions-comment.php';
 
 /**
  * USER functions
@@ -66,19 +66,19 @@ require_once YIPNYAP_PATH . '/includes/functions/functions-file.php';
 /**
  * BBPRESS functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/bbpress/functions-bbpress.php';
+//require_once YIPNYAP_PATH . '/includes/functions/bbpress/functions-bbpress.php';
 
 /**
  * BP BETTER MESSAGES functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/bpbettermessages/functions-bpbettermessages.php';
+//require_once YIPNYAP_PATH . '/includes/functions/bpbettermessages/functions-bpbettermessages.php';
 
 /**
  * VERIFIED MEMBER FOR BUDDYPRESS functions
  */
-require_once YIPNYAP_PATH . '/includes/functions/bpverifiedmember/functions-bpverifiedmember.php';
+//require_once YIPNYAP_PATH . '/includes/functions/bpverifiedmember/functions-bpverifiedmember.php';
 
 /**
  * Stream
  */
-require_once YIPNYAP_PATH . '/includes/functions/functions-stream.php';
+//require_once YIPNYAP_PATH . '/includes/functions/functions-stream.php';

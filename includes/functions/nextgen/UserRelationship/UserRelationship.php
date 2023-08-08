@@ -62,6 +62,10 @@ class UserRelationship {
         }
     }
 
+    public function RemoveFriend(): bool {
+        return friends_remove_friend($this->InitiatorID, $this->TargetID);
+    }
+
     /**
      * Get relationship status.
      */

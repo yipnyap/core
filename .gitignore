@@ -126,3 +126,12 @@ dist
 /src/js/bundle/
 /src/js/app.bundle.min.js
 *.css.map
+
+# Composer
+/vendor
+composer.lock
+# IntelliJ installs this locally
+composer.phar
+
+# Supabase Local
+/supabase

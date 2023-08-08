@@ -60,7 +60,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
                     ],
                 ]
             ],
-            'schema' => [$this, 'edit_public_item_schema'],
+//            'schema' => [$this, 'edit_public_item_schema'],
         ]);
 
         register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)/comment', [
@@ -78,7 +78,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
                 'methods' => WP_REST_Server::DELETABLE,
                 'callback' => [$this, 'delete_item'],
             ],
-            'schema' => [$this, 'edit_public_item_schema'],
+//            'schema' => [$this, 'edit_public_item_schema'],
         ]);
 
         register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)/like', [
@@ -92,7 +92,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
                     ],
                 ]
             ],
-            'schema' => [$this, 'edit_public_item_schema'],
+//            'schema' => [$this, 'edit_public_item_schema'],
         ]);
 
         register_rest_route($this->namespace, $this->rest_base . '/post/(?P<id>[a-zA-Z0-9-]+)', [
@@ -106,7 +106,7 @@ class Feed_Rest_Endpoint extends WP_REST_Controller {
                     ],
                 ]
             ],
-            'schema' => [$this, 'edit_public_item_schema'],
+//            'schema' => [$this, 'edit_public_item_schema'],
         ]);
     }
 

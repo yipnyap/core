@@ -287,7 +287,7 @@ class FeedMixer
                 $build['group'] = new Group($post->item_id, true);
             }
 
-            $EditorBlocks = @json_decode(bp_activity_get_meta($post->id, 'blocks'));
+            $EditorBlocks = unserialize(bp_activity_get_meta($post->id, 'blocks'));
             if (!empty($EditorBlocks)) {
                 $build['content'] = $EditorBlocks;
             } else {
@@ -701,7 +701,6 @@ class FeedMixer
         $content = $post['content'];
 
         // - check all the blocks are valid EditorJS blocks
-        $contentAsJSON = json_encode($content);
         if (json_last_error() !== JSON_ERROR_NONE
             || !isset($content['time'])
             || !isset($content['version'])
@@ -760,7 +759,8 @@ class FeedMixer
             }
         }
 
-        bp_activity_update_meta($post_id, 'blocks', $contentAsJSON);
+        // serialize the content
+        bp_activity_add_meta($post_id, 'blocks', serialize($content));
 
         return [
             'success' => true,

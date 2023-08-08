@@ -109,6 +109,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
 
     $UserE2ID = YipnyapGetMemberE2ID($member_id);
 
+    $memberOld['avatar_url'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $memberOld['avatar_url']);
     $member = [
         'id' => $memberOld['id'],
         'E2ID' => $UserE2ID,
@@ -142,6 +143,8 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
             'item_id' => $member_id,
             'object_dir' => 'members',
         ]);
+
+        $member['header'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $member['header']);
     }
 
     if (!empty($avatar)) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;

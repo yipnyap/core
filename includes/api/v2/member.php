@@ -1,4 +1,6 @@
 <?php
+require_once YIPNYAP_PATH . '/includes/utils/userchecks.util.php';
+
 /**
  * /member/
  */
@@ -163,38 +165,9 @@ add_action('rest_api_init', function () {
                     'message' => 'Username already exists.',
                 ]);
             } else {
-                /*
-                 * Read reserved.json, check if username contains it
-                 */
-                $reservedUsernames = json_decode(file_get_contents('reserved.json', true), true);
-                foreach ($reservedUsernames as $reservedUsername) {
-                    if (stripos($request['username'], $reservedUsername) === 0) {
-                        wp_send_json([
-                            'success' => false,
-                            'message' => 'Username is invalid - contains a restricted phrase at a restricted point.',
-                        ]);
-                    }
-                }
-
-                /*
-                 * ^(?=.{4,12}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
-                 *  └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
-                 *        │         │         │            │           no _ or . at the end
-                 *        │         │         │            │
-                 *        │         │         │            allowed characters
-                 *        │         │         │
-                 *        │         │         no __ or _. or ._ or .. inside
-                 *        │         │
-                 *        │         no _ or . at the beginning
-                 *        │
-                 *        username is 4-12 characters long
-                 */
-                $usernameRegexCheck = preg_match('/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $request['username']);
-                if (!$usernameRegexCheck) {
-                    wp_send_json([
-                        'success' => false,
-                        'message' => 'Username cannot be used.',
-                    ]);
+                $usernameValid = YipnyapUtilCheckUsernameValid($request['username']);
+                if (!$usernameValid['success']) {
+                    wp_send_json($usernameValid);
                 } else {
                     $user = wp_create_user($request['username'], $request['password']);
                     if (is_wp_error($user)) {

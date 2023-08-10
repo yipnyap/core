@@ -2,6 +2,8 @@
 use \Firebase\JWT\JWT;
 use Yipnyap\Group;
 
+require_once YIPNYAP_PATH . '/includes/utils/userchecks.util.php';
+
 /**
  * Initialise bitwise arrays
  */
@@ -287,13 +289,29 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
     }
 
     // Save it all
-    if (!empty($data['display_name'])) wp_update_user([
-        'ID' => $member_id,
-        'display_name' => $data['display_name'],
-    ]);
+    if (!empty($data['display_name'])) {
+        if (strlen($data['display_name']) > 50) return [
+            'success' => false,
+            'error' => 'display_name_too_long',
+            'message' => 'Your display name is too long. Please keep it under 50 characters.',
+        ];
+
+        wp_update_user([
+            'ID' => $member_id,
+            'display_name' => $data['display_name'],
+        ]);
+    }
 
     // @TODO: There must be a better way.... right?
-    if (!empty($data['bio'])) update_user_meta($member_id, 'bio', $data['bio']);
+    if (!empty($data['bio'])) {
+        if (strlen($data['bio']) > 1000) return [
+            'success' => false,
+            'error' => 'bio_too_long',
+            'message' => 'Your bio is too long. Please keep it under 160 characters.',
+        ];
+
+        update_user_meta($member_id, 'bio', $data['bio']);
+    }
     if (!empty($data['athandle']) && $data['athandle'] !== get_user_meta($member_id, 'athandle', true)) {
         // Check if it's taken by someone's username or athandle
         $taken = YipnyapFetchMemberID($data['athandle'], true);
@@ -304,7 +322,15 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
             'message' => 'That handle is taken by someone else, or reserved as their permaname.',
         ];
 
-        update_user_meta($member_id, 'athandle', $data['athandle']);
+        // Validate it
+        $newATHandle = YipnyapUtilCheckUsernameValid($data['athandle']);
+        if (!$newATHandle['success']) return [
+            'success' => false,
+            'error' => 'athandle_invalid',
+            'message' => $newATHandle['message'] ?? 'That handle is invalid.',
+        ];
+
+        update_user_meta($member_id, 'athandle', $newATHandle['data']);
     }
     if (!empty($data['privacy'])) {
         $privacy = $data['privacy'];

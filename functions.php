@@ -43,14 +43,23 @@ add_action('determine_current_user', function() {
     if ($auth) {
         $token = str_replace('Bearer ', '', $auth);
         $serviceKey = YIPNYAP_SUPABASE_SERVICE_KEY;
-        $decoded = @JWT::decode($token, $serviceKey, ['HS256']);
+        try {
+            $decoded = JWT::decode($token, $serviceKey, ['HS256']);
+        } catch (Exception $e) {
+            $decoded = null;
+        }
+
         if (empty($decoded)) {
-            wp_send_json([
+            header('HTTP/1.0 401 Unauthorized');
+            header('Content-Type: application/json');
+
+            echo json_encode([
                 'success' => false,
+                'code' => 401,
                 'message' => 'Invalid token.',
             ]);
 
-            return null;
+            die();
         } else {
             $user = get_user_by('id', $decoded->data->id);
             wp_set_current_user($user->ID);

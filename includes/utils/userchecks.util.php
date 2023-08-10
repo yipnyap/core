@@ -29,9 +29,9 @@ function YipnyapUtilCheckUsernameValid(string $username): array
      *        │         │
      *        │         no _ or . at the beginning
      *        │
-     *        username is 4-12 characters long
+     *        username is 3-12 characters long
      */
-    $usernameRegexCheck = preg_match('/^(?=.{4,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $username);
+    $usernameRegexCheck = preg_match('/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $username);
     if (!$usernameRegexCheck) {
         return [
             'success' => false,

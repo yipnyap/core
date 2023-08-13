@@ -341,15 +341,9 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
     if (!empty($data['theme'])) {
         $theme = $data['theme'];
         if (!empty($theme['background'])) {
-            // Allows hex, rgb, rgba, hsl, hsla, url(), and linear-gradient().
-            // I'm sorry for this regex.
-            // Maybe there's a better way to do this?
-            if (!preg_match('/^(#([0-9a-f]{3}){1,2}|rgb\(\d{1,3},\s?\d{1,3},\s?\d{1,3}\)|rgba\(\d{1,3},\s?\d{1,3},\s?\d{1,3},\s?\d(\.\d)?\)|hsl\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%\)|hsla\(\d{1,3},\s?\d{1,3}%,\s?\d{1,3}%,\s?\d(\.\d)?\)|url\(.+\)|linear-gradient\(.+\))$/i', $theme['background'])) return [
-                'success' => false,
-                'error' => 'invalid_background',
-                'message' => 'Background must be a valid CSS color or image.',
-            ];
             update_user_meta($member_id, 'theme:background', $theme['background']);
+        } else {
+            delete_user_meta($member_id, 'theme:background');
         }
         // check if bool true/false, nothing else
         if (isset($theme['shareAccent'])) {

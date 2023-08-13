@@ -14,6 +14,7 @@ function YipnyapUtilCheckUsernameValid(string $username): array
                 'success' => false,
                 'code' => 400,
                 'message' => 'Username is invalid - contains a restricted phrase at a restricted point.',
+         // v Blast: this looks like a sad face
             ];
         }
     }

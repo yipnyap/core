@@ -50,7 +50,7 @@
       <path value="$PROJECT_DIR$/vendor/psr/clock" />
       <path value="$PROJECT_DIR$/vendor/stella-maris/clock" />
       <path value="$PROJECT_DIR$/vendor/symfony/routing" />
-      <path value="$PROJECT_DIR$/../../../../xampp/htdocs" />
+      <path value="C:/xampp/htdocs" />
       <path value="$USER_HOME$/Local Sites/yipnyap/app/public" />
       <path value="$PROJECT_DIR$/vendor/firebase/php-jwt" />
     </include_path>

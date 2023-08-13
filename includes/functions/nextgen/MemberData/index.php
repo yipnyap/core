@@ -290,10 +290,10 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
 
     // Save it all
     if (!empty($data['display_name'])) {
-        if (strlen($data['display_name']) > 50) return [
+        if (strlen($data['display_name']) > 24) return [
             'success' => false,
             'error' => 'display_name_too_long',
-            'message' => 'Your display name is too long. Please keep it under 50 characters.',
+            'message' => 'Your display name is too long. Please keep it under 24 characters.',
         ];
 
         wp_update_user([

@@ -20,7 +20,7 @@ function YipnyapUtilCheckUsernameValid(string $username): array
     }
 
     /*
-     * ^(?=.{4,12}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
+     * ^(?=.{3,12}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$
      *  └─────┬────┘└───┬──┘└─────┬─────┘└─────┬─────┘ └───┬───┘
      *        │         │         │            │           no _ or . at the end
      *        │         │         │            │
@@ -32,7 +32,7 @@ function YipnyapUtilCheckUsernameValid(string $username): array
      *        │
      *        username is 3-12 characters long
      */
-    $usernameRegexCheck = preg_match('/^(?=.{3,20}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $username);
+    $usernameRegexCheck = preg_match('/^(?=.{3,12}$)(?![_.])(?!.*[_.]{2})[a-zA-Z0-9._]+(?<![_.])$/', $username);
     if (!$usernameRegexCheck) {
         return [
             'success' => false,

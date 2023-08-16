@@ -345,7 +345,7 @@ function YipnyapUpdateMember(int|string $member_id, array $data): array
         } else {
             delete_user_meta($member_id, 'theme:background');
         }
-        // check if bool true/false, nothing else
+
         if (isset($theme['shareAccent'])) {
             if ($theme['shareAccent']) {
                 update_user_meta($member_id, 'theme:shareAccent', true);

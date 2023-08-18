@@ -121,25 +121,32 @@ class FeedMixer
                 'count_total' => true,
             ]);
 
-            $groupIDs = groups_get_user_groups($legacyUserID)['groups'];
-            /*
-             * So, this causes a bit of a weird thing: groups aren't utilised all the time, so it gets old posts and mixes
-             * them in with the new ones. This is a bit of a problem, but it's not a huge one. It's just a bit weird.
-             *
-             * FUCK IT. its now a feature. pls use groups :(
-             * ^ rek
-             */
-            $groupPosts = bp_activity_get([
-                'scope' => ['groups'],
-                'filter' => [
-                    'item_id' => $groupIDs,
-                    'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
-                ],
-                'per_page' => 10,
-                'page' => $page,
-                'fields' => 'ids',
-                'count_total' => true,
-            ]);
+            if ($this->FeedID !== 'universe') {
+                $groupIDs = groups_get_user_groups($legacyUserID)['groups'];
+                /*
+                 * So, this causes a bit of a weird thing: groups aren't utilised all the time, so it gets old posts and mixes
+                 * them in with the new ones. This is a bit of a problem, but it's not a huge one. It's just a bit weird.
+                 *
+                 * FUCK IT. its now a feature. pls use groups :(
+                 * ^ rek
+                 */
+                $groupPosts = bp_activity_get([
+                    'scope' => ['groups'],
+                    'filter' => [
+                        'item_id' => $groupIDs,
+                        'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
+                    ],
+                    'per_page' => 10,
+                    'page' => $page,
+                    'fields' => 'ids',
+                    'count_total' => true,
+                ]);
+            } else {
+                $groupPosts = [
+                    'activities' => [],
+                    'total' => 0,
+                ];
+            }
         } elseif ($this->FeedType === 'User') {
             // Feed of a user's profile.
             $userPosts = bp_activity_get([

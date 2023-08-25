@@ -181,7 +181,7 @@ class Search
                                 $userBuild['avatar'] = YIPNYAP_SUPABASE_URL . '/storage/v1/object/public/users/' . $avatar;
                             } else {
                                 // get from wp
-                                $userBuild['avatar'] = get_avatar_url($userBuild['id']);
+                                $userBuild['avatar'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', get_avatar_url($userBuild['id']));
                             }
 
                             $athandle = get_user_meta($userBuild['id'], 'athandle', true);
@@ -197,12 +197,12 @@ class Search
                                 'slug' => $group['slug'],
                                 'description' => html_entity_decode($group['description']),
                                 'status' => $group['status'],
-                                'avatar' => bp_core_fetch_avatar([
+                                'avatar' => str_replace('/yipnyap.me/', '/api.yipnyap.me/', bp_core_fetch_avatar([
                                     'item_id' => $group['id'],
                                     'object' => 'group',
                                     'type' => 'full',
                                     'html' => false,
-                                ])
+                                ]))
                             ];
                             $this->results[$table][$key] = $groupBuild;
                         }

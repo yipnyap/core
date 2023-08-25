@@ -224,3 +224,24 @@ add_action('after_setup_theme', function () {
     // Just remove the whole thing
     remove_action('enqueue_block_editor_assets', 'gutenberg_editor_scripts_and_styles');
 });
+
+/*
+ * Set the default avatar
+ */
+add_filter('bp_core_default_avatar_user', function() {
+    return '/img/default-avatar.png';
+});
+
+add_filter('bp_core_default_avatar_group', function() {
+    return '/img/default-avatar.png';
+});
+
+// & headers
+add_filter('bp_core_default_avatar_group_thumb', function() {
+    return '/img/default-header.png';
+});
+
+add_filter('bp_core_default_avatar_group_thumb', function() {
+    return '/img/default-header.png';
+});
+

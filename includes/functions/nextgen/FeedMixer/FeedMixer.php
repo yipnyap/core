@@ -751,7 +751,7 @@ class FeedMixer
                     ];
                 } else {
                     $key = SupabaseUploadFromBase64('Post', 'CONTENT_IMAGE', $UserE2ID, $object['data']);
-                    if (empty($key)) {
+                    if (empty($key) || empty($key['key'])) {
                         $this->abort($post_id);
                         return [
                             'success' => false,

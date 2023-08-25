@@ -114,8 +114,8 @@ try {
     define('YIPNYAP_DEVELOPER_VERSION', 'dev/unknown');
 }
 
-const YIPNYAP_VERSION = 'core2';
-const YIPNYAP_UI_VERSION = 'ui3-EarlyR';
+const YIPNYAP_VERSION = 'core2-1';
+const YIPNYAP_UI_VERSION = 'ui3-2';
 const YIPNYAP_API_VERSION = 'v2';
 
 // If the request isnt for /wp-admin, or /wp-login.php, then redirect to /api

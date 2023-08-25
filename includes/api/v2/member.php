@@ -57,7 +57,7 @@ add_action('rest_api_init', function () {
         'methods' => 'GET',
         'callback' => function ($arguments) {
             try {
-                $user = YipnyapGetMember($arguments['id'], $arguments['bitwise']);
+                $user = YipnyapGetMember($arguments['id'], $arguments['bitwise'], false, ['followers', 'following', 'posts']);
                 wp_send_json([
                     'success' => true,
                     'data' => $user,
@@ -80,7 +80,7 @@ add_action('rest_api_init', function () {
     register_rest_route('v2', '/member/(\@?)(?P<id>\S+)', [
         'methods' => 'GET',
         'callback' => function ($arguments) {
-            wp_send_json(YipnyapGetMember($arguments['id']));
+            wp_send_json(YipnyapGetMember($arguments['id'], 0x0, false, ['followers', 'following', 'posts']));
         },
     ]);
     register_rest_route('v2', '/member/(\@?)me', [

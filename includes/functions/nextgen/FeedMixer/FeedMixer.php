@@ -228,6 +228,7 @@ class FeedMixer
      *
      * @param array $ids
      * @param bool $returnLegacyIDOnly
+     * @param bool $dontRecursiveSubContent
      * @return array
      * @throws Exception
      * @todo: STRIP BUDDYPRESS' STUPID FUCKERY, MOTHERFLUFFER! (oh and also move this to a class uwu~)
@@ -284,7 +285,7 @@ class FeedMixer
                 'id' => $E2PostID,
                 // date to unix milliseconds
                 'timestamp' => strtotime($post->date_recorded),
-                'user' => YipnyapGetMember($post->user_id, null, false, true),
+                'user' => YipnyapGetMember($post->user_id, null),
                 'replies' => [],
                 'likes' => count(bp_activity_get_meta($post->id, 'liked_by', false))
             ];
@@ -357,7 +358,7 @@ class FeedMixer
 
                 // Filter through & migrate reactions
                 foreach ($legacyReaction->users as $reactingUser) {
-                    $reactingUser = YipnyapGetMember($reactingUser, null, false, true);
+                    $reactingUser = YipnyapGetMember($reactingUser, null);
                     //$migrateSuccess = SupabaseControl::InsertLike($build['id'], YipnyapGetMemberE2ID($reactingUser['id']));
 
                     // Check if alrady liked
@@ -443,7 +444,7 @@ class FeedMixer
 
             $buildReply = [
                 'id' => $E2CommentID,
-                'user' => YipnyapGetMember($comment->user_id, null, false, true),
+                'user' => YipnyapGetMember($comment->user_id, null),
                 'content' => html_entity_decode(stripcslashes($comment->content)),
             ];
 

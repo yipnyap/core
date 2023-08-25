@@ -88,7 +88,7 @@ function YipnyapFetchMemberID(int|string $member_id, bool $skipErrorReturn = fal
  * @since hk15
  *
  */
-function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, bool $getOnline = false): array {
+function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $isSelf = false, array|null $fields = null, bool $silent = false): array {
     global $GetMemberBit, $wpdb;
 
     $supabaseURL = YIPNYAP_SUPABASE_URL;
@@ -104,6 +104,11 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
 
     $memberOld = yipnyap_members_get(['include' => [$member_id]]);
     if (empty($memberOld)) {
+        // So some people thought it'd be funny and take usernames taken by groups
+        // Unfortunately (for them) they don't get found.
+        // *delete those mf'ers*
+        $memberDelete = bp_core_delete_account($member_id);
+        if ($silent) return [];
         throw new Exception('ENOTFOUND', 404);
     } else {
         $memberOld = $memberOld[0];
@@ -118,17 +123,31 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
         'display_name' => $memberOld['name'],
         'username' => $memberOld['mention_name'],
         'avatar' => $memberOld['avatar_url'],
-        'followers' => count(bp_follow_get_followers([
-            'user_id' => $member_id,
-        ])),
-        'following' => count(bp_follow_get_following([
-            'user_id' => $member_id,
-        ])),
-        'posts' => YipnyapGetMemberActivityCount($member_id),
         'privacy' => [
             'isAD' => get_user_meta($member_id, 'privacy:isAD', true) === 'true',
         ],
     ];
+
+    if (!empty($fields)) {
+        foreach ($fields as $field) {
+            if (isset($member[$field])) continue;
+            switch($field) {
+                case 'followers':
+                    $member['followers'] = count(bp_follow_get_followers([
+                        'user_id' => $member_id,
+                    ]));
+                    break;
+                case 'following':
+                    $member['following'] = count(bp_follow_get_following([
+                        'user_id' => $member_id,
+                    ]));
+                    break;
+                case 'posts':
+                    $member['posts'] = YipnyapGetMemberActivityCount($member_id);
+                    break;
+            }
+        }
+    }
 
     $avatar = get_user_meta($member_id, 'avatar', true);
     $header = get_user_meta($member_id, 'header', true);
@@ -141,17 +160,18 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
             'object_dir' => 'members',
         ]);
     } else {
-        $member['header'] = bp_attachments_get_attachment('url', [
+        $header = bp_attachments_get_attachment('url', [
             'item_id' => $member_id,
             'object_dir' => 'members',
         ]);
 
-        $member['header'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $member['header']);
+        if (!empty($header)) {
+            $member['header'] = str_replace('/yipnyap.me/', '/api.yipnyap.me/', $header);
+        }
     }
 
     if (!empty($avatar)) $member['avatar'] = $supabaseURL . '/storage/v1/object/public/users/' . $avatar;
 
-    $member['permaname'] = $member['username'];
     $athandle = get_user_meta($member_id, 'athandle', true);
     if (!empty($athandle)) {
         $member['username'] = $athandle;
@@ -176,6 +196,7 @@ function YipnyapGetMember(int|string $member_id, int|null $bitwise = 0x0, bool $
      * Check if member is "me", then add UI Privacy & Security to the member array.
      */
     if ($isSelf) {
+        $member['permaname'] = $member['username'];
         $member['tgid'] = get_user_meta($member_id, 'tgid', true);
         $member['secureIDLevel'] = get_user_meta($member_id, 'SecureID:Level', true);
         $member['dipswitch'] = json_decode(get_user_meta($member_id, 'dipswitch', true), true);
@@ -649,7 +670,7 @@ function YipnyapGetMemberFriends(string|int $member_id): array {
     $gp_friends = friends_get_friend_user_ids($member_id);
 
     foreach ($gp_friends as $gp_friend) {
-        $friends[] = YipnyapGetMember($gp_friend, null, false, true);
+        $friends[] = YipnyapGetMember($gp_friend, null);
     }
 
     return $friends;

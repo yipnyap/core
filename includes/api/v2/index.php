@@ -42,10 +42,12 @@ require_once __DIR__ . '/dipswitch.php';
 require_once __DIR__ . '/Groups_Rest_Endpoint.php';
 require_once __DIR__ . '/AllocatedStorage_Rest_Endpoint.php';
 require_once __DIR__ . '/Feed_Rest_Endpoint.php';
+require_once __DIR__ . '/Search_Endpoint.php';
 
 use Yipnyap\AllocatedStorage_Rest_Endpoint;
 use Yipnyap\Groups_Rest_Endpoint;
 use Yipnyap\Feed_Rest_Endpoint;
+use Yipnyap\Search_Endpoint;
 
 add_action('rest_api_init', function () {
     remove_filter( 'rest_pre_serve_request', 'rest_send_cors_headers' );
@@ -67,4 +69,7 @@ add_action('rest_api_init', function () {
 
     $feed = new Feed_Rest_Endpoint();
     $feed->register();
+
+    $search = new Search_Endpoint();
+    $search->register();
 }, 15);

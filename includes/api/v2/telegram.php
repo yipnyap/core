@@ -18,8 +18,12 @@ add_action('rest_api_init', function () {
         ],
         'callback' => function ($request) {
             // Set the ID inside WordPress user meta.
-            update_user_meta(get_current_user_id(), 'tgid', $request['id']);
-            wp_send_json(['success' => true, 'message' => 'ID set.']);
+            $success = update_user_meta(get_current_user_id(), 'tgid', $request['id']);
+            if ($success !== false) {
+                wp_send_json(['success' => true, 'message' => 'ID set.']);
+            } else {
+                wp_send_json(['success' => false, 'message' => 'ID not set.']);
+            }
         },
     ]);
 

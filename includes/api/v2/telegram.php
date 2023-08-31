@@ -17,6 +17,7 @@ add_action('rest_api_init', function () {
             ],
         ],
         'callback' => function ($request) {
+            if (!is_user_logged_in()) wp_send_json(['success' => false, 'message' => 'You must be logged in to do that.'], 401);
             // Set the ID inside WordPress user meta.
             $success = update_user_meta(get_current_user_id(), 'tgid', $request['id']);
             if ($success !== false) {

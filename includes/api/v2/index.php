@@ -56,7 +56,7 @@ add_action('rest_api_init', function () {
         header('Access-Control-Allow-Methods: OPTIONS, GET, POST, PUT, PATCH, DELETE');
         header('Access-Control-Allow-Credentials: true');
         header('Access-Control-Expose-Headers: Link', false);
-        header('Access-Control-Allow-Headers: X-Requested-With');
+        header('Access-Control-Allow-Headers: Content-Type, Authorization, baggage, sentry-trace');
 
         return $value;
     });

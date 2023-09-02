@@ -544,6 +544,30 @@ function YipnyapCheckOTP($YipnyapUser, string|null $otp = null): array {
 }
 
 /**
+ * Resets a user's password, checking the existing provided one
+ *
+ * @param string $username Username
+ * @param string $password Password
+ * @param string $newPassword New password
+ * @return array ['success' => bool, 'message' => string]
+ */
+function YipnyapResetPassword(string $username, string $password, string $newPassword): array {
+    $user = wp_authenticate($username, $password);
+    if (is_wp_error($user)) {
+        return [
+            'success' => false,
+            'message' => 'Invalid username or password.',
+        ];
+    } else {
+        wp_set_password($newPassword, $user->ID);
+        return [
+            'success' => true,
+            'message' => 'Password changed successfully.',
+        ];
+    }
+}
+
+/**
  * Get member's badges
  *
  * @param string|int $member_id Member ID

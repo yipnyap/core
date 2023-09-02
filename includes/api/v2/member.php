@@ -242,6 +242,47 @@ add_action('rest_api_init', function () {
             }
         }
     ]);
+
+    /**
+     * POST /id/password_recover
+     * @since ui3-2
+     */
+    register_rest_route('v2', '/id/password_change', [
+        'methods' => 'POST',
+        'args' => [
+            'password' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+            'new_password' => [
+                'required' => true,
+                'type' => 'string',
+            ],
+        ],
+        'callback' => function ($request) {
+            // Check if user exists
+            $user = wp_get_current_user();
+            if (empty($user) || $user->ID == 0) {
+                wp_send_json([
+                    'success' => false,
+                    'message' => 'You must be logged in to do that.',
+                ]);
+            } else {
+                $tgid = get_user_meta($user->ID, 'tgid', true);
+                if (!empty($tgid)) {
+                    wp_send_json([
+                        'success' => false,
+                        'message' => 'Cannot reset your password here. You need to logout and do it from recovery instead, or unlink your Telegram.',
+                    ]);
+                    return;
+                }
+
+                // Get username from ID
+                $user = get_user_by('id', $user->ID);
+                wp_send_json(YipnyapResetPassword($user->user_login, $request['password'], $request['new_password']));
+            }
+        }
+    ]);
 });
 
 /**

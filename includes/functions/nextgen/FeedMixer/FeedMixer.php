@@ -109,9 +109,8 @@ class FeedMixer
             ]);
 
             // Get all posts from the IDs
-            $userPosts = bp_activity_get([
+            $userPostFilter = [
                 'filter' => [
-                    'user_id' => array_unique([$legacyUserID, ...$friends, ...$following]),
 //                'action' => ['activity_update'],
                     'action' => ['activity_update', 'activity_share', 'activity_media_update', 'activity_video_update'],
                 ],
@@ -119,7 +118,13 @@ class FeedMixer
                 'page' => $page,
                 'fields' => 'ids',
                 'count_total' => true,
-            ]);
+            ];
+
+            if ($this->FeedID !== 'universe') {
+                $userPostFilter['filter']['user_id'] = array_unique([$legacyUserID, ...$friends, ...$following]);
+            }
+
+            $userPosts = bp_activity_get($userPostFilter);
 
             if ($this->FeedID !== 'universe') {
                 $groupIDs = groups_get_user_groups($legacyUserID)['groups'];
